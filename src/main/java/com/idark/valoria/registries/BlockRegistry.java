@@ -578,10 +578,10 @@ public class BlockRegistry{
 
         // Pedestals
         elegantPedestal = registerBlock("elegant_pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
-        bossTrophy = registerBlock("boss_trophy", () -> new BossTrophyBlock(Properties.copy(Blocks.IRON_BLOCK)));
-        necromancerTrophy = registerBlock("necromancer_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.NECROMANCER::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.necromancerTrophy.get(), new Item.Properties()));
-        dryadorTrophy = registerBlock("dryador_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.DRYADOR::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.dryadorTrophy.get(), new Item.Properties()));
-        wickedCrystalTrophy = registerBlock("wicked_crystal_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.WICKED_CRYSTAL::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.wickedCrystalTrophy.get(), new Item.Properties()));
+        bossTrophy = registerBlock("boss_trophy", () -> new BossTrophyBlock(Properties.copy(Blocks.STONE)));
+        necromancerTrophy = registerBlock("necromancer_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.NECROMANCER::get, Properties.copy(Blocks.STONE)), () -> new BossTrophyBlockItem(BlockRegistry.necromancerTrophy.get(), new Item.Properties()));
+        dryadorTrophy = registerBlock("dryador_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.DRYADOR::get, Properties.copy(Blocks.STONE)), () -> new BossTrophyBlockItem(BlockRegistry.dryadorTrophy.get(), new Item.Properties()));
+        wickedCrystalTrophy = registerBlock("wicked_crystal_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.WICKED_CRYSTAL::get, Properties.copy(Blocks.STONE)), () -> new BossTrophyBlockItem(BlockRegistry.wickedCrystalTrophy.get(), new Item.Properties()));
 
         BLOCK.register(eventBus);
     }
