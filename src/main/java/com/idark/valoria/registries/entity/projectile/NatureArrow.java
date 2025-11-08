@@ -17,9 +17,9 @@ import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 import java.util.function.*;
 
-public class NatureArrow extends AbstractTridotArrow implements TexturedArrow{
+public class NatureArrow extends AbstractProjectile implements TexturedArrow{
 
-    public NatureArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
+    public NatureArrow(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 

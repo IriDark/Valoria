@@ -174,7 +174,7 @@ public class CodexEntries{
 
         .addChild(new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
             .addChild(new ChapterNode(STONE_CRUSHER, BlockRegistry.stoneCrusher.get().asItem())
-                .addChild(new ChapterNode(HEAVY_WORKBENCH, BlockRegistry.tinkererWorkbench.get().asItem(), Style.STANDARD, RegisterUnlockables.heavyWorkbench)
+                .addChild(new ChapterNode(HEAVY_WORKBENCH, BlockRegistry.heavyWorkbench.get().asItem(), Style.STANDARD, RegisterUnlockables.heavyWorkbench)
                 .addHintsDescription(Component.translatable("codex.valoria.heavy_workbench.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                     .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))
                 )

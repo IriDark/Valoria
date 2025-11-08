@@ -17,6 +17,7 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 public class ClawEntity extends AbstractProjectile{
     public ClawEntity(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){

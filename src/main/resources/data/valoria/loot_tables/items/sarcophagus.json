@@ -28,63 +28,14 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_crown",
-          "weight": 1,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
-            }
-          ]
+          "name": "valoria:worn_fabric",
+          "weight": 5,
+          "functions": []
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_hood",
-          "weight": 5,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_coat",
-          "weight": 5,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_leggings",
-          "weight": 5,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_boots",
-          "weight": 5,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
-            }
-          ]
+          "name": "valoria:relic_gold",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -162,12 +113,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:golden_spear",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.02
-            }
-          ]
+          "weight": 15
         },
         {
           "type": "minecraft:item",
@@ -183,12 +129,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.25
-            }
-          ]
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -269,12 +210,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
-            }
-          ]
+          "weight": 25
         },
         {
           "type": "minecraft:item",
@@ -290,12 +226,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
-            }
-          ]
+          "weight": 35
         }
       ]
     }

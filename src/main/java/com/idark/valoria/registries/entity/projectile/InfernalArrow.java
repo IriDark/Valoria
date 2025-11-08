@@ -18,7 +18,7 @@ import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 import java.util.function.*;
 
-public class InfernalArrow extends AbstractTridotArrow implements TexturedArrow{
+public class InfernalArrow extends AbstractProjectile implements TexturedArrow{
 
     public InfernalArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
         super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 5);
@@ -57,7 +57,7 @@ public class InfernalArrow extends AbstractTridotArrow implements TexturedArrow{
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult pResult){
+    public void onHitEntity(EntityHitResult pResult){
         super.onHitEntity(pResult);
         pResult.getEntity().setSecondsOnFire(10);
     }

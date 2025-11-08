@@ -22,9 +22,9 @@ import pro.komaru.tridot.util.math.*;
 
 import java.util.function.*;
 
-public class SoulArrow extends AbstractTridotArrow implements TexturedArrow{
+public class SoulArrow extends AbstractProjectile implements TexturedArrow{
 
-    public SoulArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
+    public SoulArrow(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 

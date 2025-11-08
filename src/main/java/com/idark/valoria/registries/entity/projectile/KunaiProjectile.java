@@ -17,6 +17,7 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
@@ -35,6 +36,7 @@ public class KunaiProjectile extends AbstractSupplierProjectile{
         super(EntityTypeRegistry.KUNAI.get(), pLevel, pShooter, thrownStackIn);
         this.setPos(pShooter.getX(), pShooter.getEyeY() - (double)0.1F, pShooter.getZ());
         this.setOwner(pShooter);
+        this.setDiscardOnHit(false);
         if(pShooter instanceof Player){
             this.pickup = AbstractArrow.Pickup.ALLOWED;
         }
@@ -95,6 +97,11 @@ public class KunaiProjectile extends AbstractSupplierProjectile{
                     .setLifetime(10)
                     .spawn(this.level(), pos.x, pos.y, pos.z);
         }
+    }
+
+    @Override
+    protected Item getDefaultItem(){
+        return ItemsRegistry.samuraiKunai.get();
     }
 
     public void playerTouch(@NotNull Player pEntity){

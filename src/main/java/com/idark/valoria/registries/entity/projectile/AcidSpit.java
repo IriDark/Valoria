@@ -19,13 +19,13 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.gfx.postprocess.*;
 import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 import java.lang.Math;
 import java.util.*;
 
 public class AcidSpit extends AbstractProjectile{
     public final Set<MobEffectInstance> effects = Sets.newHashSet();
-    public float rotationVelocity = 0;
     boolean child = false;
 
     public AcidSpit(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){

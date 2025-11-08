@@ -19,7 +19,7 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> BLOOD_POLE = registerSound("music.valoria.blood_pole");
     public static final RegistryObject<SoundEvent> CARRION = registerSound("music.valoria.carrion");
 
-    public static final RegistryObject<SoundEvent> UI_CLICK = registerSound("ui.click"); // calamity
+    public static final RegistryObject<SoundEvent> UI_CLICK = registerSound("ui.click");
 
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE_LEGACY = registerSound("item.halloween_slice_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");
@@ -59,6 +59,12 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> VOID_GRASS_BREAK = registerSound("block.void_grass.break");
     public static final RegistryObject<SoundEvent> VALORIA_PORTAL_SPAWN = registerSound("block.valoria_portal.spawn");
     public static final RegistryObject<SoundEvent> SARCOPHAGUS_OPEN = registerSound("block.sarcophagus.open");
+
+    public static final RegistryObject<SoundEvent> SHADE_PLACE = registerSound("block.shade.place");
+    public static final RegistryObject<SoundEvent> SHADE_BREAK = registerSound("block.shade.break");
+    public static final RegistryObject<SoundEvent> SHADE_HIT = registerSound("block.shade.hit");
+    public static final RegistryObject<SoundEvent> SHADE_STEP = registerSound("block.shade.step");
+    public static final RegistryObject<SoundEvent> SHADE_FALL = registerSound("block.shade.fall");
 
     public static final RegistryObject<SoundEvent> FLESH_PLACE = registerSound("block.flesh.place");
     public static final RegistryObject<SoundEvent> FLESH_BREAK = registerSound("block.flesh.break");
@@ -141,15 +147,11 @@ public class SoundsRegistry{
     public static final ForgeSoundType POT = new ForgeSoundType(1.0F, 1.0F, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final ForgeSoundType VOID_STONE = new ForgeSoundType(0.75F, 0.87F, VOID_STONE_BREAK, VOID_STONE_STEP, VOID_STONE_PLACE, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);
     public static final ForgeSoundType VOID_GRASS = new ForgeSoundType(0.75F, 0.87F, VOID_GRASS_BREAK, VOID_GRASS_STEP, VOID_STONE_PLACE, () -> SoundEvents.FROGLIGHT_HIT, () -> SoundEvents.FROGLIGHT_FALL);
+    public static final ForgeSoundType SHADE_WOOD = new ForgeSoundType(1.0F, 1.0F, SHADE_BREAK, SHADE_STEP, SHADE_PLACE, SHADE_HIT, SHADE_FALL);
     public static final ForgeSoundType TOMBSTONE = new ForgeSoundType(0.65F, normalizedPitch(1.0f), TOMBSTONE_BREAK, TOMBSTONE_STEP, TOMBSTONE_PLACE, TOMBSTONE_HIT, TOMBSTONE_FALL);
     public static final ForgeSoundType TOMBSTONE_BRICKS = new ForgeSoundType(1.0F, normalizedPitch(1.0f), TOMBSTONE_BRICKS_BREAK, TOMBSTONE_BRICKS_STEP, TOMBSTONE_BRICKS_PLACE, TOMBSTONE_BRICKS_HIT, TOMBSTONE_BRICKS_FALL);
     public static final ForgeSoundType SUSPICIOUS_TOMBSTONE = new ForgeSoundType(1.0F, normalizedPitch(1.0f), SUSPICIOUS_TOMBSTONE_BREAK, SUSPICIOUS_TOMBSTONE_STEP, TOMBSTONE_BRICKS_PLACE, TOMBSTONE_HIT, TOMBSTONE_HIT);
 
-    /**
-     * Used in blocks to normalize pitch, because mojang did weird thing: pitch value * 0.8f
-     *
-     * @return Normalized pitch
-     */
     public static float normalizedPitch(float pitch){
         return pitch / 0.8f;
     }

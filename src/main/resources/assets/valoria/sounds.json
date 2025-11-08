@@ -168,6 +168,49 @@
       "valoria:item/alert"
     ]
   },
+  "block.shade.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "valoria:block/shade_wood/hit1",
+      "valoria:block/shade_wood/hit2",
+      "valoria:block/shade_wood/hit3",
+      "valoria:block/shade_wood/hit4"
+    ]
+  },
+  "block.shade.fall": {
+    "sounds": [
+      "valoria:block/shade_wood/hit1",
+      "valoria:block/shade_wood/hit2",
+      "valoria:block/shade_wood/hit3",
+      "valoria:block/shade_wood/hit4"
+    ]
+  },
+  "block.shade.hit": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "valoria:block/shade_wood/hit1",
+      "valoria:block/shade_wood/hit2",
+      "valoria:block/shade_wood/hit3",
+      "valoria:block/shade_wood/hit4"
+    ]
+  },
+  "block.shade.step": {
+    "subtitle": "subtitles.block.generic.step",
+    "sounds": [
+      "valoria:block/shade_wood/step1",
+      "valoria:block/shade_wood/step2",
+      "valoria:block/shade_wood/step3",
+      "valoria:block/shade_wood/step4"
+    ]
+  },
+  "block.shade.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "valoria:block/shade_wood/break1",
+      "valoria:block/shade_wood/break2",
+      "valoria:block/shade_wood/break3"
+    ]
+  },
   "block.flesh.break": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [

@@ -20,8 +20,8 @@ import pro.komaru.tridot.util.*;
 
 import java.util.function.*;
 
-public class PyratiteArrow extends AbstractTridotArrow implements TexturedArrow{
-    public PyratiteArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
+public class PyratiteArrow extends AbstractProjectile implements TexturedArrow{
+    public PyratiteArrow(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 

@@ -144,7 +144,6 @@ public class BlockRegistry{
         kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));
         jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(1f, 1f)));
         stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 2f)));
-        tinkererWorkbench = BLOCK.register("tinkerer_workbench", () -> new TinkererWorkbenchBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f).noOcclusion()));
         heavyWorkbench = registerBlock("heavy_workbench", () -> new HeavyWorkbenchBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
         soulInfuser = registerBlock("soul_infuser", () -> new SoulInfuserBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
         elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
@@ -227,7 +226,7 @@ public class BlockRegistry{
         cutTombstoneSlab = registerBlock("cut_tombstone_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
         cutTombstoneStairs = registerBlock("cut_tombstone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
         cutTombstoneWall = registerBlock("cut_tombstone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        polishedTombstone = registerBlock("polished_tombstone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 6f)));
+        polishedTombstone = registerBlock("polished_tombstone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.TOMBSTONE)));
         tombstoneFirechargeTrap = registerBlock("tombstone_firecharge_trap", () -> new FireTrapBlock(BlockRegistry.polishedTombstone.get().defaultBlockState(), 6.0F, 8, ColorParticleData.create(255, 145, 45, 45, 0, 0).build(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
         tombstoneSpikesTrap = registerBlock("tombstone_spikes_trap", () -> new SpikeTrapBlock(BlockRegistry.polishedTombstone.get().defaultBlockState(), spikes.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 4f)));
         cutTombstonePillar = registerBlock("cut_tombstone_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
@@ -361,9 +360,9 @@ public class BlockRegistry{
         strippedShadeLog = registerBlock("stripped_shade_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_PURPLE)));
         shadeWood = registerBlock("shade_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
         strippedShadeWood = registerBlock("stripped_shade_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
-        shadePlanks = registerBlock("shade_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE)));
-        shadePlanksSlab = registerBlock("shade_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE)));
-        shadePlanksStairs = registerBlock("shade_planks_stairs", () -> new StairBlock(() -> BlockRegistry.shadePlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
+        shadePlanks = registerBlock("shade_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).sound(SoundsRegistry.SHADE_WOOD)));
+        shadePlanksSlab = registerBlock("shade_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE).sound(SoundsRegistry.SHADE_WOOD)));
+        shadePlanksStairs = registerBlock("shade_planks_stairs", () -> new StairBlock(() -> BlockRegistry.shadePlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).sound(SoundsRegistry.SHADE_WOOD).mapColor(MapColor.COLOR_PURPLE)));
         shadeLeaves = registerBlock("shade_leaves", () -> new ShadeLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_CYAN)));
         shadeBranchVine = BLOCK.register("shade_branch_vine", () -> new ShadeBranchVineBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)));
         shadeBranch = registerBlock("shade_branch", () -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)), () -> new BlockItem(BlockRegistry.shadeBranch.get(), new Item.Properties()));

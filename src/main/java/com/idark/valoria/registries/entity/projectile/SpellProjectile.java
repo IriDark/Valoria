@@ -14,6 +14,7 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 

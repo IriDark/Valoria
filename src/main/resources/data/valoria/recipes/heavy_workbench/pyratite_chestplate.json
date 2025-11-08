@@ -1,0 +1,11 @@
+{
+  "group": "equipment",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:pyratite" }, "count": 12 }
+  ],
+  "result": {
+    "item": "valoria:pyratite_chestplate",
+    "count": 1
+  }
+}

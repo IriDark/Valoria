@@ -17,9 +17,9 @@ import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 import java.util.function.*;
 
-public class AquariusArrow extends AbstractTridotArrow implements TexturedArrow{
+public class AquariusArrow extends AbstractProjectile implements TexturedArrow{
 
-    public AquariusArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
+    public AquariusArrow(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 

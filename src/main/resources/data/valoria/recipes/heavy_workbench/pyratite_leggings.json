@@ -1,0 +1,11 @@
+{
+  "group": "equipment",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:pyratite" }, "count": 8 }
+  ],
+  "result": {
+    "item": "valoria:pyratite_leggings",
+    "count": 1
+  }
+}

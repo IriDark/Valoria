@@ -1,0 +1,12 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:pyratite" }, "count": 6 },
+    { "ingredient": {"item": "minecraft:stick"}, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:pyratite_spear",
+    "count": 1
+  }
+}

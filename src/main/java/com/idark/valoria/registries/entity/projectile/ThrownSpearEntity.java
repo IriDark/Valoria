@@ -17,6 +17,7 @@ import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
@@ -32,6 +33,8 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
     public ThrownSpearEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn){
         super(EntityTypeRegistry.SPEAR.get(), worldIn, thrower, thrownStackIn);
         this.setItem(thrownStackIn);
+        this.setVelocityBasedDamage(false);
+        this.setDiscardOnHit(false);
     }
 
     public ThrownSpearEntity(EntityType<? extends ThrownSpearEntity> type, Level worldIn){
@@ -85,6 +88,11 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
             .setLifetime(10)
             .spawn(this.level(), pos.x, pos.y, pos.z);
         }
+    }
+
+    @Override
+    protected Item getDefaultItem(){
+        return ItemsRegistry.stoneSpear.get();
     }
 
     public @NotNull SoundEvent getDefaultHitGroundSoundEvent(){

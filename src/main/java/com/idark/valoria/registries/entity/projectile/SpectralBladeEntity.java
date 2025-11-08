@@ -13,6 +13,7 @@ import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
@@ -52,6 +53,11 @@ public class SpectralBladeEntity extends AbstractSupplierProjectile{
         }
 
         super.tick();
+    }
+
+    @Override
+    protected Item getDefaultItem(){
+        return ItemsRegistry.spectralBladeThrown.get();
     }
 
     @OnlyIn(Dist.CLIENT)

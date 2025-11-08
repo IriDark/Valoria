@@ -17,9 +17,9 @@ import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 import java.util.function.*;
 
-public class WickedArrow extends AbstractTridotArrow implements TexturedArrow{
+public class WickedArrow extends AbstractProjectile implements TexturedArrow{
 
-    public WickedArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
+    public WickedArrow(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 

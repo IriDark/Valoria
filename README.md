@@ -104,8 +104,8 @@ Feel free to suggest mod compats - [GitHub](https://github.com/IriDark/Valoria-S
 ---
 * ![flag_en_us.png](src/main/resources/assets/valoria/textures/banners/flag_en_us.png) English  
 * ![flag_ua.png](src/main/resources/assets/valoria/textures/banners/flag_ua.png) Ukrainian (not 100% accurate, may contain mistakes | not fully translated)   - by IriDark, Foxplane
-* ![flag_pl.png](src/main/resources/assets/valoria/textures/banners/flag_pl.png) Polski  (not fully translated)   - by  𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆  
-* ![flag_ru.png](src/main/resources/assets/valoria/textures/banners/flag_ru.png) Russian (not 100% accurate, may contain mistakes)  - by Ruthenium, TerraPrime   
+* ![flag_pl.png](src/main/resources/assets/valoria/textures/banners/flag_pl.png) Polski (not fully translated)   - by  𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆  
+* ![flag_ru.png](src/main/resources/assets/valoria/textures/banners/flag_ru.png) Russian - by Ruthenium, TerraPrime, Kerdo   
 
 Not found your language or want to maintain translations? Feel free to translate and PR - [GitHub](https://github.com/IriDark/Valoria/blob/main/CONTRIBUTING.md)
 

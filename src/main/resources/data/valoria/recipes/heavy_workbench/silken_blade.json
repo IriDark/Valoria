@@ -1,0 +1,13 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": {"item": "valoria:spider_fang"}, "count": 8 },
+    { "ingredient": {"item": "valoria:shade_blossom_leaf"}, "count": 2 },
+    { "ingredient": {"item": "minecraft:stick"}, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:silken_blade",
+    "count": 1
+  }
+}

@@ -59,7 +59,7 @@ public class DebugItem extends Item{
 
     private static void scorpionSpit(Level worldIn, Player playerIn){
         AcidSpit spit = new AcidSpit(playerIn, worldIn);
-        spit.setVelocityBasedDamage(6);
+        spit.setBaseDamage(6);
         spit.addEffect(new MobEffectInstance(MobEffects.POISON, 50, 0));
         Vec3 vector3d = playerIn.getViewVector(1.0F);
         spit.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 3, 1);

@@ -8,7 +8,6 @@ import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -21,11 +20,11 @@ import pro.komaru.tridot.util.*;
 
 import java.util.function.*;
 
-public class PhantomArrow extends AbstractTridotArrow implements TexturedArrow{
+public class PhantomArrow extends AbstractProjectile implements TexturedArrow{
     private boolean child;
     public boolean burst;
     public float spread = 6;
-    public PhantomArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
+    public PhantomArrow(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 

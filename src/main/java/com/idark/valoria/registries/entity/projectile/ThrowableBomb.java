@@ -2,9 +2,11 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
@@ -77,7 +79,16 @@ public class ThrowableBomb extends ThrowableItemProjectile{
                 }
             };
 
-            ParticleEffects.smoothTrail(level(), target, pos, ColorParticleData.create(Col.white).build());
+            Col color;
+            Style base = Style.EMPTY;
+            Style styled = this.getItem().getRarity().getStyleModifier().apply(base);
+            if(styled.getColor() != null) {
+                color = Col.fromARGB(styled.getColor().getValue());
+            } else {
+                color = Pal.darkerGray.brighter();
+            }
+
+            ParticleEffects.smoothTrail(level(), target, pos, ColorParticleData.create(color).build());
         }
     }
 

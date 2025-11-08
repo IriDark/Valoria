@@ -1060,8 +1060,8 @@
   "codex.valoria.pick": "Prospectors Pickaxe allows you to excavate ancient artifacts from suspicious-looking stones. \n Special accessories can accelerate the excavation process.",
   "codex.valoria.pick.name": "Prospectors Pick",
   "codex.valoria.heavy_workbench": "A workshop for invention. Using blueprints, artifacts, fragments, or rare materials, one can craft powerful items — stronger than most, but far harder to obtain.",
-  "codex.valoria.heavy_workbench.name": "Tinkerer Workbench",
-  "codex.valoria.heavy_workbench.hint": "A table used by Tinkerers",
+  "codex.valoria.heavy_workbench.name": "Heavy Workbench",
+  "codex.valoria.heavy_workbench.hint": "A workbench used by Tinkerers",
   "codex.valoria.harmony_crown": "Winding roots, woven into a crown, radiate ancient power — as if the Mother Nature itself had poured a fragment of its will into them. Once, this crown adorned the brow of the last king of the Ents, who ruled the forests of Arethea.",
   "codex.valoria.harmony_crown.continuation": "May awaken the ancient guardian of the forest — #5bb467 Dryador, /& a spirit once bound between roots and time",
   "codex.valoria.harmony_crown.name": "Crown of Harmony",
@@ -1322,6 +1322,16 @@
   "tooltip.valoria.nihility": "The air feels strangely heavy…",
   "tooltip.valoria.heavy_workbench.info": "Double click to creaft",
   "popup.valoria.miss": "Miss…",
-  "popup.valoria.dodge": "Dodge!"
-
+  "popup.valoria.dodge": "Dodge!",
+  "tooltip.valoria.not_found.0": "Something went wrong",
+  "tooltip.valoria.not_found.1": ": (",
+  "tooltip.valoria.not_found.2": "Are you sure?",
+  "tooltip.valoria.not_found.3": ". . .",
+  "tooltip.valoria.not_found.4": "IS THAT REAL?",
+  "tooltip.valoria.not_found.5": "What is this?",
+  "tooltip.valoria.not_found.6": "You caught us",
+  "tooltip.valoria.not_found.7": "What a funny request",
+  "tooltip.valoria.not_found.8": "H e l l o",
+  "tooltip.valoria.not_found.9": "That's a problem",
+  "tooltip.valoria.not_found.10": "Seems this cannot be found"
 }

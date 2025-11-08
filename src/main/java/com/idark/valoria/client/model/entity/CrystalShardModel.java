@@ -1,10 +1,10 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.projectile.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 public class CrystalShardModel<T extends AbstractProjectile> extends EntityModel<T>{
 	private final ModelPart bb_main;

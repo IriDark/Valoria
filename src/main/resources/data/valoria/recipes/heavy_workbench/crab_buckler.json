@@ -1,0 +1,12 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:crab_shell" }, "count": 6 },
+    { "ingredient": { "item": "valoria:crab_claw"}, "count": 2 }
+  ],
+  "result": {
+    "item": "valoria:crab_buckler",
+    "count": 1
+  }
+}
