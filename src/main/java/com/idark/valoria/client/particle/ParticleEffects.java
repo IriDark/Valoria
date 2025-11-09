@@ -24,6 +24,20 @@ import static net.minecraft.util.Mth.randomBetween;
 public class ParticleEffects{
     public static ArcRandom arcRandom = Tmp.rnd;
 
+    public static void confetti(Level level, Vec3 pos){
+        if(level.isClientSide()){
+            ParticleBuilder.create(TridotParticles.SQUARE)
+            .setBehavior(SparkParticleBehavior.create().build())
+            .setScaleData(GenericParticleData.create(0.0725f, 0.025f, 0).setEasing(Interp.bounce).build())
+            .setLifetime(45)
+            .setColorData(ColorParticleData.create().setRandomColor().setEasing(Interp.bounce).build())
+            .randomVelocity(0.125, 0.35, 0.125)
+            .setGravity(0.25f)
+            .setHasPhysics(false)
+            .repeat(level, pos.x, pos.y, pos.z, 32);
+        }
+    }
+
     public static void particles(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
             ParticleBuilder.create(TridotParticles.WISP)

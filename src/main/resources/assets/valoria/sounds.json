@@ -148,6 +148,15 @@
       "valoria:ui/click"
     ]
   },
+  "ui.alchemy.brew": {
+    "sounds": [
+      "valoria:ui/alchemy/brew_0",
+      "valoria:ui/alchemy/brew_1",
+      "valoria:ui/alchemy/brew_2",
+      "valoria:ui/alchemy/brew_3"
+    ]
+  },
+
   "mob.breath": {
     "sounds": [
       "valoria:entity/breath"

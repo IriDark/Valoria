@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=east,part=bottom_right": {
+      "model": "valoria:block/alchemy_station_tier_3",
+      "y": 90
+    },
+    "facing=north,part=bottom_right": {
+      "model": "valoria:block/alchemy_station_tier_3",
+      "y": 0
+    },
+    "facing=south,part=bottom_right": {
+      "model": "valoria:block/alchemy_station_tier_3",
+      "y": 180
+    },
+    "facing=west,part=bottom_right": {
+      "model": "valoria:block/alchemy_station_tier_3",
+      "y": -90
+    },
+    "facing=north,part=top_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=north,part=top_right": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=north,part=bottom_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=south,part=top_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=south,part=top_right": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=south,part=bottom_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=west,part=top_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=west,part=top_right": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=west,part=bottom_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=east,part=top_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=east,part=top_right": {
+      "model": "valoria:block/alchemy_station_empty"
+    },
+    "facing=east,part=bottom_left": {
+      "model": "valoria:block/alchemy_station_empty"
+    }
+  }
+}

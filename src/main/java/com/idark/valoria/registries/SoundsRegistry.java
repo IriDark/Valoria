@@ -20,6 +20,7 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> CARRION = registerSound("music.valoria.carrion");
 
     public static final RegistryObject<SoundEvent> UI_CLICK = registerSound("ui.click");
+    public static final RegistryObject<SoundEvent> UI_ALCHEMY_BREW = registerSound("ui.alchemy.brew");
 
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE_LEGACY = registerSound("item.halloween_slice_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");

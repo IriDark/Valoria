@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.component;
 
-import com.idark.valoria.registries.item.recipe.WorkbenchRecipe.*;
+import com.idark.valoria.registries.item.recipe.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.crafting.*;

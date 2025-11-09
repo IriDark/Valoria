@@ -1,0 +1,9 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy_upgrade",
+  "ingredients": [
+    { "ingredient": { "item": "minecraft:netherite_upgrade_smithing_template" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:netherite_ingot" }, "count": 2 },
+    { "ingredient": { "item": "valoria:black_gold_ingot" }, "count": 8 }
+  ]
+}

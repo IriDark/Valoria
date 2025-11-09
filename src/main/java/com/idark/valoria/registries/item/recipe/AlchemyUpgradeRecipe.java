@@ -14,16 +14,14 @@ import net.minecraft.world.level.*;
 
 import java.util.*;
 
-public class WorkbenchRecipe implements Recipe<Container> {
+public class AlchemyUpgradeRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final String group;
-    private final ItemStack result;
     private final List<Pair<Ingredient, RecipeData>> inputs;
 
-    public WorkbenchRecipe(ResourceLocation id, String group, ItemStack result, List<Pair<Ingredient, RecipeData>> inputs) {
+    public AlchemyUpgradeRecipe(ResourceLocation id, String group, List<Pair<Ingredient, RecipeData>> inputs) {
         this.id = id;
         this.group = group;
-        this.result = result;
         this.inputs = inputs;
     }
 
@@ -49,7 +47,7 @@ public class WorkbenchRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getResultItem(RegistryAccess access) {
-        return this.result.copy();
+        return ItemStack.EMPTY;
     }
 
     public List<Pair<Ingredient, RecipeData>> getInputs(){
@@ -96,7 +94,7 @@ public class WorkbenchRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack assemble(Container container, RegistryAccess access) {
-        return this.result.copy();
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -104,21 +102,18 @@ public class WorkbenchRecipe implements Recipe<Container> {
         return true;
     }
 
-    public static class Type implements RecipeType<WorkbenchRecipe> {
+    public static class Type implements RecipeType<AlchemyUpgradeRecipe> {
         public static final Type INSTANCE = new Type();
-        public static final String ID = "heavy_workbench";
+        public static final String ID = "alchemy_upgrade";
     }
 
-    public static class Serializer implements RecipeSerializer<WorkbenchRecipe> {
+    public static class Serializer implements RecipeSerializer<AlchemyUpgradeRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "heavy_workbench");
+        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "alchemy_upgrade");
 
         @Override
-        public WorkbenchRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        public AlchemyUpgradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             String group = GsonHelper.getAsString(json, "group", "");
-            JsonObject resultObj = GsonHelper.getAsJsonObject(json, "result");
-            ItemStack result = ShapedRecipe.itemStackFromJson(resultObj);
-
             List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
 
@@ -129,14 +124,12 @@ public class WorkbenchRecipe implements Recipe<Container> {
                 inputs.add(Pair.of(ing, new RecipeData(count)));
             }
 
-            return new WorkbenchRecipe(recipeId, group, result, inputs);
+            return new AlchemyUpgradeRecipe(recipeId, group, inputs);
         }
 
         @Override
-        public WorkbenchRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public AlchemyUpgradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             String group = buffer.readUtf();
-            ItemStack result = buffer.readItem();
-
             int size = buffer.readVarInt();
             List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
             for (int i = 0; i < size; i++) {
@@ -145,14 +138,12 @@ public class WorkbenchRecipe implements Recipe<Container> {
                 inputs.add(Pair.of(ing, new RecipeData(count)));
             }
 
-            return new WorkbenchRecipe(recipeId, group, result, inputs);
+            return new AlchemyUpgradeRecipe(recipeId, group, inputs);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, WorkbenchRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, AlchemyUpgradeRecipe recipe) {
             buffer.writeUtf(recipe.group);
-            buffer.writeItem(recipe.result);
-
             buffer.writeVarInt(recipe.inputs.size());
             for (Pair<Ingredient, RecipeData> entry : recipe.inputs) {
                 entry.getFirst().toNetwork(buffer);

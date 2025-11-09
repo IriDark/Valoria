@@ -23,7 +23,7 @@ public class CommonConfig{
     TARGET_HEAL_NECROMANCER_AMOUNT, SELF_HEAL_NECROMANCER_AMOUNT;
 
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    FOOD_ROT;
+    FOOD_ROT, NIHILITY;
 
     static{
         final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
@@ -35,7 +35,8 @@ public class CommonConfig{
     public static final ForgeConfigSpec SPEC;
 
     public CommonConfig(ForgeConfigSpec.Builder builder){
-        builder.comment("Gameplay").push("vanilla_changes");
+        builder.comment("Gameplay").push("gameplay");
+            NIHILITY = builder.comment("Nihility System in Valoria, Default: true)").define("nihility", true);
             FOOD_ROT = builder.comment("Food spoiling on entering Valoria dimension, Default: true)").define("foodRot", true);
             setupBosses(builder);
         builder.pop();

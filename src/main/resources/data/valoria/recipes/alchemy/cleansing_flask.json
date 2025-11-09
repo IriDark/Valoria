@@ -1,0 +1,12 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 2,
+  "ingredients": [
+    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:cleansing_flask",
+    "count": 1
+  }
+}

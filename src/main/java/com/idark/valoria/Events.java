@@ -286,11 +286,13 @@ public class Events{
     public void playerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
-                if(!player.getAbilities().instabuild && !player.isSpectator()){
-                    NihilityEvent.tick(event, nihilityLevel, player);
-                }
-            });
+            if(CommonConfig.NIHILITY.get()){
+                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+                    if(!player.getAbilities().instabuild && !player.isSpectator()){
+                        NihilityEvent.tick(event, nihilityLevel, player);
+                    }
+                });
+            }
 
             if(player.tickCount % 60 == 0){
                 ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
@@ -302,8 +304,10 @@ public class Events{
             }
         }
 
-        if(player.level().isClientSide()){
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
+        if(CommonConfig.NIHILITY.get()){
+            if(player.level().isClientSide()){
+                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
+            }
         }
     }
 

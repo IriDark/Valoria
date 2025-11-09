@@ -54,7 +54,7 @@ public class BlockRegistry{
     dunestone, dunestoneStairs, dunestoneSlab, dunestoneWall, dunestoneBricks, dunestoneBricksStairs, dunestoneBricksSlab, dunestoneBricksWall, cutDunestone, polishedDunestone, //other varities?
 
     // crafting stations
-    heavyWorkbench, stoneCrusher, jewelerTable, keg, tinkererWorkbench, soulInfuser, elementalManipulator, kiln,
+    heavyWorkbench, alchemyStationTier1, alchemyStationTier2, alchemyStationTier3, alchemyStationTier4, stoneCrusher, jewelerTable, keg, tinkererWorkbench, soulInfuser, elementalManipulator, kiln,
 
     // boss summon altars
     crypticAltar, wickedAltar,
@@ -144,6 +144,10 @@ public class BlockRegistry{
         kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));
         jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(1f, 1f)));
         stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 2f)));
+        alchemyStationTier1 = registerBlock("alchemy_station_tier_1", () -> new AlchemyStationBlock(1, props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
+        alchemyStationTier2 = registerBlock("alchemy_station_tier_2", () -> new AlchemyStationBlock(2, props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
+        alchemyStationTier3 = registerBlock("alchemy_station_tier_3", () -> new AlchemyStationBlock(3, props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
+        alchemyStationTier4 = registerBlock("alchemy_station_tier_4", () -> new AlchemyStationBlock(4, props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
         heavyWorkbench = registerBlock("heavy_workbench", () -> new HeavyWorkbenchBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
         soulInfuser = registerBlock("soul_infuser", () -> new SoulInfuserBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
         elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));

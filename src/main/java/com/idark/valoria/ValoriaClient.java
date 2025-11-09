@@ -7,12 +7,15 @@ import com.idark.valoria.client.model.armor.*;
 import com.idark.valoria.client.model.curio.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.*;
+import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.client.sounds.LoopedSoundInstance;
 import com.idark.valoria.client.ui.*;
+import com.idark.valoria.client.ui.screen.*;
+import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.component.*;
@@ -22,6 +25,7 @@ import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
 import net.minecraft.client.*;
+import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.*;
@@ -44,6 +48,7 @@ import pro.komaru.tridot.client.sound.*;
 import pro.komaru.tridot.client.tooltip.*;
 import pro.komaru.tridot.common.registry.entity.*;
 import pro.komaru.tridot.util.*;
+import top.theillusivec4.curios.api.client.*;
 
 import java.io.*;
 
@@ -57,7 +62,7 @@ public class ValoriaClient{
     public static LoopedSoundInstance BOSS_MUSIC;
     public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
 
-    public static void setupClient(){
+    public static void setupClient(final FMLClientSetupEvent event){
         SplashHandler.add("Also try Starbound!");
         SplashHandler.add("Also try Mindustry!");
         SplashHandler.add("Valoria was known as DarkRPG");
@@ -79,6 +84,72 @@ public class ValoriaClient{
         TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
         TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
         MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
+        event.enqueueWork(() -> {
+            CodexEntries.initChapters();
+            CuriosRendererRegistry.register(ItemsRegistry.theFallenCollectorCrown.get(), CrownRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceDiamond.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceEmerald.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceRuby.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceSapphire.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceHealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceWealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.respirator.get(), RespiratorRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.gasMask.get(), GasMaskRenderer::new);
+
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceDiamond.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceEmerald.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceRuby.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceSapphire.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceHealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceWealth.get(), NecklaceRenderer::new);
+
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceDiamond.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceEmerald.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceRuby.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceSapphire.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceHealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceWealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.pickNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.eyeNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironRogueNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenRogueNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteRogueNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironChain.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenChain.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteChain.get(), NecklaceRenderer::new);
+
+            CuriosRendererRegistry.register(ItemsRegistry.leatherGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.diamondGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.magmaticGauntlet.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.skeletalVambrace.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.magmaticVambrace.get(), HandsRenderer::new);
+
+            CuriosRendererRegistry.register(ItemsRegistry.monocle.get(), MonocleRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.brokenMonocle.get(), MonocleRenderer::new);
+
+            CuriosRendererRegistry.register(ItemsRegistry.samuraiBelt.get(), BeltRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.leatherBelt.get(), BeltRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.jewelryBag.get(), JewelryBagRenderer::new);
+
+
+            MenuScreens.register(MenuRegistry.TINKERING_MENU.get(), TinkeringScreen::new);
+            MenuScreens.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
+            MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
+            MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
+            MenuScreens.register(MenuRegistry.KILN_MENU.get(), KilnScreen::new);
+            MenuScreens.register(MenuRegistry.SOUL_INFUSER_MENU.get(), SoulInfuserScreen::new);
+            MenuScreens.register(MenuRegistry.HEAVY_WORKBENCH.get(), HeavyWorkbenchScreen::new);
+            MenuScreens.register(MenuRegistry.ALCHEMY.get(), AlchemyStationScreen::new);
+        });
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

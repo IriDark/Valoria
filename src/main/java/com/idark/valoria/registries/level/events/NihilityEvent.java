@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.*;
 import net.minecraftforge.event.TickEvent.*;
 import pro.komaru.tridot.util.*;
 
-//todo fix
 public class NihilityEvent{
     public static float damagingLevel = 0.5f;
     public static float criticalLevel = 0.75f;

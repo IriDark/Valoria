@@ -69,6 +69,10 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, NihilityPacket.class, NihilityPacket::encode, NihilityPacket::decode, NihilityPacket::handle);
         HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
         HANDLER.registerMessage(id++, HeavyWorkbenchCraftPacket.class, HeavyWorkbenchCraftPacket::encode, HeavyWorkbenchCraftPacket::decode, HeavyWorkbenchCraftPacket::handle);
+        HANDLER.registerMessage(id++, AlchemyCraftPacket.class, AlchemyCraftPacket::encode, AlchemyCraftPacket::decode, AlchemyCraftPacket::handle);
+        HANDLER.registerMessage(id++, AlchemyUpgradePacket.class, AlchemyUpgradePacket::encode, AlchemyUpgradePacket::decode, AlchemyUpgradePacket::handle);
+        HANDLER.registerMessage(id++, AlchemyUpgradeTryPacket.class, AlchemyUpgradeTryPacket::encode, AlchemyUpgradeTryPacket::decode, AlchemyUpgradeTryPacket::handle);
+        HANDLER.registerMessage(id++, AlchemyUpgradeParticlePacket.class, AlchemyUpgradeParticlePacket::encode, AlchemyUpgradeParticlePacket::decode, AlchemyUpgradeParticlePacket::handle);
         HANDLER.registerMessage(id++, CrusherParticlePacket.class, CrusherParticlePacket::encode, CrusherParticlePacket::decode, CrusherParticlePacket::handle);
     }
 

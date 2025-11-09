@@ -18,6 +18,8 @@ public class RecipesRegistry{
     public static final RegistryObject<RecipeSerializer<PoisonWeaponRecipe>> POISON_RECIPE = SERIALIZERS.register("weapon_poisoning",  () -> new SimpleCraftingRecipeSerializer<>(PoisonWeaponRecipe::new));
     public static final RegistryObject<RecipeSerializer<PurifyingFoodRecipe>> PURIFY_RECIPE = SERIALIZERS.register("purifying_food",  () -> new SimpleCraftingRecipeSerializer<>(PurifyingFoodRecipe::new));
     public static final RegistryObject<RecipeSerializer<WorkbenchRecipe>> HEAVY_WORKBENCH = SERIALIZERS.register("heavy_workbench", () -> WorkbenchRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY = SERIALIZERS.register("alchemy", () -> AlchemyRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<AlchemyUpgradeRecipe>> ALCHEMY_UPGRADE = SERIALIZERS.register("alchemy_upgrade", () -> AlchemyUpgradeRecipe.Serializer.INSTANCE);
 
     public static void register(IEventBus eventBus){
         SERIALIZERS.register(eventBus);

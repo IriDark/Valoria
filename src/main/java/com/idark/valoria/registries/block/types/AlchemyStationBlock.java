@@ -3,6 +3,7 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.client.ui.menus.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -17,21 +18,29 @@ import net.minecraft.world.level.border.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.network.*;
 
 import javax.annotation.*;
 
-public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
+public class AlchemyStationBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     public static final EnumProperty<WorkbenchPart> PART = EnumProperty.create("part", WorkbenchPart.class);
-    private static final Component CONTAINER_TITLE = Component.translatable("menu.valoria.heavy_workbench");
+    private static final Component CONTAINER_TITLE = Component.translatable("menu.valoria.alchemy_station");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public final int level;
 
-    public HeavyWorkbenchBlock(Properties pProperties){
+    public AlchemyStationBlock(int level, Properties pProperties){
         super(pProperties);
+        this.level = level;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, WorkbenchPart.BOTTOM_LEFT).setValue(WATERLOGGED, false));
     }
-
+    
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder){
         pBuilder.add(WATERLOGGED, PART, FACING);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.Nullable PushReaction getPistonPushReaction(BlockState state){
+        return PushReaction.BLOCK;
     }
 
     @Nullable
@@ -75,8 +84,8 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
         }
 
         BlockState mainState = pLevel.getBlockState(mainPos);
-        if (!(mainState.getBlock() instanceof HeavyWorkbenchBlock)) {
-            return net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+        if (!(mainState.getBlock() instanceof AlchemyStationBlock)) {
+            return Blocks.AIR.defaultBlockState();
         }
 
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
@@ -98,18 +107,13 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
     }
 
     public final VoxelShape makeShape(BlockState state){
-        if (state.getValue(HeavyWorkbenchBlock.PART) == WorkbenchPart.BOTTOM_LEFT || state.getValue(HeavyWorkbenchBlock.PART) == WorkbenchPart.BOTTOM_RIGHT) {
+        if (state.getValue(AlchemyStationBlock.PART) == WorkbenchPart.BOTTOM_LEFT || state.getValue(AlchemyStationBlock.PART) == WorkbenchPart.BOTTOM_RIGHT || level > 2) {
             return Shapes.block();
         }
 
-        Direction facing = state.getValue(HeavyWorkbenchBlock.FACING);
-        VoxelShape originalShape = Shapes.box(0, 0, 0.6875, 1, 0.875, 1);
-        return switch (facing) {
-            case EAST -> Shapes.box(0, 0, 0, 0.3125, 0.875, 1);
-            case SOUTH -> Shapes.box(0, 0, 0, 1, 0.875, 0.3125);
-            case WEST -> Shapes.box(0.6875, 0, 0, 1, 0.875, 1);
-            default -> originalShape;
-        };
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0, 0, 0, 1, 0.375, 1), BooleanOp.OR);
+        return shape;
     }
 
     @Override
@@ -121,19 +125,20 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
         if(pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }else{
-            pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
+            if (pPlayer instanceof ServerPlayer serverPlayer) {
+                NetworkHooks.openScreen(serverPlayer, getMenuProvider(pState, pLevel, pPos), buf -> {
+                    buf.writeBlockPos(pPos);
+                    buf.writeInt(this.level);
+                });
+            }
+
             return InteractionResult.CONSUME;
         }
     }
 
-    @Override
-    public @org.jetbrains.annotations.Nullable PushReaction getPistonPushReaction(BlockState state){
-        return PushReaction.BLOCK;
-    }
-
     @Nullable
     public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos){
-        return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new HeavyWorkbenchMenu(p_57074_, p_57075_, ContainerLevelAccess.create(pLevel, pPos)), CONTAINER_TITLE);
+        return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new AlchemyStationMenu(p_57074_, pPos, p_57075_, ContainerLevelAccess.create(pLevel, pPos), this.level), CONTAINER_TITLE);
     }
 
     public RenderShape getRenderShape(BlockState pState) {
@@ -143,6 +148,57 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
         }
 
         return RenderShape.MODEL;
+    }
+
+    public void upgrade(BlockPos pPos, BlockState pState, Level pLevel, BlockState to) {
+        WorkbenchPart part = pState.getValue(PART);
+        Direction facing = pState.getValue(FACING);
+        BlockPos mainPos = pPos;
+        switch (part) {
+            case TOP_RIGHT:
+                mainPos = pPos.below();
+                break;
+            case BOTTOM_LEFT:
+                mainPos = pPos.relative(facing.getClockWise());
+                break;
+            case TOP_LEFT:
+                mainPos = pPos.relative(facing.getClockWise()).below();
+                break;
+            default:
+                break;
+        }
+
+        BlockState mainState = pLevel.getBlockState(mainPos);
+        Direction mainFacing = mainState.getValue(FACING);
+
+        BlockPos bottomLeftPos = mainPos.relative(mainFacing.getCounterClockWise());
+        BlockPos topRightPos = mainPos.above();
+        BlockPos topLeftPos = mainPos.relative(mainFacing.getCounterClockWise()).above();
+
+        boolean waterBottomRight = pLevel.getFluidState(mainPos).getType() == Fluids.WATER;
+        boolean waterBottomLeft = pLevel.getFluidState(bottomLeftPos).getType() == Fluids.WATER;
+        boolean waterTopRight = pLevel.getFluidState(topRightPos).getType() == Fluids.WATER;
+        boolean waterTopLeft = pLevel.getFluidState(topLeftPos).getType() == Fluids.WATER;
+
+        pLevel.setBlock(mainPos, to
+        .setValue(FACING, mainFacing)
+        .setValue(PART, WorkbenchPart.BOTTOM_RIGHT)
+        .setValue(WATERLOGGED, waterBottomRight), 3);
+
+        pLevel.setBlock(bottomLeftPos, to
+        .setValue(FACING, mainFacing)
+        .setValue(PART, WorkbenchPart.BOTTOM_LEFT)
+        .setValue(WATERLOGGED, waterBottomLeft), 3);
+
+        pLevel.setBlock(topRightPos, to
+        .setValue(FACING, mainFacing)
+        .setValue(PART, WorkbenchPart.TOP_RIGHT)
+        .setValue(WATERLOGGED, waterTopRight), 3);
+
+        pLevel.setBlock(topLeftPos, to
+        .setValue(FACING, mainFacing)
+        .setValue(PART, WorkbenchPart.TOP_LEFT)
+        .setValue(WATERLOGGED, waterTopLeft), 3);
     }
 
     public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
@@ -168,22 +224,23 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
             BlockState leftState = pLevel.getBlockState(mainPos.relative(facing.getCounterClockWise()));
             BlockState topState = pLevel.getBlockState(mainPos.above());
             BlockState topLeftState = pLevel.getBlockState(mainPos.relative(facing.getCounterClockWise()).above());
-            if (mainState.getBlock() instanceof HeavyWorkbenchBlock && mainPos != pPos) {
+            if (mainState.getBlock() instanceof AlchemyStationBlock && mainPos != pPos) {
                 pLevel.destroyBlock(mainPos, !pPlayer.isCreative());
             }
 
-            if (leftState.getBlock() instanceof HeavyWorkbenchBlock && mainPos.relative(facing.getCounterClockWise()) != pPos) {
+            if (leftState.getBlock() instanceof AlchemyStationBlock && mainPos.relative(facing.getCounterClockWise()) != pPos) {
                 pLevel.destroyBlock(mainPos.relative(facing.getCounterClockWise()), !pPlayer.isCreative());
             }
 
-            if (topState.getBlock() instanceof HeavyWorkbenchBlock && mainPos.above() != pPos) {
+            if (topState.getBlock() instanceof AlchemyStationBlock && mainPos.above() != pPos) {
                 pLevel.destroyBlock(mainPos.above(), !pPlayer.isCreative());
             }
 
-            if (topLeftState.getBlock() instanceof HeavyWorkbenchBlock && mainPos.relative(facing.getCounterClockWise()).above() != pPos) {
+            if (topLeftState.getBlock() instanceof AlchemyStationBlock && mainPos.relative(facing.getCounterClockWise()).above() != pPos) {
                 pLevel.destroyBlock(mainPos.relative(facing.getCounterClockWise()).above(), !pPlayer.isCreative());
             }
         }
+
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 

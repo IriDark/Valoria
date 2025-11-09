@@ -1,7 +1,8 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
@@ -17,7 +18,6 @@ import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.gfx.particle.*;
 
 /**
  * Used to debug some particle packets and other things
@@ -45,13 +45,9 @@ public class DebugItem extends Item{
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
-        Vec3 vector3d = playerIn.getViewVector(1.0F);
-        for (int i = 0; i < 12; i++) {
-            ParticleBuilder.create(ParticleRegistry.NIHILITY_FLAME.get()).repeat(worldIn, playerIn.blockPosition().getCenter().offsetRandom(worldIn.random, 4), 1);
-        }
-
+        var pos = playerIn.blockPosition();
         if(!worldIn.isClientSide()) {
-
+            PacketHandler.sendToTracking(worldIn, pos, new AlchemyUpgradeParticlePacket(1, pos.getX(), pos.getY() + 2, pos.getZ()));
         }
 
         return InteractionResultHolder.consume(itemstack);

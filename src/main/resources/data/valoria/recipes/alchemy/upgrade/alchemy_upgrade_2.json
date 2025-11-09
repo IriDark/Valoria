@@ -1,0 +1,7 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy_upgrade",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 8 }
+  ]
+}

@@ -14,17 +14,23 @@ import net.minecraft.world.level.*;
 
 import java.util.*;
 
-public class WorkbenchRecipe implements Recipe<Container> {
+public class AlchemyRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final String group;
     private final ItemStack result;
     private final List<Pair<Ingredient, RecipeData>> inputs;
+    private final int level;
 
-    public WorkbenchRecipe(ResourceLocation id, String group, ItemStack result, List<Pair<Ingredient, RecipeData>> inputs) {
+    public AlchemyRecipe(ResourceLocation id, String group, ItemStack result, int level, List<Pair<Ingredient, RecipeData>> inputs) {
         this.id = id;
         this.group = group;
         this.result = result;
         this.inputs = inputs;
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 
     @Override
@@ -104,21 +110,22 @@ public class WorkbenchRecipe implements Recipe<Container> {
         return true;
     }
 
-    public static class Type implements RecipeType<WorkbenchRecipe> {
+    public static class Type implements RecipeType<AlchemyRecipe> {
         public static final Type INSTANCE = new Type();
-        public static final String ID = "heavy_workbench";
+        public static final String ID = "alchemy";
     }
 
-    public static class Serializer implements RecipeSerializer<WorkbenchRecipe> {
+    public static class Serializer implements RecipeSerializer<AlchemyRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "heavy_workbench");
+        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "alchemy");
 
         @Override
-        public WorkbenchRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        public AlchemyRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             String group = GsonHelper.getAsString(json, "group", "");
+            int level = GsonHelper.getAsInt(json, "level", 1);
+
             JsonObject resultObj = GsonHelper.getAsJsonObject(json, "result");
             ItemStack result = ShapedRecipe.itemStackFromJson(resultObj);
-
             List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
 
@@ -129,14 +136,15 @@ public class WorkbenchRecipe implements Recipe<Container> {
                 inputs.add(Pair.of(ing, new RecipeData(count)));
             }
 
-            return new WorkbenchRecipe(recipeId, group, result, inputs);
+            return new AlchemyRecipe(recipeId, group, result, level, inputs);
         }
 
         @Override
-        public WorkbenchRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public AlchemyRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             String group = buffer.readUtf();
-            ItemStack result = buffer.readItem();
+            int level = buffer.readVarInt();
 
+            ItemStack result = buffer.readItem();
             int size = buffer.readVarInt();
             List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
             for (int i = 0; i < size; i++) {
@@ -145,14 +153,14 @@ public class WorkbenchRecipe implements Recipe<Container> {
                 inputs.add(Pair.of(ing, new RecipeData(count)));
             }
 
-            return new WorkbenchRecipe(recipeId, group, result, inputs);
+            return new AlchemyRecipe(recipeId, group, result, level, inputs);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, WorkbenchRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, AlchemyRecipe recipe) {
             buffer.writeUtf(recipe.group);
+            buffer.writeInt(recipe.level);
             buffer.writeItem(recipe.result);
-
             buffer.writeVarInt(recipe.inputs.size());
             for (Pair<Ingredient, RecipeData> entry : recipe.inputs) {
                 entry.getFirst().toNetwork(buffer);
