@@ -15,21 +15,22 @@ import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
+import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-public class WorkbenchRecipeCategory extends AbstractRecipeCategory<WorkbenchRecipe>{
+public class AlchemyUpgradeRecipeCategory extends AbstractRecipeCategory<AlchemyUpgradeRecipe>{
     public static final int width = 112;
     public static final int height = 48;
 
-    public WorkbenchRecipeCategory(IGuiHelper helper){
-        super(ModRecipeTypes.WORKBENCH, Component.translatable("jei.valoria.heavy_workbench"), helper.createDrawableItemLike(BlockRegistry.heavyWorkbench.get()), width, height);
+    public AlchemyUpgradeRecipeCategory(IGuiHelper helper){
+        super(ModRecipeTypes.ALCHEMY_UPGRADE, Component.translatable("jei.valoria.alchemy_upgrade"), helper.createDrawableItemLike(BlockRegistry.alchemyStationTier2.get()), width, height);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, WorkbenchRecipe recipe, IFocusGroup focuses){
-        ItemStack resultStack = recipe.getResultItem(RegistryAccess.EMPTY);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 14).addItemStack(resultStack);
+    public void setRecipe(IRecipeLayoutBuilder builder, AlchemyUpgradeRecipe recipe, IFocusGroup focuses){
+        ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 14).addItemStack(result);
 
         // Added to look for item Uses by pressing "U"
         for(var input : recipe.getInputs()){
@@ -37,8 +38,12 @@ public class WorkbenchRecipeCategory extends AbstractRecipeCategory<WorkbenchRec
         }
     }
 
+    private @NotNull ResourceLocation getUpgradeLoc(int tier){
+        return Valoria.loc("alchemy/upgrade/alchemy_upgrade_" + tier);
+    }
+
     @Override
-    public void getTooltip(ITooltipBuilder tooltip, WorkbenchRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY){
+    public void getTooltip(ITooltipBuilder tooltip, AlchemyUpgradeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY){
         super.getTooltip(tooltip, recipe, recipeSlotsView, mouseX, mouseY);
         ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
         if(!recipe.getInputs().isEmpty()){
@@ -48,14 +53,14 @@ public class WorkbenchRecipeCategory extends AbstractRecipeCategory<WorkbenchRec
     }
 
     @Override
-    public void draw(WorkbenchRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY){
+    public void draw(AlchemyUpgradeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY){
         super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         ResourceLocation tex = new ResourceLocation(Valoria.ID, "textures/gui/jei/workbench.png");
         guiGraphics.blit(tex, 0, 0, 0, 0, width, height, 256, 256);
     }
 
     @Override
-    public ResourceLocation getRegistryName(WorkbenchRecipe recipe){
+    public ResourceLocation getRegistryName(AlchemyUpgradeRecipe recipe){
         return recipe.getId();
     }
 }

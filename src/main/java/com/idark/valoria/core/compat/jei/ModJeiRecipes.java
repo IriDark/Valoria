@@ -45,6 +45,14 @@ public class ModJeiRecipes{
         return recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE).stream().toList();
     }
 
+    public List<AlchemyRecipe> getAlchemyRecipes(){
+        return recipeManager.getAllRecipesFor(AlchemyRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(AlchemyRecipe::getLevel)).toList();
+    }
+
+    public List<AlchemyUpgradeRecipe> getAlchemyUpgradeRecipes(){
+        return recipeManager.getAllRecipesFor(AlchemyUpgradeRecipe.Type.INSTANCE).stream().toList();
+    }
+
     public List<ManipulatorRecipe> getManipulatorRecipes(){
         return recipeManager.getAllRecipesFor(ManipulatorRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(ManipulatorRecipe::getCore)).sorted(Comparator.comparing(ManipulatorRecipe::getTime)).toList();
     }

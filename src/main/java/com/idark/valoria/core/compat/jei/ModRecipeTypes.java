@@ -12,4 +12,6 @@ public class ModRecipeTypes{
     public static final RecipeType<WorkbenchRecipe> WORKBENCH = RecipeType.create(Valoria.ID, "workbench", WorkbenchRecipe.class);
     public static final RecipeType<KilnRecipe> KILN = RecipeType.create(Valoria.ID, "kiln", KilnRecipe.class);
     public static final RecipeType<SoulInfuserRecipe> SOUL_INFUSER = RecipeType.create(Valoria.ID, "soul_infuser", SoulInfuserRecipe.class);
+    public static final RecipeType<AlchemyRecipe> ALCHEMY = RecipeType.create(Valoria.ID, "alchemy", AlchemyRecipe.class);
+    public static final RecipeType<AlchemyUpgradeRecipe> ALCHEMY_UPGRADE = RecipeType.create(Valoria.ID, "alchemy_upgrade", AlchemyUpgradeRecipe.class);
 }

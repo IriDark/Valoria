@@ -1,6 +1,10 @@
 {
   "group": "potions",
   "type": "valoria:alchemy_upgrade",
+  "result": {
+    "item": "valoria:alchemy_station_tier_2",
+    "count": 1
+  },
   "ingredients": [
     { "ingredient": { "item": "minecraft:netherite_upgrade_smithing_template" }, "count": 1 },
     { "ingredient": { "item": "minecraft:netherite_ingot" }, "count": 2 },

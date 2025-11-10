@@ -44,6 +44,8 @@ public class ModJeiPlugin implements IModPlugin{
         registry.addRecipeCategories(new ManipulatorRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         //registry.addRecipeCategories(new CrusherRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new InfuserRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new AlchemyRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new AlchemyUpgradeRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -55,6 +57,8 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipes(ModRecipeTypes.BREWERY, modRecipes.getBreweryRecipes());
         registration.addRecipes(ModRecipeTypes.JEWELRY, modRecipes.getJewelryRecipes());
         registration.addRecipes(ModRecipeTypes.KILN, modRecipes.getKilnRecipes());
+        registration.addRecipes(ModRecipeTypes.ALCHEMY, modRecipes.getAlchemyRecipes());
+        registration.addRecipes(ModRecipeTypes.ALCHEMY_UPGRADE, modRecipes.getAlchemyUpgradeRecipes());
         registration.addRecipes(ModRecipeTypes.WORKBENCH, modRecipes.getWorkbenchRecipes());
         registration.addRecipes(ModRecipeTypes.MANIPULATOR, modRecipes.getManipulatorRecipes());
         registration.addRecipes(ModRecipeTypes.SOUL_INFUSER, modRecipes.getInfuserRecipes());
@@ -67,6 +71,10 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.keg.get()), ModRecipeTypes.BREWERY);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.kiln.get()), ModRecipeTypes.KILN);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.jewelerTable.get()), ModRecipeTypes.JEWELRY);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.alchemyStationTier1.get()), ModRecipeTypes.ALCHEMY, ModRecipeTypes.ALCHEMY_UPGRADE);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.alchemyStationTier2.get()), ModRecipeTypes.ALCHEMY, ModRecipeTypes.ALCHEMY_UPGRADE);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.alchemyStationTier3.get()), ModRecipeTypes.ALCHEMY, ModRecipeTypes.ALCHEMY_UPGRADE);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.alchemyStationTier4.get()), ModRecipeTypes.ALCHEMY, ModRecipeTypes.ALCHEMY_UPGRADE);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.elementalManipulator.get()), ModRecipeTypes.MANIPULATOR);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.soulInfuser.get()), ModRecipeTypes.SOUL_INFUSER);
         //registration.addRecipeCatalyst(new ItemStack(BlockRegistry.stoneCrusher.get()), ModRecipeTypes.CRUSHER);

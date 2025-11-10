@@ -1,6 +1,10 @@
 {
   "group": "potions",
   "type": "valoria:alchemy_upgrade",
+  "result": {
+    "item": "valoria:alchemy_station_tier_3",
+    "count": 1
+  },
   "ingredients": [
     { "ingredient": { "item": "valoria:ancient_shard" }, "count": 8 }
   ]

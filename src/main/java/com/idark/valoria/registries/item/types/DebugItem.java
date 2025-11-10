@@ -11,6 +11,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -40,6 +41,16 @@ public class DebugItem extends Item{
         entity.playSound(SoundsRegistry.MAGIC_SHOOT.get());
         laser.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 1F, 3);
         level.addFreshEntity(laser);
+    }
+
+    @Override
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration){
+        super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
+        var pos = pLivingEntity.blockPosition();
+        if(!pLevel.isClientSide()) {
+            PacketHandler.sendToTracking(pLevel, pos, new AlchemyUpgradeParticlePacket(4, pos.getX(), pos.getY() + 2, pos.getZ()));
+        }
+
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){

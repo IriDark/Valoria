@@ -16,12 +16,14 @@ import java.util.*;
 
 public class AlchemyUpgradeRecipe implements Recipe<Container> {
     private final ResourceLocation id;
+    private final ItemStack result;
     private final String group;
     private final List<Pair<Ingredient, RecipeData>> inputs;
 
-    public AlchemyUpgradeRecipe(ResourceLocation id, String group, List<Pair<Ingredient, RecipeData>> inputs) {
+    public AlchemyUpgradeRecipe(ResourceLocation id, ItemStack result, String group, List<Pair<Ingredient, RecipeData>> inputs) {
         this.id = id;
         this.group = group;
+        this.result = result;
         this.inputs = inputs;
     }
 
@@ -47,7 +49,7 @@ public class AlchemyUpgradeRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getResultItem(RegistryAccess access) {
-        return ItemStack.EMPTY;
+        return this.result.copy();
     }
 
     public List<Pair<Ingredient, RecipeData>> getInputs(){
@@ -114,6 +116,9 @@ public class AlchemyUpgradeRecipe implements Recipe<Container> {
         @Override
         public AlchemyUpgradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             String group = GsonHelper.getAsString(json, "group", "");
+            JsonObject resultObj = GsonHelper.getAsJsonObject(json, "result");
+            ItemStack result = ShapedRecipe.itemStackFromJson(resultObj);
+
             List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
 
@@ -124,12 +129,13 @@ public class AlchemyUpgradeRecipe implements Recipe<Container> {
                 inputs.add(Pair.of(ing, new RecipeData(count)));
             }
 
-            return new AlchemyUpgradeRecipe(recipeId, group, inputs);
+            return new AlchemyUpgradeRecipe(recipeId, result, group, inputs);
         }
 
         @Override
         public AlchemyUpgradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             String group = buffer.readUtf();
+            ItemStack result = buffer.readItem();
             int size = buffer.readVarInt();
             List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
             for (int i = 0; i < size; i++) {
@@ -138,12 +144,13 @@ public class AlchemyUpgradeRecipe implements Recipe<Container> {
                 inputs.add(Pair.of(ing, new RecipeData(count)));
             }
 
-            return new AlchemyUpgradeRecipe(recipeId, group, inputs);
+            return new AlchemyUpgradeRecipe(recipeId, result, group, inputs);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, AlchemyUpgradeRecipe recipe) {
             buffer.writeUtf(recipe.group);
+            buffer.writeItem(recipe.result);
             buffer.writeVarInt(recipe.inputs.size());
             for (Pair<Ingredient, RecipeData> entry : recipe.inputs) {
                 entry.getFirst().toNetwork(buffer);
