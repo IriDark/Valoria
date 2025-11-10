@@ -81,13 +81,15 @@ jobs:
               done
               
               echo '] }' >> payload.json
-              
-              curl -X POST \
-              -F "payload_json=@payload.json" \
-              -F "file1=@changes.diff" \
+              curl -X POST -H "Content-Type: application/json" \
+              -d @payload.json \
               "${{ secrets.TRANSLATING_HOOK }}"
-              fi
-              
+          
+              curl -X POST \
+              -F "file1=@changes.diff" \
+              -F "content=Full diff attached." \
+              "${{ secrets.TRANSLATING_HOOK }}"              
+          
               if [ -n "$(git status --porcelain -- src/main/resources/)" ]; then
                   git config --global user.email "actions@github.com"
                   git config --global user.name "GitHub Actions"
