@@ -77,7 +77,7 @@ jobs:
                   }
                 ]
               }
-         EOF
+          EOF
               done
               
               echo '] }' >> payload.json
