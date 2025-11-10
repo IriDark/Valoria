@@ -28,13 +28,24 @@ jobs:
         if: ${{ github.repository == 'IriDark/Valoria' }}
         run: |
           ./gradlew updateResources
+          git add src/main/resources/*
+          CHANGES_DIFF=$(git diff --cached -- src/main/resources/)
+          if [ -n "$CHANGES_DIFF" ]; then
+            echo "Changes detected, sending to Discord and committing."
+          
+            # Save the diff to a file
+            echo "$CHANGES_DIFF" > changes.diff
+          
+            # Send the diff as a file attachment to Discord
+            # This is more robust and avoids character limits
+            curl -X POST \
+              -F "payload_json={\"content\": \"Automatic resource update detected. See attached diff for details.\"}" \
+              -F "file1=@changes.diff" \
+              "${{ secrets.TRANSLATING_HOOK }}"
+          fi
+          
           if [ -n "$(git status --porcelain  -- src/main/resources/)" ]; then
             CHANGES_DIFF=$(git diff -- src/main/resources/)
-            JSON_PAYLOAD=$(echo "$CHANGES_DIFF" | jq -Rsc '{ "content": . }')
-            curl -X POST \
-                  -H "Content-Type: application/json" \
-                  -d "$JSON_PAYLOAD" \
-                  "${{ secrets.TRANSLATING_HOOK }}"      
           
             git config --global user.email "actions@github.com"
             git config --global user.name "Github Actions"
