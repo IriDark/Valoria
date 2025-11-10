@@ -39,7 +39,7 @@ jobs:
             fi
 
             escape_json() {
-              echo "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+              echo "$1" | sed 's/\\/\\\\/g; s/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g'
             }
 
             echo '{ "content": "Automatic language resource update detected.", "embeds": [' > payload.json
