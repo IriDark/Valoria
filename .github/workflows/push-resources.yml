@@ -39,7 +39,7 @@ jobs:
             fi
 
             escape_json() {
-              echo "$1" | sed 's/\\/\\\\/g; s/"/\\"/g' 
+              echo "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
             }
 
             echo '{ "content": "Automatic language resource update detected.", "embeds": [' > payload.json
@@ -67,11 +67,15 @@ jobs:
                 "fields": [
                     {
                       "name": "Added",
-                      "value": "```json\n${ADDED_ESCAPED:-No new strings for ${LANG_ESCAPED} lang.}\n```",
+                      "value": "```json
+                          \n ${ADDED_ESCAPED:-No new strings for ${LANG_ESCAPED} lang.}\n
+                      ```",
                     },
                     {
                       "name": "Removed",
-                      "value": "```json\n${REMOVED_ESCAPED:-No removed strings for ${LANG_ESCAPED} lang.}\n```",
+                      "value": "```json
+                          \n ${REMOVED_ESCAPED:-No removed strings for ${LANG_ESCAPED} lang.}\n
+                      ```",
                     }
                 ]
               }
