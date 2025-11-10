@@ -31,9 +31,8 @@ jobs:
           git add src/main/resources/*
           CHANGES_DIFF=$(git diff --cached -- src/main/resources/)
           if [ -n "$CHANGES_DIFF" ]; then
-            git diff -- src/main/resources/assets/valoria/lang/ > changes.diff
-            LANG_FILES=$(git diff --name-only -- src/main/resources/assets/valoria/lang/)
-          
+            git diff --cached -- src/main/resources/assets/valoria/lang/ > changes.diff
+            LANG_FILES=$(git diff --cached --name-only -- src/main/resources/assets/valoria/lang/)
             if [ -z "$LANG_FILES" ]; then
               echo "No language changes detected."
               exit 0
@@ -48,7 +47,7 @@ jobs:
 
             for FILE in $LANG_FILES; do
               LANG_NAME=$(basename "$FILE" .json)
-              git diff -- "$FILE" > "changes_${LANG_NAME}.diff"
+              git diff --cached -- "$FILE" > "changes_${LANG_NAME}.diff"
 
               ADDED=$(grep -E '^\+' "changes_${LANG_NAME}.diff" | grep -vE '^\+\+\+|^+++$' | cut -c2- | head -n 15)
               REMOVED=$(grep -E '^\-' "changes_${LANG_NAME}.diff" | grep -vE '^---|^---$' | cut -c2- | head -n 15)
