@@ -31,26 +31,69 @@ jobs:
           git add src/main/resources/*
           CHANGES_DIFF=$(git diff --cached -- src/main/resources/)
           if [ -n "$CHANGES_DIFF" ]; then
-            echo "Changes detected, sending to Discord and committing."
+            git diff -- src/main/resources/assets/valoria/lang/ > changes.diff
+            LANG_FILES=$(git diff --name-only -- src/main/resources/assets/valoria/lang/)
           
-            # Save the diff to a file
-            echo "$CHANGES_DIFF" > changes.diff
-          
-            # Send the diff as a file attachment to Discord
-            # This is more robust and avoids character limits
-            curl -X POST \
-              -F "payload_json={\"content\": \"Automatic resource update detected. See attached diff for details.\"}" \
+            if [ -z "$LANG_FILES" ]; then
+              echo "No language changes detected."
+              exit 0
+            fi
+
+            escape_json() {
+              echo "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+            }
+
+            echo '{ "content": "Automatic language resource update detected.", "embeds": [' > payload.json
+            FIRST=1
+
+            for FILE in $LANG_FILES; do
+              LANG_NAME=$(basename "$FILE" .json)
+              git diff -- "$FILE" > "changes_${LANG_NAME}.diff"
+
+              ADDED=$(grep -E '^\+' "changes_${LANG_NAME}.diff" | grep -vE '^\+\+\+|^+++$' | cut -c2- | head -n 15)
+              REMOVED=$(grep -E '^\-' "changes_${LANG_NAME}.diff" | grep -vE '^---|^---$' | cut -c2- | head -n 15)
+
+              ADDED_ESCAPED=$(escape_json "$ADDED")
+              REMOVED_ESCAPED=$(escape_json "$REMOVED")
+              LANG_ESCAPED=$(escape_json "$LANG_NAME")
+
+              if [ $FIRST -eq 0 ]; then
+                echo "," >> payload.json
+              fi
+              FIRST=0
+              cat >> payload.json <<EOF
+              {
+                "title": "Changed ${LANG_ESCAPED} lang",
+                "color": 5814783,
+                "fields": [
+                  {
+                    "name": "Added",
+                    "value": "${ADDED_ESCAPED:-No new strings for ${LANG_ESCAPED} lang.}",
+                    "inline": false
+                  },
+                  {
+                    "name": "Removed",
+                    "value": "${REMOVED_ESCAPED:-No removed strings for ${LANG_ESCAPED} lang.}",
+                    "inline": false
+                  }
+                ]
+              }
+              EOF
+              done
+              
+              echo '] }' >> payload.json
+              
+              curl -X POST \
+              -F "payload_json=@payload.json" \
               -F "file1=@changes.diff" \
               "${{ secrets.TRANSLATING_HOOK }}"
-          fi
-          
-          if [ -n "$(git status --porcelain  -- src/main/resources/)" ]; then
-            CHANGES_DIFF=$(git diff -- src/main/resources/)
-          
-            git config --global user.email "actions@github.com"
-            git config --global user.name "Github Actions"
-            git pull
-            git add src/main/resources/*
-            git commit -m "Automatic resources update"
-            git push
-          fi
+              fi
+              
+              if [ -n "$(git status --porcelain -- src/main/resources/)" ]; then
+                  git config --global user.email "actions@github.com"
+                  git config --global user.name "GitHub Actions"
+                  git pull --rebase --autostash
+                  git add src/main/resources/*
+                  git commit -m "Automatic resources update"
+                  git push
+              fi
