@@ -31,7 +31,10 @@ jobs:
           if [ -n "$(git status --porcelain  -- src/main/resources/)" ]; then
             CHANGES_DIFF=$(git diff -- src/main/resources/)
             JSON_PAYLOAD=$(echo "$CHANGES_DIFF" | jq -Rsc '{ "content": . }')
-            curl -X POST \ -H "Content-Type: application/json" \ -d "$JSON_PAYLOAD" \ ${{ secrets.TRANSLATING_HOOK }}
+            curl -X POST \
+                  -H "Content-Type: application/json" \
+                  -d "$JSON_PAYLOAD" \
+                  "${{ secrets.TRANSLATING_HOOK }}"      
           
             git config --global user.email "actions@github.com"
             git config --global user.name "Github Actions"
