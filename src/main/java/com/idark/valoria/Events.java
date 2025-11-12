@@ -374,7 +374,7 @@ public class Events{
             Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
             if(unlocked != null) all.removeAll(unlocked);
             for(Unlockable unknown : all){
-                if(unknown instanceof EntityUnlockable entityU) entityU.checkCondition(player, victim);
+                if(unknown instanceof OnMobKilledListener entityU) entityU.checkCondition(player, victim);
             }
         }
     }

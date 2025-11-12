@@ -1,19 +1,19 @@
 ## Contributors
-AstemirDev `| Code |`
-Auriny `| Code | Testing |`
-Skoow `| Code |`
-Sunday `| Models |`
-Kerdo `| Animations | SFX | Ideas | Contributions |`
-Rofoo
-KoteykaTheCat
-GraFik
-Wosaj
-Rainach
-.sweetberries
-Feimos
-Avacuoss
-
-Ruthenium `| Russian Translate |` 
+AstemirDev `| Code |`  
+Auriny `| Code | Testing |`  
+Skoow `| Code |`  
+Sunday `| Models |`  
+Kerdo `| Animations | SFX | Ideas | Contributions |`  
+Pandafolk_Ravio_Li  
+Rofoo  
+KoteykaTheCat  
+GraFik  
+Wosaj  
+Rainach  
+.sweetberries  
+Feimos  
+Avacuoss  
+Ruthenium `| Russian Translate |`   
 TerraPrime `| Russian Translate |`
 
 

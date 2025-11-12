@@ -5,7 +5,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 
-public class EntityUnlockable extends Unlockable{
+public class EntityUnlockable extends Unlockable implements OnMobKilledListener{
     public final EntityType<?> type;
     public EntityUnlockable(String id, Item item, EntityType<?> type){
         super(item, id);

@@ -12,9 +12,9 @@ public class RegisterUnlockables{
     public static Unlockable
     pick, heavyWorkbench,
 
-    undead, kingCrab,
+    undead, kingCrab, harmonyEntities,
     necromancerGrimoire, necromancer, harmonyCrown, dryador, suspiciousGem, wickedCrystal,
-    crypt, fortress,
+    crypt, fortress, valoriaPortal,
 
     blackGold,
     natureCore, aquariusCore, infernalCore, voidCore // elemental
@@ -24,10 +24,12 @@ public class RegisterUnlockables{
     public static void init() {
         crypt = register(new Unlockable(Valoria.ID + ":crypt"));
         kingCrab = register(new EntityUnlockable(Valoria.ID + ":king_crab", ItemsRegistry.crabClaw.get(), EntityTypeRegistry.KING_CRAB.get()));
+        harmonyEntities = register(new EntityTagUnlockable(Valoria.ID + ":harmony_entities", ItemsRegistry.harmonyHeart.get(), TagsRegistry.HARMONY_CREATURES));
         fortress = register(new Unlockable(ItemsRegistry.wickedAmethyst.get(), Valoria.ID + ":fortress", false));
         pick = register(new ItemUnlockable(Valoria.ID + ":pick", ItemsRegistry.pick.get()).addAward(loc("items/crusher")));
         heavyWorkbench = register(new ItemUnlockable(Valoria.ID + ":heavy_workbench", BlockRegistry.heavyWorkbench.get().asItem()));
         undead = register(new Unlockable(Valoria.ID + ":undead"));
+        valoriaPortal = register(new ItemUnlockable(Valoria.ID + ":valoria_portal", false, ItemsRegistry.valoriaPortalFrameShard.get()));
         necromancerGrimoire = register(new ItemUnlockable(Valoria.ID + ":necromancer_grimoire", false, ItemsRegistry.necromancerGrimoire.get()));
         necromancer = register(new Unlockable(Valoria.ID + ":necromancer", false));
         harmonyCrown = register(new ItemUnlockable(Valoria.ID + ":harmony_crown", false, ItemsRegistry.harmonyCrown.get()));

@@ -1,5 +1,6 @@
 package com.idark.valoria.client.ui.screen.book.codex;
 
+import com.idark.valoria.*;
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
@@ -8,7 +9,7 @@ import com.idark.valoria.client.ui.screen.book.pages.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.util.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.*;
 import pro.komaru.tridot.api.render.text.DotStyleEffects.*;
@@ -30,10 +31,16 @@ public class CodexEntries{
     UNDEAD,
     KING_CRAB,
     NECROMANCER_GRIMOIRE, NECROMANCER,
-    HARMONY_CROWN, DRYADOR,
     SUSPICIOUS_GEM, WICKED_CRYSTAL,
 
     CRYPT, FORTRESS,
+
+    ELEMENTALS,
+    HARMONY_ELEMENTALS,
+
+    ELEMENTAL_EMPERORS,
+    HARMONY_EMPEROR,
+    HARMONY_CROWN, DRYADOR,
 
     BLACK_GOLD,
     NATURE_CORE, AQUARIUS_CORE, INFERNAL_CORE, VOID_CORE
@@ -43,9 +50,8 @@ public class CodexEntries{
     public static void initChapters(){
         MAIN_CHAPTER = new Chapter(
         "codex.valoria.main.name",
-        new MainPage("codex.valoria.main"),
-        new TextPage("codex.valoria.knowledge")
-        .withCraftEntry(ItemsRegistry.codex.get().getDefaultInstance()));
+        new TextPage("codex.valoria.main"),
+        new TextPage("codex.valoria.main.continuation").hideTitle());
 
         BOSS_CHECKLIST = new Chapter("codex.valoria.bosses.name", new BossMainPage("codex.valoria.bosses.name", bossEntries));
 
@@ -66,7 +72,7 @@ public class CodexEntries{
 
         VALORIA_PORTAL = new Chapter(
         "codex.valoria.valoria_portal.name",
-        new ValoriaPortalPage("codex.valoria.valoria_portal"));
+        new PicturePage("codex.valoria.valoria_portal", new ResourceLocation(Valoria.ID, "textures/gui/book/valoria_portal.png"), 127, 15));
 
         PICK = new Chapter(
         "codex.valoria.pick.name",
@@ -104,10 +110,13 @@ public class CodexEntries{
         new TextPage("codex.valoria.harmony_crown"),
         new TextPage("codex.valoria.harmony_crown.continuation").hideTitle()).setUnknownKey("codex.valoria.dryador.name");
 
+        HARMONY_EMPEROR = new Chapter(
+        "codex.valoria.harmony_emperor.name",
+        new TextPage("codex.valoria.harmony_emperor"));
+
         DRYADOR = new Chapter(
         "codex.valoria.dryador.name",
-        new TextPage("codex.valoria.dryador"),
-        new TextPage("codex.valoria.dryador.continuation").hideTitle());
+        new TextPage("codex.valoria.dryador").hideTitle());
 
         SUSPICIOUS_GEM = new Chapter(
         "codex.valoria.suspicious_gem.name",
@@ -122,6 +131,21 @@ public class CodexEntries{
         UNDEAD = new Chapter(
         "codex.valoria.undead.name",
         new TextPage("codex.valoria.undead"));
+
+        ELEMENTALS = new Chapter(
+        "codex.valoria.elementals.name",
+        new TextPage("codex.valoria.elementals").hideTitle(),
+        new TextPage("codex.valoria.elementals.continuation").hideTitle());
+
+        HARMONY_ELEMENTALS = new Chapter(
+        "codex.valoria.harmony_elementals.name",
+        new TextPage("codex.valoria.harmony_elementals").hideTitle(),
+        new TextPage("codex.valoria.harmony_elementals.continuation").hideTitle());
+
+        ELEMENTAL_EMPERORS = new Chapter(
+        "codex.valoria.elemental_emperors.name",
+        new TextPage("codex.valoria.elemental_emperors").hideTitle(),
+        new TextPage("codex.valoria.elemental_emperors.continuation").hideTitle());
 
         BLACK_GOLD = new Chapter(
         "codex.valoria.black_gold.name",
@@ -146,7 +170,7 @@ public class CodexEntries{
         CRYPT = new Chapter(
         "codex.valoria.crypt.name",
         new TextPage("codex.valoria.crypt"),
-        new TextPage("codex.valoria.crypt_continuation").hideTitle());
+        new PicturePage("codex.valoria.crypt_continuation", new ResourceLocation(Valoria.ID, "textures/gui/book/crypt.png"), -5, 40).hideTitle());
 
         FORTRESS = new Chapter(
         "codex.valoria.fortress.name",
@@ -180,21 +204,28 @@ public class CodexEntries{
                 )
             )
 
-            .addChild(new ChapterNode(BLACK_GOLD, ItemsRegistry.blackGold.get(), Style.IRON, RegisterUnlockables.blackGold)
-                .addHintsDescription(
-                    Component.translatable("codex.valoria.black_gold.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+            .addChild(new ChapterNode(ELEMENTALS, ItemsRegistry.elementalCrystal.get(), Style.GOLD)
+                .addChild(new ChapterNode(BLACK_GOLD, ItemsRegistry.blackGold.get(), Style.IRON, RegisterUnlockables.blackGold)
+                    .addHintsDescription(
+                        Component.translatable("codex.valoria.black_gold.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+                    )
+
+                    .addChild(new ChapterNode(NATURE_CORE, ItemsRegistry.natureCore.get(), Style.GOLD, RegisterUnlockables.natureCore))
+                    .addChild(new ChapterNode(AQUARIUS_CORE, ItemsRegistry.aquariusCore.get(), Style.GOLD, RegisterUnlockables.aquariusCore))
+                    .addChild(new ChapterNode(INFERNAL_CORE, ItemsRegistry.infernalCore.get(), Style.GOLD, RegisterUnlockables.infernalCore))
+                    .addChild(new ChapterNode(VOID_CORE, ItemsRegistry.voidCore.get(), Style.GOLD, RegisterUnlockables.voidCore))
                 )
 
-                .addChild(new ChapterNode(NATURE_CORE, ItemsRegistry.natureCore.get(), Style.GOLD, RegisterUnlockables.natureCore))
-                .addChild(new ChapterNode(AQUARIUS_CORE, ItemsRegistry.aquariusCore.get(), Style.GOLD, RegisterUnlockables.aquariusCore))
-                .addChild(new ChapterNode(INFERNAL_CORE, ItemsRegistry.infernalCore.get(), Style.GOLD, RegisterUnlockables.infernalCore))
-                .addChild(new ChapterNode(VOID_CORE, ItemsRegistry.voidCore.get(), Style.GOLD, RegisterUnlockables.voidCore))
+                .addChild(new ChapterNode(KING_CRAB, ItemsRegistry.crabClaw.get(), RegisterUnlockables.kingCrab))
+                .addChild(new ChapterNode(HARMONY_ELEMENTALS, ItemsRegistry.harmonyHeart.get(), RegisterUnlockables.harmonyEntities).addHintsDescription(Component.translatable("codex.valoria.harmony_elementals.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
+            )
+
+            .addChild(new ChapterNode(ELEMENTAL_EMPERORS, ItemsRegistry.harmonyCrown.get(), Style.GOLD)
+                .addChild(new ChapterNode(HARMONY_EMPEROR, Items.SKELETON_SKULL))
             )
         );
 
-
         ChapterNode bossesRoot = new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
-            .addChild(new ChapterNode(KING_CRAB, ItemsRegistry.crabClaw.get(), RegisterUnlockables.kingCrab))
                 .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
                     .addHintsDescription(Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                     .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)
@@ -213,7 +244,8 @@ public class CodexEntries{
                 )
 
 
-                .addChild(new ChapterNode(VALORIA_PORTAL, BlockRegistry.valoriaPortalFrame.get().asItem(), Style.GOLD)
+                .addChild(new ChapterNode(VALORIA_PORTAL, BlockRegistry.valoriaPortalFrame.get().asItem(), Style.GOLD, RegisterUnlockables.valoriaPortal)
+                    .addHintsDescription(Component.translatable("codex.valoria.valoria_portal.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                     .addChild(new ChapterNode(FORTRESS, ItemsRegistry.wickedAmethyst.get(), Style.CRYPT, RegisterUnlockables.fortress)
                         .addHintsDescription(Component.translatable("codex.valoria.fortress.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
                         )
@@ -228,15 +260,15 @@ public class CodexEntries{
 
         int offset = 0;
         if(onInit(root)){
-            layoutTree(root, 0, -measureWidth(root) / 12 + ((root.children.size % 2 == 1) ? -16 : 0) + offset);
+            layoutTree(root, 0, -512 + offset);
         }
 
         if(onInit(bossesRoot)){
-            layoutTree(bossesRoot, 0, 24 + measureWidth(bossesRoot) + ((bossesRoot.children.size % 2 == 1) ? -16 : 0) + offset);
+            layoutTree(bossesRoot, 5, offset);
         }
     }
 
-    static int spacingX = 35;
+    static int spacingX = 25;
     static int spacingY = 35;
 
     private static int measureWidth(ChapterNode node){
@@ -251,42 +283,28 @@ public class CodexEntries{
 
     private static int layoutTree(ChapterNode node, int depth, int x){
         int y = depth * -spacingY;
-
-        if(node.children.isEmpty()){
-            placeEntry(node, x, y);
-            return spacingX;
+        if (node.children.isEmpty()) {
+            int nodeWidth = measureWidth(node);
+            placeEntry(node, x + nodeWidth / 2, y);
+            return nodeWidth + spacingX;
         }
 
-        int totalWidth = 0;
-        int totalWidth2 = 0;
-        List<Integer> childCenters = new ArrayList<>();
-        List<Integer> childCenters2 = new ArrayList<>();
+        int totalChildrenWidth = 0;
+        int currentChildX = x;
 
-        int depthChange = 1;
-        for(ChapterNode child : node.children){
-            int newDepth = depth == 0 ? depth + depthChange : depth + (depth < 0 ? -1 : 1);
-            int totWidth = newDepth < 0 ? totalWidth2 : totalWidth;
-
-            int childWidth = measureWidth(child);
-            int childX = x + totWidth;
-
-            layoutTree(child, newDepth, childX);
-            if(newDepth < 0) childCenters2.add(childX);
-            else childCenters.add(childX);
-            if(newDepth < 0) totalWidth2 += childWidth;
-            else totalWidth += childWidth;
-
-            depthChange *= -1;
+        List<Integer> childNodeCenters = new ArrayList<>();
+        for (ChapterNode child : node.children) {
+            int childSubtreeWidth = layoutTree(child, depth + 1, currentChildX);
+            totalChildrenWidth += childSubtreeWidth;
+            currentChildX = x + totalChildrenWidth;
+            childNodeCenters.add(child.entry.x);
         }
 
-
-        int centerX = childCenters.isEmpty() ? 0 : (Collections.min(childCenters) + Collections.max(childCenters)) / 2;
-        int centerX2 = childCenters2.isEmpty() ? 0 :(Collections.min(childCenters2) + Collections.max(childCenters2)) / 2;
-
-        centerX = Math.max(centerX,centerX2);
-        centerX = Mth.clamp(centerX, -512, 512);
+        int centerX = (Collections.min(childNodeCenters) + Collections.max(childNodeCenters)) / 2;
         placeEntry(node, centerX, y);
-        return depth < 0 ? totalWidth2 : totalWidth;
+        int nodeWidth = measureWidth(node);
+        int childrenSpan = totalChildrenWidth - spacingX;
+        return Math.max(childrenSpan, nodeWidth) + spacingX;
     }
 
     private static void placeEntry(ChapterNode node, int x, int y){
