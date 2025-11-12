@@ -107,18 +107,17 @@ public class Codex extends DotScreen{
         pop();
 
         push();
-        renderBackground(gui, "textures/gui/book/background.png", mouseX, mouseY);
-        layer(601);
-        if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
-            gui.blit(FRAME, (int)(cx() - 5 - 1), guiTop() + frameHeight - 10 - 1, 10, 191, 12, 12, 512, 512);
-        }else{
-            gui.blit(FRAME, (int)(cx() - 5), guiTop() + frameHeight - 10, 0, 192, 10, 10, 512, 512);
-        }
-
+            renderBackground(gui, "textures/gui/book/background.png", mouseX, mouseY);
+            layer(601);
+            if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
+                gui.blit(FRAME, (int)(cx() - 5 - 1), guiTop() + frameHeight - 10 - 1, 10, 191, 12, 12, 512, 512);
+            }else{
+                gui.blit(FRAME, (int)(cx() - 5), guiTop() + frameHeight - 10, 0, 192, 10, 10, 512, 512);
+            }
         pop();
 
         push();
-        renderBossChecklist(gui, mouseX, mouseY);
+            renderBossChecklist(gui, mouseX, mouseY);
         pop();
     }
 

@@ -125,21 +125,24 @@ public class BookGui extends Screen{
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if(left != null) left.fullRender(gui, guiLeft + 10, guiTop + 8, mouseX, mouseY);
         if(right != null) right.fullRender(gui, guiLeft + 142, guiTop + 8, mouseX, mouseY);
+
+        int backX = guiLeft - 20, y = guiTop + 150;
+        int nextX = guiLeft + 271;
         if(currentChapter.size() >= currentPage + 3){
-            if(mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8){
-                gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 104, 9, 8, 512, 512);
-                renderTooltip(gui, Component.translatable("codex.valoria.next"), guiLeft + 250, guiTop + 150);
-            }else{
-                gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 88, 9, 8, 512, 512);
+            gui.blit(BACKGROUND, nextX, y, 288, 96, 21, 22, 512, 512);
+            if(isHover(mouseX, mouseY, nextX, y, 21, 22)){
+                renderTooltip(gui, Component.translatable("codex.valoria.next"), nextX - 20, y);
             }
         }
 
-        if(mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8){
-            gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 96, 9, 8, 512, 512);
-            renderTooltip(gui, Component.translatable("codex.valoria.back"), guiLeft + 13, guiTop + 150);
-        }else{
-            gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 80, 9, 8, 512, 512);
+        gui.blit(BACKGROUND, backX, y, 288, 74, 21, 22, 512, 512);
+        if(isHover(mouseX, mouseY, backX, y, 21, 22)){
+            renderTooltip(gui, Component.translatable("codex.valoria.back"), backX - 10, y);
         }
+    }
+
+    public boolean isHover(double mouseX, double mouseY, int x, int y, int width, int height) {
+        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
     }
 
     public void renderTooltip(GuiGraphics gui, MutableComponent component, int x, int y){
@@ -180,12 +183,14 @@ public class BookGui extends Screen{
             this.width = mc.getWindow().getGuiScaledWidth();
             this.height = mc.getWindow().getGuiScaledHeight();
             int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
+
+            int backX = guiLeft - 20, y = guiTop + 150;
+            int nextX = guiLeft + 271;
             if(currentChapter.size() >= currentPage + 3){
-                nextPage(mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8, mc);
+                nextPage(isHover(mouseX, mouseY, nextX, y, 21, 22), mc);
             }
 
-            boolean isHovered = mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8;
-            if(isHovered){
+            if(isHover(mouseX, mouseY, backX, y, 21, 22)){
                 if(shouldOpenChecklist()) return false;
                 if(currentPage > 0){
                     backPage(mc);
