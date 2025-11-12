@@ -13,17 +13,19 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
-import java.util.*;
-
-public class EtherealSwordItem extends ValoriaSword implements RadiusItem, OverlayRenderItem{
+public class EtherealSwordItem extends ValoriaSword implements TooltipComponentItem, RadiusItem, OverlayRenderItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/soul_bar.png");
     public ArcRandom arcRandom = Tmp.rnd;
     public int max;
@@ -46,22 +48,6 @@ public class EtherealSwordItem extends ValoriaSword implements RadiusItem, Overl
     public ItemStack setSword(ItemStack pStack){
         pStack.getOrCreateTag().putInt("Souls", this.current);
         return pStack;
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.ethereal_sword").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack))
-        .append(" / ")
-        .append(String.valueOf(getMaxSouls()))
-        .withStyle(ChatFormatting.GRAY)
-        );
-
-        if(getCurrentSouls(stack) >= getMaxSouls()){
-            tooltip.add(Component.empty());
-            tooltip.add(Component.translatable("tooltip.valoria.rmb", getCurrentSouls(stack)).withStyle(ChatFormatting.GREEN));
-        }
     }
 
     public static void addCharge(ItemStack stack, int charge){
@@ -131,5 +117,19 @@ public class EtherealSwordItem extends ValoriaSword implements RadiusItem, Overl
 
         gui.blit(BAR, xCord, yCord, 0, 0, 32, 32, 64, 64);
         gui.blit(BAR, xCord, yCord - 4 + (32 - progress), 0, 28 + (32 - progress), 32, progress, 64, 64);
+    }
+
+    @Override
+    public Seq<TooltipComponent> getTooltips(ItemStack itemStack){
+        return Seq.with(
+        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new AbilityComponent(Component.translatable("tooltip.valoria.ethereal_sword").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/mob_effect/soul_burst.png")),
+        new TextComponent(Component.translatable("tooltip.valoria.souls", getCurrentSouls(itemStack))
+            .append(" / ")
+            .append(String.valueOf(getMaxSouls()))
+            .withStyle(ChatFormatting.GRAY)
+        ),
+        new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        );
     }
 }

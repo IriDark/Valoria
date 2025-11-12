@@ -1,5 +1,4 @@
 {
-  "group": "potions",
   "type": "valoria:alchemy_upgrade",
   "result": {
     "item": "valoria:alchemy_station_tier_4",

@@ -354,7 +354,7 @@ public class BlockRegistry{
         eyeFlesh = registerBlock("eye_flesh", () -> new Block(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().strength(3f, 4f)));
         fleshBlock = registerBlock("flesh_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
         fleshRemains = registerBlock("flesh_remains", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).strength(1.2f).requiresCorrectToolForDrops()));
-        fleshCyst = registerBlock("flesh_cyst", () -> new FleshCystBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.CYST).requiresCorrectToolForDrops()));
+        fleshCyst = registerBlock("flesh_cyst", () -> new FleshCystBlock(props(Blocks.RED_WOOL, MapColor.COLOR_RED).sound(SoundsRegistry.CYST)));
         bloodVein = registerBlock("blood_vein", () -> new BloodVeinBlock(props(Blocks.SCULK_VEIN, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().noOcclusion()));
         bloodVinePlant = BLOCK.register("blood_vine_plant", () -> new BloodVinePlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_RED)));
         bloodVine = registerBlock("blood_vine", () -> new BloodVineBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_RED)), () -> new BlockItem(BlockRegistry.bloodVine.get(), new Item.Properties()));

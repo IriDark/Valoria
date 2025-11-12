@@ -48,9 +48,13 @@ public class AlchemyRecipe implements Recipe<Container> {
         return this.id;
     }
 
+    public String getCategory() {
+        return this.group;
+    }
+
     @Override
     public String getGroup() {
-        return this.group;
+        return "";
     }
 
     @Override
@@ -142,7 +146,7 @@ public class AlchemyRecipe implements Recipe<Container> {
         @Override
         public AlchemyRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             String group = buffer.readUtf();
-            int level = buffer.readVarInt();
+            int level = buffer.readInt();
 
             ItemStack result = buffer.readItem();
             int size = buffer.readVarInt();

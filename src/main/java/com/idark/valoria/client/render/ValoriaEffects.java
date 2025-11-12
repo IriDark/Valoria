@@ -9,7 +9,6 @@ import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.material.*;
@@ -19,11 +18,9 @@ import org.joml.*;
 import pro.komaru.tridot.client.*;
 
 import javax.annotation.*;
-import java.lang.Math;
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaEffects extends DimensionSpecialEffects {
-    private final float[] sunriseCol = new float[4];
     private static final ResourceLocation ARETHEA_LOCATION = new ResourceLocation(Valoria.ID, "textures/environment/arethea.png");
     private static final ResourceLocation EARTH_LOCATION = new ResourceLocation(Valoria.ID, "textures/environment/earth.png");
 
@@ -43,7 +40,7 @@ public class ValoriaEffects extends DimensionSpecialEffects {
 
     @Override
     public Vec3 getBrightnessDependentFogColor(Vec3 skyColor, float partialTicks) {
-        return new Vec3(0, 0, 0);
+        return new Vec3(0.125f, 0.025f, 0.125f);
     }
 
     @Override
@@ -53,18 +50,6 @@ public class ValoriaEffects extends DimensionSpecialEffects {
 
     @Nullable
     public float[] getSunriseColor(float pTimeOfDay, float pPartialTicks){
-        float f1 = Mth.cos(pTimeOfDay * ((float)Math.PI * 2F)) - 0.0F;
-        if(f1 >= -0.4F && f1 <= 0.4F){
-            float f3 = (f1 - -0.0F) / 0.4F * 0.5F + 0.5F;
-            float f4 = 1.0F - (1.0F - Mth.sin((f3 * 0.25f) * (float)Math.PI)) * 0.8F;
-            f4 *= f4;
-            this.sunriseCol[0] = f3 * 0.2F + 0.35F;
-            this.sunriseCol[1] = f3;
-            this.sunriseCol[2] = 0.75f;
-            this.sunriseCol[3] = f4;
-            return this.sunriseCol;
-        }
-
         return null;
     }
 
@@ -96,32 +81,6 @@ public class ValoriaEffects extends DimensionSpecialEffects {
             renderer.skyBuffer.drawWithShader(pPoseStack.last().pose(), pProjectionMatrix, shaderinstance);
             VertexBuffer.unbind();
             RenderSystem.enableBlend();
-            float[] afloat = getSunriseColor(level.getTimeOfDay(pPartialTick), pPartialTick);
-            if(afloat != null){
-                RenderSystem.setShader(GameRenderer::getPositionColorShader);
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                pPoseStack.pushPose();
-                pPoseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
-                float f3 = Mth.sin(level.getSunAngle(pPartialTick)) < 0.0F ? 180.0F : 0.0F;
-                pPoseStack.mulPose(Axis.ZP.rotationDegrees(f3));
-                pPoseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
-                float f4 = afloat[0];
-                float f5 = afloat[1];
-                float f6 = afloat[2];
-                Matrix4f matrix4f = pPoseStack.last().pose();
-                bufferbuilder.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
-                bufferbuilder.vertex(matrix4f, 0.0F, 100.0F, 0.0F).color(f4, f5, f6, afloat[3]).endVertex();
-                for(int j = 0; j <= 16; ++j){
-                    float f7 = (float)j * ((float)Math.PI * 2F) / 16.0F;
-                    float f8 = Mth.sin(f7);
-                    float f9 = Mth.cos(f7);
-                    bufferbuilder.vertex(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
-                }
-
-                BufferUploader.drawWithShader(bufferbuilder.end());
-                pPoseStack.popPose();
-            }
-
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             pPoseStack.pushPose();
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -133,7 +92,7 @@ public class ValoriaEffects extends DimensionSpecialEffects {
 
             pPoseStack.mulPose(Axis.XP.rotationDegrees(rotation));
             Matrix4f matrix4f1 = pPoseStack.last().pose();
-            float f12 = 19f;
+            float f12 = 15f;
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, MOON_LOCATION);
             int k = level.getMoonPhase();
@@ -191,6 +150,7 @@ public class ValoriaEffects extends DimensionSpecialEffects {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.depthMask(true);
         }
+
 
         return true;
     }

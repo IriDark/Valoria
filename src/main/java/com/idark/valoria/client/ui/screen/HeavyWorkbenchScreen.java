@@ -151,14 +151,14 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
             String s = getSearchValue();
             BlueprintData data = new BlueprintData(recipeHolder);
             if(s.isEmpty()){
-                if(recipeHolder.getGroup().equals(chosen.category) || chosen.equals(Categories.ALL)){
+                if(recipeHolder.getCategory().equals(chosen.category) || chosen.equals(Categories.ALL)){
                     addRecipes(recipeHolder, craftableRecipes, data, nonCraftableRecipes);
                 }
             } else {
                 String recipeName = getRecipeName(recipeHolder).toLowerCase();
                 boolean searchMatch = recipeName.contains(s.toLowerCase());
                 if (searchMatch) {
-                    if(recipeHolder.getGroup().equals(chosen.category) || chosen.equals(Categories.ALL)) addRecipes(recipeHolder, craftableRecipes, data, nonCraftableRecipes);
+                    if(recipeHolder.getCategory().equals(chosen.category) || chosen.equals(Categories.ALL)) addRecipes(recipeHolder, craftableRecipes, data, nonCraftableRecipes);
                 }
             }
         }

@@ -42,9 +42,13 @@ public class WorkbenchRecipe implements Recipe<Container> {
         return this.id;
     }
 
+    public String getCategory() {
+        return this.group;
+    }
+
     @Override
     public String getGroup() {
-        return this.group;
+        return "";
     }
 
     @Override
