@@ -53,7 +53,7 @@ public class SpectralBladeItem extends SwordItem{
                 if(!level.isClientSide){
                     stack.hurtAndBreak(10, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
                     SpectralBladeEntity spectral = new SpectralBladeEntity(level, playerEntity, stack);
-                    spectral.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), (float)playerEntity.getZ() * 5, 2.5F + (float)0 * 0.5F, 3.2F);
+                    spectral.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), (float)playerEntity.getZ(), 2.5F + (float)0 * 0.5F, 3.2F);
                     if(playerEntity.getAbilities().instabuild){
                         spectral.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     }

@@ -54,7 +54,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
     public StaticAnimationState summonAnimationState = new StaticAnimationState();
     public StaticAnimationState stompAnimationState = new StaticAnimationState();
 
-    public IBossPhase currentPhase = new BossPhase(this, () -> DryadorEntity.this.getHealth() <= 500).setSound(SoundEvents.ANVIL_PLACE);
+    public IBossPhase currentPhase = new BossPhase(this, () -> DryadorEntity.this.getHealth() <= DryadorEntity.this.getMaxHealth() / 2).setSound(SoundEvents.ANVIL_PLACE);
     public static final AttackRegistry DRYADOR_RADIAL = new AttackRegistry(Valoria.ID, "dryador_radial");
     public boolean flag = !(phaseTransitionAnimationState.isStarted() || meleeAttackAnimationState.isStarted() || rangedAttackAnimationState.isStarted() || summonAnimationState.isStarted());
 

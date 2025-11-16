@@ -225,6 +225,27 @@ task apiJar(type: Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+task noSounds(type: Jar) {
+    archiveClassifier.set('nosounds')
+    from sourceSets.main.output
+    exclude("assets/valoria/sounds/**")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+task noVoice(type: Jar) {
+    archiveClassifier.set('novoice')
+    from sourceSets.main.output
+    exclude("assets/valoria/sounds/voice/**")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+task noMusicJar(type: Jar) {
+    archiveClassifier.set('nomusic')
+    from sourceSets.main.output
+    exclude("assets/valoria/sounds/music/**")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 task sourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
@@ -249,6 +270,7 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             artifact jar
+            artifact noMusicJar
             artifact sourcesJar
             artifact apiJar
         }
@@ -277,7 +299,6 @@ modrinth {
     versionName = "${version}"
     uploadFile = tasks.jar
     additionalFiles = [sourcesJar]
-    changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies {
         required.version "tridot", "${tridot_version}"
         required.project "geckolib"

@@ -272,6 +272,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.PIXIE.get(), PixieRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.KING_CRAB.get(), KingCrabRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WATER_BUBBLE.get(), WaterBubbleRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.FIRRON.get(), FirronRenderer::new);
 
             ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());

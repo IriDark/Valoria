@@ -142,7 +142,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     }
 
     public class HealTargetSpell extends AttackGoal{
-        private final TargetingConditions targeting = TargetingConditions.forCombat().range(6.0D);
+        private final TargetingConditions targeting = TargetingConditions.forCombat().range(8.0D);
 
         public HealTargetSpell(){
             this.setFlags(EnumSet.of(Flag.TARGET, Goal.Flag.LOOK));

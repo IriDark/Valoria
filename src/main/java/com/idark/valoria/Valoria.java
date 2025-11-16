@@ -277,6 +277,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.CORRUPTED.get(), CORRUPTED);
             event.put(EntityTypeRegistry.KING_CRAB.get(), KING_CRAB);
             event.put(EntityTypeRegistry.SCAVENGER.get(), SCAVENGER);
+            event.put(EntityTypeRegistry.FIRRON.get(), FIRRON);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);

@@ -100,13 +100,14 @@ public class ThrowableBomb extends ThrowableItemProjectile{
         int fuse = this.getFuse() - 1;
         this.setFuse(fuse);
         if(fuse <= 0){
-            this.discard();
-            if(!this.level().isClientSide){
+            if(!this.level().isClientSide()){
                 this.explode();
             }
+
+            this.discard();
         }else{
             this.updateInWaterStateAndDoFluidPushing();
-            if(this.level().isClientSide){
+            if(this.level().isClientSide()){
                 float yaw = this.getYRot();
                 float pitch = this.getXRot();
                 double offsetX = -Math.sin(Math.toRadians(yaw)) * 0.25;
@@ -168,8 +169,8 @@ public class ThrowableBomb extends ThrowableItemProjectile{
             pCompound.put("Item", itemstack.save(new CompoundTag()));
         }
 
-        pCompound.putShort("Fuse", (short)this.getFuse());
-        pCompound.putShort("Radius", (short)this.getRadius());
+        pCompound.putInt("Fuse", this.getFuse());
+        pCompound.putFloat("Radius", this.getRadius());
     }
 
     /**
@@ -178,8 +179,9 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         ItemStack itemstack = ItemStack.of(pCompound.getCompound("Item"));
-        this.setFuse(pCompound.getShort("Fuse"));
         this.setItem(itemstack);
+        this.setFuse(pCompound.getInt("Fuse"));
+        this.setRadius(pCompound.getFloat("Radius"));
     }
 
     protected void explode(){

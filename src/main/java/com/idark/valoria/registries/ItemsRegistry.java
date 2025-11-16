@@ -172,7 +172,7 @@ public class ItemsRegistry{
     draugrShield, crabBuckler, wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, kingCrab, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
+    pumpkinContract, goblin, kingCrab, dryador, firron, pixie, entMob, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
         blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
@@ -968,24 +968,25 @@ public class ItemsRegistry{
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
         goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, Col.hexToDecimal("185b36"), Col.hexToDecimal("6BB447"), new Item.Properties()));
-        kingCrab = registerItem("king_crab_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.KING_CRAB, Col.hexToDecimal("c82613"), Col.hexToDecimal("7a464b"), new Item.Properties()));
-        dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
-        pixie = registerItem("pixie_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.PIXIE, new Item.Properties()));
-        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Col.hexToDecimal("61523f"), Col.hexToDecimal("beb4aa"), new Item.Properties()));
         swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, Col.hexToDecimal("4d5030"), Col.hexToDecimal("b8b377"), new Item.Properties()));
         scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, Col.hexToDecimal("5D5F36"), Col.hexToDecimal("bdae86"), new Item.Properties()));
         maggot = registerItem("maggot_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.MAGGOT, Col.hexToDecimal("6F5B45"), Col.hexToDecimal("e3d0cc"), new Item.Properties()));
+        troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Col.hexToDecimal("232b3a"), Col.hexToDecimal("43596a"), new Item.Properties()));
+        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Col.hexToDecimal("61523f"), Col.hexToDecimal("beb4aa"), new Item.Properties()));
+        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, Col.hexToDecimal("6e4e3f"), Col.hexToDecimal("e09f59"), new Item.Properties()));
+        undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
+        necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
+        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
+        pixie = registerItem("pixie_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.PIXIE, new Item.Properties()));
+        dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
+        kingCrab = registerItem("king_crab_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.KING_CRAB, Col.hexToDecimal("c82613"), Col.hexToDecimal("7a464b"), new Item.Properties()));
+        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
+        firron = registerItem("firron_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FIRRON, Col.hexToDecimal("993131"), Col.hexToDecimal("fbf236"), new Item.Properties()));
         wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, Col.hexToDecimal("562a8a"), Col.hexToDecimal("ff62f8"), new Item.Properties()));
         crystal = registerItem("crystal_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.CRYSTAL, new Item.Properties()));
-        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, Col.hexToDecimal("6e4e3f"), Col.hexToDecimal("e09f59"), new Item.Properties()));
-        necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
-        undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
         shadeSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Col.hexToDecimal("373C53"), Col.hexToDecimal("6EABB7"), new Item.Properties()));
         scavenger = registerItem("scavenger_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCAVENGER, Col.hexToDecimal("88896d"), Col.hexToDecimal("74608f"), new Item.Properties()));
         scorpion = registerItem("wicked_scorpion_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_SCORPION, Col.hexToDecimal("29282b"), Col.hexToDecimal("74608f"), new Item.Properties()));
-
-        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
-        troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Col.hexToDecimal("232b3a"), Col.hexToDecimal("43596a"), new Item.Properties()));
         corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Col.hexToDecimal("41273E"), Col.hexToDecimal("884f72"), new Item.Properties()));
         corrupted = registerItem("corrupted_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED, Col.hexToDecimal("b32b17"), Col.hexToDecimal("560000"), new Item.Properties()));
         fleshSentinel = registerItem("flesh_sentinel_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FLESH_SENTINEL, Col.hexToDecimal("720706"), Col.hexToDecimal("ffc650"), new Item.Properties()));
