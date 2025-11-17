@@ -48,6 +48,10 @@
       {
         "name": "valoria:music/explore",
         "stream": true
+      },
+      {
+        "name": "valoria:music/old_times",
+        "stream": true
       }
     ]
   },
@@ -90,6 +94,10 @@
         "stream": true
       },
       {
+        "name": "valoria:music/old_times",
+        "stream": true
+      },
+      {
         "name": "valoria:music/singing_skies",
         "stream": true
       }
@@ -99,6 +107,10 @@
     "sounds": [
       {
         "name": "valoria:music/enduring",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/old_times",
         "stream": true
       },
       {
@@ -139,6 +151,10 @@
       },
       {
         "name": "valoria:music/explore",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/old_times",
         "stream": true
       }
     ]
