@@ -97,6 +97,7 @@ The sky itself is broken. A malevolent red planet now hangs in the eternal night
 * Obscure Tooltips: built-in
 * Every Compat: Since 1.0r
 * Epic Fight: [Download - CurseForge](https://www.curseforge.com/minecraft/data-packs/valoria-ef-compat)
+* (Community Addon) Dynamic Trees: [Download - CurseForge](https://www.curseforge.com/minecraft/mc-mods/dynamic-trees-valoria)
 
 Feel free to suggest mod compats - [GitHub](https://github.com/IriDark/Valoria-Suggestions)
 
@@ -107,7 +108,30 @@ Feel free to suggest mod compats - [GitHub](https://github.com/IriDark/Valoria-S
 * ![flag_pl.png](src/main/resources/assets/valoria/textures/banners/flag_pl.png) Polish (not fully translated)   - by  𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆  
 * ![flag_ru.png](src/main/resources/assets/valoria/textures/banners/flag_ru.png) Russian - by Ruthenium, TerraPrime, Kerdo   
 * ![flag_fr.png](src/main/resources/assets/valoria/textures/banners/flag_fr.png) French (not fully translated) - by  𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆
+* ![flag_cn.png](src/main/resources/assets/valoria/textures/banners/flag_cn.png) Chinese - by 蓝龙奈特萨玛（Azurmardraco BlueDragon）
 
 Not found your language or want to maintain translations? Feel free to translate and PR - [GitHub](https://github.com/IriDark/Valoria/blob/main/CONTRIBUTING.md)
+
+
+**Contributors**
+---
+    AstemirDev | Code |
+    Auriny | Code | Testing |
+    Skoow | Code |
+    Sunday | Models |
+    Kerdo | Animations | SFX | Ideas | Contributions |
+    Ruthenium | Russian Translate |
+    TerraPrime | Russian Translate |
+    𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆 | French Translate | Polish Translate |
+    蓝龙奈特萨玛（Azurmardraco BlueDragon）| Chinese Translate |
+    Pandafolk_Ravio_Li  
+    Rofoo  
+    KoteykaTheCat  
+    GraFik  
+    Wosaj  
+    Rainach  
+    .sweetberries  
+    Feimos  
+    Avacuoss  
 
 
