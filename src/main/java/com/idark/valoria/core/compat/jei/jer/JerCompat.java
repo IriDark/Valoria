@@ -2,22 +2,16 @@ package com.idark.valoria.core.compat.jei.jer;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.level.*;
 import jeresources.api.*;
-import jeresources.api.conditionals.*;
-import jeresources.api.distributions.*;
-import jeresources.api.drop.*;
-import jeresources.api.restrictions.*;
 import jeresources.compatibility.api.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 
 @JERPlugin
-public class JerCompat{
+public class JerCompat {
 
     @OnlyIn(Dist.CLIENT)
     public static void onClientPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
@@ -36,24 +30,24 @@ public class JerCompat{
     public static void init(){
         IJERAPI jerApi = JERAPI.getInstance();
         IDungeonRegistry dungeonRegistry = jerApi.getDungeonRegistry();
-        IWorldGenRegistry worldGenRegistry = JERAPI.getInstance().getWorldGenRegistry();
-        if(worldGenRegistry != null) oreRegistry(worldGenRegistry);
+//        IWorldGenRegistry worldGenRegistry = JERAPI.getInstance().getWorldGenRegistry();
+//        if(worldGenRegistry != null) oreRegistry(worldGenRegistry);
         if(dungeonRegistry != null) dungeonRegistry(dungeonRegistry);
     }
 
-    private static void oreRegistry(IWorldGenRegistry worldGenRegistry){
-        worldGenRegistry.register(new ItemStack(BlockRegistry.sapphireOre.get()), new ItemStack(BlockRegistry.deepslateSapphireOre.get()), new DistributionSquare(3, 4, -64, 16), new LootDrop(new ItemStack(ItemsRegistry.sapphireGem.get()), 2, 5, Conditional.affectedByFortune));
-        worldGenRegistry.register(new ItemStack(BlockRegistry.pearliumOre.get()), new DistributionSquare(7, 14, -64, 42), new LootDrop(new ItemStack(ItemsRegistry.pearliumIngot.get()), 2, 5, Conditional.affectedByFortune));
-        worldGenRegistry.register(new ItemStack(BlockRegistry.cobaltOre.get()), new ItemStack(BlockRegistry.deepslateCobaltOre.get()), new DistributionSquare(4, 8, -64, 6), new LootDrop(new ItemStack(ItemsRegistry.rawCobalt.get()), 1, 1, Conditional.affectedByFortune));
-        worldGenRegistry.register(new ItemStack(BlockRegistry.amberOre.get()), new ItemStack(BlockRegistry.deepslateAmberOre.get()), new DistributionSquare(3, 4, -64, 32), new LootDrop(new ItemStack(ItemsRegistry.amberGem.get()), 2, 5, Conditional.affectedByFortune));
-        worldGenRegistry.register(new ItemStack(BlockRegistry.rubyOre.get()), new ItemStack(BlockRegistry.deepslateRubyOre.get()), new DistributionSquare(2, 4, -64, 8), new LootDrop(new ItemStack(ItemsRegistry.rubyGem.get()), 2, 5, Conditional.affectedByFortune));
-
-        // Valoria
-        worldGenRegistry.register(new ItemStack(BlockRegistry.jadeOre.get()), new ItemStack(BlockRegistry.picriteJadeOre.get()), new DistributionSquare(6, 3, -64, 6), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.jade.get()), 2, 5, Conditional.affectedByFortune));
-        worldGenRegistry.register(new ItemStack(BlockRegistry.pyratiteOre.get()), new DistributionSquare(6, 5, -64, 32), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.pyratite.get()), 1, 1, Conditional.affectedByFortune));
-        worldGenRegistry.register(new ItemStack(BlockRegistry.wickedAmethystOre.get()), new DistributionSquare(8, 14, -64, 42), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.wickedAmethyst.get()), 1, 3, Conditional.affectedByFortune));
-        worldGenRegistry.register(new ItemStack(BlockRegistry.dormantCrystals.get()), new DistributionSquare(6, 8, -64, 42), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.unchargedShard.get()), 1, 3, Conditional.affectedByFortune));
-    }
+//    private static void oreRegistry(IWorldGenRegistry worldGenRegistry){
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.sapphireOre.get()), new ItemStack(BlockRegistry.deepslateSapphireOre.get()), new DistributionSquare(3, 4, -64, 16), new LootDrop(new ItemStack(ItemsRegistry.sapphireGem.get()), 2, 5, Conditional.affectedByFortune));
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.pearliumOre.get()), new DistributionSquare(7, 14, -64, 42), new LootDrop(new ItemStack(ItemsRegistry.pearliumIngot.get()), 2, 5, Conditional.affectedByFortune));
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.cobaltOre.get()), new ItemStack(BlockRegistry.deepslateCobaltOre.get()), new DistributionSquare(4, 8, -64, 6), new LootDrop(new ItemStack(ItemsRegistry.rawCobalt.get()), 1, 1, Conditional.affectedByFortune));
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.amberOre.get()), new ItemStack(BlockRegistry.deepslateAmberOre.get()), new DistributionSquare(3, 4, -64, 32), new LootDrop(new ItemStack(ItemsRegistry.amberGem.get()), 2, 5, Conditional.affectedByFortune));
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.rubyOre.get()), new ItemStack(BlockRegistry.deepslateRubyOre.get()), new DistributionSquare(2, 4, -64, 8), new LootDrop(new ItemStack(ItemsRegistry.rubyGem.get()), 2, 5, Conditional.affectedByFortune));
+//
+//        // Valoria
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.jadeOre.get()), new ItemStack(BlockRegistry.picriteJadeOre.get()), new DistributionSquare(6, 3, -64, 6), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.jade.get()), 2, 5, Conditional.affectedByFortune));
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.pyratiteOre.get()), new DistributionSquare(6, 5, -64, 32), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.pyratite.get()), 1, 1, Conditional.affectedByFortune));
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.wickedAmethystOre.get()), new DistributionSquare(8, 14, -64, 42), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.wickedAmethyst.get()), 1, 3, Conditional.affectedByFortune));
+//        worldGenRegistry.register(new ItemStack(BlockRegistry.dormantCrystals.get()), new DistributionSquare(6, 8, -64, 42), new Restriction(new DimensionRestriction(LevelGen.VALORIA_KEY)), new LootDrop(new ItemStack(ItemsRegistry.unchargedShard.get()), 1, 3, Conditional.affectedByFortune));
+//    }
 
     private static void dungeonRegistry(IDungeonRegistry dungeonRegistry){
         dungeonRegistry.registerChest("Fortress", new ResourceLocation(Valoria.ID, "chests/fortress"));

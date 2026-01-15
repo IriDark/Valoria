@@ -95,7 +95,7 @@ public class ItemsRegistry{
     natureGift, oceanicShell, infernalStone, rottenBone, marshCloth, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore, unstableCore,
     valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
-    gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece, crabClaw, crabShell,
+    gaibRoot, karusakanRoot, shadeBlossomLeaf, shadeBlossomSeeds, aloePiece, crabClaw, crabShell,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, jade, pyratite, relicGold, ancientShard,
     emptyGazer, emptyWinglet, emptyTotem,
@@ -160,7 +160,7 @@ public class ItemsRegistry{
     nihilityMonitor, respirator, gasMask,
 
     // runes
-    lesserRune, lesserRuneVision, lesserRuneWealth, lesserRuneCurses, lesserRuneStrength, lesserRuneAccuracy, lesserRuneDeep,
+    lithicRune, lithicRuneVision, lithicRuneWealth, lithicRuneCurses, lithicRuneStrength, lithicRuneAccuracy, lithicRuneDeep,
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
@@ -172,7 +172,7 @@ public class ItemsRegistry{
     draugrShield, crabBuckler, wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, kingCrab, dryador, firron, pixie, entMob, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
+    pumpkinContract, goblin, firron, pixie, entMob, natureGolem, dryador, riverGolem, kingCrab, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
         blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
@@ -245,6 +245,8 @@ public class ItemsRegistry{
         karusakanRoot = registerItem("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
         aloePiece = registerItem("aloe_piece");
         shadeBlossomLeaf = registerItem("shade_blossom_leaf");
+        shadeBlossomSeeds = registerItem("shade_blossom_seeds", () -> new ItemNameBlockItem(BlockRegistry.shadeBlossom.get(), new Item.Properties()));
+
         crabClaw = registerItem("crab_claw");
         crabShell = registerItem("crab_shell");
         runicDust = registerItem("runic_dust");
@@ -883,7 +885,7 @@ public class ItemsRegistry{
         medicatedHarmonyHeart = registerItem("medicated_harmony_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         elementalCharm = registerItem("elemental_charm", () -> new ElementalCharmItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.ELEMENTAL)));
 
-        lesserRune = registerItem("lesser_rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)){
+        lithicRune = registerItem("lithic_rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)){
             @Override
             public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
                 super.appendHoverText(stack, world, tooltip, flags);
@@ -891,12 +893,12 @@ public class ItemsRegistry{
             }
         });
 
-        lesserRuneVision = registerItem("lesser_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON),  1200));
-        lesserRuneWealth = registerItem("lesser_rune_of_wealth", () -> new CurioWealth(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        lesserRuneCurses = registerItem("lesser_rune_of_curses", () -> new CurioCurses(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        lesserRuneStrength = registerItem("lesser_rune_of_strength", () -> new CurioStrength(0.025f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        lesserRuneAccuracy = registerItem("lesser_rune_of_accuracy", () -> new RuneAccuracy(0.05f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        lesserRuneDeep = registerItem("lesser_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lithicRuneVision = registerItem("lithic_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON),  1200));
+        lithicRuneWealth = registerItem("lithic_rune_of_wealth", () -> new CurioWealth(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lithicRuneCurses = registerItem("lithic_rune_of_curses", () -> new CurioCurses(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lithicRuneStrength = registerItem("lithic_rune_of_strength", () -> new CurioStrength(0.025f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lithicRuneAccuracy = registerItem("lithic_rune_of_accuracy", () -> new RuneAccuracy(0.05f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lithicRuneDeep = registerItem("lithic_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         rune = registerItem("rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)){
             @Override
             public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
@@ -920,9 +922,9 @@ public class ItemsRegistry{
         shadeBlossomBandage = registerItem("shade_blossom_bandage", () -> new BandageItem(true, 1800, 1)); //todo custom effect
 
         //consumables
-        healingVial = registerItem("healing_vial", () -> new HealingConsumableItem(10, 5, new Item.Properties()));
-        healingFlask = registerItem("healing_flask", () -> new HealingConsumableItem(15, 10, new Item.Properties()));
-        healingElixir = registerItem("healing_elixir", () -> new HealingConsumableItem(35, 15, new Item.Properties()));
+        healingVial = registerItem("healing_vial", () -> new HealingConsumableItem(15, 5, new Item.Properties()));
+        healingFlask = registerItem("healing_flask", () -> new HealingConsumableItem(25, 10, new Item.Properties()));
+        healingElixir = registerItem("healing_elixir", () -> new HealingConsumableItem(40, 15, new Item.Properties()));
         cleansingVial = registerItem("cleansing_vial", () -> new CleansingConsumableItem(20, new MobEffectInstance(MobEffects.WEAKNESS, 400, 0), new Item.Properties()));
         cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 400, 1), new Item.Properties()));
         cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 400, 2), new Item.Properties()));
@@ -977,6 +979,8 @@ public class ItemsRegistry{
         undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
         necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
         entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
+        natureGolem = registerItem("nature_golem_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NATURE_GOLEM, Col.hexToDecimal("4a4e56"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
+        riverGolem = registerItem("river_golem_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.RIVER_GOLEM, Col.hexToDecimal("4a4e56"), Col.colorToDecimal(Pal.oceanic.toJava()), new Item.Properties()));
         pixie = registerItem("pixie_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.PIXIE, new Item.Properties()));
         dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
         kingCrab = registerItem("king_crab_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.KING_CRAB, Col.hexToDecimal("c82613"), Col.hexToDecimal("7a464b"), new Item.Properties()));

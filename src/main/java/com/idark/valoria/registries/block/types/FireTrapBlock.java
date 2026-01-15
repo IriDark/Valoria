@@ -29,7 +29,6 @@ public class FireTrapBlock extends Block{
     public ColorParticleData color;
     public final ImmutableList<MobEffectInstance> effects;
 
-
     public FireTrapBlock(BlockState pState, float pDamage, int pSecondsOnFire, ColorParticleData pColor, BlockBehaviour.Properties properties){
         super(properties);
         this.damage = pDamage;

@@ -37,7 +37,6 @@ public class SpectralBladeEntity extends AbstractSupplierProjectile{
         double a4 = vector3d.y;
         double a0 = vector3d.z;
         this.setDeltaMovement(a3, 0, a0);
-        spawnParticleTrail(level(), this, new Vec3(this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 2.0D));
         if(isInWater()){
             if(!this.level().isClientSide()){
                 this.removeAfterChangingDimensions();
@@ -52,6 +51,7 @@ public class SpectralBladeEntity extends AbstractSupplierProjectile{
             }
         }
 
+        if(this.level().isClientSide()) spawnParticleTrail(level(), this, new Vec3(this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 2.0D));
         super.tick();
     }
 

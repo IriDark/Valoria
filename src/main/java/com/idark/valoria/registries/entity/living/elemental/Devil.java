@@ -162,7 +162,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new net.minecraft.world.entity.ai.goal.MeleeAttackGoal(this, 1, false));
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
 //        this.goalSelector.addGoal(0, new MagicAttackGoal(this, 1.0D));
         this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 12.0F));
         this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 16, 1.25, 2, isLowHP()));

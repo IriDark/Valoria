@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "valoria:block/shade_blossom"
+    "age=0": {
+      "model": "valoria:block/shade_blossom_0"
+    },
+    "age=1": {
+      "model": "valoria:block/shade_blossom_1"
+    },
+    "age=2": {
+      "model": "valoria:block/shade_blossom_2"
+    },
+    "age=3": {
+      "model": "valoria:block/shade_blossom_3"
+    },
+    "age=4": {
+      "model": "valoria:block/shade_blossom_4"
     }
   }
 }

@@ -87,4 +87,9 @@ public class WickedScorpionModel<T extends WickedScorpion> extends AbstractHiera
     public ModelPart root(){
         return this.root;
     }
+
+    @Override
+    public ModelPart getHead(){
+        return null;
+    }
 }

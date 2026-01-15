@@ -52,4 +52,9 @@ public class EntModel<T extends Ent> extends AbstractHierarchicalModel<T>{
     public ModelPart root(){
         return root;
     }
+
+    @Override
+    public ModelPart getHead(){
+        return null;
+    }
 }

@@ -52,6 +52,9 @@ public class BlockRegistry{
     cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, cobbledShaleBricks, cobbledShaleBricksStairs, cobbledShaleBricksSlab, cobbledShaleBricksWall, crackedCobbledShaleBricks, crackedCobbledShaleBricksStairs, crackedCobbledShaleBricksSlab, crackedCobbledShaleBricksWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall, cobbledShaleFirechargeTrap, cobbledShaleSpikesTrap,
     deepMarble, deepMarbleStairs, deepMarbleSlab, deepMarbleWall, polishedDeepMarble, polishedDeepMarbleStairs, polishedDeepMarbleSlab, polishedDeepMarbleWall,
     dunestone, dunestoneStairs, dunestoneSlab, dunestoneWall, dunestoneBricks, dunestoneBricksStairs, dunestoneBricksSlab, dunestoneBricksWall, cutDunestone, polishedDunestone, //other varities?
+    ash, ashStairs, ashSlab, ashWall, ashBricks, ashBricksStairs, ashBricksSlab, ashBricksWall, ashTiles,
+    polishedAsh, polishedAshStairs, polishedAshSlab, polishedAshWall, polishedAshBricks, polishedAshBricksStairs, polishedAshBricksSlab, polishedAshBricksWall, polishedAshTiles,
+    smoothAsh, smoothAshStairs, smoothAshSlab, smoothAshWall,
 
     // crafting stations
     heavyWorkbench, alchemyStationTier1, alchemyStationTier2, alchemyStationTier3, alchemyStationTier4, stoneCrusher, jewelerTable, keg, tinkererWorkbench, soulInfuser, elementalManipulator, kiln,
@@ -261,6 +264,33 @@ public class BlockRegistry{
         polishedAmbaneStoneSlab = registerBlock("polished_ambane_stone_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
         cutAmbaneStone = registerBlock("cut_ambane_stone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
         chiseledAmbaneStoneBricks = registerBlock("chiseled_ambane_stone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+
+        ash = registerBlock("ash", () -> new Block(props(Blocks.STONE, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        ashStairs = registerBlock("ash_stairs", () -> new StairBlock(() -> BlockRegistry.ash.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        ashSlab = registerBlock("ash_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        ashWall = registerBlock("ash_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        ashTiles = registerBlock("ash_tiles", () -> new Block(props(Blocks.STONE, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+
+        ashBricks = registerBlock("ash_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        ashBricksStairs = registerBlock("ash_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.ashBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        ashBricksSlab = registerBlock("ash_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        ashBricksWall = registerBlock("ash_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+
+        polishedAsh = registerBlock("polished_ash", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        polishedAshStairs = registerBlock("polished_ash_stairs", () -> new StairBlock(() -> BlockRegistry.polishedAsh.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        polishedAshSlab = registerBlock("polished_ash_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        polishedAshWall = registerBlock("polished_ash_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        polishedAshTiles = registerBlock("polished_ash_tiles", () -> new Block(props(Blocks.STONE, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+
+        polishedAshBricks = registerBlock("polished_ash_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        polishedAshBricksStairs = registerBlock("polished_ash_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.polishedAshBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        polishedAshBricksSlab = registerBlock("polished_ash_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        polishedAshBricksWall = registerBlock("polished_ash_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+
+        smoothAsh = registerBlock("smooth_ash", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        smoothAshStairs = registerBlock("smooth_ash_stairs", () -> new StairBlock(() -> BlockRegistry.smoothAsh.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        smoothAshSlab = registerBlock("smooth_ash_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
+        smoothAshWall = registerBlock("smooth_ash_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_GRAY).requiresCorrectToolForDrops()));
 
         eyeStone = registerBlock("eye_stone", () -> new Block(props(Blocks.DEEPSLATE, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 6f)));
         voidStone = registerBlock("void_stone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));

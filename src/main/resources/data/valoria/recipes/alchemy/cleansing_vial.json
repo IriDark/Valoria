@@ -2,7 +2,9 @@
   "group": "potions",
   "type": "valoria:alchemy",
   "ingredients": [
-    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 4 }
+    { "ingredient": { "item": "minecraft:glass_bottle" }, "count": 1 },
+    { "ingredient": { "item": "valoria:tainted_berries" }, "count": 1 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 4 }
   ],
   "result": {
     "item": "valoria:cleansing_vial",

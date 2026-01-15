@@ -1,9 +1,0 @@
-{
-  "type": "valoria:kiln",
-  "ingredient": {
-    "item": "minecraft:cobblestone"
-  },
-  "experience": 0.15,
-  "cookingtime": 120,
-  "result": "valoria:lesser_rune"
-}

@@ -31,7 +31,6 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
     private int idleAnimationTimeout = 0;
     public int tailAttackAnimationTime = 0;
     public int spitAttackAnimationTime = 0;
-    private int animatedDeathTime;
 
     public WickedScorpion(EntityType<? extends WickedScorpion> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -294,12 +293,12 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
         @Override
         public SoundEvent getPrepareSound() {
             return null;
-        }  //todo
+        }
 
         @Override
         public SoundEvent getAttackSound() {
             return SoundEvents.PHANTOM_BITE;
-        } // todo
+        }
 
         @Override
         public AttackRegistry getAttack() {

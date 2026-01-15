@@ -215,6 +215,44 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder{
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.dunestoneBricksSlab.get(), BlockRegistry.dunestoneBricks.get(), 2);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.dunestoneBricksWall.get(), BlockRegistry.dunestoneBricks.get(), 1);
 
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashTiles.get(), BlockRegistry.ash.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashBricks.get(), BlockRegistry.ash.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashBricksSlab.get(), BlockRegistry.ashBricks.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashBricksStairs.get(), BlockRegistry.ashBricks.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashBricksWall.get(), BlockRegistry.ashBricks.get(), 1);
+
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAsh.get(), BlockRegistry.ash.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshSlab.get(), BlockRegistry.ashBricks.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshStairs.get(), BlockRegistry.ashBricks.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshWall.get(), BlockRegistry.ashBricks.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshBricks.get(), BlockRegistry.ashBricks.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshBricks.get(), BlockRegistry.polishedAsh.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshBricksSlab.get(), BlockRegistry.polishedAshBricks.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshBricksStairs.get(), BlockRegistry.polishedAshBricks.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshTiles.get(), BlockRegistry.polishedAsh.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.smoothAsh.get(), BlockRegistry.polishedAsh.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.smoothAshSlab.get(), BlockRegistry.smoothAsh.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.smoothAshStairs.get(), BlockRegistry.smoothAsh.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.smoothAshWall.get(), BlockRegistry.smoothAsh.get(), 1);
+
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashSlab.get(), BlockRegistry.ash.get());
+        stairs(pWriter, BlockRegistry.ashStairs.get(), BlockRegistry.ash.get());
+        wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashWall.get(), BlockRegistry.ash.get());
+        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAsh.get(), BlockRegistry.ash.get());
+
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshSlab.get(), BlockRegistry.polishedAsh.get());
+        stairs(pWriter, BlockRegistry.polishedAshStairs.get(), BlockRegistry.polishedAsh.get());
+        wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAshWall.get(), BlockRegistry.polishedAsh.get());
+        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.smoothAsh.get(), BlockRegistry.polishedAsh.get());
+
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.smoothAshSlab.get(), BlockRegistry.smoothAsh.get());
+        stairs(pWriter, BlockRegistry.smoothAshStairs.get(), BlockRegistry.smoothAsh.get());
+        wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.smoothAshWall.get(), BlockRegistry.smoothAsh.get());
+
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashBricksSlab.get(), BlockRegistry.ashBricks.get());
+        stairs(pWriter, BlockRegistry.ashBricksStairs.get(), BlockRegistry.ashBricks.get());
+        wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ashBricksWall.get(), BlockRegistry.ashBricks.get());
+
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedLimestone.get(), BlockRegistry.limestone.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.limestoneStairs.get(), BlockRegistry.limestone.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.limestoneSlab.get(), BlockRegistry.limestone.get(), 2);
@@ -315,12 +353,12 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder{
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ephemariteSlab.get(), BlockRegistry.ephemarite.get());
         stairs(pWriter, BlockRegistry.ephemariteStairs.get(), BlockRegistry.ephemarite.get());
         wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ephemariteWall.get(), BlockRegistry.ephemarite.get());
-        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ephemarite.get(), BlockRegistry.polishedEphemarite.get());
+        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemarite.get(), BlockRegistry.ephemarite.get());
 
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ephemariteLowSlab.get(), BlockRegistry.ephemariteLow.get());
         stairs(pWriter, BlockRegistry.ephemariteLowStairs.get(), BlockRegistry.ephemariteLow.get());
         wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ephemariteLowWall.get(), BlockRegistry.ephemariteLow.get());
-        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ephemariteLow.get(), BlockRegistry.polishedEphemariteLow.get());
+        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteLow.get(), BlockRegistry.ephemariteLow.get());
 
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteSlab.get(), BlockRegistry.polishedEphemarite.get());
         stairs(pWriter, BlockRegistry.polishedEphemariteStairs.get(), BlockRegistry.polishedEphemarite.get());

@@ -47,7 +47,7 @@ public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSyste
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
 
-        this.selector.addAttack(new TridotMeleeAttack(this, 1, 4, 35, 20, 60));
+        this.selector.addAttack(new TridotMeleeAttack(this, 1, 3, 5, 20, 35));
     }
 
     public void tick(){

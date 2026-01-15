@@ -42,6 +42,20 @@ import java.util.function.*;
 
 public class ValoriaUtils{
 
+    public static int getCurrentNBTValue(String key, ItemStack pStack) {
+        return pStack.getOrCreateTag().getInt(key);
+    }
+
+    public static void shrinkNBT(String key, int count, ItemStack pStack){
+        pStack.getOrCreateTag().putInt(key, Math.max(getCurrentNBTValue(key, pStack) - count, 0));
+    }
+
+    public static void addNBT(String key, int count, int max, ItemStack pStack){
+        if(getCurrentNBTValue(key, pStack) < max){
+            pStack.getOrCreateTag().putInt(key, getCurrentNBTValue(key, pStack) + count);
+        }
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static void renderText(LivingEntity entityIn, Col textColor, Component component, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, int time){
         ILivingEntityData data = (ILivingEntityData) entityIn;

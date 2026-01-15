@@ -9,6 +9,7 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.render.entity.*;
+import com.idark.valoria.client.render.item.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.client.sounds.*;
@@ -21,6 +22,7 @@ import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.component.client.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
@@ -40,6 +42,7 @@ import net.minecraftforge.common.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.registries.*;
 import org.lwjgl.glfw.*;
 import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.client.model.render.entity.*;
@@ -189,6 +192,15 @@ public class ValoriaClient{
         }
 
         @SubscribeEvent
+        public static void OnAddItemDecorators(RegisterItemDecorationsEvent e) {
+            for(var item : ForgeRegistries.ITEMS){
+                if(item.isEdible() && item.getDefaultInstance().getUseAnimation() == UseAnim.EAT && !(item instanceof ValoriaFood)){
+                    e.register(item, new NihilityDecorator());
+                }
+            }
+        }
+
+        @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event){
             ClientBossbarRegistry.register(Valoria.loc("basic"), BasicBossbar.class);
             MinecraftForge.EVENT_BUS.register(new NihilityMeterRender());
@@ -273,6 +285,8 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.KING_CRAB.get(), KingCrabRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WATER_BUBBLE.get(), WaterBubbleRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.FIRRON.get(), FirronRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.NATURE_GOLEM.get(), NatureGolemRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.RIVER_GOLEM.get(), RiverGolemRenderer::new);
 
             ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());

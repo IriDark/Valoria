@@ -1,0 +1,9 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "item": "minecraft:stone"
+  },
+  "experience": 0.15,
+  "cookingtime": 120,
+  "result": "valoria:lithic_rune"
+}

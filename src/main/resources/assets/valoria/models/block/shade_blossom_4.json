@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:block/shade_blossom",
+  "textures": {
+    "all": "valoria:block/shade_blossom_4"
+  }
+}

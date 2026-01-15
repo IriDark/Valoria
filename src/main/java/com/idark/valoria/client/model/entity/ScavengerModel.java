@@ -1,6 +1,4 @@
-package com.idark.valoria.client.model.entity;// Made with Blockbench 4.12.6
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
+package com.idark.valoria.client.model.entity;
 
 
 import com.idark.valoria.client.model.animations.*;
@@ -72,5 +70,10 @@ public class ScavengerModel<T extends Scavenger> extends AbstractHierarchicalMod
     @Override
     public ModelPart root(){
         return root;
+    }
+
+    @Override
+    public ModelPart getHead(){
+        return null;
     }
 }

@@ -1,0 +1,13 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:shade_blossom_leaf" }, "count": 4 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:glass_bottle" }, "count": 1 }
+  ],
+  "result": {
+    "item": "valoria:clarity_vial",
+    "count": 1
+  }
+}

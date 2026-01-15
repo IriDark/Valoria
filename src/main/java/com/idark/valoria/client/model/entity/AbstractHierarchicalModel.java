@@ -12,9 +12,7 @@ public abstract class AbstractHierarchicalModel<T extends Entity> extends Hierar
         return true;
     }
 
-    public ModelPart getHead() {
-        return null;
-    };
+    public abstract ModelPart getHead();
 
     protected void animateIdle(AnimationState pAnimationState, AnimationDefinition pAnimationDefinition, float pLimbSwingAmount, float pAgeInTicks, float pAnimationSpeed) {
         if(pLimbSwingAmount < 0.001) {

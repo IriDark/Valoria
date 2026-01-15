@@ -48,6 +48,7 @@ import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.event.*;
+import net.minecraftforge.event.TickEvent.*;
 import net.minecraftforge.event.entity.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
@@ -205,6 +206,27 @@ public class Events{
                 tooltip.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
             }
         }
+
+        int foodRot = ValoriaUtils.getCurrentNBTValue("ValoriaRot", stack);
+        if(foodRot > 0) {
+            String stageKey;
+            ChatFormatting color;
+
+            if (foodRot >= 60) {
+                stageKey = "tooltip.valoria.stage.rotting";
+                color = ChatFormatting.RED;
+            } else if (foodRot >= 30) {
+                stageKey = "tooltip.valoria.stage.stale";
+                color = ChatFormatting.YELLOW;
+            } else {
+                stageKey = "tooltip.valoria.stage.fresh";
+                color = ChatFormatting.GREEN;
+            }
+
+            var status = Component.translatable(stageKey).withStyle(color);
+            var line = Component.translatable("tooltip.valoria.rot_status", status, foodRot).withStyle(ChatFormatting.GRAY);
+            tooltip.add(1, line);
+        }
     }
 
     @SubscribeEvent
@@ -262,24 +284,6 @@ public class Events{
                 player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
             }
         }
-
-        if(CommonConfig.FOOD_ROT.get()){
-            for(int i = 0; i < player.getInventory().getContainerSize(); i++){
-                ItemStack stack = player.getInventory().getItem(i);
-                if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
-                    ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
-                    CompoundTag tag = rot.getOrCreateTag();
-                    rot.setTag(tag.copy());
-                    var key = ForgeRegistries.ITEMS.getKey(stack.getItem());
-                    if(key == null) return;
-
-                    tag.putString("OriginalItem", key.toString());
-                    rot.setTag(tag);
-                    rot.setCount(stack.getCount());
-                    player.getInventory().setItem(i, rot);
-                }
-            }
-        }
     }
 
     @SubscribeEvent
@@ -309,6 +313,44 @@ public class Events{
                 player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
             }
         }
+
+        if(CommonConfig.FOOD_ROT.get()){
+            if(player.level().dimension().equals(LevelGen.VALORIA_KEY)){
+                if(player.tickCount % 60 == 0){
+                    Inventory inv = player.getInventory();
+                    for(int i = 0; i < inv.getContainerSize(); i++){
+                        ItemStack stack = inv.getItem(i);
+                        if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
+                            CompoundTag tag = stack.getOrCreateTag();
+                            ValoriaUtils.addNBT("ValoriaRot", 1, 100, stack);
+                            int rot = tag.getInt("ValoriaRot");
+                            if(rot == 100){
+                                convertToRot(event, stack, inv, i);
+                            }else{
+                                tag.putInt("ValoriaRot", rot);
+                                stack.setTag(tag);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void convertToRot(PlayerTickEvent event, ItemStack stack, Inventory inv, int i){
+        CompoundTag tag;
+        ItemStack rotStack = new ItemStack(ItemsRegistry.rot.get());
+        tag = rotStack.getOrCreateTag();
+
+        rotStack.setTag(tag.copy());
+        var key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        if(key == null) return;
+
+        tag.putString("OriginalItem", key.toString());
+        rotStack.setTag(tag);
+        rotStack.setCount(stack.getCount());
+        inv.setItem(i, rotStack);
+        event.player.playSound(SoundEvents.FROGSPAWN_PLACE);
     }
 
     @SubscribeEvent

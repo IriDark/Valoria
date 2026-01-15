@@ -29,6 +29,9 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = register("mannequin", EntityType.Builder.of(MannequinEntity::new, MobCategory.MISC).sized(0.6f, 1.95f).clientTrackingRange(4).updateInterval(4));
     public static final RegistryObject<EntityType<SorcererEntity>> SORCERER = register("sorcerer", EntityType.Builder.<SorcererEntity>of(SorcererEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Ent>> ENT = register("ent", EntityType.Builder.of(Ent::new, MobCategory.MONSTER).sized(0.8f, 2.0f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<NatureGolem>> NATURE_GOLEM = register("nature_golem", EntityType.Builder.<NatureGolem>of(NatureGolem::new, MobCategory.CREATURE).sized(1.5f, 2.65f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<RiverGolem>> RIVER_GOLEM = register("river_golem", EntityType.Builder.<RiverGolem>of(RiverGolem::new, MobCategory.CREATURE).sized(1.5f, 2.65f).clientTrackingRange(8));
+
     public static final RegistryObject<EntityType<MaggotEntity>> MAGGOT = register("maggot", EntityType.Builder.<MaggotEntity>of(MaggotEntity::new, MobCategory.MONSTER).sized(0.4F, 0.3F).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Corrupted>> CORRUPTED = register("corrupted", EntityType.Builder.of(Corrupted::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<KingCrabEntity>> KING_CRAB = register("king_crab", EntityType.Builder.of(KingCrabEntity::new, MobCategory.MONSTER).sized(2, 1.5f).clientTrackingRange(8));

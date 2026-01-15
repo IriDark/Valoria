@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
+    "valoria:ash_wall",
+    "valoria:ash_bricks_wall",
+    "valoria:polished_ash_wall",
+    "valoria:polished_ash_bricks_wall",
+    "valoria:smooth_ash_wall",
     "valoria:cut_tombstone_wall",
     "valoria:void_sandstone_wall",
     "valoria:cobbled_shale_wall",

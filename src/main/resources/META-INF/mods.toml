@@ -23,7 +23,7 @@ side = "BOTH"
 [[dependencies.valoria]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.20.1,1.21)"
+versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.valoria]]
@@ -41,7 +41,7 @@ side = "BOTH"
 [[dependencies.valoria]]
 modId = "tridot"
 mandatory = true
-versionRange = "[1.20.1-1.0.117,)"
+versionRange = "${tridot_version_range}"
 ordering = "AFTER"
 side = "BOTH"
 [modproperties.valoria]

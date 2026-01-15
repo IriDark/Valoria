@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/ash_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/ash"
+    },
+    "type=top": {
+      "model": "valoria:block/ash_slab_top"
+    }
+  }
+}

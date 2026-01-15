@@ -98,6 +98,8 @@ public class Valoria{
         ParticleRegistry.register(eventBus);
         ModArgumentTypes.register(eventBus);
         SkinRegistryManager.getInstance().registerSkinProvider(new SkinsRegistry());
+        ItemTabRegistry.register(eventBus);
+        SoundsRegistry.register(eventBus);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         ModLoadingContext.get().registerConfig(Type.SERVER, ServerConfig.SPEC);
@@ -109,11 +111,9 @@ public class Valoria{
             return new Object();
         });
 
-        ItemTabRegistry.register(eventBus);
         eventBus.addListener(ItemTabRegistry::addCreative);
-        SoundsRegistry.register(eventBus);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        eventBus.addListener(this::setup);
+        eventBus.addListener(this::clientSetup);
         forgeBus.addListener(Events::onMissingMappings);
 
         forgeBus.register(this);
@@ -244,6 +244,8 @@ public class Valoria{
                 SpawnPlacements.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.SORCERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SorcererEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.ENT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Ent::checkEntSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.NATURE_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, NatureGolem::checkSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.RIVER_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, RiverGolem::checkSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.MAGGOT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MaggotEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.CORRUPTED.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Corrupted::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.KING_CRAB.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, KingCrabEntity::checkMonsterSpawnRules);
@@ -271,6 +273,8 @@ public class Valoria{
             event.put(EntityTypeRegistry.WICKED_SHIELD.get(), WICKED_SHIELD);
             event.put(EntityTypeRegistry.CRYSTAL.get(), CRYSTAL);
             event.put(EntityTypeRegistry.ENT.get(), ENT);
+            event.put(EntityTypeRegistry.NATURE_GOLEM.get(), NATURE_GOLEM);
+            event.put(EntityTypeRegistry.RIVER_GOLEM.get(), RIVER_GOLEM);
             event.put(EntityTypeRegistry.MAGGOT.get(), MAGGOT);
             event.put(EntityTypeRegistry.DRYADOR.get(), DRYADOR);
             event.put(EntityTypeRegistry.PIXIE.get(), PIXIE);
@@ -332,6 +336,11 @@ public class Valoria{
             event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.NIHILITY_DAMAGE.get(), 3);
             event.add(EntityTypeRegistry.ENT.get(), AttributeReg.NATURE_RESISTANCE.get(), 35);
             event.add(EntityTypeRegistry.ENT.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.NATURE_GOLEM.get(), AttributeReg.NATURE_RESISTANCE.get(), 50);
+            event.add(EntityTypeRegistry.NATURE_GOLEM.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityTypeRegistry.RIVER_GOLEM.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
+            event.add(EntityTypeRegistry.RIVER_GOLEM.get(), AttributeReg.DEPTH_RESISTANCE.get(), 50);
+            event.add(EntityTypeRegistry.RIVER_GOLEM.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -65);
             event.add(EntityTypeRegistry.SORCERER.get(), AttributeReg.ELEMENTAL_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -45);
             event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.NIHILITY_RESISTANCE.get(), 35);

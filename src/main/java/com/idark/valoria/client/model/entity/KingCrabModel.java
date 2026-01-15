@@ -106,6 +106,11 @@ public class KingCrabModel<T extends KingCrabEntity> extends AbstractHierarchica
         return this.root;
     }
 
+    @Override
+    public ModelPart getHead(){
+        return null;
+    }
+
     /**
      * Sets this entity's model rotation angles
      */

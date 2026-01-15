@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "valoria:block/ash",
+    "side": "valoria:block/ash",
+    "top": "valoria:block/ash"
+  }
+}

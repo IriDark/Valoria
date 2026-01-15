@@ -30,6 +30,14 @@ public class BlockStateGen extends CoreStateGen{
         registerKit(BlockRegistry.ephemariteLow.get(), BlockRegistry.ephemariteLowStairs.get(), BlockRegistry.ephemariteLowSlab.get(), BlockRegistry.ephemariteLowWall.get());
         registerKit(BlockRegistry.polishedEphemarite.get(), BlockRegistry.polishedEphemariteStairs.get(), BlockRegistry.polishedEphemariteSlab.get(), BlockRegistry.polishedEphemariteWall.get());
         registerKit(BlockRegistry.polishedEphemariteLow.get(), BlockRegistry.polishedEphemariteLowStairs.get(), BlockRegistry.polishedEphemariteLowSlab.get(), BlockRegistry.polishedEphemariteLowWall.get());
+
+        registerKit(BlockRegistry.ash.get(), BlockRegistry.ashStairs.get(), BlockRegistry.ashSlab.get(), BlockRegistry.ashWall.get());
+        registerKit(BlockRegistry.ashBricks.get(), BlockRegistry.ashBricksStairs.get(), BlockRegistry.ashBricksSlab.get(), BlockRegistry.ashBricksWall.get());
+        blockWithItem(BlockRegistry.ashTiles.get());
+        registerKit(BlockRegistry.polishedAsh.get(), BlockRegistry.polishedAshStairs.get(), BlockRegistry.polishedAshSlab.get(), BlockRegistry.polishedAshWall.get());
+        registerKit(BlockRegistry.polishedAshBricks.get(), BlockRegistry.polishedAshBricksStairs.get(), BlockRegistry.polishedAshBricksSlab.get(), BlockRegistry.polishedAshBricksWall.get());
+        blockWithItem(BlockRegistry.polishedAshTiles.get());
+        registerKit(BlockRegistry.smoothAsh.get(), BlockRegistry.smoothAshStairs.get(), BlockRegistry.smoothAshSlab.get(), BlockRegistry.smoothAshWall.get());
     }
 
     @Override

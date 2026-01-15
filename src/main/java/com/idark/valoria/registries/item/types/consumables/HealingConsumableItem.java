@@ -17,7 +17,7 @@ import java.util.*;
 public class HealingConsumableItem extends AbstractConsumableItem{
     public float voidHarm;
     public float health;
-    public int cooldownTicks = 75;
+    public int cooldownTicks = 175;
 
     public HealingConsumableItem(float voidHarm, float health, Properties pProperties){
         super(pProperties);
