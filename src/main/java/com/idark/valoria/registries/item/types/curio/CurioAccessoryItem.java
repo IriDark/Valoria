@@ -22,7 +22,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class CurioAccessoryItem extends AbstractTieredAccessory implements ICurioTexture, TooltipComponentItem{
+public class CurioAccessoryItem extends ValoriaTieredAccessory implements ICurioTexture, TooltipComponentItem{
     public AbstractCurioBuilder<? extends CurioAccessoryItem, ?> builder;
     public CurioAccessoryItem(AbstractCurioBuilder<? extends CurioAccessoryItem, ?> builder){
         super(builder.tier, builder.itemProperties);

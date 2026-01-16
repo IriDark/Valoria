@@ -23,7 +23,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class NihilityMonitorItem extends AbstractCurioItem implements TooltipComponentItem{
+public class NihilityMonitorItem extends ValoriaCurioItem implements TooltipComponentItem{
     public NihilityMonitorItem(Properties properties){
         super(properties);
     }

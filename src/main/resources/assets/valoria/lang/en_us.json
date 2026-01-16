@@ -1355,5 +1355,6 @@
   "tooltip.valoria.rot_status": "Contamination: %s (%d%%)",
   "tooltip.valoria.stage.fresh": "Fresh",
   "tooltip.valoria.stage.stale": "Stale",
+  "tooltip.valoria.timed": "for %s",
   "tooltip.valoria.stage.rotting": "Rotting"
 }

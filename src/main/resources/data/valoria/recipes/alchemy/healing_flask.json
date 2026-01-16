@@ -1,0 +1,15 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 2,
+  "ingredients": [
+    { "ingredient": { "item": "valoria:healing_vial" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:magma_cream" }, "count": 4 },
+    { "ingredient": { "item": "minecraft:glistering_melon_slice" }, "count": 1 },
+    { "ingredient": { "item": "valoria:gaib_roots" }, "count": 2 }
+  ],
+  "result": {
+    "item": "valoria:healing_flask",
+    "count": 1
+  }
+}

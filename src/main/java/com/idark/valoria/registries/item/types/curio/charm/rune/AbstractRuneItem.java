@@ -9,7 +9,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public abstract class AbstractRuneItem extends AbstractCurioItem{
+public abstract class AbstractRuneItem extends ValoriaCurioItem{
     public AbstractRuneItem(Properties properties){
         super(properties);
     }

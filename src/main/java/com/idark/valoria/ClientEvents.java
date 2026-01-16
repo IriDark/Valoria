@@ -2,16 +2,23 @@ package com.idark.valoria;
 
 
 import com.idark.valoria.core.*;
+import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.ClickEvent.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.config.*;
@@ -25,6 +32,48 @@ import java.util.*;
 
 public class ClientEvents{
     public static final DecimalFormat FORMAT = new DecimalFormat("###.##", new DecimalFormatSymbols(Locale.ENGLISH));
+    private static final ResourceLocation FLAME_ICON = Valoria.loc("textures/gui/flame_icon.png");
+
+    @SubscribeEvent
+    public static void onRenderGui(RenderGuiOverlayEvent.Post event) {
+        if (event.getOverlay() != VanillaGuiOverlay.FOOD_LEVEL.type()) return;
+
+        Minecraft mc = Minecraft.getInstance();
+        Player player = mc.player;
+        if (player == null || player.isCreative() || player.isSpectator()) return;
+        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
+            float max = magmaLevel.getMaxAmount(player);
+            float amount = magmaLevel.getAmount();
+            if(max <= 0 || amount >= max) return;
+
+            GuiGraphics gui = event.getGuiGraphics();
+            int width = event.getWindow().getGuiScaledWidth();
+            int height = event.getWindow().getGuiScaledHeight();
+
+            int left = width / 2 + 10;
+            int startY = height - 39 - 10;
+
+            int bubblesToDraw = (int) Math.ceil(amount);
+            RandomSource random = player.getRandom();
+            boolean shouldShake = player.isInLava() || player.isOnFire();
+            int shakeTick = mc.gui.getGuiTicks();
+
+            for (int i = 0; i < bubblesToDraw; i++) {
+                int row = i / 10;
+                int col = i % 10;
+
+                int x = left + (col * 8);
+                int y = startY - (row * 10);
+                if (shouldShake) {
+                    if ((shakeTick + i * 2) % 7 == 0) {
+                        y += random.nextInt(3) - 1;
+                    }
+                }
+
+                gui.blit(FLAME_ICON, x, y, 0, 0, 9, 9, 9, 9);
+            }
+        });
+    }
 
     @SubscribeEvent
     public static void onEntityRender(RenderLivingEvent.Post<LivingEntity, ?> event) {

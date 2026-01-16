@@ -418,7 +418,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:lesser_rune",
+          "name": "valoria:lithic_rune",
           "weight": 3,
           "functions": [
             {

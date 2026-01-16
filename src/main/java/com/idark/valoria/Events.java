@@ -263,6 +263,10 @@ public class Events{
         player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
             nihilityLevel.setAmountFromServer(player, 0);
         });
+
+        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(nihilityLevel -> {
+            nihilityLevel.setAmountFromServer(player, 0);
+        });
     }
 
     @SubscribeEvent
@@ -288,6 +292,8 @@ public class Events{
 
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event){
+        if (event.phase != TickEvent.Phase.END) return;
+
         Player player = event.player;
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
             if(CommonConfig.NIHILITY.get()){
@@ -297,6 +303,12 @@ public class Events{
                     }
                 });
             }
+
+            player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
+                if(!player.getAbilities().instabuild && !player.isSpectator()){
+                    MagmaEvent.tick(event, magmaLevel, player);
+                }
+            });
 
             if(player.tickCount % 60 == 0){
                 ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
@@ -376,6 +388,7 @@ public class Events{
         if(event.getObject() instanceof Player){
             event.addCapability(new ResourceLocation(Valoria.ID, "pages"), new UnloackbleCap());
             event.addCapability(new ResourceLocation(Valoria.ID, "nihility_level"), new NihilityLevelCap());
+            event.addCapability(new ResourceLocation(Valoria.ID, "magma_level"), new MagmaLevelCap());
         }
     }
 
@@ -511,7 +524,19 @@ public class Events{
             }
         }
 
-        if((pSource.is(DamageTypes.IN_FIRE) || pSource.is(DamageTypes.ON_FIRE) || pSource.is(DamageTypes.HOT_FLOOR) || pSource.is(DamageTypes.UNATTRIBUTED_FIREBALL) || pSource.is(DamageTypes.FIREBALL)) && isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
+        if((pSource.is(DamageTypes.LAVA) || pSource.is(DamageTypes.IN_FIRE) || pSource.is(DamageTypes.ON_FIRE) || pSource.is(DamageTypes.HOT_FLOOR) || pSource.is(DamageTypes.UNATTRIBUTED_FIREBALL) || pSource.is(DamageTypes.FIREBALL))) {
+            if(isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
+            if(entity instanceof Player player){
+                player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
+                    float max = magmaLevel.getMaxAmount(player);
+                    float amount = magmaLevel.getAmount();
+                    if(max <= 0 || amount <= 0) return;
+
+                    event.setCanceled(true);
+                });
+            }
+        }
+
         if(pSource.getEntity() instanceof LivingEntity e){
             if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
         }
@@ -713,6 +738,13 @@ public class Events{
         if(!event.getEntity().level().isClientSide){
             PacketHandler.sendTo((ServerPlayer)event.getEntity(), new NihilityPacket(new NihilityLevelProvider(), event.getEntity()));
         }
+
+        event.getOriginal().reviveCaps();
+        event.getEntity().getCapability(IMagmaLevel.INSTANCE).ifPresent((k) -> event.getOriginal().getCapability(IMagmaLevel.INSTANCE).ifPresent((o) ->
+        ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));
+        if(!event.getEntity().level().isClientSide){
+            PacketHandler.sendTo((ServerPlayer)event.getEntity(), new MagmaPacket(new MagmaLevelProvider(), event.getEntity()));
+        }
     }
 
     @SubscribeEvent
@@ -726,6 +758,13 @@ public class Events{
                 });
 
                 PacketHandler.sendTo((ServerPlayer)event.getEntity(), new NihilityPacket(new NihilityLevelProvider(), player));
+
+                player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magma -> {
+                    magma.modifyAmount(player, 1);
+                    magma.decrease(player, 1);
+                });
+
+                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new MagmaPacket(new MagmaLevelProvider(), player));
 
             }
         }

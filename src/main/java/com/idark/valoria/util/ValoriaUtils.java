@@ -56,6 +56,11 @@ public class ValoriaUtils{
         }
     }
 
+    public static String formatDuration(int tickDuration, float pDurationFactor) {
+        int i = Mth.floor((float)tickDuration * pDurationFactor);
+        return StringUtil.formatTickDuration(i);
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static void renderText(LivingEntity entityIn, Col textColor, Component component, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, int time){
         ILivingEntityData data = (ILivingEntityData) entityIn;

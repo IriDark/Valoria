@@ -135,7 +135,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:rune_of_curses",
+          "name": "valoria:lithic_rune_of_curses",
           "weight": 1
         },
         {
@@ -356,7 +356,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:lesser_rune",
+          "name": "valoria:lithic_rune",
           "weight": 10
         },
         {

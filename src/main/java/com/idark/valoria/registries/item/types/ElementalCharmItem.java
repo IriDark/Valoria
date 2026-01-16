@@ -2,7 +2,7 @@ package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.types.curio.charm.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -18,7 +18,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class ElementalCharmItem extends ImmunityItem implements IGUIParticleItem{
+public class ElementalCharmItem extends ValoriaCurioItem implements IGUIParticleItem{
     public ElementalCharmItem(Properties pProperties){
         super(pProperties);
     }

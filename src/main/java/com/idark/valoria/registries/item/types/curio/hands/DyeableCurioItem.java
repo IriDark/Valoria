@@ -8,7 +8,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 
 import javax.annotation.*;
 
-public class DyeableCurioItem extends AbstractCurioItem implements DyeableLeatherItem{
+public class DyeableCurioItem extends ValoriaCurioItem implements DyeableLeatherItem{
     public DyeableCurioItem(Properties pProperties){
         super(pProperties);
     }

@@ -5,6 +5,8 @@
     "count": 1
   },
   "ingredients": [
-    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 8 }
+    { "ingredient": { "item": "valoria:void_ingot" }, "count": 2 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 8 },
+    { "ingredient": { "item": "valoria:void_core" }, "count": 2 }
   ]
 }

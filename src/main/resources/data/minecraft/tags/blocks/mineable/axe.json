@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "valoria:alchemy_station_tier_1",
     "valoria:wooden_tomb",
     "valoria:mossy_wooden_tomb",
     "valoria:keg",

@@ -89,6 +89,7 @@ public class TagsRegistry{
     public static final TagKey<Item> BLEEDING_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/bleeding_immune"));
     public static final TagKey<Item> POISON_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/poison_immune"));
     public static final TagKey<Item> FIRE_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/fire_immune"));
+    public static final TagKey<Item> FIRE_IMMUNE_TIMED = item(new ResourceLocation(Valoria.ID, "accessories/fire_immune_timed"));
     public static final TagKey<Item> ELDRITCH = item(new ResourceLocation(Valoria.ID, "logs/eldritch"));
     public static final TagKey<Item> SHADEWOOD = item(new ResourceLocation(Valoria.ID, "logs/shade"));
     public static final TagKey<Item> DREADWOOD = item(new ResourceLocation(Valoria.ID, "logs/dread"));

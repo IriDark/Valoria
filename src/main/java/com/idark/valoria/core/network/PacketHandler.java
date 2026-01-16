@@ -76,6 +76,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, CrusherParticlePacket.class, CrusherParticlePacket::encode, CrusherParticlePacket::decode, CrusherParticlePacket::handle);
         HANDLER.registerMessage(id++, CrushParticlePacket.class, CrushParticlePacket::encode, CrushParticlePacket::decode, CrushParticlePacket::handle);
         HANDLER.registerMessage(id++, FirronKeyframePacket.class, FirronKeyframePacket::encode, FirronKeyframePacket::decode, FirronKeyframePacket::handle);
+        HANDLER.registerMessage(id++, MagmaPacket.class, MagmaPacket::encode, MagmaPacket::decode, MagmaPacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

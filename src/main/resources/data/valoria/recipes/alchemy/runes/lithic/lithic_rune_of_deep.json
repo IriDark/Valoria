@@ -1,0 +1,13 @@
+{
+  "group": "equipment",
+  "type": "valoria:alchemy",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:lithic_rune" }, "count": 1 },
+    { "ingredient": { "item": "valoria:sapphire_gem" }, "count": 8 },
+    { "ingredient": { "item": "valoria:runic_dust" }, "count": 6 }
+  ],
+  "result": {
+    "item": "valoria:lithic_rune_of_deep",
+    "count": 1
+  }
+}

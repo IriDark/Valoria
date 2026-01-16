@@ -878,12 +878,12 @@ public class ItemsRegistry{
 
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
 
-        bandage = registerItem("bandage", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
-        devilHeart = registerItem("devil_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
-        harmonyHeart = registerItem("harmony_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
-        medicatedDevilHeart = registerItem("medicated_devil_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
-        medicatedHarmonyHeart = registerItem("medicated_harmony_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
-        elementalCharm = registerItem("elemental_charm", () -> new ElementalCharmItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.ELEMENTAL)));
+        bandage = registerItem("bandage", () -> new ValoriaCurioItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+        devilHeart = registerItem("devil_heart", () -> new TimedMagmaImmunityItem(10, new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+        harmonyHeart = registerItem("harmony_heart", () -> new ValoriaCurioItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+        medicatedDevilHeart = registerItem("medicated_devil_heart", () -> new TimedMagmaImmunityItem(10, new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+        medicatedHarmonyHeart = registerItem("medicated_harmony_heart", () -> new ValoriaCurioItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+        elementalCharm = registerItem("elemental_charm", () -> new TimedMagmaImmunityItem(10, new Item.Properties().stacksTo(1).rarity(RarityRegistry.ELEMENTAL)));
 
         lithicRune = registerItem("lithic_rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)){
             @Override
@@ -913,7 +913,7 @@ public class ItemsRegistry{
         runeStrength = registerItem("rune_of_strength", () -> new CurioStrength(0.05f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeAccuracy = registerItem("rune_of_accuracy", () -> new RuneAccuracy(0.15f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeDeep = registerItem("rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
-        runePyro = registerItem("rune_of_pyro", () -> new CurioPyro(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+        runePyro = registerItem("rune_of_pyro", () -> new CurioPyro(30, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeCold = registerItem("rune_of_cold", () -> new RuneCold(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
 
         // medicine

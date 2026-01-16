@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "valoria:alchemy_station_tier_2",
+    "valoria:alchemy_station_tier_3",
+    "valoria:alchemy_station_tier_4",
     "valoria:ash",
     "valoria:ash_stairs",
     "valoria:ash_slab",

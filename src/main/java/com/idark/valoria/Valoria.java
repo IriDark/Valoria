@@ -228,6 +228,7 @@ public class Valoria{
         public static void registerCaps(RegisterCapabilitiesEvent event){
             event.register(IUnlockable.class);
             event.register(INihilityLevel.class);
+            event.register(IMagmaLevel.class);
         }
 
         @SubscribeEvent

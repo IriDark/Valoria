@@ -1,18 +1,20 @@
-package com.idark.valoria.registries.item.types.curio.charm.rune;
+package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.idark.valoria.core.capability.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
 
-public class CurioPyro extends AbstractRuneItem{
+public class TimedMagmaImmunityItem extends ValoriaCurioItem{
     private final int time;
-    public CurioPyro(int sec, Properties properties){
+    public TimedMagmaImmunityItem(int sec, Properties properties){
         super(properties);
         this.time = sec;
     }
 
-    public int immunityTime() {
+    @Override
+    public int immunityTime(){
         return time;
     }
 
@@ -33,10 +35,5 @@ public class CurioPyro extends AbstractRuneItem{
                 magma.decreaseMaxAmount(player,time);
             });
         }
-    }
-
-    @Override
-    public RuneType runeType(){
-        return RuneType.PYRO;
     }
 }

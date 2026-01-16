@@ -5,6 +5,9 @@
     "count": 1
   },
   "ingredients": [
-    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 8 }
+    { "ingredient": { "item": "valoria:elemental_crystal" }, "count": 2 },
+    { "ingredient": { "item": "valoria:black_goid_upgrade_smithing_template" }, "count": 1 },
+    { "ingredient": { "item": "valoria:black_gold_ingot" }, "count": 8 },
+    { "ingredient": { "item": "valoria:cobalt_ingot" }, "count": 4 }
   ]
 }
