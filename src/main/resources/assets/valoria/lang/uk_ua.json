@@ -1324,6 +1324,7 @@
   "tooltip.valoria.stage.rotting": "Rotting",
   "tooltip.valoria.stage.stale": "Stale",
   "tooltip.valoria.summons": "Призиває: [%s]",
+  "tooltip.valoria.timed": "for %s",
   "tooltip.valoria.toggle": "● State: %s",
   "tooltip.valoria.toggle.off": "Off",
   "tooltip.valoria.toggle.on": "On",

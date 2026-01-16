@@ -1324,6 +1324,7 @@
   "tooltip.valoria.stage.rotting": "Rotting",
   "tooltip.valoria.stage.stale": "Stale",
   "tooltip.valoria.summons": "召喚實體: [%s]",
+  "tooltip.valoria.timed": "for %s",
   "tooltip.valoria.toggle": "● 狀態: %s",
   "tooltip.valoria.toggle.off": "關",
   "tooltip.valoria.toggle.on": "開",
