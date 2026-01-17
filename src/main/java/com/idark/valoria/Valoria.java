@@ -321,10 +321,12 @@ public class Valoria{
             event.add(EntityTypeRegistry.WICKED_CRYSTAL.get(), AttributeReg.ELEMENTAL_RESISTANCE.get(), 15);
             event.add(EntityTypeRegistry.DRYADOR.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.DRYADOR.get(), AttributeReg.NATURE_RESISTANCE.get(), 50);
+            event.add(EntityTypeRegistry.DRYADOR.get(), AttributeReg.NATURE_DAMAGE.get(), 2);
             event.add(EntityTypeRegistry.NECROMANCER.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.NECROMANCER.get(), AttributeReg.NIHILITY_RESISTANCE.get(), 15);
             event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.DEPTH_RESISTANCE.get(), -15);
             event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.INFERNAL_DAMAGE.get(), 2);
             event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
             event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NIHILITY_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NIHILITY_DAMAGE.get(), 1);
@@ -336,11 +338,13 @@ public class Valoria{
             event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.NIHILITY_RESISTANCE.get(), 35);
             event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.NIHILITY_DAMAGE.get(), 3);
             event.add(EntityTypeRegistry.ENT.get(), AttributeReg.NATURE_RESISTANCE.get(), 35);
+            event.add(EntityTypeRegistry.ENT.get(), AttributeReg.NATURE_DAMAGE.get(), 2);
             event.add(EntityTypeRegistry.ENT.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.NATURE_GOLEM.get(), AttributeReg.NATURE_RESISTANCE.get(), 50);
             event.add(EntityTypeRegistry.NATURE_GOLEM.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
             event.add(EntityTypeRegistry.RIVER_GOLEM.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
             event.add(EntityTypeRegistry.RIVER_GOLEM.get(), AttributeReg.DEPTH_RESISTANCE.get(), 50);
+            event.add(EntityTypeRegistry.RIVER_GOLEM.get(), AttributeReg.DEPTH_DAMAGE.get(), 2);
             event.add(EntityTypeRegistry.RIVER_GOLEM.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -65);
             event.add(EntityTypeRegistry.SORCERER.get(), AttributeReg.ELEMENTAL_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -45);
@@ -355,11 +359,14 @@ public class Valoria{
             event.add(EntityTypeRegistry.UNDEAD.get(), AttributeReg.NIHILITY_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.SCOURGE.get(), AttributeReg.NIHILITY_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.SCOURGE.get(), AttributeReg.DEPTH_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.SCOURGE.get(), AttributeReg.DEPTH_DAMAGE.get(), 2);
             event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.NIHILITY_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.DEPTH_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.DEPTH_DAMAGE.get(), 2);
             event.add(EntityTypeRegistry.DRAUGR.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
             event.add(EntityTypeRegistry.KING_CRAB.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.KING_CRAB.get(), AttributeReg.DEPTH_RESISTANCE.get(), 50);
+            event.add(EntityTypeRegistry.KING_CRAB.get(), AttributeReg.DEPTH_DAMAGE.get(), 2);
 
             event.add(EntityType.DROWNED, AttributeReg.DEPTH_RESISTANCE.get(), 25);
             event.add(EntityType.DROWNED, AttributeReg.INFERNAL_RESISTANCE.get(), -25);

@@ -18,7 +18,9 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.gfx.particle.options.*;
 import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.entity.system.*;
+import pro.komaru.tridot.util.comps.phys.*;
 
 import java.util.*;
 
@@ -66,7 +68,7 @@ public class AbstractElementalGolem extends PathfinderMob implements NeutralMob,
 
     private void setupAnimationStates(){
         if(this.idleAnimationTimeout <= 0){
-            this.idleAnimationTimeout = 40;
+            this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
         }else{
             --this.idleAnimationTimeout;
@@ -92,6 +94,8 @@ public class AbstractElementalGolem extends PathfinderMob implements NeutralMob,
             .randomOffset(0.125, 0.125)
             .setGravity(0.75f)
             .repeat(this.level(), this.getX(), this.getY(), this.getZ(), 64);
+
+            ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, Pos3.init((float)this.getX(), (float)this.getY(), (float)this.getZ()), 1, 8));
         }else if(pId == 61){
             this.attackSlapAnimationState.start(this.tickCount);
         }else if(pId == 62){
@@ -108,6 +112,8 @@ public class AbstractElementalGolem extends PathfinderMob implements NeutralMob,
             .randomOffset(0.125, 0.125)
             .setGravity(0.75f)
             .repeat(this.level(), this.getX(), this.getY(), this.getZ(), 128);
+
+            ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, Pos3.init((float)this.getX(), (float)this.getY(), (float)this.getZ()), 1, 12));
         } else {
             super.handleEntityEvent(pId);
         }

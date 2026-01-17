@@ -232,13 +232,6 @@ task noSounds(type: Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-task noVoice(type: Jar) {
-    archiveClassifier.set('novoice')
-    from sourceSets.main.output
-    exclude("assets/valoria/sounds/voice/**")
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
 task noMusicJar(type: Jar) {
     archiveClassifier.set('nomusic')
     from sourceSets.main.output
