@@ -85,7 +85,7 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
         double d1 = pTarget.getY(0.3333333333333333D) - spit.getY();
         double d2 = pTarget.getZ() - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        spit.setBaseDamage(2);
+        spit.setBaseDamage(4);
         spit.addEffect(new MobEffectInstance(MobEffects.POISON, 50, 0));
         spit.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
         this.playSound(SoundEvents.LLAMA_SPIT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));

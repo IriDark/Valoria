@@ -172,21 +172,7 @@
       "valoria:ui/alchemy/brew_3"
     ]
   },
-  "ui.alchemy.nether_upgrade": {
-    "sounds": [
-      "valoria:ui/alchemy/nether_upgrade"
-    ]
-  },
-  "ui.alchemy.elemental_upgrade": {
-    "sounds": [
-      "valoria:ui/alchemy/elemental_upgrade"
-    ]
-  },
-  "ui.alchemy.nihility_upgrade": {
-    "sounds": [
-      "valoria:ui/alchemy/nihility_upgrade"
-    ]
-  },
+
   "mob.breath": {
     "sounds": [
       "valoria:entity/breath"
@@ -677,62 +663,6 @@
       "valoria:entity/haunted_merchant/melee_attack/attack1"
     ]
   },
-  "mob.elemental_golem.attack.1": {
-    "subtitle": "subtitles.valoria.elemental_golem.attack",
-    "sounds": [
-      "valoria:entity/elemental_golem/attack1_1",
-      "valoria:entity/elemental_golem/attack1_2"
-    ]
-  },
-  "mob.elemental_golem.attack.2": {
-    "subtitle": "subtitles.valoria.elemental_golem.attack",
-    "sounds": [
-      "valoria:entity/elemental_golem/step1",
-      "valoria:entity/elemental_golem/step2",
-      "valoria:entity/elemental_golem/step3",
-      "valoria:entity/elemental_golem/step4"
-    ]
-  },
-  "mob.elemental_golem.attack.3": {
-    "subtitle": "subtitles.valoria.elemental_golem.attack",
-    "sounds": [
-      "valoria:entity/elemental_golem/attack3_1",
-      "valoria:entity/elemental_golem/attack3_2"
-    ]
-  },
-  "mob.elemental_golem.attack.4": {
-    "subtitle": "subtitles.valoria.elemental_golem.attack",
-    "sounds": [
-      "valoria:entity/elemental_golem/attack4"
-    ]
-  },
-  "mob.elemental_golem.hurt": {
-    "subtitle": "subtitles.valoria.elemental_golem.hurt",
-    "sounds": [
-      "valoria:entity/elemental_golem/hurt1",
-      "valoria:entity/elemental_golem/hurt2",
-      "valoria:entity/elemental_golem/hurt3",
-      "valoria:entity/elemental_golem/hurt4"
-    ]
-  },
-  "mob.elemental_golem.step": {
-    "subtitle": "subtitles.block.generic.footsteps",
-    "sounds": [
-      "valoria:entity/elemental_golem/step1",
-      "valoria:entity/elemental_golem/step2",
-      "valoria:entity/elemental_golem/step3",
-      "valoria:entity/elemental_golem/step4"
-    ]
-  },
-  "mob.elemental_golem.death": {
-    "subtitle": "subtitles.valoria.elemental_golem.death",
-    "sounds": [
-      "valoria:entity/elemental_golem/death1",
-      "valoria:entity/elemental_golem/death2",
-      "valoria:entity/elemental_golem/death3"
-    ]
-  },
-
   "mob.goblin.idle": {
     "subtitle": "subtitles.valoria.goblin.idle",
     "sounds": [

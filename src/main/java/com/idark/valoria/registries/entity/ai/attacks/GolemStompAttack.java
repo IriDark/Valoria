@@ -1,10 +1,8 @@
 package com.idark.valoria.registries.entity.ai.attacks;
 
 import com.idark.valoria.*;
-import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.item.enchantment.*;
@@ -44,12 +42,7 @@ public class GolemStompAttack extends AttackInstance{
     public void start(AttackSystemMob systemMob){
         super.start(systemMob);
         mob.setAggressive(true);
-        mob.level().broadcastEntityEvent(mob, (byte)61);
-    }
-
-    @Override
-    public SoundEvent getAttackSound(){
-        return SoundsRegistry.ELEMENTAL_GOLEM_ATTACK_2.get();
+        mob.level().broadcastEntityEvent(mob, (byte)60);
     }
 
     @Override

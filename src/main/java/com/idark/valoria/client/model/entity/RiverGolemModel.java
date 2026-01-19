@@ -74,11 +74,7 @@ public class RiverGolemModel<T extends RiverGolem> extends AbstractHierarchicalM
 	public void setupAnim(T e, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setupAnim(e, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         this.animateIdle(e.idleAnimationState, GolemAnimation.IDLE, limbSwingAmount, ageInTicks, 1);
-        this.animateWalk(GolemAnimation.WALK, limbSwing, limbSwingAmount, 6, 6);
-
         this.animate(e.attackAnimationState, GolemAnimation.ATTACK1, ageInTicks);
         this.animate(e.stompAttackAnimationState, GolemAnimation.ATTACK2, ageInTicks);
-        this.animate(e.attackSlapAnimationState, GolemAnimation.ATTACK3, ageInTicks);
-        this.animate(e.groundPunchAnimationState, GolemAnimation.ATTACK4, ageInTicks);
     }
 }
