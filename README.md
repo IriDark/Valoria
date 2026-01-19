@@ -134,4 +134,8 @@ Not found your language or want to maintain translations? Feel free to translate
     Feimos  
     Avacuoss  
 
+Assets & Special Thanks:
+
+    Calamity Mod Team - for amazing sound design inspiration and sound assets.
+    Tyro.net - https://tools.wwwtyro.net/space-3d/index.html Space background in Codex
 

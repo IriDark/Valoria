@@ -232,27 +232,25 @@ public class Valoria{
         }
 
         @SubscribeEvent
-        public static void commonSetup(FMLCommonSetupEvent event){
-            event.enqueueWork(() -> {
-                SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SCOURGE.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, ScourgeEntity::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Devil::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, HauntedMerchant::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SORCERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SorcererEntity::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.ENT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Ent::checkEntSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.NATURE_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, NatureGolem::checkSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.RIVER_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, RiverGolem::checkSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.MAGGOT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MaggotEntity::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.CORRUPTED.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Corrupted::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.KING_CRAB.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, KingCrabEntity::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.WICKED_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, WickedScorpion::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SCAVENGER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Scavenger::checkAnimalSpawnRules);
-            });
+        public static void onPlacementRegistry(SpawnPlacementRegisterEvent event){
+            event.register(EntityTypeRegistry.GOBLIN.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.SCOURGE.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, ScourgeEntity::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Devil::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, HauntedMerchant::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.SORCERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SorcererEntity::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.ENT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Ent::checkEntSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.NATURE_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, NatureGolem::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.RIVER_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, RiverGolem::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.MAGGOT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MaggotEntity::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.CORRUPTED.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Corrupted::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.KING_CRAB.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, KingCrabEntity::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.WICKED_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, WickedScorpion::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+            event.register(EntityTypeRegistry.SCAVENGER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Scavenger::checkAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         }
 
         @SubscribeEvent

@@ -9,7 +9,7 @@ displayName = "Valoria"
 updateJSONURL = "https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/update.json"
 displayURL = "https://discord.gg/wWdXpwuPmK"
 logoFile="valoria_banner.png"
-credits = "Calamity Mod (sounds)"
+credits = "Calamity Mod (Sounds)"
 authors = "IriDark, Sunday, Kerdo, DuUaader"
 description = '''
 Valoria — A large RPG themed project that adds some mobs, blocks, weapons, and a lot of content in "vanilla" texture style
