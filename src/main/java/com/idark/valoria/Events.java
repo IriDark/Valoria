@@ -207,25 +207,27 @@ public class Events{
             }
         }
 
-        int foodRot = ValoriaUtils.getCurrentNBTValue("ValoriaRot", stack);
-        if(foodRot > 0) {
-            String stageKey;
-            ChatFormatting color;
+        if(stack.hasTag() && stack.getTag().contains("ValoriaRot")){
+            int foodRot = ValoriaUtils.getCurrentNBTValue("ValoriaRot", stack);
+            if(foodRot > 0){
+                String stageKey;
+                ChatFormatting color;
 
-            if (foodRot >= 60) {
-                stageKey = "tooltip.valoria.stage.rotting";
-                color = ChatFormatting.RED;
-            } else if (foodRot >= 30) {
-                stageKey = "tooltip.valoria.stage.stale";
-                color = ChatFormatting.YELLOW;
-            } else {
-                stageKey = "tooltip.valoria.stage.fresh";
-                color = ChatFormatting.GREEN;
+                if(foodRot >= 60){
+                    stageKey = "tooltip.valoria.stage.rotting";
+                    color = ChatFormatting.RED;
+                }else if(foodRot >= 30){
+                    stageKey = "tooltip.valoria.stage.stale";
+                    color = ChatFormatting.YELLOW;
+                }else{
+                    stageKey = "tooltip.valoria.stage.fresh";
+                    color = ChatFormatting.GREEN;
+                }
+
+                var status = Component.translatable(stageKey).withStyle(color);
+                var line = Component.translatable("tooltip.valoria.rot_status", status, foodRot).withStyle(ChatFormatting.GRAY);
+                tooltip.add(1, line);
             }
-
-            var status = Component.translatable(stageKey).withStyle(color);
-            var line = Component.translatable("tooltip.valoria.rot_status", status, foodRot).withStyle(ChatFormatting.GRAY);
-            tooltip.add(1, line);
         }
     }
 

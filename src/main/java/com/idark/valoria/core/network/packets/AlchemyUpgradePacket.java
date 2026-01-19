@@ -5,7 +5,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import net.minecraft.network.*;
 import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.network.NetworkEvent.*;
@@ -34,7 +33,6 @@ public class AlchemyUpgradePacket{
             Level level = player.level();
             if (player.containerMenu instanceof AlchemyStationMenu heavyMenu) {
                 player.closeContainer();
-                level.playSound(null, heavyMenu.getPos(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.BLOCKS);
                 BlockState state = level.getBlockState(heavyMenu.getPos());
                 if(state.getBlock() instanceof AlchemyStationBlock stationBlock){
                     BlockState toState = switch(stationBlock.level) {

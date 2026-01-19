@@ -1,10 +1,14 @@
 package com.idark.valoria.registries.entity.living.elemental;
 
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
@@ -12,6 +16,8 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -66,7 +72,7 @@ public class AbstractElementalGolem extends PathfinderMob implements NeutralMob,
 
     private void setupAnimationStates(){
         if(this.idleAnimationTimeout <= 0){
-            this.idleAnimationTimeout = 40;
+            this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
         }else{
             --this.idleAnimationTimeout;
@@ -74,10 +80,38 @@ public class AbstractElementalGolem extends PathfinderMob implements NeutralMob,
     }
 
     @Override
+    protected void playStepSound(BlockPos pPos, BlockState pState) {
+        this.playSound(SoundsRegistry.ELEMENTAL_GOLEM_STEP.get(), 1, 1);
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource){
+        return SoundsRegistry.ELEMENTAL_GOLEM_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound(){
+        return SoundsRegistry.ELEMENTAL_GOLEM_DEATH.get();
+    }
+
+    @Override
     public void handleEntityEvent(byte pId){
-        if(pId == 4){
+        if(pId == 3) {
+            var opt = new BlockParticleOptions(TridotParticles.BLOCK.get(), Blocks.STONE.defaultBlockState());
+
+            ParticleBuilder.create(opt)
+            .setRenderType(TridotRenderTypes.TRANSLUCENT_BLOCK_PARTICLE)
+            .setSpinData(SpinParticleData.create().randomOffset().randomSpin(0.5f).build())
+            .setScaleData(GenericParticleData.create(0.45f, 0.02f, 0).build())
+            .setSpriteData(SpriteParticleData.CRUMBS_RANDOM)
+            .setLifetime(30)
+            .randomVelocity(0.45, 0.75, 0.45)
+            .randomOffset(0.065, 0.065)
+            .setGravity(0.75f)
+            .repeat(this.level(), this.getX(), this.getY(), this.getZ(), 32);
+        } else if(pId == 4){
             this.attackAnimationState.start(this.tickCount);
-        } else if(pId == 60){
+        } else if(pId == 61){
             this.stompAttackAnimationState.start(this.tickCount);
 
             var opt = new BlockParticleOptions(TridotParticles.BLOCK.get(), this.level().getBlockState(this.blockPosition().below()));
@@ -92,9 +126,9 @@ public class AbstractElementalGolem extends PathfinderMob implements NeutralMob,
             .randomOffset(0.125, 0.125)
             .setGravity(0.75f)
             .repeat(this.level(), this.getX(), this.getY(), this.getZ(), 64);
-        }else if(pId == 61){
-            this.attackSlapAnimationState.start(this.tickCount);
         }else if(pId == 62){
+            this.attackSlapAnimationState.start(this.tickCount);
+        }else if(pId == 64){
             this.groundPunchAnimationState.start(this.tickCount);
             var opt = new BlockParticleOptions(TridotParticles.BLOCK.get(), this.level().getBlockState(this.blockPosition().below()));
 

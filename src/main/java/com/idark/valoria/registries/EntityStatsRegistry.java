@@ -33,9 +33,9 @@ public class EntityStatsRegistry{
     public static AttributeSupplier DRAUGR = register(30, 5).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.FOLLOW_RANGE, 20).build();
     public static AttributeSupplier SWAMP_WANDERER = register(35, 8).add(Attributes.KNOCKBACK_RESISTANCE, Tmp.rnd.nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
     public static AttributeSupplier SCOURGE = register(45, 6, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
-    public static AttributeSupplier ENT = register(75, 10, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
-    public static AttributeSupplier NATURE_GOLEM = register(125, 10, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
-    public static AttributeSupplier RIVER_GOLEM = register(125, 10, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
+    public static AttributeSupplier ENT = register(75, 10, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.5).build();
+    public static AttributeSupplier NATURE_GOLEM = register(125, 10, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
+    public static AttributeSupplier RIVER_GOLEM = register(125, 10, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
     public static AttributeSupplier SORCERER = register(25, 1.5).build();
     public static AttributeSupplier MAGGOT = register(6, 3.5).build();
     public static AttributeSupplier KING_CRAB = register(100, 10).add(Attributes.FOLLOW_RANGE, 20).build();
