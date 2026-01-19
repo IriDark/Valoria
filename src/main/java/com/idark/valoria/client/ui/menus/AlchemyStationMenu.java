@@ -191,9 +191,6 @@ public class AlchemyStationMenu extends ContainerMenuBase{
             AlchemyUpgradeRecipe recipe = recipeHolder.get();
             if(checkAndSetAvailability(recipe)){
                 consumeMaterials(recipe);
-                ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY).copy();
-                player.getInventory().placeItemBackInInventory(result);
-
                 PacketHandler.sendToTracking(player.serverLevel(), pos, new AlchemyUpgradeParticlePacket(this.blockLevel + 1, pos.getX(), pos.getY(), pos.getZ()));
                 PacketHandler.sendToServer(new AlchemyUpgradePacket(this.blockLevel));
                 this.broadcastChanges();

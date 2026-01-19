@@ -3,11 +3,9 @@ package com.idark.valoria.registries.entity.living.elemental;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.attacks.*;
-import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.resources.*;
-import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.util.ByIdMap.*;
 import net.minecraft.world.*;
@@ -15,7 +13,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.common.registry.entity.system.generic.*;
 
 import java.util.function.*;
 
@@ -30,8 +27,8 @@ public class NatureGolem extends AbstractElementalGolem{
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
 
-        this.selector.addAttack(new TridotMeleeAttack(this, 1, 2, 0, 10, 20));
-        this.selector.addAttack(new GolemMeleeAttack(this, 1, 2, 0, 10, 40));
+        this.selector.addAttack(new GolemMeleeAttack(this, 1, 2, 0, 10, 20));
+        this.selector.addAttack(new GolemMeleeSlapAttack(this, 1, 2, 0, 10, 40));
         this.selector.addAttack(new GolemStompAttack(this, 4, 2, 0, 20, 60));
         this.selector.addAttack(new GolemGroundPunchAttack(this, 1, 4, 0, 15, 120));
     }
@@ -47,10 +44,6 @@ public class NatureGolem extends AbstractElementalGolem{
         }
 
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-    }
-
-    public static boolean checkSpawnRules(EntityType<NatureGolem> pEntity, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
-        return pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
     }
 
     public void setVariant(Variant variant) {

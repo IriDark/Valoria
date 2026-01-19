@@ -30,8 +30,6 @@ public class AlchemyRecipeCategory extends AbstractRecipeCategory<AlchemyRecipe>
     public void setRecipe(IRecipeLayoutBuilder builder, AlchemyRecipe recipe, IFocusGroup focuses){
         ItemStack resultStack = recipe.getResultItem(RegistryAccess.EMPTY);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 14).addItemStack(resultStack);
-
-        // Added to look for item Uses by pressing "U"
         for(var input : recipe.getInputs()){
             builder.addSlot(RecipeIngredientRole.INPUT, Integer.MAX_VALUE, Integer.MAX_VALUE).addItemStacks(Arrays.stream(input.getFirst().getItems()).toList());
         }

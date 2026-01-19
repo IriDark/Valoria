@@ -197,6 +197,23 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY){
         super.renderTooltip(guiGraphics, mouseX, mouseY);
+        if(canUpgrade()){
+            int x = width / 2;
+            int y = height / 2;
+            if(isHover(mouseX, mouseY, x - 45, y - 27, 80, 20)){
+                var optRecipe = menu.getUpgrade(getUpgradeLoc());
+                if(optRecipe.isPresent()){
+                    List<Component> tooltip = new ArrayList<>();
+                    tooltip.add(Component.translatable("menu.valoria.upgrade").withStyle(ChatFormatting.YELLOW));
+                    Optional<TooltipComponent> comp = Optional.of(new MaterialListComponent(optRecipe.get().getInputs()));
+
+                    this.menu.checkAndSetAvailability(optRecipe.get());
+                    guiGraphics.renderTooltip(this.font, tooltip, comp, mouseX, mouseY);
+                    return;
+                }
+            }
+        }
+
         if(this.hoveredRecipe != null){
             if(hoveredRecipe.isVisible()){
                 var recipe = hoveredRecipe.recipe;
@@ -223,22 +240,6 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
                     guiGraphics.renderTooltip(this.font, tooltip, comp, mouseX, mouseY);
                 }else{
                     guiGraphics.renderTooltip(this.font, result.getTooltipLines(null, TooltipFlag.NORMAL), Optional.empty(), result, mouseX, mouseY);
-                }
-            }
-        }
-
-        if(canUpgrade()){
-            int x = width / 2;
-            int y = height / 2;
-            if(isHover(mouseX, mouseY, x - 45, y - 27, 80, 20)){
-                var optRecipe = menu.getUpgrade(getUpgradeLoc());
-                if(optRecipe.isPresent()){
-                    List<Component> tooltip = new ArrayList<>();
-                    tooltip.add(Component.translatable("menu.valoria.upgrade").withStyle(ChatFormatting.YELLOW));
-                    Optional<TooltipComponent> comp = Optional.of(new MaterialListComponent(optRecipe.get().getInputs()));
-
-                    this.menu.checkAndSetAvailability(optRecipe.get());
-                    guiGraphics.renderTooltip(this.font, tooltip, comp, mouseX, mouseY);
                 }
             }
         }
@@ -283,12 +284,16 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
         }
 
         if(canUpgrade()){
+            gui.pose().pushPose();
+            gui.pose().translate(0, 0, 300);
+
             if(isHover(mouseX, mouseY, x - 45, y - 27, 80, 20)){
                 gui.blit(TEXTURE, x - 46, y - 28, 59, 216, 82, 22);
             }
 
             gui.blit(TEXTURE, x - 45, y - 27, 60, 196, 80, 20);
             gui.drawCenteredString(Minecraft.getInstance().font, Component.translatable("menu.valoria.upgrade"), x - 5, y - 22, CommonColors.WHITE);
+            gui.pose().popPose();
         }
 
         for(AlchemyCategories category : AlchemyCategories.values()){

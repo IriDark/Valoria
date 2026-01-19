@@ -4,6 +4,7 @@ import com.idark.valoria.client.ui.menus.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -27,19 +28,28 @@ public class AlchemyStationBlock extends HorizontalDirectionalBlock implements S
     private static final Component CONTAINER_TITLE = Component.translatable("menu.valoria.alchemy_station");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public final int level;
+    private final SoundEvent upgradeSound;
 
     public AlchemyStationBlock(int level, Properties pProperties){
         super(pProperties);
         this.level = level;
+        this.upgradeSound = null;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, WorkbenchPart.BOTTOM_LEFT).setValue(WATERLOGGED, false));
     }
-    
+
+    public AlchemyStationBlock(SoundEvent upgradeSound, int level, Properties pProperties){
+        super(pProperties);
+        this.level = level;
+        this.upgradeSound = upgradeSound;
+        this.registerDefaultState(this.stateDefinition.any().setValue(PART, WorkbenchPart.BOTTOM_LEFT).setValue(WATERLOGGED, false));
+    }
+
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder){
         pBuilder.add(WATERLOGGED, PART, FACING);
     }
 
     @Override
-    public @org.jetbrains.annotations.Nullable PushReaction getPistonPushReaction(BlockState state){
+    public PushReaction getPistonPushReaction(BlockState state){
         return PushReaction.BLOCK;
     }
 
@@ -199,6 +209,16 @@ public class AlchemyStationBlock extends HorizontalDirectionalBlock implements S
         .setValue(FACING, mainFacing)
         .setValue(PART, WorkbenchPart.TOP_LEFT)
         .setValue(WATERLOGGED, waterTopLeft), 3);
+
+        if(to.getBlock() instanceof AlchemyStationBlock alchemyStationBlock) {
+            if(alchemyStationBlock.getUpgradeSound() == null) return;
+            pLevel.playSound(null, mainPos, alchemyStationBlock.getUpgradeSound(), SoundSource.BLOCKS);
+        }
+    }
+
+    @Nullable
+    public SoundEvent getUpgradeSound() {
+        return upgradeSound;
     }
 
     public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
