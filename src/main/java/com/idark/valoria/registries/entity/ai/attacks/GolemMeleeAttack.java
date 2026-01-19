@@ -1,10 +1,9 @@
 package com.idark.valoria.registries.entity.ai.attacks;
 
 import com.idark.valoria.*;
-import com.idark.valoria.registries.*;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
+import pro.komaru.tridot.common.registry.entity.system.*;
 import pro.komaru.tridot.common.registry.entity.system.generic.*;
 
 public class GolemMeleeAttack extends TridotMeleeAttack{
@@ -18,7 +17,13 @@ public class GolemMeleeAttack extends TridotMeleeAttack{
     }
 
     @Override
-    public SoundEvent getAttackSound(){
-        return SoundsRegistry.ELEMENTAL_GOLEM_ATTACK_1.get();
+    public void start(AttackSystemMob systemMob){
+        mob.setAggressive(true);
+        mob.level().broadcastEntityEvent(mob, (byte)61);
+
+        this.ticksUntilNextPathRecalc = 0;
+        this.mob.getNavigation().moveTo(mob.getTarget(), speedModifier);
+        storeTargetPosition();
     }
+
 }

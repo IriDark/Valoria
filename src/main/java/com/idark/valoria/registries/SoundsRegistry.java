@@ -21,9 +21,6 @@ public class SoundsRegistry{
 
     public static final RegistryObject<SoundEvent> UI_CLICK = registerSound("ui.click");
     public static final RegistryObject<SoundEvent> UI_ALCHEMY_BREW = registerSound("ui.alchemy.brew");
-    public static final RegistryObject<SoundEvent> UI_ALCHEMY_NETHER_UPGRADE = registerSound("ui.alchemy.nether_upgrade");
-    public static final RegistryObject<SoundEvent> UI_ALCHEMY_ELEMENTAL_UPGRADE = registerSound("ui.alchemy.elemental_upgrade");
-    public static final RegistryObject<SoundEvent> UI_ALCHEMY_NIHILITY_UPGRADE = registerSound("ui.alchemy.nihility_upgrade");
 
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE_LEGACY = registerSound("item.halloween_slice_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");
@@ -96,14 +93,6 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> GOBLIN_IDLE = registerSound("mob.goblin.idle");
     public static final RegistryObject<SoundEvent> GOBLIN_HURT = registerSound("mob.goblin.hurt");
     public static final RegistryObject<SoundEvent> GOBLIN_DEATH = registerSound("mob.goblin.death");
-
-    public static final RegistryObject<SoundEvent> ELEMENTAL_GOLEM_ATTACK_1 = registerSound("mob.elemental_golem.attack.1");
-    public static final RegistryObject<SoundEvent> ELEMENTAL_GOLEM_ATTACK_2 = registerSound("mob.elemental_golem.attack.2");
-    public static final RegistryObject<SoundEvent> ELEMENTAL_GOLEM_ATTACK_3 = registerSound("mob.elemental_golem.attack.3");
-    public static final RegistryObject<SoundEvent> ELEMENTAL_GOLEM_ATTACK_4 = registerSound("mob.elemental_golem.attack.4");
-    public static final RegistryObject<SoundEvent> ELEMENTAL_GOLEM_HURT = registerSound("mob.elemental_golem.hurt");
-    public static final RegistryObject<SoundEvent> ELEMENTAL_GOLEM_DEATH = registerSound("mob.elemental_golem.death");
-    public static final RegistryObject<SoundEvent> ELEMENTAL_GOLEM_STEP = registerSound("mob.elemental_golem.step");
 
     public static final RegistryObject<SoundEvent> STOMP = registerSound("mob.dryador.stomp");
 

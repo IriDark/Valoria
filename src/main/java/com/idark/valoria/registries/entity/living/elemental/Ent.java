@@ -14,7 +14,6 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
@@ -48,7 +47,7 @@ public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSyste
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
 
-        this.selector.addAttack(new TridotMeleeAttack(this, 1, 3, 5, 25, 35));
+        this.selector.addAttack(new TridotMeleeAttack(this, 1, 3, 5, 20, 35));
     }
 
     public void tick(){
@@ -204,13 +203,10 @@ public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSyste
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ExecuteAttackGoal(this));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 
-        this.targetSelector.addGoal(0, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
