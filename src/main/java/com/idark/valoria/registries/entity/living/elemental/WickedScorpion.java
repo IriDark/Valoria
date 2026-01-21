@@ -188,7 +188,7 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
 
         @Override
         public boolean canUse(){
-            return super.canUse() && WickedScorpion.this.distanceToSqr(WickedScorpion.this.getTarget()) > 12.0D && isWithinAttackRange(WickedScorpion.this.getTarget(), 12);
+            return super.canUse() && WickedScorpion.this.distanceToSqr(WickedScorpion.this.getTarget()) > 12.0D && isWithinAttackRange(WickedScorpion.this.getTarget(), 12) && WickedScorpion.this.getTarget() instanceof Player;
         }
 
         @Override

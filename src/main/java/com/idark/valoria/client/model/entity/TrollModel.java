@@ -95,7 +95,7 @@ public class TrollModel<T extends Troll> extends AbstractHierarchicalModel<T>{
             this.leftLeg.zRot = -0.07853982F;
         }
 
-        this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2, 6);
+        this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 4, 6);
         this.animateIdle(pEntity.idleAnimationState, TrollAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 0.5f);
     }
 

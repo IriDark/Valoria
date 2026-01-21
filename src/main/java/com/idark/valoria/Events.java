@@ -456,11 +456,28 @@ public class Events{
     @SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event){
         if(event.getSource().is(DamageTypeTags.BYPASSES_ARMOR)) return;
+        var source = event.getSource();
+        Entity attackerEntity = source.getEntity();
+        LivingEntity target = event.getEntity();
+        ILivingEntityData data = (ILivingEntityData)target;
+        if (source.getDirectEntity() instanceof Player player) {
+            if (target instanceof IEffectiveWeaponEntity eff) {
+                if(eff.getEffective() == null) {
+                    Valoria.LOGGER.debug("Effective weapon tag is null for {}", target);
+                    return;
+                }
 
-        Entity attackerEntity = event.getSource().getEntity();
+                if (player.getMainHandItem().is(eff.getEffective())) {
+                    float currentDamage = event.getAmount();
+                    float newDamage = currentDamage * eff.scaleFactor();
+                    event.setAmount(newDamage);
+                    data.valoria$setLastDamageWithSource(event.getSource(), event.getAmount());
+                }
+            }
+        }
+
         if (!(attackerEntity instanceof LivingEntity attacker)) return;
 
-        LivingEntity target = event.getEntity();
         float totalBonus = 0f;
         if(!(attacker instanceof Player && target instanceof Player)){
             for(ElementalType type : ElementalTypes.ELEMENTALS){
@@ -473,6 +490,7 @@ public class Events{
         }
 
         event.setAmount(event.getAmount() + totalBonus);
+        data.valoria$setLastDamageWithSource(event.getSource(), event.getAmount());
     }
 
     private static float applyAttackBonus(AttributeInstance attackAttr, AttributeInstance resistAttr, LivingEntity target, float totalBonus){
@@ -495,6 +513,14 @@ public class Events{
         var pSource = event.getSource();
         var entity = event.getEntity();
         var level = entity.level();
+        if (pSource.getDirectEntity() instanceof Player player && level.isClientSide()) {
+            if (entity instanceof IEffectiveWeaponEntity eff){
+                if(player.getMainHandItem().is(eff.getEffective())){
+                    eff.spawnHitParticles(entity.level(), entity.blockPosition());
+                }
+            }
+        }
+
         if(pSource.getEntity() instanceof LivingEntity attacker){
             ILivingEntityData data = (ILivingEntityData)entity;
             if(level instanceof ServerLevel s){

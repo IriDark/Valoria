@@ -1,5 +1,7 @@
 package com.idark.valoria.registries.entity.living.elemental;
 
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.entity.ai.attacks.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -15,21 +17,30 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.options.*;
+import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.common.registry.entity.system.*;
 import pro.komaru.tridot.common.registry.entity.system.generic.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSystemMob{
+public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSystemMob, IEffectiveWeaponEntity{
     private final AttackSelector selector = new AttackSelector();
     private AttackInstance currentAttack;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState attack2AnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
 
     @Nullable
@@ -41,14 +52,33 @@ public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSyste
         super(pEntityType, pLevel);
         this.xpReward = 15;
         this.getNavigation().setCanFloat(true);
-        this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
 
-        this.selector.addAttack(new TridotMeleeAttack(this, 1, 3, 5, 25, 35));
+        this.selector.addAttack(new TridotMeleeAttack(this, 1, 4, 0, 40, 70));
+        this.selector.addAttack(new EntMeleeSlapAttack(this, 1, 2, 0, 20, 35));
+    }
+
+    @Override
+    public void spawnHitParticles(Level level, BlockPos blockPos){
+        BlockState state = Blocks.OAK_LOG.defaultBlockState();
+        var opt = new BlockParticleOptions(TridotParticles.BLOCK.get(), state);
+        ParticleBuilder.create(opt)
+        .setRenderType(TridotRenderTypes.TRANSLUCENT_BLOCK_PARTICLE)
+        .setSpinData(SpinParticleData.create().randomOffset().randomSpin(0.5f).build())
+        .setScaleData(GenericParticleData.create(0.15f, 0.02f, 0).build())
+        .setSpriteData(SpriteParticleData.CRUMBS_RANDOM)
+        .setLifetime(30)
+        .randomVelocity(0.35, 0.65, 0.35)
+        .randomOffset(0.125, 0.125)
+        .setGravity(0.75f)
+        .repeat(level, blockPos.getX() + 0.5f, blockPos.getY() + 1, blockPos.getZ() + 0.5f, 12);
+    }
+
+    @Override
+    public TagKey<Item> getEffective(){
+        return ItemTags.AXES;
     }
 
     public void tick(){
@@ -121,7 +151,9 @@ public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSyste
     public void handleEntityEvent(byte pId) {
         if (pId == 4) {
             this.attackAnimationState.start(this.tickCount);
-        } else {
+        } if (pId == 62){
+            this.attack2AnimationState.start(this.tickCount);
+        }else {
             super.handleEntityEvent(pId);
         }
     }

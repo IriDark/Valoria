@@ -8,9 +8,11 @@ import net.minecraft.client.model.geom.builders.*;
 
 public class ScavengerModel<T extends Scavenger> extends AbstractHierarchicalModel<T>{
 	private final ModelPart root;
+    private final ModelPart head;
 
 	public ScavengerModel(ModelPart root) {
 		this.root = root;
+        this.head = root.getChild("head");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -58,14 +60,14 @@ public class ScavengerModel<T extends Scavenger> extends AbstractHierarchicalMod
 	@Override
 	public void setupAnim(Scavenger pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(ScavengerAnimations.WALK, pLimbSwing, pLimbSwingAmount, 8, 1);
+        this.animateWalk(ScavengerAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2, 3);
         this.animateIdle(pEntity.idleAnimationState, ScavengerAnimations.IDLE_DEFAULT, pLimbSwingAmount, pAgeInTicks, 1);
         this.animateIdle(pEntity.idleDiggingAnimationState, ScavengerAnimations.IDLE_DIG, pLimbSwingAmount, pAgeInTicks, 1);
         this.animateIdle(pEntity.idleEatingAnimationState, ScavengerAnimations.IDLE_EATING, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.angryAnimationState, ScavengerAnimations.AGRESSIVE, pAgeInTicks, 1);
 
         this.animate(pEntity.attackAnimationState, ScavengerAnimations.ATTACK, pAgeInTicks, 1);
-	}
+    }
 
     @Override
     public ModelPart root(){
@@ -74,6 +76,6 @@ public class ScavengerModel<T extends Scavenger> extends AbstractHierarchicalMod
 
     @Override
     public ModelPart getHead(){
-        return null;
+        return head;
     }
 }

@@ -1,4 +1,197 @@
 {
+  "ambient.valoria.additions": {
+    "sounds": [
+      {
+        "name": "valoria:ambient/valoria/addition0",
+        "volume": 0.3
+      },
+      {
+        "name": "valoria:ambient/valoria/addition1",
+        "volume": 0.3
+      },
+      {
+        "name": "valoria:ambient/valoria/addition2",
+        "volume": 0.3
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition1",
+        "volume": 0.3
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition2",
+        "volume": 0.3
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition3",
+        "volume": 0.1
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition4",
+        "volume": 0.67,
+        "weight": 5
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition5",
+        "volume": 0.3
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition6",
+        "volume": 0.3
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition7",
+        "volume": 0.3
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/addition8",
+        "volume": 0.67,
+        "weight": 5
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/dark1",
+        "volume": 0.9,
+        "weight": 5
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/dark2",
+        "volume": 0.9,
+        "weight": 5
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/ground1",
+        "volume": 0.25,
+        "weight": 3
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/ground2",
+        "volume": 0.4
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/ground3",
+        "volume": 0.4
+      },
+      {
+        "name": "minecraft:ambient/nether/nether_wastes/ground4",
+        "volume": 0.4
+      }
+    ]
+  },
+  "ambient.crimson.mood": {
+    "sounds": [
+      "valoria:ambient/valoria/crimson/mood0",
+      "valoria:ambient/valoria/crimson/mood1",
+      "valoria:ambient/valoria/crimson/mood2",
+      "minecraft:ambient/nether/nether_wastes/mood1",
+      "minecraft:ambient/nether/nether_wastes/mood2",
+      "minecraft:ambient/nether/nether_wastes/mood4",
+      "minecraft:ambient/nether/nether_wastes/mood5"
+    ]
+  },
+  "ambient.valoria.mood": {
+    "sounds": [
+      "valoria:ambient/valoria/mood0",
+      "valoria:ambient/valoria/mood1",
+      "valoria:ambient/valoria/mood2",
+      "valoria:ambient/valoria/mood3",
+      "valoria:ambient/valoria/mood4",
+      "minecraft:ambient/nether/nether_wastes/mood1",
+      "minecraft:ambient/nether/nether_wastes/mood2",
+      "minecraft:ambient/nether/nether_wastes/mood4",
+      "minecraft:ambient/nether/nether_wastes/mood5"
+    ]
+  },
+  "ambient.shade_forest.additions": {
+    "sounds": [
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/addition1",
+        "volume": 0.4,
+        "weight": 3
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/addition2",
+        "volume": 0.5,
+        "weight": 3
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/addition3",
+        "volume": 0.32,
+        "weight": 3
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/particles1",
+        "volume": 0.4,
+        "weight": 35
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/particles2",
+        "volume": 0.4,
+        "weight": 35
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/particles3",
+        "volume": 0.4,
+        "weight": 35
+      },
+      {
+        "name": "valoria:ambient/valoria/forest/addition1",
+        "pitch": 0.5,
+        "volume": 0.1,
+        "weight": 6
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/shroom1",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/shroom2",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/shroom3",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/twang1",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/voom1",
+        "volume": 0.7,
+        "weight": 4
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/voom1",
+        "pitch": 0.8,
+        "volume": 0.7,
+        "weight": 4
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/voom2",
+        "volume": 0.7,
+        "weight": 4
+      },
+      {
+        "name": "minecraft:ambient/nether/crimson_forest/voom2",
+        "pitch": 0.8,
+        "volume": 0.7,
+        "weight": 4
+      }
+    ]
+  },
+  "ambient.shade_forest.mood": {
+    "sounds": [
+      "valoria:ambient/valoria/forest/mood0",
+      "valoria:ambient/valoria/forest/mood1",
+      "minecraft:ambient/nether/crimson_forest/mood1",
+      "minecraft:ambient/nether/crimson_forest/mood2",
+      "minecraft:ambient/nether/crimson_forest/mood3",
+      "minecraft:ambient/nether/crimson_forest/mood4"
+    ]
+  },
   "boss.necromancer.music": {
     "sounds": [
       {

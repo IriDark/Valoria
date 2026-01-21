@@ -19,6 +19,13 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> BLOOD_POLE = registerSound("music.valoria.blood_pole");
     public static final RegistryObject<SoundEvent> CARRION = registerSound("music.valoria.carrion");
 
+    public static final RegistryObject<SoundEvent> VALORIA_ADDITIONS = registerSound("ambient.valoria.additions");
+    public static final RegistryObject<SoundEvent> VALORIA_MOOD = registerSound("ambient.valoria.mood");
+    public static final RegistryObject<SoundEvent> CRIMSON_MOOD = registerSound("ambient.crimson.mood");
+    public static final RegistryObject<SoundEvent> SHADE_FOREST_ADDITIONS = registerSound("ambient.shade_forest.additions");
+    public static final RegistryObject<SoundEvent> SHADE_FOREST_MOOD = registerSound("ambient.shade_forest.mood");
+    //public static final RegistryObject<SoundEvent> HILLS_ADDITIONS = registerSound("ambient.hills.additions");
+
     public static final RegistryObject<SoundEvent> UI_CLICK = registerSound("ui.click");
     public static final RegistryObject<SoundEvent> UI_ALCHEMY_BREW = registerSound("ui.alchemy.brew");
     public static final RegistryObject<SoundEvent> UI_ALCHEMY_NETHER_UPGRADE = registerSound("ui.alchemy.nether_upgrade");

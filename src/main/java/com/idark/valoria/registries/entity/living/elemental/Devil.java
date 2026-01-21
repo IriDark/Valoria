@@ -32,10 +32,8 @@ import java.util.*;
 public class Devil extends AbstractDevil implements RangedAttackMob{
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState throwAnimationState = new AnimationState();
-    public AnimationState magicAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
     public int throwAnimationTimeout = 0;
-    public int magicAnimationTimeout = 0;
     public int hits = 0;
     public boolean ranged;
     public SkeletonMovement movement = new SkeletonMovement(this, 64);
@@ -50,12 +48,6 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             this.throwAnimationTimeout = 40;
             this.idleAnimationState.stop();
             this.throwAnimationState.start(this.tickCount);
-        }
-
-        if(pId == 61 && magicAnimationTimeout <= 0){
-            this.magicAnimationTimeout = 80;
-            this.idleAnimationState.stop();
-            this.magicAnimationState.start(this.tickCount);
         }
 
         super.handleEntityEvent(pId);
@@ -115,7 +107,6 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         }else{
             --this.throwAnimationTimeout;
             --this.idleAnimationTimeout;
-            //--this.magicAnimationTimeout;
         }
     }
 
@@ -163,7 +154,6 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     protected void registerGoals(){
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
-//        this.goalSelector.addGoal(0, new MagicAttackGoal(this, 1.0D));
         this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 12.0F));
         this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 16, 1.25, 2, isLowHP()));
 

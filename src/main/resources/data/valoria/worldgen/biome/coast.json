@@ -10,13 +10,13 @@
     "grass_color": 4470594,
     "foliage_color": 11301619,
     "mood_sound": {
-      "sound": "minecraft:ambient.nether_wastes.mood",
+      "sound": "valoria:ambient.valoria.mood",
       "tick_delay": 6700,
       "block_search_extent": 8,
       "offset": 2
     },
     "additions_sound": {
-      "sound": "minecraft:ambient.nether_wastes.additions",
+      "sound": "valoria:ambient.valoria.additions",
       "tick_chance": 0.0155
     },
     "music": {

@@ -117,7 +117,7 @@ public class KingCrabModel<T extends KingCrabEntity> extends AbstractHierarchica
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(KingCrabAnimations.WALK, pLimbSwing, pLimbSwingAmount, 4, 2);
+        this.animateWalk(KingCrabAnimations.WALK, pLimbSwing, pLimbSwingAmount, 4, 8);
         this.animateIdle(pEntity.idleAnimationState, KingCrabAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.hideAnimationState, KingCrabAnimations.HIDE, pAgeInTicks, 1);
         this.animate(pEntity.revealAnimationState, KingCrabAnimations.REVEAL, pAgeInTicks, 1);

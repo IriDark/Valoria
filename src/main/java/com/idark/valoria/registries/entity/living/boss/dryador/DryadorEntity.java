@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living.boss.dryador;
 
 import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.entity.living.boss.*;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
@@ -42,7 +44,7 @@ import pro.komaru.tridot.util.math.*;
 import java.lang.Math;
 import java.util.*;
 
-public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
+public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEffectiveWeaponEntity{
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/dryador.png")).setDarkenScreen(true);
     private int spawnTime = 0;
     public final AnimationState idleAnimationState = new AnimationState();
@@ -61,6 +63,16 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
     public DryadorEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.xpReward = 100;
+    }
+
+    @Override
+    public float scaleFactor(){
+        return 1.25f;
+    }
+
+    @Override
+    public TagKey<Item> getEffective(){
+        return ItemTags.AXES;
     }
 
     @Override

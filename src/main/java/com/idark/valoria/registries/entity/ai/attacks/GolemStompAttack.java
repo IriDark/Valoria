@@ -10,7 +10,9 @@ import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.entity.system.*;
+import pro.komaru.tridot.util.comps.phys.*;
 
 import java.util.*;
 
@@ -61,6 +63,7 @@ public class GolemStompAttack extends AttackInstance{
     public void performAttack(){
         Vec3 vec3 = new Vec3(mob.getX(), mob.getY(), mob.getZ());
         List<LivingEntity> entities = mob.level().getNearbyEntities(LivingEntity.class, this.targeting, mob, mob.getBoundingBox().inflate(range));
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, Pos3.init((float)vec3.x, (float)vec3.y, (float)vec3.z), 0, 10));
         for(LivingEntity entity : entities){
             double distance = Math.sqrt(entity.distanceToSqr(vec3)) / range;
             double dX = entity.getX() - vec3.x;

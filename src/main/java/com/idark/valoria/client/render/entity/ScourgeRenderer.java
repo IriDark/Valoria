@@ -14,7 +14,7 @@ public class ScourgeRenderer extends MobRenderer<ScourgeEntity, ScourgeModel<Sco
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/scourge.png");
 
     public ScourgeRenderer(EntityRendererProvider.Context context){
-        super(context, new ScourgeModel<>(ScourgeModel.createBodyLayer().bakeRoot()), 0.75F);
+        super(context, new ScourgeModel<>(ScourgeModel.createBodyLayer().bakeRoot()), 0.35F);
     }
 
     @Override

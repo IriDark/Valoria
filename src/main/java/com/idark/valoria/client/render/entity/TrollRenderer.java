@@ -18,7 +18,7 @@ public class TrollRenderer extends MobRenderer<Troll, TrollModel<Troll>>{
     private final boolean corrupted;
 
     public TrollRenderer(EntityRendererProvider.Context context, boolean corrupted){
-        super(context, new TrollModel<>(TrollModel.createBodyLayer().bakeRoot()), 0.8F);
+        super(context, new TrollModel<>(TrollModel.createBodyLayer().bakeRoot()), 0.35F);
         this.corrupted = corrupted;
         this.texture = new ResourceLocation(Valoria.ID, corrupted ? "textures/entity/corrupted_troll.png" : "textures/entity/troll.png");
         this.addLayer(new LuminescentLayer.Builder<>(this)

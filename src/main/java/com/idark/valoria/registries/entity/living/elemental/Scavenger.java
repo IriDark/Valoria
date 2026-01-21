@@ -19,8 +19,13 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.entity.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.options.*;
 import pro.komaru.tridot.common.registry.entity.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
@@ -42,8 +47,11 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
     public Scavenger(EntityType<? extends Scavenger> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.setMaxUpStep(1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
+
         this.xpReward = 5;
     }
 
@@ -83,13 +91,13 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
             this.idleDiggingAnimationState.stop();
             this.idleAnimationState.stop();
             this.angryAnimationState.stop();
-        } else {
+        }else{
             Player player = this.level().getNearestPlayer(this, 12d);
-            if(player != null && !player.isCreative() && !this.angryAnimationState.isStarted()) {
+            if(player != null && !player.isCreative() && !this.angryAnimationState.isStarted()){
                 this.angryAnimationState.start(this.tickCount);
                 this.lookAt(player, 180, 360);
                 this.getNavigation().stop();
-            } else if((player == null || player.isCreative()) && this.angryAnimationState.isStarted()) {
+            }else if((player == null || player.isCreative()) && this.angryAnimationState.isStarted()){
                 this.angryAnimationState.stop();
             }
         }
@@ -186,7 +194,17 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
         if(pId == 4){
             this.angryAnimationState.stop();
             this.attackAnimationState.start(this.tickCount);
-        } else {
+        }else if(pId == 64){
+            var blockParticle = new BlockParticleOptions(TridotParticles.BLOCK.get(), this.level().getBlockState(this.blockPosition().below()));
+
+            ParticleBuilder.create(blockParticle)
+            .setGravity(0.75f)
+            .setLifetime(15)
+            .setScaleData(GenericParticleData.create(0.35f, 0, 0).build())
+            .setTransparencyData(GenericParticleData.create(1, 0, 0).setEasing(Interp.exp5Out).build())
+            .randomVelocity(0.15f, 0.75f, 0.15f)
+            .repeat(this.level(), this.getX(), this.getY(), this.getZ(), 4);
+        }else{
             super.handleEntityEvent(pId);
         }
     }
@@ -209,18 +227,18 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
     }
 
     protected void registerGoals(){
-        this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.goalSelector.addGoal(1, new AngryGoal(this));
+        this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 12.0F));
+        this.goalSelector.addGoal(0, new AngryGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new ScavengerAttackGoal(this, 1));
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.8D));
+        this.goalSelector.addGoal(1, new ScavengerAttackGoal(this, 1));
+        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 0.8D));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(0, new ReasonablePanicGoal(this, 1.45f));
-        this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 8, 1.25, 1.4, isLowHP()));
 
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, true));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, WickedScorpion.class, 6, 1.25, 1.4));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, ShadewoodSpider.class, 6, 1.25, 1.4));
+        this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 8, 1.25, 1.4, isLowHP()));
+        this.goalSelector.addGoal(0, new ReasonablePanicGoal(this, 1.45f));
         this.targetSelector.addGoal(0, (new HurtByTargetGoal(this)).setAlertOthers());
     }
 
@@ -275,6 +293,7 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
         public void start() {
             this.scavenger.setTarget(this.targetPlayer);
             this.scavenger.setPersistentAngerTarget(this.targetPlayer.getUUID());
+            this.scavenger.getNavigation().stop();
         }
     }
 
@@ -312,12 +331,12 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
         @Override
         public SoundEvent getPrepareSound() {
             return null;
-        }  //todo
+        }
 
         @Override
         public SoundEvent getAttackSound() {
             return SoundEvents.PHANTOM_BITE;
-        } // todo
+        }
 
         @Override
         public AttackRegistry getAttack() {
