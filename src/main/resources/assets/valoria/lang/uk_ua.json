@@ -572,6 +572,7 @@
   "commands.valoria.page.remove.single": "Прибрано сторінку від гравця %s",
   "commands.valoria.page.unknown": "Невідома сторінка",
   "config.jade.plugin_valoria.crusher": "Каменелом",
+  "config.jade.plugin_valoria.entity_weakness": "Weakness",
   "config.jade.plugin_valoria.jewelry": "Ювелірня",
   "config.jade.plugin_valoria.keg": "Бочка",
   "config.jade.plugin_valoria.key": "Ключ",
@@ -1359,6 +1360,7 @@
   "upgrade.valoria.elemental_upgrade": "Стихійне покращення",
   "valoria.boss.necromancer.music.author": "DuUaader",
   "valoria.boss.necromancer.music.name": "Некромант",
+  "valoria.jade.entity_weakness": "Weakness:",
   "valoria.jade.openable_with": "Відкриваєтся із:",
   "valoria.jade.progress": "Прогрес:"
 }

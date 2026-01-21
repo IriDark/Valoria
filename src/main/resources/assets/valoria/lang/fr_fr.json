@@ -572,6 +572,7 @@
   "commands.valoria.page.remove.single": "Page retirée du joueur %s",
   "commands.valoria.page.unknown": "Page inconnue",
   "config.jade.plugin_valoria.crusher": "Broyeur",
+  "config.jade.plugin_valoria.entity_weakness": "Weakness",
   "config.jade.plugin_valoria.jewelry": "Bijoux",
   "config.jade.plugin_valoria.keg": "Fût",
   "config.jade.plugin_valoria.key": "Clé",
@@ -1359,6 +1360,7 @@
   "upgrade.valoria.elemental_upgrade": "Mise à Niveau Élémentaire",
   "valoria.boss.necromancer.music.author": "DuUaader",
   "valoria.boss.necromancer.music.name": "Nécromancien",
+  "valoria.jade.entity_weakness": "Weakness:",
   "valoria.jade.openable_with": "Ouvrable avec :",
   "valoria.jade.progress": "Progression :"
 }

@@ -572,6 +572,7 @@
   "commands.valoria.page.remove.single": "移除玩家 %s 的页面",
   "commands.valoria.page.unknown": "未知页面",
   "config.jade.plugin_valoria.crusher": "粉碎机",
+  "config.jade.plugin_valoria.entity_weakness": "Weakness",
   "config.jade.plugin_valoria.jewelry": "珠宝",
   "config.jade.plugin_valoria.keg": "酒桶",
   "config.jade.plugin_valoria.key": "钥匙",
@@ -1359,6 +1360,7 @@
   "upgrade.valoria.elemental_upgrade": "元素升级",
   "valoria.boss.necromancer.music.author": "DuUaader",
   "valoria.boss.necromancer.music.name": "死灵法师",
+  "valoria.jade.entity_weakness": "Weakness:",
   "valoria.jade.openable_with": "可开启方式:",
   "valoria.jade.progress": "进度:"
 }
