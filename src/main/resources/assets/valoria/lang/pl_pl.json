@@ -572,6 +572,7 @@
   "commands.valoria.page.remove.single": "Usunięto stronę z gracza %s",
   "commands.valoria.page.unknown": "Nieznana strona",
   "config.jade.plugin_valoria.crusher": "Rozdrabniacz",
+  "config.jade.plugin_valoria.entity_weakness": "Weakness",
   "config.jade.plugin_valoria.jewelry": "Biżuteria",
   "config.jade.plugin_valoria.keg": "Beczka",
   "config.jade.plugin_valoria.key": "Klucz",
@@ -1359,6 +1360,7 @@
   "upgrade.valoria.elemental_upgrade": "Ulepszenie żywiołowe",
   "valoria.boss.necromancer.music.author": "DuUaader",
   "valoria.boss.necromancer.music.name": "Nekromanta",
+  "valoria.jade.entity_weakness": "Weakness:",
   "valoria.jade.openable_with": "Można otworzyć przy użyciu:",
   "valoria.jade.progress": "Postęp:"
 }
