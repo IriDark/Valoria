@@ -36,6 +36,11 @@ import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.entity.*;
 import pro.komaru.tridot.api.render.bossbars.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.options.*;
+import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.entity.*;
 import pro.komaru.tridot.util.*;
@@ -81,12 +86,20 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
         super.die(pDamageSource);
     }
 
-    public boolean isBusy(){
-        return phaseTransitionAnimationState.isPlaying
-        || summonAnimationState.isPlaying
-        || rangedAttackAnimationState.isPlaying
-        || stompAnimationState.isPlaying
-        || meleeAttackAnimationState.isPlaying;
+    @Override
+    public void spawnHitParticles(Level level, BlockPos blockPos){
+        BlockState state = Blocks.OAK_LOG.defaultBlockState();
+        var opt = new BlockParticleOptions(TridotParticles.BLOCK.get(), state);
+        ParticleBuilder.create(opt)
+        .setRenderType(TridotRenderTypes.TRANSLUCENT_BLOCK_PARTICLE)
+        .setSpinData(SpinParticleData.create().randomOffset().randomSpin(0.5f).build())
+        .setScaleData(GenericParticleData.create(0.15f, 0.02f, 0).build())
+        .setSpriteData(SpriteParticleData.CRUMBS_RANDOM)
+        .setLifetime(30)
+        .randomVelocity(0.35, 0.65, 0.35)
+        .randomOffset(0.125, 0.125)
+        .setGravity(0.75f)
+        .repeat(level, blockPos.getX() + 0.5f, blockPos.getY() + 1, blockPos.getZ() + 0.5f, 12);
     }
 
     public void handleEntityEvent(byte pId){

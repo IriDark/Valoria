@@ -58,6 +58,7 @@ public class TagsRegistry{
     public static final TagKey<Block> ALLOWED_TO_BREAK = block(new ResourceLocation(Valoria.ID, "allowed_to_break"));
 
     public static final TagKey<Block> NEEDS_HALLOWEEN_TOOL = block(new ResourceLocation(Valoria.ID, "needs_halloween_tool"));
+    public static final TagKey<Block> NEEDS_LUNAR_TOOL = block(new ResourceLocation(Valoria.ID, "needs_lunar_tool"));
     public static final TagKey<Block> NEEDS_HOLIDAY_TOOL = block(new ResourceLocation(Valoria.ID, "needs_holiday_tool"));
     public static final TagKey<Block> NEEDS_NONE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_none_tool"));
     public static final TagKey<Block> NEEDS_BLAZEREAP_TOOL = block(new ResourceLocation(Valoria.ID, "needs_blazereap_tool"));

@@ -142,6 +142,7 @@ public class ItemsRegistry{
 
     // event
     holidayCandy, holidayKatana, holidayPickaxe, holidayAxe, candyCorn, pumpkinBomb, wraithKatana, reaperScythe, dreadAxe, soulReaver,
+    redEnvelopeCommon, redEnvelopeUncommon, redEnvelopeRare, redEnvelopeEpic, lunarSword, lunarKatana, lunarScythe, lunarSpear, lunarPickaxe, lunarAxe, lunarBow,
 
     // accessories
     ironChain, ironNecklaceAmber, ironNecklaceDiamond, ironNecklaceEmerald, ironNecklaceRuby, ironNecklaceSapphire, ironNecklaceHealth, ironNecklaceArmor, ironNecklaceWealth, ironRogueNecklace,
@@ -325,6 +326,10 @@ public class ItemsRegistry{
         dirtGeode = registerItem("dirt_geode", () -> new CrushableItem(new Item.Properties().rarity(Rarity.RARE)));
         stoneGeode = registerItem("stone_geode", () -> new CrushableItem(new Item.Properties().rarity(Rarity.RARE)));
         starterBundle = registerItem("starter_bundle", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/start"), new Item.Properties().rarity(Rarity.UNCOMMON)));
+        redEnvelopeCommon = registerItem("red_envelope_common", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_common"), new Item.Properties().rarity(Rarity.COMMON)));
+        redEnvelopeUncommon = registerItem("red_envelope_uncommon", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_uncommon"), new Item.Properties().rarity(Rarity.UNCOMMON)));
+        redEnvelopeRare = registerItem("red_envelope_rare", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_rare"), new Item.Properties().rarity(Rarity.RARE)));
+        redEnvelopeEpic = registerItem("red_envelope_epic", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_epic"), new Item.Properties().rarity(Rarity.EPIC)));
         minersBag = registerItem("miners_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         gemBag = registerItem("gem_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
@@ -399,11 +404,20 @@ public class ItemsRegistry{
         holidayPickaxe = registerItem("holiday_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.HOLIDAY, -1, -3f, new Item.Properties()));
         holidayAxe = registerItem("holiday_axe", () -> new AxeItem(ItemTierRegistry.HOLIDAY, 1, -3f, new Item.Properties()));
 
+        // lunar
+        lunarSword = registerItem("lunar_sword", () -> new SwordItem(ItemTierRegistry.LUNAR, 12, -2f, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarKatana = registerItem("lunar_katana", () -> new KatanaItem(ItemTierRegistry.LUNAR, ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarScythe = registerItem("lunar_scythe",() -> new ScytheItem.Builder(12, -3.0f, new Properties().rarity(RarityRegistry.LUNAR)).setTier(ItemTierRegistry.LUNAR).build());
+        lunarSpear = registerItem("lunar_spear", () -> new SpearItem(ItemTierRegistry.LUNAR, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarPickaxe = registerItem("lunar_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.LUNAR, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarAxe = registerItem("lunar_axe", () -> new AxeItem(ItemTierRegistry.LUNAR, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarBow = registerItem("lunar_bow", () -> new ConfigurableBowItem(3, 1, new Item.Properties().stacksTo(1).rarity(RarityRegistry.LUNAR)));
+
         // halloween
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
         wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).usePacket(Pal.mandarin.toJava()).build());
-        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(9, -3.0f, new Properties().fireResistant().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
+        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(9, -3.0f, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, 6.5f, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, 4, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
