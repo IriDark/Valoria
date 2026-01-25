@@ -79,7 +79,7 @@ public class BlockRegistry{
     valoriaPortal, valoriaPortalFrame, grave, tomb, mossyTomb, woodenTomb, mossyWoodenTomb, sarcophagus, umbralKeypad, umbralActivator, umbralBlock, cutUmbralBlock, umbralBricks, quicksand, bronzeLamp, decoratedBronzeLamp, bronzeLampBlock,
 
     // decorative
-    elegantPedestal, woodenCup, beerCup, rumCup, cup, teaCup, greenTeaCup, coffeeCup, cacaoCup, glassBottle, rumBottle, cokeBottle, akvavitBottle, liquorBottle, wineBottle, meadBottle, sakeBottle, kvassBottle, whiskeyBottle, cognacBottle,
+    elegantPedestal, woodenCup, beerCup, rumCup, cup, teaCup, greenTeaCup, coffeeCup, cacaoCup, glassBottle, rumBottle, cokeBottle, akvavitBottle, liquorBottle, wineBottle, meadBottle, sakeBottle, kvassBottle, whiskeyBottle, cognacBottle, fireworkTube,
     taintedRoots, bloodVine, bloodVinePlant, caveRootPlant, caveRoot, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, doubleVoidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes,
 
     // boss trophies
@@ -506,6 +506,8 @@ public class BlockRegistry{
         woodenTomb = registerBlock("wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
         mossyWoodenTomb = registerBlock("mossy_wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
         sarcophagus = registerBlock("sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
+
+        fireworkTube = registerBlock("firework_tube", () -> new FireworkTubeBlock(Properties.of().strength(1f, 1f).noOcclusion()));
 
         // Cups
         woodenCup = BLOCK.register("wooden_cup", BlockRegistry::woodenCup);

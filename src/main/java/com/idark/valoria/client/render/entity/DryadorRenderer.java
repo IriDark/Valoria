@@ -12,7 +12,7 @@ public class DryadorRenderer extends MobRenderer<DryadorEntity, DryadorModel<Dry
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/dryador.png");
 
     public DryadorRenderer(EntityRendererProvider.Context context){
-        super(context, new DryadorModel<>(DryadorModel.createBodyLayer().bakeRoot()), 0.4F);
+        super(context, new DryadorModel<>(DryadorModel.createBodyLayer().bakeRoot()), 0.75F);
     }
 
     @Override

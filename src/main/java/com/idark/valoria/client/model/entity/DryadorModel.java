@@ -55,11 +55,8 @@ public class DryadorModel<T extends DryadorEntity> extends AbstractHierarchicalM
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-        if(!pEntity.isBusy()){
-            this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 6, 8);
-            this.animateIdle(pEntity.idleAnimationState, DryadorAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
-        }
-
+        this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 6, 8);
+        this.animateIdle(pEntity.idleAnimationState, DryadorAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.phaseTransitionAnimationState, DryadorAnimations.PHASE_TRANSITION, pAgeInTicks);
         if(!pEntity.phaseTransitionAnimationState.isPlaying){
             this.animate(pEntity.summonAnimationState, DryadorAnimations.SUMMON, pAgeInTicks);

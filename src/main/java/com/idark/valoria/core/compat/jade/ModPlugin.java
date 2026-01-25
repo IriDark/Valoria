@@ -5,6 +5,7 @@ import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.block.types.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import snownee.jade.addon.harvest.*;
@@ -17,6 +18,7 @@ public class ModPlugin implements IWailaPlugin{
     public static final ResourceLocation KEG = new ResourceLocation("valoria:keg");
     public static final ResourceLocation KEY = new ResourceLocation("valoria:key");
     public static final ResourceLocation MANIPULATOR = new ResourceLocation("valoria:manipulator");
+    public static final ResourceLocation ENTITY_WEAKNESS = new ResourceLocation("valoria:entity_weakness");
 
     @Override
     public void register(IWailaCommonRegistration registration){
@@ -33,6 +35,7 @@ public class ModPlugin implements IWailaPlugin{
         registration.registerBlockComponent(KegProvider.INSTANCE, KegBlock.class);
         registration.registerBlockComponent(KeyBlockProvider.INSTANCE, UmbralKeyPadBlock.class);
         registration.registerBlockComponent(ManipulatorProvider.INSTANCE, ManipulatorBlock.class);
+        registration.registerEntityComponent(EntityWeaknessProvider.INSTANCE, LivingEntity.class);
 
         registerTier("bronze", TagsRegistry.NEEDS_BRONZE_TOOL, ItemTierRegistry.BRONZE);
         registerTier("pearlium", TagsRegistry.NEEDS_PEARLIUM_TOOL, ItemTierRegistry.PEARLIUM);

@@ -98,6 +98,8 @@
                 "minecraft:projectile_protection",
                 "minecraft:protection"
               ],
+              "only_compatible": true,
+              "include_additional_cost_component": false,
               "conditions": []
             }
           ]

@@ -1,0 +1,25 @@
+{
+  "type": "tridot:add_loot",
+  "chance": 0.015,
+  "conditions": [
+    {
+      "condition": "tridot:local_date",
+      "day_of_month": {
+        "min": 1,
+        "max": 25
+      },
+      "month": {
+        "min": 2,
+        "max": 2
+      }
+    },
+    {
+      "condition": "minecraft:killed_by_player"
+    },
+    {
+      "condition": "tridot:mob_category",
+      "mob_category": "monster"
+    }
+  ],
+  "loot_table": "valoria:event/lunar_new_year"
+}

@@ -5,7 +5,6 @@ import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
-import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
@@ -179,7 +178,6 @@ public class Events{
     public void onReload(AddReloadListenerEvent event){
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
-        event.addListener(BossEntryLoader.INSTANCE);
     }
 
     @SubscribeEvent
@@ -298,10 +296,10 @@ public class Events{
 
         Player player = event.player;
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
-            if(CommonConfig.NIHILITY.get()){
+            if(ServerConfig.ENABLE_NIHILITY.get()){
                 player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
                     if(!player.getAbilities().instabuild && !player.isSpectator()){
-                        NihilityEvent.tick(event, nihilityLevel, player);
+                        NihilityEvent.tick(event, nihilityLevel, serverPlayer);
                     }
                 });
             }
@@ -312,7 +310,7 @@ public class Events{
                 }
             });
 
-            if(player.tickCount % 60 == 0){
+            if(player.tickCount % ServerConfig.CODEX_UPDATE_INTERVAL.get() * 20 == 0){
                 ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
                 Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
                 if(unlocked != null) all.removeAll(unlocked);
@@ -322,15 +320,15 @@ public class Events{
             }
         }
 
-        if(CommonConfig.NIHILITY.get()){
+        if(ServerConfig.ENABLE_NIHILITY.get()){
             if(player.level().isClientSide()){
                 player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
             }
         }
 
-        if(CommonConfig.FOOD_ROT.get()){
+        if(ServerConfig.ENABLE_FOOD_ROT.get()){
             if(player.level().dimension().equals(LevelGen.VALORIA_KEY)){
-                if(player.tickCount % 60 == 0){
+                if(player.tickCount % ServerConfig.FOOD_ROT_INTERVAL.get() * 20 == 0){
                     Inventory inv = player.getInventory();
                     for(int i = 0; i < inv.getContainerSize(); i++){
                         ItemStack stack = inv.getItem(i);
@@ -456,11 +454,28 @@ public class Events{
     @SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event){
         if(event.getSource().is(DamageTypeTags.BYPASSES_ARMOR)) return;
+        var source = event.getSource();
+        Entity attackerEntity = source.getEntity();
+        LivingEntity target = event.getEntity();
+        ILivingEntityData data = (ILivingEntityData)target;
+        if (source.getDirectEntity() instanceof Player player) {
+            if (target instanceof IEffectiveWeaponEntity eff) {
+                if(eff.getEffective() == null) {
+                    Valoria.LOGGER.debug("Effective weapon tag is null for {}", target);
+                    return;
+                }
 
-        Entity attackerEntity = event.getSource().getEntity();
+                if (player.getMainHandItem().is(eff.getEffective())) {
+                    float currentDamage = event.getAmount();
+                    float newDamage = currentDamage * eff.scaleFactor();
+                    event.setAmount(newDamage);
+                    data.valoria$setLastDamageWithSource(event.getSource(), event.getAmount());
+                }
+            }
+        }
+
         if (!(attackerEntity instanceof LivingEntity attacker)) return;
 
-        LivingEntity target = event.getEntity();
         float totalBonus = 0f;
         if(!(attacker instanceof Player && target instanceof Player)){
             for(ElementalType type : ElementalTypes.ELEMENTALS){
@@ -473,6 +488,7 @@ public class Events{
         }
 
         event.setAmount(event.getAmount() + totalBonus);
+        data.valoria$setLastDamageWithSource(event.getSource(), event.getAmount());
     }
 
     private static float applyAttackBonus(AttributeInstance attackAttr, AttributeInstance resistAttr, LivingEntity target, float totalBonus){
@@ -495,6 +511,14 @@ public class Events{
         var pSource = event.getSource();
         var entity = event.getEntity();
         var level = entity.level();
+        if (pSource.getDirectEntity() instanceof Player player && level.isClientSide()) {
+            if (entity instanceof IEffectiveWeaponEntity eff){
+                if(player.getMainHandItem().is(eff.getEffective())){
+                    eff.spawnHitParticles(entity.level(), entity.blockPosition());
+                }
+            }
+        }
+
         if(pSource.getEntity() instanceof LivingEntity attacker){
             ILivingEntityData data = (ILivingEntityData)entity;
             if(level instanceof ServerLevel s){

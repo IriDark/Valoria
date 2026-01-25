@@ -43,9 +43,10 @@ public class EntModel<T extends Ent> extends AbstractHierarchicalModel<T>{
     @Override
     public void setupAnim(Ent pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(EntAnimation.WALK, pLimbSwing, pLimbSwingAmount, 3, 1);
+        this.animateWalk(EntAnimation.WALK, pLimbSwing, pLimbSwingAmount, 8, 2);
         this.animateIdle(pEntity.idleAnimationState, EntAnimation.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.attackAnimationState, EntAnimation.ATTACK, pAgeInTicks);
+        this.animate(pEntity.attack2AnimationState, EntAnimation.ATTACK_2, pAgeInTicks);
     }
 
     @Override

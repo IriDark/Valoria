@@ -12,7 +12,7 @@ public class ScavengerRenderer extends MobRenderer<Scavenger, ScavengerModel<Sca
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/scavenger.png");
 
     public ScavengerRenderer(EntityRendererProvider.Context context){
-        super(context, new ScavengerModel<>(ScavengerModel.createBodyLayer().bakeRoot()), 0.4F);
+        super(context, new ScavengerModel<>(ScavengerModel.createBodyLayer().bakeRoot()), 0.75f);
     }
 
     @Override

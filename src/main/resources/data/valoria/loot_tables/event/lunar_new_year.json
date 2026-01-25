@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:red_envelope_common",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:red_envelope_uncommon",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:red_envelope_rare",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:red_envelope_epic",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "functions": []
+}

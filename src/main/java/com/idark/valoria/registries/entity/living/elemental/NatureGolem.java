@@ -30,7 +30,7 @@ public class NatureGolem extends AbstractElementalGolem{
         this.selector.addAttack(new GolemMeleeAttack(this, 1, 2, 0, 10, 20));
         this.selector.addAttack(new GolemMeleeSlapAttack(this, 1, 2, 0, 10, 40));
         this.selector.addAttack(new GolemStompAttack(this, 4, 2, 0, 20, 60));
-        this.selector.addAttack(new GolemGroundPunchAttack(this, 1, 4, 0, 15, 120));
+        this.selector.addAttack(new GolemGroundPunchAttack(this, 1, 4, 0, 20, 120));
     }
 
     public NatureGolem(Level pLevel){

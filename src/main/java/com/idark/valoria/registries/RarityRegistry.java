@@ -8,6 +8,7 @@ import static com.idark.valoria.util.Styles.*;
 public class RarityRegistry{
     public static final Rarity
     HALLOWEEN = Rarity.create("halloween", apply(halloween)),
+    LUNAR = Rarity.create("lunar", apply(lunar)),
     BLOODY = Rarity.create("bloody", apply(bloody)),
     MARSH = Rarity.create("marsh", apply(marsh)),
     SPIDER = Rarity.create("spider", apply(spider)),

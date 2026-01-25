@@ -2,6 +2,7 @@ package com.idark.valoria.client.ui.screen.book.codex;
 
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.mojang.blaze3d.vertex.*;
@@ -174,7 +175,7 @@ public class CodexEntry{
         if(node.unlockable == null){
             return true;
         }else{
-            return (UnlockUtils.isUnlocked(Minecraft.getInstance().player, node.unlockable));
+            return !ServerConfig.ENABLE_CODEX_PROGRESSION.get() || (UnlockUtils.isUnlocked(Minecraft.getInstance().player, node.unlockable));
         }
     }
 }

@@ -10,10 +10,13 @@ import net.minecraft.client.model.geom.builders.*;
 
 public class WickedScorpionModel<T extends WickedScorpion> extends AbstractHierarchicalModel<T> {
     private final ModelPart root;
+    private final ModelPart head;
 
-	public WickedScorpionModel(ModelPart root) {
+
+    public WickedScorpionModel(ModelPart root) {
         this.root = root;
-	}
+        this.head = root.getChild("head");
+    }
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
@@ -90,6 +93,6 @@ public class WickedScorpionModel<T extends WickedScorpion> extends AbstractHiera
 
     @Override
     public ModelPart getHead(){
-        return null;
+        return this.head;
     }
 }
