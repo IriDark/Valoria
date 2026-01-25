@@ -22,9 +22,6 @@ public class CommonConfig{
     public static ForgeConfigSpec.ConfigValue<Float>
     TARGET_HEAL_NECROMANCER_AMOUNT, SELF_HEAL_NECROMANCER_AMOUNT;
 
-    public static ForgeConfigSpec.ConfigValue<Boolean>
-    FOOD_ROT, NIHILITY;
-
     static{
         final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
         SPEC = specPair.getRight();
@@ -36,8 +33,6 @@ public class CommonConfig{
 
     public CommonConfig(ForgeConfigSpec.Builder builder){
         builder.comment("Gameplay").push("gameplay");
-            NIHILITY = builder.comment("Nihility System in Valoria, Default: true)").define("nihility", true);
-            FOOD_ROT = builder.comment("Food spoiling on entering Valoria dimension, Default: true)").define("foodRot", true);
             setupBosses(builder);
         builder.pop();
     }
@@ -57,26 +52,26 @@ public class CommonConfig{
             KNOCKBACK_NECROMANCER_RADIUS = builder.comment("Radius of knockback").define("knockbackRadius", 3);
             KNOCKBACK_NECROMANCER_RADIUS_STRONG = builder.comment("Radius of strong knockback casted when Necromancer HP is lower than 100").define("knockbackRadiusStrong", 6);
 
-            TARGET_HEAL_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("targetHealCastingTtime", 60);
+            TARGET_HEAL_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("targetHealCastingTime", 60);
             TARGET_HEAL_NECROMANCER_CASTING_INTERVAL = builder.comment("Casting interval").define("targetHealCastingInterval", 200);
             TARGET_HEAL_NECROMANCER_AMOUNT = builder.comment("Amount of healed hp").define("targetHeal", 12f);
 
             SELF_HEAL_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("selfHealCastingTime", 60);
             SELF_HEAL_NECROMANCER_CASTING_INTERVAL = builder.comment("Casting interval").define("selfHealCastingInterval", 300);
-            SELF_HEAL_NECROMANCER_AMOUNT = builder.comment("Amount of healed hp").define("self_heal", 25f);
+            SELF_HEAL_NECROMANCER_AMOUNT = builder.comment("Amount of healed hp").define("selfHeal", 25f);
 
             EFFECT_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("effectCastingTime", 20);
             EFFECT_NECROMANCER_CASTING_INTERVAL = builder.comment("Casting interval").define("effectCastingInterval", 150);
 
-            WOLOLO_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("wololo_casting_time", 60);
+            WOLOLO_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("wololoCastingTime", 60);
             WOLOLO_NECROMANCER_CASTING_INTERVAL = builder.comment("Casting interval").define("wololoCastingInterval", 180);
             builder.pop();
 
-            builder.comment("Wicked Crystal").push("wicked_crystal");
+            builder.comment("Wicked Crystal").push("wickedCrystal");
             SHIELDS_WICKED_CRYSTAL_CASTING_TIME = builder.comment("Casting time").define("shieldsCastingTime", 25);
             SHIELDS_WICKED_CRYSTAL_CASTING_INTERVAL = builder.comment("Casting interval").define("shieldsCastingInterval", 1200);
-            SHIELDS_WICKED_CRYSTAL_COUNT_PHASE1 = builder.comment("Count of summoned shields").define("shieldsCountPhase_1", 2);
-            SHIELDS_WICKED_CRYSTAL_COUNT_PHASE2 = builder.comment("Count of summoned shields").define("shieldsCountPhase_2", 4);
+            SHIELDS_WICKED_CRYSTAL_COUNT_PHASE1 = builder.comment("Count of summoned shields").define("shieldsCountPhase1", 2);
+            SHIELDS_WICKED_CRYSTAL_COUNT_PHASE2 = builder.comment("Count of summoned shields").define("shieldsCountPhase2", 4);
             SHIELDS_WICKED_CRYSTAL_LIMIT = builder.comment("Limit of shields").define("shieldsLimit",8);
 
             SUMMON_WICKED_CRYSTAL_CASTING_TIME = builder.comment("Casting time").define("crystalSummonCastingTime", 20);

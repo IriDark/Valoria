@@ -2,7 +2,6 @@ package com.idark.valoria.client.ui.screen.book;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
-import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -55,7 +54,6 @@ public class BookGui extends Screen{
 
             // scroll back
             if(scroll < 0){
-                if(shouldOpenChecklist()) return super.mouseScrolled(mouseX, mouseY, scroll);
                 if(currentPage <= 0){
                     this.onClose();
                     return true; // prevent crash
@@ -67,15 +65,6 @@ public class BookGui extends Screen{
         }
 
         return super.mouseScrolled(mouseX, mouseY, scroll);
-    }
-
-    private boolean shouldOpenChecklist(){
-        if(currentChapter.getPage(currentPage) instanceof BossPage){
-            changeChapter(CodexEntries.BOSS_CHECKLIST); // opens back checklist, QOL
-            return true;
-        }
-
-        return false;
     }
 
     @Override
@@ -158,7 +147,6 @@ public class BookGui extends Screen{
         }
 
         if(pKeyCode == GLFW.GLFW_KEY_PAGE_DOWN || pKeyCode == GLFW.GLFW_KEY_LEFT){
-            if(shouldOpenChecklist()) return super.keyPressed(pKeyCode, pScanCode, pModifiers);
             if(currentPage > 0){
                 backPage(mc);
             }else{
@@ -191,7 +179,6 @@ public class BookGui extends Screen{
             }
 
             if(isHover(mouseX, mouseY, backX, y, 21, 22)){
-                if(shouldOpenChecklist()) return false;
                 if(currentPage > 0){
                     backPage(mc);
                 }else{

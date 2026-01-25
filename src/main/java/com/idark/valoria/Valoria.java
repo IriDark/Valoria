@@ -80,6 +80,7 @@ public class Valoria{
     public static final GameRules.Key<GameRules.BooleanValue> TRAP_ACTIVATING = GameRules.register("valoria:trapActivating", Category.MISC, GameRules.BooleanValue.create(true));
 
     public Valoria(){
+        ConfigMigrator.migrate();
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
@@ -102,9 +103,9 @@ public class Valoria{
         SoundsRegistry.register(eventBus);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-        ModLoadingContext.get().registerConfig(Type.SERVER, ServerConfig.SPEC);
-        ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.SPEC);
-        ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.SPEC);
+        ModLoadingContext.get().registerConfig(Type.SERVER, ServerConfig.SPEC, "valoria/server.toml");
+        ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.SPEC, "valoria/client.toml");
+        ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.SPEC, "valoria/common.toml");
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
             forgeBus.addListener(Events::onTooltip);

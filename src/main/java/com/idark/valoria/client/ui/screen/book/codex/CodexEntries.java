@@ -4,7 +4,6 @@ import com.idark.valoria.*;
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
-import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.idark.valoria.client.ui.screen.book.pages.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.registries.*;
@@ -20,9 +19,9 @@ import pro.komaru.tridot.util.struct.data.*;
 import javax.annotation.*;
 import java.util.*;
 
+// todo plans, data driven chapters and pages ?
 public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
-    public static Seq<BossEntry> bossEntries = new Seq<>();
     public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, BOSS_CHECKLIST,
 
     PICK, HEAVY_WORKBENCH, STONE_CRUSHER, VALORIA_PORTAL,
@@ -52,8 +51,6 @@ public class CodexEntries{
         "codex.valoria.main.name",
         new TextPage("codex.valoria.main"),
         new TextPage("codex.valoria.main.continuation").hideTitle());
-
-        BOSS_CHECKLIST = new Chapter("codex.valoria.bosses.name", new BossMainPage("codex.valoria.bosses.name", bossEntries));
 
         PAGES_CHAPTER = new Chapter(
         "codex.valoria.pages.name",

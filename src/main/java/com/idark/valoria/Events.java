@@ -5,7 +5,6 @@ import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
-import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
@@ -179,7 +178,6 @@ public class Events{
     public void onReload(AddReloadListenerEvent event){
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
-        event.addListener(BossEntryLoader.INSTANCE);
     }
 
     @SubscribeEvent
@@ -298,10 +296,10 @@ public class Events{
 
         Player player = event.player;
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
-            if(CommonConfig.NIHILITY.get()){
+            if(ServerConfig.ENABLE_NIHILITY.get()){
                 player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
                     if(!player.getAbilities().instabuild && !player.isSpectator()){
-                        NihilityEvent.tick(event, nihilityLevel, player);
+                        NihilityEvent.tick(event, nihilityLevel, serverPlayer);
                     }
                 });
             }
@@ -312,7 +310,7 @@ public class Events{
                 }
             });
 
-            if(player.tickCount % 60 == 0){
+            if(player.tickCount % ServerConfig.CODEX_UPDATE_INTERVAL.get() * 20 == 0){
                 ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
                 Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
                 if(unlocked != null) all.removeAll(unlocked);
@@ -322,15 +320,15 @@ public class Events{
             }
         }
 
-        if(CommonConfig.NIHILITY.get()){
+        if(ServerConfig.ENABLE_NIHILITY.get()){
             if(player.level().isClientSide()){
                 player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
             }
         }
 
-        if(CommonConfig.FOOD_ROT.get()){
+        if(ServerConfig.ENABLE_FOOD_ROT.get()){
             if(player.level().dimension().equals(LevelGen.VALORIA_KEY)){
-                if(player.tickCount % 60 == 0){
+                if(player.tickCount % ServerConfig.FOOD_ROT_INTERVAL.get() * 20 == 0){
                     Inventory inv = player.getInventory();
                     for(int i = 0; i < inv.getContainerSize(); i++){
                         ItemStack stack = inv.getItem(i);
