@@ -78,6 +78,11 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_JADE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_jade_tool"));
     public static final TagKey<Block> NEEDS_VOID_TOOL = block(new ResourceLocation(Valoria.ID, "needs_void_tool"));
 
+    public static final TagKey<Item> DRAUGR_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "draugr_spawnable_with"));
+    public static final TagKey<Item> GOBLIN_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "goblin_spawnable_with"));
+    public static final TagKey<Item> FROM_SARCOPHAGUS_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "from_sarcophagus_spawnable_with"));
+    public static final TagKey<Item> FROM_SARCOPHAGUS_HALLOWEEN_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "from_sarcophagus_halloween_spawnable_with"));
+
     public static final TagKey<Item> SPEARS = item(new ResourceLocation(Valoria.ID, "spears"));
     public static final TagKey<Item> SCYTHES = item(new ResourceLocation(Valoria.ID, "scythes"));
     public static final TagKey<Item> RAPIERS = item(new ResourceLocation(Valoria.ID, "rapiers"));

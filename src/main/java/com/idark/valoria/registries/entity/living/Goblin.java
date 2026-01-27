@@ -1,8 +1,9 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.goals.RemoveBlockGoal;
 import com.idark.valoria.registries.entity.ai.goals.*;
+import com.idark.valoria.registries.entity.ai.goals.RemoveBlockGoal;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import pro.komaru.tridot.util.*;
@@ -80,7 +82,8 @@ public class Goblin extends AbstractGoblin{
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         if(arcRandom.chance(0.3f)){
-            this.setItemSlot(EquipmentSlot.MAINHAND, goblinCanSpawnWith.get(pRandom.nextInt(0, goblinCanSpawnWith.size())).getDefaultInstance());
+            ItemStack equipItem = ValoriaUtils.getRandomItemFromTag(pRandom, TagsRegistry.GOBLIN_SPAWNABLE_WITH);
+            this.setItemSlot(LivingEntity.getEquipmentSlotForItem(equipItem), equipItem);
         }
     }
 

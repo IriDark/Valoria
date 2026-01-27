@@ -5,6 +5,7 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -32,7 +33,6 @@ import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
 import java.time.*;
-import java.util.*;
 
 public class SarcophagusBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     public ArcRandom arcRandom = Tmp.rnd;
@@ -40,8 +40,6 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     private static final BooleanProperty OPEN = BooleanProperty.create("open");
     private static final BooleanProperty LOOTED = BooleanProperty.create("looted");
-    public static List<Item> spawnableWith = new ArrayList<>();
-    public static List<Item> halloweenSpawnableWith = new ArrayList<>();
 
     private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
 
@@ -89,10 +87,12 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
             if(entity != null){
                 if(pLevel.noCollision(entity, new AABB(x, y, z, x, y, z).inflate(1))){
                     entity.moveTo(x, y, z, 0.0F, 0.0F);
-                    entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
                     if(isHalloween()){
-                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(halloweenSpawnableWith.size())).getDefaultInstance());
+                        ItemStack halloweenEquip = ValoriaUtils.getRandomItemFromTag(rand, TagsRegistry.FROM_SARCOPHAGUS_HALLOWEEN_SPAWNABLE_WITH);
+                        entity.setItemSlot(LivingEntity.getEquipmentSlotForItem(halloweenEquip), halloweenEquip);
                     }else{
+                        ItemStack equipItem = ValoriaUtils.getRandomItemFromTag(rand, TagsRegistry.FROM_SARCOPHAGUS_SPAWNABLE_WITH);
+                        entity.setItemSlot(LivingEntity.getEquipmentSlotForItem(equipItem), equipItem);
                         if(rand.nextFloat() <= 0.4){
                             entity.setItemSlot(EquipmentSlot.HEAD, armor_head[rand.nextInt(armor_head.length)]);
                         }
@@ -120,9 +120,12 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
             if(entity != null){
                 if(pLevel.noCollision(entity, new AABB(x, y, z, x, y, z).inflate(1))){
                     entity.moveTo(x, y, z, 0.0F, 0.0F);
-                    entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
                     if(isHalloween()){
-                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(halloweenSpawnableWith.size())).getDefaultInstance());
+                        ItemStack halloweenEquip = ValoriaUtils.getRandomItemFromTag(rand, TagsRegistry.FROM_SARCOPHAGUS_HALLOWEEN_SPAWNABLE_WITH);
+                        entity.setItemSlot(LivingEntity.getEquipmentSlotForItem(halloweenEquip), halloweenEquip);
+                    } else {
+                        ItemStack equipItem = ValoriaUtils.getRandomItemFromTag(rand, TagsRegistry.FROM_SARCOPHAGUS_SPAWNABLE_WITH);
+                        entity.setItemSlot(LivingEntity.getEquipmentSlotForItem(equipItem), equipItem);
                     }
 
                     pLevel.addFreshEntity(entity);

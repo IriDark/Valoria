@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
@@ -41,6 +42,18 @@ import java.util.List;
 import java.util.function.*;
 
 public class ValoriaUtils{
+
+    public static ItemStack getRandomItemFromTag(RandomSource randomSource, TagKey<Item> weaponTag) {
+        var optionalTag = BuiltInRegistries.ITEM.getTag(weaponTag);
+        if (optionalTag.isPresent()) {
+            Holder<Item> randomItem = optionalTag.get().getRandomElement(randomSource).orElse(null);
+            if (randomItem != null) {
+                return new ItemStack(randomItem);
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
 
     public static int getCurrentNBTValue(String key, ItemStack pStack) {
         return pStack.getOrCreateTag().getInt(key);

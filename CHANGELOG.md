@@ -1,3 +1,22 @@
+# 1.0.2.6
+
+# **Added**
+
+- Added Draugr Spawnable with tag
+- Added Goblin Spawnable with tag
+- Added From Sarcophagus Spawnable with tag
+- Added From Sarcophagus Halloween Spawnable with tag
+
+# **Fixed**
+
+- 
+
+# **Changes**
+
+- Reduced mod size ~37MB -> ~33MB
+- Converted spawnables _(List of items Entity can spawn with)_ to Item Tags
+    - ModPack creators can now decide with which items Entity can spawn with
+
 # 1.0.2.5
 
 # **Added**

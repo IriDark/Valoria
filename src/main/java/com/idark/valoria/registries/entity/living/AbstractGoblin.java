@@ -1,43 +1,29 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.VisibleForDebug;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.NeutralMob;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec3;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.util.*;
+import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.phys.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Predicate;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
 
 public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob, Enemy{
     public final SimpleContainer inventory = new SimpleContainer(8);
     public static final Predicate<ItemEntity> ALLOWED_ITEMS = (p_289438_) -> !p_289438_.hasPickUpDelay() && p_289438_.isAlive() || p_289438_.getItem().isEdible() || p_289438_.getItem() == Items.GOLD_INGOT.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_BLOCK.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_NUGGET.getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.samuraiKunai.get().getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.samuraiPoisonedKunai.get().getDefaultInstance() || p_289438_.getItem().getItem() instanceof SwordItem;
-    public static List<Item> goblinCanSpawnWith = new ArrayList<>();
 
     @Nullable
     public UUID persistentAngerTarget;
@@ -51,10 +37,6 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
         this.setCanPickUpLoot(true);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
-    }
-
-    public static void spawnable(Item... T){
-        Collections.addAll(goblinCanSpawnWith, T);
     }
 
     @VisibleForDebug

@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -22,10 +23,8 @@ import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 import java.time.*;
-import java.util.*;
 
 public class DraugrEntity extends Monster implements RangedAttackMob{
-    public static List<Item> draugrCanSpawnWith = new ArrayList<>();
     private final RangedBowAttackGoal<net.minecraft.world.entity.monster.AbstractSkeleton> bowGoal = new RangedBowAttackGoal<>(this, 1.0, 20, 15.0F);
     private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2, false){
         public void stop(){
@@ -70,13 +69,10 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
         }
     }
 
-    public static void spawnable(Item... T){
-        Collections.addAll(draugrCanSpawnWith, T);
-    }
-
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, draugrCanSpawnWith.get(pRandom.nextInt(0, draugrCanSpawnWith.size())).getDefaultInstance());
+        ItemStack equipItem = ValoriaUtils.getRandomItemFromTag(pRandom, TagsRegistry.DRAUGR_SPAWNABLE_WITH);
+        this.setItemSlot(LivingEntity.getEquipmentSlotForItem(equipItem), equipItem);
         if(Tmp.rnd.chance(0.15f)){
             this.setItemSlot(EquipmentSlot.OFFHAND, ItemsRegistry.draugrShield.get().getDefaultInstance());
         }
