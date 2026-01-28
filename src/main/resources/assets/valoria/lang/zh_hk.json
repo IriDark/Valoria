@@ -1399,5 +1399,20 @@
   "valoria.boss.necromancer.music.name": "死靈法師",
   "valoria.jade.entity_weakness": "Weakness:",
   "valoria.jade.openable_with": "可用以下方式打開：",
-  "valoria.jade.progress": "進度："
+  "valoria.jade.progress": "進度：",
+  "block.valoria.ash": "灰燼",
+  "block.valoria.ash_bricks": "灰燼磚",
+  "block.valoria.ash_bricks_slab": "灰燼磚半磚",
+  "block.valoria.ash_bricks_stairs": "灰燼磚樓梯",
+  "block.valoria.ash_bricks_wall": "灰燼磚牆",
+  "block.valoria.ash_slab": "灰燼半磚",
+  "block.valoria.ash_stairs": "灰燼樓梯",
+  "block.valoria.ash_tiles": "灰燼瓷磚",
+  "block.valoria.ash_wall": "灰燼牆",
+  "block.valoria.firework_tube": "煙火發射管",
+  "block.valoria.polished_ash": "拋光灰燼",
+  "block.valoria.polished_ash_bricks": "拋光灰燼磚",
+  "block.valoria.polished_ash_bricks_slab": "拋光灰燼磚半磚",
+  "block.valoria.polished_ash_bricks_stairs": "拋光灰燼磚樓梯",
+  "block.valoria.polished_ash_bricks_wall": "拋光灰燼磚牆"
 }
