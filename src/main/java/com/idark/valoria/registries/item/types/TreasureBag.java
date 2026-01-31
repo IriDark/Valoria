@@ -3,10 +3,12 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.*;
+import net.minecraft.advancements.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -36,6 +38,12 @@ public class TreasureBag extends LootItem{
         if(player instanceof ServerPlayer serverPlayer){
             Vec3 playerPos = serverPlayer.position();
             List<ItemStack> generatedLoot = Utils.Items.createLoot(loot, Utils.Items.getGiftParameters((ServerLevel)worldIn, playerPos, serverPlayer.getLuck(), serverPlayer));
+            serverPlayer.awardStat(Stats.ITEM_USED.get(this));
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, heldStack);
+            if(!serverPlayer.isCreative()){
+                heldStack.shrink(1);
+            }
+
             if(!generatedLoot.isEmpty()){
                 MutableComponent message = Component.translatable("message.valoria.received").withStyle(ChatFormatting.GOLD);
                 for(int i = 0; i < generatedLoot.size(); i++){
