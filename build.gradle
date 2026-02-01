@@ -189,7 +189,7 @@ task updateResources {
         File langFolder = new File(resourcesFolder, "assets/valoria/lang"); langFolder.mkdir()
         File mainLangJson = new File(langFolder, "en_us.json"); mainLangJson.createNewFile()
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create()
-        TreeMap<String,String> EN_US = gson.fromJson(createInput(mainLangJson), TreeMap<String,String>.class)
+        LinkedHashMap<String,String> EN_US = gson.fromJson(createInput(mainLangJson), LinkedHashMap.class)
         if(EN_US == null) {
             println "Skipping langFile because of incorrect structure " + mainLangJson.getName()
             return
@@ -199,7 +199,7 @@ task updateResources {
         println "\u001B[32m- Comparing langs with:\u001B[0m " + mainLangJson.getName()
         for (final File otherLang in otherLangs) {
             InputStreamReader reader = createInput(otherLang)
-            TreeMap<String,String> LANG = gson.fromJson(reader, TreeMap<String,String>.class)
+            LinkedHashMap<String,String> LANG = gson.fromJson(reader, LinkedHashMap.class)
             reader.close();
             if(LANG == null) {
                 println "Skipping langFile because of incorrect structure " + otherLang.getName()
@@ -208,7 +208,7 @@ task updateResources {
 
             EN_US.forEach(LANG::putIfAbsent)
             OutputStreamWriter writer = createOutput(otherLang)
-            gson.toJson(LANG, TreeMap<String, String>.class, writer)
+            gson.toJson(LANG, LinkedHashMap.class, writer)
             writer.close()
             println "\u001B[32m- Compared lang file\u001B[0m " + "\u001B[36m" + otherLang.getName() + "\u001B[0m"
         }
