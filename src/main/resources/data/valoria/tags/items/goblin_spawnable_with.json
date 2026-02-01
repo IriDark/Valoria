@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:wooden_rapier",
+    "valoria:stone_rapier",
+    "valoria:iron_rapier",
+    "valoria:club"
+  ]
+}

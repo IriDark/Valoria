@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#/",
+    "#S#",
+    "/#/"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:wicked_amethyst"
+    },
+    "#": {
+      "item": "valoria:nihility_shard"
+    },
+    "S": {
+      "item": "valoria:elemental_crystal"
+    }
+  },
+  "result": {
+    "item": "valoria:fortress_locator",
+    "count": 6
+  }
+}

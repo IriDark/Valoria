@@ -107,7 +107,7 @@ public class ItemsRegistry{
     starterBundle, minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
 
     // locators
-    cryptLocator,
+    cryptLocator, fortressLocator,
 
     // boss summonables
     necromancerGrimoire, suspiciousGem, harmonyCrown,
@@ -338,6 +338,7 @@ public class ItemsRegistry{
 
         // locators
         cryptLocator = registerItem("crypt_locator", () -> new StructureLocatorItem(Pal.seaGreen, TagsRegistry.NECROMANCER_CRYPT_LOCATOR, new Item.Properties()));
+        fortressLocator = registerItem("fortress_locator", () -> new StructureLocatorItem(Pal.majestyPurple, TagsRegistry.FORTRESS_LOCATOR, new Item.Properties()));
 
         // boss summonables
         necromancerGrimoire = registerItem("necromancer_grimoire", () -> new Item(new Item.Properties()){

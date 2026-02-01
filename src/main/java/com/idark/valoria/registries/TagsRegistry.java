@@ -44,6 +44,7 @@ public class TagsRegistry{
     public static final TagKey<EntityType<?>> HARMONY_CREATURES = entity(new ResourceLocation(Valoria.ID, "harmony_creatures"));
 
     public static final TagKey<Structure> NECROMANCER_CRYPT_LOCATOR = dungeon(new ResourceLocation(Valoria.ID, "necromancer_crypt_locator"));
+    public static final TagKey<Structure> FORTRESS_LOCATOR = dungeon(new ResourceLocation(Valoria.ID, "fortress_locator"));
     public static final TagKey<Structure> ON_NECROMANCER_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_necromancer_crypt_explorer_maps"));
     public static final TagKey<Structure> ON_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_crypt_explorer_maps"));
 
@@ -77,6 +78,11 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_INFERNAL_TOOL = block(new ResourceLocation(Valoria.ID, "needs_infernal_tool"));
     public static final TagKey<Block> NEEDS_JADE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_jade_tool"));
     public static final TagKey<Block> NEEDS_VOID_TOOL = block(new ResourceLocation(Valoria.ID, "needs_void_tool"));
+
+    public static final TagKey<Item> DRAUGR_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "draugr_spawnable_with"));
+    public static final TagKey<Item> GOBLIN_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "goblin_spawnable_with"));
+    public static final TagKey<Item> FROM_SARCOPHAGUS_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "from_sarcophagus_spawnable_with"));
+    public static final TagKey<Item> FROM_SARCOPHAGUS_HALLOWEEN_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "from_sarcophagus_halloween_spawnable_with"));
 
     public static final TagKey<Item> SPEARS = item(new ResourceLocation(Valoria.ID, "spears"));
     public static final TagKey<Item> SCYTHES = item(new ResourceLocation(Valoria.ID, "scythes"));

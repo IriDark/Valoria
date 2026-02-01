@@ -21,7 +21,6 @@ import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.registries.level.events.*;
-import com.idark.valoria.util.*;
 import com.mojang.logging.*;
 import net.mehvahdjukaar.dummmmmmy.*;
 import net.minecraft.data.*;
@@ -168,36 +167,6 @@ public class Valoria{
             fireblock.setFlammable(BlockRegistry.dreadwoodPlanks.get(), 5, 25);
             fireblock.setFlammable(BlockRegistry.strippedDreadwoodLog.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.strippedDreadWood.get(), 5, 30);
-            DraugrEntity.spawnable(
-            Items.BOW,
-            Items.WOODEN_AXE,
-            Items.STONE_SWORD,
-            Items.IRON_SWORD,
-            Items.GOLDEN_AXE,
-            Items.IRON_PICKAXE
-            );
-
-            Goblin.spawnable(
-            ItemsRegistry.woodenRapier.get(),
-            ItemsRegistry.stoneRapier.get(),
-            ItemsRegistry.ironRapier.get(),
-            ItemsRegistry.club.get()
-            );
-
-            ValoriaUtils.addList(SarcophagusBlock.spawnableWith,
-            Items.BOW,
-            Items.WOODEN_AXE,
-            Items.STONE_SWORD,
-            Items.IRON_SWORD,
-            Items.GOLDEN_AXE,
-            Items.IRON_PICKAXE
-            );
-
-            ValoriaUtils.addList(SarcophagusBlock.halloweenSpawnableWith,
-            Items.PUMPKIN,
-            Items.JACK_O_LANTERN,
-            Items.CARVED_PUMPKIN
-            );
 
             CurioCurses.effects(
             MobEffects.DARKNESS,

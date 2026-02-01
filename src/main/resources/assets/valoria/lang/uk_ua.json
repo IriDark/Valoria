@@ -1399,5 +1399,6 @@
   "valoria.boss.necromancer.music.name": "Некромант",
   "valoria.jade.entity_weakness": "Weakness:",
   "valoria.jade.openable_with": "Відкриваєтся із:",
-  "valoria.jade.progress": "Прогрес:"
+  "valoria.jade.progress": "Прогрес:",
+  "item.valoria.fortress_locator": "Fortress Locator"
 }

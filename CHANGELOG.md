@@ -1,3 +1,26 @@
+# 1.0.2.6
+
+# **Added**
+
+- Added Fortress Locator
+- Added Draugr Spawnable with tag
+- Added Goblin Spawnable with tag
+- Added From Sarcophagus Spawnable with tag
+- Added From Sarcophagus Halloween Spawnable with tag
+
+# **Fixed**
+- Fixed, Loot bags didn't disappear after use, causing duping of items
+- Fixed Percent Armor display, added configs (Tridot)
+
+# **Changes**
+
+- Translation changes, now every new line will appear at the  end of the Lang file, those were added automatically and sorted alphabetically earlier 
+- Difficulty Scaling: The Nihility system is now tied to World Difficulty
+- Decreased Amber, Sapphire, Ruby ore gems drop count
+- Reduced mod size ~37MB -> ~33MB
+- Converted spawnables _(List of items Entity can spawn with)_ to Item Tags
+    - ModPack creators can now decide with which items Entity can spawn with
+
 # 1.0.2.5
 
 # **Added**
