@@ -224,7 +224,7 @@ tasks.withType(GenerateModuleMetadata) {
 task apiJar(type: Jar) {
     archiveClassifier.set('api')
     from sourceSets.main.output
-    exclude("assets/valoria/**")
+    exclude("assets/valoria/sounds/**")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
