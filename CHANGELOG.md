@@ -25,6 +25,7 @@
 
 # **Added**
 
+- Added Netherite Necklace Wealth upgrading recipe
 - Added Codex Progression config (Server // Per world)
     - Includes toggle and update interval
 - Added Food Rot config (Server // Per world)
