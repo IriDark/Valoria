@@ -3,6 +3,7 @@
 # **Fixed**
 - Fixed Alchemy Station missing recipe
 - Fixed Lunar Katana missing in-hand model
+- Chinese translation fixes
 
 # 1.0.2.6
 
