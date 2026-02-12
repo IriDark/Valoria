@@ -407,7 +407,7 @@ public class ItemsRegistry{
 
         // lunar
         lunarSword = registerItem("lunar_sword", () -> new SwordItem(ItemTierRegistry.LUNAR, 12, -2f, new Item.Properties().rarity(RarityRegistry.LUNAR)));
-        lunarKatana = registerItem("lunar_katana", () -> new KatanaItem(ItemTierRegistry.LUNAR, ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarKatana = registerItem("lunar_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)).removeLargeModelCheck().setTier(ItemTierRegistry.LUNAR).build());
         lunarScythe = registerItem("lunar_scythe",() -> new ScytheItem.Builder(12, -3.0f, new Properties().rarity(RarityRegistry.LUNAR)).setTier(ItemTierRegistry.LUNAR).build());
         lunarSpear = registerItem("lunar_spear", () -> new SpearItem(ItemTierRegistry.LUNAR, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarPickaxe = registerItem("lunar_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.LUNAR, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));

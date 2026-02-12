@@ -1,3 +1,9 @@
+# 1.0.2.7
+
+# **Fixed**
+- Fixed Alchemy Station missing recipe
+- Fixed Lunar Katana missing in-hand model
+
 # 1.0.2.6
 
 # **Added**
