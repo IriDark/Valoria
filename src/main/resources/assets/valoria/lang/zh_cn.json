@@ -1400,5 +1400,6 @@
   "block.valoria.polished_ash_bricks": "抛光灰烬砖",
   "block.valoria.polished_ash_bricks_slab": "抛光灰烬砖台阶",
   "block.valoria.polished_ash_bricks_stairs": "抛光灰烬砖楼梯",
-  "block.valoria.polished_ash_bricks_wall": "抛光灰烬砖墙"
+  "block.valoria.polished_ash_bricks_wall": "抛光灰烬砖墙",
+  "curios.identifier.pet": "Pet"
 }
