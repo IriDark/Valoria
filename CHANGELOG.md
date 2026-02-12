@@ -15,6 +15,12 @@
  - Codex Improvements
  - Packet Rate Limiting: Implemented a robust rate-limit system for all gameplay packets (Crafting, Alchemy, Curios, Skills). Prevents packet spam exploits and potential server lag.
 
+# 1.0.2.7
+
+# **Fixed**
+- Fixed Alchemy Station missing recipe
+- Fixed Lunar Katana missing in-hand model
+- Chinese translation fixes
 
 # 1.0.2.6
 
