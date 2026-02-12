@@ -1,3 +1,21 @@
+# 1.0.3
+
+# **Added**
+
+- 
+
+# **Fixed**
+
+- Fixed Ents targetting Minecolonies Citizens
+- Fixed Lunar Katana missing in-hand model
+- Fixed Accessories effect synchronization issues 
+
+# **Changes**
+ 
+ - Codex Improvements
+ - Packet Rate Limiting: Implemented a robust rate-limit system for all gameplay packets (Crafting, Alchemy, Curios, Skills). Prevents packet spam exploits and potential server lag.
+
+
 # 1.0.2.6
 
 # **Added**

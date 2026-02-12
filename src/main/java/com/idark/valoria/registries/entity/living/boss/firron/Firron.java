@@ -363,6 +363,8 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     }
 
     public void handleKeyframe(String keyframe) {
+        if(this.isStunned || rushing || animationTicks > 0 || this.tickCount < 140) return;
+
         if ("sweep1".equals(keyframe)) {
             performAttackPhase(1);
         } else if ("sweep2".equals(keyframe)) {

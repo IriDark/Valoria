@@ -19,6 +19,7 @@ public class EffectsRegistry{
     public static final RegistryObject<MobEffect> EXHAUSTION = EFFECTS.register("exhaustion", ExhaustionEffect::new);
     public static final RegistryObject<MobEffect> RENEWAL = EFFECTS.register("renewal", RenewalEffect::new);
     public static final RegistryObject<MobEffect> SOUL_BURST = EFFECTS.register("soul_burst", SoulBurstEffect::new);
+    public static final RegistryObject<MobEffect> NIHILITY_PROTECTION = EFFECTS.register("nihility_protection", NihilityProtectionEffect::new);
 
     public static void register(IEventBus eventBus){
         EFFECTS.register(eventBus);

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "COB",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "C": {
+      "tag": "minecraft:candles"
+    },
+    "O": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "valoria:alchemy_station_tier_1"
+  }
+}

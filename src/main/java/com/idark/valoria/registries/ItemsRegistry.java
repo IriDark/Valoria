@@ -16,6 +16,7 @@ import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
 import com.idark.valoria.registries.item.types.curio.hands.*;
+import com.idark.valoria.registries.item.types.curio.pet.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
@@ -160,9 +161,13 @@ public class ItemsRegistry{
 
     nihilityMonitor, respirator, gasMask,
 
+    // pets
+    pixiePet,
+
     // runes
     lithicRune, lithicRuneVision, lithicRuneWealth, lithicRuneCurses, lithicRuneStrength, lithicRuneAccuracy, lithicRuneDeep,
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
+    voidSlateRune, voidSlateRuneVision, voidSlateRuneWealth, voidSlateRuneCurses, voidSlateRuneStrength, voidSlateRuneAccuracy, voidSlateRuneDeep, voidSlateRunePyro, sacredVoidSlateRune, voidSlateRuneNihility,
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
     // consumables
@@ -407,7 +412,7 @@ public class ItemsRegistry{
 
         // lunar
         lunarSword = registerItem("lunar_sword", () -> new SwordItem(ItemTierRegistry.LUNAR, 12, -2f, new Item.Properties().rarity(RarityRegistry.LUNAR)));
-        lunarKatana = registerItem("lunar_katana", () -> new KatanaItem(ItemTierRegistry.LUNAR, ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarKatana = registerItem("lunar_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)).removeLargeModelCheck().setTier(ItemTierRegistry.LUNAR).build());
         lunarScythe = registerItem("lunar_scythe",() -> new ScytheItem.Builder(12, -3.0f, new Properties().rarity(RarityRegistry.LUNAR)).setTier(ItemTierRegistry.LUNAR).build());
         lunarSpear = registerItem("lunar_spear", () -> new SpearItem(ItemTierRegistry.LUNAR, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarPickaxe = registerItem("lunar_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.LUNAR, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
@@ -900,27 +905,16 @@ public class ItemsRegistry{
         medicatedHarmonyHeart = registerItem("medicated_harmony_heart", () -> new ValoriaCurioItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         elementalCharm = registerItem("elemental_charm", () -> new TimedMagmaImmunityItem(10, new Item.Properties().stacksTo(1).rarity(RarityRegistry.ELEMENTAL)));
 
-        lithicRune = registerItem("lithic_rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)){
-            @Override
-            public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-                super.appendHoverText(stack, world, tooltip, flags);
-                tooltip.add(Component.translatable("tooltip.valoria.rune").withStyle(ChatFormatting.GRAY));
-            }
-        });
+        pixiePet = registerItem("pixie_pet", () -> new PixiePetItem(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
 
+        lithicRune = registerItem("lithic_rune", () -> new EmptyRuneItem(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)));
         lithicRuneVision = registerItem("lithic_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON),  1200));
         lithicRuneWealth = registerItem("lithic_rune_of_wealth", () -> new CurioWealth(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneCurses = registerItem("lithic_rune_of_curses", () -> new CurioCurses(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneStrength = registerItem("lithic_rune_of_strength", () -> new CurioStrength(0.025f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneAccuracy = registerItem("lithic_rune_of_accuracy", () -> new RuneAccuracy(0.05f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneDeep = registerItem("lithic_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        rune = registerItem("rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)){
-            @Override
-            public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-                super.appendHoverText(stack, world, tooltip, flags);
-                tooltip.add(Component.translatable("tooltip.valoria.rune").withStyle(ChatFormatting.GRAY));
-            }
-        });
+        rune = registerItem("rune", () -> new EmptyRuneItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
 
         runeVision = registerItem("rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), 3600));
         runeWealth = registerItem("rune_of_wealth", () -> new CurioWealth(1.5f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
@@ -930,6 +924,15 @@ public class ItemsRegistry{
         runeDeep = registerItem("rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runePyro = registerItem("rune_of_pyro", () -> new CurioPyro(30, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeCold = registerItem("rune_of_cold", () -> new RuneCold(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+
+        voidSlateRune = registerItem("void_slate_rune", () -> new EmptyRuneItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
+        voidSlateRuneVision = registerItem("void_slate_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID), 5200));
+        voidSlateRuneWealth = registerItem("void_slate_rune_of_wealth", () -> new CurioWealth(2.5f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneCurses = registerItem("void_slate_rune_of_curses", () -> new CurioCurses(0.05f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneStrength = registerItem("void_slate_rune_of_strength", () -> new CurioStrength(0.15f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneAccuracy = registerItem("void_slate_rune_of_accuracy", () -> new RuneAccuracy(0.25f, 1.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneDeep = registerItem("void_slate_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRunePyro = registerItem("void_slate_rune_of_pyro", () -> new CurioPyro(120, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
 
         // medicine
         aloeBandage = registerItem("aloe_bandage", () -> new BandageItem(false, 1600, 0));

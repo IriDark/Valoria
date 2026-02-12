@@ -1,6 +1,5 @@
 package com.idark.valoria.api.unlockable;
 
-import com.idark.valoria.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.network.*;
@@ -14,6 +13,33 @@ import java.util.*;
 import java.util.concurrent.atomic.*;
 
 public class UnlockUtils{
+
+    public static boolean isViewed(Player player, Unlockable unlockable){
+        AtomicBoolean viewed = new AtomicBoolean(false);
+        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> viewed.set(k.isViewed(unlockable)));
+        return viewed.get();
+    }
+
+    public static Set<Unlockable> getViewed(Player player) {
+        AtomicReference<Set<Unlockable>> set = new AtomicReference<>();
+        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> set.set(k.getViewed()));
+        return set.get();
+    }
+
+    public static void markViewed(Player player, Unlockable unlockable){
+        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+            if(k.isViewed(unlockable)) return;
+            k.markViewed(unlockable);
+        });
+    }
+
+    public static void removeViewed(ServerPlayer entity, Unlockable unlockable){
+        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+            if(!k.isViewed(unlockable)) return;
+            k.removeViewed(unlockable);
+            PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
+        });
+    }
 
     public static boolean isClaimed(Player player, Unlockable unlockable){
         AtomicBoolean claimed = new AtomicBoolean(false);
@@ -77,8 +103,6 @@ public class UnlockUtils{
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
             PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, unlockable.icon, true));
         });
-
-        Valoria.LOGGER.debug("{} unlocked page {}", entity.getDisplayName().getString(), unlockable.id);
     }
 
     public static void remove(ServerPlayer entity, Unlockable unlockable){
@@ -93,6 +117,7 @@ public class UnlockUtils{
     public static void addAll(ServerPlayer entity){
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             k.addAllUnlockable();
+            k.viewAll();
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
         });
     }
@@ -101,6 +126,7 @@ public class UnlockUtils{
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             k.removeAllUnlockable();
             k.clearClaimed();
+            k.resetViewed();
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
         });
     }
