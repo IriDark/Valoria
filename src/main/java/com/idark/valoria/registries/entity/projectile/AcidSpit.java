@@ -89,6 +89,11 @@ public class AcidSpit extends AbstractProjectile{
         }
     }
 
+    @Override
+    public boolean canChangeDimensions() {
+        return false;
+    }
+
     public void setChild(boolean child) {
         this.child = child;
     }
@@ -103,6 +108,7 @@ public class AcidSpit extends AbstractProjectile{
 
     public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("IsChild", this.child);
         if(!this.effects.isEmpty()){
             ListTag listtag = new ListTag();
             for(MobEffectInstance mobeffectinstance : this.effects){
@@ -118,6 +124,7 @@ public class AcidSpit extends AbstractProjectile{
      */
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
+        this.child = pCompound.getBoolean("IsChild");
         for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(pCompound)){
             this.addEffect(mobeffectinstance);
         }

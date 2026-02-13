@@ -1,13 +1,10 @@
-# 1.0.3
-
-# **Added**
-
-- 
+# 1.0.2.8
 
 # **Fixed**
 
+- Fixed Alchemy Station Upgrading
 - Fixed Ents targetting Minecolonies Citizens
-- Fixed Lunar Katana missing in-hand model
+- Fixed Scorpion spit duping after dimension travel
 - Fixed Accessories effect synchronization issues 
 
 # **Changes**
