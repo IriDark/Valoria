@@ -67,7 +67,6 @@ import java.util.*;
 
 import static com.idark.valoria.util.ValoriaUtils.*;
 
-@SuppressWarnings("removal")
 public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
 

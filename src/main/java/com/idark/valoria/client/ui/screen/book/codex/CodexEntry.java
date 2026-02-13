@@ -60,7 +60,9 @@ public class CodexEntry{
         int sty = isUnlocked() ? node.style.y : Style.CLOSED.y;
         int sthx = isUnlocked() ? node.style.hoverX : Style.CLOSED.hoverX;
         int sthy = isUnlocked() ? node.style.hoverY : Style.CLOSED.hoverY;
-        if(isHover(mouseX, mouseY, x - 12, y - 8) && codex.isOnScreen(mouseX, mouseY)){
+
+        boolean isHovered = isHover(mouseX, mouseY, x - 12, y - 8) && codex.isOnScreen(mouseX, mouseY);
+        if(isHovered){
             gui.blit(loc, x, y, sthx, sthy, entryWidth, entryHeight, 512, 512);
             MutableComponent transl = isUnlocked() ? translate : unknownTranslate;
 
@@ -72,11 +74,32 @@ public class CodexEntry{
             gui.blit(loc, x, y, stx, sty, entryWidth, entryHeight, 512, 512);
         }
 
+        int pX = isHovered ? x + 13 : x + 14;
+        int pY = isHovered ? y - 4 : y - 3;
         if(isUnlocked()){
             gui.pose().pushPose();
             gui.pose().translate(0, 0, codex.entries - 100);
             gui.renderFakeItem(node.item.getDefaultInstance(), x + 3, y + 3);
             gui.pose().popPose();
+            if(!isViewed()) {
+                gui.pose().pushPose();
+                gui.pose().translate(0, 0, 300);
+                int iconX = isHovered ? 51 : 42;
+                int iconY = isHovered ? 192 : 193;
+                int textureSize = isHovered ? 11 : 9;
+                gui.blit(loc, pX, pY, iconX, iconY, textureSize, textureSize, 512, 512);
+                gui.pose().popPose();
+            }
+        } else {
+            if(!node.hints.isEmpty()) {
+                gui.pose().pushPose();
+                gui.pose().translate(0, 0, 300);
+                int iconX = isHovered ? 31 : 22;
+                int iconY = isHovered ? 192 : 193;
+                int textureSize = isHovered ? 11 : 9;
+                gui.blit(loc, pX, pY, iconX, iconY, textureSize, textureSize, 512, 512);
+                gui.pose().popPose();
+            }
         }
     }
 
@@ -90,6 +113,8 @@ public class CodexEntry{
                     if(unlockable != null && unlockable.hasAwards() && !UnlockUtils.isClaimed(codex.player, unlockable) && !Codex.onClaim(this, unlockable)){
                         PacketHandler.sendToServer(new UnlockCodexPacket(unlockable.getId()));
                     } else {
+                        if(unlockable != null) PacketHandler.sendToServer(new ReadCodexPacket(unlockable.getId()));
+
                         codex.sound(() -> SoundEvents.BOOK_PAGE_TURN, 1, 1);
                         codex.changeChapter(getChapter());
                     }
@@ -168,6 +193,15 @@ public class CodexEntry{
         }
 
         gui.renderComponentTooltip(Minecraft.getInstance().font, lines, x, y);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean isViewed(){
+        if(node.unlockable == null){
+            return true;
+        }else{
+            return (UnlockUtils.isViewed(Minecraft.getInstance().player, node.unlockable));
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

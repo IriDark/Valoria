@@ -62,21 +62,23 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, FireTrapParticlePacket.class, FireTrapParticlePacket::encode, FireTrapParticlePacket::decode, FireTrapParticlePacket::handle);
         HANDLER.registerMessage(id++, KeypadParticlePacket.class, KeypadParticlePacket::encode, KeypadParticlePacket::decode, KeypadParticlePacket::handle);
         HANDLER.registerMessage(id++, ParticleLinePacket.class, ParticleLinePacket::encode, ParticleLinePacket::decode, ParticleLinePacket::handle);
-        HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, CuriosSetStackPacket::handle);
+        HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, DashParticlePacket.class, DashParticlePacket::encode, DashParticlePacket::decode, DashParticlePacket::handle);
         HANDLER.registerMessage(id++, MusicToastPacket.class, MusicToastPacket::encode, MusicToastPacket::decode, MusicToastPacket::handle);
         HANDLER.registerMessage(id++, UnlockCodexPacket.class, UnlockCodexPacket::encode, UnlockCodexPacket::decode, UnlockCodexPacket::handle);
         HANDLER.registerMessage(id++, NihilityPacket.class, NihilityPacket::encode, NihilityPacket::decode, NihilityPacket::handle);
         HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
-        HANDLER.registerMessage(id++, HeavyWorkbenchCraftPacket.class, HeavyWorkbenchCraftPacket::encode, HeavyWorkbenchCraftPacket::decode, HeavyWorkbenchCraftPacket::handle);
-        HANDLER.registerMessage(id++, AlchemyCraftPacket.class, AlchemyCraftPacket::encode, AlchemyCraftPacket::decode, AlchemyCraftPacket::handle);
-        HANDLER.registerMessage(id++, AlchemyUpgradePacket.class, AlchemyUpgradePacket::encode, AlchemyUpgradePacket::decode, AlchemyUpgradePacket::handle);
-        HANDLER.registerMessage(id++, AlchemyUpgradeTryPacket.class, AlchemyUpgradeTryPacket::encode, AlchemyUpgradeTryPacket::decode, AlchemyUpgradeTryPacket::handle);
+        HANDLER.registerMessage(id++, HeavyWorkbenchCraftPacket.class, HeavyWorkbenchCraftPacket::encode, HeavyWorkbenchCraftPacket::decode, RateLimitedPacket::processPacket);
+        HANDLER.registerMessage(id++, AlchemyCraftPacket.class, AlchemyCraftPacket::encode, AlchemyCraftPacket::decode, RateLimitedPacket::processPacket);
+        HANDLER.registerMessage(id++, AlchemyUpgradePacket.class, AlchemyUpgradePacket::encode, AlchemyUpgradePacket::decode, RateLimitedPacket::processPacket);
+        HANDLER.registerMessage(id++, AlchemyUpgradeTryPacket.class, AlchemyUpgradeTryPacket::encode, AlchemyUpgradeTryPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, AlchemyUpgradeParticlePacket.class, AlchemyUpgradeParticlePacket::encode, AlchemyUpgradeParticlePacket::decode, AlchemyUpgradeParticlePacket::handle);
         HANDLER.registerMessage(id++, CrusherParticlePacket.class, CrusherParticlePacket::encode, CrusherParticlePacket::decode, CrusherParticlePacket::handle);
         HANDLER.registerMessage(id++, CrushParticlePacket.class, CrushParticlePacket::encode, CrushParticlePacket::decode, CrushParticlePacket::handle);
-        HANDLER.registerMessage(id++, FirronKeyframePacket.class, FirronKeyframePacket::encode, FirronKeyframePacket::decode, FirronKeyframePacket::handle);
+        HANDLER.registerMessage(id++, FirronKeyframePacket.class, FirronKeyframePacket::encode, FirronKeyframePacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, MagmaPacket.class, MagmaPacket::encode, MagmaPacket::decode, MagmaPacket::handle);
+        HANDLER.registerMessage(id++, OnKeyInputPacket.class, OnKeyInputPacket::encode, OnKeyInputPacket::decode, RateLimitedPacket::processPacket);
+        HANDLER.registerMessage(id++, ReadCodexPacket.class, ReadCodexPacket::encode, ReadCodexPacket::decode, ReadCodexPacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){
@@ -91,12 +93,6 @@ public final class PacketHandler{
 
     public static void sendNonLocal(Object msg, ServerPlayer player){
         HANDLER.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
-    }
-
-    public static void sendNonLocal(ServerPlayer playerMP, Object toSend){
-        if(playerMP.server.isDedicatedServer() || !playerMP.getGameProfile().getName().equals(playerMP.server.getLocalIp())){
-            sendTo(playerMP, toSend);
-        }
     }
 
     public static void sendToTracking(Level world, BlockPos pos, Object msg){

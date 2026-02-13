@@ -95,8 +95,6 @@ public class Codex extends DotScreen{
         pop();
     }
 
-    private float hoverProgress = 0.0F;
-    private long lastTime = 0;
     public void render(GuiGraphics gui, int mouseX, int mouseY){
         push();
         layer(300 * 2);
@@ -141,8 +139,6 @@ public class Codex extends DotScreen{
             }
 
             if(isHover(mouseX, mouseY, guiLeft() - 25, guiTop() + 20, 35, 39)) {
-                hoverProgress = 0;
-                lastTime = 0;
                 this.changeChapter(CodexEntries.BOSS_CHECKLIST);
             }
         }

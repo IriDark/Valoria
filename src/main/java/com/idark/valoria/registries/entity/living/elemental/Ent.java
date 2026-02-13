@@ -15,7 +15,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -34,7 +33,7 @@ import pro.komaru.tridot.common.registry.entity.system.generic.*;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSystemMob, IEffectiveWeaponEntity{
+public class Ent extends PathfinderMob implements NeutralMob, AttackSystemMob, IEffectiveWeaponEntity{
     private final AttackSelector selector = new AttackSelector();
     private AttackInstance currentAttack;
 

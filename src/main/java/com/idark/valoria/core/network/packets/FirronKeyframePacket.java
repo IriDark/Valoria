@@ -1,15 +1,14 @@
 package com.idark.valoria.core.network.packets;
 
+import com.idark.valoria.core.network.*;
 import com.idark.valoria.registries.entity.living.boss.firron.*;
 import net.minecraft.network.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
-import net.minecraftforge.network.NetworkEvent.*;
 
 import java.util.*;
-import java.util.function.*;
 
-public class FirronKeyframePacket {
+public class FirronKeyframePacket extends RateLimitedPacket{
     private final UUID entityId;
     private final String keyframe;
 
@@ -27,15 +26,12 @@ public class FirronKeyframePacket {
         return new FirronKeyframePacket(buf.readUUID(), buf.readUtf());
     }
 
-    public static void handle(FirronKeyframePacket msg, Supplier<Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            ServerLevel level = ctx.get().getSender().serverLevel();
-            Entity entity = level.getEntity(msg.entityId);
+    public void execute(ServerPlayer player) {
+        ServerLevel level = player.serverLevel();
+        Entity entity = level.getEntity(this.entityId);
 
-            if (entity instanceof Firron firron) {
-                firron.handleKeyframe(msg.keyframe);
-            }
-        });
-        ctx.get().setPacketHandled(true);
+        if (entity instanceof Firron firron) {
+            firron.handleKeyframe(this.keyframe);
+        }
     }
 }

@@ -23,6 +23,7 @@ import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.component.client.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.consumables.*;
+import com.idark.valoria.registries.item.types.curio.pet.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
@@ -33,6 +34,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.player.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
@@ -143,6 +145,7 @@ public class ValoriaClient{
             CuriosRendererRegistry.register(ItemsRegistry.leatherBelt.get(), BeltRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.jewelryBag.get(), JewelryBagRenderer::new);
 
+            CuriosRendererRegistry.register(ItemsRegistry.pixiePet.get(), () -> new PetRenderer((PetItem)ItemsRegistry.pixiePet.get().asItem()));
 
             MenuScreens.register(MenuRegistry.TINKERING_MENU.get(), TinkeringScreen::new);
             MenuScreens.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
@@ -161,6 +164,7 @@ public class ValoriaClient{
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
             event.registerAboveAll("nihility", NihilityHudOverlay.instance);
+            event.registerAboveAll("nihility_shield", NihilityShieldOverlay.instance);
         }
 
         @SubscribeEvent
@@ -299,6 +303,21 @@ public class ValoriaClient{
             event.register(ValoriaLayers.KEG_MODEL);
             event.register(ValoriaLayers.SPHERE);
             event.register(ValoriaLayers.CYST);
+        }
+
+        @SubscribeEvent
+        public static void registerLayers(EntityRenderersEvent.AddLayers event) {
+            PlayerRenderer defaultRenderer = event.getSkin("default");
+            if (defaultRenderer != null) {
+                defaultRenderer.addLayer(new StunEffectLayer(defaultRenderer));
+                defaultRenderer.addLayer(new NihilityProtectionLayer(defaultRenderer));
+            }
+
+            PlayerRenderer slimRenderer = event.getSkin("slim");
+            if (slimRenderer != null) {
+                slimRenderer.addLayer(new StunEffectLayer(slimRenderer));
+                slimRenderer.addLayer(new NihilityProtectionLayer(slimRenderer));
+            }
         }
 
         @SubscribeEvent

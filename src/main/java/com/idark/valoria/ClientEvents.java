@@ -5,6 +5,8 @@ import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.util.*;
@@ -33,6 +35,13 @@ import java.util.*;
 public class ClientEvents{
     public static final DecimalFormat FORMAT = new DecimalFormat("###.##", new DecimalFormatSymbols(Locale.ENGLISH));
     private static final ResourceLocation FLAME_ICON = Valoria.loc("textures/gui/flame_icon.png");
+
+    @SubscribeEvent
+    public static void onKeyInput(InputEvent.Key event) {
+        if (ValoriaClient.JEWELRY_BONUSES_KEY.consumeClick()) {
+            PacketHandler.sendToServer(new OnKeyInputPacket(0));
+        }
+    }
 
     @SubscribeEvent
     public static void onRenderGui(RenderGuiOverlayEvent.Post event) {

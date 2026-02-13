@@ -1400,5 +1400,6 @@
   "valoria.jade.entity_weakness": "Weakness:",
   "valoria.jade.openable_with": "Відкриваєтся із:",
   "valoria.jade.progress": "Прогрес:",
-  "item.valoria.fortress_locator": "Fortress Locator"
+  "item.valoria.fortress_locator": "Fortress Locator",
+  "curios.identifier.pet": "Pet"
 }

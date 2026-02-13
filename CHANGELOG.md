@@ -1,3 +1,17 @@
+# 1.0.2.8
+
+# **Fixed**
+
+- Fixed Alchemy Station Upgrading
+- Fixed Ents targetting Minecolonies Citizens
+- Fixed Scorpion spit duping after dimension travel
+- Fixed Accessories effect synchronization issues 
+
+# **Changes**
+ 
+ - Codex Improvements
+ - Packet Rate Limiting: Implemented a robust rate-limit system for all gameplay packets (Crafting, Alchemy, Curios, Skills). Prevents packet spam exploits and potential server lag.
+
 # 1.0.2.7
 
 # **Fixed**

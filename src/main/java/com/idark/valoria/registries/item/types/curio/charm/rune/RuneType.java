@@ -8,5 +8,6 @@ public enum RuneType{
     ACCURACY,
     DEPTHS,
     PYRO,
-    ICE
+    ICE,
+    PROTECTION
 }

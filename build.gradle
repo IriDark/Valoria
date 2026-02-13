@@ -189,7 +189,14 @@ task updateResources {
         File langFolder = new File(resourcesFolder, "assets/valoria/lang"); langFolder.mkdir()
         File mainLangJson = new File(langFolder, "en_us.json"); mainLangJson.createNewFile()
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create()
-        LinkedHashMap<String,String> EN_US = gson.fromJson(createInput(mainLangJson), LinkedHashMap.class)
+
+        LinkedHashMap<String,String> EN_US
+        try {
+            EN_US = gson.fromJson(createInput(mainLangJson), LinkedHashMap.class)
+        } catch (Exception e) {
+            throw new GradleException("Error parsing MAIN file: " + mainLangJson.getName(), e)
+        }
+
         if(EN_US == null) {
             println "Skipping langFile because of incorrect structure " + mainLangJson.getName()
             return
@@ -198,19 +205,31 @@ task updateResources {
         File[] otherLangs = langFolder.listFiles( (FileFilter) (f) -> {return f != mainLangJson && f.isFile() && f.getName().endsWith(".json")})
         println "\u001B[32m- Comparing langs with:\u001B[0m " + mainLangJson.getName()
         for (final File otherLang in otherLangs) {
-            InputStreamReader reader = createInput(otherLang)
-            LinkedHashMap<String,String> LANG = gson.fromJson(reader, LinkedHashMap.class)
-            reader.close();
-            if(LANG == null) {
-                println "Skipping langFile because of incorrect structure " + otherLang.getName()
-                continue
-            }
+            println "Processing file: " + otherLang.getName()
+            try{
+                InputStreamReader reader = createInput(otherLang)
+                LinkedHashMap<String,String> LANG
+                try {
+                    LANG = gson.fromJson(reader, LinkedHashMap.class)
+                } catch (Exception e) {
+                    throw new GradleException("Error parsing LANG file: " + otherLang.getName(), e)
+                }
 
-            EN_US.forEach(LANG::putIfAbsent)
-            OutputStreamWriter writer = createOutput(otherLang)
-            gson.toJson(LANG, LinkedHashMap.class, writer)
-            writer.close()
-            println "\u001B[32m- Compared lang file\u001B[0m " + "\u001B[36m" + otherLang.getName() + "\u001B[0m"
+                reader.close();
+                if(LANG == null){
+                    println "Skipping langFile because of incorrect structure " + otherLang.getName()
+                    continue
+                }
+
+                EN_US.forEach(LANG::putIfAbsent)
+                OutputStreamWriter writer = createOutput(otherLang)
+                gson.toJson(LANG, LinkedHashMap.class, writer)
+                writer.close()
+                println "\u001B[32m- Compared lang file\u001B[0m " + "\u001B[36m" + otherLang.getName() + "\u001B[0m"
+            } catch (Exception e) {
+                println "\u001B[31mError processing file: " + otherLang.getName() + "\u001B[0m"
+                throw e;
+            }
         }
     }
 }

@@ -12,7 +12,6 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.gui.overlay.*;
 import pro.komaru.tridot.common.config.*;
 
-//todo cap fix
 @OnlyIn(Dist.CLIENT)
 public class NihilityHudOverlay implements IGuiOverlay{
     public static final NihilityHudOverlay instance = new NihilityHudOverlay();
