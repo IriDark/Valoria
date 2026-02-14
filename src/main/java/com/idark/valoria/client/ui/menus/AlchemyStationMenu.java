@@ -1,7 +1,6 @@
 package com.idark.valoria.client.ui.menus;
 
 import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
@@ -16,6 +15,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 import pro.komaru.tridot.client.render.gui.screen.*;
 
 import java.util.*;
@@ -192,8 +192,25 @@ public class AlchemyStationMenu extends ContainerMenuBase{
             if(checkAndSetAvailability(recipe)){
                 consumeMaterials(recipe);
                 PacketHandler.sendToTracking(player.serverLevel(), pos, new AlchemyUpgradeParticlePacket(this.blockLevel + 1, pos.getX(), pos.getY(), pos.getZ()));
-                PacketHandler.sendToServer(new AlchemyUpgradePacket(this.blockLevel));
+                upgrade(player);
                 this.broadcastChanges();
+            }
+        }
+    }
+
+    private void upgrade(ServerPlayer player){
+        if (player.containerMenu instanceof AlchemyStationMenu){
+            player.closeContainer();
+            BlockState state = level.getBlockState(this.pos);
+            if(state.getBlock() instanceof AlchemyStationBlock stationBlock){
+                BlockState toState = switch(stationBlock.level){
+                    case 1 -> BlockRegistry.alchemyStationTier2.get().defaultBlockState();
+                    case 2 -> BlockRegistry.alchemyStationTier3.get().defaultBlockState();
+                    case 3 -> BlockRegistry.alchemyStationTier4.get().defaultBlockState();
+                    default -> BlockRegistry.alchemyStationTier1.get().defaultBlockState();
+                };
+
+                stationBlock.upgrade(this.pos, state, level, toState);
             }
         }
     }

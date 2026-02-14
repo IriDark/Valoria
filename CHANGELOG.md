@@ -1,3 +1,9 @@
+# 1.0.2.9
+
+# **Fixed**
+
+- Fixed Alchemy Station Upgrading on Server
+
 # 1.0.2.8
 
 # **Fixed**

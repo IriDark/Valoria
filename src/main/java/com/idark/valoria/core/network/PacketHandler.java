@@ -70,7 +70,6 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
         HANDLER.registerMessage(id++, HeavyWorkbenchCraftPacket.class, HeavyWorkbenchCraftPacket::encode, HeavyWorkbenchCraftPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, AlchemyCraftPacket.class, AlchemyCraftPacket::encode, AlchemyCraftPacket::decode, RateLimitedPacket::processPacket);
-        HANDLER.registerMessage(id++, AlchemyUpgradePacket.class, AlchemyUpgradePacket::encode, AlchemyUpgradePacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, AlchemyUpgradeTryPacket.class, AlchemyUpgradeTryPacket::encode, AlchemyUpgradeTryPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, AlchemyUpgradeParticlePacket.class, AlchemyUpgradeParticlePacket::encode, AlchemyUpgradeParticlePacket::decode, AlchemyUpgradeParticlePacket::handle);
         HANDLER.registerMessage(id++, CrusherParticlePacket.class, CrusherParticlePacket::encode, CrusherParticlePacket::decode, CrusherParticlePacket::handle);

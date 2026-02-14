@@ -23,7 +23,7 @@ public abstract class RateLimitedPacket{
             if (lastTime == null) lastTime = 0L;
 
             if (now - lastTime < RATE_LIMIT_TICKS) {
-                Valoria.LOGGER.debug("Packet Spam prevented from Player {}", player.getName().getString());
+                Valoria.LOGGER.debug("Tried to receive {}, ignoring packet spam from Player {}", packet.getClass().getSimpleName(), player.getName().getString());
                 return;
             }
 
