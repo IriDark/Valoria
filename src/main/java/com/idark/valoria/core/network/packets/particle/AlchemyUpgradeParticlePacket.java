@@ -51,10 +51,10 @@ public class AlchemyUpgradeParticlePacket{
                 .setGravity(0.25f)
                 .setHasPhysics(false)
                 .repeat(level, msg.posX, msg.posY, msg.posZ, 64);
-
-                ctx.get().setPacketHandled(true);
             });
         }
+
+        ctx.get().setPacketHandled(true);
     }
 
     public void encode(FriendlyByteBuf buf){
