@@ -7,7 +7,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -56,8 +55,8 @@ public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, Va
             slotContext.getWearer().removeEffect(MobEffects.POISON);
         }
 
-        Player player = (Player)slotContext.entity();
-        if(player.hurtMarked) accessoryHurt(player, stack, tier);
+        var entity = slotContext.entity();
+        if(entity.hurtMarked) accessoryHurt(entity, stack, tier);
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
@@ -69,10 +68,10 @@ public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, Va
         return tier == Tiers.GOLD;
     }
 
-    public static void accessoryHurt(Player player, ItemStack stack, Tier material){
+    public static void accessoryHurt(LivingEntity entity, ItemStack stack, Tier material){
         int pGoldDamage = Tmp.rnd.nextInt(0, 8);
         int pDefaultDamage = Tmp.rnd.nextInt(0, 2);
-        stack.hurtAndBreak(material == Tiers.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        stack.hurtAndBreak(material == Tiers.GOLD ? pGoldDamage : pDefaultDamage, entity, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 
     public int immunityTime() {

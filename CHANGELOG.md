@@ -1,3 +1,9 @@
+# 1.0.2.10
+
+# **Fixed**
+
+- Fixed Curios API crashing when Valoria accessories equipped in other entities 
+- 
 # 1.0.2.9
 
 # **Fixed**
