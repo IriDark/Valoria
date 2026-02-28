@@ -3,6 +3,7 @@ package com.idark.valoria;
 import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
@@ -18,7 +19,6 @@ import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.item.ability.*;
 import com.idark.valoria.registries.item.ability.components.*;
-import com.idark.valoria.registries.item.ability.render.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
@@ -111,7 +111,7 @@ public class Valoria{
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
             forgeBus.addListener(Events::onTooltip);
-            forgeBus.addListener(OverlayHandler::onDrawScreenPost);
+            forgeBus.addListener(AbilityOverlayHandler::onDrawScreenPost);
 
             return new Object();
         });
