@@ -411,9 +411,9 @@ public class ItemsRegistry{
         holidayAxe = registerItem("holiday_axe", () -> new AxeItem(ItemTierRegistry.HOLIDAY, 1, -3f, new Item.Properties()));
 
         // lunar
-        lunarSword = registerItem("lunar_sword", () -> new SwordItem(ItemTierRegistry.LUNAR, 12, -2f, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarSword = registerItem("lunar_sword", () -> new SwordItem(ItemTierRegistry.LUNAR, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarKatana = registerItem("lunar_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)).removeLargeModelCheck().setTier(ItemTierRegistry.LUNAR).build());
-        lunarScythe = registerItem("lunar_scythe",() -> new ScytheItem.Builder(12, -3.0f, new Properties().rarity(RarityRegistry.LUNAR)).setTier(ItemTierRegistry.LUNAR).build());
+        lunarScythe = registerItem("lunar_scythe",() -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.LUNAR)).setTier(ItemTierRegistry.LUNAR).build());
         lunarSpear = registerItem("lunar_spear", () -> new SpearItem(ItemTierRegistry.LUNAR, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarPickaxe = registerItem("lunar_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.LUNAR, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarAxe = registerItem("lunar_axe", () -> new AxeItem(ItemTierRegistry.LUNAR, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
@@ -422,10 +422,10 @@ public class ItemsRegistry{
         // halloween
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
-        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).usePacket(Pal.mandarin.toJava()).build());
-        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(9, -3.0f, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
-        dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, 6.5f, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
-        soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, 4, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
+        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).usePacket(Pal.mandarin.toJava()).build());
+        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
+        dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
+        soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
         woodenSpear = registerItem("wooden_spear", () -> new SpearItem(Tiers.WOOD, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
         stoneSpear = registerItem("stone_spear", () -> new SpearItem(Tiers.STONE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));

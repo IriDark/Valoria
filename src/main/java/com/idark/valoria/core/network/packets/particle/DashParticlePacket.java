@@ -1,18 +1,19 @@
 package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
-import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.awt.*;
 import java.util.*;
@@ -55,30 +56,33 @@ public class DashParticlePacket{
                 Level level = Valoria.proxy.getLevel();
                 Player player = level.getPlayerByUUID(msg.id);
                 if(player != null){
-                    RandomSource rand = level.getRandom();
-                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                    Vec3 pos = new Vec3(player.getX(), player.getY(), player.getZ());
-                    for(int count = 0; count < msg.count; count++){
-                        double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
-                        double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-                        for(int i = 0; i < 10; i += 1){
-                            double locDistance = i * 0.5D;
-                            double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
-                            double Y = Math.cos(pitch) * 2;
-                            double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
+                    Vec3 delta = player.getDeltaMovement().normalize();
+                    var y = player.getY() + 1;
+                    Vec3 trailPos = new Vec3(player.getX() + delta.x() * 0.00015, y + delta.y() * 0.00015, player.getZ() + delta.z() * 0.00015);
+                    final Vec3[] cachePos = {new Vec3(trailPos.x, trailPos.y, trailPos.z)};
+                    final Consumer<GenericParticle> target = p -> {
+                        Vec3 pos = new Vec3(player.getX(), player.getY() + 1, player.getZ());
 
-                            var random = Tmp.rnd;
-                            ParticleBuilder.create(ParticleRegistry.SPHERE)
-                                    .setColorData(ColorParticleData.create(Col.fromColor(color), Pal.darkestGray).build())
-                                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE)
-                                    .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
-                                    .setScaleData(GenericParticleData.create(0.92f, 0f).build())
-                                    .setLifetime(15)
-                                    .randomVelocity(msg.velX, msg.velY, msg.velZ)
-                                    .randomOffset(0.025f, 0, 0.025f)
-                                    .spawn(level, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D));
+                        float lenBetweenArrowAndParticle = (float)(pos.subtract(cachePos[0])).length();
+                        Vec3 vector = (pos.subtract(cachePos[0]));
+                        if(lenBetweenArrowAndParticle > 0){
+                            cachePos[0] = cachePos[0].add(vector);
+                            p.setPosition(cachePos[0]);
                         }
-                    }
+                    };
+
+                    Vec3 pos = new Vec3(player.getX(), y, player.getZ());
+                    ParticleBuilder.create(TridotParticles.TRAIL)
+                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+                    .setBehavior(TrailParticleBehavior.create().build())
+                    .setColorData(ColorParticleData.create(Col.white, Pal.cyan).build())
+                    .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Interp.bounceOut).build())
+                    .setScaleData(GenericParticleData.create(2, 1, 0).setEasing(Interp.bounceOut).build())
+                    .addTickActor(target)
+                    .setGravity(0)
+                    .setLifetime(25)
+                    .repeat(level, pos.x, pos.y, pos.z, 1);
+
                 }else{
                     Valoria.LOGGER.error("Player with UUID {}, not found", msg.id);
                 }

@@ -19,6 +19,7 @@ import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.item.ability.itemComponents.*;
 import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.component.client.*;
 import com.idark.valoria.registries.item.types.*;
@@ -170,6 +171,7 @@ public class ValoriaClient{
         @SubscribeEvent
         public static void registerComponents(RegisterClientTooltipComponentFactoriesEvent e) {
             e.register(MaterialListComponent.class, c -> MaterialListClientComponent.create(c.list()));
+            e.register(AbilityPaginationComponent.class, AbilityPaginationClientComponent::new);
         }
 
         @SubscribeEvent
