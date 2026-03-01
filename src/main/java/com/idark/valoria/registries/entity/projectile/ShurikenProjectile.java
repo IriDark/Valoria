@@ -35,6 +35,7 @@ public class ShurikenProjectile extends AbstractSupplierProjectile{
         super(EntityTypeRegistry.SHURIKEN.get(), pLevel, pShooter, thrownStackIn);
         this.setPos(pShooter.getX(), pShooter.getEyeY() - (double)0.1F, pShooter.getZ());
         this.setOwner(pShooter);
+        this.setVelocityBasedDamage(false);
         if(pShooter instanceof Player){
             this.pickup = Pickup.ALLOWED;
         }

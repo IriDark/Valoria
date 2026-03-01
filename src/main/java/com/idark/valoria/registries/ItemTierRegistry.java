@@ -21,7 +21,7 @@ public class ItemTierRegistry{
     public static Tier NONE = registerTier(new ForgeTier(4, 1561, 10f, 4.0F, 15, TagsRegistry.NEEDS_NONE_TOOL, Ingredient::of), Valoria.loc("none"));
     public static Tier BRONZE = TierSortingRegistry.registerTier(new ForgeTier(2, 600, 5f, 0.0F, 8, TagsRegistry.NEEDS_BRONZE_TOOL, () -> Ingredient.of(ItemsRegistry.bronzeIngot.get())), Valoria.loc("bronze"), List.of(Tiers.STONE), List.of(Tiers.IRON));
     public static Tier PEARLIUM = registerTier(new ForgeTier(2, 425, 7f, 2.0F, 6, TagsRegistry.NEEDS_PEARLIUM_TOOL, () -> Ingredient.of(ItemsRegistry.pearliumIngot.get())), Valoria.loc("pearlium"));
-    public static Tier HOLIDAY = registerTier(new ForgeTier(2, 740, 5f, 2.0F, 8, TagsRegistry.NEEDS_HOLIDAY_TOOL, () -> Ingredient.of(ItemsRegistry.holidayCandy.get())), Valoria.loc("holiday"));
+    public static Tier HOLIDAY = registerTier(new ForgeTier(2, 740, 6f, 3.0F, 8, TagsRegistry.NEEDS_HOLIDAY_TOOL, () -> Ingredient.of(ItemsRegistry.holidayCandy.get())), Valoria.loc("holiday"));
     public static Tier HALLOWEEN = registerTier(new ForgeTier(2, 1150, 6f, 3.0F, 8, TagsRegistry.NEEDS_HALLOWEEN_TOOL, () -> Ingredient.of(ItemsRegistry.candyCorn.get())), Valoria.loc("halloween"));
     public static Tier LUNAR = registerTier(new ForgeTier(2, 1450, 6f, 3.0F, 8, TagsRegistry.NEEDS_LUNAR_TOOL, Ingredient::of), Valoria.loc("lunar"));
     public static Tier SAMURAI = registerTier(new ForgeTier(2, 1250, 8f, 5.0F, 7, TagsRegistry.NEEDS_SAMURAI_TOOL, () -> Ingredient.of(ItemsRegistry.ancientIngot.get())), Valoria.loc("samurai"));

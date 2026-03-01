@@ -37,13 +37,8 @@ public class TreasureBag extends LootItem{
 
         if(player instanceof ServerPlayer serverPlayer){
             Vec3 playerPos = serverPlayer.position();
-            List<ItemStack> generatedLoot = Utils.Items.createLoot(loot, Utils.Items.getGiftParameters((ServerLevel)worldIn, playerPos, serverPlayer.getLuck(), serverPlayer));
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, heldStack);
-            if(!serverPlayer.isCreative()){
-                heldStack.shrink(1);
-            }
-
+            List<ItemStack> generatedLoot = Utils.Items.createLoot(loot, Utils.Items.getGiftParameters((ServerLevel)worldIn, playerPos, serverPlayer.getLuck(), serverPlayer));
             if(!generatedLoot.isEmpty()){
                 MutableComponent message = Component.translatable("message.valoria.received").withStyle(ChatFormatting.GOLD);
                 for(int i = 0; i < generatedLoot.size(); i++){
@@ -59,7 +54,12 @@ public class TreasureBag extends LootItem{
 
                 Utils.Items.giveLoot(serverPlayer, generatedLoot);
                 serverPlayer.displayClientMessage(message, true);
-                return InteractionResultHolder.consume(heldStack);
+            }
+
+            // such a lazy fix
+            if(!serverPlayer.isCreative()){
+                heldStack.shrink(1);
+                CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, heldStack);
             }
         }
 

@@ -77,6 +77,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, FirronKeyframePacket.class, FirronKeyframePacket::encode, FirronKeyframePacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, MagmaPacket.class, MagmaPacket::encode, MagmaPacket::decode, MagmaPacket::handle);
         HANDLER.registerMessage(id++, OnKeyInputPacket.class, OnKeyInputPacket::encode, OnKeyInputPacket::decode, RateLimitedPacket::processPacket);
+        HANDLER.registerMessage(id++, CastAbilityPacket.class, CastAbilityPacket::encode, CastAbilityPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, ReadCodexPacket.class, ReadCodexPacket::encode, ReadCodexPacket::decode, ReadCodexPacket::handle);
     }
 

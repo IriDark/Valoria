@@ -4,9 +4,9 @@
   "spawners": [
     {
       "type": "valoria:king_crab",
-      "weight": 40,
+      "weight": 10,
       "minCount": 1,
-      "maxCount": 4
+      "maxCount": 2
     }
   ]
 }

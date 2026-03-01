@@ -18,6 +18,8 @@ import javax.annotation.*;
 
 public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     private final boolean potLong;
+    private static final VoxelShape POT_LONG_SHAPE = makePotLongShape();
+    private static final VoxelShape POT_SMALL_SHAPE = makePotSmallShape();
 
     public PotBlock(boolean pLong, BlockBehaviour.Properties properties){
         super(properties);
@@ -53,32 +55,30 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
         }
     }
 
-    private static VoxelShape getPotLong(){
+    private static VoxelShape makePotLongShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.5, 0.25, 0.75, 0.5, 0.625, 0.9375), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.375, 0.75, 0.375, 0.625, 0.875, 0.625), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.3125, 0.84375, 0.3125, 0.6875, 0.96875, 0.6875), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.25, 0, 0.25, 0.75, 0.75, 0.75), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.5, 0.25, 0.0625, 0.5, 0.625, 0.25), BooleanOp.OR);
-
         return shape;
     }
 
-    private static VoxelShape getPotSmall(){
+    private static VoxelShape makePotSmallShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.375, 0.5, 0.375, 0.625, 0.625, 0.625), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.3125, 0.59375, 0.3125, 0.6875, 0.71875, 0.6875), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.5, 0.125, 0.0625, 0.5, 0.5, 0.25), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.5, 0.125, 0.75, 0.5, 0.5, 0.9375), BooleanOp.OR);
-
         return shape;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
         Vec3 vec3 = state.getOffset(worldIn, pos);
-        return potLong ? getPotLong().move(vec3.x, vec3.y, vec3.z) : getPotSmall().move(vec3.x, vec3.y, vec3.z);
+        return potLong ? POT_LONG_SHAPE.move(vec3.x, vec3.y, vec3.z) : POT_SMALL_SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
     @Override

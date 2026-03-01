@@ -1,9 +1,54 @@
+# 1.0.3
+
+# **Added**
+- Added Percent Armor translations due to confusion
+- Added missing translation to valoria:void_desert
+
+# **Fixed**
+- Fixed Overlays causing FPS drop on low-end PCs
+- Some sounds were mixed after compression
+- Zero damage projectiles with Projectile damage attribute
+- Fixed Pot Shape causing lags
+- LootBag wasn't giving player the first item in the loot list - Thanks for reporting to Bela Clove
+
+# **Changes**
+- Improvements to russian translation by refiq_
+```
+# Swords & Katanas
+    Soul Reaver [Rebalance]
+        DMG: 8 ➔ 7 🔻
+        SPD: 1.2 ➔ 1.6 🔺
+
+    Lunar Sword [Nerfed]
+        DMG: 16 ➔ 7 🔻
+        SPD: 2.0 ➔ 1.6 🔻
+
+    Wraith Katana [Nerfed]
+        DMG: 7 ➔ 5 🔻
+
+# Axes
+    Holiday Axe [Buff]
+        DMG: 4 ➔ 8 🔺
+
+    Dread Axe [Nerfed]
+        DMG: 10.5 ➔ 8 🔻
+        SPD: 1.2 ➔ 1.0 🔻
+
+# Scythes
+    Reaper Scythe [Nerfed]
+        DMG: 13 ➔ 11 🔻
+        SPD: 1.0 ➔ 0.75 🔻
+
+    Lunar Scythe [Nerfed]
+        DMG: 16 ➔ 11 🔻
+        SPD: 1.0 ➔ 0.75 🔻
+```
 # 1.0.2.10
 
 # **Fixed**
 
-- Fixed Curios API crashing when Valoria accessories equipped in other entities 
-- 
+- Fixed Curios API crashing when Valoria accessories equipped in other entities
+
 # 1.0.2.9
 
 # **Fixed**

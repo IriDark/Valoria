@@ -40,6 +40,8 @@ public class KunaiProjectile extends AbstractSupplierProjectile{
         if(pShooter instanceof Player){
             this.pickup = AbstractArrow.Pickup.ALLOWED;
         }
+
+        this.setVelocityBasedDamage(false);
     }
 
     @Nullable

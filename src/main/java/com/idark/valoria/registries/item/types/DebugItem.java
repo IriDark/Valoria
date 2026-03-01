@@ -1,12 +1,14 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.ui.screen.book.codex.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.ability.*;
+import com.idark.valoria.registries.item.ability.components.*;
 import com.idark.valoria.util.*;
+import net.minecraft.*;
 import net.minecraft.client.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
@@ -33,6 +35,29 @@ public class DebugItem extends Item{
         return 72000;
     }
 
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+        super.inventoryTick(stack, level, entity, slotId, isSelected);
+        if (!level.isClientSide && !stack.getOrCreateTag().contains("valoria_abilities")) {
+            DashAbility dashAbility = new DashAbility();
+            dashAbility.maxUsages = 3;
+            dashAbility.itemCooldown = 20;
+
+            var scythe = new ScytheAbility();
+            scythe.cancelVanillaBehaviour=true;
+            scythe.usages=3;
+            scythe.itemCooldown=60;
+
+            AbilityHelper.setAbility(stack, CastType.RIGHT_CLICK, dashAbility);
+            AbilityHelper.setAbility(stack, CastType.SHIFT_RIGHT_CLICK, dashAbility);
+            AbilityHelper.setAbility(stack, CastType.RIGHT_CLICK, dashAbility);
+            AbilityHelper.setAbility(stack, CastType.LEFT_CLICK, scythe);
+            AbilityHelper.setAbility(stack, CastType.SHIFT_LEFT_CLICK, dashAbility);
+            AbilityHelper.setAbility(stack, new DescriptionAbility().addLine(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY)));
+            AbilityHelper.setAbility(stack, new DescriptionAbility().addLine(Component.literal("ВЫЕБИТЕ КЕРДО НАХУй").withStyle(ChatFormatting.GRAY)));
+        }
+    }
+
     private void spawn(ServerLevel level, Player entity){
         LaserEntity laser = new LaserEntity(level, entity);
         laser.setDamage(6);
@@ -47,19 +72,18 @@ public class DebugItem extends Item{
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration){
         super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
         var pos = pLivingEntity.blockPosition();
-        if(!pLevel.isClientSide()) {
-            PacketHandler.sendToTracking(pLevel, pos, new AlchemyUpgradeParticlePacket(4, pos.getX(), pos.getY() + 2, pos.getZ()));
-        }
-
+//        if(!pLevel.isClientSide()) {
+//            PacketHandler.sendToTracking(pLevel, pos, new AlchemyUpgradeParticlePacket(4, pos.getX(), pos.getY() + 2, pos.getZ()));
+//        }
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
         var pos = playerIn.blockPosition();
-        if(!worldIn.isClientSide()) {
-            PacketHandler.sendToTracking(worldIn, pos, new AlchemyUpgradeParticlePacket(1, pos.getX(), pos.getY() + 2, pos.getZ()));
-        }
+//        if(!worldIn.isClientSide()) {
+//            PacketHandler.sendToTracking(worldIn, pos, new AlchemyUpgradeParticlePacket(1, pos.getX(), pos.getY() + 2, pos.getZ()));
+//        }
 
         return InteractionResultHolder.consume(itemstack);
     }

@@ -3,6 +3,7 @@ package com.idark.valoria;
 import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
@@ -16,6 +17,8 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
+import com.idark.valoria.registries.item.ability.*;
+import com.idark.valoria.registries.item.ability.components.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
@@ -108,6 +111,8 @@ public class Valoria{
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
             forgeBus.addListener(Events::onTooltip);
+            forgeBus.addListener(AbilityOverlayHandler::onDrawScreenPost);
+
             return new Object();
         });
 
@@ -121,6 +126,7 @@ public class Valoria{
         forgeBus.register(new StructureEvents());
         if (FMLEnvironment.dist.isClient()) {
             forgeBus.register(ClientEvents.class);
+            forgeBus.register(AbilityClientEvents.class);
         }
     }
 
@@ -133,6 +139,9 @@ public class Valoria{
     }
 
     private void setup(final FMLCommonSetupEvent event){
+        AbilityRegistry.register(DescriptionAbility.TYPE);
+        AbilityRegistry.register(DashAbility.TYPE);
+        AbilityRegistry.register(ScytheAbility.TYPE);
         Valoria.LOGGER.debug("Item count: {}", ItemsRegistry.ITEMS.getEntries().size());
         Valoria.LOGGER.debug("Block count: {}", BlockRegistry.BLOCK.getEntries().size());
         Valoria.LOGGER.debug("Entity count: {}", EntityTypeRegistry.ENTITY_TYPES.getEntries().size());
