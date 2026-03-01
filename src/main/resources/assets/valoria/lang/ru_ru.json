@@ -1401,5 +1401,6 @@
   "tooltip.valoria.timed": "на %s",
   "tooltip.valoria.stage.rotting": "Гниющий",
   "message.valoria.received": "Получено:",
-  "message.valoria.empty": "Тут ничего нет..."
+  "message.valoria.empty": "Тут ничего нет...",
+  "biome.valoria.void_desert": "Void Desert"
 }

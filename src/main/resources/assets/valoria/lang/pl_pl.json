@@ -1401,5 +1401,6 @@
   "valoria.jade.openable_with": "Można otworzyć przy użyciu:",
   "valoria.jade.progress": "Postęp:",
   "item.valoria.fortress_locator": "Fortress Locator",
-  "curios.identifier.pet": "Pet"
+  "curios.identifier.pet": "Pet",
+  "biome.valoria.void_desert": "Void Desert"
 }
