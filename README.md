@@ -3,17 +3,14 @@
 ![valoria_logo.png](src/main/resources/assets/valoria/textures/gui/title/valoria_logo.png)
 # Requirements
 
-<a href="https://github.com/KomaruPRO/Tridot"><img src="https://img.shields.io/badge/%20-TRIDOT-5800ff?style=for-the-badge&color=2f3045&logo=data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgd2lkdGg9IjI0IiAgaGVpZ2h0PSIyNCIgIHZpZXdCb3g9IjAgMCAyNCAyNCIgIGZpbGw9Im5vbmUiICBzdHJva2U9ImN1cnJlbnRDb2xvciIgIHN0cm9rZS13aWR0aD0iMiIgIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgIHN0cm9rZS1saW5lam9pbj0icm91bmQiICBjbGFzcz0iaWNvbiBpY29uLXRhYmxlciBpY29ucy10YWJsZXItb3V0bGluZSBpY29uLXRhYmxlci1jaGFydC1kb3RzLTMiPjxwYXRoIHN0cm9rZT0ibm9uZSIgZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik01IDdtLTIgMGEyIDIgMCAxIDAgNCAwYTIgMiAwIDEgMCAtNCAwIiAvPjxwYXRoIGQ9Ik0xNiAxNW0tMiAwYTIgMiAwIDEgMCA0IDBhMiAyIDAgMSAwIC00IDAiIC8+PHBhdGggZD0iTTE4IDZtLTMgMGEzIDMgMCAxIDAgNiAwYTMgMyAwIDEgMCAtNiAwIiAvPjxwYXRoIGQ9Ik02IDE4bS0zIDBhMyAzIDAgMSAwIDYgMGEzIDMgMCAxIDAgLTYgMCIgLz48cGF0aCBkPSJNOSAxN2w1IC0xLjUiIC8+PHBhdGggZD0iTTYuNSA4LjVsNy44MSA1LjM3IiAvPjxwYXRoIGQ9Ik03IDdsOCAtMSIgLz48L3N2Zz4K&logoColor=000000&labelColor=FFFFFF" /></a>
-</div>
-
 <p align="center">
+  <a href="https://www.curseforge.com/minecraft/mc-mods/tridot"><img src="https://img.shields.io/badge/-Tridot%20(Curseforge)-d48526?style=for-the-badge&logo=curseforge&logoColor=000000&labelColor=FFFFFF" /></a>
+  <a href="https://modrinth.com/mod/tridot"><img src="https://img.shields.io/badge/-Tridot%20(Modrinth)-349a46?style=for-the-badge&logo=modrinth&logoColor=000000&labelColor=FFFFFF" /></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/curios"><img src="https://img.shields.io/badge/-Curios%20(Curseforge)-d48526?style=for-the-badge&logo=curseforge&logoColor=000000&labelColor=FFFFFF" /></a>
   <a href="https://modrinth.com/mod/curios"><img src="https://img.shields.io/badge/-Curios%20(Modrinth)-349a46?style=for-the-badge&logo=modrinth&logoColor=000000&labelColor=FFFFFF" /></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/geckolib"><img src="https://img.shields.io/badge/-GeckoLib%20(Curseforge)-d48526?style=for-the-badge&logo=curseforge&logoColor=000000&labelColor=FFFFFF" /></a>
   <a href="https://modrinth.com/mod/geckolib"><img src="https://img.shields.io/badge/-GeckoLib%20(Modrinth)-349a46?style=for-the-badge&logo=modrinth&logoColor=000000&labelColor=FFFFFF" /></a>
 </p>
-
-<div align="center">
 
 Join us to share your creations, provide feedback, and see sneak peeks of what's lurking in the shadows.
 
@@ -81,6 +78,18 @@ The sky itself is broken. A malevolent red planet now hangs in the eternal night
 ![remains.png](src/main/resources/assets/valoria/textures/banners/remains.png)
 ![skull.png](src/main/resources/assets/valoria/textures/banners/skull.png)
 
+
+
+--- 
+## 🚀 Sponsored by Godlike Hosting
+
+Want to host a powerful and reliable Minecraft or Hytale server for your friends or community?
+Godlike gives you high-performance hosting with up to 40% OFF.
+
+👇 Get your server here:
+[![godlike-hosting](https://cdn.discordapp.com/attachments/898069659029475338/1477648281826758657/1772369203261.png?ex=69a586b3&is=69a43533&hm=a5a45b56fda4db42fd2d6e3154fcd0f95540efda2a4296a9402d5ebb635888d7&)](https://affiliate.godlike.host/valoria)
+---
+
 **Compatibilities**  
 ---
 * JADE: built-in  
@@ -106,7 +115,7 @@ Feel free to suggest mod compats - [GitHub](https://github.com/IriDark/Valoria-S
 * ![flag_en_us.png](src/main/resources/assets/valoria/textures/banners/flag_en_us.png) English  
 * ![flag_ua.png](src/main/resources/assets/valoria/textures/banners/flag_ua.png) Ukrainian (not 100% accurate, may contain mistakes | not fully translated)   - by IriDark, Foxplane
 * ![flag_pl.png](src/main/resources/assets/valoria/textures/banners/flag_pl.png) Polish (not fully translated)   - by  𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆  
-* ![flag_ru.png](src/main/resources/assets/valoria/textures/banners/flag_ru.png) Russian - by Ruthenium, TerraPrime, Kerdo   
+* ![flag_ru.png](src/main/resources/assets/valoria/textures/banners/flag_ru.png) Russian - by Ruthenium, TerraPrime, Kerdo, refiq_   
 * ![flag_fr.png](src/main/resources/assets/valoria/textures/banners/flag_fr.png) French (not fully translated) - by  𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆
 * ![flag_cn.png](src/main/resources/assets/valoria/textures/banners/flag_cn.png) Chinese - by 蓝龙奈特萨玛（Azurmardraco BlueDragon）
 
