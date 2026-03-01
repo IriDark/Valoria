@@ -1,6 +1,7 @@
 # 1.0.3
 
 # **Added**
+- Added Void Slate Runes
 - Added Percent Armor translations due to confusion
 - Added missing translation to valoria:void_desert
 

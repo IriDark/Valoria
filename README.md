@@ -1,6 +1,6 @@
 <div align="center">
 
-![valoria_logo.png](src/main/resources/assets/valoria/textures/gui/title/valoria_logo.png)
+![valoria_logo.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/gui/title/valoria_logo.png)
 # Requirements
 
 <p align="center">

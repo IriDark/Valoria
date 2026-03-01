@@ -63,8 +63,11 @@ public class StunEffectLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
     }
     
     private void addVertex(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, int light, float x, float y, float u, float v) {
+        var player = Minecraft.getInstance().player;
         int alpha = 255;
-        var effect = Minecraft.getInstance().player.getEffect(EffectsRegistry.STUN.get());
+        if(player == null || !player.hasEffect(EffectsRegistry.STUN.get())) return;
+
+        var effect = player.getEffect(EffectsRegistry.STUN.get());
         if (effect.endsWithin(200)) {
             int k = effect.getDuration();
             int l = 10 - k / 20;
