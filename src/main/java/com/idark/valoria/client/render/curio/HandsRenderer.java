@@ -3,7 +3,7 @@ package com.idark.valoria.client.render.curio;
 import com.idark.valoria.*;
 import com.idark.valoria.client.*;
 import com.idark.valoria.client.model.curio.*;
-import com.idark.valoria.registries.item.types.curio.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.item.types.curio.hands.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.*;

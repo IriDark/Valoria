@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.curio;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
@@ -59,8 +60,9 @@ public class CurioAccessoryItem extends ValoriaTieredAccessory implements InputL
                 for(MobEffectInstance effectInstance : builder.effects){
                     player.addEffect(new MobEffectInstance(effectInstance));
                     player.getCooldowns().addCooldown(stack.getItem(), effectInstance.getDuration() + 300);
-                    accessoryHurt(player, stack, tier);
                 }
+
+                accessoryHurt(player, stack);
             }
         }
     }

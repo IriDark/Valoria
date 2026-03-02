@@ -1,12 +1,16 @@
 package com.idark.valoria.registries.item.types.curio;
 
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -19,7 +23,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class ValoriaCurioItem extends Item implements ICurioItem{
+public class ValoriaCurioItem extends Item implements ICurioItem, IBreakableCurio, CurioOnHurtItem{
     public ArcRandom arcRandom = Tmp.rnd;
     public boolean rmbEquip;
 
@@ -35,13 +39,14 @@ public class ValoriaCurioItem extends Item implements ICurioItem{
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
         ICurioItem.super.curioTick(slotContext, stack);
-        if (slotContext.getWearer().level() instanceof ServerLevel server && server.getServer().getTickCount() % 20 != 0) return;
+        LivingEntity wearer = slotContext.entity();
+        if (wearer.level() instanceof ServerLevel server && server.getServer().getTickCount() % 20 != 0) return;
         if(stack.is(TagsRegistry.FIRE_IMMUNE)) {
-            slotContext.getWearer().extinguishFire();
+            wearer.extinguishFire();
         }
 
-        if(stack.is(TagsRegistry.POISON_IMMUNE) && slotContext.getWearer().hasEffect(MobEffects.POISON)) {
-            slotContext.getWearer().removeEffect(MobEffects.POISON);
+        if(stack.is(TagsRegistry.POISON_IMMUNE) && wearer.hasEffect(MobEffects.POISON)) {
+            wearer.removeEffect(MobEffects.POISON);
         }
     }
 
@@ -93,5 +98,14 @@ public class ValoriaCurioItem extends Item implements ICurioItem{
     @Override
     public boolean canEquipFromUse(SlotContext slot, ItemStack stack){
         return rmbEquip;
+    }
+
+    @Override
+    public void onHurt(ItemStack stack, LivingEntity target, DamageSource source, float damage){
+        if (source.is(DamageTypeTags.BYPASSES_ARMOR) || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            return;
+        }
+
+        accessoryHurt(target, stack);
     }
 }

@@ -5,7 +5,7 @@ import pro.komaru.tridot.util.*;
 
 public class NihilityProtectionEffect extends MobEffect{
     public NihilityProtectionEffect(){
-        super(MobEffectCategory.HARMFUL, Col.hexToDecimal("733d9c"));
+        super(MobEffectCategory.NEUTRAL, Col.hexToDecimal("733d9c"));
     }
 
     @Override

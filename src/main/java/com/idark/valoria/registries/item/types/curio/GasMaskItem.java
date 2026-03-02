@@ -16,21 +16,21 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class GasMaskItem extends Item implements ICurioItem, Vanishable{
+public class GasMaskItem extends ValoriaCurioItem{
     public GasMaskItem(Properties properties){
         super(properties);
     }
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
-        ICurioItem.super.curioTick(slotContext, stack);
+        super.curioTick(slotContext, stack);
         LivingEntity wearer = slotContext.entity();
         if(wearer instanceof Player player){
             if(player.isCreative()) return;
             player.getCapability(INihilityLevel.INSTANCE).ifPresent((nihilityLevel) -> {
                 if(nihilityLevel.getAmount() > 0) {
                     if(slotContext.entity().tickCount % 160 == 0){
-                        if(Tmp.rnd.chance(0.75f)) stack.hurtAndBreak(Tmp.rnd.nextInt(1, 4), slotContext.entity(), (plr) -> plr.broadcastBreakEvent(EquipmentSlot.HEAD));
+                        if(Tmp.rnd.chance(0.75f)) accessoryHurt(wearer, stack);
                     }
                 }
             });

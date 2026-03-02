@@ -13,6 +13,9 @@ import top.theillusivec4.curios.api.*;
 import java.util.*;
 import java.util.function.*;
 
+/**
+ * Very experimental shit, most likely will be deleted soon
+ */
 public class EyeNecklaceItem extends CurioAccessoryItem{
     boolean isDark;
     public EyeNecklaceItem(NecklaceBuilder builder){

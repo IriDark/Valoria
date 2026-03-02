@@ -6,6 +6,9 @@
 - Added missing translation to valoria:void_desert
 
 # **Fixed**
+- Fixed Accessories breaking particles
+- Fixed Accessories breaking logic
+- Fixed Stun Effect rarely crashing the game
 - Fixed Overlays causing FPS drop on low-end PCs
 - Some sounds were mixed after compression
 - Zero damage projectiles with Projectile damage attribute
@@ -13,6 +16,7 @@
 - LootBag wasn't giving player the first item in the loot list - Thanks for reporting to Bela Clove
 
 # **Changes**
+- Changes to Accessories breaking logic to make it more predictable
 - Improvements to russian translation by refiq_
 ```
 # Swords & Katanas
