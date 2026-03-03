@@ -298,6 +298,7 @@ public class ValoriaClient{
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
+            ModItemModelProperties.makeNight(ItemsRegistry.eyeNecklace.get());
         }
 
         @SubscribeEvent
