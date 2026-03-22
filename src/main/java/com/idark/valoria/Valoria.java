@@ -5,6 +5,7 @@ import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
+import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
 import com.idark.valoria.core.compat.*;
@@ -139,6 +140,7 @@ public class Valoria{
     }
 
     private void setup(final FMLCommonSetupEvent event){
+        PatreonManager.fetchPatrons();
         AbilityRegistry.register(DescriptionAbility.TYPE);
         AbilityRegistry.register(DashAbility.TYPE);
         AbilityRegistry.register(ScytheAbility.TYPE);

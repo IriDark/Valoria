@@ -5,6 +5,7 @@ import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
@@ -42,6 +43,8 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
@@ -432,6 +435,27 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        Player player = event.getEntity();
+        if (PatreonManager.PATRONS.containsKey(player.getUUID()) && player instanceof ServerPlayer servPlr) {
+            CompoundTag persistentData = player.getPersistentData();
+            CompoundTag persistedNbt = persistentData.getCompound(Player.PERSISTED_NBT_TAG);
+            if (!persistedNbt.getBoolean("ValoriaPatronRewardClaimed")) {
+                String rewardItemId = PatreonManager.PATRONS.get(player.getUUID());
+                LootParams params = new LootParams.Builder(servPlr.serverLevel()).create(LootContextParamSets.EMPTY);
+                List<ItemStack> generatedLoot = Utils.Items.createLoot(new ResourceLocation(rewardItemId), params);
+                if(!generatedLoot.isEmpty()){
+                    Utils.Items.giveLoot(servPlr, generatedLoot);
+                }
+
+                persistedNbt.putBoolean("ValoriaPatronRewardClaimed", true);
+                persistentData.put(Player.PERSISTED_NBT_TAG, persistedNbt);
+                player.sendSystemMessage(Component.literal("Thank you for supporting Valoria! Here is your personal reward.").withStyle(ChatFormatting.GOLD));
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onMobKilled(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             LivingEntity victim = event.getEntity();
@@ -441,6 +465,11 @@ public class Events{
             if(unlocked != null) all.removeAll(unlocked);
             for(Unlockable unknown : all){
                 if(unknown instanceof OnMobKilledListener entityU) entityU.checkCondition(player, victim);
+            }
+
+            var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioOnKillItem, player);
+            if(curioStack != null){
+                ((CurioOnKillItem)curioStack.getItem()).onKill(curioStack, player, victim);
             }
         }
     }
@@ -529,6 +558,14 @@ public class Events{
         var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioOnHurtItem, event.getEntity());
         if(curioStack != null){
             ((CurioOnHurtItem)curioStack.getItem()).onHurt(curioStack, event.getEntity(), source, reducedDamage);
+        }
+
+        Entity attackerEntity = event.getSource().getEntity();
+        if (attackerEntity instanceof LivingEntity attacker) {
+            var attackCurio = getEquippedCurio((item) -> item.getItem() instanceof CurioOnAttackItem, attacker);
+            if (attackCurio != null) {
+                ((CurioOnAttackItem) attackCurio.getItem()).onAttack(attackCurio, event.getEntity(), event.getSource(), event.getAmount());
+            }
         }
     }
 

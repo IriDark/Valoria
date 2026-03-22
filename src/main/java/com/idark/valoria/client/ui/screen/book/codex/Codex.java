@@ -4,6 +4,7 @@ import com.idark.valoria.*;
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.registries.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -25,20 +26,26 @@ import static com.idark.valoria.Valoria.loc;
 @OnlyIn(Dist.CLIENT)
 public class Codex extends DotScreen{
     public static Codex screen;
-    public int backgroundWidth = 1024;
-    public int backgroundHeight = 1024;
+    public int backgroundWidth = 1024, backgroundHeight = 1024;
     public int frameWidth = 276;
     public int frameHeight = 180;
     public int insideWidth = 262;
     public int insideHeight = 164;
+
+    public float zoom = 1.0f;
+    public float targetZoom = 1.0f;
+    public final float minZoom = 0.5f, maxZoom = 2.0f;
+
     public float xModifier = 0.75f, yModifier = 0.75f;
-    public float xOffset;
-    public float yOffset;
-    public int entries = 104;
+    public float xOffset, yOffset;
+    public float targetXOffset, targetYOffset;
+
+    public int entriesLayer = 104;
     public float animTime = 10;
     public Player player;
 
     public ResourceLocation FRAME = loc("textures/gui/book/frame.png");
+
     public Codex(){
         super();
         assetsId = Valoria.ID;
@@ -53,8 +60,16 @@ public class Codex extends DotScreen{
         return screen;
     }
 
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        float zoomSpeed = 0.1f;
+        this.zoom = Mth.clamp(this.zoom + (float)delta * zoomSpeed, minZoom, maxZoom);
+        this.targetZoom = Mth.clamp(this.targetZoom + (float)delta * zoomSpeed, minZoom, maxZoom);
+        return true;
+    }
+
     public void sound(Supplier<SoundEvent> soundEvent, float volume, float pitch) {
-        Minecraft.getInstance().player.playNotifySound(soundEvent.get(), SoundSource.PLAYERS, volume, pitch);
+        Minecraft.getInstance().player.playSound(soundEvent.get(), volume, pitch);
     }
 
     private float openedAtTick = -1;
@@ -74,6 +89,10 @@ public class Codex extends DotScreen{
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
         super.render(gui, mouseX, mouseY, partialTicks);
+        this.xOffset = Mth.lerp(0.15f, this.xOffset, this.targetXOffset);
+        this.yOffset = Mth.lerp(0.15f, this.yOffset, this.targetYOffset);
+        this.zoom = Mth.lerp(0.15f, this.zoom, this.targetZoom);
+
         float t = time();
         Interp interp = Interp.pow2Out;
         float progress = interp.apply(Mathf.clamp(t/animTime));
@@ -90,56 +109,73 @@ public class Codex extends DotScreen{
         float s = Mth.lerp(scaleProgress, 0, 1.0f);
         scale(s, s, cx(), cy());
         render(gui, mouseX, mouseY);
-
-        //drawDebug(mouseX, mouseY);
         pop();
     }
 
     public void render(GuiGraphics gui, int mouseX, int mouseY){
         push();
-        layer(300 * 2);
+        layer(408);
+        int scaleWidth = 203;
+        int scaleX = guiLeft() + 24;
+        int scaleY = guiTop() + frameHeight - 30;
+        float progress = (this.targetZoom - this.minZoom) / (this.maxZoom - this.minZoom);
+        int handleOffset = (int) (progress * scaleWidth);
+        gui.blit(FRAME, guiLeft() + 22, guiTop() + frameHeight - 30, 288, 48, 205, 13, 512, 512);
+        gui.blit(FRAME, scaleX + handleOffset - 2, scaleY, 493, 48, 2, 13, 512, 512);
+
+        String zoomText = String.format(java.util.Locale.US, "%.1fx", this.targetZoom);
+        var font = Minecraft.getInstance().font;
+        int textX = scaleX + scaleWidth + 10;
+        int textY = scaleY + 3;
+        gui.drawString(font, zoomText, textX, textY, 0xFFFFFF, false);
+        pop();
+
+        push();
+        layer(600); // shadows
         gui.blit(FRAME, guiLeft(), guiTop(), 0, 0, frameWidth, frameHeight, 512, 512);
         layer(0);
         pop();
 
         push();
             renderBackground(gui, "textures/gui/book/background.png", mouseX, mouseY);
-            layer(601);
+            layer(601); // home button
             if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
                 gui.blit(FRAME, (int)(cx() - 5 - 1), guiTop() + frameHeight - 10 - 1, 10, 191, 12, 12, 512, 512);
             }else{
                 gui.blit(FRAME, (int)(cx() - 5), guiTop() + frameHeight - 10, 0, 192, 10, 10, 512, 512);
             }
+
         pop();
     }
 
-    public void drawDebug(double mouseX, double mouseY) {
-        push();
-        localPose.translate(0,0,600);
-        localG.fill((int)mouseX, (int)mouseY, (int)(mouseX - 8), (int)(mouseY - 8), CommonColors.WHITE);
-
-        float uOffset = getuOffset();
-        float vOffset = getvOffset();
-        for(CodexEntry entry : CodexEntries.entries){
-            int x = (backgroundWidth - insideWidth) / 2 - (entry.x - guiLeft()) - (int)uOffset;
-            int y = (backgroundHeight - insideHeight) / 2 - (entry.y - guiTop()) - (int)vOffset;
-            localG.fill(x + 8, y + 8, x + 28, y + 28 , CommonColors.WHITE); // buttons
-        }
-
-        localG.fill((int)(this.cx()-7), guiTop() + this.frameHeight - 15, (int)(this.cx()-6) + 15, guiTop() + this.frameHeight + 5, CommonColors.WHITE); // buttons
-        pop();
+    public void focusOn(CodexEntry entry) {
+        this.targetZoom = 1.0f;
+        this.targetXOffset = (12f - entry.x) / xModifier;
+        this.targetYOffset = (12f - entry.y) / yModifier;
     }
 
+    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button){
         float uOffset = getuOffset();
         float vOffset = getvOffset();
+
+        double unzoomedX = getUnzoomedMouseX(mouseX);
+        double unzoomedY = getUnzoomedMouseY(mouseY);
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
             for(CodexEntry entry : CodexEntries.entries){
-                entry.onClick(this, mouseX, mouseY, (int)uOffset, (int)vOffset);
+                entry.onClick(this, unzoomedX, unzoomedY, (int)uOffset, (int)vOffset);
             }
 
-            if(isHover(mouseX, mouseY, guiLeft() - 25, guiTop() + 20, 35, 39)) {
-                this.changeChapter(CodexEntries.BOSS_CHECKLIST);
+            if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
+                CodexEntry root = CodexEntries.entries.find(e -> e.getChapter() == CodexEntries.PAGES_CHAPTER);
+                if (root != null) {
+                    focusOn(root);
+                } else {
+                    xOffset = 0; yOffset = 0; zoom = 1;
+                }
+
+                sound(SoundsRegistry.UI_CLICK, 1, 1f);
+                return true;
             }
         }
 
@@ -169,6 +205,8 @@ public class Codex extends DotScreen{
             float maxYOffset = (backgroundHeight) / (2f * yModifier);
             xOffset = Mth.clamp(xOffset + (float)-dragX, -maxXOffset, maxXOffset);
             yOffset = Mth.clamp(yOffset + (float)-dragY, -maxYOffset, maxYOffset);
+            targetXOffset = Mth.clamp(targetXOffset + (float)-dragX, -maxXOffset, maxXOffset);
+            targetYOffset = Mth.clamp(targetYOffset + (float)-dragY, -maxYOffset, maxYOffset);
         }
 
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
@@ -177,13 +215,29 @@ public class Codex extends DotScreen{
     public void renderBackground(GuiGraphics gui, String texture, float mouseX, float mouseY) {
         float uOffset = getuOffset();
         float vOffset = getvOffset();
-        gui.blit(loc(texture), insideLeft(), insideTop(), (int)uOffset, (int)vOffset, insideWidth, insideHeight, backgroundWidth, backgroundHeight);
+        scissorsOn((int)getCenterX(), (int)getCenterY(), insideWidth, insideHeight);
+        gui.pose().pushPose();
+
+        float cX = getCenterX();
+        float cY = getCenterY();
+        gui.pose().translate(cX, cY, 0);
+        gui.pose().scale(zoom, zoom, 1f);
+        gui.pose().translate(-cX, -cY, 0);
+
+        int bgX = insideLeft() - (int)uOffset;
+        int bgY = insideTop() - (int)vOffset;
+        gui.blit(loc(texture), bgX, bgY, 0, 0, backgroundWidth, backgroundHeight, backgroundWidth, backgroundHeight);
+
+        float unzoomedX = (float) getUnzoomedMouseX(mouseX);
+        float unzoomedY = (float) getUnzoomedMouseY(mouseY);
 
         push();
-        layer(entries);
-        renderEntries(gui, uOffset, vOffset, mouseX, mouseY);
+        layer(entriesLayer);
+        renderEntries(gui, uOffset, vOffset, unzoomedX, unzoomedY);
         pop();
 
+        gui.pose().popPose();
+        scissorsOff();
         renderCorners(gui, insideLeft(), insideTop());
     }
 
@@ -197,19 +251,15 @@ public class Codex extends DotScreen{
     }
 
     public void renderEntries(GuiGraphics gui, float uOffset, float vOffset, float mouseX, float mouseY) {
-        scissorsOn((int)cx(), (int)cy(), insideWidth, insideHeight);
         for (CodexEntry entry : CodexEntries.entries){
             if(entry.isHidden()) return;
             entry.node.children.each(c -> {
                 if(c.entry.isHidden() || !entry.isUnlocked()) return;
                 float chx = c.entry.x;
                 float chy = c.entry.y;
-
                 float x = entry.x;
                 float y = entry.y;
-
                 float deltaY = chy - y;
-
                 float y2 = y + deltaY * 0.5f;
                 var color = c.entry.isUnlocked() ? Col.intArgb(Col.fromHex("7A5577")) : Col.intArgb(Col.gray);
 
@@ -219,7 +269,7 @@ public class Codex extends DotScreen{
                 move(-uOffset, -vOffset);
                 move(22 - 4f, 22 - 4f);
 
-                layer(entries - 105);
+                layer(entriesLayer - 105);
                 gui.fill((int)(-x - 1), (int)-y - 1 + 11, (int)-x + 2, (int)-y + 2 + 11, color);
                 gui.vLine((int)-x, (int)-y, (int)-y2, color);
                 gui.hLine((int)-x, (int)-chx, (int)-y2, color);
@@ -230,16 +280,41 @@ public class Codex extends DotScreen{
                 c.entry.render(this, gui, uOffset, vOffset, insideLeft(), insideTop(), mouseX, mouseY);
             });
         }
-
-        scissorsOff();
     }
 
-    public float getvOffset(){
-        return Mth.clamp((backgroundHeight / 2f - insideHeight) + yOffset * yModifier, 0, backgroundHeight - insideHeight);
+    public float getCenterX() {
+        return insideLeft() + insideWidth / 2f;
+    }
+
+    public float getCenterY() {
+        return insideTop() + insideHeight / 2f;
+    }
+
+    public double getUnzoomedMouseX(double mouseX) {
+        return (mouseX - getCenterX()) / zoom + getCenterX();
+    }
+
+    public double getUnzoomedMouseY(double mouseY) {
+        return (mouseY - getCenterY()) / zoom + getCenterY();
     }
 
     public float getuOffset(){
-        return Mth.clamp((backgroundWidth / 2f - insideWidth) + xOffset * xModifier, 0, backgroundWidth - insideWidth);
+        float minU = (insideWidth / (2f * zoom)) - (insideWidth / 2f);
+        float maxU = backgroundWidth - (insideWidth / 2f) - (insideWidth / (2f * zoom));
+        float rawOffset = (backgroundWidth / 2f - insideWidth) + xOffset * xModifier;
+
+        if (minU > maxU) return (backgroundWidth - insideWidth) / 2f;
+        return Mth.clamp(rawOffset, minU, maxU);
+    }
+
+    public float getvOffset(){
+        float minV = (insideHeight / (2f * zoom)) - (insideHeight / 2f);
+        float maxV = backgroundHeight - (insideHeight / 2f) - (insideHeight / (2f * zoom));
+
+        float rawOffset = (backgroundHeight / 2f - insideHeight) + yOffset * yModifier;
+
+        if (minV > maxV) return (backgroundHeight - insideHeight) / 2f;
+        return Mth.clamp(rawOffset, minV, maxV);
     }
 
     public int insideLeft() {

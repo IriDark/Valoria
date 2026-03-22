@@ -19,10 +19,10 @@ import pro.komaru.tridot.util.struct.data.*;
 import javax.annotation.*;
 import java.util.*;
 
-// todo plans, data driven chapters and pages ?
+// todo data driven chapters and pages?
 public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
-    public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, BOSS_CHECKLIST,
+    public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER,
 
     PICK, HEAVY_WORKBENCH, STONE_CRUSHER, VALORIA_PORTAL,
 

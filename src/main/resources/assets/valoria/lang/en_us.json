@@ -1403,5 +1403,6 @@
   "tooltip.valoria.timed": "for %s",
   "tooltip.valoria.stage.rotting": "Rotting",
   "message.valoria.received": "Received:",
-  "message.valoria.empty": "Nothing inside..."
+  "message.valoria.empty": "Nothing inside...",
+  "tooltip.valoria.vampirism": "Heals %s%% of Attacker Max HP on kill. %s%% chance to heal %s%% of damage dealt on hit."
 }

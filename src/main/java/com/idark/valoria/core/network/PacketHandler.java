@@ -50,6 +50,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, CystSummonParticlePacket.class, CystSummonParticlePacket::encode, CystSummonParticlePacket::decode, CystSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, MinionSummonParticlePacket.class, MinionSummonParticlePacket::encode, MinionSummonParticlePacket::decode, MinionSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, SoulCollectParticlePacket.class, SoulCollectParticlePacket::encode, SoulCollectParticlePacket::decode, SoulCollectParticlePacket::handle);
+        HANDLER.registerMessage(id++, VampirismParticlePacket.class, VampirismParticlePacket::encode, VampirismParticlePacket::decode, VampirismParticlePacket::handle);
         HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
         HANDLER.registerMessage(id++, PageToastPacket.class, PageToastPacket::encode, PageToastPacket::decode, PageToastPacket::handle);
         HANDLER.registerMessage(id++, LineToNearbyMobsParticlePacket.class, LineToNearbyMobsParticlePacket::encode, LineToNearbyMobsParticlePacket::decode, LineToNearbyMobsParticlePacket::handle);

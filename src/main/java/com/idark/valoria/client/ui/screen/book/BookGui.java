@@ -39,28 +39,26 @@ public class BookGui extends Screen{
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scroll){
         // scroll next
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if(left != null) left.mouseScrolled(mouseX, mouseY, scroll);
         if(right != null) right.mouseScrolled(mouseX, mouseY, scroll);
-        if(currentChapter != CodexEntries.BOSS_CHECKLIST){
-            if(scroll > 0){
-                if(currentChapter.size() >= currentPage + 3){
-                    currentPage += 2;
-                    Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                }
+        if(scroll > 0){
+            if(currentChapter.size() >= currentPage + 3){
+                currentPage += 2;
+                Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
             }
+        }
 
-            // scroll back
-            if(scroll < 0){
-                if(currentPage <= 0){
-                    this.onClose();
-                    return true; // prevent crash
-                }else{
-                    currentPage -= 2;
-                    Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                }
+        // scroll back
+        if(scroll < 0){
+            if(currentPage <= 0){
+                this.onClose();
+                return true; // prevent crash
+            }else{
+                currentPage -= 2;
+                Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
             }
         }
 

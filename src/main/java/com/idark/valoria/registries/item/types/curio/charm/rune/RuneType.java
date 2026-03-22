@@ -9,5 +9,6 @@ public enum RuneType{
     DEPTHS,
     PYRO,
     ICE,
-    PROTECTION
+    PROTECTION,
+    VAMPIRIC
 }

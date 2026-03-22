@@ -167,7 +167,7 @@ public class ItemsRegistry{
     // runes
     lithicRune, lithicRuneVision, lithicRuneWealth, lithicRuneCurses, lithicRuneStrength, lithicRuneAccuracy, lithicRuneDeep,
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
-    voidSlateRune, voidSlateRuneVision, voidSlateRuneWealth, voidSlateRuneCurses, voidSlateRuneStrength, voidSlateRuneAccuracy, voidSlateRuneDeep, voidSlateRunePyro, sacredVoidSlateRune, voidSlateRuneNihility,
+    voidSlateRune, voidSlateRuneVision, voidSlateRuneWealth, voidSlateRuneCurses, voidSlateRuneStrength, voidSlateRuneAccuracy, voidSlateRuneDeep, voidSlateRunePyro, sacredVoidSlateRune, voidSlateRuneNihility, voidSlateRuneVampiric,
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
     // consumables
@@ -933,6 +933,7 @@ public class ItemsRegistry{
         voidSlateRuneAccuracy = registerItem("void_slate_rune_of_accuracy", () -> new RuneAccuracy(0.25f, 1.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneDeep = registerItem("void_slate_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRunePyro = registerItem("void_slate_rune_of_pyro", () -> new CurioPyro(120, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneVampiric = registerItem("void_slate_vampiric_rune", () -> new CurioVampiricRune(0.15f, 0.10f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
 
         // medicine
         aloeBandage = registerItem("aloe_bandage", () -> new BandageItem(false, 1600, 0));

@@ -52,16 +52,22 @@ public class CodexEntry{
         this.isRendered = true;
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - guiTop) - (int)vOffset;
+        double realMouseX = (mouseX - codex.getCenterX()) * codex.zoom + codex.getCenterX();
+        double realMouseY = (mouseY - codex.getCenterY()) * codex.zoom + codex.getCenterY();
+
+        var loc = loc("textures/gui/book/frame.png");
+        boolean isInsideBook = codex.isOnScreen(realMouseX, realMouseY);
+        boolean isHoveringNode = codex.isHover(mouseX, mouseY, x, y, 20, 20);
+
+        boolean isHovered = isInsideBook && isHoveringNode;
+
         int entryWidth = 22;
         int entryHeight = 22;
-        var loc = loc("textures/gui/book/frame.png");
 
         int stx = isUnlocked() ? node.style.x : Style.CLOSED.x;
         int sty = isUnlocked() ? node.style.y : Style.CLOSED.y;
         int sthx = isUnlocked() ? node.style.hoverX : Style.CLOSED.hoverX;
         int sthy = isUnlocked() ? node.style.hoverY : Style.CLOSED.hoverY;
-
-        boolean isHovered = isHover(mouseX, mouseY, x - 12, y - 8) && codex.isOnScreen(mouseX, mouseY);
         if(isHovered){
             gui.blit(loc, x, y, sthx, sthy, entryWidth, entryHeight, 512, 512);
             MutableComponent transl = isUnlocked() ? translate : unknownTranslate;
@@ -69,7 +75,17 @@ public class CodexEntry{
             int textWidth = Minecraft.getInstance().font.width(transl);
             int tooltipX = x + entryWidth - (textWidth / 2) - 22;
             int tooltipY = y + entryHeight + 18;
+
+            gui.pose().pushPose();
+            float invZoom = 1.0f / codex.zoom;
+
+            gui.pose().translate(tooltipX, tooltipY, 0);
+            gui.pose().scale(invZoom, invZoom, 1.0f);
+            gui.pose().translate(-tooltipX, -tooltipY, 0);
+
             renderTooltip(gui, transl, tooltipX, tooltipY);
+
+            gui.pose().popPose();
         }else{
             gui.blit(loc, x, y, stx, sty, entryWidth, entryHeight, 512, 512);
         }
@@ -78,7 +94,7 @@ public class CodexEntry{
         int pY = isHovered ? y - 4 : y - 3;
         if(isUnlocked()){
             gui.pose().pushPose();
-            gui.pose().translate(0, 0, codex.entries - 100);
+            gui.pose().translate(0, 0, codex.entriesLayer - 100);
             gui.renderFakeItem(node.item.getDefaultInstance(), x + 3, y + 3);
             gui.pose().popPose();
             if(!isViewed()) {
@@ -103,11 +119,17 @@ public class CodexEntry{
         }
     }
 
-    public void onClick(Codex codex, double mouseX, double mouseY, int uOffset, int vOffset){
+    public void onClick(Codex codex, double virtualMouseX, double virtualMouseY, int uOffset, int vOffset){
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - codex.guiLeft()) - uOffset;
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - codex.guiTop()) - vOffset;
-        if(codex.isOnScreen(mouseX, mouseY) && !isHidden && isRendered){
-            if(isHover(mouseX, mouseY, x - 6, y)){
+
+        double realMouseX = (virtualMouseX - codex.getCenterX()) * codex.zoom + codex.getCenterX();
+        double realMouseY = (virtualMouseY - codex.getCenterY()) * codex.zoom + codex.getCenterY();
+
+        boolean isInsideBook = codex.isOnScreen(realMouseX, realMouseY);
+        boolean isHoveringNode = codex.isHover(virtualMouseX, virtualMouseY, x, y + 4, 20, 20);
+        if(isInsideBook && !isHidden && isRendered){
+            if(isHoveringNode){
                 if(isUnlocked() && !this.getChapter().pages.isEmpty()){
                     var unlockable = node.unlockable;
                     if(unlockable != null && unlockable.hasAwards() && !UnlockUtils.isClaimed(codex.player, unlockable) && !Codex.onClaim(this, unlockable)){
@@ -124,20 +146,10 @@ public class CodexEntry{
                 }
             }
         }
-
-        if(codex.isHover(mouseX, mouseY, (int)(codex.cx()-10), codex.guiTop() + codex.frameHeight - 15, 20, 20)) {
-            codex.xOffset = 0;
-            codex.yOffset = 0;
-            codex.sound(() -> SoundEvents.LEVER_CLICK, 1, 1);
-        }
     }
 
     public Chapter getChapter(){
         return node.chapter;
-    }
-
-    public boolean isHover(double mouseX, double mouseY, int x, int y) {
-        return mouseX >= x + 8 && mouseX <= x + 8 + 28 && mouseY >= y + 8 && mouseY <= y + 8 + 28;
     }
 
     public void renderTooltip(GuiGraphics gui, MutableComponent component, int x, int y){

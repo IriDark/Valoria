@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types.curio.charm.rune;
 
-public class CurioProtection extends AbstractRuneItem{
-    public CurioProtection(Properties properties){
+public class CurioNihilityProtection extends AbstractRuneItem{
+    public CurioNihilityProtection(Properties properties){
         super(properties);
     }
 
