@@ -1402,5 +1402,6 @@
   "valoria.jade.progress": "Postęp:",
   "item.valoria.fortress_locator": "Fortress Locator",
   "curios.identifier.pet": "Pet",
-  "biome.valoria.void_desert": "Void Desert"
+  "biome.valoria.void_desert": "Void Desert",
+  "tooltip.valoria.vampirism": "Heals %s%% of Attacker Max HP on kill. %s%% chance to heal %s%% of damage dealt on hit."
 }
