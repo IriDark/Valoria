@@ -185,7 +185,7 @@ public class BlockRegistry{
         polishedEphemariteSlab = registerBlock("polished_ephemarite_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.STONE)));
         polishedEphemariteWall = registerBlock("polished_ephemarite_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
 
-        ancientStone = registerBlock("ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        ancientStone = registerBlock("ancient_stone", () -> new DescriptionBlock(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY), props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ancientStoneSlab = registerBlock("ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ancientStoneStairs = registerBlock("ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ancientStoneWall = registerBlock("ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));

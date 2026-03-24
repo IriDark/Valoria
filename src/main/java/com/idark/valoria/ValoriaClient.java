@@ -12,7 +12,6 @@ import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.item.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
-import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.client.sounds.LoopedSoundInstance;
 import com.idark.valoria.client.ui.*;
 import com.idark.valoria.client.ui.screen.*;
@@ -66,7 +65,6 @@ public class ValoriaClient{
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
 
     public static LoopedSoundInstance BOSS_MUSIC;
-    public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
 
     public static void setupClient(final FMLClientSetupEvent event){
         SplashHandler.add("Also try Starbound!");

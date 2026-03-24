@@ -4,8 +4,12 @@
 - Added Void Slate Runes
 - Added Percent Armor translations due to confusion
 - Added missing translation to valoria:void_desert
+- Added Ancient Stone to Stone Crusher recipes, an additional way to receive Ancient Shards
+- Added Zooming to Codex
+- 
 
 # **Fixed**
+- Fixed Manipulator Sound stuttering on multiple blocks working
 - Fixed Accessories breaking particles
 - Fixed Accessories breaking logic
 - Fixed Stun Effect rarely crashing the game

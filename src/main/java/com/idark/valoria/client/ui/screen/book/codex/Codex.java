@@ -80,6 +80,13 @@ public class Codex extends DotScreen{
         codex.openedAtTick = codex.tick + codex.mc().getPartialTick();
         Minecraft.getInstance().setScreen(codex);
         codex.sound(() -> SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f);
+
+        CodexEntry root = CodexEntries.entries.find(e -> e.getChapter() == CodexEntries.PAGES_CHAPTER);
+        if (root != null) {
+            focusOn(root);
+        } else {
+            xOffset = 0; yOffset = 0; zoom = 1;
+        }
     }
 
     public float time(){
@@ -174,7 +181,7 @@ public class Codex extends DotScreen{
                     xOffset = 0; yOffset = 0; zoom = 1;
                 }
 
-                sound(SoundsRegistry.UI_CLICK, 1, 1f);
+                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
                 return true;
             }
         }

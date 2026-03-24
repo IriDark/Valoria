@@ -13,12 +13,14 @@ import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
+import net.minecraft.world.entity.ai.control.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.item.*;
@@ -102,6 +104,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
 
         this.initAttacks();
+        this.lookControl = new Firron.FirronLookControl(this);
     }
 
     public void checkPhaseTransition() {
@@ -125,6 +128,13 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     public void tick(){
         super.tick();
         checkPhaseTransition();
+        if (rushing && rushDirection != null && !this.level().isClientSide) {
+            float desiredYaw = (float)(Mth.atan2(rushDirection.z, rushDirection.x) * (180F / Math.PI)) - 90F;
+            this.setYRot(desiredYaw);
+            this.yBodyRot = desiredYaw;
+            this.setYHeadRot(desiredYaw);
+        }
+
         if(rushing && rushPrepareTicks <= prepareDuration){
             rushPrepareTicks++;
         }else if(rushDirection != null && !this.level().isClientSide){
@@ -641,4 +651,20 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         initializeLoot(this.level(), stack, this.getOnPos().above(), offsetY);
         return null;
     }
+
+    public class FirronLookControl extends LookControl{
+        public FirronLookControl(Firron pMob){
+            super(pMob);
+        }
+
+        /**
+         * Updates look
+         */
+        public void tick() {
+            if (!Firron.this.isStunned) {
+                super.tick();
+            }
+        }
+    }
+
 }
