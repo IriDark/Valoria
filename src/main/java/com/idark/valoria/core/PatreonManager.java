@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class PatreonManager {
-    public static final Map<UUID, String> PATRONS = new HashMap<>();
+    public static final ConcurrentHashMap<UUID, String> PATRONS = new ConcurrentHashMap<>();
 
     public static void fetchPatrons() {
         CompletableFuture.runAsync(() -> {

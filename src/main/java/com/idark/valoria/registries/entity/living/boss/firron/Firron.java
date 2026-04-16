@@ -54,6 +54,7 @@ import software.bernie.geckolib.util.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.*;
 
 public class Firron extends Monster implements Enemy, BossEntity, Allied, AttackSystemMob, GeoEntity{
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/firron.png")).setDarkenScreen(true);
@@ -95,6 +96,8 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     public static final RawAnimation SUMMON_START = RawAnimation.begin().thenPlay("SUMMON_START");
     public static final RawAnimation SUMMON_HOLD = RawAnimation.begin().thenPlay("SUMMON_HOLD");
     public static final RawAnimation SUMMON_END = RawAnimation.begin().thenPlay("SUMMON_END");
+
+    private static final Predicate<LivingEntity> FIRRON_TARGET = (e) -> e.getType() != EntityTypeRegistry.FIRRON.get();
 
     public Firron(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -159,7 +162,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         this.hasImpulse = true;
 
         AABB hitBox = this.getBoundingBox().inflate(2d);
-        List<LivingEntity> hitEntities = this.level().getEntitiesOfClass(LivingEntity.class, hitBox, e -> e != this);
+        List<LivingEntity> hitEntities = this.level().getEntitiesOfClass(LivingEntity.class, hitBox, Firron.FIRRON_TARGET);
         for (LivingEntity e : hitEntities) {
             if (e.isAlive() && !(e instanceof Allied)) {
                 this.swing(InteractionHand.MAIN_HAND);
@@ -372,6 +375,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         return super.isImmobile() || isStunned || this.tickCount < 140 || animationTicks > 0;
     }
 
+    // todo: potential packet hack vulnerability... should I fix it?
     public void handleKeyframe(String keyframe) {
         if(this.isStunned || rushing || animationTicks > 0 || this.tickCount < 140) return;
 

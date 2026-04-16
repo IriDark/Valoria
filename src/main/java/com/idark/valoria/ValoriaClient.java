@@ -67,29 +67,35 @@ public class ValoriaClient{
     public static LoopedSoundInstance BOSS_MUSIC;
 
     public static void setupClient(final FMLClientSetupEvent event){
-        SplashHandler.add("Also try Starbound!");
-        SplashHandler.add("Also try Mindustry!");
-        SplashHandler.add("Valoria was known as DarkRPG");
-        SplashHandler.add("Valoria, animated by Kerdo!");
-        SplashHandler.add("Valoria music by DuUaader!");
-
-        TooltipModifierHandler.add(BASE_ENTITY_REACH_UUID);
-        TooltipModifierHandler.add(BASE_DASH_DISTANCE_UUID);
-        TooltipModifierHandler.add(BASE_ATTACK_RADIUS_UUID);
-        TooltipModifierHandler.add(BASE_NECROMANCY_COUNT_UUID);
-        TooltipModifierHandler.add(BASE_NECROMANCY_LIFETIME_UUID);
-        TooltipModifierHandler.add(BASE_NATURE_DAMAGE_UUID);
-        TooltipModifierHandler.add(BASE_NATURE_RESISTANCE_UUID);
-        TooltipModifierHandler.add(BASE_DEPTH_DAMAGE_UUID);
-        TooltipModifierHandler.add(BASE_DEPTH_RESISTANCE_UUID);
-        TooltipModifierHandler.add(BASE_INFERNAL_DAMAGE_UUID);
-        TooltipModifierHandler.add(BASE_INFERNAL_RESISTANCE_UUID);
-        TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_UUID);
-        TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
-        TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
-        MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
         event.enqueueWork(() -> {
+            SplashHandler.add("Also try Starbound!");
+            SplashHandler.add("Also try Mindustry!");
+            SplashHandler.add("Also try Metro franchise!");
+            SplashHandler.add("Valoria was known as DarkRPG");
+            SplashHandler.add("Valoria music by DuUaader!");
+            SplashHandler.add("Valoria story by RavioLi!");
+            SplashHandler.add("Valoria, modelled by SunDay!");
+            SplashHandler.add("Valoria, animated by Kerdo!");
+
+            TooltipModifierHandler.add(BASE_ENTITY_REACH_UUID);
+            TooltipModifierHandler.add(BASE_DASH_DISTANCE_UUID);
+            TooltipModifierHandler.add(BASE_ATTACK_RADIUS_UUID);
+            TooltipModifierHandler.add(BASE_NECROMANCY_COUNT_UUID);
+            TooltipModifierHandler.add(BASE_NECROMANCY_LIFETIME_UUID);
+            TooltipModifierHandler.add(BASE_NATURE_DAMAGE_UUID);
+            TooltipModifierHandler.add(BASE_NATURE_RESISTANCE_UUID);
+            TooltipModifierHandler.add(BASE_DEPTH_DAMAGE_UUID);
+            TooltipModifierHandler.add(BASE_DEPTH_RESISTANCE_UUID);
+            TooltipModifierHandler.add(BASE_INFERNAL_DAMAGE_UUID);
+            TooltipModifierHandler.add(BASE_INFERNAL_RESISTANCE_UUID);
+            TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_UUID);
+            TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
+            TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
+
+            MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
+
             CodexEntries.initChapters();
+
             CuriosRendererRegistry.register(ItemsRegistry.theFallenCollectorCrown.get(), CrownRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceDiamond.get(), NecklaceRenderer::new);

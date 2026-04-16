@@ -17,9 +17,12 @@
 - Some sounds were mixed after compression
 - Zero damage projectiles with Projectile damage attribute
 - Fixed Pot Shape causing lags
+- Fixed some rare crashes
+- Fixed Night Vision rune duration desync
 - LootBag wasn't giving player the first item in the loot list - Thanks for reporting to Bela Clove
 
 # **Changes**
+- Increased food rot interval 3s -> 30s
 - Changes to Accessories breaking logic to make it more predictable
 - Improvements to russian translation by refiq_
 ```

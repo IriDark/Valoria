@@ -2,30 +2,30 @@ package com.idark.valoria.registries.item.types.curio.charm.rune;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.registries.item.types.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import pro.komaru.tridot.api.*;
-import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class CurioVision extends AbstractRuneItem{
+public class CurioVision extends AbstractRuneItem implements InputListener{
     int duration;
     public CurioVision(Properties properties, int pDuration){
         super(properties);
         this.duration = pDuration;
     }
 
-    @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack){
-        Player player = (Player)slotContext.entity();
-        if(player.level().isClientSide() && ValoriaClient.JEWELRY_BONUSES_KEY.isDown()){
+    public void applyEffects(Player player, ItemStack stack){
+        if(!player.getCooldowns().isOnCooldown(stack.getItem())){
             if(!player.hasEffect(MobEffects.NIGHT_VISION)){
                 player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, duration));
+                player.getCooldowns().addCooldown(stack.getItem(), duration + 300);
             }
         }
     }
@@ -41,5 +41,12 @@ public class CurioVision extends AbstractRuneItem{
     @Override
     public RuneType runeType(){
         return RuneType.VISION;
+    }
+
+    @Override
+    public void onInput(ServerPlayer player, ItemStack stack, int event){
+        if(event == 0) {
+            applyEffects(player, stack);
+        }
     }
 }

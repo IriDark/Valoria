@@ -5,7 +5,7 @@ import net.minecraftforge.common.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class ServerConfig{
-    public static ForgeConfigSpec.ConfigValue<Boolean> ENABLE_CODEX_PROGRESSION, ENABLE_FOOD_ROT, ENABLE_NIHILITY, CRITICAL_NIHILITY_BLINDNESS;
+    public static ForgeConfigSpec.ConfigValue<Boolean> ENABLE_CODEX_PROGRESSION, ENABLE_FOOD_ROT, ENABLE_NIHILITY, CRITICAL_NIHILITY_BLINDNESS, PATREON_REWARDS;
 
     public static ForgeConfigSpec.ConfigValue<Double> POT_SPAWN_CHANCE,
     FOOD_ROT_INTERVAL,
@@ -32,7 +32,7 @@ public class ServerConfig{
             .define("enableCodexProgression", true);
             CODEX_UPDATE_INTERVAL = builder.comment("Codex updating rate, specified in seconds").defineInRange("codexUpdateInterval", 3, 1d, 10000);
             ENABLE_FOOD_ROT = builder.comment("Food spoiling on entering Valoria dimension").define("enableFoodRot", true);
-            FOOD_ROT_INTERVAL = builder.comment("Food spoiling time, specified in seconds").defineInRange("foodRotInterval", 3, 0.1, 10000);
+            FOOD_ROT_INTERVAL = builder.comment("Food spoiling time, specified in seconds").defineInRange("foodRotInterval", 30, 0.1, 10000);
             ENABLE_NIHILITY = builder.comment("Nihility System in Valoria").define("enableNihility", true);
             NIHILITY_DAMAGE_MULTIPLIER = builder.comment("Damage multiplier per 10% of excess Nihility", "Formula: 1.0 + (segments * multiplier)").defineInRange("nihilityDamageMultiplier", 2d, 0, 100d);
             NIHILITY_ACCUMULATION_INTERVAL = builder.comment("Nihility applying time, specified in seconds").defineInRange("nihilityAccumulationInterval", 3, 0.1, 10000);
@@ -43,6 +43,10 @@ public class ServerConfig{
 
         builder.comment("Level Generation").push("levelgen");
             POT_SPAWN_CHANCE = builder.comment("Pots spawn chance").defineInRange("PotSpawnChance", 0.025d, 0.0d, 1.0d);
+        builder.pop();
+
+        builder.comment("Misc").push("misc");
+            PATREON_REWARDS = builder.comment("Patreon rewards").define("PatreonRewards", true);
         builder.pop();
     }
 }

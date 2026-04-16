@@ -437,20 +437,22 @@ public class Events{
     @SubscribeEvent
     public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         Player player = event.getEntity();
-        if (PatreonManager.PATRONS.containsKey(player.getUUID()) && player instanceof ServerPlayer servPlr) {
-            CompoundTag persistentData = player.getPersistentData();
-            CompoundTag persistedNbt = persistentData.getCompound(Player.PERSISTED_NBT_TAG);
-            if (!persistedNbt.getBoolean("ValoriaPatronRewardClaimed")) {
-                String rewardItemId = PatreonManager.PATRONS.get(player.getUUID());
-                LootParams params = new LootParams.Builder(servPlr.serverLevel()).create(LootContextParamSets.EMPTY);
-                List<ItemStack> generatedLoot = Utils.Items.createLoot(new ResourceLocation(rewardItemId), params);
-                if(!generatedLoot.isEmpty()){
-                    Utils.Items.giveLoot(servPlr, generatedLoot);
-                }
+        if(ServerConfig.PATREON_REWARDS.get()){
+            if(PatreonManager.PATRONS.containsKey(player.getUUID()) && player instanceof ServerPlayer servPlr){
+                CompoundTag persistentData = player.getPersistentData();
+                CompoundTag persistedNbt = persistentData.getCompound(Player.PERSISTED_NBT_TAG);
+                if(!persistedNbt.getBoolean("ValoriaPatronRewardClaimed")){
+                    String rewardItemId = PatreonManager.PATRONS.get(player.getUUID());
+                    LootParams params = new LootParams.Builder(servPlr.serverLevel()).create(LootContextParamSets.EMPTY);
+                    List<ItemStack> generatedLoot = Utils.Items.createLoot(new ResourceLocation(rewardItemId), params);
+                    if(!generatedLoot.isEmpty()){
+                        Utils.Items.giveLoot(servPlr, generatedLoot);
+                    }
 
-                persistedNbt.putBoolean("ValoriaPatronRewardClaimed", true);
-                persistentData.put(Player.PERSISTED_NBT_TAG, persistedNbt);
-                player.sendSystemMessage(Component.literal("Thank you for supporting Valoria! Here is your personal reward.").withStyle(ChatFormatting.GOLD));
+                    persistedNbt.putBoolean("ValoriaPatronRewardClaimed", true);
+                    persistentData.put(Player.PERSISTED_NBT_TAG, persistedNbt);
+                    player.sendSystemMessage(Component.literal("Thank you for supporting Valoria! Here is your personal reward.").withStyle(ChatFormatting.GOLD));
+                }
             }
         }
     }
