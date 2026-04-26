@@ -11,6 +11,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
@@ -40,6 +41,8 @@ public class CodexEntry{
         this.y += Codex.getInstance().insideHeight/2 - 66;
     }
 
+    private float hoverProgress = 0;
+
     public void hide() {
         isHidden = true;
     }
@@ -48,6 +51,7 @@ public class CodexEntry{
         return isHidden;
     }
 
+    public boolean isHoveredThisFrame = false;
     public void render(Codex codex, GuiGraphics gui, float uOffset, float vOffset, int guiLeft, int guiTop, float mouseX, float mouseY){
         this.isRendered = true;
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
@@ -58,51 +62,43 @@ public class CodexEntry{
         var loc = loc("textures/gui/book/frame.png");
         boolean isInsideBook = codex.isOnScreen(realMouseX, realMouseY);
         boolean isHoveringNode = codex.isHover(mouseX, mouseY, x, y, 20, 20);
+        this.isHoveredThisFrame = isInsideBook && isHoveringNode;
 
-        boolean isHovered = isInsideBook && isHoveringNode;
+        hoverProgress = Mth.lerp(0.15f, hoverProgress, isHoveredThisFrame ? 1f : 0f);
 
         int entryWidth = 22;
         int entryHeight = 22;
+
+        gui.pose().pushPose();
+        float scale = 1.0f + (hoverProgress * 0.25f);
+        gui.pose().translate(x + 11, y + 11, 0);
+        gui.pose().scale(scale, scale, 1.0f);
+        gui.pose().translate(-11, -11, 0);
 
         int stx = isUnlocked() ? node.style.x : Style.CLOSED.x;
         int sty = isUnlocked() ? node.style.y : Style.CLOSED.y;
         int sthx = isUnlocked() ? node.style.hoverX : Style.CLOSED.hoverX;
         int sthy = isUnlocked() ? node.style.hoverY : Style.CLOSED.hoverY;
-        if(isHovered){
-            gui.blit(loc, x, y, sthx, sthy, entryWidth, entryHeight, 512, 512);
-            MutableComponent transl = isUnlocked() ? translate : unknownTranslate;
 
-            int textWidth = Minecraft.getInstance().font.width(transl);
-            int tooltipX = x + entryWidth - (textWidth / 2) - 22;
-            int tooltipY = y + entryHeight + 18;
-
-            gui.pose().pushPose();
-            float invZoom = 1.0f / codex.zoom;
-
-            gui.pose().translate(tooltipX, tooltipY, 0);
-            gui.pose().scale(invZoom, invZoom, 1.0f);
-            gui.pose().translate(-tooltipX, -tooltipY, 0);
-
-            renderTooltip(gui, transl, tooltipX, tooltipY);
-
-            gui.pose().popPose();
+        if(isHoveredThisFrame || hoverProgress > 0.1f){
+            gui.blit(loc, 0, 0, sthx, sthy, entryWidth, entryHeight, 512, 512);
         }else{
-            gui.blit(loc, x, y, stx, sty, entryWidth, entryHeight, 512, 512);
+            gui.blit(loc, 0, 0, stx, sty, entryWidth, entryHeight, 512, 512);
         }
 
-        int pX = isHovered ? x + 13 : x + 14;
-        int pY = isHovered ? y - 4 : y - 3;
+        int pX = isHoveredThisFrame ? 13 : 14;
+        int pY = isHoveredThisFrame ? -4 : -3;
         if(isUnlocked()){
             gui.pose().pushPose();
             gui.pose().translate(0, 0, codex.entriesLayer - 100);
-            gui.renderFakeItem(node.item.getDefaultInstance(), x + 3, y + 3);
+            gui.renderFakeItem(node.item.getDefaultInstance(), 3, 3);
             gui.pose().popPose();
             if(!isViewed()) {
                 gui.pose().pushPose();
                 gui.pose().translate(0, 0, 300);
-                int iconX = isHovered ? 51 : 42;
-                int iconY = isHovered ? 192 : 193;
-                int textureSize = isHovered ? 11 : 9;
+                int iconX = isHoveredThisFrame ? 51 : 42;
+                int iconY = isHoveredThisFrame ? 192 : 193;
+                int textureSize = isHoveredThisFrame ? 11 : 9;
                 gui.blit(loc, pX, pY, iconX, iconY, textureSize, textureSize, 512, 512);
                 gui.pose().popPose();
             }
@@ -110,37 +106,85 @@ public class CodexEntry{
             if(!node.hints.isEmpty()) {
                 gui.pose().pushPose();
                 gui.pose().translate(0, 0, 300);
-                int iconX = isHovered ? 31 : 22;
-                int iconY = isHovered ? 192 : 193;
-                int textureSize = isHovered ? 11 : 9;
+                int iconX = isHoveredThisFrame ? 31 : 22;
+                int iconY = isHoveredThisFrame ? 192 : 193;
+                int textureSize = isHoveredThisFrame ? 11 : 9;
                 gui.blit(loc, pX, pY, iconX, iconY, textureSize, textureSize, 512, 512);
                 gui.pose().popPose();
             }
         }
+        gui.pose().popPose();
     }
 
-    public void onClick(Codex codex, double virtualMouseX, double virtualMouseY, int uOffset, int vOffset){
-        int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - codex.guiLeft()) - uOffset;
-        int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - codex.guiTop()) - vOffset;
+    public void renderTooltipPost(Codex codex, GuiGraphics gui, float uOffset, float vOffset, int guiLeft, int guiTop) {
+        if (!this.isHoveredThisFrame || this.isHidden) return;
+        int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
+        int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - guiTop) - (int)vOffset;
 
+        float screenX = (x - codex.getCenterX()) * codex.zoom + codex.getCenterX();
+        float screenY = (y - codex.getCenterY()) * codex.zoom + codex.getCenterY();
+        float scaledIconSize = 22 * codex.zoom;
+
+        MutableComponent transl = isUnlocked() ? translate : unknownTranslate;
+        List<Component> tooltipLines = getTooltipLines(transl);
+
+        int maxLineWidth = 0;
+        for (Component comp : tooltipLines) {
+            maxLineWidth = Math.max(maxLineWidth, Minecraft.getInstance().font.width(comp));
+        }
+
+        int tooltipX = (int) (screenX + (scaledIconSize / 2f) - (maxLineWidth / 2f));
+        int tooltipY = (int) (screenY + scaledIconSize);
+
+        gui.pose().pushPose();
+        gui.pose().translate(-11, 18, 800);
+        renderTooltip(gui, tooltipLines, tooltipX, tooltipY);
+        gui.pose().popPose();
+    }
+
+    private List<Component> getTooltipLines(MutableComponent title) {
+        List<Component> lines = new ArrayList<>();
+        lines.add(title);
+
+        Player player = Minecraft.getInstance().player;
+        boolean flag = player != null && node.unlockable != null && node.unlockable.hasAwards() && !UnlockUtils.isClaimed(player, node.unlockable);
+
+        if (isUnlocked()) {
+            lines.addAll(node.description);
+            if (flag) {
+                lines.add(Component.literal("Rewards available").withStyle(ChatFormatting.GOLD));
+            }
+        } else {
+            lines.addAll(node.hints);
+            if (flag) {
+                lines.add(Component.translatable("codex.valoria.rewards").withStyle(ChatFormatting.GOLD));
+            }
+
+            if (node.unlockable != null && node.unlockable.randomObtainable) {
+                lines.add(Component.empty());
+                lines.add(Component.translatable("codex.valoria.random_obtainable").withStyle(ChatFormatting.DARK_GRAY));
+            }
+        }
+
+        return lines;
+    }
+
+    public void onClick(Codex codex, double virtualMouseX, double virtualMouseY){
         double realMouseX = (virtualMouseX - codex.getCenterX()) * codex.zoom + codex.getCenterX();
         double realMouseY = (virtualMouseY - codex.getCenterY()) * codex.zoom + codex.getCenterY();
-
         boolean isInsideBook = codex.isOnScreen(realMouseX, realMouseY);
-        boolean isHoveringNode = codex.isHover(virtualMouseX, virtualMouseY, x, y + 4, 20, 20);
         if(isInsideBook && !isHidden && isRendered){
-            if(isHoveringNode){
+            if(isHoveredThisFrame){
                 if(isUnlocked() && !this.getChapter().pages.isEmpty()){
                     var unlockable = node.unlockable;
                     if(unlockable != null && unlockable.hasAwards() && !UnlockUtils.isClaimed(codex.player, unlockable) && !Codex.onClaim(this, unlockable)){
                         PacketHandler.sendToServer(new UnlockCodexPacket(unlockable.getId()));
-                    } else {
-                        if(unlockable != null) PacketHandler.sendToServer(new ReadCodexPacket(unlockable.getId()));
-
-                        codex.sound(() -> SoundEvents.BOOK_PAGE_TURN, 1, 1);
-                        codex.changeChapter(getChapter());
                     }
 
+                    if(unlockable != null) PacketHandler.sendToServer(new ReadCodexPacket(unlockable.getId()));
+
+                    codex.sound(() -> SoundEvents.BOOK_PAGE_TURN, 1, 1);
+                    codex.changeChapter(getChapter());
                 } else {
                     codex.sound(() -> SoundEvents.CHAIN_HIT, 1, 1);
                 }
@@ -152,31 +196,10 @@ public class CodexEntry{
         return node.chapter;
     }
 
-    public void renderTooltip(GuiGraphics gui, MutableComponent component, int x, int y){
+    public void renderTooltip(GuiGraphics gui, List<Component> lines, int x, int y){
         PoseStack pose = gui.pose();
-        List<Component> lines = new ArrayList<>();
-        lines.add(component);
-
         Player player = Minecraft.getInstance().player;
         boolean flag = player != null && node.unlockable != null && node.unlockable.hasAwards() && !UnlockUtils.isClaimed(player, node.unlockable);
-        if(isUnlocked()){
-            lines.addAll(node.description);
-            if(flag) {
-                lines.add(Component.literal("Rewards available").withStyle(ChatFormatting.GOLD));
-            }
-
-        } else {
-            lines.addAll(node.hints);
-            if(flag){
-                lines.add(Component.translatable("codex.valoria.rewards").withStyle(ChatFormatting.GOLD));
-            }
-
-            if(node.unlockable != null && node.unlockable.randomObtainable) {
-                lines.add(Component.empty());
-                lines.add(Component.translatable("codex.valoria.random_obtainable").withStyle(ChatFormatting.DARK_GRAY));
-            }
-        }
-
         if(flag) {
             boolean loot = node.unlockable.getLoot() != null;
             boolean items = node.unlockable.getItems() != null;

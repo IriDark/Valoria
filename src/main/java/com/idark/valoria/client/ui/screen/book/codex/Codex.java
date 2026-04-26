@@ -19,6 +19,7 @@ import pro.komaru.tridot.api.render.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
+import java.util.*;
 import java.util.function.*;
 
 import static com.idark.valoria.Valoria.loc;
@@ -26,6 +27,8 @@ import static com.idark.valoria.Valoria.loc;
 @OnlyIn(Dist.CLIENT)
 public class Codex extends DotScreen{
     public static Codex screen;
+    public CodexEntry focusedOn;
+
     public int backgroundWidth = 1024, backgroundHeight = 1024;
     public int frameWidth = 276;
     public int frameHeight = 180;
@@ -35,6 +38,9 @@ public class Codex extends DotScreen{
     public float zoom = 1.0f;
     public float targetZoom = 1.0f;
     public final float minZoom = 0.5f, maxZoom = 2.0f;
+    public float sidebarScroll = 0;
+    public float targetSidebarScroll = 0;
+    private boolean isDraggingSidebar = false;
 
     public float xModifier = 0.75f, yModifier = 0.75f;
     public float xOffset, yOffset;
@@ -62,9 +68,23 @@ public class Codex extends DotScreen{
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        if (mouseX < guiLeft() - 100) {
+            float maxScroll = Math.max(0, (CodexEntries.sidebarEntries.size * 18) - 450);
+            targetSidebarScroll = (float) Mth.clamp(targetSidebarScroll - (delta * 20), 0, maxScroll);
+            return true;
+        }
+
+        float oldZoom = this.targetZoom;
         float zoomSpeed = 0.1f;
-        this.zoom = Mth.clamp(this.zoom + (float)delta * zoomSpeed, minZoom, maxZoom);
         this.targetZoom = Mth.clamp(this.targetZoom + (float)delta * zoomSpeed, minZoom, maxZoom);
+        if (oldZoom != this.targetZoom) {
+            float mouseRelX = (float) (mouseX - getCenterX());
+            float mouseRelY = (float) (mouseY - getCenterY());
+            float multiplier = (1f / oldZoom - 1f / this.targetZoom);
+            this.targetXOffset += mouseRelX * multiplier / xModifier;
+            this.targetYOffset += mouseRelY * multiplier / yModifier;
+        }
+
         return true;
     }
 
@@ -99,6 +119,7 @@ public class Codex extends DotScreen{
         this.xOffset = Mth.lerp(0.15f, this.xOffset, this.targetXOffset);
         this.yOffset = Mth.lerp(0.15f, this.yOffset, this.targetYOffset);
         this.zoom = Mth.lerp(0.15f, this.zoom, this.targetZoom);
+        this.sidebarScroll = Mth.lerp(0.15f, this.sidebarScroll, this.targetSidebarScroll);
 
         float t = time();
         Interp interp = Interp.pow2Out;
@@ -123,18 +144,13 @@ public class Codex extends DotScreen{
         push();
         layer(408);
         int scaleWidth = 203;
-        int scaleX = guiLeft() + 24;
+        int scaleX = guiLeft() + 14;
         int scaleY = guiTop() + frameHeight - 30;
-        float progress = (this.targetZoom - this.minZoom) / (this.maxZoom - this.minZoom);
-        int handleOffset = (int) (progress * scaleWidth);
-        gui.blit(FRAME, guiLeft() + 22, guiTop() + frameHeight - 30, 288, 48, 205, 13, 512, 512);
-        gui.blit(FRAME, scaleX + handleOffset - 2, scaleY, 493, 48, 2, 13, 512, 512);
-
-        String zoomText = String.format(java.util.Locale.US, "%.1fx", this.targetZoom);
+        String zoomText = String.format(Locale.US, "%.1fx", this.targetZoom);
         var font = Minecraft.getInstance().font;
         int textX = scaleX + scaleWidth + 10;
         int textY = scaleY + 3;
-        gui.drawString(font, zoomText, textX, textY, 0xFFFFFF, false);
+        gui.drawString(font, "\uD83D\uDD0D " + zoomText, textX, textY, 0xFFFFFF, false);
         pop();
 
         push();
@@ -153,9 +169,49 @@ public class Codex extends DotScreen{
             }
 
         pop();
+
+        push();
+        gui.fill(guiLeft() - 500, 0, guiLeft() - 125, screen.getRectangle().height(), Col.packColor(75, 0, 0, 0));
+
+        int listStartX = guiLeft() - 335;
+        int listStartY = 10;
+        int listHeight = 450;
+        int listWidth = 200;
+
+        // Sidebar scrollbar logic
+        int totalContentHeight = CodexEntries.sidebarEntries.size * 18;
+        if (totalContentHeight > listHeight) {
+            int barX = listStartX + listWidth;
+            int barY = listStartY + 1;
+            int barWidth = 2;
+            gui.fill(barX, barY, barX + barWidth, barY + listHeight, Col.packColor(75, 0, 0, 0));
+            int knobHeight = Math.max(10, (int)(((float)listHeight / totalContentHeight) * 25));
+            int knobY = listStartY + (int)((sidebarScroll / (totalContentHeight - listHeight)) * (listHeight - knobHeight));
+
+            gui.fill(barX, knobY, barX + barWidth, knobY + knobHeight, Col.packColor(255, 220, 200, 180));
+        }
+
+        gui.enableScissor(listStartX, listStartY, listStartX + 180, listStartY + listHeight);
+        int currentY = listStartY - (int)sidebarScroll;
+        for (SidebarEntry sEntry : CodexEntries.sidebarEntries) {
+            sEntry.render(this, listStartX, currentY, gui, mouseX, mouseY);
+            currentY += SidebarEntry.height + 3;
+        }
+
+        gui.disableScissor();
+
+        float percentage = CodexEntries.sidebarEntries.size > 0 ? ((float)CodexEntries.openedEntries.size / CodexEntries.sidebarEntries.size) * 100f : 0;
+        String progressText = String.format(java.util.Locale.US, "%.0f%%", percentage);
+        gui.drawCenteredString(Minecraft.getInstance().font, progressText, listStartX + SidebarEntry.width / 2 - 5, listStartY + listHeight + 5, 0xFFFFFF);
+        pop();
+
+        for(CodexEntry entry : CodexEntries.entries) {
+            entry.renderTooltipPost(this, gui, getuOffset(), getvOffset(), guiLeft() + 8, guiTop() + 10);
+        }
     }
 
     public void focusOn(CodexEntry entry) {
+        this.focusedOn = entry;
         this.targetZoom = 1.0f;
         this.targetXOffset = (12f - entry.x) / xModifier;
         this.targetYOffset = (12f - entry.y) / yModifier;
@@ -163,14 +219,15 @@ public class Codex extends DotScreen{
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button){
-        float uOffset = getuOffset();
-        float vOffset = getvOffset();
-
         double unzoomedX = getUnzoomedMouseX(mouseX);
         double unzoomedY = getUnzoomedMouseY(mouseY);
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
             for(CodexEntry entry : CodexEntries.entries){
-                entry.onClick(this, unzoomedX, unzoomedY, (int)uOffset, (int)vOffset);
+                entry.onClick(this, unzoomedX, unzoomedY);
+            }
+
+            for(SidebarEntry entry : CodexEntries.openedEntries){
+                entry.onClick(this, mouseX, mouseY);
             }
 
             if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
@@ -214,6 +271,15 @@ public class Codex extends DotScreen{
             yOffset = Mth.clamp(yOffset + (float)-dragY, -maxYOffset, maxYOffset);
             targetXOffset = Mth.clamp(targetXOffset + (float)-dragX, -maxXOffset, maxXOffset);
             targetYOffset = Mth.clamp(targetYOffset + (float)-dragY, -maxYOffset, maxYOffset);
+        }
+
+        if(focusedOn != null){
+            double realMouseX = (mouseX - getCenterX()) * zoom + getCenterX();
+            double realMouseY = (mouseY - getCenterY()) * zoom + getCenterY();
+            boolean isInsideBook = isOnScreen(realMouseX, realMouseY);
+            if(!isInsideBook){
+                focusedOn = null;
+            }
         }
 
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
@@ -261,7 +327,6 @@ public class Codex extends DotScreen{
         for (CodexEntry entry : CodexEntries.entries){
             if(entry.isHidden()) return;
             entry.node.children.each(c -> {
-                if(c.entry.isHidden() || !entry.isUnlocked()) return;
                 float chx = c.entry.x;
                 float chy = c.entry.y;
                 float x = entry.x;

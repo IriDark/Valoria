@@ -57,6 +57,7 @@ public class TagsRegistry{
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
     public static final TagKey<Block> ALLOWED_TO_BREAK = block(new ResourceLocation(Valoria.ID, "allowed_to_break"));
+    public static final TagKey<Block> EPHEMARITE = block(new ResourceLocation(Valoria.ID, "ephemarite"));
 
     public static final TagKey<Block> NEEDS_HALLOWEEN_TOOL = block(new ResourceLocation(Valoria.ID, "needs_halloween_tool"));
     public static final TagKey<Block> NEEDS_LUNAR_TOOL = block(new ResourceLocation(Valoria.ID, "needs_lunar_tool"));
@@ -108,7 +109,7 @@ public class TagsRegistry{
     public static final TagKey<Item> POTIONS = item(new ResourceLocation(Valoria.ID, "potions"));
     public static final TagKey<Item> ALCOHOL = item(new ResourceLocation(Valoria.ID, "alcohol"));
     public static final TagKey<Item> RUM = item(new ResourceLocation(Valoria.ID, "rum"));
-    public static final TagKey<Item> GEODES = item(new ResourceLocation(Valoria.ID, "geodes"));
+    public static final TagKey<Item> CRUSHABLE = item(new ResourceLocation(Valoria.ID, "crushable"));
     public static final TagKey<Item> STONE_CRUSHER_TOOL = item(new ResourceLocation(Valoria.ID, "stone_crusher_tool"));
     public static final TagKey<Item> SMOKE_PARTICLE = item(new ResourceLocation(Valoria.ID, "smoke_particle"));
     public static final TagKey<PaintingVariant> MODDED = painting(new ResourceLocation(Valoria.ID, "painting"));

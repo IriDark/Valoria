@@ -43,8 +43,6 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.storage.loot.*;
-import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
@@ -276,6 +274,15 @@ public class Events{
     @SubscribeEvent
     public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event){
         Player player = event.getEntity();
+        if(player instanceof ServerPlayer sp){
+            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
+            if(unlocked != null) all.removeAll(unlocked);
+            for(Unlockable unknown : all){
+                if(unknown instanceof OnDimensionChangeListener entityU) entityU.checkCondition(sp, event.getTo());
+            }
+        }
+
         if(event.getTo() == LevelGen.VALORIA_KEY){
             onValoriaEnter(player);
         }
@@ -286,9 +293,7 @@ public class Events{
         if(level instanceof ServerLevel s && player instanceof ServerPlayer sp){
             ResourceLocation loc = Valoria.loc("advancements/valoria/visit_the_valoria.json");
             Advancement adv = s.getServer().getAdvancements().getAdvancement(loc);
-            if(adv == null) return;
-
-            if(!sp.getAdvancements().getOrStartProgress(adv).isDone()) {
+            if(adv == null || !sp.getAdvancements().getOrStartProgress(adv).isDone()) {
                 player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
             }
         }
@@ -442,16 +447,9 @@ public class Events{
                 CompoundTag persistentData = player.getPersistentData();
                 CompoundTag persistedNbt = persistentData.getCompound(Player.PERSISTED_NBT_TAG);
                 if(!persistedNbt.getBoolean("ValoriaPatronRewardClaimed")){
-                    String rewardItemId = PatreonManager.PATRONS.get(player.getUUID());
-                    LootParams params = new LootParams.Builder(servPlr.serverLevel()).create(LootContextParamSets.EMPTY);
-                    List<ItemStack> generatedLoot = Utils.Items.createLoot(new ResourceLocation(rewardItemId), params);
-                    if(!generatedLoot.isEmpty()){
-                        Utils.Items.giveLoot(servPlr, generatedLoot);
-                    }
-
+                    PatreonManager.rewardPlayer(servPlr);
                     persistedNbt.putBoolean("ValoriaPatronRewardClaimed", true);
                     persistentData.put(Player.PERSISTED_NBT_TAG, persistedNbt);
-                    player.sendSystemMessage(Component.literal("Thank you for supporting Valoria! Here is your personal reward.").withStyle(ChatFormatting.GOLD));
                 }
             }
         }

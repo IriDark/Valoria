@@ -2,7 +2,7 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
+import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.item.*;

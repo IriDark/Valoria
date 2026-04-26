@@ -167,37 +167,14 @@ public class ValoriaUtils{
     /**
      * Performs a circled attack near player
      *
-     * @param radius      Attack radius
+     * @param baseRadius  Attack radius
      * @param type        Particle type used to show radius
      * @param hitEntities List for damaged entities
      * @param pos         Position
      */
-    public static void radiusHit(Level level, ItemStack stack, Player player, @Nullable ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius){
-        for(int i = 0; i < 360; i += 10){
-            double pitch = ((pitchRaw + 90) * Math.PI) / 180;
-            double yaw = ((yawRaw + 90) * Math.PI) / 180;
-            float pRadius = radius + Utils.Items.enchantmentRadius(stack);
-            double X = Math.sin(pitch) * Math.cos(yaw + i) * pRadius;
-            double Y = Math.cos(pitch) * pRadius;
-            double Z = Math.sin(pitch) * Math.sin(yaw + i) * pRadius;
-
-            AABB boundingBox = new AABB(pos.x, pos.y - 1 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
-            List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
-            for(Entity entity : entities){
-                if(entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(player)){
-                    if(Utils.Entities.canHitTarget(player, livingEntity)){
-                        hitEntities.add(livingEntity);
-                    }
-                }
-            }
-
-            X = Math.sin(pitch) * Math.cos(yaw + i) * pRadius * 0.75F;
-            Y = Math.cos(pitch) * pRadius * 0.75F;
-            Z = Math.sin(pitch) * Math.sin(yaw + i) * pRadius * 0.75F;
-            if(type != null && !level.isClientSide() && level instanceof ServerLevel pServer){
-                pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
-            }
-        }
+    public static void radiusHit(Level level, ItemStack stack, Player player, @Nullable ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float baseRadius){
+        float radius = baseRadius + Utils.Items.enchantmentRadius(stack);
+        radiusHit(level, player, type, hitEntities, pos, pitchRaw, yawRaw, radius);
     }
 
     /**
@@ -209,47 +186,47 @@ public class ValoriaUtils{
      * @param pos         Position
      */
     public static void radiusHit(Level level, Player player, @Nullable ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius){
-        for(int i = 0; i < 360; i += 10){
-            double pitch = ((pitchRaw + 90) * Math.PI) / 180;
-            double yaw = ((yawRaw + 90) * Math.PI) / 180;
-            double X = Math.sin(pitch) * Math.cos(yaw + i) * radius;
-            double Y = Math.cos(pitch) * radius;
-            double Z = Math.sin(pitch) * Math.sin(yaw + i) * radius;
-
-            AABB boundingBox = new AABB(pos.x, pos.y - 1 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
-            List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
-            for(Entity entity : entities){
-                if(entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(player)){
-                    if(Utils.Entities.canHitTarget(player, livingEntity)){
-                        hitEntities.add(livingEntity);
-                    }
+        AABB hitBox = new AABB(pos.x - radius, pos.y - radius, pos.z - radius, pos.x + radius, pos.y + radius, pos.z + radius);
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, hitBox);
+        double radiusSqr = radius * radius;
+        for(LivingEntity target : entities){
+            if(target == player || hitEntities.contains(target)) continue;
+            if(target.distanceToSqr(pos.x, pos.y, pos.z) <= radiusSqr){
+                if(Utils.Entities.canHitTarget(player, target)){
+                    hitEntities.add(target);
                 }
             }
+        }
 
-            X = Math.sin(pitch) * Math.cos(yaw + i) * radius * 0.75F;
-            Y = Math.cos(pitch) * radius * 0.75F;
-            Z = Math.sin(pitch) * Math.sin(yaw + i) * radius * 0.75F;
-            if(type != null && !level.isClientSide() && level instanceof ServerLevel pServer){
-                pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
+        if(type != null && !level.isClientSide() && level instanceof ServerLevel pServer){
+            double pitchRad = ((pitchRaw + 90) * Math.PI) / 180;
+            double yawRad = ((yawRaw + 90) * Math.PI) / 180;
+
+            double cosPitch = Math.cos(pitchRad);
+            double sinPitch = Math.sin(pitchRad);
+
+            double visualRadius = radius * 0.75F;
+            for(int i = 0; i < 360; i += 10){
+                double yawOffsetRad = yawRad + (i * Math.PI / 180);
+
+                double xOffset = sinPitch * Math.cos(yawOffsetRad) * visualRadius;
+                double yOffset = cosPitch * visualRadius;
+                double zOffset = sinPitch * Math.sin(yawOffsetRad) * visualRadius;
+
+                pServer.sendParticles(type, pos.x + xOffset, pos.y + yOffset + ((Math.random() - 0.5D) * 0.2F), pos.z + zOffset, 1, 0, 0, 0, 0);
             }
         }
     }
 
     public static void stunNearby(Level level, LivingEntity caster, Vector3d pos, float pitchRaw, float yawRaw, float radius){
-        for(int i = 0; i < 360; i += 10){
-            double pitch = ((pitchRaw + 90) * Math.PI) / 180;
-            double yaw = ((yawRaw + 90) * Math.PI) / 180;
-            double X = Math.sin(pitch) * Math.cos(yaw + i) * radius;
-            double Y = Math.cos(pitch) * radius;
-            double Z = Math.sin(pitch) * Math.sin(yaw + i) * radius;
-
-            AABB boundingBox = new AABB(pos.x, pos.y - 1 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
-            List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
-            for(Entity entity : entities){
-                if(entity instanceof LivingEntity livingEntity && !livingEntity.equals(caster)){
-                    if(Utils.Entities.canHitTarget(caster, livingEntity)){
-                        livingEntity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30, 0));
-                    }
+        AABB hitBox = new AABB(pos.x - radius, pos.y - radius, pos.z - radius, pos.x + radius, pos.y + radius, pos.z + radius);
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, hitBox);
+        double radiusSqr = radius * radius;
+        for(LivingEntity target : entities){
+            if(!target.equals(caster)) continue;
+            if(target.distanceToSqr(pos.x, pos.y, pos.z) <= radiusSqr){
+                if(Utils.Entities.canHitTarget(caster, target)){
+                    target.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30, 0));
                 }
             }
         }

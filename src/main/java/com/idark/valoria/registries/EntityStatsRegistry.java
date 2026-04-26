@@ -33,19 +33,19 @@ public class EntityStatsRegistry{
     public static AttributeSupplier DRAUGR = register(30, 5).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.FOLLOW_RANGE, 20).build();
     public static AttributeSupplier SWAMP_WANDERER = register(35, 8).add(Attributes.KNOCKBACK_RESISTANCE, Tmp.rnd.nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
     public static AttributeSupplier SCOURGE = register(45, 6, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
-    public static AttributeSupplier ENT = register(50, 4, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.5).build();
+    public static AttributeSupplier ENT = register(50, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.5).build();
     public static AttributeSupplier NATURE_GOLEM = register(125, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
     public static AttributeSupplier RIVER_GOLEM = register(125, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
     public static AttributeSupplier SORCERER = register(25, 1.5).build();
     public static AttributeSupplier MAGGOT = register(6, 3.5).build();
-    public static AttributeSupplier KING_CRAB = register(100, 10).add(Attributes.FOLLOW_RANGE, 20).build();
+    public static AttributeSupplier KING_CRAB = register(50, 5).add(Attributes.FOLLOW_RANGE, 20).build();
 
     //minions - overworld
     public static AttributeSupplier UNDEAD = registerFlying(8, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
     public static AttributeSupplier PIXIE = registerFlying(15, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
-    public static AttributeSupplier DEVIL = register(50, 1).add(Attributes.FOLLOW_RANGE, 20).build();
+    public static AttributeSupplier DEVIL = register(35, 1).add(Attributes.FOLLOW_RANGE, 18).build();
 
     //monsters - valoria
     public static AttributeSupplier SHADEWOOD_SPIDER = register(40, 4, 0.35).add(Attributes.FOLLOW_RANGE, 18).build();

@@ -4,7 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
+import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;

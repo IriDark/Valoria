@@ -40,10 +40,13 @@ public class BookGui extends Screen{
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scroll){
-        // scroll next
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
-        if(left != null) left.mouseScrolled(mouseX, mouseY, scroll);
-        if(right != null) right.mouseScrolled(mouseX, mouseY, scroll);
+        boolean consumed = false;
+        if(left != null && left.mouseScrolled(mouseX, mouseY, scroll)) consumed = true;
+        if(right != null && right.mouseScrolled(mouseX, mouseY, scroll)) consumed = true;
+
+        if(consumed) return true;
+
         if(scroll > 0){
             if(currentChapter.size() >= currentPage + 3){
                 currentPage += 2;

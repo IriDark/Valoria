@@ -76,6 +76,9 @@ public class ValoriaClient{
             SplashHandler.add("Valoria story by RavioLi!");
             SplashHandler.add("Valoria, modelled by SunDay!");
             SplashHandler.add("Valoria, animated by Kerdo!");
+            SplashHandler.add("Support Valoria on Patreon!");
+            SplashHandler.add("Check out our amazing patrons!");
+            SplashHandler.add("Valoria is growing thanks to you!");
 
             TooltipModifierHandler.add(BASE_ENTITY_REACH_UUID);
             TooltipModifierHandler.add(BASE_DASH_DISTANCE_UUID);

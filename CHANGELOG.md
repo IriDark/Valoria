@@ -6,9 +6,15 @@
 - Added missing translation to valoria:void_desert
 - Added Ancient Stone to Stone Crusher recipes, an additional way to receive Ancient Shards
 - Added Zooming to Codex
-- 
+- Added Crushables page to Codex
+- Added Combat Fundamentals page to Codex
+- Added Survival page to Codex
 
 # **Fixed**
+- Fixed Ent Attack delays
+- Fixed Troll animations
+- Fixed font Unicode conflicts with other mods - reported by muon (μ⁻)
+- Fixed Harvest level mismatch on some tools
 - Fixed Manipulator Sound stuttering on multiple blocks working
 - Fixed Accessories breaking particles
 - Fixed Accessories breaking logic
@@ -22,6 +28,22 @@
 - LootBag wasn't giving player the first item in the loot list - Thanks for reporting to Bela Clove
 
 # **Changes**
+- Optimized radial attacks
+- Improved Codex entries hovering
+- Improved Codex entry pages (Added scrolling, images, entity renderers, recipes...)
+- Improved Codex entries clicking interaction
+- Nerfed King Crab (damage and health)
+- Decreased Devil health
+- Increased Devil loot
+- Kiln now can be crafted using any of Ephemarite type stone
+- Increased Shade blossom generation
+- Removed Diamonds from Pot
+- Decreased Iron drop from Pot
+- Decreased Ent spawn
+- Increased Ent loot
+- Improvements to Codex UIX
+- Reduced Gaib roots generation count
+- Increased Gaib roots drop count
 - Increased food rot interval 3s -> 30s
 - Changes to Accessories breaking logic to make it more predictable
 - Improvements to russian translation by refiq_

@@ -40,7 +40,8 @@ public abstract class Page{
         return false;
     }
 
-    public void mouseScrolled(double mouseX, double mouseY, double delta){
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta){
+        return false;
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button){

@@ -2,6 +2,7 @@ package com.idark.valoria.core.command;
 
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
+import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.parts.*;
 import com.idark.valoria.core.network.*;
@@ -10,6 +11,7 @@ import com.idark.valoria.registries.*;
 import com.mojang.brigadier.*;
 import com.mojang.brigadier.context.*;
 import com.mojang.brigadier.exceptions.*;
+import net.minecraft.*;
 import net.minecraft.commands.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
@@ -67,10 +69,24 @@ public class ModCommand{
                 new CommandVariant(CommandPart.create("setNihility"), targets, nihility).execute((p) -> {
                     setNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
                     return 1;
+                }),
+
+                new CommandVariant(CommandPart.create("patrons")).execute((p) -> {
+                    showPatrons(p.getSource());
+                    return 1;
                 })
         );
 
-        dispatcher.register(builder.permission((p) -> p.hasPermission(2)).build());
+        dispatcher.register(builder.build());
+    }
+
+    private static void showPatrons(CommandSourceStack source) {
+        int count = PatreonManager.getPatronCount();
+        source.sendSuccess(() -> Component.literal("\uD83E\uDEB7 Valoria is supported by ").withStyle(ChatFormatting.GRAY)
+                .append(Component.literal(String.valueOf(count)).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" patrons!").withStyle(ChatFormatting.GRAY)), false);
+        source.sendSuccess(() -> Component.literal("❤ Support us on Patreon: ").withStyle(ChatFormatting.GRAY)
+                .append(Component.literal("https://www.patreon.com/c/valoriamod").withStyle(style -> style.withColor(ChatFormatting.AQUA).withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.patreon.com/c/valoriamod")))), false);
     }
 
     private static void giveAllPages(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers) throws CommandSyntaxException{
