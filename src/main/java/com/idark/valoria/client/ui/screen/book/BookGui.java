@@ -17,8 +17,8 @@ import org.lwjgl.glfw.*;
 public class BookGui extends Screen{
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/codex.png");
     public ItemStack item;
-    public static Chapter currentChapter;
-    public static int currentPage = 0;
+    public Chapter currentChapter;
+    public int currentPage;
     public boolean openedFromInv;
     public boolean initializedPages = false;
 

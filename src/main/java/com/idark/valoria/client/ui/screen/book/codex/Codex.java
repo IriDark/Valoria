@@ -6,14 +6,18 @@ import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.registries.*;
 import com.mojang.blaze3d.systems.*;
+import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.components.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.*;
+import org.jetbrains.annotations.*;
 import org.lwjgl.glfw.*;
 import pro.komaru.tridot.api.render.*;
 import pro.komaru.tridot.util.*;
@@ -28,6 +32,7 @@ import static com.idark.valoria.Valoria.loc;
 public class Codex extends DotScreen{
     public static Codex screen;
     public CodexEntry focusedOn;
+    private static final Component SEARCH_HINT = Component.translatable("gui.recipebook.search_hint").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY);
 
     public int backgroundWidth = 1024, backgroundHeight = 1024;
     public int frameWidth = 276;
@@ -35,12 +40,17 @@ public class Codex extends DotScreen{
     public int insideWidth = 262;
     public int insideHeight = 164;
 
+    public int listHeight() {
+        return height - 60;
+    }
+
+    public int listWidth = 200;
+
     public float zoom = 1.0f;
     public float targetZoom = 1.0f;
     public final float minZoom = 0.5f, maxZoom = 2.0f;
     public float sidebarScroll = 0;
     public float targetSidebarScroll = 0;
-    private boolean isDraggingSidebar = false;
 
     public float xModifier = 0.75f, yModifier = 0.75f;
     public float xOffset, yOffset;
@@ -50,6 +60,7 @@ public class Codex extends DotScreen{
     public float animTime = 10;
     public Player player;
 
+    public EditBox searchBar;
     public ResourceLocation FRAME = loc("textures/gui/book/frame.png");
 
     public Codex(){
@@ -57,6 +68,23 @@ public class Codex extends DotScreen{
         assetsId = Valoria.ID;
     }
 
+    @Override
+    protected void init() {
+        super.init();
+        String s = getSearchValue();
+        searchBar = new EditBox(Minecraft.getInstance().font, listStartX() + 5, listStartY() + 5, 190, 12, Component.translatable("itemGroup.search"));
+        searchBar.setMaxLength(50);
+        searchBar.setBordered(true);
+        searchBar.setVisible(true);
+        searchBar.setValue(s);
+        searchBar.setTextColor(0xFFFFFF);
+        searchBar.setHint(SEARCH_HINT);
+        this.addWidget(searchBar);
+    }
+
+    /**
+       @return the last instance of Codex to prevent opening animation when closing a book GUI
+    **/
     public static Codex getInstance() {
         if (screen == null) {
             CodexEntries.initChapters(); // init so recipes can render
@@ -69,7 +97,7 @@ public class Codex extends DotScreen{
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         if (mouseX < guiLeft() - 100) {
-            float maxScroll = Math.max(0, (CodexEntries.sidebarEntries.size * 18) - 450);
+            float maxScroll = Math.max(0, (CodexEntries.sidebarEntries.size * 18) - listHeight());
             targetSidebarScroll = (float) Mth.clamp(targetSidebarScroll - (delta * 20), 0, maxScroll);
             return true;
         }
@@ -146,11 +174,11 @@ public class Codex extends DotScreen{
         int scaleWidth = 203;
         int scaleX = guiLeft() + 14;
         int scaleY = guiTop() + frameHeight - 30;
-        String zoomText = String.format(Locale.US, "%.1fx", this.targetZoom);
+        String zoomText = "\uD83D\uDD0D " + String.format(Locale.US, "%.1fx", this.targetZoom);
         var font = Minecraft.getInstance().font;
         int textX = scaleX + scaleWidth + 10;
         int textY = scaleY + 3;
-        gui.drawString(font, "\uD83D\uDD0D " + zoomText, textX, textY, 0xFFFFFF, false);
+
         pop();
 
         push();
@@ -168,45 +196,57 @@ public class Codex extends DotScreen{
                 gui.blit(FRAME, (int)(cx() - 5), guiTop() + frameHeight - 10, 0, 192, 10, 10, 512, 512);
             }
 
+            gui.fill(textX - 3, textY - 3, textX + font.width(zoomText) + 3, textY + font.lineHeight + 3, Col.packColor(150, 0, 0, 0));
+            gui.drawString(font, zoomText, textX, textY, 0xFFFFFF, false);
         pop();
 
-        push();
-        gui.fill(guiLeft() - 500, 0, guiLeft() - 125, screen.getRectangle().height(), Col.packColor(75, 0, 0, 0));
+        renderSidebar(gui, mouseX, mouseY);
+    }
 
-        int listStartX = guiLeft() - 335;
-        int listStartY = 10;
-        int listHeight = 450;
-        int listWidth = 200;
+    private void renderSidebar(GuiGraphics gui, int mouseX, int mouseY){
+        push();
+        if (isSidebarDisabled()) {
+            return;
+        }
+
+        gui.fill(0, 0, listWidth + 25, screen.getRectangle().height(), Col.packColor(75, 0, 0, 0));
 
         // Sidebar scrollbar logic
         int totalContentHeight = CodexEntries.sidebarEntries.size * 18;
-        if (totalContentHeight > listHeight) {
-            int barX = listStartX + listWidth;
-            int barY = listStartY + 1;
+        if (totalContentHeight > listHeight()) {
+            int barX = listStartX() + listWidth;
+            int barY = listStartY() + 1;
             int barWidth = 2;
-            gui.fill(barX, barY, barX + barWidth, barY + listHeight, Col.packColor(75, 0, 0, 0));
-            int knobHeight = Math.max(10, (int)(((float)listHeight / totalContentHeight) * 25));
-            int knobY = listStartY + (int)((sidebarScroll / (totalContentHeight - listHeight)) * (listHeight - knobHeight));
+            gui.fill(barX, barY + 20, barX + barWidth, barY + listHeight(), Col.packColor(75, 0, 0, 0));
+            int knobHeight = Math.max(10, (int)(((float)listHeight() / totalContentHeight) * 25));
+            int knobY = listStartY() + 20 + (int)((sidebarScroll / (totalContentHeight - listHeight())) * (listHeight() - knobHeight - 20));
 
-            gui.fill(barX, knobY, barX + barWidth, knobY + knobHeight, Col.packColor(255, 220, 200, 180));
+            gui.fill(barX, knobY, barX + barWidth, knobY + knobHeight, Col.packColor(255, 125, 125, 125));
         }
 
-        gui.enableScissor(listStartX, listStartY, listStartX + 180, listStartY + listHeight);
-        int currentY = listStartY - (int)sidebarScroll;
+        gui.enableScissor(listStartX(), listStartY(), listStartX() + 200, listStartY() + listHeight());
+        int currentY = listStartY() - (int)sidebarScroll + 20;
         for (SidebarEntry sEntry : CodexEntries.sidebarEntries) {
-            sEntry.render(this, listStartX, currentY, gui, mouseX, mouseY);
-            currentY += SidebarEntry.height + 3;
+            sEntry.render(this, listStartX(), currentY, gui, mouseX, mouseY);
+            currentY += sEntry.height + 3;
         }
 
         gui.disableScissor();
 
-        float percentage = CodexEntries.sidebarEntries.size > 0 ? ((float)CodexEntries.openedEntries.size / CodexEntries.sidebarEntries.size) * 100f : 0;
-        String progressText = String.format(java.util.Locale.US, "%.0f%%", percentage);
-        gui.drawCenteredString(Minecraft.getInstance().font, progressText, listStartX + SidebarEntry.width / 2 - 5, listStartY + listHeight + 5, 0xFFFFFF);
+        float percentage = CodexEntries.openedEntries.size > 0 ? ((float)CodexEntries.openedEntries.size / CodexEntries.entries.size) * 100f : 0;
+        String progressText = String.format(Locale.US, "%.0f%%", percentage);
+        gui.drawCenteredString(Minecraft.getInstance().font, progressText + " | " + CodexEntries.openedEntries.size + "/" + CodexEntries.entries.size, (listStartX() + 15 / 2) + 85, listStartY() + listHeight() + 15, 0xFFFFFF);
         pop();
 
+        searchBar.setX((listStartX() + 15 / 2) - 5);
+        searchBar.setY(listStartY() + listHeight() + 25 + searchBar.getHeight());
+        searchBar.render(gui, mouseX, mouseY, Minecraft.getInstance().getPartialTick());
         for(CodexEntry entry : CodexEntries.entries) {
             entry.renderTooltipPost(this, gui, getuOffset(), getvOffset(), guiLeft() + 8, guiTop() + 10);
+        }
+
+        for(SidebarEntry entry : CodexEntries.sidebarEntries) {
+            entry.renderTooltip(this, gui, mouseX, mouseY);
         }
     }
 
@@ -218,16 +258,59 @@ public class Codex extends DotScreen{
     }
 
     @Override
+    public void tick(){
+        super.tick();
+        this.searchBar.tick();
+    }
+
+    private @NotNull String getSearchValue(){
+        return this.searchBar != null ? this.searchBar.getValue() : "";
+    }
+
+    @Override
+    public boolean charTyped(char pCodePoint, int pModifiers){
+        if(this.searchBar != null && this.searchBar.isFocused()){
+            if(this.searchBar.charTyped(pCodePoint, pModifiers)){
+                sound(() -> SoundEvents.BAMBOO_HIT, 0.25f, 1);
+                CodexEntries.rebuildSidebar(getSearchValue());
+                return true;
+            }
+        }
+
+        return super.charTyped(pCodePoint, pModifiers);
+    }
+
+    @Override
+    public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers){
+        if(this.searchBar.keyPressed(pKeyCode, pScanCode, pModifiers)){
+            sound(() -> SoundEvents.BAMBOO_HIT, 0.25f, 1);
+            CodexEntries.rebuildSidebar(getSearchValue());
+            return true;
+        }else{
+            return (this.searchBar != null && this.searchBar.isFocused() && this.searchBar.isVisible() && pKeyCode != 256) || super.keyPressed(pKeyCode, pScanCode, pModifiers);
+        }
+    }
+
+    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button){
         double unzoomedX = getUnzoomedMouseX(mouseX);
         double unzoomedY = getUnzoomedMouseY(mouseY);
+        searchBar.setFocused(false);
+        if (!isSidebarDisabled() && searchBar.mouseClicked(mouseX, mouseY, button)) {
+            searchBar.setFocused(true);
+            searchBar.onClick(mouseX, mouseY);
+            return true;
+        }
+
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
             for(CodexEntry entry : CodexEntries.entries){
                 entry.onClick(this, unzoomedX, unzoomedY);
             }
 
-            for(SidebarEntry entry : CodexEntries.openedEntries){
-                entry.onClick(this, mouseX, mouseY);
+            if(!isSidebarDisabled()){
+                for(SidebarEntry entry : CodexEntries.sidebarEntries){
+                    entry.onClick(this, mouseX, mouseY);
+                }
             }
 
             if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
@@ -246,8 +329,16 @@ public class Codex extends DotScreen{
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
+    private boolean isSidebarDisabled(){
+        return listWidth + 25 >= this.guiLeft();
+    }
+
     public static boolean onClaim(CodexEntry entry, Unlockable unlockable) {
         return MinecraftForge.EVENT_BUS.post(new OnRewardClaim(entry, unlockable));
+    }
+
+    public boolean isOnSidebar(double mouseX, double mouseY) {
+        return mouseX >= listStartX() && mouseY >= listStartY() && mouseX <= (listStartX() + 200) && mouseY <= (listStartY() + listHeight());
     }
 
     public boolean isOnScreen(double mouseX, double mouseY) {
@@ -387,6 +478,14 @@ public class Codex extends DotScreen{
 
         if (minV > maxV) return (backgroundHeight - insideHeight) / 2f;
         return Mth.clamp(rawOffset, minV, maxV);
+    }
+
+    public int listStartX() {
+        return Mth.clamp((int)(this.width * 0.02f), 5, 10);
+    }
+
+    public int listStartY() {
+        return -10;
     }
 
     public int insideLeft() {

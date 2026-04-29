@@ -17,6 +17,7 @@ public class ChapterNode {
     public Unlockable unlockable;
     public Style style;
     public CodexEntry entry; //backcompatibility
+    public boolean isCollapsed = false;
     public List<Component> description = Lists.newArrayList();
     public List<Component> hints = Lists.newArrayList();
 

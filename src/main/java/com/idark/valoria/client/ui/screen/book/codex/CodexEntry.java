@@ -142,7 +142,7 @@ public class CodexEntry{
         gui.pose().popPose();
     }
 
-    private List<Component> getTooltipLines(MutableComponent title) {
+    public List<Component> getTooltipLines(MutableComponent title) {
         List<Component> lines = new ArrayList<>();
         lines.add(title);
 

@@ -21,8 +21,10 @@ import java.util.*;
 // todo data driven chapters and pages?
 public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
+    public static Seq<CodexEntry> openedEntries = new Seq<>();
     public static Seq<SidebarEntry> sidebarEntries = new Seq<>();
-    public static Seq<SidebarEntry> openedEntries = new Seq<>();
+
+    private static ChapterNode rootNode, bossesRootNode;
 
     public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, SURVIVAL, COMBAT,
 
@@ -218,10 +220,9 @@ public class CodexEntries{
 
     public static void init(){
         CodexEntries.entries.clear();
-        CodexEntries.sidebarEntries.clear();
         CodexEntries.openedEntries.clear();
 
-        ChapterNode root = new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD)
+        rootNode = new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD)
         .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
         .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
 
@@ -259,7 +260,7 @@ public class CodexEntries{
             )
         );
 
-        ChapterNode bossesRoot = new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
+        bossesRootNode = new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
                 .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
                     .addHintsDescription(Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                     .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)
@@ -295,36 +296,47 @@ public class CodexEntries{
                 );
 
         int offset = 0;
-        if(onInit(root)){
-            layoutTree(root, 0, -512 + offset);
+        if(onInit(rootNode)){
+            layoutTree(rootNode, 0, -512 + offset);
         }
 
-        if(onInit(bossesRoot)){
-            layoutTree(bossesRoot, 5, offset);
+        if(onInit(bossesRootNode)){
+            layoutTree(bossesRootNode, 5, offset);
         }
 
-        buildSidebarDFS(root, 0);
-        buildSidebarDFS(bossesRoot, 0);
+        rebuildSidebar();
     }
 
-    private static void buildSidebarDFS(ChapterNode node, int depth) {
+    public static void rebuildSidebar() {
+        rebuildSidebar("");
+    }
+
+    public static void rebuildSidebar(String filter) {
+        sidebarEntries.clear();
+        if (rootNode != null) buildSidebarDFS(rootNode, 0, filter.toLowerCase());
+        if (bossesRootNode != null) buildSidebarDFS(bossesRootNode, 0, filter.toLowerCase());
+    }
+
+    private static void buildSidebarDFS(ChapterNode node, int depth, String filter) {
         if (node.entry != null) {
             SidebarEntry sidebarEntry = new SidebarEntry(node.entry, depth);
-            sidebarEntries.add(sidebarEntry);
 
-            if (node.entry.isUnlocked() && !node.entry.isHidden()) {
-                openedEntries.add(sidebarEntry);
+            String title = node.entry.translate.getString().toLowerCase();
+            boolean matches = filter.isEmpty() || (title.contains(filter) && sidebarEntry.entry.isUnlocked());
+            if (matches) {
+                sidebarEntries.add(sidebarEntry);
             }
         }
 
-        for (ChapterNode child : node.children) {
-            buildSidebarDFS(child, depth + 1);
+        if (!node.isCollapsed || !filter.isEmpty()) {
+            for (ChapterNode child : node.children) {
+                buildSidebarDFS(child, depth + 1, filter);
+            }
         }
     }
 
-    static int spacingX = 25;
-    static int spacingY = 35;
-
+    private static final int spacingX = 25;
+    private static final int spacingY = 35;
     private static int measureWidth(ChapterNode node){
         if(node.children.isEmpty()) return spacingX;
         int width = 0;
@@ -365,6 +377,9 @@ public class CodexEntries{
         CodexEntry entry = addEntry(node, x, y);
         if(onEntryAdded(entry)){
             entries.add(entry);
+            if (entry.isUnlocked() && !entry.isHidden()) {
+                openedEntries.add(entry);
+            }
         } else {
             entry.hide();
         }
