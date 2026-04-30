@@ -66,7 +66,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, DashParticlePacket.class, DashParticlePacket::encode, DashParticlePacket::decode, DashParticlePacket::handle);
         HANDLER.registerMessage(id++, MusicToastPacket.class, MusicToastPacket::encode, MusicToastPacket::decode, MusicToastPacket::handle);
-        HANDLER.registerMessage(id++, UnlockCodexPacket.class, UnlockCodexPacket::encode, UnlockCodexPacket::decode, UnlockCodexPacket::handle);
+        HANDLER.registerMessage(id++, UnlockCodexPacket.class, UnlockCodexPacket::encode, UnlockCodexPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, NihilityPacket.class, NihilityPacket::encode, NihilityPacket::decode, NihilityPacket::handle);
         HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
         HANDLER.registerMessage(id++, HeavyWorkbenchCraftPacket.class, HeavyWorkbenchCraftPacket::encode, HeavyWorkbenchCraftPacket::decode, RateLimitedPacket::processPacket);

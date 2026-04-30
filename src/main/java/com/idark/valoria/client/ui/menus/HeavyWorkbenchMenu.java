@@ -26,7 +26,7 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
     }
 
     public HeavyWorkbenchMenu(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
-        this(windowId, playerInventory, ContainerLevelAccess.NULL);
+        this(windowId, playerInventory, ContainerLevelAccess.create(playerInventory.player.level(), data.readBlockPos()));
     }
 
     public HeavyWorkbenchMenu(int windowId, Inventory playerInventory, ContainerLevelAccess access) {
@@ -70,16 +70,22 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
      */
     public boolean checkAndSetAvailability(WorkbenchRecipe recipe) {
         Inventory inv = this.player.getInventory();
+        List<ItemStack> tempInv = new ArrayList<>();
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            tempInv.add(inv.getItem(i).copy());
+        }
+
         boolean isEnough = true;
         for (var entry : recipe.getInputs()) {
             Ingredient ingredient = entry.getFirst();
             int requiredCount = entry.getSecond().count;
             int currentCount = 0;
 
-            for (int i = 0; i < inv.getContainerSize(); i++) {
-                ItemStack stack = inv.getItem(i);
+            for (ItemStack stack : tempInv) {
                 if (ingredient.test(stack)) {
-                    currentCount += stack.getCount();
+                    int taken = Math.min(requiredCount - currentCount, stack.getCount());
+                    currentCount += taken;
+                    stack.shrink(taken);
                 }
             }
 

@@ -5,34 +5,31 @@ import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.core.network.*;
 import net.minecraft.network.*;
 import net.minecraft.server.level.*;
-import net.minecraftforge.network.NetworkEvent.*;
 
-import java.util.function.*;
-
-public class UnlockCodexPacket {
+public class UnlockCodexPacket extends RateLimitedPacket {
     private final String unlockableId;
 
     public UnlockCodexPacket(String unlockableId) {
         this.unlockableId = unlockableId;
     }
 
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeUtf(unlockableId);
+    public static void encode(UnlockCodexPacket packet, FriendlyByteBuf buf) {
+        buf.writeUtf(packet.unlockableId);
     }
 
     public static UnlockCodexPacket decode(FriendlyByteBuf buffer){
         return new UnlockCodexPacket(buffer.readUtf());
     }
 
-    public void handle(Supplier<Context> ctx) {
-        ServerPlayer player = ctx.get().getSender();
+    @Override
+    public void execute(ServerPlayer player) {
         Unlockable unlockable = Unlockables.unlockableMap.get(unlockableId);
         if (unlockable != null && player != null) {
+            if(!UnlockUtils.isUnlocked(player, unlockable) || UnlockUtils.isClaimed(player, unlockable)) return;
+
             UnlockUtils.claim(player, unlockable);
             unlockable.award(player);
             PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
         }
-
-        ctx.get().setPacketHandled(true);
     }
 }

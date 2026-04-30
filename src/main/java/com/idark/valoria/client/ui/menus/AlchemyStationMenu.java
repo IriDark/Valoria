@@ -1,5 +1,6 @@
 package com.idark.valoria.client.ui.menus;
 
+import com.idark.valoria.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -35,7 +36,11 @@ public class AlchemyStationMenu extends ContainerMenuBase{
     }
 
     public AlchemyStationMenu(int windowId, Inventory playerInventory, FriendlyByteBuf data){
-        this(windowId, data.readBlockPos(), playerInventory, ContainerLevelAccess.create(playerInventory.player.level(), data.readBlockPos()), data.readInt());
+        this(windowId, data.readBlockPos(), playerInventory, data);
+    }
+
+    private AlchemyStationMenu(int windowId, BlockPos pos, Inventory playerInventory, FriendlyByteBuf data){
+        this(windowId, pos, playerInventory, ContainerLevelAccess.create(playerInventory.player.level(), pos), data.readInt());
     }
 
     public AlchemyStationMenu(int windowId, BlockPos pos, Inventory playerInventory, ContainerLevelAccess access, int blockLevel){
@@ -97,16 +102,22 @@ public class AlchemyStationMenu extends ContainerMenuBase{
      */
     public boolean checkAndSetAvailability(AlchemyRecipe recipe){
         Inventory inv = this.player.getInventory();
+        List<ItemStack> tempInv = new ArrayList<>();
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            tempInv.add(inv.getItem(i).copy());
+        }
+
         boolean isEnough = true;
         for(var entry : recipe.getInputs()){
             Ingredient ingredient = entry.getFirst();
             int requiredCount = entry.getSecond().count;
             int currentCount = 0;
 
-            for(int i = 0; i < inv.getContainerSize(); i++){
-                ItemStack stack = inv.getItem(i);
+            for(ItemStack stack : tempInv){
                 if(ingredient.test(stack)){
-                    currentCount += stack.getCount();
+                    int taken = Math.min(requiredCount - currentCount, stack.getCount());
+                    currentCount += taken;
+                    stack.shrink(taken);
                 }
             }
 
@@ -142,22 +153,28 @@ public class AlchemyStationMenu extends ContainerMenuBase{
 
     public boolean checkAndSetAvailability(AlchemyUpgradeRecipe recipe){
         Inventory inv = this.player.getInventory();
+        List<ItemStack> tempInv = new ArrayList<>();
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            tempInv.add(inv.getItem(i).copy());
+        }
+
         boolean isEnough = true;
         for(var entry : recipe.getInputs()){
             Ingredient ingredient = entry.getFirst();
             int requiredCount = entry.getSecond().count;
             int currentCount = 0;
 
-            for(int i = 0; i < inv.getContainerSize(); i++){
-                ItemStack stack = inv.getItem(i);
+            for(ItemStack stack : tempInv){
                 if(ingredient.test(stack)){
-                    currentCount += stack.getCount();
+                    int taken = Math.min(requiredCount - currentCount, stack.getCount());
+                    currentCount += taken;
+                    stack.shrink(taken);
                 }
             }
 
             entry.getSecond().setCurrent(currentCount);
             entry.getSecond().setEnough(currentCount >= requiredCount);
-            if(!entry.getSecond().isEnough){
+            if(!entry.getSecond().isEnough || !recipe.getId().equals(Valoria.loc("alchemy/upgrade/alchemy_upgrade_" + this.blockLevel))){
                 isEnough = false;
             }
         }

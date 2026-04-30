@@ -11,6 +11,8 @@
 - Added Survival page to Codex
 
 # **Fixed**
+- Fixed possible Packet Hack allowing users to dupe items using Codex reward system that is currently WIP
+- Fixed possible Packet Hack allowing users to upgrade Alchemy Station using cheapest materials directly upgrading from levels 1 -> 3 
 - Fixed Ent Attack delays
 - Fixed Troll animations
 - Fixed font Unicode conflicts with other mods - reported by muon (μ⁻)
