@@ -1,6 +1,8 @@
 package com.idark.valoria.client.ui.menus;
 
 import com.idark.valoria.*;
+import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -221,9 +223,21 @@ public class AlchemyStationMenu extends ContainerMenuBase{
             BlockState state = level.getBlockState(this.pos);
             if(state.getBlock() instanceof AlchemyStationBlock stationBlock){
                 BlockState toState = switch(stationBlock.level){
-                    case 1 -> BlockRegistry.alchemyStationTier2.get().defaultBlockState();
-                    case 2 -> BlockRegistry.alchemyStationTier3.get().defaultBlockState();
-                    case 3 -> BlockRegistry.alchemyStationTier4.get().defaultBlockState();
+                    case 1 -> {
+                        UnlockUtils.add(player, RegisterUnlockables.netherAlchemy);
+                        yield BlockRegistry.alchemyStationTier2.get().defaultBlockState();
+                    }
+
+                    case 2 -> {
+                        UnlockUtils.add(player, RegisterUnlockables.elementalAlchemy);
+                        yield BlockRegistry.alchemyStationTier3.get().defaultBlockState();
+                    }
+
+                    case 3 -> {
+                        UnlockUtils.add(player, RegisterUnlockables.valoriaAlchemy);
+                        yield BlockRegistry.alchemyStationTier4.get().defaultBlockState();
+                    }
+
                     default -> BlockRegistry.alchemyStationTier1.get().defaultBlockState();
                 };
 

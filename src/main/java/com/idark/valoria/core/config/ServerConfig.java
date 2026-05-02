@@ -32,7 +32,7 @@ public class ServerConfig{
             .define("enableCodexProgression", true);
             CODEX_UPDATE_INTERVAL = builder.comment("Codex updating rate, specified in seconds").defineInRange("codexUpdateInterval", 3, 1d, 10000);
             ENABLE_FOOD_ROT = builder.comment("Food spoiling on entering Valoria dimension").define("enableFoodRot", true);
-            FOOD_ROT_INTERVAL = builder.comment("Food spoiling time, specified in seconds").defineInRange("foodRotInterval", 30, 0.1, 10000);
+            FOOD_ROT_INTERVAL = builder.comment("Food spoiling time, specified in seconds").defineInRange("foodRotInterval", 600, 0.1, 10000);
             ENABLE_NIHILITY = builder.comment("Nihility System in Valoria").define("enableNihility", true);
             NIHILITY_DAMAGE_MULTIPLIER = builder.comment("Damage multiplier per 10% of excess Nihility", "Formula: 1.0 + (segments * multiplier)").defineInRange("nihilityDamageMultiplier", 2d, 0, 100d);
             NIHILITY_ACCUMULATION_INTERVAL = builder.comment("Nihility applying time, specified in seconds").defineInRange("nihilityAccumulationInterval", 3, 0.1, 10000);

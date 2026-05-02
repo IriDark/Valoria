@@ -6,17 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:necromancer_page",
-          "weight": 50,
-          "conditions": [
-            {
-              "condition": "valoria:unlockable",
-              "id": "valoria:necromancer"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:music_disc_necromancer",
           "weight": 1,
           "functions": []

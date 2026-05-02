@@ -375,7 +375,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         return super.isImmobile() || isStunned || this.tickCount < 140 || animationTicks > 0;
     }
 
-    // todo: potential packet hack vulnerability... should I fix it?
+    // todo: potential packet hack vulnerability.
     public void handleKeyframe(String keyframe) {
         if(this.isStunned || rushing || animationTicks > 0 || this.tickCount < 140) return;
 

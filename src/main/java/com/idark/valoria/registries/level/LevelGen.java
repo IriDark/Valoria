@@ -70,6 +70,7 @@ public class LevelGen{
     public static final ResourceKey<Biome> SHADED_BARRENS = registerKey(Registries.BIOME, "shaded_barrens");
     public static final ResourceKey<Biome> SHADED_ECOTONE = registerKey(Registries.BIOME, "shaded_ecotone");
     public static final ResourceKey<Biome> SHADE_FOREST = registerKey(Registries.BIOME, "shade_forest");
+    public static final ResourceKey<Structure> CRYPT = registerKey(Registries.STRUCTURE, "crypt");
     public static final ResourceKey<Structure> NECROMANCER_CRYPT = registerKey(Registries.STRUCTURE, "necromancer_crypt");
     public static final ResourceKey<Structure> VALORIA_FORTRESS = registerKey(Registries.STRUCTURE, "fortress");
 

@@ -5,7 +5,6 @@ import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -13,7 +12,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
 import java.util.*;
@@ -116,6 +114,24 @@ public class CodexEntry{
         gui.pose().popPose();
     }
 
+    public void renderDebug(GuiGraphics gui, int mouseX, int mouseY) {
+        if (!this.isHoveredThisFrame || this.isHidden) return;
+        Font font = Minecraft.getInstance().font;
+
+        gui.pose().pushPose();
+        gui.pose().translate(-11, 18, 800);
+
+        gui.drawString(font, translate, mouseX, mouseY, CommonColors.WHITE);
+        gui.drawString(font, "unknownTranslate: " + unknownTranslate.getString(), mouseX, mouseY + 10, CommonColors.WHITE);
+        gui.drawString(font, "x: " + x + " y: " + y, mouseX, mouseY + 20, CommonColors.WHITE);
+        gui.drawString(font, "parent: " + (node.parent != null ? node.parent.entry.translate.getString() : "null"), mouseX, mouseY + 30, CommonColors.WHITE);
+        gui.drawString(font, "isUnlocked: " + node.entry.isUnlocked(), mouseX, mouseY + 40, CommonColors.WHITE);
+        gui.drawString(font, "parentUnlockable: " + node.parentUnlockable, mouseX, mouseY + 50, CommonColors.WHITE);
+        gui.drawString(font, "isParentUnlocked: " + (node.parent != null ? node.parent.entry.isUnlocked() : "null"), mouseX, mouseY + 60, CommonColors.WHITE);
+
+        gui.pose().popPose();
+    }
+
     public void renderTooltipPost(Codex codex, GuiGraphics gui, float uOffset, float vOffset, int guiLeft, int guiTop) {
         if (!this.isHoveredThisFrame || this.isHidden) return;
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
@@ -177,8 +193,12 @@ public class CodexEntry{
             if(isHoveredThisFrame){
                 if(isUnlocked() && !this.getChapter().pages.isEmpty()){
                     var unlockable = node.unlockable;
-                    if(unlockable != null && unlockable.hasAwards() && !UnlockUtils.isClaimed(codex.player, unlockable) && !Codex.onClaim(this, unlockable)){
+
+                    Player player = Minecraft.getInstance().player;
+                    boolean flag = player != null && unlockable != null && unlockable.hasAwards() && !UnlockUtils.isClaimed(player, unlockable);
+                    if(flag){
                         PacketHandler.sendToServer(new UnlockCodexPacket(unlockable.getId()));
+                        return;
                     }
 
                     if(unlockable != null) PacketHandler.sendToServer(new ReadCodexPacket(unlockable.getId()));
@@ -197,6 +217,8 @@ public class CodexEntry{
     }
 
     public void renderTooltip(GuiGraphics gui, List<Component> lines, int x, int y){
+        //todo item component would be much better than this junk
+        /*
         PoseStack pose = gui.pose();
         Player player = Minecraft.getInstance().player;
         boolean flag = player != null && node.unlockable != null && node.unlockable.hasAwards() && !UnlockUtils.isClaimed(player, node.unlockable);
@@ -226,6 +248,7 @@ public class CodexEntry{
                 pose.popPose();
             }
         }
+        */
 
         gui.renderComponentTooltip(Minecraft.getInstance().font, lines, x, y);
     }
@@ -241,10 +264,15 @@ public class CodexEntry{
 
     @OnlyIn(Dist.CLIENT)
     public boolean isUnlocked(){
+        if(!ServerConfig.ENABLE_CODEX_PROGRESSION.get()) return true;
+        if(node.parentUnlockable && node.parent != null && node.parent.unlockable != null) {
+            return UnlockUtils.isUnlocked(Minecraft.getInstance().player, node.parent.unlockable);
+        }
+
         if(node.unlockable == null){
             return true;
-        }else{
-            return !ServerConfig.ENABLE_CODEX_PROGRESSION.get() || (UnlockUtils.isUnlocked(Minecraft.getInstance().player, node.unlockable));
         }
+
+        return UnlockUtils.isUnlocked(Minecraft.getInstance().player, node.unlockable);
     }
 }

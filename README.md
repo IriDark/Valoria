@@ -13,12 +13,15 @@
 ---
 
 *Lost in the shattered world? Knowledge is your best weapon against the corruption. Consult the official Wiki for guides, lore, and survival strategies.*
+
 [![wiki.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/wiki.png)](https://iridark.gitbook.io/valoria-wiki)
 
 *Join our community to share your creations, provide feedback, and catch sneak peeks of what's lurking in the shadows.*
+
 [![discord.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/discord.png)](https://discord.gg/wWdXpwuPmK)
 
 *To help us dedicate more time to the project and fund new assets like music and sound design, consider supporting us.*
+
 [![patreon.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/patreon.png)](https://patreon.com/ValoriaMod)
 
 ---

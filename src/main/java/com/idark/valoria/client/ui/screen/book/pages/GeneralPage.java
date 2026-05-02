@@ -15,6 +15,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.api.distmarker.*;
 import org.joml.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.*;
 import pro.komaru.tridot.util.*;
 
@@ -29,7 +30,6 @@ public class GeneralPage extends Page {
     private float scrollAmount = 0;
     private float targetScroll = 0;
     private int totalHeight = 0;
-    private boolean isDraggingScrollbar = false;
     private int lastX = 0;
     private int lastY = 0;
 
@@ -42,7 +42,7 @@ public class GeneralPage extends Page {
     public GeneralPage() {}
 
     public GeneralPage(String textKey) {
-        this.title = textKey + ".name";
+        this.addTitle(textKey + ".name");
         this.addText(textKey);
     }
 
@@ -61,10 +61,12 @@ public class GeneralPage extends Page {
         elements.add(new PageElement() {
             @Override
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
+                if(!hasTitle) return 0;
+
                 Font font = Minecraft.getInstance().font;
                 String translated = I18n.get(titleKey);
-                drawText(gui, titleKey, x + (wrapWidth - font.width(translated)) / 2, y, false);
-                return font.lineHeight + 5;
+                drawText(gui, titleKey, x + (wrapWidth - font.width(translated)) / 2, y - 4, false);
+                return font.lineHeight + 1;
             }
         });
 
@@ -79,7 +81,7 @@ public class GeneralPage extends Page {
                 String content = I18n.get(textKey);
                 drawWrappingText(gui, content, x, y, wrapWidth, false);
                 int lineCount = font.split(Component.literal(content), wrapWidth).size();
-                return lineCount * (font.lineHeight + 1) + 5;
+                return lineCount * (font.lineHeight + 1) + 12;
             }
         });
 
@@ -102,11 +104,42 @@ public class GeneralPage extends Page {
         return this;
     }
 
-    public GeneralPage addRecipe(ItemStack result) {
-        return addRecipe(result, 21, 0);
+    public GeneralPage addFloatingItem(ItemStack item, int size) {
+        return addItem(item, true, 0, 0, size);
     }
 
-    public GeneralPage addRecipe(ItemStack result, int recipeX, int recipeY) {
+    public GeneralPage addItem(ItemStack item, int size) {
+        return addItem(item, false, 0, 0, size);
+    }
+
+    public GeneralPage addItem(ItemStack item, boolean floating, int xOffset, int yOffset, int size) {
+        elements.add(new PageElement() {
+            @Override
+            public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
+                if(floating) {
+                    gui.pose().pushPose();
+                    float ticks = (ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 2;
+                    float ticksUp = (ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 6;
+                    ticksUp = (ticksUp) % 360;
+                    float scale = size / 16.0F;
+
+                    gui.pose().translate(x + xOffset + 8, y + yOffset + 8, 0);
+                    gui.pose().scale(scale, scale, 1.0F);
+                    Utils.Render.renderFloatingItemModelIntoGUI(gui, item, -8, -8, ticks, ticksUp);
+                    gui.pose().popPose();
+                    return size + yOffset + 5;
+                } else{
+                    Utils.Render.renderItemModelInGui(item, x + xOffset, y + yOffset, size, size, size);
+                }
+
+                return size + yOffset + 5;
+            }
+        });
+
+        return this;
+    }
+
+    public GeneralPage addRecipe(ItemStack result) {
         elements.add(new PageElement() {
             private Ingredient[] inputs;
             private boolean hasRecipe = false;
@@ -116,22 +149,39 @@ public class GeneralPage extends Page {
                 Minecraft mc = Minecraft.getInstance();
                 if (mc.level != null) {
                     RecipeManager manager = mc.level.getRecipeManager();
-                    Optional<? extends Recipe<?>> optional = manager.getRecipes().stream()
-                            .filter(r -> ItemStack.isSameItem(r.getResultItem(mc.level.registryAccess()), result))
-                            .findFirst();
+
+                    Optional<CraftingRecipe> optional = manager.getAllRecipesFor(RecipeType.CRAFTING).stream()
+                    .filter(r -> ItemStack.isSameItem(r.getResultItem(mc.level.registryAccess()), result))
+                    .findFirst();
 
                     if (optional.isPresent()) {
-                        Recipe<?> recipe = optional.get();
+                        CraftingRecipe recipe = optional.get();
                         NonNullList<Ingredient> ingredients = recipe.getIngredients();
-                        this.inputs = ingredients.toArray(Ingredient[]::new);
+                        this.inputs = new Ingredient[9];
+                        Arrays.fill(this.inputs, Ingredient.EMPTY);
+                        if (recipe instanceof ShapedRecipe shaped) {
+                            int width = shaped.getWidth();
+                            int height = shaped.getHeight();
+                            for (int h = 0; h < height; h++) {
+                                for (int w = 0; w < width; w++) {
+                                    this.inputs[h * 3 + w] = ingredients.get(h * width + w);
+                                }
+                            }
+                        } else {
+                            for (int i = 0; i < ingredients.size(); i++) {
+                                this.inputs[i] = ingredients.get(i);
+                            }
+                        }
+
                         this.hasRecipe = true;
                     }
                 }
             }
 
             @Override
-            public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
-                if (!hasRecipe) return 0;
+            public void renderPost(GuiGraphics gui, int x, int y, int mouseX, int mouseY){
+                super.renderPost(gui, x, y, mouseX, mouseY);
+                if (!hasRecipe) return;
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 3; j++) {
                         int index = i * 3 + j;
@@ -140,16 +190,38 @@ public class GeneralPage extends Page {
                             ItemStack[] matchingStacks = ingredient.getItems();
                             if (matchingStacks.length > 0) {
                                 int cycle = (ClientTick.ticksInGame / 40) % matchingStacks.length;
-                                BookGui.drawItemWithTooltip(matchingStacks[cycle], x + 22 + j * 18, y + 1 + i * 18, gui, mouseX, mouseY, true);
+                                BookGui.drawItemTooltip(matchingStacks[cycle], x + 23 + j * 18, y + 2 + i * 18, gui, mouseX, mouseY);
                             }
                         }
-
-                        gui.blit(BACKGROUND, x + recipeX + j * 18, y + recipeY + i * 18, 287, 15, 18, 18, 512, 512);
                     }
                 }
 
+                BookGui.drawItemTooltip(result, x + 89, y + 23 + 46 - 50, gui, mouseX, mouseY);
+            }
+
+            @Override
+            public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
+                if (!hasRecipe) return 0;
+                gui.pose().pushPose();
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        int index = i * 3 + j;
+                        gui.blit(BACKGROUND, x + 22 + j * 18, y + 1 + i * 18, 287, 15, 18, 18, 512, 512);
+                        if (inputs != null && index < inputs.length) {
+                            Ingredient ingredient = inputs[index];
+                            ItemStack[] matchingStacks = ingredient.getItems();
+                            if (matchingStacks.length > 0) {
+                                int cycle = (ClientTick.ticksInGame / 40) % matchingStacks.length;
+                                gui.renderItem(matchingStacks[cycle], x + 23 + j * 18, y + 2 + i * 18);
+                            }
+                        }
+                    }
+                }
+
+                gui.pose().popPose();
+
                 gui.blit(BACKGROUND, x + 88, y + 22 + 46 - 50, 287, 15, 18, 18, 512, 512);
-                BookGui.drawItemWithTooltip(result, x + 89, y + 23 + 46 - 50, gui, mouseX, mouseY, true);
+                gui.renderItem(result, x + 89, y + 23 + 46 - 50);
                 gui.blit(BACKGROUND, x + 77, y + 74 - 50, 306, 15, 9, 7, 512, 512); // Arrow
                 return 18 * 3;
             }
@@ -205,7 +277,7 @@ public class GeneralPage extends Page {
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         boolean isHoveringPage = mouseX >= lastX && mouseX <= lastX + wrapWidth + 10 &&
         mouseY >= lastY && mouseY <= lastY + pageHeight + 10;
-        if (isHoveringPage && totalHeight > pageHeight) {
+        if (isHoveringPage && totalHeight > pageHeight + 4) {
             targetScroll = Mth.clamp(targetScroll - (float)delta * 15, 0, totalHeight - pageHeight);
             return true;
         }
@@ -228,34 +300,31 @@ public class GeneralPage extends Page {
         scrollAmount = Mth.lerp(0.2f, scrollAmount, targetScroll);
         if (Math.abs(scrollAmount - targetScroll) < 0.1f) scrollAmount = targetScroll;
 
-        if (totalHeight > pageHeight) {
-            int barX = x + wrapWidth + 4;
-            int knobHeight = Math.max(10, (int)((float)pageHeight / totalHeight * pageHeight));
-            if (isDraggingScrollbar) {
-                float clickY = mouseY - y - (knobHeight / 2f);
-                targetScroll = Mth.clamp((clickY / (pageHeight - knobHeight)) * (totalHeight - pageHeight), 0, totalHeight - pageHeight);
-                isDraggingScrollbar = Minecraft.getInstance().mouseHandler.isLeftPressed();
-            } else if (Minecraft.getInstance().mouseHandler.isLeftPressed() && mouseX >= barX - 2 && mouseX <= barX + 4 && mouseY >= y && mouseY <= y + pageHeight) {
-                isDraggingScrollbar = true;
-            }
-        }
-
-        gui.enableScissor(x, y + 10, x + wrapWidth + 10, y + pageHeight + 10);
         int currentY = y + 15 - (int)scrollAmount;
         int initialY = currentY;
+        gui.enableScissor(x, y + 10, x + wrapWidth + 10, y + pageHeight + 10);
+        int[] elementYCoords = new int[elements.size()];
         if (hasTitle && title != null) {
             drawText(gui, this.title, x + (120 - Minecraft.getInstance().font.width(I18n.get(this.title))) / 2, currentY + 11 - Minecraft.getInstance().font.lineHeight, false);
             currentY += 16;
         }
 
-        for (PageElement element : elements) {
+        for (int i = 0; i < elements.size(); i++) {
+            PageElement element = elements.get(i);
+            elementYCoords[i] = currentY;
+
             int heightUsed = element.render(gui, x + 3, currentY, mouseX, mouseY);
             currentY += heightUsed;
         }
 
         this.totalHeight = currentY - initialY + 15;
         gui.disableScissor();
-        if (totalHeight > pageHeight) {
+        for (int i = 0; i < elements.size(); i++) {
+            PageElement element = elements.get(i);
+            element.renderPost(gui, x + 3, elementYCoords[i], mouseX, mouseY);
+        }
+
+        if (totalHeight > pageHeight + 4) {
             int barX = x + wrapWidth + 4;
             int barWidth = 2;
             gui.fill(barX, y, barX + barWidth, y + pageHeight, Col.packColor(100, 0, 0, 0));
@@ -267,6 +336,7 @@ public class GeneralPage extends Page {
 
     public abstract static class PageElement {
         public void init() {}
+        public void renderPost(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {}
         public abstract int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY);
     }
 }

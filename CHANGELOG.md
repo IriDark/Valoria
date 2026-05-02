@@ -9,6 +9,9 @@
 - Added Crushables page to Codex
 - Added Combat Fundamentals page to Codex
 - Added Survival page to Codex
+- Added Alchemy pages to Codex
+- Added Respirator recipe
+- Added Gas mask recipe
 
 # **Fixed**
 - Fixed possible Packet Hack allowing users to dupe items using Codex reward system that is currently WIP
@@ -30,6 +33,9 @@
 - LootBag wasn't giving player the first item in the loot list - Thanks for reporting to Bela Clove
 
 # **Changes**
+- Increased Shade Blossom generation (Common now)
+- Specific codex pages were removed, now there's only random one, if all the pages are unlocked it will be consumed for player experience
+- Improved Boss Structure Generation: Valoria boss structures are now guaranteed to generate in a radius around the world spawn (similar to vanilla Strongholds).
 - Optimized radial attacks
 - Improved Codex entries hovering
 - Improved Codex entry pages (Added scrolling, images, entity renderers, recipes...)
@@ -46,7 +52,7 @@
 - Improvements to Codex UIX
 - Reduced Gaib roots generation count
 - Increased Gaib roots drop count
-- Increased food rot interval 3s -> 30s
+- Increased food rot interval 3s -> 10 min
 - Changes to Accessories breaking logic to make it more predictable
 - Improvements to russian translation by refiq_
 ```

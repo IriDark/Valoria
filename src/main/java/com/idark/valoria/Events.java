@@ -32,6 +32,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.server.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
@@ -456,6 +457,20 @@ public class Events{
     }
 
     @SubscribeEvent
+    public static void onServerTick(TickEvent.ServerTickEvent event) {
+        MinecraftServer server = event.getServer();
+        if (server.getTickCount() % 100 != 0) return;
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
+            if(unlocked != null) all.removeAll(unlocked);
+            for(Unlockable unknown : all){
+                if(unknown instanceof OnDungeonVisitListener entityU) entityU.checkCondition(player, player.serverLevel());
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onMobKilled(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             LivingEntity victim = event.getEntity();
@@ -531,7 +546,7 @@ public class Events{
                 float incomingDamage = event.getAmount();
                 if(target.hasEffect(EffectsRegistry.NIHILITY_PROTECTION.get())){
                     int amplifier = target.getEffect(EffectsRegistry.NIHILITY_PROTECTION.get()).getAmplifier() + 1;
-                    float protectionPercent = Math.min((amplifier + 1) * 0.15f, 0.75f);
+                    float protectionPercent = Math.min((amplifier + 1) * 0.10f, 0.90f);
                     float totalMultiplier = Math.max(0.0f, 1.0f - protectionPercent);
                     float reducedDamage = incomingDamage * totalMultiplier;
 

@@ -31,6 +31,7 @@ public class SidebarEntry{
 
     public void render(Codex codex, int renderX, int renderY, GuiGraphics gui, float mouseX, float mouseY) {
         if (isHidden) return;
+        boolean flag = entry.isUnlocked() && entry.isViewed();
         this.x = renderX;
         this.y = renderY;
         int indent = this.depth * 6;
@@ -41,7 +42,7 @@ public class SidebarEntry{
 
         this.isHoveredThisFrame = mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
         int bgColor = isHoveredThisFrame ? Pal.darkestGray.pack() : CommonColors.BLACK;
-        int sideColor = (isHoveredThisFrame || codex.focusedOn != null && codex.focusedOn .equals(entry)) ? CommonColors.WHITE : entry.isViewed() ? CommonColors.GRAY : Col.fromHex("c84545").pack();
+        int sideColor = (isHoveredThisFrame || codex.focusedOn != null && codex.focusedOn.equals(entry)) ? CommonColors.WHITE : flag ? CommonColors.GRAY : Col.fromHex("c84545").pack();
         gui.fill(x + 2, y, x + width, y + height, bgColor);
 
         gui.fill(x, y, x + 2, y + height, sideColor);

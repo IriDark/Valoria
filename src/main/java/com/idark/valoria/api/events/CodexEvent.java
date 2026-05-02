@@ -2,6 +2,7 @@ package com.idark.valoria.api.events;
 
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraftforge.eventbus.api.*;
 
 public class CodexEvent extends Event{
@@ -33,13 +34,16 @@ public class CodexEvent extends Event{
         }
     }
 
+    /**
+     * Called when reward is being claimed, cancel to remove Valoria behaviour
+     */
     @Cancelable
     public static class OnRewardClaim extends CodexEvent{
-        public CodexEntry entry;
+        public Player player;
         public Unlockable unlockable;
 
-        public OnRewardClaim(CodexEntry entry, Unlockable unlockable) {
-            this.entry = entry;
+        public OnRewardClaim(Player player, Unlockable unlockable) {
+            this.player = player;
             this.unlockable = unlockable;
         }
     }

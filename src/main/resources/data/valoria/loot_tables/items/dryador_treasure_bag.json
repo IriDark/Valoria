@@ -6,22 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:dryador_page",
-          "weight": 1,
-          "conditions": [
-            {
-              "condition": "valoria:unlockable",
-              "id": "valoria:dryador"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
           "name": "valoria:nature_upgrade_smithing_template",
           "weight": 1
         },

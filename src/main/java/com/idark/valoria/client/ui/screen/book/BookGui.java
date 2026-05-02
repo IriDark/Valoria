@@ -78,9 +78,8 @@ public class BookGui extends Screen{
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void drawItemWithTooltip(ItemStack stack, int x, int y, GuiGraphics gui, int mouseX, int mouseY, boolean ShowTooltip){
-        gui.renderItem(stack, x, y);
-        if(ShowTooltip && !stack.isEmpty()){
+    public static void drawItemTooltip(ItemStack stack, int x, int y, GuiGraphics gui, int mouseX, int mouseY){
+        if(!stack.isEmpty()){
             if(mouseX >= x && mouseY >= y && mouseX <= x + 16 && mouseY <= y + 16){
                 gui.renderTooltip(Minecraft.getInstance().font, stack, mouseX, mouseY);
             }
