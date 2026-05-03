@@ -99,12 +99,12 @@ public class CodexEntries{
         new GeneralPage("codex.valoria.pick"));
 
         ELEMENTAL_MANIPULATOR = new Chapter(
-        "codex.valoria.elemental_manipulator",
+        "codex.valoria.elemental_manipulator.name",
         new GeneralPage("codex.valoria.elemental_manipulator").addRecipe(BlockRegistry.elementalManipulator.get().asItem().getDefaultInstance()),
         new GeneralPage().addItem(BlockRegistry.elementalManipulator.get().asItem().getDefaultInstance(), false, 10, 10, 100));
 
         STONE_CRUSHER = new Chapter(
-        "codex.valoria.stone_crusher",
+        "codex.valoria.stone_crusher.name",
         new GeneralPage("codex.valoria.stone_crusher").addRecipe(BlockRegistry.stoneCrusher.get().asItem().getDefaultInstance()),
         new GeneralPage().addItem(BlockRegistry.stoneCrusher.get().asItem().getDefaultInstance(), false, 10, 10, 100));
 
@@ -206,28 +206,33 @@ public class CodexEntries{
 
         COBALT = new Chapter(
         "codex.valoria.cobalt.name",
-        new GeneralPage("codex.valoria.cobalt"),
+        new GeneralPage("codex.valoria.cobalt").addItem(ItemsRegistry.cobaltIngot.get().getDefaultInstance(), false, 40, 0, 32),
         new GeneralPage("codex.valoria.cobalt_continuation").hideTitle());
 
         BLACK_GOLD = new Chapter(
         "codex.valoria.black_gold.name",
-        new GeneralPage("codex.valoria.black_gold"));
+        new GeneralPage("codex.valoria.black_gold"),
+        new GeneralPage().addItem(ItemsRegistry.blackGold.get().getDefaultInstance(), false, 10, 10, 100));
 
         NATURE_CORE = new Chapter(
         "codex.valoria.nature_core.name",
-        new GeneralPage("codex.valoria.nature_core"));
+        new GeneralPage("codex.valoria.nature_core"),
+        new GeneralPage().addItem(ItemsRegistry.natureCore.get().getDefaultInstance(), false, 10, 10, 100));
 
         AQUARIUS_CORE = new Chapter(
         "codex.valoria.aquarius_core.name",
-        new GeneralPage("codex.valoria.aquarius_core"));
+        new GeneralPage("codex.valoria.aquarius_core"),
+        new GeneralPage().addItem(ItemsRegistry.aquariusCore.get().getDefaultInstance(), false, 10, 10, 100));
 
         INFERNAL_CORE = new Chapter(
         "codex.valoria.infernal_core.name",
-        new GeneralPage("codex.valoria.infernal_core"));
+        new GeneralPage("codex.valoria.infernal_core"),
+        new GeneralPage().addItem(ItemsRegistry.infernalCore.get().getDefaultInstance(), false, 10, 10, 100));
 
         VOID_CORE = new Chapter(
         "codex.valoria.void_core.name",
-        new GeneralPage("codex.valoria.void_core"));
+        new GeneralPage("codex.valoria.void_core"),
+        new GeneralPage().addItem(ItemsRegistry.voidCore.get().getDefaultInstance(), false, 10, 10, 100));
 
         CRYPT = new Chapter(
         "codex.valoria.crypt.name",
@@ -243,7 +248,7 @@ public class CodexEntries{
         "codex.valoria.survival.name",
         new GeneralPage("codex.valoria.survival"),
         new GeneralPage("codex.valoria.nihility"),
-        new GeneralPage("codex.valoria.nihility_continuation").addItem(ItemsRegistry.gasMask.get().getDefaultInstance(), true, 40, 0, 32).hideTitle(),
+        new GeneralPage("codex.valoria.nihility_continuation").addItem(ItemsRegistry.gasMask.get().getDefaultInstance(), false, 40, 0, 32).hideTitle(),
         new GeneralPage("codex.valoria.rotting"));
 
         COMBAT = new Chapter(
@@ -276,7 +281,7 @@ public class CodexEntries{
         SOUL_ESSENCE = new Chapter(
         "codex.valoria.soul_essence.name",
         new GeneralPage("codex.valoria.soul_essence"),
-        new GeneralPage().addItem(ItemsRegistry.soulCollector.get().getDefaultInstance(), true, 50, 40, 75));
+        new GeneralPage().addItem(ItemsRegistry.soulCollector.get().getDefaultInstance(), false, 10, 10, 100));
 
         SOUL_INFUSER = new Chapter(
         "codex.valoria.soul_infuser.name",
