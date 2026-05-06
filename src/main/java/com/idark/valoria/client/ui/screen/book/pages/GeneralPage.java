@@ -2,9 +2,12 @@ package com.idark.valoria.client.ui.screen.book.pages;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.resources.language.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -15,13 +18,14 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.api.distmarker.*;
 import org.joml.*;
-import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.*;
 import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 import java.lang.Math;
 import java.util.*;
+
+import static com.idark.valoria.client.shaders.ShaderRegistry.getSketchEntityRenderType;
 
 public class GeneralPage extends Page {
     private final List<PageElement> elements = new ArrayList<>();
@@ -116,20 +120,22 @@ public class GeneralPage extends Page {
         elements.add(new PageElement() {
             @Override
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
+                Minecraft mc = Minecraft.getInstance();
+
                 if(floating) {
                     gui.pose().pushPose();
-                    float ticks = (ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 2;
-                    float ticksUp = (ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 6;
+                    float ticks = (ClientTick.ticksInGame + mc.getPartialTick()) * 2;
+                    float ticksUp = (ClientTick.ticksInGame + mc.getPartialTick()) * 6;
                     ticksUp = (ticksUp) % 360;
                     float scale = size / 16.0F;
 
                     gui.pose().translate(x + xOffset + 8, y + yOffset + 8, 0);
                     gui.pose().scale(scale, scale, 1.0F);
-                    Utils.Render.renderFloatingItemModelIntoGUI(gui, item, -8, -8, ticks, ticksUp);
+                    ValoriaUtils.renderFloatingItemModelIntoGUI(gui, item, -8, -8, ticks, ticksUp);
                     gui.pose().popPose();
                     return size + yOffset + 5;
                 } else{
-                    Utils.Render.renderItemModelInGui(item, x + xOffset, y + yOffset, size, size, size);
+                    ValoriaUtils.renderItemModelInGui(item, x + xOffset, y + yOffset, size, size, size);
                 }
 
                 return size + yOffset + 5;
@@ -241,9 +247,28 @@ public class GeneralPage extends Page {
                 if (entity != null) {
                     entity.setYBodyRot(210.0F);
                     entity.setYHeadRot(210.0F);
+
+                    EntityRenderDispatcher dispatcher = mc.getEntityRenderDispatcher();
+                    ResourceLocation entityTexture = dispatcher.getRenderer(entity).getTextureLocation(entity);
+                    RenderType sketchType = getSketchEntityRenderType(entityTexture);
+                    MultiBufferSource.BufferSource originalBuffer = mc.renderBuffers().bufferSource();
+                    MultiBufferSource wrappedBuffer = originalType -> originalBuffer.getBuffer(sketchType);
+
+                    gui.pose().pushPose();
                     if (isDark) gui.setColor(0, 0, 0, 1);
-                    InventoryScreen.renderEntityInInventory(gui, x + wrapWidth / 2, y + (scale * 2), scale, ENTITY_ANGLE, null, entity);
+                    gui.pose().translate(x + wrapWidth / 2, y + (scale * 2), 50.0);
+                    gui.pose().scale(scale, scale, -scale);
+                    gui.pose().mulPose(ENTITY_ANGLE);
+
+                    dispatcher.setRenderShadow(false);
+                    RenderSystem.runAsFancy(() -> {
+                        dispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, gui.pose(), wrappedBuffer, 15728880);
+                    });
+
+                    originalBuffer.endBatch();
                     if (isDark) gui.setColor(1, 1, 1, 1);
+                    gui.pose().popPose();
+
                     return scale * 3;
                 }
 

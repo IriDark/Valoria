@@ -6,10 +6,8 @@
 - Added missing translation to valoria:void_desert
 - Added Ancient Stone to Stone Crusher recipes, an additional way to receive Ancient Shards
 - Added Zooming to Codex
-- Added Crushables page to Codex
 - Added Combat Fundamentals page to Codex
-- Added Survival page to Codex
-- Added Alchemy pages to Codex
+- Added a lot of new pages to Codex
 - Added Respirator recipe
 - Added Gas mask recipe
 

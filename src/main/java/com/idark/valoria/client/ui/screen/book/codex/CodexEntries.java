@@ -39,14 +39,11 @@ public class CodexEntries{
 
     BOSSES,
     UNDEAD,
-    KING_CRAB,
+    ELEMENTALS, ENT, KING_CRAB, DEVIL,
     NECROMANCER_GRIMOIRE, NECROMANCER,
     SUSPICIOUS_GEM, WICKED_CRYSTAL,
 
     CRYPT, FORTRESS,
-
-    ELEMENTALS,
-    HARMONY_ELEMENTALS,
 
     ELEMENTAL_EMPERORS,
     HARMONY_EMPEROR,
@@ -75,7 +72,7 @@ public class CodexEntries{
         new GeneralPage("codex.valoria.treasure.gems"));
 
         CRAFTING = new Chapter(
-        "codex.valoria.crafting",
+        "codex.valoria.crafting.name",
         new GeneralPage("codex.valoria.crafting"));
 
         MEDICINE_CHAPTER = new Chapter(
@@ -190,10 +187,10 @@ public class CodexEntries{
         new GeneralPage("codex.valoria.elementals"),
         new GeneralPage("codex.valoria.elementals.continuation").hideTitle());
 
-        HARMONY_ELEMENTALS = new Chapter(
-        "codex.valoria.harmony_elementals.name",
-        new GeneralPage("codex.valoria.harmony_elementals"),
-        new GeneralPage("codex.valoria.harmony_elementals.continuation").hideTitle());
+        ENT = new Chapter(
+        "codex.valoria.ent.name",
+        new GeneralPage("codex.valoria.ent"),
+        new GeneralPage("codex.valoria.ent.continuation").hideTitle());
 
         ELEMENTAL_EMPERORS = new Chapter(
         "codex.valoria.elemental_emperors.name",
@@ -366,7 +363,7 @@ public class CodexEntries{
                     .addHintsDescription(Component.translatable("codex.valoria.flesh_sentinel.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
                 .addChild(new ChapterNode(KING_CRAB, ItemsRegistry.crabClaw.get(), RegisterUnlockables.kingCrab)
                     .addHintsDescription(Component.translatable("codex.valoria.king_crab.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
-                .addChild(new ChapterNode(HARMONY_ELEMENTALS, ItemsRegistry.harmonyHeart.get(), RegisterUnlockables.harmonyEntities)
+                .addChild(new ChapterNode(ENT, ItemsRegistry.harmonyHeart.get(), RegisterUnlockables.harmonyEntities)
                     .addHintsDescription(Component.translatable("codex.valoria.harmony_elementals.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
             )
 
