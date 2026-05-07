@@ -2,12 +2,9 @@ package com.idark.valoria.client.ui.screen.book.pages;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.screen.book.*;
-import com.idark.valoria.util.*;
-import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.resources.language.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -18,14 +15,14 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.api.distmarker.*;
 import org.joml.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.*;
 import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 import java.lang.Math;
 import java.util.*;
-
-import static com.idark.valoria.client.shaders.ShaderRegistry.getSketchEntityRenderType;
+import java.util.function.*;
 
 public class GeneralPage extends Page {
     private final List<PageElement> elements = new ArrayList<>();
@@ -131,11 +128,11 @@ public class GeneralPage extends Page {
 
                     gui.pose().translate(x + xOffset + 8, y + yOffset + 8, 0);
                     gui.pose().scale(scale, scale, 1.0F);
-                    ValoriaUtils.renderFloatingItemModelIntoGUI(gui, item, -8, -8, ticks, ticksUp);
+                    Utils.Render.renderFloatingItemModelIntoGUI(gui, item, -8, -8, ticks, ticksUp);
                     gui.pose().popPose();
                     return size + yOffset + 5;
                 } else{
-                    ValoriaUtils.renderItemModelInGui(item, x + xOffset, y + yOffset, size, size, size);
+                    Utils.Render.renderItemModelInGui(item, x + xOffset, y + yOffset, size, size, size);
                 }
 
                 return size + yOffset + 5;
@@ -237,39 +234,30 @@ public class GeneralPage extends Page {
     }
 
     public GeneralPage addEntity(EntityType<? extends LivingEntity> type, int scale, boolean isDark) {
+        return addEntity(type, scale, isDark, entity -> {});
+    }
+
+    public <T extends LivingEntity> GeneralPage addEntity(EntityType<T> type, int scale, boolean isDark, Consumer<T> configurator) {
         elements.add(new PageElement() {
-            @Nullable private LivingEntity entity;
+            @Nullable private T entity;
 
             @Override
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
                 Minecraft mc = Minecraft.getInstance();
-                if (entity == null) entity = type.create(mc.level);
+                if (entity == null) {
+                    entity = type.create(mc.level);
+                }
+
                 if (entity != null) {
                     entity.setYBodyRot(210.0F);
                     entity.setYHeadRot(210.0F);
-
-                    EntityRenderDispatcher dispatcher = mc.getEntityRenderDispatcher();
-                    ResourceLocation entityTexture = dispatcher.getRenderer(entity).getTextureLocation(entity);
-                    RenderType sketchType = getSketchEntityRenderType(entityTexture);
-                    MultiBufferSource.BufferSource originalBuffer = mc.renderBuffers().bufferSource();
-                    MultiBufferSource wrappedBuffer = originalType -> originalBuffer.getBuffer(sketchType);
+                    configurator.accept(entity);
 
                     gui.pose().pushPose();
                     if (isDark) gui.setColor(0, 0, 0, 1);
-                    gui.pose().translate(x + wrapWidth / 2, y + (scale * 2), 50.0);
-                    gui.pose().scale(scale, scale, -scale);
-                    gui.pose().mulPose(ENTITY_ANGLE);
-
-                    dispatcher.setRenderShadow(false);
-                    RenderSystem.runAsFancy(() -> {
-                        dispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, gui.pose(), wrappedBuffer, 15728880);
-                    });
-
-                    originalBuffer.endBatch();
+                    InventoryScreen.renderEntityInInventory(gui, x + wrapWidth / 2, y + (scale * 2), scale, ENTITY_ANGLE, null, entity);
                     if (isDark) gui.setColor(1, 1, 1, 1);
-                    gui.pose().popPose();
-
-                    return scale * 3;
+                    return (int)entity.getBoundingBox().getYsize() + 15;
                 }
 
                 return 0;

@@ -17,6 +17,7 @@
 - Fixed Ent Attack delays
 - Fixed Troll animations
 - Fixed font Unicode conflicts with other mods - reported by muon (μ⁻)
+- Fixed rare crash on UnlockableCondition check - reported by muon (μ⁻)
 - Fixed Harvest level mismatch on some tools
 - Fixed Manipulator Sound stuttering on multiple blocks working
 - Fixed Accessories breaking particles

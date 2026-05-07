@@ -48,6 +48,7 @@ public class TagsRegistry{
     public static final TagKey<Structure> ON_NECROMANCER_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_necromancer_crypt_explorer_maps"));
     public static final TagKey<Structure> ON_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_crypt_explorer_maps"));
     public static final TagKey<Structure> CRYPTS = dungeon(new ResourceLocation(Valoria.ID, "crypts"));
+    public static final TagKey<Structure> MONSTROSITIES = dungeon(new ResourceLocation(Valoria.ID, "monstrosities"));
 
     public static final TagKey<Block> MINEABLE_WITH_MULTITOOL = block(new ResourceLocation(Valoria.ID, "mineable/multitool"));
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));

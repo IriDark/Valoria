@@ -1,26 +1,18 @@
 package com.idark.valoria.util;
 
-import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import com.mojang.blaze3d.platform.*;
-import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.resources.model.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.*;
-import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
@@ -273,97 +265,4 @@ public class ValoriaUtils{
         Collections.addAll(list, T);
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void renderItemModelInGui(ItemStack stack, float x, float y, float xSize, float ySize, float zSize) {
-        renderItemModelInGui(stack, x, y, xSize, ySize, zSize, 0, 0, 0);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void renderItemModelInGui(ItemStack stack, float x, float y, float xSize, float ySize, float zSize, float xRot, float yRot, float zRot) {
-        Minecraft minecraft = Minecraft.getInstance();
-        ItemRenderer itemRenderer = minecraft.getItemRenderer();
-        BakedModel bakedModel = itemRenderer.getModel(stack, minecraft.level, minecraft.player, 0);
-
-        PoseStack poseStack = RenderSystem.getModelViewStack();
-        poseStack.pushPose();
-        poseStack.translate(x, y, 100.0F);
-        poseStack.translate((double) xSize / 2, (double) ySize / 2, 0.0D);
-        poseStack.scale(1.0F, -1.0F, 1.0F);
-        poseStack.scale(xSize, ySize, zSize);
-        poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
-        poseStack.mulPose(Axis.YP.rotationDegrees(yRot));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(zRot));
-        RenderSystem.applyModelViewMatrix();
-
-        PoseStack itemPoseStack = new PoseStack();
-        MultiBufferSource.BufferSource bufferSource = minecraft.renderBuffers().bufferSource();
-
-        ResourceLocation itemTexture = getItemTexture(stack, bakedModel);
-        RenderType sketchRenderType = ShaderRegistry.getSketchEntityRenderType(itemTexture);
-        MultiBufferSource wrappedBuffer = renderType -> bufferSource.getBuffer(sketchRenderType);
-
-        boolean flag = !bakedModel.usesBlockLight();
-        if (flag) Lighting.setupForFlatItems();
-
-        itemRenderer.render(stack, ItemDisplayContext.GUI, false, itemPoseStack, wrappedBuffer, 15728880, OverlayTexture.NO_OVERLAY, bakedModel);
-
-        RenderSystem.disableDepthTest();
-        bufferSource.endBatch();
-        RenderSystem.enableDepthTest();
-        if (flag) Lighting.setupFor3DItems();
-
-        poseStack.popPose();
-        RenderSystem.applyModelViewMatrix();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void renderFloatingItemModelIntoGUI(GuiGraphics gui, ItemStack stack, float x, float y, float ticks, float ticksUp) {
-        Minecraft minecraft = Minecraft.getInstance();
-        ItemRenderer itemRenderer = minecraft.getItemRenderer();
-        BakedModel bakedModel = itemRenderer.getModel(stack, minecraft.level, minecraft.player, 0);
-
-        PoseStack poseStack = gui.pose();
-        poseStack.pushPose();
-        poseStack.translate(x + 8, y + 8, 100);
-        poseStack.mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
-        poseStack.scale(16.0F, 16.0F, 16.0F);
-        poseStack.translate(0.0D, Math.sin(Math.toRadians(ticksUp)) * 0.03125F, 0.0D);
-
-        if (bakedModel.usesBlockLight()) {
-            float oldRotation = bakedModel.getTransforms().gui.rotation.y;
-            bakedModel.getTransforms().gui.rotation.y = ticks;
-            renderItemWithSketchShader(stack, poseStack, bakedModel, itemRenderer);
-            bakedModel.getTransforms().gui.rotation.y = oldRotation;
-        } else {
-            poseStack.mulPose(Axis.YP.rotationDegrees(ticks));
-            renderItemWithSketchShader(stack, poseStack, bakedModel, itemRenderer);
-        }
-
-        poseStack.popPose();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static void renderItemWithSketchShader(ItemStack stack, PoseStack poseStack, BakedModel bakedModel, ItemRenderer itemRenderer) {
-        Minecraft minecraft = Minecraft.getInstance();
-        MultiBufferSource.BufferSource bufferSource = minecraft.renderBuffers().bufferSource();
-
-        ResourceLocation itemTexture = getItemTexture(stack, bakedModel);
-        RenderType sketchRenderType = ShaderRegistry.getSketchEntityRenderType(itemTexture);
-        MultiBufferSource wrappedBuffer = renderType -> bufferSource.getBuffer(sketchRenderType);
-
-        boolean flag = !bakedModel.usesBlockLight();
-        if (flag) Lighting.setupForFlatItems();
-
-        itemRenderer.render(stack, ItemDisplayContext.GUI, false, poseStack, wrappedBuffer, 15728880, OverlayTexture.NO_OVERLAY, bakedModel);
-
-        RenderSystem.disableDepthTest();
-        bufferSource.endBatch();
-        RenderSystem.enableDepthTest();
-        if (flag) Lighting.setupFor3DItems();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static ResourceLocation getItemTexture(ItemStack stack, BakedModel model) {
-        return model.getParticleIcon().atlasLocation();
-    }
 }

@@ -377,10 +377,18 @@ public class Codex extends DotScreen{
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
-            xOffset += (float)-dragX;
-            yOffset += (float)-dragY;
-            targetXOffset += (float)-dragX;
-            targetYOffset += (float)-dragY;
+            float baseSens = ClientConfig.CODEX_SENSITIVITY.get();
+            float accelerationFactor = 0.035f;
+            float maxMultiplier = 5.0f;
+            double mouseSpeed = Math.sqrt(dragX * dragX + dragY * dragY);
+            float multiplier = (float) (baseSens + (mouseSpeed * accelerationFactor));
+
+            multiplier = Math.min(multiplier, maxMultiplier);
+
+            xOffset += (float) (-dragX * multiplier);
+            yOffset += (float) (-dragY * multiplier);
+            targetXOffset += (float) (-dragX * multiplier);
+            targetYOffset += (float) (-dragY * multiplier);
         }
 
         if(focusedOn != null){
@@ -511,6 +519,7 @@ public class Codex extends DotScreen{
     public void renderEntries(GuiGraphics gui, float uOffset, float vOffset, float mouseX, float mouseY) {
         for (CodexEntry entry : CodexEntries.entries){
             if(entry.isHidden()) return;
+            entry.render(this, gui, uOffset, vOffset, insideLeft(), insideTop(), mouseX, mouseY);
             entry.node.children.each(c -> {
                 float chx = c.entry.x;
                 float chy = c.entry.y;
@@ -533,7 +542,6 @@ public class Codex extends DotScreen{
                 gui.vLine((int)-chx, (int)-y2, (int)-chy, color);
                 pop();
 
-                entry.render(this, gui, uOffset, vOffset, insideLeft(), insideTop(), mouseX, mouseY);
                 c.entry.render(this, gui, uOffset, vOffset, insideLeft(), insideTop(), mouseX, mouseY);
             });
         }
