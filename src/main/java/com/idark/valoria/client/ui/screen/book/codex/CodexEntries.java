@@ -32,9 +32,10 @@ public class CodexEntries{
 
     public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, SURVIVAL, COMBAT, CRAFTING,
 
-    PICK, HEAVY_WORKBENCH, KEG, JEWELER_TABLE, ALCHEMY_STATION, ELEMENTAL_MANIPULATOR, NETHER_ALCHEMY, ELEMENTAL_ALCHEMY, VALORIA_ALCHEMY, STONE_CRUSHER,
+    PICK, HEAVY_WORKBENCH, KEG, KILN, JEWELER_TABLE, ALCHEMY_STATION, ELEMENTAL_MANIPULATOR, NETHER_ALCHEMY, ELEMENTAL_ALCHEMY, VALORIA_ALCHEMY, STONE_CRUSHER,
     NIHILITY_MONITOR, VALORIA_PORTAL, SHADE_BLOSSOM,
 
+    LITHIC_RUNES, RUNES, VOID_SLATE_RUNES,
     WARRIOR_ARSENAL, KATANAS, SCYTHES, SPEARS,
     SOUL_ARTS, SOUL_ESSENCE, SOUL_INFUSER,
     BLOODBORNE_PATH, COLOSSI_REMAINS, CRIMTANE_FORGING,
@@ -57,12 +58,18 @@ public class CodexEntries{
     BLACK_GOLD,
     NATURE_CORE, AQUARIUS_CORE, INFERNAL_CORE, VOID_CORE,
 
-    JADE, PEARLIUM, PYRATITE, ANCIENT_METALS, ETHEREAL,
+    ROT, JADE, PEARLIUM, PYRATITE, ANCIENT_METALS, ETHEREAL,
     NATURE_GOLEM, RIVER_GOLEM, DRAUGR, SORCERER, GOBLIN, TROLL, CORRUPTED_TROLL, SWAMP_WANDERER, SCOURGE, CORRUPTED, SHADEWOOD_SPIDER, WICKED_SCORPION
 
     ;
 
     public static void initChapters(){
+        ROT = new Chapter(
+        "codex.valoria.rot.name",
+        new GeneralPage("codex.valoria.rot"),
+        new GeneralPage().addItem(ItemsRegistry.rot.get().getDefaultInstance(), false, 10, 10, 100)
+        );
+
         JADE = new Chapter(
         "codex.valoria.jade.name",
         new GeneralPage("codex.valoria.jade"),
@@ -151,6 +158,26 @@ public class CodexEntries{
         new GeneralPage("codex.valoria.keg").addRecipe(BlockRegistry.keg.get().asItem().getDefaultInstance()),
         new GeneralPage().addItem(BlockRegistry.keg.get().asItem().getDefaultInstance(), false, 10, 10, 100));
 
+        KILN = new Chapter(
+        "codex.valoria.kiln.name",
+        new GeneralPage("codex.valoria.kiln").addRecipe(BlockRegistry.kiln.get().asItem().getDefaultInstance()),
+        new GeneralPage().addItem(BlockRegistry.kiln.get().asItem().getDefaultInstance(), false, 10, 10, 100));
+
+        LITHIC_RUNES = new Chapter(
+        "codex.valoria.lithic_runes.name",
+        new GeneralPage("codex.valoria.lithic_runes"),
+        new GeneralPage().addItem(ItemsRegistry.lithicRune.get().asItem().getDefaultInstance(), false, 10, 10, 100));
+
+        RUNES = new Chapter(
+        "codex.valoria.runes.name",
+        new GeneralPage("codex.valoria.runes"),
+        new GeneralPage().addItem(ItemsRegistry.rune.get().asItem().getDefaultInstance(), false, 10, 10, 100));
+
+        VOID_SLATE_RUNES = new Chapter(
+        "codex.valoria.void_slate_runes.name",
+        new GeneralPage("codex.valoria.void_slate_runes"),
+        new GeneralPage().addItem(ItemsRegistry.voidSlateRune.get().asItem().getDefaultInstance(), false, 10, 10, 100));
+
         JEWELER_TABLE = new Chapter(
         "codex.valoria.jeweler_table.name",
         new GeneralPage("codex.valoria.jeweler_table").addRecipe(BlockRegistry.jewelerTable.get().asItem().getDefaultInstance()),
@@ -232,12 +259,12 @@ public class CodexEntries{
         NATURE_GOLEM = new Chapter(
         "codex.valoria.nature_golem.name",
         new GeneralPage("codex.valoria.nature_golem"),
-        new GeneralPage().addSpace(15).addEntity(EntityTypeRegistry.NATURE_GOLEM.get(), 42, false));
+        new GeneralPage().addSpace(45).addEntity(EntityTypeRegistry.NATURE_GOLEM.get(), 32, false));
 
         RIVER_GOLEM = new Chapter(
         "codex.valoria.river_golem.name",
         new GeneralPage("codex.valoria.river_golem"),
-        new GeneralPage().addSpace(15).addEntity(EntityTypeRegistry.RIVER_GOLEM.get(), 42, false));
+        new GeneralPage().addSpace(45).addEntity(EntityTypeRegistry.RIVER_GOLEM.get(), 32, false));
 
         DEVIL = new Chapter(
         "codex.valoria.devil.name",
@@ -306,7 +333,7 @@ public class CodexEntries{
         NECROMANCER = new Chapter(
         "codex.valoria.necromancer.name",
         new GeneralPage("codex.valoria.necromancer"),
-        new GeneralPage("codex.valoria.necromancer_continuation").hideTitle());
+        new GeneralPage("codex.valoria.necromancer_continuation").hideTitle().addEntity(EntityTypeRegistry.NECROMANCER.get(), 32, false));
 
         HARMONY_CROWN = new Chapter(
         "codex.valoria.harmony_crown.name",
@@ -315,7 +342,8 @@ public class CodexEntries{
 
         DRYADOR = new Chapter(
         "codex.valoria.dryador.name",
-        new GeneralPage("codex.valoria.dryador").hideTitle());
+        new GeneralPage("codex.valoria.dryador").hideTitle(),
+        new GeneralPage().addSpace(60).addEntity(EntityTypeRegistry.DRYADOR.get(), 26, false));
 
         SUSPICIOUS_GEM = new Chapter(
         "codex.valoria.suspicious_gem.name",
@@ -325,11 +353,13 @@ public class CodexEntries{
         WICKED_CRYSTAL = new Chapter(
         "codex.valoria.wicked_crystal.name",
         new GeneralPage("codex.valoria.wicked_crystal"),
+        new GeneralPage().addSpace(60).addEntity(EntityTypeRegistry.WICKED_CRYSTAL.get(), 26, false),
         new GeneralPage("codex.valoria.wicked_crystal_continuation").hideTitle());
 
         UNDEAD = new Chapter(
         "codex.valoria.undead.name",
-        new GeneralPage("codex.valoria.undead"));
+        new GeneralPage("codex.valoria.undead"),
+        new GeneralPage().addSpace(25).addEntity(EntityTypeRegistry.UNDEAD.get(), 32, false));
 
         ELEMENTALS = new Chapter(
         "codex.valoria.elementals.name",
@@ -551,12 +581,12 @@ public class CodexEntries{
                         .addHintsDescription(Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                         .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)
                             .addHintsDescription(Component.translatable("codex.valoria.necromancer_grimoire.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
-                            .addChild(new ChapterNode(UNDEAD, Items.BONE, Style.STANDARD, RegisterUnlockables.undead)
+                            .addChild(new ChapterNode(NECROMANCER, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.necromancer)
+                                .addChild(new ChapterNode(UNDEAD, Items.BONE, Style.STANDARD, RegisterUnlockables.undead))
                                 .addChild(new ChapterNode(DRAUGR, ItemsRegistry.draugr.get(), RegisterUnlockables.draugr)
                                 .addHintsDescription(Component.translatable("codex.valoria.draugr.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
                                 .addChild(new ChapterNode(SORCERER, ItemsRegistry.sorcerer.get(), RegisterUnlockables.sorcerer)
                                 .addHintsDescription(Component.translatable("codex.valoria.sorcerer.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
-                                .addChild(new ChapterNode(NECROMANCER, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.necromancer))
                             )
                         )
                     )
@@ -593,8 +623,8 @@ public class CodexEntries{
                             .addChild(new ChapterNode(NETHER_ALCHEMY, BlockRegistry.alchemyStationTier2.get().asItem(), Style.IRON, RegisterUnlockables.netherAlchemy)
                             .addHintsDescription(Component.translatable("codex.valoria.alchemy.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                                 .addChild(new ChapterNode(ELEMENTAL_ALCHEMY, BlockRegistry.alchemyStationTier3.get().asItem(), Style.GOLD, RegisterUnlockables.elementalAlchemy)
-                                .addHintsDescription(Component.translatable("codex.valoria.alchemy.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
-                                    .addChild(new ChapterNode(VALORIA_ALCHEMY, BlockRegistry.alchemyStationTier4.get().asItem(), Style.DIAMOND, RegisterUnlockables.valoriaAlchemy)
+                                    .addHintsDescription(Component.translatable("codex.valoria.alchemy.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                                .addChild(new ChapterNode(VALORIA_ALCHEMY, BlockRegistry.alchemyStationTier4.get().asItem(), Style.DIAMOND, RegisterUnlockables.valoriaAlchemy)
                                     .addHintsDescription(Component.translatable("codex.valoria.alchemy.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                                 )
                             )
@@ -604,12 +634,20 @@ public class CodexEntries{
                     .addChild(new ChapterNode(KEG, BlockRegistry.keg.get().asItem()))
                     .addChild(new ChapterNode(STONE_CRUSHER, BlockRegistry.stoneCrusher.get().asItem())
                         .addChild(new ChapterNode(CRUSHABLES, ItemsRegistry.stoneGeode.get(), RegisterUnlockables.crushables)
-                        .addHintsDescription(Component.translatable("codex.valoria.crushables.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
+                            .addHintsDescription(Component.translatable("codex.valoria.crushables.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
+                    )
+                    .addChild(new ChapterNode(KILN, BlockRegistry.kiln.get().asItem())
+                        .addChild(new ChapterNode(LITHIC_RUNES, ItemsRegistry.lithicRune.get(), RegisterUnlockables.lithicRunes)
+                            .addHintsDescription(Component.translatable("codex.valoria.lithic_runes.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
+                        .addChild(new ChapterNode(RUNES, ItemsRegistry.rune.get(), RegisterUnlockables.runes)
+                            .addHintsDescription(Component.translatable("codex.valoria.runes.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
+                        .addChild(new ChapterNode(VOID_SLATE_RUNES, ItemsRegistry.voidSlateRune.get(), RegisterUnlockables.voidSlateRunes)
+                            .addHintsDescription(Component.translatable("codex.valoria.void_slate_runes.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
                     )
                     .addChild(new ChapterNode(HEAVY_WORKBENCH, BlockRegistry.heavyWorkbench.get().asItem())
                         .addHintsDescription(Component.translatable("codex.valoria.heavy_workbench.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                         .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick)
-                        .addHintsDescription(Component.translatable("codex.valoria.archaeology.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
+                            .addHintsDescription(Component.translatable("codex.valoria.archaeology.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
                     )
                 )
             )
@@ -620,7 +658,7 @@ public class CodexEntries{
                     .addChild(new ChapterNode(BLACK_GOLD, ItemsRegistry.blackGold.get(), Style.IRON, RegisterUnlockables.blackGold)
                         .addHintsDescription(Component.translatable("codex.valoria.black_gold.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                         .addChild(new ChapterNode(ELEMENTAL_MANIPULATOR, BlockRegistry.elementalManipulator.get().asItem(), Style.GOLD, true)
-                        .addHintsDescription(Component.translatable("codex.valoria.elemental_manipulator.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                            .addHintsDescription(Component.translatable("codex.valoria.elemental_manipulator.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                             .addChild(new ChapterNode(NATURE_CORE, ItemsRegistry.natureCore.get(), Style.IRON, RegisterUnlockables.natureCore))
                             .addChild(new ChapterNode(AQUARIUS_CORE, ItemsRegistry.aquariusCore.get(), Style.IRON, RegisterUnlockables.aquariusCore))
                             .addChild(new ChapterNode(INFERNAL_CORE, ItemsRegistry.infernalCore.get(), Style.IRON, RegisterUnlockables.infernalCore))
@@ -628,6 +666,8 @@ public class CodexEntries{
                         )
                     )
                 )
+                .addChild(new ChapterNode(ROT, ItemsRegistry.rot.get(), Style.CRYPT, RegisterUnlockables.rot)
+                    .addHintsDescription(Component.translatable("codex.valoria.rot.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
                 .addChild(new ChapterNode(JADE, ItemsRegistry.jade.get(), Style.IRON, RegisterUnlockables.jade))
                 .addChild(new ChapterNode(PEARLIUM, ItemsRegistry.pearliumIngot.get(), Style.IRON, RegisterUnlockables.pearlium))
                 .addChild(new ChapterNode(PYRATITE, ItemsRegistry.pyratite.get(), Style.GOLD, RegisterUnlockables.pyratite)

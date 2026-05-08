@@ -1,6 +1,7 @@
 package com.idark.valoria.core.network;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.cinema.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.mojang.datafixers.util.*;
@@ -81,6 +82,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, CastAbilityPacket.class, CastAbilityPacket::encode, CastAbilityPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, ReadCodexPacket.class, ReadCodexPacket::encode, ReadCodexPacket::decode, ReadCodexPacket::handle);
         HANDLER.registerMessage(id++, ProgressionDisableCodexPacket.class, ProgressionDisableCodexPacket::encode, ProgressionDisableCodexPacket::decode, RateLimitedPacket::processPacket);
+        HANDLER.registerMessage(id++, CutsceneSkippedPacket.class, CutsceneSkippedPacket::encode, CutsceneSkippedPacket::decode, CutsceneSkippedPacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

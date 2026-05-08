@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living.boss.firron;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.cinema.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
@@ -8,6 +9,8 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.util.*;
+import net.minecraft.client.*;
+import net.minecraft.commands.arguments.EntityAnchorArgument.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
@@ -45,6 +48,7 @@ import pro.komaru.tridot.common.registry.entity.system.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 import software.bernie.geckolib.animatable.*;
 import software.bernie.geckolib.core.animatable.instance.*;
 import software.bernie.geckolib.core.animation.*;
@@ -142,6 +146,44 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
             rushPrepareTicks++;
         }else if(rushDirection != null && !this.level().isClientSide){
             performRush();
+        }
+
+        if(this.level().isClientSide()){
+            if(tickCount < 20 && !CutsceneManager.active){
+                this.lookAt(Anchor.EYES, Minecraft.getInstance().player.position().add(0, 2, 0));
+                Seq<CutsceneNode> nodes = Seq.with();
+                Vec3 tablePos = this.position();
+
+                Vec3 targetFacePos = this.position().add(0, 1.5, 0);
+                Vec3 forwardVector = Vec3.directionFromRotation(0, this.getYRot());
+                double distanceInFront = 3.5;
+                Vec3 cameraFrontPos = targetFacePos.add(forwardVector.scale(distanceInFront));
+
+                Vec3 approachPos = cameraFrontPos.add(3, -1.5, 3);
+                nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
+                .yawToTarget(tablePos)
+                .pitch(-60)
+                .setFov(60)
+                );
+
+                Vec3 mid = cameraFrontPos.add(-3, 4, -3);
+                nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
+                .yawToTarget(targetFacePos)
+                .pitchToTarget(targetFacePos)
+                .setFov(90)
+                );
+
+                Vec3 end = cameraFrontPos.add(-3, 2, -3);
+                nodes.add(new CutsceneNode(end, Interp.pow5, 75)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(60)
+                );
+
+                CutsceneManager.start(nodes);
+            }
+        } else if (tickCount == 1) {
+            CutsceneHelper.init(this.level(), this.getBoundingBox(), 160);
         }
 
         if(rushing) spawnRushParticles();
@@ -273,8 +315,9 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "SpawnController", 0, state -> {
-            if (this.tickCount < 140)
+            if (this.tickCount < 140){
                 return state.setAndContinue(SPAWN);
+            }
 
             return PlayState.STOP;
         })
@@ -665,7 +708,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
          * Updates look
          */
         public void tick() {
-            if (!Firron.this.isStunned) {
+            if (!Firron.this.isStunned && tickCount > 160) {
                 super.tick();
             }
         }

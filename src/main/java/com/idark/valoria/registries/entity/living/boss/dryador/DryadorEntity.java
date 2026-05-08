@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living.boss.dryador;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.cinema.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.*;
@@ -9,6 +10,7 @@ import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
+import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -45,6 +47,7 @@ import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.entity.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.lang.Math;
 import java.util.*;
@@ -52,6 +55,7 @@ import java.util.*;
 public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEffectiveWeaponEntity{
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/dryador.png")).setDarkenScreen(true);
     private int spawnTime = 0;
+    public int animationTicks = 0;
     public final AnimationState idleAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
     public AnimationState spawnAnimationState = new AnimationState();
@@ -63,7 +67,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
 
     public IBossPhase currentPhase = new BossPhase(this, () -> DryadorEntity.this.getHealth() <= DryadorEntity.this.getMaxHealth() / 2).setSound(SoundEvents.ANVIL_PLACE);
     public static final AttackRegistry DRYADOR_RADIAL = new AttackRegistry(Valoria.ID, "dryador_radial");
-    public boolean flag = !(phaseTransitionAnimationState.isStarted() || meleeAttackAnimationState.isStarted() || rangedAttackAnimationState.isStarted() || summonAnimationState.isStarted());
+    public boolean flag = !(phaseTransitionAnimationState.isStarted() || meleeAttackAnimationState.isStarted() || rangedAttackAnimationState.isStarted() || summonAnimationState.isStarted() || animationTicks <= 0);
 
     public DryadorEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -142,6 +146,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
     }
 
     public boolean doHurtTarget(Entity pEntity) {
+        if(animationTicks > 0) return false;
         this.level().broadcastEntityEvent(this, (byte)4);
         float f = this.getAttackDamage();
         float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
@@ -183,14 +188,36 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
         this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
     }
 
-    public int animationTicks = 0;
     public void checkPhaseTransition() {
         if (currentPhase.shouldTransition() && !currentPhase.playedSound()) {
-            animationTicks = 90;
+            animationTicks = 85;
             this.navigation.stop();
             phaseTransitionAnimationState.start(tickCount);
             currentPhase.onEnter();
             amplifyStats();
+            if(this.level().isClientSide()){
+                Seq<CutsceneNode> nodes = Seq.with();
+                Vec3 tablePos = this.position();
+                Player plr = Minecraft.getInstance().player;
+
+                Vec3 approachPos = plr.getEyePosition().lerp(tablePos, 0.6).add(1, 4, 1);
+                nodes.add(new CutsceneNode(approachPos, Interp.smooth, 35)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(60)
+                );
+
+                Vec3 mid = tablePos.add(1, 5, 1);
+                nodes.add(new CutsceneNode(mid, Interp.pow5, 40)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(90)
+                );
+
+                CutsceneManager.start(nodes);
+            } else {
+                CutsceneHelper.init(this.level(), this.getBoundingBox(), 100);
+            }
         }
 
         if(phaseTransitionAnimationState.isStarted()) animationTicks--;

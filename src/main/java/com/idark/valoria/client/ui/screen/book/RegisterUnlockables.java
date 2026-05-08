@@ -13,7 +13,7 @@ public class RegisterUnlockables{
 
     public static Unlockable
     aloe, pick, alchemyStation, netherAlchemy, elementalAlchemy, valoriaAlchemy,
-    crushables,
+    crushables, lithicRunes, runes, voidSlateRunes,
 
     undead, kingCrab, harmonyEntities, devil, scavenger, fleshSentinel,
     necromancerGrimoire, necromancer, harmonyCrown, dryador, suspiciousGem, wickedCrystal,
@@ -22,7 +22,7 @@ public class RegisterUnlockables{
     cobalt, blackGold, crimtane, remains, soulCollector,
     natureCore, aquariusCore, infernalCore, voidCore, // elemental
 
-    jade, pearlium, pyratite, ancientMetals, ethereal,
+    rot, jade, pearlium, pyratite, ancientMetals, ethereal,
     goblin, troll, draugr, sorcerer, natureGolem, riverGolem, corruptedTroll, swampWanderer, scourge, corrupted, shadewoodSpider, wickedScorpion
 
     ;
@@ -35,6 +35,10 @@ public class RegisterUnlockables{
         harmonyEntities = register(new EntityTagUnlockable(Valoria.ID + ":harmony_entities", ItemsRegistry.harmonyHeart.get(), TagsRegistry.HARMONY_CREATURES));
         fortress = register(new DungeonUnlockable(Valoria.ID + ":fortress", ItemsRegistry.wickedAmethyst.get(), LevelGen.VALORIA_FORTRESS));
         aloe = register(new ItemUnlockable(Valoria.ID + ":aloe", ItemsRegistry.aloePiece.get()));
+        rot = register(new ItemUnlockable(Valoria.ID + ":rot", ItemsRegistry.rot.get()));
+        lithicRunes = register(new ItemUnlockable(Valoria.ID + ":lithic_runes", ItemsRegistry.lithicRune.get()));
+        runes = register(new ItemUnlockable(Valoria.ID + ":runes", ItemsRegistry.rune.get()));
+        voidSlateRunes = register(new ItemUnlockable(Valoria.ID + ":void_slate_runes", ItemsRegistry.voidSlateRune.get()));
         pick = register(new ItemUnlockable(Valoria.ID + ":pick", ItemsRegistry.pick.get()).addAward(loc("items/crusher")));
         shadeBlossom = register(new ItemUnlockable(Valoria.ID + ":shade_blossom", ItemsRegistry.shadeBlossomLeaf.get()));
         alchemyStation = register(new ItemUnlockable(Valoria.ID + ":alchemyStation", BlockRegistry.alchemyStationTier1.get().asItem()));

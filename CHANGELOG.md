@@ -10,6 +10,7 @@
 - Added a lot of new pages to Codex
 - Added Respirator recipe
 - Added Gas mask recipe
+- Added Cutscenes
 
 # **Fixed**
 - Fixed possible Packet Hack allowing users to dupe items using Codex reward system that is currently WIP

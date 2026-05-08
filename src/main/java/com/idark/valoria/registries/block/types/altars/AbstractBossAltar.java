@@ -1,8 +1,10 @@
 package com.idark.valoria.registries.block.types.altars;
 
+import com.idark.valoria.client.cinema.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
@@ -61,6 +63,14 @@ public abstract class AbstractBossAltar extends Block implements EntityBlock, Si
         return tile != null && tile.triggerEvent(id, param);
     }
 
+    /**
+     * @return Returns the duration of cutscene
+     * @see AbstractAltarBlockEntity
+     */
+    public int cutsceneTicks() {
+        return 75;
+    }
+
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         AbstractAltarBlockEntity tile = (AbstractAltarBlockEntity) world.getBlockEntity(pos);
@@ -72,6 +82,10 @@ public abstract class AbstractBossAltar extends Block implements EntityBlock, Si
             world.playSound(null, pos, getSummonSound(), SoundSource.PLAYERS, 10, 1);
             if(!player.isCreative()){
                 player.getItemInHand(hand).shrink(1);
+            }
+
+            if (!world.isClientSide && player instanceof ServerPlayer sPlayer) {
+                CutsceneHelper.init(sPlayer, cutsceneTicks());
             }
 
             ValoriaUtils.SUpdateTileEntityPacket(tile);

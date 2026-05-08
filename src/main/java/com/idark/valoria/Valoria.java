@@ -1,6 +1,7 @@
 package com.idark.valoria;
 
 import com.google.common.collect.*;
+import com.idark.valoria.client.cinema.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.*;
@@ -124,6 +125,7 @@ public class Valoria{
 
         forgeBus.register(this);
         forgeBus.register(new Events());
+        forgeBus.register(new CutsceneEvents());
         forgeBus.register(new StructureEvents());
         if (FMLEnvironment.dist.isClient()) {
             forgeBus.register(ClientEvents.class);
