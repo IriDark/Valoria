@@ -59,7 +59,7 @@ public class TagsRegistry{
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
     public static final TagKey<Block> ALLOWED_TO_BREAK = block(new ResourceLocation(Valoria.ID, "allowed_to_break"));
-    public static final TagKey<Block> EPHEMARITE = block(new ResourceLocation(Valoria.ID, "ephemarite"));
+    public static final TagKey<Block> EPHEMARITE_BLOCK = block(new ResourceLocation(Valoria.ID, "ephemarite"));
 
     public static final TagKey<Block> NEEDS_HALLOWEEN_TOOL = block(new ResourceLocation(Valoria.ID, "needs_halloween_tool"));
     public static final TagKey<Block> NEEDS_LUNAR_TOOL = block(new ResourceLocation(Valoria.ID, "needs_lunar_tool"));
@@ -87,6 +87,7 @@ public class TagsRegistry{
     public static final TagKey<Item> FROM_SARCOPHAGUS_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "from_sarcophagus_spawnable_with"));
     public static final TagKey<Item> FROM_SARCOPHAGUS_HALLOWEEN_SPAWNABLE_WITH = item(new ResourceLocation(Valoria.ID, "from_sarcophagus_halloween_spawnable_with"));
 
+    public static final TagKey<Item> EPHEMARITE_ITEMS = item(new ResourceLocation(Valoria.ID, "ephemarite"));
     public static final TagKey<Item> SPEARS = item(new ResourceLocation(Valoria.ID, "spears"));
     public static final TagKey<Item> SCYTHES = item(new ResourceLocation(Valoria.ID, "scythes"));
     public static final TagKey<Item> RAPIERS = item(new ResourceLocation(Valoria.ID, "rapiers"));

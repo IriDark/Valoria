@@ -109,6 +109,7 @@ The sky itself is shattered. A malevolent red planet now hangs in the night, its
 * **Skoow** - Code
 * **Sunday** - Models
 * **Kerdo** - Animations, SFX, Ideas, Contributions
+* **LowTransient-34** - Music
 
 **Translators:** Ruthenium, TerraPrime, 𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆, 蓝龙奈特萨玛 (Azurmardraco BlueDragon)
 

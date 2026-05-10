@@ -11,6 +11,8 @@
 - Added Respirator recipe
 - Added Gas mask recipe
 - Added Cutscenes
+- Added Quantum Reaper to Valoria Fortress LootTable (previously unobtainable)
+- Added Void key to Wicked Crystal drop (This will prevent players from being stuck inside a Boss arena if Minecraft decides not to generate stupid buttons)
 
 # **Fixed**
 - Fixed possible Packet Hack allowing users to dupe items using Codex reward system that is currently WIP
@@ -33,9 +35,11 @@
 - LootBag wasn't giving player the first item in the loot list - Thanks for reporting to Bela Clove
 
 # **Changes**
+- Improved Codex hints
+- Reduced Wicked Scorpion spawn rate
 - Increased Shade Blossom generation (Common now)
 - Specific codex pages were removed, now there's only random one, if all the pages are unlocked it will be consumed for player experience
-- Improved Boss Structure Generation: Valoria boss structures are now guaranteed to generate in a radius around the world spawn (similar to vanilla Strongholds).
+- Improved Boss Structure Generation: Valoria boss structures are now guaranteed to generate in a radius around the world spawn rate (similar to vanilla Strongholds).
 - Optimized radial attacks
 - Improved Codex entries hovering
 - Improved Codex entry pages (Added scrolling, images, entity renderers, recipes...)
@@ -47,7 +51,7 @@
 - Increased Shade blossom generation
 - Removed Diamonds from Pot
 - Decreased Iron drop from Pot
-- Decreased Ent spawn
+- Decreased Ent spawn rate
 - Increased Ent loot
 - Improvements to Codex UIX
 - Reduced Gaib roots generation count

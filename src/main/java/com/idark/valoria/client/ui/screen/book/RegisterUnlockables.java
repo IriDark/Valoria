@@ -12,7 +12,7 @@ import static com.idark.valoria.Valoria.loc;
 public class RegisterUnlockables{
 
     public static Unlockable
-    aloe, pick, alchemyStation, netherAlchemy, elementalAlchemy, valoriaAlchemy,
+    aloe, pick, netherAlchemy, elementalAlchemy, valoriaAlchemy,
     crushables, lithicRunes, runes, voidSlateRunes,
 
     undead, kingCrab, harmonyEntities, devil, scavenger, fleshSentinel,
@@ -41,7 +41,6 @@ public class RegisterUnlockables{
         voidSlateRunes = register(new ItemUnlockable(Valoria.ID + ":void_slate_runes", ItemsRegistry.voidSlateRune.get()));
         pick = register(new ItemUnlockable(Valoria.ID + ":pick", ItemsRegistry.pick.get()).addAward(loc("items/crusher")));
         shadeBlossom = register(new ItemUnlockable(Valoria.ID + ":shade_blossom", ItemsRegistry.shadeBlossomLeaf.get()));
-        alchemyStation = register(new ItemUnlockable(Valoria.ID + ":alchemyStation", BlockRegistry.alchemyStationTier1.get().asItem()));
         netherAlchemy = register(new ItemUnlockable(Valoria.ID + ":netherAlchemy", BlockRegistry.alchemyStationTier2.get().asItem()));
         elementalAlchemy = register(new ItemUnlockable(Valoria.ID + ":elementalAlchemy", BlockRegistry.alchemyStationTier3.get().asItem()));
         valoriaAlchemy = register(new ItemUnlockable(Valoria.ID + ":valoriaAlchemy", BlockRegistry.alchemyStationTier4.get().asItem()));

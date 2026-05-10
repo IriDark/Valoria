@@ -59,7 +59,7 @@ public class CodexEntries{
     NATURE_CORE, AQUARIUS_CORE, INFERNAL_CORE, VOID_CORE,
 
     ROT, JADE, PEARLIUM, PYRATITE, ANCIENT_METALS, ETHEREAL,
-    NATURE_GOLEM, RIVER_GOLEM, DRAUGR, SORCERER, GOBLIN, TROLL, CORRUPTED_TROLL, SWAMP_WANDERER, SCOURGE, CORRUPTED, SHADEWOOD_SPIDER, WICKED_SCORPION
+    NATURE_GOLEM, RIVER_GOLEM, DRAUGR, SORCERER, GOBLIN, TROLL, CORRUPTED_TROLL, SWAMP_WANDERER, SCOURGE, CORRUPTED, SHADEWOOD_SPIDER, WICKED_SCORPION, THE_END
 
     ;
 
@@ -232,7 +232,8 @@ public class CodexEntries{
 
         ALCHEMY_STATION = new Chapter(
         "codex.valoria.alchemy_station.name",
-        new GeneralPage("codex.valoria.alchemy_station"));
+        new GeneralPage("codex.valoria.alchemy_station").addRecipe(BlockRegistry.alchemyStationTier1.get().asItem().getDefaultInstance()),
+        new GeneralPage().addItem(BlockRegistry.alchemyStationTier1.get().asItem().getDefaultInstance(), false, 10, 10, 100));
 
         NETHER_ALCHEMY = new Chapter(
         "codex.valoria.nether_alchemy.name",
@@ -355,6 +356,12 @@ public class CodexEntries{
         new GeneralPage("codex.valoria.wicked_crystal"),
         new GeneralPage().addSpace(60).addEntity(EntityTypeRegistry.WICKED_CRYSTAL.get(), 26, false),
         new GeneralPage("codex.valoria.wicked_crystal_continuation").hideTitle());
+
+        THE_END = new Chapter(
+        "codex.valoria.the_end.name",
+        new GeneralPage("codex.valoria.the_end"),
+        new GeneralPage().addSpace(15).addImage(Valoria.loc("textures/gui/developers.png"), 128, 78),
+        new GeneralPage("codex.valoria.the_end.history"));
 
         UNDEAD = new Chapter(
         "codex.valoria.undead.name",
@@ -601,7 +608,9 @@ public class CodexEntries{
                                 .addHintsDescription(Component.translatable("codex.valoria.fortress.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                             .addChild(new ChapterNode(SUSPICIOUS_GEM, ItemsRegistry.suspiciousGem.get(), Style.IRON, RegisterUnlockables.suspiciousGem)
                                 .addHintsDescription(Component.translatable("codex.valoria.suspicious_gem.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
-                            .addChild(new ChapterNode(WICKED_CRYSTAL, Items.SKELETON_SKULL, Style.DIAMOND, RegisterUnlockables.wickedCrystal))
+                                .addChild(new ChapterNode(WICKED_CRYSTAL, Items.SKELETON_SKULL, Style.DIAMOND, RegisterUnlockables.wickedCrystal)
+                                    .addChild(new ChapterNode(THE_END, ItemsRegistry.medicatedHarmonyHeart.get(), Style.DIAMOND, true))
+                                )
                             )
                         )
                     )
@@ -618,7 +627,7 @@ public class CodexEntries{
                         .addChild(new ChapterNode(SOUL_ESSENCE, ItemsRegistry.soulCollector.get(), Style.CRYPT, true))
                         .addChild(new ChapterNode(SOUL_INFUSER, BlockRegistry.soulInfuser.get().asItem(), Style.IRON, true))
                     )
-                    .addChild(new ChapterNode(ALCHEMY_STATION, BlockRegistry.alchemyStationTier1.get().asItem(), Style.STANDARD, RegisterUnlockables.alchemyStation)
+                    .addChild(new ChapterNode(ALCHEMY_STATION, BlockRegistry.alchemyStationTier1.get().asItem(), Style.STANDARD)
                         .addHintsDescription(Component.translatable("codex.valoria.alchemy.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                             .addChild(new ChapterNode(NETHER_ALCHEMY, BlockRegistry.alchemyStationTier2.get().asItem(), Style.IRON, RegisterUnlockables.netherAlchemy)
                             .addHintsDescription(Component.translatable("codex.valoria.alchemy.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))

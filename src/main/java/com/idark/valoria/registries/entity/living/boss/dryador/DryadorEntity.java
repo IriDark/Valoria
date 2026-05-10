@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.entity.living.boss.dryador;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.cinema.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.*;
@@ -38,6 +37,7 @@ import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.entity.*;
 import pro.komaru.tridot.api.render.bossbars.*;
+import pro.komaru.tridot.client.cinema.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;

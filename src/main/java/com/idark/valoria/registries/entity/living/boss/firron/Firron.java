@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.entity.living.boss.firron;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.cinema.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
@@ -38,6 +37,7 @@ import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.bossbars.*;
+import pro.komaru.tridot.client.cinema.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -154,7 +154,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
                 Seq<CutsceneNode> nodes = Seq.with();
                 Vec3 tablePos = this.position();
 
-                Vec3 targetFacePos = this.position().add(0, 1.5, 0);
+                Vec3 targetFacePos = this.position().add(0, 2, 0);
                 Vec3 forwardVector = Vec3.directionFromRotation(0, this.getYRot());
                 double distanceInFront = 3.5;
                 Vec3 cameraFrontPos = targetFacePos.add(forwardVector.scale(distanceInFront));
@@ -173,7 +173,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
                 .setFov(90)
                 );
 
-                Vec3 end = cameraFrontPos.add(-3, 2, -3);
+                Vec3 end = Minecraft.getInstance().player.position().add(6, 2, -1);
                 nodes.add(new CutsceneNode(end, Interp.pow5, 75)
                 .yawToTarget(tablePos)
                 .pitchToTarget(tablePos)

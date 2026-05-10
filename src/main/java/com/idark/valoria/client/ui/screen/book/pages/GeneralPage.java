@@ -82,7 +82,7 @@ public class GeneralPage extends Page {
                 String content = I18n.get(textKey);
                 drawWrappingText(gui, content, x, y, wrapWidth, false);
                 int lineCount = font.split(Component.literal(content), wrapWidth).size();
-                return lineCount * (font.lineHeight + 1) + 12;
+                return lineCount * (font.lineHeight + 1) + 20;
             }
         });
 
@@ -290,11 +290,10 @@ public class GeneralPage extends Page {
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         boolean isHoveringPage = mouseX >= lastX && mouseX <= lastX + wrapWidth + 10 &&
         mouseY >= lastY && mouseY <= lastY + pageHeight + 10;
-        if (isHoveringPage && totalHeight > pageHeight + 4) {
+        if (isHoveringPage && totalHeight > pageHeight) {
             targetScroll = Mth.clamp(targetScroll - (float)delta * 15, 0, totalHeight - pageHeight);
             return true;
         }
-
 
         return false;
     }

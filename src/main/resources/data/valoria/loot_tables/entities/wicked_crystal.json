@@ -10,6 +10,16 @@
           "weight": 100
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:void_key",
+          "weight": 100
+        }
+      ]
     }
   ]
 }
