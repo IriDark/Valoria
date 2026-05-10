@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:amber_gem",
+    "valoria:amethyst_gem",
+    "valoria:ruby_gem",
+    "valoria:sapphire_gem",
+    "valoria:stone_geode",
+    "valoria:dirt_geode",
+    "valoria:ephemarite_low",
+    "valoria:ephemarite"
+  ]
+}

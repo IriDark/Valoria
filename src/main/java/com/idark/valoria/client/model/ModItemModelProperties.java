@@ -11,6 +11,10 @@ public class ModItemModelProperties{
         ItemProperties.register(item, new ResourceLocation("blocking"), (p_174575_, p_174576_, p_174577_, p_174578_) -> p_174577_ != null && p_174577_.isUsingItem() && p_174577_.getUseItem() == p_174575_ ? 1.0F : 0.0F);
     }
 
+    public static void makeNight(Item item){
+        ItemProperties.register(item, new ResourceLocation("night"), (stack, clientWorld, livingEntity, player) -> stack.getOrCreateTag().getBoolean("IsNightActive") ? 1 : 0);
+    }
+
     public static void makeSize(Item item){
         ItemProperties.register(item, new ResourceLocation("size"), (sizedStack, clientWorld, livingEntity, player) -> sizedStack.getCount());
     }

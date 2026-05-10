@@ -22,7 +22,7 @@ public class UnlockableCondition implements LootItemCondition{
     }
 
     public boolean test(LootContext lootContext){
-        var entity = lootContext.getParam(LootContextParams.THIS_ENTITY);
+        var entity = lootContext.getParamOrNull(LootContextParams.THIS_ENTITY);
         if(entity instanceof Player plr){
             Unlockable unlockable = Unlockables.getUnlockable(id);
             return !UnlockUtils.isUnlocked(plr, unlockable);

@@ -18,12 +18,7 @@ public class MenuRegistry{
             })
     );
 
-    public static final RegistryObject<MenuType<AlchemyStationMenu>> ALCHEMY = MENUS.register("alchemy", () -> IForgeMenuType.create((windowId, inv, data) -> {
-            BlockPos pos = data.readBlockPos();
-            int lvl = data.readInt();
-            return new AlchemyStationMenu(windowId, pos, inv, ContainerLevelAccess.create(inv.player.getCommandSenderWorld(), pos), lvl);
-        })
-    );
+    public static final RegistryObject<MenuType<AlchemyStationMenu>> ALCHEMY = MENUS.register("alchemy", () -> IForgeMenuType.create(AlchemyStationMenu::new));
 
     public static final RegistryObject<MenuType<HeavyWorkbenchMenu>> HEAVY_WORKBENCH = MENUS.register("heavy_workbench", () -> IForgeMenuType.create(HeavyWorkbenchMenu::new));
     public static final RegistryObject<MenuType<KilnMenu>> KILN_MENU = MENUS.register("kiln_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new KilnMenu(windowId, inv)));

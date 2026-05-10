@@ -26,7 +26,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class BloodSight extends Item implements ICurioItem, Vanishable, ParticleItemEntity{
+public class BloodSight extends ValoriaCurioItem implements ParticleItemEntity{
     private int hits = 0;
     public ArcRandom arcRandom = Tmp.rnd;
 
@@ -50,7 +50,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
 
     public void hitLast(Level pLevel, Player pPlayer, float pAmount) {
         LivingEntity lastHurtMob = pPlayer.getLastAttacker();
-        if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
+        if (pLevel instanceof ServerLevel pServer) {
             if (lastHurtMob == null) {
                 return;
             }
@@ -59,7 +59,6 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
         }
     }
 
-
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
         Player player = (Player)slotContext.entity();
@@ -67,7 +66,6 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
         LivingEntity lastHurtMob = player.getLastAttacker();
         boolean flag = stack.getItem() == ItemsRegistry.monocle.get();
         int duration = flag ? 12 : 6;
-        int damageAmount = flag ? Tmp.rnd.nextInt(2, 6) : Tmp.rnd.nextInt(2, 8);
         if(!pLevel.isClientSide() && pLevel instanceof ServerLevel serverLevel){
             if(lastHurtMob != null && !player.getCooldowns().isOnCooldown(stack.getItem())){
                 hitLast(serverLevel, player, this.getDamage(RandomSource.create()));
@@ -82,12 +80,8 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
                 }
 
                 Utils.Particles.lineToAttacked(serverLevel, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()), duration);
-                if(player.hurtMarked){
-                    stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-                }
-
                 if(hits >= duration / 2){
-                    stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                    accessoryHurt(player, stack);
                     player.getCooldowns().addCooldown(stack.getItem(), 600);
                     hits = 0;
                 }

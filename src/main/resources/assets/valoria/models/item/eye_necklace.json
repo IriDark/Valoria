@@ -2,5 +2,13 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "valoria:item/eye_necklace"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "night": 1
+      },
+      "model": "valoria:item/eye_necklace_closed"
+    }
+  ]
 }

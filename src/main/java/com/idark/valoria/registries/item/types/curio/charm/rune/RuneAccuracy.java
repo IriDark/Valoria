@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.Event.*;
 
 import java.util.*;
 
-public class RuneAccuracy extends AbstractRuneItem implements CritDamageItem{
+public class RuneAccuracy extends AbstractRuneItem implements CurioCritDamageItem{
     float chance;
     float damageModifier;
     public RuneAccuracy(float chance, float damageModifier, Properties properties){

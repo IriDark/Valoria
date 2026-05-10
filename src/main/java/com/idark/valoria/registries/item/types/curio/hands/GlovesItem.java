@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.hands;
 
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.client.player.*;

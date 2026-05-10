@@ -3,6 +3,7 @@ package com.idark.valoria.client;
 import com.idark.valoria.*;
 import net.minecraft.resources.*;
 
+// todo rework to supporter capes json
 public enum Cloaks{
     IriDark_("IriDark_", cloakTex("calamitas_cloak")),
     IriDark("IriDark", cloakTex("calamitas_cloak")),

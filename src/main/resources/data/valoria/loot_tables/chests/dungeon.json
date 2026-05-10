@@ -131,14 +131,14 @@
         {
           "type": "minecraft:item",
           "name": "valoria:tainted_berries",
-          "weight": 6,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 6
+                "min": 4,
+                "max": 12
               }
             }
           ]

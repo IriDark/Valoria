@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.item.types.curio;
 
 import com.idark.valoria.*;
-import com.idark.valoria.registries.item.types.curio.hands.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;

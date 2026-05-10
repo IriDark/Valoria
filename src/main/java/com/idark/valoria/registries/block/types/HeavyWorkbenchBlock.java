@@ -3,6 +3,7 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.client.ui.menus.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.border.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.network.*;
 
 import javax.annotation.*;
 
@@ -121,7 +123,11 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
         if(pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }else{
-            pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
+            if(pPlayer instanceof ServerPlayer serverPlayer) {
+                NetworkHooks.openScreen(serverPlayer, getMenuProvider(pState, pLevel, pPos), buf -> {
+                    buf.writeBlockPos(pPos);
+                });
+            }
             return InteractionResult.CONSUME;
         }
     }

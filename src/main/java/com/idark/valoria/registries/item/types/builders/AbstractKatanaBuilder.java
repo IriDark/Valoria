@@ -26,7 +26,7 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public float attackDamageIn;
     public float attackSpeedIn;
     public float chance = 1;
-    public int overlayTime = 35;
+    public int overlayTime = 50;
     public int cooldownTime = 75;
     public int chargeTime = 0;
     public float dashDist = 1.0f;

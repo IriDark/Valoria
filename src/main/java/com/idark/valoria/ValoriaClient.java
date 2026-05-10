@@ -12,7 +12,6 @@ import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.item.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
-import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.client.sounds.LoopedSoundInstance;
 import com.idark.valoria.client.ui.*;
 import com.idark.valoria.client.ui.screen.*;
@@ -66,16 +65,21 @@ public class ValoriaClient{
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
 
     public static LoopedSoundInstance BOSS_MUSIC;
-    public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
 
     public static void setupClient(final FMLClientSetupEvent event){
         event.enqueueWork(() -> {
             SplashHandler.add("Also try Starbound!");
             SplashHandler.add("Also try Mindustry!");
+            SplashHandler.add("Also try Metro franchise!");
             SplashHandler.add("Valoria was known as DarkRPG");
-            SplashHandler.add("Valoria, animated by Kerdo!");
             SplashHandler.add("Valoria music by DuUaader!");
-    
+            SplashHandler.add("Valoria story by RavioLi!");
+            SplashHandler.add("Valoria, modelled by SunDay!");
+            SplashHandler.add("Valoria, animated by Kerdo!");
+            SplashHandler.add("Support Valoria on Patreon!");
+            SplashHandler.add("Check out our amazing patrons!");
+            SplashHandler.add("Valoria is growing thanks to you!");
+
             TooltipModifierHandler.add(BASE_ENTITY_REACH_UUID);
             TooltipModifierHandler.add(BASE_DASH_DISTANCE_UUID);
             TooltipModifierHandler.add(BASE_ATTACK_RADIUS_UUID);
@@ -90,10 +94,11 @@ public class ValoriaClient{
             TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_UUID);
             TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
             TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
-            
+
             MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
-            
+
             CodexEntries.initChapters();
+
             CuriosRendererRegistry.register(ItemsRegistry.theFallenCollectorCrown.get(), CrownRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceDiamond.get(), NecklaceRenderer::new);
@@ -300,6 +305,7 @@ public class ValoriaClient{
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
+            ModItemModelProperties.makeNight(ItemsRegistry.eyeNecklace.get());
         }
 
         @SubscribeEvent

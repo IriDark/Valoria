@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.ui.screen.book.codex.*;
-import net.minecraft.client.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
@@ -20,7 +19,7 @@ public class CodexItem extends Item{
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         if(world.isClientSide){
-            openGui(player);
+            openGui();
         }
 
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
@@ -28,16 +27,16 @@ public class CodexItem extends Item{
 
     @OnlyIn(Dist.CLIENT)
     public void openGui(Level level, ItemStack stack) {
-        openGui(Minecraft.getInstance().player);
+        openGui();
     }
 
     @OnlyIn(Dist.CLIENT)
     public void openGui(Level level, Vec3 pos, ItemStack stack) {
-        openGui(Minecraft.getInstance().player);
+        openGui();
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void openGui(Player player){
-        Codex.getInstance().open(player);
+    public void openGui(){
+        Codex.getInstance().open();
     }
 }

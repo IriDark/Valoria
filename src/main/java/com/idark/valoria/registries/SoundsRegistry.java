@@ -27,6 +27,7 @@ public class SoundsRegistry{
     //public static final RegistryObject<SoundEvent> HILLS_ADDITIONS = registerSound("ambient.hills.additions");
 
     public static final RegistryObject<SoundEvent> UI_CLICK = registerSound("ui.click");
+    public static final RegistryObject<SoundEvent> UI_CODEX_CLICK = registerSound("ui.codex_click");
     public static final RegistryObject<SoundEvent> UI_ALCHEMY_BREW = registerSound("ui.alchemy.brew");
     public static final RegistryObject<SoundEvent> UI_ALCHEMY_NETHER_UPGRADE = registerSound("ui.alchemy.nether_upgrade");
     public static final RegistryObject<SoundEvent> UI_ALCHEMY_ELEMENTAL_UPGRADE = registerSound("ui.alchemy.elemental_upgrade");

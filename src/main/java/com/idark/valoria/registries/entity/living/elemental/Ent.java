@@ -55,7 +55,7 @@ public class Ent extends PathfinderMob implements NeutralMob, AttackSystemMob, I
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
 
-        this.selector.addAttack(new TridotMeleeAttack(this, 1, 4, 0, 40, 70));
+        this.selector.addAttack(new TridotMeleeAttack(this, 1, 4, 35, 40, 70));
         this.selector.addAttack(new EntMeleeSlapAttack(this, 1, 2, 0, 20, 35));
     }
 
@@ -237,6 +237,7 @@ public class Ent extends PathfinderMob implements NeutralMob, AttackSystemMob, I
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ExecuteAttackGoal(this));
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 24.0F));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));

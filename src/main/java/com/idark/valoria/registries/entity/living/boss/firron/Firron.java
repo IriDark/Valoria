@@ -8,17 +8,21 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.util.*;
+import net.minecraft.client.*;
+import net.minecraft.commands.arguments.EntityAnchorArgument.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
+import net.minecraft.world.entity.ai.control.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.item.*;
@@ -33,6 +37,7 @@ import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.bossbars.*;
+import pro.komaru.tridot.client.cinema.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -43,6 +48,7 @@ import pro.komaru.tridot.common.registry.entity.system.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 import software.bernie.geckolib.animatable.*;
 import software.bernie.geckolib.core.animatable.instance.*;
 import software.bernie.geckolib.core.animation.*;
@@ -52,6 +58,7 @@ import software.bernie.geckolib.util.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.*;
 
 public class Firron extends Monster implements Enemy, BossEntity, Allied, AttackSystemMob, GeoEntity{
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/firron.png")).setDarkenScreen(true);
@@ -94,6 +101,8 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     public static final RawAnimation SUMMON_HOLD = RawAnimation.begin().thenPlay("SUMMON_HOLD");
     public static final RawAnimation SUMMON_END = RawAnimation.begin().thenPlay("SUMMON_END");
 
+    private static final Predicate<LivingEntity> FIRRON_TARGET = (e) -> e.getType() != EntityTypeRegistry.FIRRON.get();
+
     public Firron(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
@@ -102,6 +111,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
 
         this.initAttacks();
+        this.lookControl = new Firron.FirronLookControl(this);
     }
 
     public void checkPhaseTransition() {
@@ -125,10 +135,55 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     public void tick(){
         super.tick();
         checkPhaseTransition();
+        if (rushing && rushDirection != null && !this.level().isClientSide) {
+            float desiredYaw = (float)(Mth.atan2(rushDirection.z, rushDirection.x) * (180F / Math.PI)) - 90F;
+            this.setYRot(desiredYaw);
+            this.yBodyRot = desiredYaw;
+            this.setYHeadRot(desiredYaw);
+        }
+
         if(rushing && rushPrepareTicks <= prepareDuration){
             rushPrepareTicks++;
         }else if(rushDirection != null && !this.level().isClientSide){
             performRush();
+        }
+
+        if(this.level().isClientSide()){
+            if(tickCount < 20 && !CutsceneManager.active){
+                this.lookAt(Anchor.EYES, Minecraft.getInstance().player.position().add(0, 2, 0));
+                Seq<CutsceneNode> nodes = Seq.with();
+                Vec3 tablePos = this.position();
+
+                Vec3 targetFacePos = this.position().add(0, 2, 0);
+                Vec3 forwardVector = Vec3.directionFromRotation(0, this.getYRot());
+                double distanceInFront = 3.5;
+                Vec3 cameraFrontPos = targetFacePos.add(forwardVector.scale(distanceInFront));
+
+                Vec3 approachPos = cameraFrontPos.add(3, -1.5, 3);
+                nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
+                .yawToTarget(tablePos)
+                .pitch(-60)
+                .setFov(60)
+                );
+
+                Vec3 mid = cameraFrontPos.add(-3, 4, -3);
+                nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
+                .yawToTarget(targetFacePos)
+                .pitchToTarget(targetFacePos)
+                .setFov(90)
+                );
+
+                Vec3 end = Minecraft.getInstance().player.position().add(6, 2, -1);
+                nodes.add(new CutsceneNode(end, Interp.pow5, 75)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(60)
+                );
+
+                CutsceneManager.start(nodes);
+            }
+        } else if (tickCount == 1) {
+            CutsceneHelper.init(this.level(), this.getBoundingBox(), 160);
         }
 
         if(rushing) spawnRushParticles();
@@ -149,7 +204,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         this.hasImpulse = true;
 
         AABB hitBox = this.getBoundingBox().inflate(2d);
-        List<LivingEntity> hitEntities = this.level().getEntitiesOfClass(LivingEntity.class, hitBox, e -> e != this);
+        List<LivingEntity> hitEntities = this.level().getEntitiesOfClass(LivingEntity.class, hitBox, Firron.FIRRON_TARGET);
         for (LivingEntity e : hitEntities) {
             if (e.isAlive() && !(e instanceof Allied)) {
                 this.swing(InteractionHand.MAIN_HAND);
@@ -260,8 +315,9 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "SpawnController", 0, state -> {
-            if (this.tickCount < 140)
+            if (this.tickCount < 140){
                 return state.setAndContinue(SPAWN);
+            }
 
             return PlayState.STOP;
         })
@@ -362,6 +418,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         return super.isImmobile() || isStunned || this.tickCount < 140 || animationTicks > 0;
     }
 
+    // todo: potential packet hack vulnerability.
     public void handleKeyframe(String keyframe) {
         if(this.isStunned || rushing || animationTicks > 0 || this.tickCount < 140) return;
 
@@ -641,4 +698,20 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         initializeLoot(this.level(), stack, this.getOnPos().above(), offsetY);
         return null;
     }
+
+    public class FirronLookControl extends LookControl{
+        public FirronLookControl(Firron pMob){
+            super(pMob);
+        }
+
+        /**
+         * Updates look
+         */
+        public void tick() {
+            if (!Firron.this.isStunned && tickCount > 160) {
+                super.tick();
+            }
+        }
+    }
+
 }

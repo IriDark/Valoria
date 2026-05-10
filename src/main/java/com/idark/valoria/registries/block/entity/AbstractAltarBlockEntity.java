@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.block.entity;
 
 import com.idark.valoria.util.*;
+import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -9,12 +10,16 @@ import net.minecraft.network.protocol.game.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.cinema.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
+import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory implements TickableBlockEntity{
     public int progress = 0;
@@ -28,6 +33,39 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
     public void startSummoning(){
         this.isSummoning = true;
         this.progress = 0;
+        if(this.level != null && this.level.isClientSide()){
+            playCutscene();
+        }
+    }
+
+    public void playCutscene() {
+        Seq<CutsceneNode> nodes = Seq.with();
+        Vec3 tablePos = this.getBlockPos().getCenter();
+        Player plr = Minecraft.getInstance().player;
+        if (plr == null) return;
+
+        Vec3 approachPos = plr.getEyePosition().lerp(tablePos, 0.6).add(0, 1.5, 0);
+        nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
+        .yawToTarget(tablePos)
+        .pitchToTarget(tablePos)
+        .setFov(60)
+        );
+
+        Vec3 mid = tablePos.add(1, 2.5, 1);
+        nodes.add(new CutsceneNode(mid, Interp.pow5, 25)
+        .yawToTarget(tablePos)
+        .pitchToTarget(tablePos)
+        .setFov(90)
+        );
+
+        Vec3 topDown = tablePos.add(-2, 3, -2);
+        nodes.add(new CutsceneNode(topDown, Interp.swing, 35)
+        .yawToTarget(tablePos)
+        .pitchToTarget(tablePos)
+        .setFov(90)
+        );
+
+        CutsceneManager.start(nodes);
     }
 
     public boolean canSummon(Level level) {

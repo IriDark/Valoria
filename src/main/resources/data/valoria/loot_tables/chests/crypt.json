@@ -40,17 +40,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:crypt_page",
-          "weight": 5,
-          "conditions": [
-            {
-              "condition": "valoria:unlockable",
-              "id": "valoria:crypt"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:bronze_nugget",
           "weight": 20,
           "functions": [

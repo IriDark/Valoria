@@ -2,8 +2,8 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
 import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -24,8 +24,8 @@ import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
-import javax.annotation.Nullable;
 import javax.annotation.*;
+import javax.annotation.Nullable;
 
 public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock{
     private static final BooleanProperty BREWING = BooleanProperty.create("brewing");
@@ -119,7 +119,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             }
         }
 
-        return null;
+        return Shapes.block();
     }
 
     @Override

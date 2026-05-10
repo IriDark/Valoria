@@ -5,6 +5,7 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -26,6 +27,8 @@ import java.util.function.*;
 
 public class BossSummonableItem extends TexturedSpawnEggItem{
     private final Supplier<? extends EntityType<? extends Mob>> typeSupplier;
+    private ResourceKey<Level> dimension = Level.OVERWORLD;
+    private boolean specificDimension = false;
     private final float expandValue;
 
     public BossSummonableItem(Supplier<? extends EntityType<? extends Mob>> type, Properties pProperties){
@@ -40,10 +43,23 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
         this.expandValue = expandValue;
     }
 
+    public BossSummonableItem(float expandValue, ResourceKey<Level> dimension, Supplier<? extends EntityType<? extends Mob>> type, Properties pProperties){
+        super(type, pProperties);
+        this.typeSupplier = type;
+        this.expandValue = expandValue;
+        this.dimension = dimension;
+        this.specificDimension = true;
+    }
+
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", getDefaultType().getDescription()).withStyle(ChatFormatting.GRAY));
+        if (specificDimension) {
+            ResourceLocation loc = dimension.location();
+            String dimKey = "dimension." + loc.getNamespace() + "." + loc.getPath();
+            tooltip.add(Component.translatable("tooltip.valoria.boss_summonable.dimension", Component.translatable(dimKey)).withStyle(ChatFormatting.GRAY));
+        }
     }
 
     @Override
@@ -66,12 +82,13 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
         if(result.success()){
             return super.useOn(pContext);
         }else{
-            var size = Math.floor(spawnAABB.getSize()) + 3;
-            player.displayClientMessage(Component.translatable("tooltip.valoria.boss_summon_fail", size + "x" + size).withStyle(ChatFormatting.GRAY), true);
-            showParticleBox(level, spawnAABB);
-            for(BlockPos pos : result.preventingBlocks)
-                if(level.isClientSide())
-                    showBlockingParticles(level, pos);
+            player.displayClientMessage(result.failMessage(), true);
+            if(!result.preventingBlocks.isEmpty()){
+                showParticleBox(level, spawnAABB);
+                for(BlockPos pos : result.preventingBlocks)
+                    if(level.isClientSide())
+                        showBlockingParticles(level, pos);
+            }
         }
 
         return InteractionResult.FAIL;
@@ -126,6 +143,8 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
     }
 
     public SpawnResult canSpawnHere(Level world, AABB blockAABB){
+        if(specificDimension && world.dimension() != dimension) return SpawnResult.fail();
+
         BlockPos min = new BlockPos((int)Math.floor(blockAABB.minX), (int)Math.floor(blockAABB.minY), (int)Math.floor(blockAABB.minZ));
         BlockPos max = new BlockPos((int)Math.floor(blockAABB.maxX), (int)Math.floor(blockAABB.maxY), (int)Math.floor(blockAABB.maxZ));
 
@@ -155,13 +174,18 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
             }
         }
 
-        return SpawnResult.checkResult(preventingBlocks);
+        return SpawnResult.checkResult(blockAABB, preventingBlocks);
     }
 
-    public record SpawnResult(boolean success, List<BlockPos> preventingBlocks){
+    public record SpawnResult(boolean success, List<BlockPos> preventingBlocks, Component failMessage){
 
-        public static SpawnResult checkResult(List<BlockPos> preventingBlocks){
-            return new SpawnResult(preventingBlocks.isEmpty(), preventingBlocks);
+        public static SpawnResult fail(){
+            return new SpawnResult(false, List.of(), Component.translatable("tooltip.valoria.boss_summon.dimension_fail").withStyle(ChatFormatting.GRAY));
+        }
+
+        public static SpawnResult checkResult(AABB aabb, List<BlockPos> preventingBlocks){
+            var size = Math.floor(aabb.getSize()) + 3;
+            return new SpawnResult(preventingBlocks.isEmpty(), preventingBlocks, Component.translatable("tooltip.valoria.boss_summon.block_fail", size + "x" + size).withStyle(ChatFormatting.GRAY));
         }
     }
 }

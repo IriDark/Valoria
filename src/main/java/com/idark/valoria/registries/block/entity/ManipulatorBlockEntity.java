@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.*;
 import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.core.network.*;
@@ -20,6 +19,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.api.distmarker.*;
@@ -32,16 +32,20 @@ import org.jetbrains.annotations.Nullable;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.*;
-import java.util.*;
 
 public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider, TickableBlockEntity{
+    @OnlyIn(Dist.CLIENT) private ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
+    private ManipulatorRecipe cachedRecipe = null;
+
     public final ItemStackHandler itemHandler = createHandler(2);
     public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
     public final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> itemOutputHandler);
+
     public int progress = 0;
     public int progressMax = 0;
     public boolean startCraft = false;
+
     public int nature_core = 0;
     public int infernal_core = 0;
     public int aquarius_core = 0;
@@ -60,6 +64,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
             @Override
             protected void onContentsChanged(int slot){
                 setChanged();
+                updateRecipeCache();
             }
 
             @Override
@@ -110,105 +115,99 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public void tick(){
-        Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
-        if(!level.isClientSide){
-            if(recipe.isPresent()){
-                if(getCharge(recipe.get().getCore()) >= recipe.get().getCoresNeeded() && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()){
-                    increaseCraftingProgress();
-                    setMaxProgress();
-                    setChanged(level, getBlockPos(), getBlockState());
-                    PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorCraftParticlePacket(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), -0.2f, 0.2f, -0.2f, 255, 255, 255));
-                    if(hasProgressFinished()){
-                        craftItem();
-                        resetProgress();
-                    }
-
-                    ValoriaUtils.SUpdateTileEntityPacket(this);
-                }else if(recipe.get().getCore().equals("empty") && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()){
-                    increaseCraftingProgress();
-                    setMaxProgress();
-                    setChanged(level, getBlockPos(), getBlockState());
-                    if(hasProgressFinished()){
-                        craftItem();
-                        resetProgress();
-                    }
-
-                    PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float)this.getBlockPos().getX() + 0.5f, (float)this.getBlockPos().getY() + 0.75f, (float)this.getBlockPos().getZ() + 0.5f, (float)this.getBlockPos().getX() + 0.5f, (float)this.getBlockPos().getY() + 0.65f, ((float)this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
-                    ValoriaUtils.SUpdateTileEntityPacket(this);
-                }
-            }
-        }
-
-        if(recipe.isEmpty()){
-            resetProgress();
-        }
-
+        if(level == null) return;
         if(level.isClientSide){
             playSound();
         }
+
+        if(!level.isClientSide){
+            if(this.cachedRecipe != null){
+                boolean canOutput = itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize();
+                if(getCharge(cachedRecipe.getCore()) >= cachedRecipe.getCoresNeeded() && canOutput){
+                    updateCraft(level);
+                    PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorCraftParticlePacket(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), -0.2f, 0.2f, -0.2f, 255, 255, 255));
+                }else if(cachedRecipe.getCore().equals("empty") && canOutput){
+                    updateCraft(level);
+                    PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float)this.getBlockPos().getX() + 0.5f, (float)this.getBlockPos().getY() + 0.75f, (float)this.getBlockPos().getZ() + 0.5f, (float)this.getBlockPos().getX() + 0.5f, (float)this.getBlockPos().getY() + 0.65f, ((float)this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
+                }
+            }else{
+                resetProgress();
+            }
+        }
+    }
+
+    private void updateCraft(Level level){
+        increaseCraftingProgress();
+        setMaxProgress();
+        if(hasProgressFinished()){
+            craftItem();
+            resetProgress();
+        }
+
+        setChanged(level, getBlockPos(), getBlockState());
+        ValoriaUtils.SUpdateTileEntityPacket(this);
     }
 
     @OnlyIn(Dist.CLIENT)
     public void playSound(){
         SoundManager soundManager = Minecraft.getInstance().getSoundManager();
-        if(getCurrentRecipe().isPresent() && ValoriaClient.MANIPULATOR_LOOP != null && soundManager.isActive(ValoriaClient.MANIPULATOR_LOOP)){
+        if(cachedRecipe != null && getCharge(cachedRecipe.getCore()) >= cachedRecipe.getCoresNeeded() && MANIPULATOR_LOOP != null && soundManager.isActive(MANIPULATOR_LOOP)){
             return;
         }
 
-        if(getCurrentRecipe().isPresent() && progress > 0){
-            ValoriaClient.MANIPULATOR_LOOP = ElementalManipulatorSoundInstance.getSound(this);
-            soundManager.play(ValoriaClient.MANIPULATOR_LOOP);
-            if(!soundManager.isActive(ValoriaClient.MANIPULATOR_LOOP)){
-                ValoriaClient.MANIPULATOR_LOOP = null;
+        if(cachedRecipe != null && progress > 0){
+            MANIPULATOR_LOOP = ElementalManipulatorSoundInstance.getSound(this);
+            soundManager.play(MANIPULATOR_LOOP);
+            if(!soundManager.isActive(MANIPULATOR_LOOP)){
+                MANIPULATOR_LOOP = null;
             }
         }else{
-            if(soundManager.isActive(ValoriaClient.MANIPULATOR_LOOP) && ValoriaClient.MANIPULATOR_LOOP != null){
-                ValoriaClient.MANIPULATOR_LOOP.stopSound();
+            if(MANIPULATOR_LOOP != null && soundManager.isActive(MANIPULATOR_LOOP)){
+                MANIPULATOR_LOOP.stopSound();
             }
 
-            ValoriaClient.MANIPULATOR_LOOP = null;
+            MANIPULATOR_LOOP = null;
         }
     }
 
-    public Optional<ManipulatorRecipe> getCurrentRecipe(){
+    private void updateRecipeCache() {
+        if (this.level == null) return;
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for(int i = 0; i < itemHandler.getSlots(); i++){
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
 
-        return this.level.getRecipeManager().getRecipeFor(ManipulatorRecipe.Type.INSTANCE, inventory, level);
+        this.cachedRecipe = this.level.getRecipeManager().getRecipeFor(ManipulatorRecipe.Type.INSTANCE, inventory, this.level).orElse(null);
     }
 
     private void craftItem(){
-        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float)this.getBlockPos().getCenter().x, (float)this.getBlockPos().getCenter().y - 0.25f, (float)this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
-        Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().assemble(itemHandler);
-        if(!recipe.get().getCore().equals("empty")){
-            decreaseCharge(recipe.get().getCore(), recipe.get().getCoresNeeded());
-        }
+        if(this.cachedRecipe != null){
+            PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float)this.getBlockPos().getCenter().x, (float)this.getBlockPos().getCenter().y - 0.25f, (float)this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
+            ItemStack result = cachedRecipe.assemble(itemHandler);
+            if(!cachedRecipe.getCore().equals("empty")){
+                decreaseCharge(cachedRecipe.getCore(), cachedRecipe.getCoresNeeded());
+            }
 
-        itemHandler.extractItem(0, 1, false);
-        itemHandler.extractItem(1, 1, false);
-        itemOutputHandler.insertItem(0, result, false);
+            itemHandler.extractItem(0, 1, false);
+            itemHandler.extractItem(1, 1, false);
+            itemOutputHandler.insertItem(0, result, false);
+        }
     }
 
     private boolean hasProgressFinished(){
-        Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
-        return progress >= recipe.get().getTime();
+        return this.cachedRecipe != null && progress >= cachedRecipe.getTime();
     }
 
     private void increaseCraftingProgress(){
         startCraft = true;
-        Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
-        if(progress < recipe.get().getTime()){
+        if(this.cachedRecipe != null && progress < cachedRecipe.getTime()){
             progress++;
         }
     }
 
     private void setMaxProgress(){
-        Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
-        if(progressMax <= 0){
-            progressMax = recipe.map(ManipulatorRecipe::getTime).orElse(200);
+        if(this.cachedRecipe != null && progressMax <= 0){
+            progressMax = cachedRecipe.getTime();
         }
     }
 
@@ -219,51 +218,46 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public int getCharge(String name){
-        CompoundTag nbt = this.serializeNBT();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            this.deserializeNBT(nbt);
-        }
-
-        return nbt.getInt(name);
+        return switch(name){
+            case "nature_core" -> nature_core;
+            case "infernal_core" -> infernal_core;
+            case "aquarius_core" -> aquarius_core;
+            case "void_core" -> void_core;
+            case "empty" -> 999;
+            default -> 0;
+        };
     }
 
     public void addCharge(String name, int charge){
-        CompoundTag nbt = this.serializeNBT();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            this.deserializeNBT(nbt);
+        switch (name) {
+            case "nature_core": nature_core += Math.min(charge, ManipulatorBlock.maxCores - nature_core); break;
+            case "infernal_core": infernal_core += Math.min(charge, ManipulatorBlock.maxCores - infernal_core); break;
+            case "aquarius_core": aquarius_core += Math.min(charge, ManipulatorBlock.maxCores - aquarius_core); break;
+            case "void_core": void_core += Math.min(charge, ManipulatorBlock.maxCores - void_core); break;
         }
 
-        int current = nbt.getInt(name);
-        int added = Math.min(charge, ManipulatorBlock.maxCores - current);
-
-        nbt.putInt(name, current + added);
-        this.deserializeNBT(nbt);
         this.setChanged();
     }
 
     public void setCharge(String name, int charge){
-        CompoundTag nbt = this.serializeNBT();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            this.deserializeNBT(nbt);
+        switch (name) {
+            case "nature_core": nature_core = charge; break;
+            case "infernal_core": infernal_core = charge; break;
+            case "aquarius_core": aquarius_core = charge; break;
+            case "void_core": void_core = charge; break;
         }
 
-        nbt.putInt(name, charge);
-        this.deserializeNBT(nbt);
         this.setChanged();
     }
 
     public void decreaseCharge(String name, int charge){
-        CompoundTag nbt = this.serializeNBT();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            this.deserializeNBT(nbt);
+        switch (name) {
+            case "nature_core": nature_core -= charge; break;
+            case "infernal_core": infernal_core -= charge; break;
+            case "aquarius_core": aquarius_core -= charge; break;
+            case "void_core": void_core -= charge; break;
         }
 
-        nbt.putInt(name, nbt.getInt(name) - charge);
-        this.deserializeNBT(nbt);
         this.setChanged();
     }
 
@@ -303,6 +297,12 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         infernal_core = pTag.getInt("infernal_core");
         aquarius_core = pTag.getInt("aquarius_core");
         void_core = pTag.getInt("void_core");
+    }
+
+    @Override
+    public void onLoad(){
+        super.onLoad();
+        updateRecipeCache();
     }
 
     @Override

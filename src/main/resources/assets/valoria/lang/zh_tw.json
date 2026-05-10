@@ -1402,5 +1402,6 @@
   "block.valoria.polished_ash_bricks_stairs": "拋光灰燼磚樓梯",
   "block.valoria.polished_ash_bricks_wall": "拋光灰燼磚牆",
   "curios.identifier.pet": "Pet",
-  "biome.valoria.void_desert": "Void Desert"
+  "biome.valoria.void_desert": "Void Desert",
+  "tooltip.valoria.vampirism": "Heals %s%% of Attacker Max HP on kill. %s%% chance to heal %s%% of damage dealt on hit."
 }

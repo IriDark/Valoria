@@ -1,0 +1,11 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:candy_corn" }, "count": 64 }
+  ],
+  "result": {
+    "item": "valoria:halloween_elixir",
+    "count": 2
+  }
+}

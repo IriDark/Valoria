@@ -352,6 +352,11 @@
       }
     ]
   },
+  "ui.codex_click": {
+    "sounds": [
+      "valoria:ui/codex_button_click"
+    ]
+  },
   "ui.click": {
     "sounds": [
       "valoria:ui/click"

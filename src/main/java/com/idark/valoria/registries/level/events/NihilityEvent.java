@@ -28,9 +28,8 @@ public class NihilityEvent{
         Difficulty difficulty = level.getDifficulty();
         float max = nihilityLevel.getMaxAmount(player);
         float amount = nihilityLevel.getAmount();
-
         if(level.dimension() == LevelGen.VALORIA_KEY){
-            if (difficulty == Difficulty.PEACEFUL) {
+            if (difficulty == Difficulty.PEACEFUL || player.hasEffect(EffectsRegistry.NIHILITY_PROTECTION.get())) {
                 return;
             }
 

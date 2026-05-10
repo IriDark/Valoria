@@ -6,7 +6,7 @@ import net.minecraft.world.entity.*;
 import pro.komaru.tridot.common.registry.entity.system.*;
 
 public class RushAttack extends AttackInstance{
-    private Firron entity;
+    private final Firron entity;
 
     public RushAttack(Firron mob, int attackDelay, int attackDuration, int cooldown){
         super(mob, 0, 16, attackDelay, attackDuration, cooldown);

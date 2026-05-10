@@ -6,23 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:wicked_shield",
-          "weight": 1,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.10
-            }
-          ]
-        }
-        ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
           "name": "valoria:wicked_crystal_page",
           "weight": 1,
           "conditions": [

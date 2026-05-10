@@ -2,7 +2,6 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.item.*;
@@ -105,17 +104,17 @@ public class ItemsRegistry{
     arcaneTrim, icyScytheFragment, lotusFragment, deathOfCrabsFragment, muramasaFragment, murasameFragment, fishFragment, neroFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
 
     // loot bags
-    starterBundle, minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
+    starterBundle, minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, firronTreasureBag, dirtGeode, stoneGeode,
 
     // locators
     cryptLocator, fortressLocator,
 
     // boss summonables
-    necromancerGrimoire, suspiciousGem, harmonyCrown,
+    necromancerGrimoire, suspiciousGem, harmonyCrown, obsidianHeart,
 
     // misc
     debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, voidKey, spectralBladeThrown, pick,
-    codex, page, cryptPage, fortressPage, necromancerPage, dryadorPage, wickedCrystalPage, rot,
+    codex, page, rot,
 
     // weapons
     flameSword,
@@ -167,7 +166,7 @@ public class ItemsRegistry{
     // runes
     lithicRune, lithicRuneVision, lithicRuneWealth, lithicRuneCurses, lithicRuneStrength, lithicRuneAccuracy, lithicRuneDeep,
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
-    voidSlateRune, voidSlateRuneVision, voidSlateRuneWealth, voidSlateRuneCurses, voidSlateRuneStrength, voidSlateRuneAccuracy, voidSlateRuneDeep, voidSlateRunePyro, sacredVoidSlateRune, voidSlateRuneNihility,
+    voidSlateRune, voidSlateRuneVision, voidSlateRuneWealth, voidSlateRuneCurses, voidSlateRuneStrength, voidSlateRuneAccuracy, voidSlateRuneDeep, voidSlateRunePyro, sacredVoidSlateRune, voidSlateRuneNihility, voidSlateRuneVampiric,
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
     // consumables
@@ -340,6 +339,7 @@ public class ItemsRegistry{
         necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         crystalTreasureBag = registerItem("wicked_crystal_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         dryadorTreasureBag = registerItem("dryador_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/dryador_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        firronTreasureBag = registerItem("firron_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/firron_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
         // locators
         cryptLocator = registerItem("crypt_locator", () -> new StructureLocatorItem(Pal.seaGreen, TagsRegistry.NECROMANCER_CRYPT_LOCATOR, new Item.Properties()));
@@ -366,7 +366,8 @@ public class ItemsRegistry{
             }
         });
 
-        harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, EntityTypeRegistry.DRYADOR, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, Level.OVERWORLD, EntityTypeRegistry.DRYADOR, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        obsidianHeart = registerItem("obsidian_heart", () -> new BossSummonableItem(8, Level.NETHER, EntityTypeRegistry.FIRRON, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));
@@ -376,11 +377,6 @@ public class ItemsRegistry{
         soulCollector = registerItem("soul_collector", () -> new SoulCollectorItem(50, 50, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
         codex = registerItem("codex", () -> new CodexItem(new Item.Properties().stacksTo(1)));
         page = registerItem("page", () -> new CodexPageItem(new Item.Properties()));
-        cryptPage = registerItem("crypt_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.crypt, "codex.valoria.crypt.name"));
-        fortressPage = registerItem("fortress_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.fortress, "codex.valoria.fortress.name"));
-        necromancerPage = registerItem("necromancer_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.necromancer, "codex.valoria.necromancer.name"));
-        dryadorPage = registerItem("dryador_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.dryador, "codex.valoria.dryador.name"));
-        wickedCrystalPage = registerItem("wicked_crystal_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.wickedCrystal, "codex.valoria.wicked_crystal.name"));
         rot = registerItem("rot", () -> new RotItem(new Item.Properties()));
 
         voidKey = registerItem("void_key", () -> new Item(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
@@ -933,6 +929,7 @@ public class ItemsRegistry{
         voidSlateRuneAccuracy = registerItem("void_slate_rune_of_accuracy", () -> new RuneAccuracy(0.25f, 1.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneDeep = registerItem("void_slate_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRunePyro = registerItem("void_slate_rune_of_pyro", () -> new CurioPyro(120, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneVampiric = registerItem("void_slate_vampiric_rune", () -> new CurioVampiricRune(0.15f, 0.10f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
 
         // medicine
         aloeBandage = registerItem("aloe_bandage", () -> new BandageItem(false, 1600, 0));

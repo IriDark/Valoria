@@ -5,6 +5,7 @@ import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
@@ -31,6 +32,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.server.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
@@ -59,8 +61,10 @@ import net.minecraftforge.registries.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.render.text.DotStyleEffects.*;
 import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
@@ -271,6 +275,15 @@ public class Events{
     @SubscribeEvent
     public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event){
         Player player = event.getEntity();
+        if(player instanceof ServerPlayer sp){
+            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
+            if(unlocked != null) all.removeAll(unlocked);
+            for(Unlockable unknown : all){
+                if(unknown instanceof OnDimensionChangeListener entityU) entityU.checkCondition(sp, event.getTo());
+            }
+        }
+
         if(event.getTo() == LevelGen.VALORIA_KEY){
             onValoriaEnter(player);
         }
@@ -281,9 +294,7 @@ public class Events{
         if(level instanceof ServerLevel s && player instanceof ServerPlayer sp){
             ResourceLocation loc = Valoria.loc("advancements/valoria/visit_the_valoria.json");
             Advancement adv = s.getServer().getAdvancements().getAdvancement(loc);
-            if(adv == null) return;
-
-            if(!sp.getAdvancements().getOrStartProgress(adv).isDone()) {
+            if(adv == null || !sp.getAdvancements().getOrStartProgress(adv).isDone()) {
                 player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
             }
         }
@@ -292,31 +303,14 @@ public class Events{
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event){
         if (event.phase != TickEvent.Phase.END) return;
-
         Player player = event.player;
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
             if(ServerConfig.ENABLE_NIHILITY.get()){
-                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
-                    if(!player.getAbilities().instabuild && !player.isSpectator()){
-                        NihilityEvent.tick(event, nihilityLevel, serverPlayer);
-                    }
-                });
+                tickNihility(event, serverPlayer, player);
             }
 
-            player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
-                if(!player.getAbilities().instabuild && !player.isSpectator()){
-                    MagmaEvent.tick(event, magmaLevel, player);
-                }
-            });
-
-            if(player.tickCount % ServerConfig.CODEX_UPDATE_INTERVAL.get() * 20 == 0){
-                ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
-                Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
-                if(unlocked != null) all.removeAll(unlocked);
-                for(Unlockable unknown : all){
-                    unknown.tick(serverPlayer);
-                }
-            }
+            tickMagma(event, player);
+            tickCodex(serverPlayer, player);
         }
 
         if(ServerConfig.ENABLE_NIHILITY.get()){
@@ -346,6 +340,33 @@ public class Events{
                 }
             }
         }
+    }
+
+    private void tickNihility(PlayerTickEvent event, ServerPlayer serverPlayer, Player player){
+        player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+            if(!player.getAbilities().instabuild && !player.isSpectator()){
+                NihilityEvent.tick(event, nihilityLevel, serverPlayer);
+            }
+        });
+    }
+
+    private void tickCodex(ServerPlayer serverPlayer, Player player){
+        if(player.tickCount % ServerConfig.CODEX_UPDATE_INTERVAL.get() * 20 == 0){
+            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
+            if(unlocked != null) all.removeAll(unlocked);
+            for(Unlockable unknown : all){
+                unknown.tick(serverPlayer);
+            }
+        }
+    }
+
+    private void tickMagma(PlayerTickEvent event, Player player){
+        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
+            if(!player.getAbilities().instabuild && !player.isSpectator()){
+                MagmaEvent.tick(event, magmaLevel, player);
+            }
+        });
     }
 
     private static void convertToRot(PlayerTickEvent event, ItemStack stack, Inventory inv, int i){
@@ -420,6 +441,36 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        Player player = event.getEntity();
+        if(ServerConfig.PATREON_REWARDS.get()){
+            if(PatreonManager.PATRONS.containsKey(player.getUUID()) && player instanceof ServerPlayer servPlr){
+                CompoundTag persistentData = player.getPersistentData();
+                CompoundTag persistedNbt = persistentData.getCompound(Player.PERSISTED_NBT_TAG);
+                if(!persistedNbt.getBoolean("ValoriaPatronRewardClaimed")){
+                    PatreonManager.rewardPlayer(servPlr);
+                    persistedNbt.putBoolean("ValoriaPatronRewardClaimed", true);
+                    persistentData.put(Player.PERSISTED_NBT_TAG, persistedNbt);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onServerTick(TickEvent.ServerTickEvent event) {
+        MinecraftServer server = event.getServer();
+        if (server.getTickCount() % 100 != 0) return;
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
+            if(unlocked != null) all.removeAll(unlocked);
+            for(Unlockable unknown : all){
+                if(unknown instanceof OnDungeonVisitListener entityU) entityU.checkCondition(player, player.serverLevel());
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onMobKilled(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             LivingEntity victim = event.getEntity();
@@ -429,6 +480,11 @@ public class Events{
             if(unlocked != null) all.removeAll(unlocked);
             for(Unlockable unknown : all){
                 if(unknown instanceof OnMobKilledListener entityU) entityU.checkCondition(player, victim);
+            }
+
+            var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioOnKillItem, player);
+            if(curioStack != null){
+                ((CurioOnKillItem)curioStack.getItem()).onKill(curioStack, player, victim);
             }
         }
     }
@@ -474,9 +530,8 @@ public class Events{
         }
 
         if (!(attackerEntity instanceof LivingEntity attacker)) return;
-
         float totalBonus = 0f;
-        if(!(attacker instanceof Player && target instanceof Player)){
+        if(!(attacker instanceof Player && target instanceof Player plr)){
             for(ElementalType type : ElementalTypes.ELEMENTALS){
                 AttributeInstance attackAttr = attacker.getAttribute(type.damageAttr().get());
                 AttributeInstance resistAttr = target.getAttribute(type.resistAttr().get());
@@ -486,8 +541,47 @@ public class Events{
             }
         }
 
-        event.setAmount(event.getAmount() + totalBonus);
+        if(target instanceof Player plr){
+            if(!event.getSource().is(DamageTypeTags.BYPASSES_ARMOR)){
+                float incomingDamage = event.getAmount();
+                if(target.hasEffect(EffectsRegistry.NIHILITY_PROTECTION.get())){
+                    int amplifier = target.getEffect(EffectsRegistry.NIHILITY_PROTECTION.get()).getAmplifier() + 1;
+                    float protectionPercent = Math.min((amplifier + 1) * 0.10f, 0.90f);
+                    float totalMultiplier = Math.max(0.0f, 1.0f - protectionPercent);
+                    float reducedDamage = incomingDamage * totalMultiplier;
+
+                    castHurtEvent(event, reducedDamage, source, data);
+                    plr.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+                        if (!plr.getAbilities().instabuild && !plr.isSpectator()) {
+                            nihilityLevel.modifyAmount(plr, incomingDamage - reducedDamage * 1.5f);
+                        }
+                    });
+
+                    ScreenshakeHandler.add(new PositionedScreenshakeInstance(15, Pos3.init((float)plr.getX(), (float)plr.getY(), (float)plr.getZ()), 0, 5).intensity(0.45f).interp(Interp.fade));
+                    return;
+                }
+            }
+        }
+
+        castHurtEvent(event, event.getAmount() + totalBonus, source, data);
+    }
+
+    private void castHurtEvent(LivingHurtEvent event, float reducedDamage, DamageSource source, ILivingEntityData data){
+        event.setAmount(reducedDamage);
         data.valoria$setLastDamageWithSource(event.getSource(), event.getAmount());
+
+        var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioOnHurtItem, event.getEntity());
+        if(curioStack != null){
+            ((CurioOnHurtItem)curioStack.getItem()).onHurt(curioStack, event.getEntity(), source, reducedDamage);
+        }
+
+        Entity attackerEntity = event.getSource().getEntity();
+        if (attackerEntity instanceof LivingEntity attacker) {
+            var attackCurio = getEquippedCurio((item) -> item.getItem() instanceof CurioOnAttackItem, attacker);
+            if (attackCurio != null) {
+                ((CurioOnAttackItem) attackCurio.getItem()).onAttack(attackCurio, event.getEntity(), event.getSource(), event.getAmount());
+            }
+        }
     }
 
     private static float applyAttackBonus(AttributeInstance attackAttr, AttributeInstance resistAttr, LivingEntity target, float totalBonus){
@@ -741,9 +835,9 @@ public class Events{
         float f2 = plr.getAttackStrengthScale(0.5F);
         boolean flag = f2 > 0.9F;
         if(flag && plr.onGround()){
-            var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CritDamageItem, event.getEntity());
+            var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioCritDamageItem, event.getEntity());
             if(curioStack != null){
-                ((CritDamageItem)curioStack.getItem()).critDamage(event);
+                ((CurioCritDamageItem)curioStack.getItem()).critDamage(event);
             }
         }
     }

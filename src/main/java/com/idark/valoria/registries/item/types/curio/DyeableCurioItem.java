@@ -1,6 +1,5 @@
-package com.idark.valoria.registries.item.types.curio.hands;
+package com.idark.valoria.registries.item.types.curio;
 
-import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;

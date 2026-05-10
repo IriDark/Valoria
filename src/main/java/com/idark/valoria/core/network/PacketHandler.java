@@ -50,6 +50,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, CystSummonParticlePacket.class, CystSummonParticlePacket::encode, CystSummonParticlePacket::decode, CystSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, MinionSummonParticlePacket.class, MinionSummonParticlePacket::encode, MinionSummonParticlePacket::decode, MinionSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, SoulCollectParticlePacket.class, SoulCollectParticlePacket::encode, SoulCollectParticlePacket::decode, SoulCollectParticlePacket::handle);
+        HANDLER.registerMessage(id++, VampirismParticlePacket.class, VampirismParticlePacket::encode, VampirismParticlePacket::decode, VampirismParticlePacket::handle);
         HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
         HANDLER.registerMessage(id++, PageToastPacket.class, PageToastPacket::encode, PageToastPacket::decode, PageToastPacket::handle);
         HANDLER.registerMessage(id++, LineToNearbyMobsParticlePacket.class, LineToNearbyMobsParticlePacket::encode, LineToNearbyMobsParticlePacket::decode, LineToNearbyMobsParticlePacket::handle);
@@ -65,7 +66,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, DashParticlePacket.class, DashParticlePacket::encode, DashParticlePacket::decode, DashParticlePacket::handle);
         HANDLER.registerMessage(id++, MusicToastPacket.class, MusicToastPacket::encode, MusicToastPacket::decode, MusicToastPacket::handle);
-        HANDLER.registerMessage(id++, UnlockCodexPacket.class, UnlockCodexPacket::encode, UnlockCodexPacket::decode, UnlockCodexPacket::handle);
+        HANDLER.registerMessage(id++, UnlockCodexPacket.class, UnlockCodexPacket::encode, UnlockCodexPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, NihilityPacket.class, NihilityPacket::encode, NihilityPacket::decode, NihilityPacket::handle);
         HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
         HANDLER.registerMessage(id++, HeavyWorkbenchCraftPacket.class, HeavyWorkbenchCraftPacket::encode, HeavyWorkbenchCraftPacket::decode, RateLimitedPacket::processPacket);
@@ -79,6 +80,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, OnKeyInputPacket.class, OnKeyInputPacket::encode, OnKeyInputPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, CastAbilityPacket.class, CastAbilityPacket::encode, CastAbilityPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, ReadCodexPacket.class, ReadCodexPacket::encode, ReadCodexPacket::decode, ReadCodexPacket::handle);
+        HANDLER.registerMessage(id++, ProgressionDisableCodexPacket.class, ProgressionDisableCodexPacket::encode, ProgressionDisableCodexPacket::decode, RateLimitedPacket::processPacket);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

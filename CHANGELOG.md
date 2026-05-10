@@ -1,17 +1,64 @@
 # 1.0.3
 
 # **Added**
+- Added Void Slate Runes
 - Added Percent Armor translations due to confusion
 - Added missing translation to valoria:void_desert
+- Added Ancient Stone to Stone Crusher recipes, an additional way to receive Ancient Shards
+- Added Zooming to Codex
+- Added Combat Fundamentals page to Codex
+- Added a lot of new pages to Codex
+- Added Respirator recipe
+- Added Gas mask recipe
+- Added Cutscenes
+- Added Firron Boss
+- Added Quantum Reaper to Valoria Fortress LootTable (previously unobtainable)
+- Added Void key to Wicked Crystal drop (This will prevent players from being stuck inside a Boss arena if Minecraft decides not to generate stupid buttons)
 
 # **Fixed**
+- Fixed possible Packet Hack allowing users to dupe items using Codex reward system that is currently WIP
+- Fixed possible Packet Hack allowing users to upgrade Alchemy Station using cheapest materials directly upgrading from levels 1 -> 3 
+- Fixed Ent Attack delays
+- Fixed Troll animations
+- Fixed font Unicode conflicts with other mods - reported by muon (μ⁻)
+- Fixed rare crash on UnlockableCondition check - reported by muon (μ⁻)
+- Fixed Harvest level mismatch on some tools
+- Fixed Manipulator Sound stuttering on multiple blocks working
+- Fixed Accessories breaking particles
+- Fixed Accessories breaking logic
+- Fixed Stun Effect rarely crashing the game
 - Fixed Overlays causing FPS drop on low-end PCs
 - Some sounds were mixed after compression
 - Zero damage projectiles with Projectile damage attribute
 - Fixed Pot Shape causing lags
+- Fixed some rare crashes
+- Fixed Night Vision rune duration desync
 - LootBag wasn't giving player the first item in the loot list - Thanks for reporting to Bela Clove
 
 # **Changes**
+- Improved Codex hints
+- Reduced Wicked Scorpion spawn rate
+- Increased Shade Blossom generation (Common now)
+- Specific codex pages were removed, now there's only random one, if all the pages are unlocked it will be consumed for player experience
+- Improved Boss Structure Generation: Valoria boss structures are now guaranteed to generate in a radius around the world spawn rate (similar to vanilla Strongholds).
+- Optimized radial attacks
+- Improved Codex entries hovering
+- Improved Codex entry pages (Added scrolling, images, entity renderers, recipes...)
+- Improved Codex entries clicking interaction
+- Nerfed King Crab (damage and health)
+- Decreased Devil health
+- Increased Devil loot
+- Kiln now can be crafted using any of Ephemarite type stone
+- Increased Shade blossom generation
+- Removed Diamonds from Pot
+- Decreased Iron drop from Pot
+- Decreased Ent spawn rate
+- Increased Ent loot
+- Improvements to Codex UIX
+- Reduced Gaib roots generation count
+- Increased Gaib roots drop count
+- Increased food rot interval 3s -> 10 min
+- Changes to Accessories breaking logic to make it more predictable
 - Improvements to russian translation by refiq_
 ```
 # Swords & Katanas

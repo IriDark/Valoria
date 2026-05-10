@@ -80,6 +80,8 @@ public class CodexPageItem extends Item{
     private static @NotNull InteractionResultHolder<ItemStack> interactionFail(Level world, Player player, ItemStack stack){
         world.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 0.7f, 0.2f);
         player.displayClientMessage(Component.translatable("codex.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
+        player.giveExperiencePoints(25);
+        stack.shrink(1);
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }
 

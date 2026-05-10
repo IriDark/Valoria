@@ -8,15 +8,22 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.registries.*;
 import pro.komaru.tridot.util.struct.data.*;
 
+import javax.annotation.*;
 import java.util.*;
 
 public class ChapterNode {
+    @Nullable public ChapterNode parent;
     public Chapter chapter;
+    public CodexEntry entry; //backcompatibility
+
     public Item item;
     public Seq<ChapterNode> children = Seq.with();
+
     public Unlockable unlockable;
     public Style style;
-    public CodexEntry entry; //backcompatibility
+    public boolean isCollapsed = false;
+    public boolean parentUnlockable = false;
+
     public List<Component> description = Lists.newArrayList();
     public List<Component> hints = Lists.newArrayList();
 
@@ -26,6 +33,14 @@ public class ChapterNode {
 
     public ChapterNode(Chapter chapter, Item item, Style style) {
         this(chapter, item, style, null);
+    }
+
+    public ChapterNode(Chapter chapter, Item item, Style style, boolean parentUnlockable) {
+        this.chapter = chapter;
+        this.item = item;
+        this.unlockable = null;
+        this.style = style;
+        this.parentUnlockable = parentUnlockable;
     }
 
     public ChapterNode(Chapter chapter, Item item, Style style, Unlockable unlockable) {
@@ -58,6 +73,7 @@ public class ChapterNode {
     }
 
     public ChapterNode addChild(ChapterNode node) {
+        node.parent = this;
         children.add(node);
         return this;
     }

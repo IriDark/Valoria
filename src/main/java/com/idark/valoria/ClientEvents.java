@@ -14,7 +14,6 @@ import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.network.chat.ClickEvent.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
@@ -23,12 +22,9 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.config.*;
-import net.minecraftforge.fml.config.ModConfig.*;
 import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.util.*;
 
-import java.io.*;
 import java.text.*;
 import java.util.*;
 
@@ -125,7 +121,6 @@ public class ClientEvents{
                 Component message = Component.literal("\uD83E\uDEB7 Valoria: ").withStyle(style -> DotStyle.of().color(Pal.verySoftPink)).append(Component.translatable("tooltip.valoria.update_available", newVersion).withStyle(ChatFormatting.WHITE));
                 var actions = Component.translatable("tooltip.valoria.download").withStyle(style -> style.withUnderlined(true).withFont(Valoria.FONT).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/valoria")))
                 .append(Component.literal(" | ")
-                .append(Component.translatable("tooltip.valoria.hide").withStyle(style -> style.withUnderlined(true).withFont(Valoria.FONT).withClickEvent(new ClickEvent(Action.OPEN_FILE, new File(ConfigTracker.INSTANCE.getConfigFileName(Valoria.ID, Type.CLIENT)).getAbsolutePath()))))
                 .append(Component.literal(" | "))
                 .append(Component.translatable("tooltip.valoria.patreon").withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.patreon.com/c/valoriamod"))))
                 );

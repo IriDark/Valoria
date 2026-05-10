@@ -17,8 +17,8 @@ import org.lwjgl.glfw.*;
 public class BookGui extends Screen{
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/codex.png");
     public ItemStack item;
-    public static Chapter currentChapter;
-    public static int currentPage = 0;
+    public Chapter currentChapter;
+    public int currentPage;
     public boolean openedFromInv;
     public boolean initializedPages = false;
 
@@ -39,28 +39,29 @@ public class BookGui extends Screen{
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
-        // scroll next
+    public boolean mouseScrolled(double mouseX, double mouseY, double scroll){
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
-        if(left != null) left.mouseScrolled(mouseX, mouseY, scroll);
-        if(right != null) right.mouseScrolled(mouseX, mouseY, scroll);
-        if(currentChapter != CodexEntries.BOSS_CHECKLIST){
-            if(scroll > 0){
-                if(currentChapter.size() >= currentPage + 3){
-                    currentPage += 2;
-                    Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                }
-            }
+        boolean consumed = false;
+        if(left != null && left.mouseScrolled(mouseX, mouseY, scroll)) consumed = true;
+        if(right != null && right.mouseScrolled(mouseX, mouseY, scroll)) consumed = true;
 
-            // scroll back
-            if(scroll < 0){
-                if(currentPage <= 0){
-                    this.onClose();
-                    return true; // prevent crash
-                }else{
-                    currentPage -= 2;
-                    Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                }
+        if(consumed) return true;
+
+        if(scroll > 0){
+            if(currentChapter.size() >= currentPage + 3){
+                currentPage += 2;
+                Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            }
+        }
+
+        // scroll back
+        if(scroll < 0){
+            if(currentPage <= 0){
+                this.onClose();
+                return true; // prevent crash
+            }else{
+                currentPage -= 2;
+                Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
             }
         }
 
@@ -77,9 +78,8 @@ public class BookGui extends Screen{
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void drawItemWithTooltip(ItemStack stack, int x, int y, GuiGraphics gui, int mouseX, int mouseY, boolean ShowTooltip){
-        gui.renderItem(stack, x, y);
-        if(ShowTooltip && !stack.isEmpty()){
+    public static void drawItemTooltip(ItemStack stack, int x, int y, GuiGraphics gui, int mouseX, int mouseY){
+        if(!stack.isEmpty()){
             if(mouseX >= x && mouseY >= y && mouseX <= x + 16 && mouseY <= y + 16){
                 gui.renderTooltip(Minecraft.getInstance().font, stack, mouseX, mouseY);
             }
