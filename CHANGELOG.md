@@ -11,6 +11,7 @@
 - Added Respirator recipe
 - Added Gas mask recipe
 - Added Cutscenes
+- Added Firron Boss
 - Added Quantum Reaper to Valoria Fortress LootTable (previously unobtainable)
 - Added Void key to Wicked Crystal drop (This will prevent players from being stuck inside a Boss arena if Minecraft decides not to generate stupid buttons)
 

@@ -83,7 +83,7 @@ public class BlockRegistry{
     taintedRoots, bloodVine, bloodVinePlant, caveRootPlant, caveRoot, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, doubleVoidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes,
 
     // boss trophies
-    bossTrophy, necromancerTrophy, dryadorTrophy, wickedCrystalTrophy
+    bossTrophy, necromancerTrophy, dryadorTrophy, firronTrophy, wickedCrystalTrophy
     ;
 
 
@@ -616,6 +616,7 @@ public class BlockRegistry{
         bossTrophy = registerBlock("boss_trophy", () -> new BossTrophyBlock(Properties.copy(Blocks.STONE)));
         necromancerTrophy = registerBlock("necromancer_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.NECROMANCER::get, Properties.copy(Blocks.STONE)), () -> new BossTrophyBlockItem(BlockRegistry.necromancerTrophy.get(), new Item.Properties()));
         dryadorTrophy = registerBlock("dryador_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.DRYADOR::get, Properties.copy(Blocks.STONE)), () -> new BossTrophyBlockItem(BlockRegistry.dryadorTrophy.get(), new Item.Properties()));
+        firronTrophy = registerBlock("firron_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.FIRRON::get, Properties.copy(Blocks.STONE)), () -> new BossTrophyBlockItem(BlockRegistry.firronTrophy.get(), new Item.Properties()));
         wickedCrystalTrophy = registerBlock("wicked_crystal_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.WICKED_CRYSTAL::get, Properties.copy(Blocks.STONE)), () -> new BossTrophyBlockItem(BlockRegistry.wickedCrystalTrophy.get(), new Item.Properties()));
 
         BLOCK.register(eventBus);

@@ -6,53 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:nature_upgrade_smithing_template",
+          "name": "valoria:infernal_upgrade_smithing_template",
           "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:nature_core",
+          "name": "valoria:infernal_core",
           "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:poisoned_acorn",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.15
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:acorn",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 6
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.25
-            }
-          ]
         }
       ]
     },
@@ -75,7 +35,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:ent",
+          "name": "valoria:infernal_sword",
           "weight": 5,
           "functions": [],
           "conditions": [
@@ -87,7 +47,19 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:nature_scythe",
+          "name": "valoria:flame_sword",
+          "weight": 10,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.10
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:infernal_scythe",
           "weight": 5,
           "functions": [],
           "conditions": [
@@ -99,7 +71,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:nature_bow",
+          "name": "valoria:infernal_bow",
           "weight": 5,
           "functions": [],
           "conditions": [
@@ -111,7 +83,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:nature_arrow",
+          "name": "valoria:infernal_arrow",
           "weight": 5,
           "functions": [
             {
@@ -128,21 +100,23 @@
               "chance": 0.25
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:summon_book",
-          "weight": 5,
+          "name": "valoria:valoria_portal_frame_shard",
+          "weight": 100,
           "functions": [
             {
-              "function": "set_nbt",
-              "tag": "{DisplayColor:{color:9562905},EntityTag:{id:\"valoria:pixie\"}}"
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 2,
+                "max": 8
+              }
             }
           ]
         }
@@ -153,7 +127,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:nature_gift",
+          "name": "valoria:infernal_stone",
           "weight": 100,
           "functions": [
             {
@@ -172,7 +146,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:dryador_boss_trophy",
+          "name": "valoria:firron_boss_trophy",
           "weight": 1,
           "functions": []
         }
@@ -208,18 +182,6 @@
         {
           "type": "minecraft:item",
           "name": "valoria:muramasa_fragment",
-          "weight": 1,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.15
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:fish_fragment",
           "weight": 1,
           "functions": [],
           "conditions": [

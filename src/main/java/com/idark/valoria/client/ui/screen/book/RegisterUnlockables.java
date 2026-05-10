@@ -16,7 +16,7 @@ public class RegisterUnlockables{
     crushables, lithicRunes, runes, voidSlateRunes,
 
     undead, kingCrab, harmonyEntities, devil, scavenger, fleshSentinel,
-    necromancerGrimoire, necromancer, harmonyCrown, dryador, suspiciousGem, wickedCrystal,
+    necromancerGrimoire, necromancer, harmonyCrown, dryador, obsidianHeart, firron, suspiciousGem, wickedCrystal,
     crypt, monstrosities, fortress, valoriaPortal, valoriaVisit, shadeBlossom,
 
     cobalt, blackGold, crimtane, remains, soulCollector,
@@ -53,7 +53,9 @@ public class RegisterUnlockables{
         necromancerGrimoire = register(new ItemUnlockable(Valoria.ID + ":necromancer_grimoire", false, ItemsRegistry.necromancerGrimoire.get()));
         necromancer = register(new EntityUnlockable(Valoria.ID + ":necromancer", ItemsRegistry.necromancerGrimoire.get(), EntityTypeRegistry.NECROMANCER.get()));
         harmonyCrown = register(new ItemUnlockable(Valoria.ID + ":harmony_crown", false, ItemsRegistry.harmonyCrown.get()));
+        obsidianHeart = register(new ItemUnlockable(Valoria.ID + ":obsidian_heart", false, ItemsRegistry.obsidianHeart.get()));
         dryador = register(new EntityUnlockable(Valoria.ID + ":dryador", ItemsRegistry.harmonyCrown.get(), EntityTypeRegistry.DRYADOR.get()));
+        firron = register(new EntityUnlockable(Valoria.ID + ":firron", ItemsRegistry.obsidianHeart.get(), EntityTypeRegistry.FIRRON.get()));
         suspiciousGem = register(new ItemUnlockable(Valoria.ID + ":suspicious_gem", false, ItemsRegistry.suspiciousGem.get()));
         wickedCrystal = register(new EntityUnlockable(Valoria.ID + ":wicked_crystal", ItemsRegistry.suspiciousGem.get(), EntityTypeRegistry.WICKED_CRYSTAL.get()));
         cobalt = register(new ItemUnlockable(Valoria.ID + ":cobalt", Items.DIAMOND_PICKAXE));

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/X/",
+    "XOX",
+    "/X/"
+  ],
+  "key": {
+    "/": {
+      "item": "minecraft:obsidian"
+    },
+    "X": {
+      "item": "valoria:infernal_ingot"
+    },
+    "O": {
+      "item": "valoria:devil_heart"
+    }
+  },
+  "result": {
+    "item": "valoria:obsidian_heart",
+    "count": 1
+  }
+}

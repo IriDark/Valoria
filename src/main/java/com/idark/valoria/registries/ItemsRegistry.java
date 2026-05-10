@@ -104,13 +104,13 @@ public class ItemsRegistry{
     arcaneTrim, icyScytheFragment, lotusFragment, deathOfCrabsFragment, muramasaFragment, murasameFragment, fishFragment, neroFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
 
     // loot bags
-    starterBundle, minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
+    starterBundle, minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, firronTreasureBag, dirtGeode, stoneGeode,
 
     // locators
     cryptLocator, fortressLocator,
 
     // boss summonables
-    necromancerGrimoire, suspiciousGem, harmonyCrown,
+    necromancerGrimoire, suspiciousGem, harmonyCrown, obsidianHeart,
 
     // misc
     debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, voidKey, spectralBladeThrown, pick,
@@ -339,6 +339,7 @@ public class ItemsRegistry{
         necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         crystalTreasureBag = registerItem("wicked_crystal_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         dryadorTreasureBag = registerItem("dryador_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/dryador_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        firronTreasureBag = registerItem("firron_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/firron_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
         // locators
         cryptLocator = registerItem("crypt_locator", () -> new StructureLocatorItem(Pal.seaGreen, TagsRegistry.NECROMANCER_CRYPT_LOCATOR, new Item.Properties()));
@@ -365,7 +366,8 @@ public class ItemsRegistry{
             }
         });
 
-        harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, EntityTypeRegistry.DRYADOR, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, Level.OVERWORLD, EntityTypeRegistry.DRYADOR, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        obsidianHeart = registerItem("obsidian_heart", () -> new BossSummonableItem(8, Level.NETHER, EntityTypeRegistry.FIRRON, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));

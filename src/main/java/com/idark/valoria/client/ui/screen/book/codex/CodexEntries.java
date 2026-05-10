@@ -51,7 +51,7 @@ public class CodexEntries{
     CRYPT, FORTRESS,
 
     ELEMENTAL_EMPERORS,
-    HARMONY_CROWN, DRYADOR,
+    HARMONY_CROWN, DRYADOR, OBSIDIAN_HEART, FIRRON,
 
     CRUSHABLES,
     MATERIALS, COBALT,
@@ -346,6 +346,16 @@ public class CodexEntries{
         new GeneralPage("codex.valoria.dryador").hideTitle(),
         new GeneralPage().addSpace(60).addEntity(EntityTypeRegistry.DRYADOR.get(), 26, false));
 
+        OBSIDIAN_HEART = new Chapter(
+        "codex.valoria.obsidian_heart.name",
+        new GeneralPage("codex.valoria.obsidian_heart"),
+        new GeneralPage("codex.valoria.obsidian_heart.continuation").hideTitle());
+
+        FIRRON = new Chapter(
+        "codex.valoria.firron.name",
+        new GeneralPage("codex.valoria.firron").hideTitle(),
+        new GeneralPage().addSpace(60).addEntity(EntityTypeRegistry.FIRRON.get(), 26, false));
+
         SUSPICIOUS_GEM = new Chapter(
         "codex.valoria.suspicious_gem.name",
         new GeneralPage("codex.valoria.suspicious_gem"),
@@ -602,6 +612,11 @@ public class CodexEntries{
                         .addChild(new ChapterNode(HARMONY_CROWN, ItemsRegistry.harmonyCrown.get(), Style.IRON, RegisterUnlockables.harmonyCrown)
                             .addHintsDescription(Component.translatable("codex.valoria.harmony_crown.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                             .addChild(new ChapterNode(DRYADOR, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.dryador))
+                        )
+
+                        .addChild(new ChapterNode(OBSIDIAN_HEART, ItemsRegistry.obsidianHeart.get(), Style.IRON, RegisterUnlockables.obsidianHeart)
+                            .addHintsDescription(Component.translatable("codex.valoria.firron.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                            .addChild(new ChapterNode(FIRRON, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.firron))
                         )
 
                         .addChild(new ChapterNode(FORTRESS, ItemsRegistry.wickedAmethyst.get(), Style.CRYPT, RegisterUnlockables.fortress)
