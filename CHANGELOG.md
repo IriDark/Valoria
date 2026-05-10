@@ -1,3 +1,10 @@
+# 1.0.3.1
+
+# **Fixed**
+- Fixed server crash
+- Fixed pages tag
+- Fixed Wicked Crystal LootTable
+
 # 1.0.3
 
 # **Added**

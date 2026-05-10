@@ -61,6 +61,7 @@ public class GeneralPage extends Page {
     public GeneralPage addTitle(String titleKey) {
         elements.add(new PageElement() {
             @Override
+            @OnlyIn(Dist.CLIENT)
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
                 if(!hasTitle) return 0;
 
@@ -77,6 +78,7 @@ public class GeneralPage extends Page {
     public GeneralPage addText(String textKey) {
         elements.add(new PageElement() {
             @Override
+            @OnlyIn(Dist.CLIENT)
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
                 Font font = Minecraft.getInstance().font;
                 String content = I18n.get(textKey);
@@ -96,6 +98,7 @@ public class GeneralPage extends Page {
     public GeneralPage addImage(ResourceLocation texture, int xOffset, int yOffset, int width, int height) {
         elements.add(new PageElement() {
             @Override
+            @OnlyIn(Dist.CLIENT)
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
                 gui.blit(texture, x + xOffset + (xOffset == 0 ? (wrapWidth - width) / 2 : 0), y + yOffset, 0, 0, width, height, width, height);
                 return height + yOffset + 5;
@@ -116,6 +119,7 @@ public class GeneralPage extends Page {
     public GeneralPage addItem(ItemStack item, boolean floating, int xOffset, int yOffset, int size) {
         elements.add(new PageElement() {
             @Override
+            @OnlyIn(Dist.CLIENT)
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
                 Minecraft mc = Minecraft.getInstance();
 
@@ -148,6 +152,7 @@ public class GeneralPage extends Page {
             private boolean hasRecipe = false;
 
             @Override
+            @OnlyIn(Dist.CLIENT)
             public void init() {
                 Minecraft mc = Minecraft.getInstance();
                 if (mc.level != null) {
@@ -182,6 +187,7 @@ public class GeneralPage extends Page {
             }
 
             @Override
+            @OnlyIn(Dist.CLIENT)
             public void renderPost(GuiGraphics gui, int x, int y, int mouseX, int mouseY){
                 super.renderPost(gui, x, y, mouseX, mouseY);
                 if (!hasRecipe) return;
@@ -203,6 +209,7 @@ public class GeneralPage extends Page {
             }
 
             @Override
+            @OnlyIn(Dist.CLIENT)
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
                 if (!hasRecipe) return 0;
                 gui.pose().pushPose();
@@ -242,6 +249,7 @@ public class GeneralPage extends Page {
             @Nullable private T entity;
 
             @Override
+            @OnlyIn(Dist.CLIENT)
             public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
                 Minecraft mc = Minecraft.getInstance();
                 if (entity == null) {
@@ -274,7 +282,6 @@ public class GeneralPage extends Page {
                 return height;
             }
         });
-
         return this;
     }
 
@@ -347,8 +354,13 @@ public class GeneralPage extends Page {
     }
 
     public abstract static class PageElement {
+        @OnlyIn(Dist.CLIENT)
         public void init() {}
+
+        @OnlyIn(Dist.CLIENT)
         public void renderPost(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {}
+
+        @OnlyIn(Dist.CLIENT)
         public abstract int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY);
     }
 }

@@ -33,6 +33,9 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.entity.*;
@@ -196,31 +199,39 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
             currentPhase.onEnter();
             amplifyStats();
             if(this.level().isClientSide()){
-                Seq<CutsceneNode> nodes = Seq.with();
-                Vec3 tablePos = this.position();
-                Player plr = Minecraft.getInstance().player;
-
-                Vec3 approachPos = plr.getEyePosition().lerp(tablePos, 0.6).add(1, 4, 1);
-                nodes.add(new CutsceneNode(approachPos, Interp.smooth, 35)
-                .yawToTarget(tablePos)
-                .pitchToTarget(tablePos)
-                .setFov(60)
-                );
-
-                Vec3 mid = tablePos.add(1, 5, 1);
-                nodes.add(new CutsceneNode(mid, Interp.pow5, 40)
-                .yawToTarget(tablePos)
-                .pitchToTarget(tablePos)
-                .setFov(90)
-                );
-
-                CutsceneManager.start(nodes);
+                DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
+                    playCutscene();
+                    return new Object();
+                });
             } else {
                 CutsceneHelper.init(this.level(), this.getBoundingBox(), 100);
             }
         }
 
         if(phaseTransitionAnimationState.isStarted()) animationTicks--;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void playCutscene() {
+        Seq<CutsceneNode> nodes = Seq.with();
+        Vec3 tablePos = this.position();
+        Player plr = Valoria.proxy.getPlayer();
+
+        Vec3 approachPos = plr.getEyePosition().lerp(tablePos, 0.6).add(1, 4, 1);
+        nodes.add(new CutsceneNode(approachPos, Interp.smooth, 35)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(60)
+        );
+
+        Vec3 mid = tablePos.add(1, 5, 1);
+        nodes.add(new CutsceneNode(mid, Interp.pow5, 40)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(90)
+        );
+
+        CutsceneManager.start(nodes);
     }
 
     public boolean isInvulnerableTo(DamageSource pSource) {

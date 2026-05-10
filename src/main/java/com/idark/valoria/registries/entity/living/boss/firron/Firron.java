@@ -34,6 +34,7 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.level.pathfinder.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.bossbars.*;
@@ -149,44 +150,52 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         }
 
         if(this.level().isClientSide()){
-            if(tickCount < 20 && !CutsceneManager.active){
-                this.lookAt(Anchor.EYES, Minecraft.getInstance().player.position().add(0, 2, 0));
-                Seq<CutsceneNode> nodes = Seq.with();
-                Vec3 tablePos = this.position();
-
-                Vec3 targetFacePos = this.position().add(0, 2, 0);
-                Vec3 forwardVector = Vec3.directionFromRotation(0, this.getYRot());
-                double distanceInFront = 3.5;
-                Vec3 cameraFrontPos = targetFacePos.add(forwardVector.scale(distanceInFront));
-
-                Vec3 approachPos = cameraFrontPos.add(3, -1.5, 3);
-                nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
-                .yawToTarget(tablePos)
-                .pitch(-60)
-                .setFov(60)
-                );
-
-                Vec3 mid = cameraFrontPos.add(-3, 4, -3);
-                nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
-                .yawToTarget(targetFacePos)
-                .pitchToTarget(targetFacePos)
-                .setFov(90)
-                );
-
-                Vec3 end = Minecraft.getInstance().player.position().add(6, 2, -1);
-                nodes.add(new CutsceneNode(end, Interp.pow5, 75)
-                .yawToTarget(tablePos)
-                .pitchToTarget(tablePos)
-                .setFov(60)
-                );
-
-                CutsceneManager.start(nodes);
-            }
+            DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
+                playCutscene();
+                return new Object();
+            });
         } else if (tickCount == 1) {
             CutsceneHelper.init(this.level(), this.getBoundingBox(), 160);
         }
 
         if(rushing) spawnRushParticles();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void playCutscene() {
+        if(tickCount < 20 && !CutsceneManager.active){
+            this.lookAt(Anchor.EYES, Valoria.proxy.getPlayer().position().add(0, 2, 0));
+            Seq<CutsceneNode> nodes = Seq.with();
+            Vec3 tablePos = this.position();
+
+            Vec3 targetFacePos = this.position().add(0, 2, 0);
+            Vec3 forwardVector = Vec3.directionFromRotation(0, this.getYRot());
+            double distanceInFront = 3.5;
+            Vec3 cameraFrontPos = targetFacePos.add(forwardVector.scale(distanceInFront));
+
+            Vec3 approachPos = cameraFrontPos.add(3, -1.5, 3);
+            nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
+                    .yawToTarget(tablePos)
+                    .pitch(-60)
+                    .setFov(60)
+            );
+
+            Vec3 mid = cameraFrontPos.add(-3, 4, -3);
+            nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
+                    .yawToTarget(targetFacePos)
+                    .pitchToTarget(targetFacePos)
+                    .setFov(90)
+            );
+
+            Vec3 end = Valoria.proxy.getPlayer().position().add(6, 2, -1);
+            nodes.add(new CutsceneNode(end, Interp.pow5, 75)
+                    .yawToTarget(tablePos)
+                    .pitchToTarget(tablePos)
+                    .setFov(60)
+            );
+
+            CutsceneManager.start(nodes);
+        }
     }
 
     private void performRush() {

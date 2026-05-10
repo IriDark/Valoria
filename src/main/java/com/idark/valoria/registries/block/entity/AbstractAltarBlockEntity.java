@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.block.entity;
 
+import com.idark.valoria.Valoria;
 import com.idark.valoria.util.*;
 import net.minecraft.client.*;
 import net.minecraft.core.*;
@@ -15,6 +16,9 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.cinema.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
@@ -34,14 +38,18 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
         this.isSummoning = true;
         this.progress = 0;
         if(this.level != null && this.level.isClientSide()){
-            playCutscene();
+            DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
+                playCutscene();
+                return new Object();
+            });
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void playCutscene() {
         Seq<CutsceneNode> nodes = Seq.with();
         Vec3 tablePos = this.getBlockPos().getCenter();
-        Player plr = Minecraft.getInstance().player;
+        Player plr = Valoria.proxy.getPlayer();
         if (plr == null) return;
 
         Vec3 approachPos = plr.getEyePosition().lerp(tablePos, 0.6).add(0, 1.5, 0);
