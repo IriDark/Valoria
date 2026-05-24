@@ -259,6 +259,7 @@ public class GeneralPage extends Page {
                 if (entity != null) {
                     entity.setYBodyRot(210.0F);
                     entity.setYHeadRot(210.0F);
+                    entity.tickCount = 1024;
                     configurator.accept(entity);
 
                     gui.pose().pushPose();

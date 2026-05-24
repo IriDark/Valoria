@@ -35,10 +35,11 @@ public class BossTrophyItemRenderer extends BlockEntityWithoutLevelRenderer{
         }
 
         if (displayed != null) {
+            displayed.tickCount = 1024;
             poseStack.pushPose();
 
             poseStack.translate(0.5, 0.5, 0.5);
-            float ticks = (ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 2 % 360;
+            float ticks = (ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) % 360;
             poseStack.translate(0, Math.sin(Math.toRadians(ticks)) * 0.05, 0);
             poseStack.mulPose(Axis.YP.rotationDegrees(ticks));
 

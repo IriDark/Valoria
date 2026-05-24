@@ -1,3 +1,18 @@
+# 1.0.3.2
+
+# **Added** 
+- Added missing translations
+- Added Patreon button to Codex
+
+# **Fixed**
+- Fixed missing SoundEvent - valoria:sounds/ambient/valoria/forest/addition1.ogg
+- Fixed fetching patrons from Dev branch, was a test.
+- Fixed Firron Rendering inside Trophy and Codex
+
+# **Changed**
+- Improved Codex progression button
+- Decreased rotation speed of Boss inside Boss trophy item
+
 # 1.0.3.1
 
 # **Fixed**

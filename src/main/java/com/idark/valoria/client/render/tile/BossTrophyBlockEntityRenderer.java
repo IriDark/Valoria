@@ -30,6 +30,7 @@ public class BossTrophyBlockEntityRenderer implements BlockEntityRenderer<BossTr
         Entity entity = be.instance;
         int lightAbove = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().above());
         if(entity != null){
+            entity.tickCount = 1024;
             renderDisplayedEntity(be, partialTicks, ms, buffers, entity, lightAbove);
             HitResult hit = mc.hitResult;
             if (hit instanceof BlockHitResult bhr && bhr.getBlockPos().equals(be.getBlockPos())) {

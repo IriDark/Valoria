@@ -443,15 +443,9 @@ public class Events{
     @SubscribeEvent
     public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         Player player = event.getEntity();
-        if(ServerConfig.PATREON_REWARDS.get()){
-            if(PatreonManager.PATRONS.containsKey(player.getUUID()) && player instanceof ServerPlayer servPlr){
-                CompoundTag persistentData = player.getPersistentData();
-                CompoundTag persistedNbt = persistentData.getCompound(Player.PERSISTED_NBT_TAG);
-                if(!persistedNbt.getBoolean("ValoriaPatronRewardClaimed")){
-                    PatreonManager.rewardPlayer(servPlr);
-                    persistedNbt.putBoolean("ValoriaPatronRewardClaimed", true);
-                    persistentData.put(Player.PERSISTED_NBT_TAG, persistedNbt);
-                }
+        if(ServerConfig.PATREON_REWARDS.get()){ // in case if server owners/admins don't really like it.
+            if(player instanceof ServerPlayer servPlr){
+                PatreonManager.rewardPlayer(servPlr);
             }
         }
     }

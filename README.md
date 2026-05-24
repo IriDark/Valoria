@@ -22,7 +22,7 @@
 
 *To help us dedicate more time to the project and fund new assets like music and sound design, consider supporting us.*
 
-[![patreon.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/patreon.png)](https://patreon.com/ValoriaMod)
+[![patreon.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/patreon.png)](https://patreon.com/IriDark)
 
 ---
 

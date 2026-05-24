@@ -87,13 +87,14 @@ public class Codex extends DotScreen{
         this.addWidget(searchBar);
 
         if (!isSidebarDisabled()){
-            if(this.minecraft.player != null && this.minecraft.player.hasPermissions(2)){
-                this.addRenderableWidget(Button.builder(Component.translatable("codex.button.valoria.codex_progression"), (button) -> {
+            boolean isAdmin = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
+            int patreonX = isAdmin ? (this.width / 2 + 5) : (this.width / 2 - 100);
+            if (isAdmin) {
+                this.addRenderableWidget(new ImageButton(this.width / 2 - 205, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/progression.png"), 200, 80, (button) -> {
                     BooleanConsumer callback = (confirmed) -> {
-                        if(confirmed){
+                        if (confirmed) {
                             PacketHandler.sendToServer(new ProgressionDisableCodexPacket());
                         }
-
                         Minecraft.getInstance().setScreen(this);
                     };
 
@@ -104,8 +105,20 @@ public class Codex extends DotScreen{
                     );
 
                     Minecraft.getInstance().setScreen(warning);
-                }).pos(this.width / 2 - 100, 25).size(200, 20).build());
+                }));
             }
+
+            this.addRenderableWidget(new ImageButton(patreonX, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/patreon.png"), 200, 80, (button) -> {
+                String url = "https://www.patreon.com/c/IriDark";
+                ConfirmLinkScreen confirmLinkScreen = new ConfirmLinkScreen((confirmed) -> {
+                    if (confirmed) {
+                        Util.getPlatform().openUri(url);
+                    }
+                    this.minecraft.setScreen(this);
+                }, url, true);
+
+                this.minecraft.setScreen(confirmLinkScreen);
+            }));
         }
     }
 
@@ -160,21 +173,22 @@ public class Codex extends DotScreen{
 
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
+        this.update(gui);
+        float t = time();
+        Interp interp = Interp.pow2Out;
+        float progress = interp.apply(Mathf.clamp(t/animTime));
+
+        color(Mathf.clamp(progress/0.9f));
+        color(progress);
+        renderBackground(gui);
+        push();
+
         super.render(gui, mouseX, mouseY, partialTicks);
         this.xOffset = Mth.lerp(0.15f, this.xOffset, this.targetXOffset);
         this.yOffset = Mth.lerp(0.15f, this.yOffset, this.targetYOffset);
         this.zoom = Mth.lerp(0.15f, this.zoom, this.targetZoom);
         this.sidebarScroll = Mth.lerp(0.15f, this.sidebarScroll, this.targetSidebarScroll);
 
-        float t = time();
-        Interp interp = Interp.pow2Out;
-        float progress = interp.apply(Mathf.clamp(t/animTime));
-
-        color(Mathf.clamp(progress/0.9f));
-        renderBackground(gui);
-        color(progress);
-
-        push();
 
         float y = Mth.lerp(progress, height, 0);
         move(0, y);
