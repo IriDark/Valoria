@@ -24,13 +24,15 @@
 
 [![patreon.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/patreon.png)](https://patreon.com/IriDark)
 
+### Our Patreons
+Amanda, Lion1... Thank you very much <3
+
 ---
 
 # ✦ ABOUT THIS MOD ✦
 **An ancient cataclysm—the Elemental Collapse—tore reality asunder. From the ashes, a new world was born: a realm of dark myth and terrifying ruin.**
 
 *Valoria* transforms Minecraft into an epic, dark-fantasy RPG experience. Journey through desolate landscapes haunted by monstrous creatures, piece together the fractured history of a fallen world, and discover if hope can be rekindled from the embers.
-
 ### Features
 * **⚔️ Epic Encounters:** Face new mobs and terrifying bosses using a huge arsenal of weaponry. Includes loads of new building blocks and items, all maintaining a vanilla-friendly aesthetic.
 * **🏰 Uncharted Lands:** Explore intricate structures, bizarre biomes, and a completely new Dimension fraught with secrets and danger.
