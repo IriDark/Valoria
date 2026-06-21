@@ -68,7 +68,8 @@ public class MaggotEntity extends Monster{
     }
 
     public Variant getVariant() {
-        return Variant.byId(this.entityData.get(TYPE));
+        var type = Variant.byId(this.entityData.get(TYPE));
+        return type == null ? Variant.MAGGOT : type;
     }
 
     public enum Variant{
