@@ -1173,8 +1173,6 @@
   "tooltip.valoria.bloodhound": "在半径15格范围内标记附近实体，赋予发光效果以显示位置",
   "tooltip.valoria.bloodsight": "攻击你的怪物将得到应有的报应……每一滴流下的鲜血都将被复仇的渴望吞噬",
   "tooltip.valoria.bloodsight_curse": "看来这副单片眼镜被诅咒甚至损坏了，这可不妙！",
-  "tooltip.valoria.boss_checklist": "Boss清单",
-  "tooltip.valoria.boss_summon_fail": "空间不足，需要区域 %s",
   "tooltip.valoria.boss_summonable": "用于召唤Boss - %s",
   "tooltip.valoria.charges": "充能不足，无法使用。",
   "tooltip.valoria.claw_hook": "发射蟹爪，命中后将敌人拉向你",

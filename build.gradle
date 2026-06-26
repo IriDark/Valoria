@@ -124,6 +124,12 @@ repositories {
             includeGroup "dev.latvian.apps"
         }
     }
+
+    maven {
+        // Shadows_of_Fire's Maven
+        url "https://maven.shadowsoffire.dev/releases"
+    }
+
 }
 
 dependencies {

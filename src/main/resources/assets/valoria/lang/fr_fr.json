@@ -1188,8 +1188,6 @@
   "tooltip.valoria.bloodhound": "Marks nearby entities in radius of 15 blocks with a glowing effect, marking it's location",
   "tooltip.valoria.bloodsight": "Une vengeance attend l'ennemi attaqué... Chaque goutte de sang nourrit la soif de vengeance",
   "tooltip.valoria.bloodsight_curse": "Ce monocle semble maudit et même cassé – pas bon du tout !",
-  "tooltip.valoria.boss_checklist": "Boss Checklist",
-  "tooltip.valoria.boss_summon_fail": "Not enough space, needed area %s",
   "tooltip.valoria.boss_summonable": "Utilisé pour invoquer le boss – %s",
   "tooltip.valoria.charges": "Pas assez de charges pour l'utilisation.",
   "tooltip.valoria.claw_hook": "Launches a crab claw, hooks enemy to you on succesfull hit",

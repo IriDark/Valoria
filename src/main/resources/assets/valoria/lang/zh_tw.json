@@ -1173,8 +1173,6 @@
   "tooltip.valoria.bloodhound": "在半徑 15 格內標記附近實體，並賦予發光效果以標記位置",
   "tooltip.valoria.bloodsight": "攻擊你的怪物將得到應有的報應……每一滴流血都將被復仇的渴望吞噬",
   "tooltip.valoria.bloodsight_curse": "這個單片眼鏡似乎被詛咒甚至破損了，這可不妙！",
-  "tooltip.valoria.boss_checklist": "首領清單",
-  "tooltip.valoria.boss_summon_fail": "空間不足，需要區域 %s",
   "tooltip.valoria.boss_summonable": "用於召喚首領 - %s",
   "tooltip.valoria.charges": "充能不足，無法使用。",
   "tooltip.valoria.claw_hook": "發射螃蟹爪，成功命中時將敵人勾向你",

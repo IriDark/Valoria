@@ -1,3 +1,13 @@
+# 1.0.3.3
+
+# **Fixed**
+- Fixed Apotheosis & other mods that applies modifiers to items missing tooltip lines
+- Fixed Adhesive bandage missing curio tags
+- Fixed rare crash caused by missing type of Maggot entity
+
+# **Changed**
+- Improved Ukrainian locale
+
 # 1.0.3.2
 
 # **Added** 
