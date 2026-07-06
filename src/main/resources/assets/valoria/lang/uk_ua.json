@@ -1593,5 +1593,9 @@
   "codex.valoria.ethereal": "Матеріал, що існує між світами. Ефірні уламки можна використовувати для створення інструментів і зброї, що кидають виклик традиційній фізиці.",
   "codex.valoria.ethereal.hint": "Знищіть Некроманта",
   "codex.valoria.ethereal_shard": "Ефірні уламки — це матеріал, необхідний для #7ebfff Ефірного /& спорядження. Їх можна отримати, вбивши Некроманта.",
-  "codex.valoria.firron.hint": "Створіть Обсидіанове серце"
+  "codex.valoria.firron.hint": "Створіть Обсидіанове серце",
+  "attribute.valoria.dodge_chance": "Dodge Chance",
+  "attribute.valoria.excavation_speed": "Excavation Speed",
+  "attribute.valoria.necromancy_count": "Mob Count",
+  "attribute.valoria.necromancy_lifetime": "Mob Lifetime"
 }
