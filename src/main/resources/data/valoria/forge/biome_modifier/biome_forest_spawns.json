@@ -4,13 +4,13 @@
   "spawners": [
     {
       "type": "valoria:ent",
-      "weight": 5,
+      "weight": 6,
       "minCount": 1,
-      "maxCount": 3
+      "maxCount": 2
     },
     {
       "type": "valoria:nature_golem",
-      "weight": 5,
+      "weight": 4,
       "minCount": 1,
       "maxCount": 2
     }

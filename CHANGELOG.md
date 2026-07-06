@@ -6,7 +6,12 @@
 - Fixed rare crash caused by missing type of Maggot entity
 
 # **Changed**
-- Improved Ukrainian locale
+- Slightly Increased Ent spawn
+- Slightly Decreased Nature Golem spawn
+- Increased Nature Gift drop from Nature Golems
+- Increased Oceanic Shell drop from River Golems
+- Updated Chinese Translation
+- Improved and Updated Ukrainian locale
 
 # 1.0.3.2
 
