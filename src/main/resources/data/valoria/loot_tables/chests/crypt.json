@@ -115,7 +115,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:ancient_shard",
-          "weight": 5
+          "weight": 15
         },
         {
           "type": "minecraft:item",

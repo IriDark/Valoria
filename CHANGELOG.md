@@ -1,5 +1,8 @@
 # 1.0.3.3
 
+# **Added**
+- Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
+
 # **Fixed**
 - Fixed Apotheosis & other mods that applies modifiers to items missing tooltip lines
 - Fixed Adhesive bandage missing curio tags
@@ -8,6 +11,7 @@
 # **Changed**
 - Slightly Increased Ent spawn
 - Slightly Decreased Nature Golem spawn
+- Increased Ancient shard generation chances
 - Increased Nature Gift drop from Nature Golems
 - Increased Oceanic Shell drop from River Golems
 - Updated Chinese Translation
