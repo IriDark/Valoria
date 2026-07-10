@@ -1,6 +1,7 @@
 # 1.0.3.3
 
 # **Added**
+- Added Draugr Shield to Draugr LootTable
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
