@@ -94,9 +94,9 @@ The sky itself is shattered. A malevolent red planet now hangs in the night, its
 ### 🌐 SUPPORTED LANGUAGES
 
 * ![flag_en_us.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_en_us.png) **English**
-* ![flag_ua.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_ua.png) **Ukrainian** *(WIP)* - by IriDark, Foxplane
+* ![flag_ua.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_ua.png) **Ukrainian** - by IriDark, Foxplane
 * ![flag_pl.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_pl.png) **Polish** *(WIP)* - by 𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆
-* ![flag_ru.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_ru.png) **Russian** - by Ruthenium, TerraPrime, Kerdo, refiq_
+* ![flag_ru.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_ru.png) **Russian** - by Ruthenium, TerraPrime, Kerdo
 * ![flag_fr.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_fr.png) **French** *(WIP)* - by 𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆
 * ![flag_cn.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/flag_cn.png) **Chinese** - by 蓝龙奈特萨玛 (Azurmardraco BlueDragon)
 

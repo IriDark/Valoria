@@ -5,7 +5,6 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -26,7 +25,7 @@ import pro.komaru.tridot.common.registry.block.entity.*;
 import javax.annotation.*;
 
 public class KilnBlock extends BaseEntityBlock implements SimpleWaterloggedBlock{
-    private static final BooleanProperty LIT = BlockStateProperties.LIT;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public KilnBlock(Properties pProperties){
         super(pProperties);
@@ -66,7 +65,6 @@ public class KilnBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
         BlockEntity blockentity = pLevel.getBlockEntity(pPos);
         if(blockentity instanceof KilnBlockEntity){
             pPlayer.openMenu((MenuProvider)blockentity);
-            pPlayer.awardStat(Stats.INTERACT_WITH_FURNACE);
         }
     }
 

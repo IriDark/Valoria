@@ -19,6 +19,7 @@
 - Increased Nature Gift drop from Nature Golems
 - Increased Oceanic Shell drop from River Golems
 - Updated Chinese Translation
+- Improved (Reworked) Russian translation by Kerdo
 - Improved and Updated Ukrainian locale
 
 # 1.0.3.2
@@ -104,7 +105,6 @@
 - Increased Gaib roots drop count
 - Increased food rot interval 3s -> 10 min
 - Changes to Accessories breaking logic to make it more predictable
-- Improvements to russian translation by refiq_
 ```
 # Swords & Katanas
     Soul Reaver [Rebalance]

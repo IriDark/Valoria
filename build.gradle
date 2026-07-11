@@ -159,13 +159,13 @@ dependencies {
     implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:5057220")
     runtimeOnly fg.deobf("curse.maven:just-enough-repair-materials-1241244:6415175")
     runtimeOnly fg.deobf("curse.maven:cyanide-541676:5778405")
+    runtimeOnly fg.deobf("curse.maven:obscure-api-638417:4616364")
 
     // client sided
     runtimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
     runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
     runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
     runtimeOnly fg.deobf("curse.maven:obscure-tooltips-715660:4686579")
-    runtimeOnly fg.deobf("curse.maven:obscure-api-638417:4616364")
     runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
     runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
 }

@@ -3,6 +3,7 @@ package com.idark.valoria.registries.block.entity;
 import com.google.common.collect.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.recipe.*;
 import it.unimi.dsi.fastutil.objects.*;
 import net.minecraft.core.*;
@@ -182,7 +183,7 @@ public class KilnBlockEntity extends BaseContainerBlockEntity implements Worldly
 
         if(flag != pBlockEntity.isLit()){
             flag1 = true;
-            pState = pState.setValue(AbstractFurnaceBlock.LIT, Boolean.valueOf(pBlockEntity.isLit()));
+            pState = pState.setValue(KilnBlock.LIT, pBlockEntity.isLit());
             pLevel.setBlock(pPos, pState, 3);
         }
 
