@@ -1,10 +1,13 @@
 # 1.0.3.3
 
 # **Added**
+- Added another init layer to Alchemy Station and Heavy Workbench just to be sure everything inits
 - Added Draugr Shield to Draugr LootTable
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Fortress chest loot
+- Fixed Alchemy Station and Heavy Workbench recipe loading
 - Fixed Apotheosis & other mods that applies modifiers to items missing tooltip lines
 - Fixed Adhesive bandage missing curio tags
 - Fixed rare crash caused by missing type of Maggot entity

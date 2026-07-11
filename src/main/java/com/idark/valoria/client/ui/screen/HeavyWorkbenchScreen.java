@@ -74,7 +74,7 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
         this.imageHeight = 196;
         this.imageWidth = 176;
         this.menu.addSlotListener(this.listener);
-        if(inventory.isEmpty()) updateCraftableRecipes(); // add recipes even if slots has no update
+        updateCraftableRecipes();
     }
 
     public void init() {
@@ -87,6 +87,7 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
         this.searchBox.setValue(s);
         this.searchBox.setHint(SEARCH_HINT);
         this.addWidget(this.searchBox);
+        updateCraftableRecipes();
     }
 
     private @NotNull String getSearchValue(){
