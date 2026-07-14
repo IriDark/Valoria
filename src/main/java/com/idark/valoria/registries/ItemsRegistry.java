@@ -888,9 +888,9 @@ public class ItemsRegistry{
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
-        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON))..build());
-        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem.Builder(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)).build());
-        wickedShield = registerItem("wicked_shield", () -> new ConfiguredShield.Builder(new Properties().stacksTo(1).rarity(Rarity.EPIC)).build());
+        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).setTier(Tiers.IRON).build());
+        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem.Builder(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)).setTier(ItemTierRegistry.NONE).build());
+        wickedShield = registerItem("wicked_shield", () -> new ConfiguredShield.Builder(new Properties().stacksTo(1).rarity(Rarity.EPIC)).setTier(ItemTierRegistry.NONE).build());
 
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
 
