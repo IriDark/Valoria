@@ -97,14 +97,14 @@ public class InfernalScytheItem extends ScytheItem{
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         if(builder.attackUsages > 1){
             return Seq.with(
-            new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+            new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
             new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
             new TextComponent(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY)),
             new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
             );
         } else {
             return Seq.with(
-            new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+            new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
             new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
             new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
             );

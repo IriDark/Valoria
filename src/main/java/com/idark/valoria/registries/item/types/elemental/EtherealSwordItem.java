@@ -122,7 +122,7 @@ public class EtherealSwordItem extends ValoriaSword implements TooltipComponentI
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack itemStack){
         return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.ethereal_sword").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/mob_effect/soul_burst.png")),
         new TextComponent(Component.translatable("tooltip.valoria.souls", getCurrentSouls(itemStack))
             .append(" / ")

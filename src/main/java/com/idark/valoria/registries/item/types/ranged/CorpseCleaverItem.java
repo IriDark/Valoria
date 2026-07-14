@@ -98,7 +98,7 @@ public class CorpseCleaverItem extends SwordItem implements TooltipComponentItem
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.corpsecleaver").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/corpsecleaver.png")),
         new TextComponent(Component.translatable("tooltip.valoria.hold_rmb").withStyle(style -> style.withFont(Valoria.FONT)))
         );

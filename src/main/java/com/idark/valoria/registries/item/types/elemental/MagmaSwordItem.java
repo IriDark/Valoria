@@ -165,7 +165,7 @@ public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayR
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
         return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.infernal_sword").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
         new TextComponent(Component.translatable("tooltip.valoria.magma_charges", pStack.getOrCreateTag().getInt("charge") + "/2").withStyle(ChatFormatting.YELLOW).withStyle(style -> style.withFont(Valoria.FONT))),
         new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))

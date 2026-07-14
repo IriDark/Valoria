@@ -1,11 +1,13 @@
 # 1.0.3.3
 
 # **Added**
+- Added Wicked Shield to Wicked Crystal LootTable
 - Added another init layer to Alchemy Station and Heavy Workbench just to be sure everything inits
 - Added Draugr Shield to Draugr LootTable
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Multiple same enchantment can be applied to the same item on Enchantment table
 - Fixed Fortress chest loot
 - Fixed Alchemy Station and Heavy Workbench recipe loading
 - Fixed Apotheosis & other mods that applies modifiers to items missing tooltip lines
@@ -13,6 +15,7 @@
 - Fixed rare crash caused by missing type of Maggot entity
 
 # **Changed**
+- Reworked Shields
 - Slightly Increased Ent spawn
 - Slightly Decreased Nature Golem spawn
 - Increased Ancient shard generation chances

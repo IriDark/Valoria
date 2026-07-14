@@ -59,7 +59,7 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.10
+              "chance": 0.1
             }
           ]
         },
@@ -71,7 +71,19 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.10
+              "chance": 0.1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:wicked_shield",
+          "weight": 5,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.1
             }
           ]
         },

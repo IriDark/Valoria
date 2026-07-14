@@ -81,6 +81,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, CastAbilityPacket.class, CastAbilityPacket::encode, CastAbilityPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, ReadCodexPacket.class, ReadCodexPacket::encode, ReadCodexPacket::decode, ReadCodexPacket::handle);
         HANDLER.registerMessage(id++, ProgressionDisableCodexPacket.class, ProgressionDisableCodexPacket::encode, ProgressionDisableCodexPacket::decode, RateLimitedPacket::processPacket);
+
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

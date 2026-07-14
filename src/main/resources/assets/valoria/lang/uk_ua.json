@@ -1185,7 +1185,6 @@
   "tooltip.valoria.update_available": "Доступна нова версія - %s",
   "tooltip.valoria.boss_summon.dimension_fail": "Неправильний вимір для призову, перевірте опис предмета.",
   "tooltip.valoria.boss_summon.block_fail": "Недостатньо місця, потрібна площа %s",
-  "tooltip.valoria.abilities": "Здібності",
   "tooltip.valoria.alchemy_station.upgrade": "Потребує покращення: %s",
   "tooltip.valoria.beast": "Призиває Пожирачів у коло навколо вас",
   "tooltip.valoria.bleeding_cure": "Зупиняє кровотечу",

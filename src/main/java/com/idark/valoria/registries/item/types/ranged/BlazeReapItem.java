@@ -193,7 +193,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
         return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/boom.png")),
         new TextComponent(Component.translatable(getModeString(pStack)).withStyle(ChatFormatting.GREEN))
         );

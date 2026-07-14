@@ -59,7 +59,7 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.phantom").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/phantom.png")),
         new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
         );

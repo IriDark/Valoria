@@ -1027,6 +1027,12 @@
       "valoria:item/bloodsight/repair"
     ]
   },
+  "item.shield.parry": {
+    "subtitle": "subtitles.valoria.shield.parry",
+    "sounds": [
+      "valoria:item/abilities/parry"
+    ]
+  },
   "item.water_ability.use": {
     "subtitle": "subtitles.valoria.ability.use",
     "sounds": [

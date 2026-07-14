@@ -45,7 +45,7 @@ public class HoundItem extends SwordItem implements TooltipComponentItem{
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.bloodhound").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/blood_seeking.png")),
         new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
         );
