@@ -11,6 +11,6 @@ public class ExplosiveFlameEnchantment extends Enchantment{
     }
 
     public boolean checkCompatibility(Enchantment pEnchantment){
-        return super.checkCompatibility(pEnchantment) || pEnchantment != Enchantments.FIRE_ASPECT;
+        return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.FIRE_ASPECT;
     }
 }

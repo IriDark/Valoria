@@ -41,10 +41,9 @@ public class NihilityEvent{
                 nihilityLevel.modifyAmount(player, finalAmount);
             }
         }else{
-            if(player.tickCount % ServerConfig.NIHILITY_DECAY_INTERVAL.get() * 40 == 0 && amount > 0){
-                int baseDecay = Tmp.rnd.nextInt(1, 5);
+            if(player.tickCount % (ServerConfig.NIHILITY_DECAY_INTERVAL.get() * 20) == 0 && amount > 0){
                 int decayMultiplier = (difficulty == Difficulty.EASY) ? 2 : 1;
-                nihilityLevel.decrease(player, baseDecay * decayMultiplier);
+                nihilityLevel.decrease(player, decayMultiplier);
             }
         }
 

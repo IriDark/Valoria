@@ -7,6 +7,7 @@
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Nihility decaying too fast
 - Fixed Multiple same enchantment can be applied to the same item on Enchantment table
 - Fixed Fortress chest loot
 - Fixed Alchemy Station and Heavy Workbench recipe loading

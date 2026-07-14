@@ -7,25 +7,15 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.builders.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 
 import java.util.*;
 
-public class CrabBucklerItem extends ValoriaShieldItem{
+public class CrabBucklerItem extends ConfiguredShield{
 
-    public CrabBucklerItem(Properties pProperties){
-        super(pProperties);
-    }
-
-    public CrabBucklerItem(float defPercent, Properties pProperties){
-        super(defPercent, pProperties);
-    }
-
-    public CrabBucklerItem(float defPercent, int useDuration, Properties pProperties){
-        super(defPercent, useDuration, pProperties);
-    }
-
-    public CrabBucklerItem(float defPercent, int useDuration, int cooldown, Properties pProperties){
-        super(defPercent, useDuration, cooldown, pProperties);
+    public CrabBucklerItem(AbstractShieldBuilder<? extends ConfiguredShield> builder){
+        super(builder);
     }
 
     @Override

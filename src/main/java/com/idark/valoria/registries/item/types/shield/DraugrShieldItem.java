@@ -12,16 +12,19 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.builders.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 
 import java.util.*;
 
-public class DraugrShieldItem extends ValoriaShieldItem{
+public class DraugrShieldItem extends ConfiguredShield{
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public DraugrShieldItem(float defPercent, Properties pProperties){
-        super(defPercent, pProperties);
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(UUID.fromString("0340e1c5-92f3-4c99-80e1-c592f3ec99a8"), "Tool modifier", 0.1, Operation.MULTIPLY_TOTAL));
-        this.defaultModifiers = builder.build();
+
+    public DraugrShieldItem(AbstractShieldBuilder<? extends ConfiguredShield> builder){
+        super(builder);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> attrBuilder = ImmutableMultimap.builder();
+        attrBuilder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(UUID.fromString("0340e1c5-92f3-4c99-80e1-c592f3ec99a8"), "Tool modifier", 0.1, Operation.MULTIPLY_TOTAL));
+        this.defaultModifiers = attrBuilder.build();
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
