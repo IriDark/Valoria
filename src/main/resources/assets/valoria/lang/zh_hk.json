@@ -1594,5 +1594,6 @@
   "codex.valoria.ethereal": "一種存在于世界夹缝之間的材料。空靈碎片可用于製作違背常規物理法則的工具與武器。",
   "codex.valoria.ethereal.hint": "擊殺死靈法師",
   "codex.valoria.ethereal_shard": "空靈碎片是製作 #7ebfff 空靈 /& 裝備所需的材料。它們可通過擊殺死靈法師獲得。",
-  "codex.valoria.firron.hint": "製作黑曜石之心"
+  "codex.valoria.firron.hint": "製作黑曜石之心",
+  "subtitles.valoria.shield.parry": "Attack parry ★"
 }

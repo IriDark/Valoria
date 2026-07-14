@@ -1593,5 +1593,7 @@
   "codex.valoria.ethereal": "Материал, существующий между мирами. Эфирные Осколки можно использовать для создания инструментов и оружия, противоречащих обычной физике.",
   "codex.valoria.ethereal.hint": "Убейте Некроманта",
   "codex.valoria.ethereal_shard": "Эфирные Осколки — материал, необходимый для снаряжения из #7ebfff Эфира /&. Их можно получить, убив Некроманта.",
-  "codex.valoria.firron.hint": "Создайте Обсидиановое Сердце"
+  "codex.valoria.firron.hint": "Создайте Обсидиановое Сердце",
+  "menu.valoria.tinkerer_workbench": "Tinkerer Workbench",
+  "subtitles.valoria.shield.parry": "Attack parry ★"
 }

@@ -1594,5 +1594,6 @@
   "codex.valoria.ethereal": "A material that exists between worlds. Ethereal Shards can be used to craft tools and weapons that defy conventional physics.",
   "codex.valoria.ethereal.hint": "Slay the Necromancer",
   "codex.valoria.ethereal_shard": "Ethereal Shards are the material needed for #7ebfff Ethereal /& equipment. They can be obtained from slaying Necromancer.",
-  "codex.valoria.firron.hint": "Craft the Obsidian Heart"
+  "codex.valoria.firron.hint": "Craft the Obsidian Heart",
+  "subtitles.valoria.shield.parry": "Attack parry ★"
 }

@@ -1594,5 +1594,6 @@
   "attribute.valoria.dodge_chance": "Dodge Chance",
   "attribute.valoria.excavation_speed": "Excavation Speed",
   "attribute.valoria.necromancy_count": "Mob Count",
-  "attribute.valoria.necromancy_lifetime": "Mob Lifetime"
+  "attribute.valoria.necromancy_lifetime": "Mob Lifetime",
+  "subtitles.valoria.shield.parry": "Attack parry ★"
 }
