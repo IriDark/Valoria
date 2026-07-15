@@ -888,9 +888,9 @@ public class ItemsRegistry{
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
-        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).setTier(Tiers.IRON).build());
-        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem.Builder(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)).setTier(ItemTierRegistry.NONE).build());
-        wickedShield = registerItem("wicked_shield", () -> new ConfiguredShield.Builder(new Properties().stacksTo(1).rarity(Rarity.EPIC)).setTier(ItemTierRegistry.NONE).build());
+        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
+        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem.Builder(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.NONE).build());
+        wickedShield = registerItem("wicked_shield", () -> new ConfiguredShield.Builder(new Properties().stacksTo(1).rarity(Rarity.EPIC)).setTier(ItemTierRegistry.NONE).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
 
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
 
@@ -926,10 +926,10 @@ public class ItemsRegistry{
         voidSlateRuneWealth = registerItem("void_slate_rune_of_wealth", () -> new CurioWealth(2.5f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneCurses = registerItem("void_slate_rune_of_curses", () -> new CurioCurses(0.05f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneStrength = registerItem("void_slate_rune_of_strength", () -> new CurioStrength(0.15f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
-        voidSlateRuneAccuracy = registerItem("void_slate_rune_of_accuracy", () -> new RuneAccuracy(0.25f, 1.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneAccuracy = registerItem("void_slate_rune_of_accuracy", () -> new RuneAccuracy(0.40f, 1.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneDeep = registerItem("void_slate_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRunePyro = registerItem("void_slate_rune_of_pyro", () -> new CurioPyro(120, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
-        voidSlateRuneVampiric = registerItem("void_slate_vampiric_rune", () -> new CurioVampiricRune(0.15f, 0.10f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneVampiric = registerItem("void_slate_vampiric_rune", () -> new CurioVampiricRune(0.5f, 0.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
 
         // medicine
         aloeBandage = registerItem("aloe_bandage", () -> new BandageItem(false, 1600, 0));

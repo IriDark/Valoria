@@ -1027,6 +1027,12 @@
       "valoria:item/bloodsight/repair"
     ]
   },
+  "item.vampiric_rune.activate": {
+    "subtitle": "subtitles.valoria.vampiric_rune.activate",
+    "sounds": [
+      "valoria:item/vampiric_rune"
+    ]
+  },
   "item.shield.parry": {
     "subtitle": "subtitles.valoria.shield.parry",
     "sounds": [

@@ -1,6 +1,7 @@
 # 1.0.3.3
 
 # **Added**
+- Added additional tooltip line to Gunpowder charge describing its use
 - Added Wicked Shield to Wicked Crystal LootTable
 - Added another init layer to Alchemy Station and Heavy Workbench just to be sure everything inits
 - Added Draugr Shield to Draugr LootTable
@@ -23,8 +24,10 @@
 - Increased Nature Gift drop from Nature Golems
 - Increased Oceanic Shell drop from River Golems
 - Updated Chinese Translation
+- Optimized Curse runes
 - Improved (Reworked) Russian translation by Kerdo
 - Improved and Updated Ukrainian locale
+- Improved Nihility Monitor tooltip description so it will be less confusing
 
 # 1.0.3.2
 

@@ -43,7 +43,8 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
         if(!player.level().isClientSide() && player instanceof ServerPlayer pServer){
             if(Tmp.rnd.chance(chance) && !pServer.getCooldowns().isOnCooldown(this)){
                 MobEffect[] effectsArray = effects.toArray(new MobEffect[0]);
-                pServer.addEffect(new MobEffectInstance(effectsArray[Mth.nextInt(RandomSource.create(), 0, effects.size() - 1)], 200, 0, false, true));
+                int randomIndex = Mth.nextInt(player.level().random, 0, effectsArray.length - 1);
+                pServer.addEffect(new MobEffectInstance(effectsArray[randomIndex], 200, 0, false, true));
                 pServer.getCooldowns().addCooldown(this, 500);
                 pServer.level().playSound(null, pServer.getOnPos(), SoundsRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
             }

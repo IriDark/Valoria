@@ -1,6 +1,7 @@
 package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.player.*;
@@ -11,6 +12,8 @@ import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
@@ -54,16 +57,25 @@ public class VampirismParticlePacket{
                     }
                 };
 
-                ParticleBuilder.create(TridotParticles.CIRCLE)
-                .setBehavior(SparkParticleBehavior.create().build())
-                .setScaleData(GenericParticleData.create(0.125f, 0.065f, 0).setEasing(Interp.sine).build())
-                .setColorData(ColorParticleData.create(Pal.darkRed, Pal.flesh).build())
-                .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Interp.circle).build())
-                .setSpinData(SpinParticleData.create().randomOffset().randomSpin(0.5f).build())
+                ParticleBuilder.create(TridotParticles.TRAIL)
+                .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+                .setBehavior(TrailParticleBehavior.create().build())
+                .setScaleData(GenericParticleData.create(0.035f + Tmp.rnd.nextFloat(0.085f), 0.15f + Tmp.rnd.nextFloat(0.05f), 0).setEasing(Interp.bounce).build())
+                .setColorData(ColorParticleData.create(Tmp.rnd.fiftyFifty() ? Pal.darkRed : Pal.darkRed.copy().brighter(), Pal.flesh).build())
                 .addTickActor(blockTarget)
                 .setLifetime(65)
-                .randomVelocity(0.0725f)
+                .flatRandomOffset(0.15f, 0f, 0.15f)
+                .setFriction(Tmp.rnd.nextFloat(0.85f, 1f))
+                .randomVelocity(0.0825f + Tmp.rnd.nextFloat(0.04f, 0.05f))
                 .disablePhysics()
+                .repeat(level, pos.x, pos.y, pos.z, 12);
+
+                ParticleBuilder.create(ParticleRegistry.FLESH)
+                .randomOffset(0.4f)
+                .setGravity(0.8f)
+                .setFriction(Tmp.rnd.nextFloat(0.65f, 1.1f))
+                .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
+                .setScaleData(GenericParticleData.create(0.15f).build())
                 .repeat(level, pos.x, pos.y, pos.z, 8);
 
                 ctx.get().setPacketHandled(true);

@@ -33,7 +33,7 @@ public class NihilityMonitorItem extends ValoriaCurioItem implements TooltipComp
         new AbilityComponent(Component.translatable("tooltip.valoria.nihility_monitor.level").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/nihility.png"), 0, 12),
         new AbilityComponent(Component.translatable("tooltip.valoria.nihility_monitor").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/sound.png"), 6),
         new TextComponent(Component.translatable("tooltip.valoria.toggle", getToggleComponent(pStack)).withStyle(getState(pStack) ? ChatFormatting.GREEN : ChatFormatting.RED)),
-        new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(DotStyle.of().font(Valoria.FONT)))
+        new TextComponent(Component.translatable("tooltip.valoria.rmb_switch").withStyle(DotStyle.of().font(Valoria.FONT)))
         );
     }
 
