@@ -1,4 +1,4 @@
-# 1.0.3.3
+# 1.0.3.4
 
 # **Added**
 - Added additional tooltip line to Gunpowder charge describing its use
