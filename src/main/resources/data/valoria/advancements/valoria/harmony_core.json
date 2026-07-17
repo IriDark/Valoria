@@ -4,7 +4,7 @@
       "item": "valoria:nature_core"
     },
     "title": {
-      "translate": "advancement.valoria:harmony_core"
+      "translate": "advancements.valoria.harmony_core.title"
     },
     "description": "",
     "frame": "task",

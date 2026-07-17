@@ -4,10 +4,10 @@
       "item": "valoria:elemental_manipulator"
     },
     "title": {
-      "translate": "advancement.valoria:elemental_manipulator"
+      "translate": "advancements.valoria.elemental_manipulator.title"
     },
     "description": {
-      "translate": "advancement.valoria:elemental_manipulator.desc"
+      "translate": "advancements.valoria.elemental_manipulator.description"
     },
     "frame": "task",
     "show_toast": true,

@@ -4,7 +4,7 @@
       "item": "valoria:void_core"
     },
     "title": {
-      "translate": "advancement.valoria:void_core"
+      "translate": "advancements.valoria.void_core.title"
     },
     "description": "",
     "frame": "task",

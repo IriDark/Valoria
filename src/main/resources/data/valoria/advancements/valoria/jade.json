@@ -4,10 +4,10 @@
       "item": "valoria:jade"
     },
     "title": {
-      "translate": "advancement.valoria:jade"
+      "translate": "advancements.valoria.jade.title"
     },
     "description": {
-      "translate": "advancement.valoria:jade.desc"
+      "translate": "advancements.valoria.jade.description"
     },
     "frame": "task",
     "show_toast": true,

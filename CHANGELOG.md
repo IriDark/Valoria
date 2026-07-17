@@ -18,6 +18,7 @@
 
 # **Changed**
 - Reworked Shields
+- Changed Healing flask recipe
 - Slightly Increased Ent spawn
 - Slightly Decreased Nature Golem spawn
 - Increased Ancient shard generation chances

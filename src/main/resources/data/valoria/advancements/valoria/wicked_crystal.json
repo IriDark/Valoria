@@ -4,10 +4,10 @@
       "item": "valoria:suspicious_gem"
     },
     "title": {
-      "translate": "advancement.valoria:wicked_crystal"
+      "translate": "advancements.valoria.wicked_crystal.title"
     },
     "description": {
-      "translate": "advancement.valoria:wicked_crystal.desc"
+      "translate": "advancements.valoria.wicked_crystal.description"
     },
     "frame": "challenge",
     "show_toast": true,

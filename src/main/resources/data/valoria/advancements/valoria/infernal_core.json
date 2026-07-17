@@ -4,7 +4,7 @@
       "item": "valoria:infernal_core"
     },
     "title": {
-      "translate": "advancement.valoria:infernal_core"
+      "translate": "advancements.valoria.infernal_core.title"
     },
     "description": "",
     "frame": "task",

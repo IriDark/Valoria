@@ -1,0 +1,35 @@
+{
+  "parent": "valoria:valoria/dosimetry",
+  "criteria": {
+    "has_respirator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "valoria:respirator"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.first_breath.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:respirator"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.first_breath.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_respirator"
+    ]
+  ]
+}

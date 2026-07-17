@@ -4,17 +4,17 @@
       "item": "valoria:elemental_crystal"
     },
     "title": {
-      "translate": "advancement.valoria:elemental_crystal"
+      "translate": "advancements.valoria.elemental_crystal.title"
     },
     "description": {
-      "translate": "advancement.valoria:elemental_crystal.desc"
+      "translate": "advancements.valoria.elemental_crystal.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/valoria",
+  "parent": "valoria:valoria/the_valoria",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

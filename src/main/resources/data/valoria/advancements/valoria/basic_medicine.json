@@ -4,10 +4,10 @@
       "item": "valoria:aloe_bandage_upgraded"
     },
     "title": {
-      "translate": "advancement.valoria:basic_medicine"
+      "translate": "advancements.valoria.basic_medicine.title"
     },
     "description": {
-      "translate": "advancement.valoria:basic_medicine.desc"
+      "translate": "advancements.valoria.basic_medicine.description"
     },
     "frame": "goal",
     "show_toast": true,

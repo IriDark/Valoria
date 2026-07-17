@@ -1,0 +1,35 @@
+{
+  "parent": "valoria:valoria/first_breath",
+  "criteria": {
+    "has_gas_mask": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "valoria:gas_mask"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.stalker.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:gas_mask"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.stalker.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_gas_mask"
+    ]
+  ]
+}

@@ -1,20 +1,20 @@
 {
   "display": {
     "icon": {
-      "item": "valoria:gaib_root"
+      "item": "valoria:obsidian_heart"
     },
     "title": {
-      "translate": "advancements.valoria.dryador.title"
+      "translate": "advancements.valoria.firron.title"
     },
     "description": {
-      "translate": "advancements.valoria.dryador.description"
+      "translate": "advancements.valoria.firron.description"
     },
     "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/necromancer",
+  "parent": "valoria:valoria/dryador",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:player_killed_entity",
@@ -24,7 +24,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "valoria:dryador"
+              "type": "valoria:firron"
             }
           }
         ]
@@ -32,6 +32,6 @@
     }
   },
   "rewards": {
-    "experience": 150
+    "experience": 100
   }
 }

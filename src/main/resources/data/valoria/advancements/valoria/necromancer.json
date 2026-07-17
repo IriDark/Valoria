@@ -4,17 +4,17 @@
       "item": "valoria:necromancer_grimoire"
     },
     "title": {
-      "translate": "advancement.valoria:necromancer"
+      "translate": "advancements.valoria.necromancer.title"
     },
     "description": {
-      "translate": "advancement.valoria:necromancer.desc"
+      "translate": "advancements.valoria.necromancer.description"
     },
     "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/valoria",
+  "parent": "valoria:valoria/the_valoria",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:player_killed_entity",

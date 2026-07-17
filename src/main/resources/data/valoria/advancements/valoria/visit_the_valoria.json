@@ -4,15 +4,17 @@
       "item": "valoria:valoria_portal_frame_shard"
     },
     "title": {
-      "translate": "advancement.valoria:visit_the_valoria"
+      "translate": "advancements.valoria.visit_the_valoria.title"
     },
-    "description": "",
+    "description": {
+      "translate": "advancements.valoria.visit_the_valoria.description"
+    },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/dryador",
+  "parent": "valoria:valoria/firron",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:changed_dimension",

@@ -4,17 +4,17 @@
       "item": "valoria:aloe_piece"
     },
     "title": {
-      "translate": "advancement.valoria:aloe"
+      "translate": "advancements.valoria.aloe.title"
     },
     "description": {
-      "translate": "advancement.valoria:aloe.desc"
+      "translate": "advancements.valoria.aloe.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/valoria",
+  "parent": "valoria:valoria/the_valoria",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

@@ -1,0 +1,35 @@
+{
+  "parent": "valoria:valoria/visit_the_valoria",
+  "criteria": {
+    "has_nihility_monitor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "valoria:nihility_monitor"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.dosimetry.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:nihility_monitor"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.dosimetry.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_nihility_monitor"
+    ]
+  ]
+}

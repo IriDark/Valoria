@@ -57,7 +57,7 @@ public class CurioVampiricRune extends AbstractRuneItem implements CurioOnKillIt
         if(Tmp.rnd.chance(chance)){
             attacker.level().playSound(null, attacker.blockPosition(), SoundsRegistry.VAMPIRIC_RUNE.get(), SoundSource.PLAYERS, 0.15f, Tmp.rnd.nextFloat(0.8f, 1.45f));
             if(attacker instanceof ServerPlayer player){
-                Vec3 pos = target.position().add(0, target.getBbHeight() / 2f, 0);
+                Vec3 pos = target.position().add(0, target.getBbHeight() * 0.75f, 0);
                 PacketHandler.sendToTracking(player.serverLevel(), BlockPos.containing(pos), new VampirismParticlePacket(player.getUUID(), pos.x(), pos.y(), pos.z()));
 
                 player.heal(healOnHit);
@@ -67,7 +67,7 @@ public class CurioVampiricRune extends AbstractRuneItem implements CurioOnKillIt
 
     @Override
     public void onKill(ItemStack stack, ServerPlayer killer, LivingEntity target){
-        Vec3 pos = target.position().add(0, target.getBbHeight() / 2f, 0);
+        Vec3 pos = target.position().add(0, target.getBbHeight() * 0.75f, 0);
         PacketHandler.sendToTracking(killer.serverLevel(), BlockPos.containing(pos), new VampirismParticlePacket(killer.getUUID(), pos.x(), pos.y(), pos.z()));
         killer.heal(killer.getMaxHealth() * healPercent);
         killer.level().playSound(null, killer.blockPosition(), SoundsRegistry.VAMPIRIC_RUNE.get(), SoundSource.PLAYERS, 0.15f, Tmp.rnd.nextFloat(0.8f, 1.45f));

@@ -4,10 +4,10 @@
       "item": "valoria:devil_heart"
     },
     "title": {
-      "translate": "advancement.valoria:devil_heart"
+      "translate": "advancements.valoria.devil_heart.title"
     },
     "description": {
-      "translate": "advancement.valoria:devil_heart.desc"
+      "translate": "advancements.valoria.devil_heart.description"
     },
     "frame": "task",
     "show_toast": true,

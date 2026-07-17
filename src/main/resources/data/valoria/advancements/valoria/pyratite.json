@@ -4,10 +4,10 @@
       "item": "valoria:pyratite"
     },
     "title": {
-      "translate": "advancement.valoria:pyratite"
+      "translate": "advancements.valoria.pyratite.title"
     },
     "description": {
-      "translate": "advancement.valoria:pyratite.desc"
+      "translate": "advancements.valoria.pyratite.description"
     },
     "frame": "task",
     "show_toast": true,

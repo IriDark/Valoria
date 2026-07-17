@@ -4,10 +4,10 @@
       "item": "valoria:codex"
     },
     "title": {
-      "translate": "advancement.valoria:valoria"
+      "translate": "advancements.valoria.the_valoria.title"
     },
     "description": {
-      "translate": "advancement.valoria:valoria.desc"
+      "translate": "advancements.valoria.the_valoria.description"
     },
     "background": "valoria:textures/block/deep_marble.png",
     "frame": "task",

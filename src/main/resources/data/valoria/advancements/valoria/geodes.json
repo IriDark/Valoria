@@ -4,17 +4,17 @@
       "item": "valoria:stone_geode"
     },
     "title": {
-      "translate": "advancement.valoria:geodes"
+      "translate": "advancements.valoria.geodes.title"
     },
     "description": {
-      "translate": "advancement.valoria:geodes.desc"
+      "translate": "advancements.valoria.geodes.description"
     },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/valoria",
+  "parent": "valoria:valoria/the_valoria",
   "criteria": {
     "geodes": {
       "trigger": "minecraft:inventory_changed",

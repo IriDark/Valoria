@@ -1,0 +1,49 @@
+{
+  "parent": "valoria:valoria/geodes",
+  "criteria": {
+    "use_stone_crusher": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "valoria:stone_crusher"
+                ],
+                "nbt": "{Items:[{}]}"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tag": "valoria:stone_crusher_tool"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.use_stone_crusher.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:stone_crusher"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.use_stone_crusher"
+    }
+  },
+  "requirements": [
+    [
+      "use_stone_crusher"
+    ]
+  ]
+}

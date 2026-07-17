@@ -1,0 +1,36 @@
+{
+  "parent": "valoria:valoria/the_valoria",
+  "criteria": {
+    "has_multitool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "valoria:multi_tools"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.multitasker.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:cobalt_multi_tool"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.multitasker.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_multitool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

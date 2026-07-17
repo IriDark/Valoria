@@ -4,7 +4,7 @@
       "item": "valoria:aquarius_core"
     },
     "title": {
-      "translate": "advancement.valoria:aquarius_core"
+      "translate": "advancements.valoria.aquarius_core.title"
     },
     "description": "",
     "frame": "task",
