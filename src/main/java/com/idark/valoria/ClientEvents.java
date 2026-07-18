@@ -83,8 +83,9 @@ public class ClientEvents{
     @SubscribeEvent
     public static void onEntityRender(RenderLivingEvent.Post<LivingEntity, ?> event) {
         LivingEntity entity = event.getEntity();
-        ILivingEntityData data = (ILivingEntityData) entity;
+        if (!(entity instanceof ILivingEntityData data)) return;
         float lastDamage = data.valoria$getLastDamage();
+        
         if(!entity.getType().is(TagsRegistry.DAMAGE_INDICATOR_IGNORED)){
             if(ClientConfig.DAMAGE_INDICATOR.get() || entity instanceof MannequinEntity){
                 if(!(lastDamage > 0 && entity.hurtTime > 0)) return;
