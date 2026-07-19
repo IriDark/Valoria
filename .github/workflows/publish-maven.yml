@@ -19,25 +19,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Configure Gradle for optimal use in GiHub Actions, including caching of downloaded dependencies.
-      # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
-      - name: Set first release tag
-        run: |
-          current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
-          echo "TAG_NAME=${current_version}" >> $GITHUB_ENV
-      - name: Build Mod
-        run: |
-          ./gradlew build --stacktrace
+
       - name: Increment version
         if: ${{ github.repository == 'IriDark/Valoria' }}
         run: |
           # Read the current version
           current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
-          echo "Current version: $current_version"
+          echo "Current version in repo: $current_version"
 
           # Split the version into base and last parts
           IFS='-' read -ra parts <<< "$current_version"
@@ -52,30 +45,13 @@ jobs:
           new_last_version="${last_parts[*]}"
           new_last_version="${new_last_version// /.}"
           new_version="$base_version-$new_last_version"
-          echo "New version: $new_version"
-          
-          echo "TAG_NAME=${new_version}" >> $GITHUB_ENV
-          
-          # Update the version line in gradle.properties
+          echo "Target release version: $new_version"
+                    echo "TAG_NAME=${new_version}" >> $GITHUB_ENV
           sed -i "s/^version=.*/version=$new_version/" gradle.properties
-          cat gradle.properties
-      - name: Commit and Push Version Change
-        if: ${{ github.repository == 'IriDark/Valoria' }}
-        run: |
-          git pull
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git add gradle.properties
-          git commit -m "Increment version to $new_version"
-          git push
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Valoria
-          path: |
-            ./build/libs/*.jar
-            ./libs/*.jar
+      - name: Build Mod
+        run: |
+          ./gradlew build --stacktrace
 
       - name: Publish Maven Version
         env:
@@ -84,14 +60,29 @@ jobs:
         run: |
           ./gradlew publish
 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Valoria
+          path: |
+            ./build/libs/*.jar
+
       - name: Create GitHub Release
         if: ${{ github.repository == 'IriDark/Valoria' }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG_NAME }}
           name: "Auto Release ${{ env.TAG_NAME }}"
-          body: "Commit: ${{ env.COMMIT_MESSAGE }}"
           files: ./build/libs/*.jar
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push Version Change
+        if: ${{ github.repository == 'IriDark/Valoria' }}
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add gradle.properties
+          git commit -m "Increment version to ${{ env.TAG_NAME }} [skip ci]"
+          git push
