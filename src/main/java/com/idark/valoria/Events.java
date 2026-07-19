@@ -506,7 +506,7 @@ public class Events{
         var source = event.getSource();
         Entity attackerEntity = source.getEntity();
         LivingEntity target = event.getEntity();
-        ILivingEntityData data = (ILivingEntityData)target;
+        if (!(target instanceof ILivingEntityData data)) return;
         if (source.getDirectEntity() instanceof Player player) {
             if (target instanceof IEffectiveWeaponEntity eff) {
                 if(eff.getEffective() == null) {
@@ -607,7 +607,7 @@ public class Events{
         }
 
         if(pSource.getEntity() instanceof LivingEntity attacker){
-            ILivingEntityData data = (ILivingEntityData)entity;
+            if (!(entity instanceof ILivingEntityData data)) return;
             if(level instanceof ServerLevel s){
                 var pushDirection = new Vec3(entity.getX() + attacker.getX(), 0.0D, entity.getZ() + attacker.getX()).normalize();
                 if(attacker.getAttribute(AttributeReg.MISS_CHANCE.get()) != null && Tmp.rnd.chance(attacker.getAttributeValue(AttributeReg.MISS_CHANCE.get()) / 100)){

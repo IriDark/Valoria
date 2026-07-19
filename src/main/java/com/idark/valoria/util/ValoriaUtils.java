@@ -76,7 +76,7 @@ public class ValoriaUtils{
 
     @OnlyIn(Dist.CLIENT)
     public static void renderText(LivingEntity entityIn, Col textColor, Component component, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, int time){
-        ILivingEntityData data = (ILivingEntityData) entityIn;
+        if (!(entityIn instanceof ILivingEntityData data)) return;
         float partialTicks = Minecraft.getInstance().getPartialTick();
         data.valoria$setTextOffset(Mth.lerp(partialTicks, data.valoria$getTextOffset(), (float)Math.abs(Math.sin(((float)time) / 4f))));
         data.valoria$setTextOffsetPrev(data.valoria$getTextOffset());
