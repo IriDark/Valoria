@@ -31,4 +31,20 @@ public class CrabBucklerItem extends ConfiguredShield{
             source.getDirectEntity().hurt(entity.level().damageSources().thorns(entity), pAmount * 0.15f);
         }
     }
+
+    public static class Builder extends AbstractShieldBuilder<CrabBucklerItem>{
+
+        public Builder(Properties itemProperties) {
+            super(itemProperties);
+        }
+
+        public Builder(float defPercent, Properties itemProperties) {
+            super(defPercent, itemProperties);
+        }
+
+        @Override
+        public CrabBucklerItem build(){
+            return new CrabBucklerItem(this);
+        }
+    }
 }

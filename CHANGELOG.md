@@ -8,6 +8,8 @@
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Damage reduction formula in Shields
+- Fixed Rare crash while displaying damage text
 - Fixed Nihility decaying too fast
 - Fixed Multiple same enchantment can be applied to the same item on Enchantment table
 - Fixed Fortress chest loot
@@ -23,7 +25,7 @@
 - Slightly Decreased Nature Golem spawn
 - Increased Ancient shard generation chances
 - Increased Nature Gift drop from Nature Golems
-- Increased Oceanic Shell drop from River Golems
+- Increased Oceanic shell drop from River Golems
 - Updated Chinese Translation
 - Optimized Curse runes
 - Improved (Reworked) Russian translation by Kerdo

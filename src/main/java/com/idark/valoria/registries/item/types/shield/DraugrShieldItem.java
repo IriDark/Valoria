@@ -45,4 +45,20 @@ public class DraugrShieldItem extends ConfiguredShield{
             player.getCooldowns().addCooldown(itemStack.getItem(), 60);
         }
     }
+
+    public static class Builder extends AbstractShieldBuilder<DraugrShieldItem>{
+
+        public Builder(Properties itemProperties) {
+            super(itemProperties);
+        }
+
+        public Builder(float defPercent, Properties itemProperties) {
+            super(defPercent, itemProperties);
+        }
+
+        @Override
+        public DraugrShieldItem build(){
+            return new DraugrShieldItem(this);
+        }
+    }
 }
