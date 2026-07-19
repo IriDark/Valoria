@@ -52,7 +52,7 @@ public class MannequinModel<T extends Entity> extends EntityModel<T>{
     @Override
     public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch){
         if(entityIn instanceof MannequinEntity entity){
-            ILivingEntityData data = (ILivingEntityData)entity;
+            if (!(entity instanceof ILivingEntityData data)) return;
             float factor = (float)Math.sin(ageInTicks + data.valoria$getLastDamage() * 0.5);
             float speed = 0.1f;
             this.Body.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float)Math.PI) * 0.4F * factor * limbSwingAmount;

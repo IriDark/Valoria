@@ -63,7 +63,7 @@ public class MannequinEntity extends AbstractDecorationMob implements IForgeEnti
      */
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount){
-        ILivingEntityData data = (ILivingEntityData)this;
+        if (!(this instanceof ILivingEntityData data)) return false;
         if(source == this.damageSources().fellOutOfWorld()){
             this.remove(RemovalReason.KILLED);
             return false;
