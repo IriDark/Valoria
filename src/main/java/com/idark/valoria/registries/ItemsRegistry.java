@@ -53,6 +53,7 @@ import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.book.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.builders.AbstractArmorBuilder.*;
+import pro.komaru.tridot.common.registry.item.builders.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.common.registry.item.components.TextComponent;
 import pro.komaru.tridot.common.registry.item.skins.*;
@@ -888,8 +889,8 @@ public class ItemsRegistry{
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
-        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
-        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem.Builder(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.NONE).build());
+        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(0.25f, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).addDefenderBlockEffects(new EffectList(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0))).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
+        crabBuckler = registerItem("crab_buckler", () -> new ConfiguredShield.Builder(0.45f, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)).setReturnedPercent(0.15f).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.NONE).build());
         wickedShield = registerItem("wicked_shield", () -> new ConfiguredShield.Builder(new Properties().stacksTo(1).rarity(Rarity.EPIC)).setTier(ItemTierRegistry.NONE).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
 
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));

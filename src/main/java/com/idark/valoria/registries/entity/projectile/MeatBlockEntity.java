@@ -86,29 +86,50 @@ public class MeatBlockEntity extends AbstractArrow{
         return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
     }
 
-    @Override
-    public void onHitEntity(EntityHitResult result){
+    public void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         Entity entity = result.getEntity();
         Entity shooter = this.getOwner();
-        if(shooter instanceof Player player){
-            float totalDamage = (float)(player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()));
-            if(entity instanceof LivingEntity livingentity){
+
+        if (shooter instanceof Player player) {
+            float totalDamage = (float)player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get());
+
+            if (entity instanceof LivingEntity livingentity) {
                 totalDamage += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
             }
 
             DamageSource damagesource = new DamageSource(DamageSourceRegistry.bleeding(this.level()).typeHolder(), this, shooter);
-            player.heal(totalDamage * 0.5f);
             this.dealtDamage = true;
-            if(entity.hurt(damagesource, totalDamage)){
-                if(entity.getType() == EntityType.ENDERMAN){
+
+            float healthBefore = 0.0F;
+            float absorptionBefore = 0.0F;
+            boolean isLiving = entity instanceof LivingEntity;
+
+            if (isLiving) {
+                LivingEntity target = (LivingEntity) entity;
+                healthBefore = target.getHealth();
+                absorptionBefore = target.getAbsorptionAmount();
+            }
+
+            if (entity.hurt(damagesource, totalDamage)) {
+                if (entity.getType() == EntityType.ENDERMAN) {
                     return;
                 }
 
-                if(entity instanceof LivingEntity living){
+                if (isLiving) {
+                    LivingEntity living = (LivingEntity) entity;
+
+                    float healthAfter = living.getHealth();
+                    float absorptionAfter = living.getAbsorptionAmount();
+                    float actualDamage = (healthBefore - healthAfter) + (absorptionBefore - absorptionAfter);
+
+                    if (actualDamage > 0.0F) {
+                        player.heal(actualDamage * 0.5F);
+                    }
+
                     EnchantmentHelper.doPostHurtEffects(living, shooter);
                     EnchantmentHelper.doPostDamageEffects(player, living);
-                    living.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 1));
+                    living.addEffect(new MobEffectInstance((MobEffect)EffectsRegistry.BLEEDING.get(), 120, 1));
                     this.doPostHurtEffects(living);
                 }
             }

@@ -1426,8 +1426,6 @@
   "tooltip.valoria.gaib_roots": "Can be found in forests",
   "tooltip.valoria.unstable_core": "Inserts a random elemental core with variable quantity",
   "tooltip.valoria.phantom": "Shoots enemies into air and stuns them midair",
-  "tooltip.valoria.shield.thorns": "Inflicts %s of incoming damage to attacker",
-  "tooltip.valoria.shield.speed": "Gain Speed after blocking an attack",
   "tooltip.valoria.raw_food": "Eating will add %s to your nihility meter",
   "tooltip.valoria.void_harm": "Consuming will add %s to your nihility meter",
   "tooltip.valoria.void_cleanse": "Consuming will remove %s from your nihility meter",

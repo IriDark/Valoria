@@ -17,6 +17,7 @@
 - Fixed Apotheosis & other mods that applies modifiers to items missing tooltip lines
 - Fixed Adhesive bandage missing curio tags
 - Fixed rare crash caused by missing type of Maggot entity
+- Fixed Meat cutter was healing without depending on blocked damage
 
 # **Changed**
 - Reworked Shields
