@@ -558,7 +558,7 @@ public class ItemsRegistry{
 
         ironNecklaceAmber = registerItem("iron_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.05f, Operation.ADDITION))
+        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.005f, Operation.ADDITION))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
@@ -619,7 +619,7 @@ public class ItemsRegistry{
 
         goldenNecklaceAmber = registerItem("golden_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.15f, Operation.ADDITION))
+        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.01f, Operation.ADDITION))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
@@ -672,7 +672,7 @@ public class ItemsRegistry{
 
         netheriteNecklaceAmber = registerItem("netherite_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.25f, Operation.ADDITION))
+        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.015f, Operation.ADDITION))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
