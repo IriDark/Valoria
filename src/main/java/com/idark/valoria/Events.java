@@ -345,7 +345,7 @@ public class Events{
     private void tickNihility(PlayerTickEvent event, ServerPlayer serverPlayer, Player player){
         player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
             if(!player.getAbilities().instabuild && !player.isSpectator()){
-                NihilityEvent.tick(event, nihilityLevel, serverPlayer);
+                NihilityEvent.tick(nihilityLevel, serverPlayer);
             }
         });
     }
