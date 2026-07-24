@@ -251,18 +251,11 @@ public class ValoriaUtils{
     }
 
     @SuppressWarnings({"removal", "UnstableApiUsage", "deprecation"})
-    public static boolean onePerTypeEquip(SlotContext slotContext, ItemStack stack){
-        List<ItemStack> items = new ArrayList<>();
-        List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(slotContext.getWearer(), stack.getItem());
-        for(SlotResult slot : curioSlots){
-            items.add(slot.stack());
-        }
-
-        return items.isEmpty() || slotContext.cosmetic();
+    public static boolean onePerTypeEquip(SlotContext slotContext, ItemStack stack) {
+        if (slotContext.cosmetic()) return true;
+        return CuriosApi.getCuriosHelper().findCurios(slotContext.entity(), stack.getItem())
+                .stream().allMatch(result ->
+                        result.slotContext().identifier().equals(slotContext.identifier())
+                                && result.slotContext().index() == slotContext.index());
     }
-
-    public static void addList(List<Item> list, Item... T){
-        Collections.addAll(list, T);
-    }
-
 }
