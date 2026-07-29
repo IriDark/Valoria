@@ -1646,5 +1646,6 @@
   "item.valoria.void_slate_rune_of_pyro": "Void Slate Of Pyro",
   "subtitles.valoria.vampiric_rune.activate": "Vampiric rune used ★",
   "tooltip.valoria.gunpowder_charge": "Used to charge Blaze Reap",
-  "tooltip.valoria.rmb_switch": "Click  in inventory to switch modes"
+  "tooltip.valoria.rmb_switch": "Click  in inventory to switch modes",
+  "rarity.lunar.name": "Lunar"
 }
