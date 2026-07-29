@@ -58,25 +58,19 @@ public class BandageItem extends Item{
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity){
-        Player player = entity instanceof Player ? (Player)entity : null;
-        if(!world.isClientSide){
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, stack);
-            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-            for(MobEffectInstance effect : effects){
-                entity.addEffect(effect, entity);
-            }
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, Level level, @NotNull LivingEntity entity) {
+        if (level.isClientSide) return stack;
+        if (!(entity instanceof Player player)) return stack;
 
-            cureEffects(stack, entity);
-            if(!player.getAbilities().instabuild){
-                stack.shrink(1);
-            }
-        }
+        CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
 
-        if(world instanceof ServerLevel serv){
-            double y = entity.getY() + 0.7D;
-            serv.sendParticles(ParticleRegistry.HEAL.get(), entity.getX(), y, entity.getZ(), 12, 0, 0, 0, 0.025f);
-        }
+        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+        effects.forEach(eff -> entity.addEffect(new MobEffectInstance(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), eff.isAmbient(), eff.isVisible(), eff.showIcon())));
+
+        if (!player.getAbilities().instabuild) stack.shrink(1);
+
+        cureEffects(stack, entity);
+        if (level instanceof ServerLevel serv) serv.sendParticles(ParticleRegistry.HEAL.get(), entity.getX(), entity.getY() + 0.7D, entity.getZ(), 12, 0, 0, 0, 0.025f);
 
         return stack;
     }
@@ -98,11 +92,9 @@ public class BandageItem extends Item{
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         Utils.Items.effectTooltip(effects, pTooltipComponents, 1, 1);
-        if(removeAllEffects){
+        if (removeAllEffects) {
             pTooltipComponents.add(Component.translatable("tooltip.valoria.effect_cure").withStyle(ChatFormatting.GRAY));
-        }else{
-            pTooltipComponents.add(Component.translatable("tooltip.valoria.bleeding_cure").withStyle(ChatFormatting.GRAY));
-        }
+        } else pTooltipComponents.add(Component.translatable("tooltip.valoria.bleeding_cure").withStyle(ChatFormatting.GRAY));
     }
 
     @Override

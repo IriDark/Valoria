@@ -24,17 +24,16 @@ public abstract class AbstractRuneItem extends ValoriaCurioItem{
 
     @Override
     @SuppressWarnings({"removal", "UnstableApiUsage", "deprecation"})
-    public boolean canEquip(SlotContext slotContext, ItemStack stack){
-        if (stack.getItem() instanceof AbstractRuneItem toEquip){
-            List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(slotContext.getWearer(), (i) -> i.getItem() instanceof AbstractRuneItem);
-            for(SlotResult slot : curioSlots){
-                ItemStack otherStack = slot.stack();
-                AbstractRuneItem otherRune = (AbstractRuneItem)otherStack.getItem();
+    public boolean canEquip(SlotContext slotContext, ItemStack stack) {
+        if (slotContext.cosmetic()) return true;
 
-                if(otherRune.runeType() == toEquip.runeType()) return false;
-            }
+        if (stack.getItem() instanceof AbstractRuneItem toEquip) {
+            return CuriosApi.getCuriosHelper().findCurios(slotContext.entity(), i -> i.getItem() instanceof AbstractRuneItem)
+                    .stream().filter(result -> ((AbstractRuneItem) result.stack().getItem()).runeType() == toEquip.runeType())
+                    .allMatch(result -> result.slotContext().identifier().equals(slotContext.identifier())
+                                    && result.slotContext().index() == slotContext.index());
         }
 
-        return true;
+        return super.canEquip(slotContext, stack);
     }
 }
