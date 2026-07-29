@@ -1,0 +1,10 @@
+{
+  "parent": "valoria:item/curved_shield",
+  "textures": {
+    "texture": "valoria:item/shield/phantasm_shield"
+  },
+  "gui_light": "front",
+  "overrides": [
+    {"predicate": {"blocking": 1}, "model": "valoria:item/phantasm_shield_blocking"}
+  ]
+}

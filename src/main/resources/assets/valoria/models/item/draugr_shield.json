@@ -1,7 +1,7 @@
 {
 	"format_version": "1.21.6",
 	"textures": {
-		"0": "valoria:item/draugr_shield"
+		"0": "valoria:item/shield/draugr_shield"
 	},
 	"elements": [
 		{

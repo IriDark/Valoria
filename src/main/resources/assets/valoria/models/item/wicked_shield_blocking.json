@@ -1,5 +1,5 @@
 {
-	"format_version": "1.21.6",
+    "gui_light": "front",
 	"parent": "valoria:item/wicked_shield",
 	"texture_size": [64, 64],
 	"textures": {
@@ -137,7 +137,6 @@
 			}
 		}
 	],
-	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [40, 140, 0],

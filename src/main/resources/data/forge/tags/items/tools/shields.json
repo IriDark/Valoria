@@ -1,8 +1,17 @@
 {
   "replace": false,
   "values": [
+    "valoria:bronze_shield",
     "valoria:draugr_shield",
     "valoria:crab_buckler",
+    "valoria:nature_shield",
+    "valoria:aquarius_shield",
+    "valoria:infernal_shield",
+    "valoria:void_shield",
+    "valoria:crimtane_shield",
+    "valoria:pyratite_shield",
+    "valoria:spider_shield",
+    "valoria:phantasm_shield",
     "valoria:wicked_shield"
   ]
 }

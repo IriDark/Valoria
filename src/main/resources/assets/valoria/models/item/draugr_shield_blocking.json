@@ -1,7 +1,7 @@
 {
-	"format_version": "1.21.6",
+    "gui_light": "front",
 	"textures": {
-		"0": "valoria:item/draugr_shield"
+		"0": "valoria:item/shield/draugr_shield"
 	},
 	"elements": [
 		{
@@ -70,7 +70,6 @@
 			}
 		}
 	],
-	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [40, 140, 0],

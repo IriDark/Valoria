@@ -304,6 +304,15 @@ public class ValoriaClient{
             ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.natureShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.aquariusShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.infernalShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.voidShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.phantasmShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.crimtaneShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.spiderShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.pyratiteShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.bronzeShield.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
             ModItemModelProperties.makeNight(ItemsRegistry.eyeNecklace.get());
         }

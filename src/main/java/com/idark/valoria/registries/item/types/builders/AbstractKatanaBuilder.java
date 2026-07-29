@@ -11,8 +11,6 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.*;
 
-import java.awt.*;
-
 public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public Tier tier = ItemTierRegistry.NONE;
     public Item.Properties itemProperties;
@@ -20,8 +18,6 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
     public SoundEvent chargedSound;
-    public Color dashColor;
-    public boolean usePacket = false;
     public boolean hasLargeModel = true;
     public float attackDamageIn;
     public float attackSpeedIn;
@@ -75,17 +71,6 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
      */
     public AbstractKatanaBuilder<T> setParticles(ParticleOptions particleOptions){
         this.particleOptions = particleOptions;
-        return this;
-    }
-
-    /**
-     * Particle trail that will appear after dashing, but sent through a DashParticlePacket
-     *
-     * @param color Particle color
-     */
-    public AbstractKatanaBuilder<T> usePacket(Color color){
-        this.usePacket = true;
-        this.dashColor = color;
         return this;
     }
 

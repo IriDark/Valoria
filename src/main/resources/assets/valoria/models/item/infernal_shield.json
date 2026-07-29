@@ -1,0 +1,10 @@
+{
+  "parent": "valoria:item/curved_shield_thin",
+  "textures": {
+    "texture": "valoria:item/shield/infernal_shield"
+  },
+  "gui_light": "front",
+  "overrides": [
+    {"predicate": {"blocking": 1}, "model": "valoria:item/infernal_shield_blocking"}
+  ]
+}

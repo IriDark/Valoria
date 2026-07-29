@@ -25,7 +25,6 @@ import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.gui.overlay.*;
 import pro.komaru.tridot.common.registry.item.components.*;
-import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 import java.lang.Math;
@@ -104,7 +103,10 @@ public class DashAbility extends AbilityComponent {
         double dashDistance = getDashDistance(player);
         performDash(player, stack, dashDistance);
         if(level instanceof ServerLevel srv){
-            PacketHandler.sendToTracking(srv, player.getOnPos(), new DashParticlePacket(player.getUUID(), 1, 0, 0, 0, Col.white.toJava()));
+            float X = (float)(Math.sin(pitch) * Math.cos(yaw));
+            float Y = (float)(Math.cos(pitch) * 2);
+            float Z = (float)(Math.sin(pitch) * Math.sin(yaw));
+            PacketHandler.sendToTracking(srv, player.getOnPos(), new DashParticlePacket(player.getUUID(), X, Y, Z));
         }
     }
 

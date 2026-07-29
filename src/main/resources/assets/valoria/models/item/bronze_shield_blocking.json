@@ -1,0 +1,68 @@
+{
+    "gui_light": "front",
+	"texture_size": [32, 32],
+	"textures": {
+		"5": "valoria:item/shield/bronze_shield"
+	},
+	"elements": [
+		{
+			"from": [3, 12, 9],
+			"to": [13, 22, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 17, 9.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 5], "texture": "#5"},
+				"east": {"uv": [5, 0, 5.5, 5], "texture": "#5"},
+				"south": {"uv": [0, 5, 5, 10], "texture": "#5"},
+				"west": {"uv": [5, 5, 5.5, 10], "texture": "#5"},
+				"up": {"uv": [10.5, 0.5, 5.5, 0], "texture": "#5"},
+				"down": {"uv": [10.5, 0.5, 5.5, 1], "texture": "#5"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [40, -50, 0],
+			"translation": [4, -7, -4.5],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [40, -50, 0],
+			"translation": [4, -7, -4.5],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -180, -3],
+			"translation": [1, -7, 1.75],
+			"scale": [0.65, 0.65, 0.65]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -180, -3],
+			"translation": [1, -7, 1.75],
+			"scale": [0.65, 0.65, 0.65]
+		},
+		"ground": {
+			"translation": [0, -1.5, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [15, 150, 5],
+			"translation": [-0.75, -8.75, 0]
+		},
+		"head": {
+			"translation": [0.25, -9, -8]
+		},
+		"fixed": {
+			"translation": [0, -3.5, 0],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "plate",
+			"origin": [8, 0, 5],
+			"scope": 0,
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

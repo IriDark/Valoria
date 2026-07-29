@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/curved_shield_thin_blocking",
+  "textures": {
+    "texture": "valoria:item/shield/aquarius_shield"
+  }
+}

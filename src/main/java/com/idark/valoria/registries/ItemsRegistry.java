@@ -23,7 +23,6 @@ import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
@@ -175,7 +174,7 @@ public class ItemsRegistry{
     applePie, eyeChunk, taintedBerries, scavengerMeat, scavengerCookedMeat, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, crabLeg, cookedCrablLeg, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
 
     necromancerMusicDisc,
-    draugrShield, crabBuckler, wickedShield,
+    draugrShield, bronzeShield, natureShield, aquariusShield, infernalShield, voidShield, phantasmShield, crimtaneShield, spiderShield, pyratiteShield, crabBuckler, wickedShield,
 
     // spawn eggs
     pumpkinContract, goblin, firron, pixie, entMob, natureGolem, dryador, riverGolem, kingCrab, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
@@ -347,26 +346,8 @@ public class ItemsRegistry{
         fortressLocator = registerItem("fortress_locator", () -> new StructureLocatorItem(Pal.majestyPurple, TagsRegistry.FORTRESS_LOCATOR, new Item.Properties()));
 
         // boss summonables
-        necromancerGrimoire = registerItem("necromancer_grimoire", () -> new Item(new Item.Properties()){
-            @Override
-            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
-                super.appendHoverText(stack, world, tooltip, flags);
-                tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.NECROMANCER.get().getDescription()).withStyle(ChatFormatting.GRAY));
-                tooltip.add(Component.empty());
-                tooltip.add(Component.translatable("tooltip.valoria.used_on", ComponentUtils.wrapInSquareBrackets(BlockRegistry.crypticAltar.get().getName())).withStyle(ChatFormatting.GREEN));
-            }
-        });
-
-        suspiciousGem = registerItem("suspicious_gem", () -> new Item(new Item.Properties().rarity(RarityRegistry.VOID)){
-            @Override
-            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
-                super.appendHoverText(stack, world, tooltip, flags);
-                tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.WICKED_CRYSTAL.get().getDescription()).withStyle(ChatFormatting.GRAY));
-                tooltip.add(Component.empty());
-                tooltip.add(Component.translatable("tooltip.valoria.used_on", ComponentUtils.wrapInSquareBrackets(BlockRegistry.wickedAltar.get().getName())).withStyle(ChatFormatting.GREEN));
-            }
-        });
-
+        necromancerGrimoire = registerItem("necromancer_grimoire", () -> new BossDescriptionItem(() -> EntityTypeRegistry.NECROMANCER.get(), BlockRegistry.crypticAltar.get(), new Item.Properties()));
+        suspiciousGem = registerItem("suspicious_gem", () -> new BossDescriptionItem(() -> EntityTypeRegistry.WICKED_CRYSTAL.get(), BlockRegistry.wickedAltar.get(), new Item.Properties().rarity(RarityRegistry.VOID)));
         harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, Level.OVERWORLD, EntityTypeRegistry.DRYADOR, new Item.Properties().rarity(RarityRegistry.NATURE)));
         obsidianHeart = registerItem("obsidian_heart", () -> new BossSummonableItem(8, Level.NETHER, EntityTypeRegistry.FIRRON, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
 
@@ -419,7 +400,7 @@ public class ItemsRegistry{
         // halloween
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
-        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).usePacket(Pal.mandarin.toJava()).build());
+        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).build());
         reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
@@ -889,8 +870,17 @@ public class ItemsRegistry{
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
-        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(0.25f, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).addDefenderBlockEffects(new EffectList(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0))).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
-        crabBuckler = registerItem("crab_buckler", () -> new ConfiguredShield.Builder(0.45f, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)).setReturnedPercent(0.15f).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.NONE).build());
+        bronzeShield = registerItem("bronze_shield", () -> new DraugrShieldItem.Builder(0.25f, new Properties().stacksTo(1).durability(1200).rarity(Rarity.UNCOMMON)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.BRONZE).build());
+        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(0.35f, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).addDefenderBlockEffects(new EffectList(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0))).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
+        crabBuckler = registerItem("crab_buckler", () -> new ConfiguredShield.Builder(0.35f, new Properties().stacksTo(1).durability(1800).rarity(Rarity.RARE)).setReturnedPercent(0.15f).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.NONE).build());
+        natureShield = registerItem("nature_shield", () -> new ConfiguredShield.Builder(0.40f, new Properties().stacksTo(1).durability(2200).rarity(RarityRegistry.NATURE)).setTier(ItemTierRegistry.NATURE).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
+        aquariusShield = registerItem("aquarius_shield", () -> new ConfiguredShield.Builder(0.45f, new Properties().stacksTo(1).durability(2600).rarity(RarityRegistry.AQUARIUS)).setTier(ItemTierRegistry.AQUARIUS).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
+        infernalShield = registerItem("infernal_shield", () -> new ConfiguredShield.Builder(0.50f, new Properties().stacksTo(1).durability(3000).rarity(RarityRegistry.INFERNAL)).setTier(ItemTierRegistry.INFERNAL).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
+        voidShield = registerItem("void_shield", () -> new ConfiguredShield.Builder(0.65f, new Properties().stacksTo(1).durability(4000).rarity(RarityRegistry.VOID)).setTier(ItemTierRegistry.NIHILITY).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
+        crimtaneShield = registerItem("crimtane_shield", () -> new ConfiguredShield.Builder(0.65f, new Properties().stacksTo(1).durability(4800).rarity(RarityRegistry.BLOODY)).setTier(ItemTierRegistry.BLOOD).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
+        pyratiteShield = registerItem("pyratite_shield", () -> new ConfiguredShield.Builder(0.50f, new Properties().stacksTo(1).durability(5280).rarity(RarityRegistry.PYRATITE)).setTier(ItemTierRegistry.BLOOD).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
+        spiderShield = registerItem("spider_shield", () -> new ConfiguredShield.Builder(0.60f, new Properties().stacksTo(1).durability(5200).rarity(RarityRegistry.SPIDER)).setTier(ItemTierRegistry.SPIDER).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
+        phantasmShield = registerItem("phantasm_shield", () -> new ConfiguredShield.Builder(0.80f, new Properties().stacksTo(1).rarity(RarityRegistry.PHANTASM)).setTier(ItemTierRegistry.PYRATITE).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
         wickedShield = registerItem("wicked_shield", () -> new ConfiguredShield.Builder(new Properties().stacksTo(1).rarity(Rarity.EPIC)).setTier(ItemTierRegistry.NONE).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
 
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));

@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/curved_shield_blocking",
+  "textures": {
+    "texture": "valoria:item/shield/phantasm_shield"
+  }
+}

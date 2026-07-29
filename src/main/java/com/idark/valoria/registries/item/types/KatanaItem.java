@@ -171,33 +171,33 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         double dashDistance = getDashDistance(player);
         performDash(player, stack, dashDistance);
         if(level instanceof ServerLevel srv){
-            if(!builder.usePacket){
-                for(int i = 0; i < 10; i += 1){
-                    double locDistance = i * 0.5D;
-                    double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
-                    double Y = Math.cos(pitch) * 2;
-                    double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
-
-                    srv.sendParticles(builder.particleOptions, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
-                    List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
-                    for(LivingEntity entity : detectedEntities){
-                        if(!entity.equals(player)){
-                            entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
-                            performEffects(entity, player);
-                            Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
-                            if(!player.isCreative()){
-                                stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-                            }
+            for(int i = 0; i < 10; i += 1){
+                double locDistance = i * 0.5D;
+                double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
+                double Y = Math.cos(pitch) * 2;
+                double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
+                List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
+                for(LivingEntity entity : detectedEntities){
+                    if(!entity.equals(player)){
+                        entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                        performEffects(entity, player);
+                        Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
+                        if(!player.isCreative()){
+                            stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                         }
                     }
-
-                    if(locDistance >= distance(dashDistance, level, player)){
-                        break;
-                    }
                 }
-            }else{
-                PacketHandler.sendToTracking(srv, player.getOnPos(), new DashParticlePacket(player.getUUID(), 1, 0, 0, 0, builder.dashColor));
+
+                if(locDistance >= distance(dashDistance, level, player)){
+                    break;
+                }
             }
+
+            float X = (float)(Math.sin(pitch) * Math.cos(yaw));
+            float Y = (float)(Math.cos(pitch) * 2);
+            float Z = (float)(Math.sin(pitch) * Math.sin(yaw));
+
+            PacketHandler.sendToTracking(srv, player.getOnPos(), new DashParticlePacket(player.getUUID(), X, Y, Z));
         }
     }
 

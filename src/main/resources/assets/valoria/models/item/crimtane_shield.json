@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/curved_shield_thin",
+  "textures": {
+    "texture": "valoria:item/shield/crimtane_shield"
+  }
+}

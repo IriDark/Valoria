@@ -1,6 +1,7 @@
 # 1.0.3.4
 
 # **Added**
+- Added Small block icon to Boss Summonable items to show an actual block where it needs to be used
 - Added additional tooltip line to Gunpowder charge describing its use
 - Added Wicked Shield to Wicked Crystal LootTable
 - Added another init layer to Alchemy Station and Heavy Workbench just to be sure everything inits
@@ -8,6 +9,9 @@
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Incorrect sound for Tombstone Spikes Trap
+- Fixed Knockback resistance values for Necklaces
+- Fixed Thread locking due to incorrect Nihility math calculations
 - Fixed Damage reduction formula in Shields
 - Fixed Rare crash while displaying damage text
 - Fixed Nihility decaying too fast
@@ -20,6 +24,7 @@
 - Fixed Meat cutter was healing without depending on blocked damage
 
 # **Changed**
+- Nerfer Overdrive enchantment (Max: 30% -> 10%)
 - Reworked Shields
 - Changed Healing flask recipe
 - Slightly Increased Ent spawn
