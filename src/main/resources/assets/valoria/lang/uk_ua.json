@@ -1647,5 +1647,14 @@
   "subtitles.valoria.vampiric_rune.activate": "Vampiric rune used ★",
   "tooltip.valoria.gunpowder_charge": "Used to charge Blaze Reap",
   "tooltip.valoria.rmb_switch": "Click  in inventory to switch modes",
-  "rarity.lunar.name": "Lunar"
+  "rarity.lunar.name": "Lunar",
+  "item.valoria.bronze_shield": "Bronze Shield",
+  "item.valoria.nature_shield": "Nature Shield",
+  "item.valoria.aquarius_shield": "Aquarius Shield",
+  "item.valoria.infernal_shield": "Infernal Shield",
+  "item.valoria.void_shield": "Void Shield",
+  "item.valoria.crimtane_shield": "Crimtane Shield",
+  "item.valoria.pyratite_shield": "Pyratite Shield",
+  "item.valoria.spider_shield": "Spider Shield",
+  "item.valoria.phantasm_shield": "Phantasm Shield"
 }
