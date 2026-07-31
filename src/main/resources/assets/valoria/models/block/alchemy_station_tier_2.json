@@ -4,7 +4,7 @@
 	"texture_size": [128, 128],
 	"textures": {
 		"2": "valoria:block/alchemy_station_tier_2",
-		"particle": "block/spruce_planks"
+		"particle": "block/nether_bricks"
 	},
 	"elements": [
 		{

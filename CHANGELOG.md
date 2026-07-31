@@ -9,6 +9,9 @@
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Alchemy Stations breaking process
+- Fixed Alchemy Stations wrong particles
+- Fixed Wrong BlockState key for Heavy Workbench preventing from Loot drop
 - Fixed Incorrect sound for Tombstone Spikes Trap
 - Fixed Knockback resistance values for Necklaces
 - Fixed Thread locking due to incorrect Nihility math calculations

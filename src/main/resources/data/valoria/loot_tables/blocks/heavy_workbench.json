@@ -16,7 +16,7 @@
               "block": "valoria:heavy_workbench",
               "condition": "minecraft:block_state_property",
               "properties": {
-                "part": "head"
+                "part": "bottom_left"
               }
             }
           ],
