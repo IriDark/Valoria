@@ -1612,5 +1612,14 @@
   "valoria.cutscenes.skip_hold": "Skipping...",
   "valoria.cutscenes.skip_hint": "Зажмите [Space] для пропуска",
   "codex.valoria.firron.hint": "Craft the Obsidian Heart",
-  "tooltip.valoria.boss_summonable.dimension": "Should be used in - %s."
+  "tooltip.valoria.boss_summonable.dimension": "Should be used in - %s.",
+  "item.valoria.bronze_shield": "Bronze Shield",
+  "item.valoria.nature_shield": "Nature Shield",
+  "item.valoria.aquarius_shield": "Aquarius Shield",
+  "item.valoria.infernal_shield": "Infernal Shield",
+  "item.valoria.void_shield": "Void Shield",
+  "item.valoria.crimtane_shield": "Crimtane Shield",
+  "item.valoria.pyratite_shield": "Pyratite Shield",
+  "item.valoria.spider_shield": "Spider Shield",
+  "item.valoria.phantasm_shield": "Phantasm Shield"
 }
