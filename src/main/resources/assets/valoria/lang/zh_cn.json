@@ -1655,5 +1655,13 @@
   "item.valoria.crimtane_shield": "Crimtane Shield",
   "item.valoria.pyratite_shield": "Pyratite Shield",
   "item.valoria.spider_shield": "Spider Shield",
-  "item.valoria.phantasm_shield": "Phantasm Shield"
+  "item.valoria.phantasm_shield": "Phantasm Shield",
+  "block.valoria.mossy_tombstone": "Mossy Tombstone",
+  "block.valoria.mossy_tombstone_bricks": "Mossy Tombstone Bricks",
+  "block.valoria.mossy_tombstone_bricks_slab": "Mossy Tombstone Bricks Slab",
+  "block.valoria.mossy_tombstone_bricks_stairs": "Mossy Tombstone Bricks Stairs",
+  "block.valoria.mossy_tombstone_bricks_wall": "Mossy Tombstone Bricks Wall",
+  "block.valoria.mossy_tombstone_slab": "Mossy Tombstone Slab",
+  "block.valoria.mossy_tombstone_stairs": "Mossy Tombstone Stairs",
+  "block.valoria.mossy_tombstone_wall": "Mossy Tombstone Wall"
 }
