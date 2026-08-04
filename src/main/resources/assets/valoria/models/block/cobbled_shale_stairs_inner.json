@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "valoria:block/cobbled_shale",
-    "side": "valoria:block/cobbled_shale",
-    "top": "valoria:block/cobbled_shale"
-  }
-}

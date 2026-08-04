@@ -57,14 +57,14 @@ public class BlockRegistry{
     smoothAsh, smoothAshStairs, smoothAshSlab, smoothAshWall,
 
     // crafting stations
-    heavyWorkbench, alchemyStationTier1, alchemyStationTier2, alchemyStationTier3, alchemyStationTier4, stoneCrusher, jewelerTable, keg, tinkererWorkbench, soulInfuser, elementalManipulator, kiln,
+    heavyWorkbench, alchemyStationTier1, alchemyStationTier2, alchemyStationTier3, alchemyStationTier4, stoneCrusher, jewelerTable, keg, soulInfuser, elementalManipulator, kiln,
 
     // boss summon altars
     crypticAltar, wickedAltar,
 
     pearlium,
     voidStone, voidStoneStairs, voidStoneSlab, voidStoneWall, voidPillar, voidPillarAmethyst, chargedVoidPillar, voidBrick, voidBrickStairs, voidBrickSlab, voidBrickWall, voidCrackedBrick, voidCrackedBrickStairs, voidCrackedBrickSlab, voidCrackedBrickWall, polishedVoidStone, voidFirechargeTrap, voidSpikesTrap, voidChiseledBrick, voidChiseledBricks, voidChiseledBricksStairs, voidChiseledBricksSlab, voidSand, voidSandstone, voidSandstoneStairs, voidSandstoneSlab, voidSandstoneWall, smoothVoidSandstone, smoothVoidSandstoneStairs, smoothVoidSandstoneSlab, voidChiseledSandstone, voidCutSandstone, voidCutSandstoneSlab, voidGrass, voidTaint, voidTaintLantern, abyssalLantern,
-    tombstone, tombstoneStairs, tombstoneSlab, tombstoneWall, mossyTombstone, mossyTombstoneStairs, mossyTombstoneSlab, mossyTombstoneWall, tombstoneBricks, tombstoneBricksStairs, tombstoneBricksSlab, tombstoneBricksWall, mossyTombstoneBricks, mossyTombstoneBricksStairs, mossyTombstoneBricksSlab, mossyTombstoneBricksWall, crackedTombstoneBricks, crackedTombstoneBricksWall,
+    tombstone, tombstoneStairs, tombstoneSlab, tombstoneWall, mossyTombstone, mossyTombstoneStairs, mossyTombstoneSlab, mossyTombstoneWall, tombstoneBricks, tombstoneBricksStairs, tombstoneBricksSlab, tombstoneBricksWall, mossyTombstoneBricks, mossyTombstoneBricksStairs, mossyTombstoneBricksSlab, mossyTombstoneBricksWall, crackedTombstoneBricks, crackedTombstoneBricksSlab, crackedTombstoneBricksStairs, crackedTombstoneBricksWall,
     cutTombstone, cutTombstoneStairs, cutTombstoneSlab, cutTombstoneWall, polishedTombstone, tombstoneFirechargeTrap, tombstoneSpikesTrap, tombstonePillar, cutTombstonePillar, wickedTombstonePillar, cryptLantern,
 
     //wood
@@ -139,7 +139,7 @@ public class BlockRegistry{
         blackGoldBlock = registerBlock("black_gold_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         natureBlock = registerBlock("nature_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_GREEN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         aquariusBlock = registerBlock("aquarius_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
-        infernalBlock = registerBlock("infernal_block", () -> new InfernalBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+        infernalBlock = registerBlock("infernal_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         awakenedVoidBlock = registerBlock("awakened_void_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         crimtaneBlock = registerBlock("crimtane_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
 
@@ -251,6 +251,8 @@ public class BlockRegistry{
         tombstoneBricksStairs = registerBlock("tombstone_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.tombstoneBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         tombstoneBricksWall = registerBlock("tombstone_bricks_wall", () -> new WallBlock(props(Blocks.STONE, MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         crackedTombstoneBricks = registerBlock("cracked_tombstone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
+        crackedTombstoneBricksSlab = registerBlock("cracked_tombstone_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
+        crackedTombstoneBricksStairs = registerBlock("cracked_tombstone_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.crackedTombstoneBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         crackedTombstoneBricksWall = registerBlock("cracked_tombstone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
         mossyTombstoneBricks = registerBlock("mossy_tombstone_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         mossyTombstoneBricksSlab = registerBlock("mossy_tombstone_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));

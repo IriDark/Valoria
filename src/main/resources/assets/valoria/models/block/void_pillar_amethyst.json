@@ -1,9 +1,0 @@
-{
-  "parent": "valoria:block/cube_column_glow",
-  "textures": {
-    "end": "valoria:block/void_pillar_end",
-    "side": "valoria:block/void_pillar_amethyst",
-    "side_glow": "valoria:block/void_pillar_amethyst_glow",
-    "particle": "valoria:block/void_pillar_amethyst"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "valoria:item/lunar_bow",
-  "textures": {
-    "layer0": "valoria:item/lunar_bow_pulling_1"
-  }
-}

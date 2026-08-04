@@ -1,6 +1,0 @@
-{
-  "parent": "valoria:item/infernal_bow",
-  "textures": {
-    "layer0": "valoria:item/infernal_bow_pulling_0"
-  }
-}

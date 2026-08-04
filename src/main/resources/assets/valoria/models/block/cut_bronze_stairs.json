@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "valoria:block/cut_bronze",
-    "top": "valoria:block/cut_bronze",
-    "side": "valoria:block/cut_bronze"
-  }
-}

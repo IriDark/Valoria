@@ -1,6 +1,0 @@
-{
-    "parent": "valoria:item/phantasm_crossbow",
-    "textures": {
-        "layer0": "valoria:item/phantasm_crossbow_pulling_0"
-    }
-}

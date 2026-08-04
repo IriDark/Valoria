@@ -399,9 +399,20 @@ public class Valoria{
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+            java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
+            ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
+            generator.addProvider(event.includeServer(), blockTagsProvider);
+            generator.addProvider(event.includeServer(), new ModItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
             generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
             generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
+            
+            generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
+            generator.addProvider(event.includeServer(), new net.minecraftforge.common.data.ForgeAdvancementProvider(packOutput, lookupProvider, existingFileHelper, java.util.List.of(new ModAdvancements())));
+
             generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
+            generator.addProvider(event.includeClient(), new ModItemModelProvider(packOutput, existingFileHelper));
+            generator.addProvider(event.includeClient(), new ModSoundProvider(packOutput, existingFileHelper));
         }
     }
 }

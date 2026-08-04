@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "valoria:cobalt_ore"
-  },
-  "experience": 1.0,
-  "cookingtime": 100,
-  "result": "valoria:cobalt_ingot"
-}

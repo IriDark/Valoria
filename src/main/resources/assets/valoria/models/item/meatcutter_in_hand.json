@@ -1,6 +1,0 @@
-{
-  "parent": "valoria:item/handheld_large_rotate",
-  "textures": {
-    "layer0": "valoria:item/meatcutter_in_hand"
-  }
-}

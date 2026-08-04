@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "valoria:item/jewelry_bag",
-    "layer1": "valoria:item/jewelry_bag_overlay"
-  }
-}

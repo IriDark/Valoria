@@ -52,7 +52,6 @@ public class TagsRegistry{
 
     public static final TagKey<Block> MINEABLE_WITH_MULTITOOL = block(new ResourceLocation(Valoria.ID, "mineable/multitool"));
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
-    public static final TagKey<Block> VOID_STONE_ORE_REPLACEABLES = block(new ResourceLocation(Valoria.ID, "void_stone_ore_replaceables"));
     public static final TagKey<Block> PICRITE_ORE_REPLACEABLES = block(new ResourceLocation(Valoria.ID, "picrite_ore_replaceables"));
     public static final TagKey<Block> VOID_STONES = block(new ResourceLocation(Valoria.ID, "void_stones"));
     public static final TagKey<Block> VOID_BLOCKS = block(new ResourceLocation(Valoria.ID, "void_blocks"));
@@ -104,7 +103,6 @@ public class TagsRegistry{
     public static final TagKey<Item> ELDRITCH = item(new ResourceLocation(Valoria.ID, "logs/eldritch"));
     public static final TagKey<Item> SHADEWOOD = item(new ResourceLocation(Valoria.ID, "logs/shade"));
     public static final TagKey<Item> DREADWOOD = item(new ResourceLocation(Valoria.ID, "logs/dread"));
-    public static final TagKey<Item> BOWS = item(new ResourceLocation(Valoria.ID, "bows"));
     public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(Valoria.ID, "wooden_cup_drinks"));
     public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(Valoria.ID, "bottle_drinks"));
     public static final TagKey<Item> TRINKETS = item(new ResourceLocation(Valoria.ID, "trinkets"));

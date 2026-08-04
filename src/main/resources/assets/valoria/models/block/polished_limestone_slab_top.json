@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "valoria:block/polished_limestone",
-    "top": "valoria:block/polished_limestone",
-    "side": "valoria:block/polished_limestone"
-  }
-}

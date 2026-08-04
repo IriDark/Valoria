@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "valoria:dunestone_bricks"
-  },
-  "result": "valoria:dunestone_bricks_slab"
-}

@@ -154,8 +154,6 @@ public class ValoriaClient{
             CuriosRendererRegistry.register(ItemsRegistry.jewelryBag.get(), JewelryBagRenderer::new);
 
             CuriosRendererRegistry.register(ItemsRegistry.pixiePet.get(), () -> new PetRenderer((PetItem)ItemsRegistry.pixiePet.get().asItem()));
-
-            MenuScreens.register(MenuRegistry.TINKERING_MENU.get(), TinkeringScreen::new);
             MenuScreens.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
             MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
             MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);

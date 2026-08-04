@@ -2,7 +2,6 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
-import com.idark.valoria.registries.entity.ai.goals.RemoveBlockGoal;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -20,7 +19,6 @@ import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
@@ -127,8 +125,6 @@ public class Goblin extends AbstractGoblin{
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.2));
         this.goalSelector.addGoal(3, new CollectBerriesGoal(this, 1.2, 12, 4));
-        this.goalSelector.addGoal(6, new RemoveBlockGoal(Blocks.FARMLAND, this, 1.4, 10));
-        this.goalSelector.addGoal(6, new RemoveCropsGoal(this, 1.2, 10));
         this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.2, 6, 10));
     }
 

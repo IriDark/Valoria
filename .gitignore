@@ -16,6 +16,7 @@ out
 # gradle
 build
 .gradle
+.gradle-user
 
 # other
 eclipse
@@ -24,4 +25,3 @@ run-data
 
 # Files from Forge MDK
 forge*changelog.txt
-/src/generated/

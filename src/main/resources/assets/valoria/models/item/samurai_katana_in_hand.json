@@ -1,6 +1,0 @@
-{
-  "parent": "valoria:item/handheld_large",
-  "textures": {
-    "layer0": "valoria:item/samurai_katana_in_hand"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "valoria:block/cobbled_shale_bricks",
-    "side": "valoria:block/cobbled_shale_bricks",
-    "top": "valoria:block/cobbled_shale_bricks"
-  }
-}

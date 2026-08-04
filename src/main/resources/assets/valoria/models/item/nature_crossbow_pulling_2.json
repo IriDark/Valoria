@@ -1,6 +1,0 @@
-{
-  "parent": "valoria:item/nature_crossbow",
-    "textures": {
-        "layer0": "valoria:item/nature_crossbow_pulling_2"
-    }
-}

@@ -1,8 +1,0 @@
-{
-  "render_type": "minecraft:cutout",
-  "parent": "minecraft:block/door_bottom_left",
-  "textures": {
-    "bottom": "valoria:block/eldritch_door_bottom",
-    "top": "valoria:block/eldritch_door_top"
-  }
-}

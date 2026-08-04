@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "valoria:block/mossy_tombstone",
-    "top": "valoria:block/mossy_tombstone",
-    "side": "valoria:block/mossy_tombstone"
-  }
-}

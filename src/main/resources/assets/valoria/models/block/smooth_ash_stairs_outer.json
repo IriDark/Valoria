@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "valoria:block/smooth_ash",
-    "side": "valoria:block/smooth_ash",
-    "top": "valoria:block/smooth_ash"
-  }
-}

@@ -101,7 +101,7 @@ public class ItemsRegistry{
     emptyGazer, emptyWinglet, emptyTotem,
 
     // skin
-    arcaneTrim, icyScytheFragment, lotusFragment, deathOfCrabsFragment, muramasaFragment, murasameFragment, fishFragment, neroFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
+    arcaneTrim, icyScytheFragment, lotusScytheFragment, deathOfCrabsFragment, muramasaFragment, murasameFragment, fishFragment, neroFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
 
     // loot bags
     starterBundle, minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, firronTreasureBag, dirtGeode, stoneGeode,
@@ -129,7 +129,7 @@ public class ItemsRegistry{
     throwableBomb, dynamite, acorn, poisonedAcorn, crystalShard,
 
     // tools
-    jadeSword, jadeKatana, jadeScythe, jadeSpear, jadePickaxe, jadeAxe, jadeShovel, jadeHoe, jadeMultiTool,
+    jadeSword, jadeKatana, jadeScythe, jadeSpear, jadePickaxe, jadeAxe, jadeShovel, jadeHoe, jadeBow, jadeCrossbow, jadeMultiTool,
     pearliumSword, pearliumPickaxe, pearliumAxe,
     cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe, cobaltMultiTool,
     etherealSword, etherealSpear, etherealPickaxe, etherealAxe, etherealMultiTool,
@@ -314,7 +314,7 @@ public class ItemsRegistry{
         voidUpgrade = registerItem("void_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
         deathOfCrabsFragment = registerItem("death_of_crabs_fragment", () -> new SkinFragmentItem(SkinsRegistry.DEATH_OF_CRABS, new Item.Properties(), () -> cobaltSword.get()));
         icyScytheFragment = registerItem("icy_scythe_fragment", () -> new SkinFragmentItem(SkinsRegistry.ICY, new Item.Properties(), () -> voidScythe.get()));
-        lotusFragment = registerItem("lotus_fragment", () -> new SkinFragmentItem(SkinsRegistry.LOTUS, new Item.Properties(), () -> voidScythe.get()));
+        lotusScytheFragment = registerItem("lotus_scythe_fragment", () -> new SkinFragmentItem(SkinsRegistry.LOTUS, new Item.Properties(), () -> voidScythe.get()));
         cyberpunkQunatumFragment = registerItem("cyberpunk_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.CYBERPUNK, new Item.Properties(), () -> quantumReaper.get()));
         midnightQunatumFragment = registerItem("midnight_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.MIDNIGHT, new Item.Properties(), () -> quantumReaper.get()));
         starDivider = registerItem("star_divider_fragment", () -> new SkinFragmentItem(SkinsRegistry.STAR_DIVIDER, new Item.Properties(), () -> quantumReaper.get()));
@@ -474,6 +474,8 @@ public class ItemsRegistry{
         jadeShovel = registerItem("jade_shovel", () -> new ShovelItem(ItemTierRegistry.JADE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
         jadeHoe = registerItem("jade_hoe", () -> new HoeItem(ItemTierRegistry.JADE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties()));
         jadeMultiTool = registerItem("jade_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.JADE, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties()));
+        jadeBow = registerItem("jade_bow", () -> new ConfigurableBowItem(5, 1, new Item.Properties().stacksTo(1).durability(1824)));
+        jadeCrossbow = registerItem("jade_crossbow", () -> new ConfigurableCrossbow(5, new Item.Properties().stacksTo(1).durability(2124)));
 
         ent = registerItem("ent", () -> new NatureSwordItem(ItemTierRegistry.NATURE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureScythe = registerItem("nature_scythe", () -> new NatureScytheItem(ItemTierRegistry.NATURE, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "valoria:block/polished_crystal_stone",
-    "side": "valoria:block/crystal_stone_pillar"
-  }
-}
