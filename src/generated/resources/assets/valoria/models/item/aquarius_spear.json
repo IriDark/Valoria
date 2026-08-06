@@ -1,0 +1,36 @@
+{
+  "parent": "valoria:item/spear",
+  "base": {
+    "parent": "valoria:item/spear_large",
+    "textures": {
+      "layer0": "valoria:item/aquarius_spear_in_hand"
+    }
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "valoria:item/spear",
+      "textures": {
+        "layer0": "valoria:item/aquarius_spear"
+      }
+    },
+    "ground": {
+      "parent": "valoria:item/spear",
+      "textures": {
+        "layer0": "valoria:item/aquarius_spear"
+      }
+    },
+    "gui": {
+      "parent": "valoria:item/spear",
+      "textures": {
+        "layer0": "valoria:item/aquarius_spear"
+      }
+    },
+    "none": {
+      "parent": "valoria:item/spear_large",
+      "textures": {
+        "layer0": "valoria:item/aquarius_spear_in_hand"
+      }
+    }
+  }
+}

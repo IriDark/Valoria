@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "valoria:block/karusakan_roots"
+    },
+    "half=upper": {
+      "model": "valoria:block/karusakan_roots_top"
+    }
+  }
+}

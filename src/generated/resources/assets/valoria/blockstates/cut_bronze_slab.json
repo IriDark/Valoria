@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/cut_bronze_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/cut_bronze"
+    },
+    "type=top": {
+      "model": "valoria:block/cut_bronze_slab_top"
+    }
+  }
+}

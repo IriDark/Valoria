@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dunestone_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:dunestone_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:dunestone_bricks_slab_from_dunestone_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_dunestone_bricks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:dunestone_bricks_slab_from_dunestone_bricks_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

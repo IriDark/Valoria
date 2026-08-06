@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "valoria:block/cracked_cobbled_shale_bricks"
+  }
+}

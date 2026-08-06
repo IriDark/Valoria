@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "valoria:holiday_candy"
+    }
+  },
+  "pattern": [
+    "  X",
+    " X ",
+    "/  "
+  ],
+  "result": {
+    "item": "valoria:holiday_katana"
+  },
+  "show_notification": true
+}

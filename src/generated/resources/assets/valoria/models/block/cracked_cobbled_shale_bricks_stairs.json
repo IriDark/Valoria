@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "valoria:block/cracked_cobbled_shale_bricks",
+    "side": "valoria:block/cracked_cobbled_shale_bricks",
+    "top": "valoria:block/cracked_cobbled_shale_bricks"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#valoria:is_valoria",
+  "features": "valoria:dormant_crystals_placed",
+  "step": "underground_ores"
+}

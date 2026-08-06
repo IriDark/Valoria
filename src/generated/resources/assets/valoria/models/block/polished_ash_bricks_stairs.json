@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "valoria:block/polished_ash_bricks",
+    "side": "valoria:block/polished_ash_bricks",
+    "top": "valoria:block/polished_ash_bricks"
+  }
+}

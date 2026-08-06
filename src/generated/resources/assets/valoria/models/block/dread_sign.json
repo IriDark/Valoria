@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "valoria:item/dread_sign",
+    "particle": "valoria:block/dread_planks"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/meat_block"
+      },
+      {
+        "model": "valoria:block/meat_block",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/meat_mirror"
+      },
+      {
+        "model": "valoria:block/meat_mirror",
+        "y": 180
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_ash_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:polished_ash_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:polished_ash_bricks_stairs_from_polished_ash_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_ash_bricks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:polished_ash_bricks_stairs_from_polished_ash_bricks_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

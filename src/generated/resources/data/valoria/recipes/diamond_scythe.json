@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X/ ",
+    "/  "
+  ],
+  "result": {
+    "item": "valoria:diamond_scythe"
+  },
+  "show_notification": true
+}

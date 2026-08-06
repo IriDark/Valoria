@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:iron_ingot"
+  },
+  "base": {
+    "item": "valoria:stone_rapier"
+  },
+  "result": {
+    "item": "valoria:iron_rapier"
+  },
+  "template": {
+    "item": "minecraft:iron_ingot"
+  }
+}

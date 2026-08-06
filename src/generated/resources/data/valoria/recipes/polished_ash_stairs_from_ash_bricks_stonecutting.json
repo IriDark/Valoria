@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "valoria:ash_bricks"
+  },
+  "result": "valoria:polished_ash_stairs"
+}

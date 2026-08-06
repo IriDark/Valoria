@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "/": {
+      "item": "valoria:aloe_piece"
+    }
+  },
+  "pattern": [
+    "/#",
+    "#/"
+  ],
+  "result": {
+    "count": 2,
+    "item": "valoria:aloe_bandage"
+  },
+  "show_notification": true
+}

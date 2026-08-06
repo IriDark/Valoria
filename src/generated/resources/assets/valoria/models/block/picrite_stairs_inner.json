@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "valoria:block/picrite",
+    "side": "valoria:block/picrite",
+    "top": "valoria:block/picrite"
+  }
+}

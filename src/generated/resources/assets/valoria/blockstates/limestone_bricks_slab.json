@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/limestone_bricks_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/limestone_bricks"
+    },
+    "type=top": {
+      "model": "valoria:block/limestone_bricks_slab_top"
+    }
+  }
+}

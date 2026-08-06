@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ephemarite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:ephemarite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:ephemarite_wall_from_ephemarite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_ephemarite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:ephemarite_wall_from_ephemarite_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

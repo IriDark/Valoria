@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/ephemarite_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/ephemarite"
+    },
+    "type=top": {
+      "model": "valoria:block/ephemarite_slab_top"
+    }
+  }
+}

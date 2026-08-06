@@ -1,0 +1,23 @@
+{
+  "values": [
+    "valoria:amber_block",
+    "valoria:amber_ore",
+    "valoria:deepslate_amber_ore",
+    "valoria:amber_crystal",
+    "valoria:sapphire_block",
+    "valoria:sapphire_ore",
+    "valoria:deepslate_sapphire_ore",
+    "valoria:sapphire_crystal",
+    "valoria:ruby_block",
+    "valoria:ruby_ore",
+    "valoria:deepslate_ruby_ore",
+    "valoria:ruby_crystal",
+    "valoria:raw_cobalt_ore",
+    "valoria:cobalt_block",
+    "valoria:cobalt_ore",
+    "valoria:deepslate_cobalt_ore",
+    "valoria:pyratite_block",
+    "valoria:pyratite_ore",
+    "valoria:pyratite_crystal"
+  ]
+}

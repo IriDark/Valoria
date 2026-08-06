@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "valoria:block/voidthorn"
+    },
+    "half=upper": {
+      "model": "valoria:block/voidthorn_top"
+    }
+  }
+}

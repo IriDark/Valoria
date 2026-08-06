@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/shade_hanging_sign"
+      },
+      {
+        "model": "valoria:block/shade_hanging_sign"
+      }
+    ]
+  }
+}

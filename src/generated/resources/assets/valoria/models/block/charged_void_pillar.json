@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "valoria:block/charged_void_pillar",
+    "side": "valoria:block/charged_void_pillar"
+  }
+}

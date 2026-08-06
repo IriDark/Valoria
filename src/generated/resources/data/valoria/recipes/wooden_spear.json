@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "pattern": [
+    " XX",
+    " /X",
+    "/  "
+  ],
+  "result": {
+    "item": "valoria:wooden_spear"
+  },
+  "show_notification": true
+}

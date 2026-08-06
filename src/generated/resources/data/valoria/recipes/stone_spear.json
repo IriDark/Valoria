@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "tag": "minecraft:stone_tool_materials"
+    }
+  },
+  "pattern": [
+    " XX",
+    " /X",
+    "/  "
+  ],
+  "result": {
+    "item": "valoria:stone_spear"
+  },
+  "show_notification": true
+}

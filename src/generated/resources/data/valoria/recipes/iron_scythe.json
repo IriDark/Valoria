@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X/ ",
+    "/  "
+  ],
+  "result": {
+    "item": "valoria:iron_scythe"
+  },
+  "show_notification": true
+}

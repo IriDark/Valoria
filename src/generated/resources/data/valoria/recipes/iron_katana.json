@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "  X",
+    " X ",
+    "/  "
+  ],
+  "result": {
+    "item": "valoria:iron_katana"
+  },
+  "show_notification": true
+}

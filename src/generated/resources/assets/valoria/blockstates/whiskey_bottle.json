@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "bottles=1,waterlogged=false": {
+      "model": "valoria:block/whiskey_bottle"
+    },
+    "bottles=1,waterlogged=true": {
+      "model": "valoria:block/whiskey_bottle"
+    },
+    "bottles=2,waterlogged=false": {
+      "model": "valoria:block/whiskey_bottle_two"
+    },
+    "bottles=2,waterlogged=true": {
+      "model": "valoria:block/whiskey_bottle_two"
+    },
+    "bottles=3,waterlogged=false": {
+      "model": "valoria:block/whiskey_bottle_three"
+    },
+    "bottles=3,waterlogged=true": {
+      "model": "valoria:block/whiskey_bottle_three"
+    },
+    "bottles=4,waterlogged=false": {
+      "model": "valoria:block/whiskey_bottle_four"
+    },
+    "bottles=4,waterlogged=true": {
+      "model": "valoria:block/whiskey_bottle_four"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "valoria:black_gold_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "valoria:black_gold_ingot"
+  }
+}

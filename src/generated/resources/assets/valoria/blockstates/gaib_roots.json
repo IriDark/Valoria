@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "valoria:block/gaib_roots"
+    },
+    "half=upper": {
+      "model": "valoria:block/gaib_roots_top"
+    }
+  }
+}

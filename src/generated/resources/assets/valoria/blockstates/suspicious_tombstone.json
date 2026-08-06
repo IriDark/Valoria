@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/suspicious_tombstone_0"
+      },
+      {
+        "model": "valoria:block/suspicious_tombstone_1"
+      },
+      {
+        "model": "valoria:block/suspicious_tombstone_2"
+      },
+      {
+        "model": "valoria:block/suspicious_tombstone_3"
+      }
+    ]
+  }
+}

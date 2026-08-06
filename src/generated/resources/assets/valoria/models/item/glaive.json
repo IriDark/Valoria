@@ -1,0 +1,36 @@
+{
+  "parent": "valoria:item/spear",
+  "base": {
+    "parent": "valoria:item/glaive_large",
+    "textures": {
+      "layer0": "valoria:item/glaive_in_hand"
+    }
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/glaive"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/glaive"
+      }
+    },
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/glaive"
+      }
+    },
+    "none": {
+      "parent": "valoria:item/glaive_large",
+      "textures": {
+        "layer0": "valoria:item/glaive_in_hand"
+      }
+    }
+  }
+}

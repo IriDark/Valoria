@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_deep_marble": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:deep_marble"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:deep_marble_slab_from_deep_marble_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_deep_marble",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:deep_marble_slab_from_deep_marble_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

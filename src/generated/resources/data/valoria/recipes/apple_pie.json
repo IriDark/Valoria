@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:apple"
+    },
+    "A": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "X": {
+      "item": "minecraft:milk_bucket"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "///",
+    "XXX"
+  ],
+  "result": {
+    "item": "valoria:apple_pie"
+  },
+  "show_notification": true
+}

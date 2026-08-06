@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "valoria:abyssal_glowfern"
+    },
+    "X": {
+      "item": "valoria:glow_violet_sprout"
+    }
+  },
+  "pattern": [
+    "/X",
+    "X/"
+  ],
+  "result": {
+    "item": "valoria:abyssal_lantern"
+  },
+  "show_notification": true
+}

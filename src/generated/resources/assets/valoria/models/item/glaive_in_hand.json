@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/glaive_large",
+  "textures": {
+    "layer0": "valoria:item/glaive_in_hand"
+  }
+}

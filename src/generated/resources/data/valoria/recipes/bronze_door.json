@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "valoria:bronze_ingot"
+    }
+  },
+  "pattern": [
+    "//",
+    "//",
+    "//"
+  ],
+  "result": {
+    "count": 3,
+    "item": "valoria:bronze_door"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/deep_marble_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/deep_marble"
+    },
+    "type=top": {
+      "model": "valoria:block/deep_marble_slab_top"
+    }
+  }
+}

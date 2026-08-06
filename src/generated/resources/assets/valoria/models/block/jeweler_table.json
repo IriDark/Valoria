@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "valoria:block/jeweler_table_bottom",
+    "east": "valoria:block/jeweler_table_side",
+    "north": "valoria:block/jeweler_table_side_1",
+    "particle": "valoria:block/jeweler_table_side",
+    "south": "valoria:block/jeweler_table_side_1",
+    "up": "valoria:block/jeweler_table_top",
+    "west": "valoria:block/jeweler_table_side"
+  }
+}

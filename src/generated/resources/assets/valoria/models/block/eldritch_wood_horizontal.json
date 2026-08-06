@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "valoria:block/eldritch_log",
+    "side": "valoria:block/eldritch_log"
+  }
+}

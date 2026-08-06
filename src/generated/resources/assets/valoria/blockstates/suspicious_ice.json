@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/suspicious_ice_0"
+      },
+      {
+        "model": "valoria:block/suspicious_ice_1"
+      },
+      {
+        "model": "valoria:block/suspicious_ice_2"
+      },
+      {
+        "model": "valoria:block/suspicious_ice_3"
+      }
+    ]
+  }
+}

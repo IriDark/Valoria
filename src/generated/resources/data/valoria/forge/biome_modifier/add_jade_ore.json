@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#valoria:is_valoria",
+  "features": "valoria:jade_ore_placed",
+  "step": "underground_ores"
+}

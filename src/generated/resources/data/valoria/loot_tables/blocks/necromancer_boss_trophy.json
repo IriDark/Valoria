@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:necromancer_boss_trophy"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "valoria:blocks/necromancer_boss_trophy"
+}

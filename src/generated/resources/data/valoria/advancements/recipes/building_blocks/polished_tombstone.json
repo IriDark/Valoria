@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:polished_tombstone"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tombstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:tombstone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_tombstone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:polished_tombstone"
+    ]
+  },
+  "sends_telemetry_event": false
+}

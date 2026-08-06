@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_abyssal_glowfern": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:abyssal_glowfern"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:cooked_abyssal_glowfern_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_abyssal_glowfern",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:cooked_abyssal_glowfern_from_smoking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

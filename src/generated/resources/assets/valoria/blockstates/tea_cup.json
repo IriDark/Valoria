@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "cups=1,waterlogged=false": {
+      "model": "valoria:block/tea_cup"
+    },
+    "cups=1,waterlogged=true": {
+      "model": "valoria:block/tea_cup"
+    },
+    "cups=2,waterlogged=false": {
+      "model": "valoria:block/tea_cup_two"
+    },
+    "cups=2,waterlogged=true": {
+      "model": "valoria:block/tea_cup_two"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "valoria:block/stonecrusher_bottom",
+    "east": "valoria:block/stonecrusher_side_0",
+    "north": "valoria:block/stonecrusher_side_1",
+    "particle": "valoria:block/stonecrusher_top_geode",
+    "south": "valoria:block/stonecrusher_side_1",
+    "up": "valoria:block/stonecrusher_top_geode",
+    "west": "valoria:block/stonecrusher_side_1"
+  }
+}

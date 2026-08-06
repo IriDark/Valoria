@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "valoria:ash_bricks"
+  },
+  "result": "valoria:ash_bricks_wall"
+}

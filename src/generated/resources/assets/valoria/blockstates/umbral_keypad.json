@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "active=false,key=false,return=false": {
+      "model": "valoria:block/umbral_keypad_empty"
+    },
+    "active=false,key=false,return=true": {
+      "model": "valoria:block/umbral_keypad_empty"
+    },
+    "active=false,key=true,return=false": {
+      "model": "valoria:block/umbral_keypad_key"
+    },
+    "active=false,key=true,return=true": {
+      "model": "valoria:block/umbral_keypad_key"
+    },
+    "active=true,key=false,return=false": {
+      "model": "valoria:block/umbral_keypad_empty"
+    },
+    "active=true,key=false,return=true": {
+      "model": "valoria:block/umbral_keypad_empty"
+    },
+    "active=true,key=true,return=false": {
+      "model": "valoria:block/umbral_keypad_key"
+    },
+    "active=true,key=true,return=true": {
+      "model": "valoria:block/umbral_keypad_key"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/polished_picrite_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/polished_picrite"
+    },
+    "type=top": {
+      "model": "valoria:block/polished_picrite_slab_top"
+    }
+  }
+}

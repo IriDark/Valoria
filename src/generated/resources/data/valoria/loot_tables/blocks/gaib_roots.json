@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "add": false,
+      "count": {
+        "type": "minecraft:uniform",
+        "max": 6.0,
+        "min": 2.0
+      },
+      "function": "minecraft:set_count"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "valoria:gaib_roots",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "valoria:gaib_root"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "valoria:blocks/gaib_roots"
+}

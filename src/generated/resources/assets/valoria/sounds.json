@@ -1,0 +1,1209 @@
+{
+  "ambient.crimson.mood": {
+    "sounds": [
+      "valoria:ambient/valoria/crimson/mood0",
+      "valoria:ambient/valoria/crimson/mood1",
+      "valoria:ambient/valoria/crimson/mood2",
+      "ambient/nether/nether_wastes/mood1",
+      "ambient/nether/nether_wastes/mood2",
+      "ambient/nether/nether_wastes/mood4",
+      "ambient/nether/nether_wastes/mood5"
+    ]
+  },
+  "ambient.shade_forest.additions": {
+    "sounds": [
+      {
+        "name": "ambient/nether/crimson_forest/addition1",
+        "volume": 0.4,
+        "weight": 3
+      },
+      {
+        "name": "ambient/nether/crimson_forest/addition2",
+        "volume": 0.5,
+        "weight": 3
+      },
+      {
+        "name": "ambient/nether/crimson_forest/addition3",
+        "volume": 0.32,
+        "weight": 3
+      },
+      {
+        "name": "ambient/nether/crimson_forest/particles1",
+        "volume": 0.4,
+        "weight": 35
+      },
+      {
+        "name": "ambient/nether/crimson_forest/particles2",
+        "volume": 0.4,
+        "weight": 35
+      },
+      {
+        "name": "ambient/nether/crimson_forest/particles3",
+        "volume": 0.4,
+        "weight": 35
+      },
+      {
+        "name": "valoria:ambient/valoria/forest/addition0",
+        "pitch": 0.5,
+        "volume": 0.1,
+        "weight": 6
+      },
+      {
+        "name": "ambient/nether/crimson_forest/shroom1",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "ambient/nether/crimson_forest/shroom2",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "ambient/nether/crimson_forest/shroom3",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "ambient/nether/crimson_forest/twang1",
+        "volume": 0.25,
+        "weight": 2
+      },
+      {
+        "name": "ambient/nether/crimson_forest/voom1",
+        "volume": 0.7,
+        "weight": 4
+      },
+      {
+        "name": "ambient/nether/crimson_forest/voom1",
+        "pitch": 0.8,
+        "volume": 0.7,
+        "weight": 4
+      },
+      {
+        "name": "ambient/nether/crimson_forest/voom2",
+        "volume": 0.7,
+        "weight": 4
+      },
+      {
+        "name": "ambient/nether/crimson_forest/voom2",
+        "pitch": 0.8,
+        "volume": 0.7,
+        "weight": 4
+      }
+    ]
+  },
+  "ambient.shade_forest.mood": {
+    "sounds": [
+      "valoria:ambient/valoria/forest/mood0",
+      "valoria:ambient/valoria/forest/mood1",
+      "ambient/nether/crimson_forest/mood1",
+      "ambient/nether/crimson_forest/mood2",
+      "ambient/nether/crimson_forest/mood3",
+      "ambient/nether/crimson_forest/mood4"
+    ]
+  },
+  "ambient.valoria.additions": {
+    "sounds": [
+      {
+        "name": "valoria:ambient/valoria/addition0",
+        "volume": 0.3
+      },
+      {
+        "name": "valoria:ambient/valoria/addition1",
+        "volume": 0.3
+      },
+      {
+        "name": "valoria:ambient/valoria/addition2",
+        "volume": 0.3
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition1",
+        "volume": 0.3
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition2",
+        "volume": 0.3
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition3",
+        "volume": 0.1
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition4",
+        "volume": 0.67,
+        "weight": 5
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition5",
+        "volume": 0.3
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition6",
+        "volume": 0.3
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition7",
+        "volume": 0.3
+      },
+      {
+        "name": "ambient/nether/nether_wastes/addition8",
+        "volume": 0.67,
+        "weight": 5
+      },
+      {
+        "name": "ambient/nether/nether_wastes/dark1",
+        "volume": 0.9,
+        "weight": 5
+      },
+      {
+        "name": "ambient/nether/nether_wastes/dark2",
+        "volume": 0.9,
+        "weight": 5
+      },
+      {
+        "name": "ambient/nether/nether_wastes/ground1",
+        "volume": 0.25,
+        "weight": 3
+      },
+      {
+        "name": "ambient/nether/nether_wastes/ground2",
+        "volume": 0.4
+      },
+      {
+        "name": "ambient/nether/nether_wastes/ground3",
+        "volume": 0.4
+      },
+      {
+        "name": "ambient/nether/nether_wastes/ground4",
+        "volume": 0.4
+      }
+    ]
+  },
+  "ambient.valoria.mood": {
+    "sounds": [
+      "valoria:ambient/valoria/mood0",
+      "valoria:ambient/valoria/mood1",
+      "valoria:ambient/valoria/mood2",
+      "valoria:ambient/valoria/mood3",
+      "valoria:ambient/valoria/mood4",
+      "ambient/nether/nether_wastes/mood1",
+      "ambient/nether/nether_wastes/mood2",
+      "ambient/nether/nether_wastes/mood4",
+      "ambient/nether/nether_wastes/mood5"
+    ]
+  },
+  "block.cyst.break": {
+    "sounds": [
+      "valoria:block/cyst/break1",
+      "valoria:block/cyst/break2",
+      "valoria:block/cyst/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cyst.fall": {
+    "sounds": [
+      "valoria:block/cyst/break1",
+      "valoria:block/cyst/break2",
+      "valoria:block/cyst/break3"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.cyst.spreads": {
+    "sounds": [
+      "valoria:block/cyst/spreads1",
+      "valoria:block/cyst/spreads2",
+      "valoria:block/cyst/spreads3",
+      "valoria:block/cyst/spreads4",
+      "valoria:block/cyst/spreads5"
+    ],
+    "subtitle": "subtitles.valoria.cyst.spread"
+  },
+  "block.cyst.summon": {
+    "sounds": [
+      "valoria:block/cyst/summon1",
+      "valoria:block/cyst/summon2",
+      "valoria:block/cyst/summon3"
+    ],
+    "subtitle": "subtitles.valoria.cyst.summon"
+  },
+  "block.elemental_manipulator.loop": {
+    "sounds": [
+      "valoria:block/elemental_manipulator/loop"
+    ],
+    "subtitle": "subtitles.valoria.elemental_manipulator.loop"
+  },
+  "block.flesh.break": {
+    "sounds": [
+      "valoria:block/flesh/break1",
+      "valoria:block/flesh/break2",
+      "valoria:block/flesh/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.flesh.fall": {
+    "sounds": [
+      "valoria:block/flesh/step1",
+      "valoria:block/flesh/step2",
+      "valoria:block/flesh/step3",
+      "valoria:block/flesh/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.flesh.hit": {
+    "sounds": [
+      "valoria:block/flesh/hit1",
+      "valoria:block/flesh/hit2",
+      "valoria:block/flesh/hit3",
+      "valoria:block/flesh/hit4",
+      "valoria:block/flesh/hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.flesh.place": {
+    "sounds": [
+      "valoria:block/flesh/place1",
+      "valoria:block/flesh/place2",
+      "valoria:block/flesh/place3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.flesh.step": {
+    "sounds": [
+      "valoria:block/flesh/step1",
+      "valoria:block/flesh/step2",
+      "valoria:block/flesh/step3",
+      "valoria:block/flesh/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.keg.ambient": {
+    "sounds": [
+      "valoria:block/keg_brewery/ambient_0",
+      "valoria:block/keg_brewery/ambient_1",
+      "valoria:block/keg_brewery/ambient_2",
+      "valoria:block/keg_brewery/ambient_3"
+    ],
+    "subtitle": "subtitles.valoria.keg.ambient"
+  },
+  "block.keg.brew": {
+    "sounds": [
+      "valoria:block/keg_brewery/final_brew"
+    ],
+    "subtitle": "subtitles.valoria.keg.brew"
+  },
+  "block.pot.break": {
+    "sounds": [
+      "valoria:block/pot/shatter1",
+      "valoria:block/pot/shatter2",
+      "valoria:block/pot/shatter3",
+      "valoria:block/pot/shatter4",
+      "valoria:block/pot/shatter5",
+      "valoria:block/pot/shatter6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.pot.place": {
+    "sounds": [
+      "valoria:block/pot/place1",
+      "valoria:block/pot/place2",
+      "valoria:block/pot/place3",
+      "valoria:block/pot/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.pot.step": {
+    "sounds": [
+      "valoria:block/pot/step1",
+      "valoria:block/pot/step2",
+      "valoria:block/pot/step3",
+      "valoria:block/pot/step4",
+      "valoria:block/pot/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sarcophagus.open": {
+    "sounds": [
+      "valoria:block/sarcophagus_open"
+    ],
+    "subtitle": "subtitles.valoria.sarcophagus.open"
+  },
+  "block.shade.break": {
+    "sounds": [
+      "valoria:block/shade_wood/break1",
+      "valoria:block/shade_wood/break2",
+      "valoria:block/shade_wood/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.shade.fall": {
+    "sounds": [
+      "valoria:block/shade_wood/hit1",
+      "valoria:block/shade_wood/hit2",
+      "valoria:block/shade_wood/hit3",
+      "valoria:block/shade_wood/hit4"
+    ]
+  },
+  "block.shade.hit": {
+    "sounds": [
+      "valoria:block/shade_wood/hit1",
+      "valoria:block/shade_wood/hit2",
+      "valoria:block/shade_wood/hit3",
+      "valoria:block/shade_wood/hit4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.shade.place": {
+    "sounds": [
+      "valoria:block/shade_wood/hit1",
+      "valoria:block/shade_wood/hit2",
+      "valoria:block/shade_wood/hit3",
+      "valoria:block/shade_wood/hit4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.shade.step": {
+    "sounds": [
+      "valoria:block/shade_wood/step1",
+      "valoria:block/shade_wood/step2",
+      "valoria:block/shade_wood/step3",
+      "valoria:block/shade_wood/step4"
+    ],
+    "subtitle": "subtitles.block.generic.step"
+  },
+  "block.suspicious_tombstone.break": {
+    "sounds": [
+      "valoria:block/suspicious_tombstone/break1",
+      "valoria:block/suspicious_tombstone/break2",
+      "valoria:block/suspicious_tombstone/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.suspicious_tombstone.step": {
+    "sounds": [
+      "valoria:block/suspicious_tombstone/step1",
+      "valoria:block/suspicious_tombstone/step2",
+      "valoria:block/suspicious_tombstone/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.tombstone.break": {
+    "sounds": [
+      "valoria:block/tombstone/break1",
+      "valoria:block/tombstone/break2",
+      "valoria:block/tombstone/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.tombstone.fall": {
+    "sounds": [
+      "valoria:block/tombstone/step1",
+      "valoria:block/tombstone/step2",
+      "valoria:block/tombstone/step3"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.tombstone.hit": {
+    "sounds": [
+      "valoria:block/tombstone/hit1",
+      "valoria:block/tombstone/hit2",
+      "valoria:block/tombstone/hit3",
+      "valoria:block/tombstone/hit4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.tombstone.place": {
+    "sounds": [
+      "valoria:block/tombstone/place1",
+      "valoria:block/tombstone/place2",
+      "valoria:block/tombstone/place3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.tombstone.step": {
+    "sounds": [
+      "valoria:block/tombstone/step1",
+      "valoria:block/tombstone/step2",
+      "valoria:block/tombstone/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.tombstone_bricks.break": {
+    "sounds": [
+      "valoria:block/tombstone_bricks/break1",
+      "valoria:block/tombstone_bricks/break2",
+      "valoria:block/tombstone_bricks/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.tombstone_bricks.fall": {
+    "sounds": [
+      "valoria:block/tombstone_bricks/step1",
+      "valoria:block/tombstone_bricks/step2",
+      "valoria:block/tombstone_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.tombstone_bricks.hit": {
+    "sounds": [
+      "valoria:block/tombstone/hit1",
+      "valoria:block/tombstone/hit2",
+      "valoria:block/tombstone/hit3",
+      "valoria:block/tombstone/hit4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.tombstone_bricks.place": {
+    "sounds": [
+      "valoria:block/tombstone_bricks/place1",
+      "valoria:block/tombstone_bricks/place2",
+      "valoria:block/tombstone_bricks/place3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.tombstone_bricks.step": {
+    "sounds": [
+      "valoria:block/tombstone_bricks/step1",
+      "valoria:block/tombstone_bricks/step2",
+      "valoria:block/tombstone_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.valoria_portal.spawn": {
+    "sounds": [
+      "valoria:block/valoria_portal/portal"
+    ],
+    "subtitle": "subtitles.valoria.valoria_portal.spawn"
+  },
+  "block.void_grass.break": {
+    "sounds": [
+      "valoria:block/void_grass/break1",
+      "valoria:block/void_grass/break2",
+      "valoria:block/void_grass/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.void_grass.step": {
+    "sounds": [
+      "valoria:block/void_grass/step1",
+      "valoria:block/void_grass/step2",
+      "valoria:block/void_grass/step3",
+      "valoria:block/void_grass/step4",
+      "valoria:block/void_grass/step5",
+      "valoria:block/void_grass/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.void_stone.break": {
+    "sounds": [
+      "valoria:block/void_stone/break1",
+      "valoria:block/void_stone/break2",
+      "valoria:block/void_stone/break3",
+      "valoria:block/void_stone/break4",
+      "valoria:block/void_stone/break5",
+      "valoria:block/void_stone/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.void_stone.place": {
+    "sounds": [
+      "valoria:block/void_stone/break1",
+      "valoria:block/void_stone/break2",
+      "valoria:block/void_stone/break3",
+      "valoria:block/void_stone/break4",
+      "valoria:block/void_stone/break5",
+      "valoria:block/void_stone/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.void_stone.step": {
+    "sounds": [
+      "valoria:block/void_stone/step1",
+      "valoria:block/void_stone/step2",
+      "valoria:block/void_stone/step3",
+      "valoria:block/void_stone/step4",
+      "valoria:block/void_stone/step5",
+      "valoria:block/void_stone/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "boss.necromancer.music": {
+    "sounds": [
+      {
+        "name": "valoria:music/necromancer",
+        "stream": true
+      }
+    ]
+  },
+  "dungeon.necromancer.music": {
+    "sounds": [
+      {
+        "name": "valoria:music/necromancer_dungeon",
+        "stream": true
+      }
+    ]
+  },
+  "item.bag_open.use": {
+    "sounds": [
+      "valoria:item/bag/open1",
+      "valoria:item/bag/open2",
+      "valoria:item/bag/open3"
+    ],
+    "subtitle": "subtitles.valoria.lootbag.open"
+  },
+  "item.blazecharge.use": {
+    "sounds": [
+      "valoria:item/abilities/blazecharge"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.blazecharge_legacy.use": {
+    "sounds": [
+      "valoria:item/abilities/blazecharge_legacy"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.bloodhound_ability.use": {
+    "sounds": [
+      "valoria:item/abilities/bloodhound_ability"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.bloodhound_ability_legacy.use": {
+    "sounds": [
+      "valoria:item/abilities/bloodhound_ability_legacy"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.curse.ambient": {
+    "sounds": [
+      "valoria:item/bloodsight/equip_curse"
+    ],
+    "subtitle": "subtitles.valoria.curse.equip"
+  },
+  "item.disappear.ambient": {
+    "sounds": [
+      "valoria:entity/spectral/disappear"
+    ],
+    "subtitle": "subtitles.valoria.spectral_blade.disappear"
+  },
+  "item.eruption.use": {
+    "sounds": [
+      "valoria:item/abilities/eruption"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.halloween_legacy_slice.use": {
+    "sounds": [
+      "valoria:item/abilities/halloween_slice_legacy"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.halloween_slice.use": {
+    "sounds": [
+      "valoria:item/abilities/halloween_slice"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.nihility_alert.active": {
+    "sounds": [
+      "valoria:item/alert"
+    ]
+  },
+  "item.phantasm_ability.use": {
+    "sounds": [
+      "valoria:item/abilities/phantom_totem"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.phantasm_ability_legacy.use": {
+    "sounds": [
+      "valoria:item/abilities/phantom_totem_legacy"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.recharge.use": {
+    "sounds": [
+      "valoria:item/abilities/recharge"
+    ],
+    "subtitle": "subtitles.valoria.item.recharge"
+  },
+  "item.repair.ambient": {
+    "sounds": [
+      "valoria:item/bloodsight/repair"
+    ],
+    "subtitle": "subtitles.valoria.curse.lost"
+  },
+  "item.shield.parry": {
+    "sounds": [
+      "valoria:item/abilities/parry"
+    ],
+    "subtitle": "subtitles.valoria.shield.parry"
+  },
+  "item.soul_collect": {
+    "sounds": [
+      "valoria:item/soul_collect_0",
+      "valoria:item/soul_collect_1"
+    ],
+    "subtitle": "subtitles.valoria.soul_collect"
+  },
+  "item.soul_collect.full": {
+    "sounds": [
+      "valoria:item/soul_collect_full"
+    ],
+    "subtitle": "subtitles.valoria.soul_collect"
+  },
+  "item.spear.hit_ground": {
+    "sounds": [
+      "valoria:entity/spear/ground_impact1",
+      "valoria:entity/spear/ground_impact2",
+      "valoria:entity/spear/ground_impact3",
+      "valoria:entity/spear/ground_impact4"
+    ],
+    "subtitle": "subtitles.valoria.spear.hit_ground"
+  },
+  "item.spear.return": {
+    "sounds": [
+      "valoria:entity/spear/return1",
+      "valoria:entity/spear/return2"
+    ],
+    "subtitle": "subtitles.valoria.spear.return"
+  },
+  "item.spear.throw": {
+    "sounds": [
+      "valoria:entity/spear/throw1",
+      "valoria:entity/spear/throw2"
+    ],
+    "subtitle": "subtitles.valoria.spear.throw"
+  },
+  "item.swiftslice.use": {
+    "sounds": [
+      "valoria:item/abilities/swiftslice"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.swiftslice_legacy.use": {
+    "sounds": [
+      "valoria:item/abilities/swiftslice_legacy"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.vampiric_rune.activate": {
+    "sounds": [
+      "valoria:item/vampiric_rune"
+    ],
+    "subtitle": "subtitles.valoria.vampiric_rune.activate"
+  },
+  "item.water_ability.use": {
+    "sounds": [
+      "valoria:item/abilities/water_ability"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "mob.attack.dodge": {
+    "sounds": [
+      "valoria:entity/dodge"
+    ]
+  },
+  "mob.attack.miss": {
+    "sounds": [
+      "valoria:entity/miss"
+    ]
+  },
+  "mob.breath": {
+    "sounds": [
+      "valoria:entity/breath"
+    ]
+  },
+  "mob.crystal.fall": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/crystal_fall1",
+      "valoria:entity/wicked_crystal/crystal_fall2",
+      "valoria:entity/wicked_crystal/crystal_fall3"
+    ]
+  },
+  "mob.crystal.storm": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/crystal_storm"
+    ]
+  },
+  "mob.crystal_acid.attack": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/acid_crystal"
+    ],
+    "subtitle": "subtitles.valoria.minion.attack"
+  },
+  "mob.crystal_acid.prepare": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/acid_crystal_prepare"
+    ],
+    "subtitle": "subtitles.valoria.minion.prepare"
+  },
+  "mob.crystal_fire.attack": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/fire_crystal"
+    ],
+    "subtitle": "subtitles.valoria.minion.attack"
+  },
+  "mob.crystal_fire.prepare": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/fire_crystal_prepare"
+    ],
+    "subtitle": "subtitles.valoria.minion.prepare"
+  },
+  "mob.crystal_frost.attack": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/frost_crystal"
+    ],
+    "subtitle": "subtitles.valoria.minion.attack"
+  },
+  "mob.crystal_frost.prepare": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/frost_crystal_prepare"
+    ],
+    "subtitle": "subtitles.valoria.minion.prepare"
+  },
+  "mob.devil.attack": {
+    "sounds": [
+      "valoria:entity/devil/attack1",
+      "valoria:entity/devil/attack2",
+      "valoria:entity/devil/attack3",
+      "valoria:entity/devil/attack4"
+    ],
+    "subtitle": "subtitles.valoria.devil.attack"
+  },
+  "mob.devil.death": {
+    "sounds": [
+      "valoria:entity/devil/death1",
+      "valoria:entity/devil/death2",
+      "valoria:entity/devil/death3",
+      "valoria:entity/devil/death4"
+    ],
+    "subtitle": "subtitles.valoria.devil.death"
+  },
+  "mob.devil.hurt": {
+    "sounds": [
+      "valoria:entity/devil/hurt1",
+      "valoria:entity/devil/hurt2",
+      "valoria:entity/devil/hurt3",
+      "valoria:entity/devil/hurt4"
+    ],
+    "subtitle": "subtitles.valoria.devil.hurt"
+  },
+  "mob.devil.idle": {
+    "sounds": [
+      "valoria:entity/devil/idle1",
+      "valoria:entity/devil/idle2",
+      "valoria:entity/devil/idle3",
+      "valoria:entity/devil/idle4"
+    ],
+    "subtitle": "subtitles.valoria.devil.idle"
+  },
+  "mob.dryador.stomp": {
+    "sounds": [
+      "valoria:entity/dryador/stomp"
+    ]
+  },
+  "mob.elemental_golem.attack.1": {
+    "sounds": [
+      "valoria:entity/elemental_golem/attack1_1",
+      "valoria:entity/elemental_golem/attack1_2"
+    ],
+    "subtitle": "subtitles.valoria.elemental_golem.attack"
+  },
+  "mob.elemental_golem.attack.2": {
+    "sounds": [
+      "valoria:entity/elemental_golem/step1",
+      "valoria:entity/elemental_golem/step2",
+      "valoria:entity/elemental_golem/step3",
+      "valoria:entity/elemental_golem/step4"
+    ],
+    "subtitle": "subtitles.valoria.elemental_golem.attack"
+  },
+  "mob.elemental_golem.attack.3": {
+    "sounds": [
+      "valoria:entity/elemental_golem/attack3_1",
+      "valoria:entity/elemental_golem/attack3_2"
+    ],
+    "subtitle": "subtitles.valoria.elemental_golem.attack"
+  },
+  "mob.elemental_golem.attack.4": {
+    "sounds": [
+      "valoria:entity/elemental_golem/attack4"
+    ],
+    "subtitle": "subtitles.valoria.elemental_golem.attack"
+  },
+  "mob.elemental_golem.death": {
+    "sounds": [
+      "valoria:entity/elemental_golem/death1",
+      "valoria:entity/elemental_golem/death2",
+      "valoria:entity/elemental_golem/death3"
+    ],
+    "subtitle": "subtitles.valoria.elemental_golem.death"
+  },
+  "mob.elemental_golem.hurt": {
+    "sounds": [
+      "valoria:entity/elemental_golem/hurt1",
+      "valoria:entity/elemental_golem/hurt2",
+      "valoria:entity/elemental_golem/hurt3",
+      "valoria:entity/elemental_golem/hurt4"
+    ],
+    "subtitle": "subtitles.valoria.elemental_golem.hurt"
+  },
+  "mob.elemental_golem.step": {
+    "sounds": [
+      "valoria:entity/elemental_golem/step1",
+      "valoria:entity/elemental_golem/step2",
+      "valoria:entity/elemental_golem/step3",
+      "valoria:entity/elemental_golem/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "mob.goblin.death": {
+    "sounds": [
+      "valoria:entity/goblin/death1",
+      "valoria:entity/goblin/death2"
+    ],
+    "subtitle": "subtitles.valoria.goblin.death"
+  },
+  "mob.goblin.hurt": {
+    "sounds": [
+      "valoria:entity/goblin/hurt1",
+      "valoria:entity/goblin/hurt2",
+      "valoria:entity/goblin/hurt3"
+    ],
+    "subtitle": "subtitles.valoria.goblin.hurt"
+  },
+  "mob.goblin.idle": {
+    "sounds": [
+      "valoria:entity/goblin/idle1",
+      "valoria:entity/goblin/idle2",
+      "valoria:entity/goblin/idle3",
+      "valoria:entity/goblin/idle4"
+    ],
+    "subtitle": "subtitles.valoria.goblin.idle"
+  },
+  "mob.haunted_merchant.death": {
+    "sounds": [
+      "valoria:entity/haunted_merchant/death1",
+      "valoria:entity/haunted_merchant/death2",
+      "valoria:entity/haunted_merchant/death3"
+    ],
+    "subtitle": "subtitles.valoria.haunted_merchant.death"
+  },
+  "mob.haunted_merchant.hurt": {
+    "sounds": [
+      "valoria:entity/haunted_merchant/hurt1",
+      "valoria:entity/haunted_merchant/hurt2",
+      "valoria:entity/haunted_merchant/hurt3"
+    ],
+    "subtitle": "subtitles.valoria.haunted_merchant.hurt"
+  },
+  "mob.haunted_merchant.idle": {
+    "sounds": [
+      "valoria:entity/haunted_merchant/idle1",
+      "valoria:entity/haunted_merchant/idle2",
+      "valoria:entity/haunted_merchant/idle3"
+    ],
+    "subtitle": "subtitles.valoria.haunted_merchant.idle"
+  },
+  "mob.haunted_merchant.melee_attack": {
+    "sounds": [
+      "valoria:entity/haunted_merchant/melee_attack/attack1",
+      "valoria:entity/haunted_merchant/melee_attack/attack2",
+      "valoria:entity/haunted_merchant/melee_attack/attack3"
+    ],
+    "subtitle": "subtitles.valoria.haunted_merchant.melee_attack"
+  },
+  "mob.haunted_merchant.no": {
+    "sounds": [
+      "valoria:entity/haunted_merchant/no1",
+      "valoria:entity/haunted_merchant/no2",
+      "valoria:entity/haunted_merchant/no3"
+    ],
+    "subtitle": "subtitles.valoria.haunted_merchant.no"
+  },
+  "mob.haunted_merchant.ranged_attack": {
+    "sounds": [
+      "valoria:entity/haunted_merchant/melee_attack/attack1"
+    ],
+    "subtitle": "subtitles.valoria.haunted_merchant.ranged_attack"
+  },
+  "mob.haunted_merchant.yes": {
+    "sounds": [
+      "valoria:entity/haunted_merchant/yes1",
+      "valoria:entity/haunted_merchant/yes2",
+      "valoria:entity/haunted_merchant/yes3"
+    ],
+    "subtitle": "subtitles.valoria.haunted_merchant.yes"
+  },
+  "mob.magic.hit": {
+    "sounds": [
+      "valoria:entity/magic_projectile/hit1",
+      "valoria:entity/magic_projectile/hit2"
+    ]
+  },
+  "mob.magic.shoot": {
+    "sounds": [
+      "valoria:entity/magic_projectile/shoot1",
+      "valoria:entity/magic_projectile/shoot2"
+    ]
+  },
+  "mob.necromancer_summon": {
+    "sounds": [
+      "valoria:entity/necromancer/summon"
+    ],
+    "subtitle": "subtitles.valoria.necromancer_summon"
+  },
+  "mob.necromancer_summon.air": {
+    "sounds": [
+      "valoria:entity/necromancer/summon_air"
+    ],
+    "subtitle": "subtitles.valoria.necromancer_summon.air"
+  },
+  "mob.necromancer_summon.ground": {
+    "sounds": [
+      "valoria:entity/necromancer/summon_ground"
+    ],
+    "subtitle": "subtitles.valoria.necromancer_summon.ground"
+  },
+  "mob.troll.death": {
+    "sounds": [
+      "valoria:entity/troll/death0",
+      "valoria:entity/troll/death1",
+      "valoria:entity/troll/death2"
+    ],
+    "subtitle": "subtitles.valoria.troll.death"
+  },
+  "mob.troll.disappear": {
+    "sounds": [
+      "valoria:entity/troll/disappear0",
+      "valoria:entity/troll/disappear1"
+    ],
+    "subtitle": "subtitles.valoria.troll.disappear"
+  },
+  "mob.troll.hurt": {
+    "sounds": [
+      "valoria:entity/troll/hurt0",
+      "valoria:entity/troll/hurt1",
+      "valoria:entity/troll/hurt2"
+    ],
+    "subtitle": "subtitles.valoria.troll.hurt"
+  },
+  "mob.troll.idle": {
+    "sounds": [
+      "valoria:entity/troll/idle0",
+      "valoria:entity/troll/idle1",
+      "valoria:entity/troll/idle2"
+    ],
+    "subtitle": "subtitles.valoria.troll.idle"
+  },
+  "mob.wicked_crystal.altar": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/wicked_crystal_altar"
+    ]
+  },
+  "mob.wicked_crystal.death": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/death"
+    ],
+    "subtitle": "subtitles.valoria.boss.death"
+  },
+  "mob.wicked_crystal.hurt": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/hurt1",
+      "valoria:entity/wicked_crystal/hurt2",
+      "valoria:entity/wicked_crystal/hurt3",
+      "valoria:entity/wicked_crystal/hurt4"
+    ],
+    "subtitle": "subtitles.valoria.boss.hurt"
+  },
+  "mob.wicked_crystal.summon": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/summon"
+    ],
+    "subtitle": "subtitles.valoria.boss.summon"
+  },
+  "mob.wicked_crystal.transform": {
+    "sounds": [
+      "valoria:entity/wicked_crystal/transform"
+    ],
+    "subtitle": "subtitles.valoria.boss.transform"
+  },
+  "music.valoria.arriving": {
+    "sounds": [
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/singing_skies",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/old_times",
+        "stream": true
+      }
+    ]
+  },
+  "music.valoria.blood_pole": {
+    "sounds": [
+      {
+        "name": "valoria:music/carrion",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/blood_pole",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      }
+    ]
+  },
+  "music.valoria.carrion": {
+    "sounds": [
+      {
+        "name": "valoria:music/carrion",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/blood_pole",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      }
+    ]
+  },
+  "music.valoria.enduring": {
+    "sounds": [
+      {
+        "name": "valoria:music/enduring",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/old_times",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/singing_skies",
+        "stream": true
+      }
+    ]
+  },
+  "music.valoria.rising": {
+    "sounds": [
+      {
+        "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/old_times",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/singing_skies",
+        "stream": true
+      }
+    ]
+  },
+  "music.valoria.shaded_lands": {
+    "sounds": [
+      {
+        "name": "valoria:music/singing_skies",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/shaded_lands",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/old_times",
+        "stream": true
+      }
+    ]
+  },
+  "ui.alchemy.brew": {
+    "sounds": [
+      "valoria:ui/alchemy/brew_0",
+      "valoria:ui/alchemy/brew_1",
+      "valoria:ui/alchemy/brew_2",
+      "valoria:ui/alchemy/brew_3"
+    ]
+  },
+  "ui.alchemy.elemental_upgrade": {
+    "sounds": [
+      "valoria:ui/alchemy/elemental_upgrade"
+    ]
+  },
+  "ui.alchemy.nether_upgrade": {
+    "sounds": [
+      "valoria:ui/alchemy/nether_upgrade"
+    ]
+  },
+  "ui.alchemy.nihility_upgrade": {
+    "sounds": [
+      "valoria:ui/alchemy/nihility_upgrade"
+    ]
+  },
+  "ui.click": {
+    "sounds": [
+      "valoria:ui/click"
+    ]
+  },
+  "ui.codex_click": {
+    "sounds": [
+      "valoria:ui/codex_button_click"
+    ]
+  }
+}

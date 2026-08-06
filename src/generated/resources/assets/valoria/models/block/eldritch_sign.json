@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "valoria:item/eldritch_sign",
+    "particle": "valoria:block/eldritch_planks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "valoria:block/cobbled_shale_firecharge_trap",
+    "down": "valoria:block/polished_cobbled_shale",
+    "east": "valoria:block/polished_cobbled_shale",
+    "north": "valoria:block/polished_cobbled_shale",
+    "particle": "valoria:block/polished_cobbled_shale",
+    "south": "valoria:block/polished_cobbled_shale",
+    "up": "valoria:block/cobbled_shale_firecharge_trap",
+    "west": "valoria:block/polished_cobbled_shale"
+  }
+}

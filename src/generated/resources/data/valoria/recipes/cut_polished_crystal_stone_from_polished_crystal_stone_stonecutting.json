@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "valoria:polished_crystal_stone"
+  },
+  "result": "valoria:cut_polished_crystal_stone"
+}

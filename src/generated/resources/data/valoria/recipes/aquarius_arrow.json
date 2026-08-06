@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "item": "valoria:oceanic_shell"
+    },
+    "X": {
+      "item": "minecraft:arrow"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XOX",
+    " X "
+  ],
+  "result": {
+    "count": 4,
+    "item": "valoria:aquarius_arrow"
+  },
+  "show_notification": true
+}

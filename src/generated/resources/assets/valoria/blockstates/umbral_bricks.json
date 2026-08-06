@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/umbral_bricks"
+      },
+      {
+        "model": "valoria:block/umbral_bricks",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/umbral_bricks_1"
+      },
+      {
+        "model": "valoria:block/umbral_bricks_1",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/umbral_bricks"
+      },
+      {
+        "model": "valoria:block/umbral_bricks_1"
+      }
+    ]
+  }
+}

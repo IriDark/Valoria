@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "valoria:block/cattail"
+    },
+    "half=upper": {
+      "model": "valoria:block/cattail_top"
+    }
+  }
+}

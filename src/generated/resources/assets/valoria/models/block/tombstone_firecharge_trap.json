@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "valoria:block/polished_tombstone",
+    "east": "valoria:block/polished_tombstone",
+    "north": "valoria:block/polished_tombstone",
+    "particle": "valoria:block/polished_tombstone",
+    "south": "valoria:block/polished_tombstone",
+    "up": "valoria:block/tombstone_firecharge_trap",
+    "west": "valoria:block/polished_tombstone"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:void_stone_wall_from_void_stone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_void_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:void_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_void_stone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:void_stone_wall_from_void_stone_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

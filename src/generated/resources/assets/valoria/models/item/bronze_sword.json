@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:item/handheld",
+  "base": {
+    "parent": "valoria:item/handheld_large",
+    "textures": {
+      "layer0": "valoria:item/bronze_sword_in_hand"
+    }
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/bronze_sword"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/bronze_sword"
+      }
+    },
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/bronze_sword"
+      }
+    }
+  }
+}

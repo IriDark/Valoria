@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:wooden_spear"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wooden_spear": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:wooden_spear"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_wooden_spear",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:wooden_spear"
+    ]
+  },
+  "sends_telemetry_event": false
+}

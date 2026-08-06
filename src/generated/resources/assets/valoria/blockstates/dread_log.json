@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "axis=x": [
+      {
+        "model": "valoria:block/dread_log",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/dread_log_1",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "axis=y": [
+      {
+        "model": "valoria:block/dread_log"
+      },
+      {
+        "model": "valoria:block/dread_log_1"
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "valoria:block/dread_log",
+        "x": 90
+      },
+      {
+        "model": "valoria:block/dread_log_1",
+        "x": 90
+      }
+    ]
+  }
+}
