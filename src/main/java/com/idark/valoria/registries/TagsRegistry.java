@@ -8,6 +8,7 @@ import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.levelgen.structure.*;
 
@@ -37,6 +38,10 @@ public class TagsRegistry{
         return TagKey.create(Registries.STRUCTURE, name);
     }
 
+    public static TagKey<Biome> biome(final ResourceLocation name){
+        return TagKey.create(Registries.BIOME, name);
+    }
+
     public static final TagKey<Item> EXCLUDED_FROM_TAB = item(new ResourceLocation(Valoria.ID, "excluded"));
 
     public static final TagKey<EntityType<?>> MINIONS = entity(new ResourceLocation(Valoria.ID, "minions"));
@@ -49,6 +54,8 @@ public class TagsRegistry{
     public static final TagKey<Structure> ON_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_crypt_explorer_maps"));
     public static final TagKey<Structure> CRYPTS = dungeon(new ResourceLocation(Valoria.ID, "crypts"));
     public static final TagKey<Structure> MONSTROSITIES = dungeon(new ResourceLocation(Valoria.ID, "monstrosities"));
+
+    public static final TagKey<Biome> IS_VALORIA = biome(new ResourceLocation(Valoria.ID, "is_valoria"));
 
     public static final TagKey<Block> MINEABLE_WITH_MULTITOOL = block(new ResourceLocation(Valoria.ID, "mineable/multitool"));
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
@@ -111,6 +118,7 @@ public class TagsRegistry{
     public static final TagKey<Item> ALCOHOL = item(new ResourceLocation(Valoria.ID, "alcohol"));
     public static final TagKey<Item> RUM = item(new ResourceLocation(Valoria.ID, "rum"));
     public static final TagKey<Item> CRUSHABLE = item(new ResourceLocation(Valoria.ID, "crushable"));
+    public static final TagKey<Item> GEODES = item(new ResourceLocation(Valoria.ID, "geodes"));
     public static final TagKey<Item> STONE_CRUSHER_TOOL = item(new ResourceLocation(Valoria.ID, "stone_crusher_tool"));
     public static final TagKey<Item> SMOKE_PARTICLE = item(new ResourceLocation(Valoria.ID, "smoke_particle"));
     public static final TagKey<PaintingVariant> MODDED = painting(new ResourceLocation(Valoria.ID, "painting"));

@@ -1,0 +1,43 @@
+{
+  "parent": "valoria:valoria/dryador",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "valoria:firron"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.firron.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:obsidian_heart"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.firron.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

@@ -1,36 +1,41 @@
 {
   "parent": "valoria:valoria/the_valoria",
   "criteria": {
-    "has_multitool": {
-      "trigger": "minecraft:inventory_changed",
+    "requirement": {
       "conditions": {
         "items": [
           {
-            "tag": "valoria:multi_tools"
+            "items": [
+              "valoria:aloe_piece"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.valoria.multitasker.description"
+      "translate": "advancements.valoria.aloe.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "valoria:cobalt_multi_tool"
+      "item": "valoria:aloe_piece"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.valoria.multitasker.title"
+      "translate": "advancements.valoria.aloe.title"
     }
   },
   "requirements": [
     [
-      "has_multitool"
+      "requirement"
     ]
   ],
+  "rewards": {
+    "experience": 80
+  },
   "sends_telemetry_event": true
 }

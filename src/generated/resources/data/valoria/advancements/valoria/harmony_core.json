@@ -1,0 +1,38 @@
+{
+  "parent": "valoria:valoria/elemental_manipulator",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:nature_core"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": ""
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:nature_core"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.harmony_core.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

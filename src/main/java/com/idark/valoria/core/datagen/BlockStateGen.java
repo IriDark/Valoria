@@ -418,11 +418,10 @@ public class BlockStateGen extends CoreStateGen {
         pottedPlantBlock(BlockRegistry.pottedSoulFlower.get(), "soulflower");
         pottedPlantBlock(BlockRegistry.pottedVoidRoots.get(), "potted_void_roots");
         pottedPlantBlock(BlockRegistry.pottedDreadwoodSapling.get(), "dread_sapling");
-        pottedPlantBlock(BlockRegistry.pottedVoidSerpents.get(), "void_serpents");
         pottedPlantBlock(BlockRegistry.pottedMagmaroot.get(), "potted_crimson_magmaroot");
         pottedPlantBlock(BlockRegistry.pottedGoldy.get(), "potted_crimson_goldy");
-        pottedPlantBlock(BlockRegistry.pottedRajush.get(), "potted_crimson_rajust");
-        pottedPlantBlock(BlockRegistry.voidSerpents.get(), "void_serpents_preview");
+        pottedPlantBlock(BlockRegistry.pottedRajush.get(), "potted_crimson_rajush");
+        pottedPlantBlock(BlockRegistry.pottedVoidSerpents.get(), "void_serpents_preview");
 
         simpleBlockWithItem(BlockRegistry.pyratiteBlock.get());
         simpleBlockWithItem(BlockRegistry.quicksand.get());

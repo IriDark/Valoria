@@ -1,0 +1,43 @@
+{
+  "parent": "valoria:valoria/necromancer",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "valoria:dryador"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.dryador.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:gaib_root"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.dryador.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 150
+  },
+  "sends_telemetry_event": true
+}

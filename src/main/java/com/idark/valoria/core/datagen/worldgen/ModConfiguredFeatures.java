@@ -12,29 +12,51 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 import java.util.*;
 
-//todo
 public class ModConfiguredFeatures {
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_ORE_KEY = registerKey("amber_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> amberOre = registerKey("amber_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> cobaltOre = registerKey("cobalt_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> sapphireOre = registerKey("sapphire_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> rubyOre = registerKey("ruby_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> jadeOre = registerKey("jade_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> pyratiteOre = registerKey("pyratite_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> wickedAmethystOre = registerKey("wicked_amethyst_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> pearliumOre = registerKey("pearlium_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> dormantCrystals = registerKey("dormant_crystals");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        RuleTest stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
-        RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
+        RuleTest voidStoneReplaceables = new BlockMatchTest(BlockRegistry.voidStone.get());
+        RuleTest picriteReplaceables = new BlockMatchTest(BlockRegistry.picrite.get());
+        RuleTest crystalStoneReplaceables = new BlockMatchTest(BlockRegistry.crystalStone.get());
 
-        List<OreConfiguration.TargetBlockState> amberOreTargets = List.of(
-                OreConfiguration.target(stoneReplaceables, BlockRegistry.amberOre.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, BlockRegistry.deepslateAmberOre.get().defaultBlockState())
-        );
+        registerOre(context, amberOre, List.of(OreConfiguration.target(stoneReplaceables(), BlockRegistry.amberOre.get().defaultBlockState()), OreConfiguration.target(deepslateReplaceables(), BlockRegistry.deepslateAmberOre.get().defaultBlockState())), 4);
+        registerOre(context, cobaltOre, List.of(OreConfiguration.target(stoneReplaceables(), BlockRegistry.cobaltOre.get().defaultBlockState()), OreConfiguration.target(deepslateReplaceables(), BlockRegistry.deepslateCobaltOre.get().defaultBlockState())), 4);
+        registerOre(context, sapphireOre, List.of(OreConfiguration.target(stoneReplaceables(), BlockRegistry.sapphireOre.get().defaultBlockState()), OreConfiguration.target(deepslateReplaceables(), BlockRegistry.deepslateSapphireOre.get().defaultBlockState())), 4);
+        registerOre(context, rubyOre, List.of(OreConfiguration.target(stoneReplaceables(), BlockRegistry.rubyOre.get().defaultBlockState()), OreConfiguration.target(deepslateReplaceables(), BlockRegistry.deepslateRubyOre.get().defaultBlockState())), 4);
+        registerOre(context, jadeOre, List.of(OreConfiguration.target(voidStoneReplaceables, BlockRegistry.jadeOre.get().defaultBlockState()), OreConfiguration.target(picriteReplaceables, BlockRegistry.picriteJadeOre.get().defaultBlockState())), 3);
+        registerOre(context, pyratiteOre, List.of(OreConfiguration.target(picriteReplaceables, BlockRegistry.pyratiteOre.get().defaultBlockState())), 5);
+        registerOre(context, wickedAmethystOre, List.of(OreConfiguration.target(voidStoneReplaceables, BlockRegistry.wickedAmethystOre.get().defaultBlockState())), 14);
+        registerOre(context, pearliumOre, List.of(OreConfiguration.target(crystalStoneReplaceables, BlockRegistry.pearliumOre.get().defaultBlockState())), 14);
+        registerOre(context, dormantCrystals, List.of(OreConfiguration.target(voidStoneReplaceables, BlockRegistry.dormantCrystals.get().defaultBlockState())), 8);
+    }
 
-//        register(context, AMBER_ORE_KEY, Feature.ORE, new OreConfiguration(amberOreTargets, 8));
+    private static void registerOre(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, List<OreConfiguration.TargetBlockState> targetStates, int size) {
+        register(context, key, Feature.ORE, new OreConfiguration(targetStates, size));
+    }
+
+    private static RuleTest stoneReplaceables() {
+        return new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
+    }
+
+    private static RuleTest deepslateReplaceables() {
+        return new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Valoria.ID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, Valoria.loc(name));
     }
 
-    private static <FC extends net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
-                                                                                          ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 }

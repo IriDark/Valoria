@@ -1,0 +1,38 @@
+{
+  "parent": "valoria:valoria/elemental_crystal",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:elemental_manipulator"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.valoria.elemental_manipulator.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "valoria:elemental_manipulator"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.valoria.elemental_manipulator.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

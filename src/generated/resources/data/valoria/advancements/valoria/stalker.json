@@ -2,14 +2,16 @@
   "parent": "valoria:valoria/first_breath",
   "criteria": {
     "has_gas_mask": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "valoria:gas_mask"
+            "items": [
+              "valoria:gas_mask"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -20,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "valoria:gas_mask"
+      "item": "valoria:gas_mask",
+      "nbt": "{Damage:0}"
     },
     "show_toast": true,
     "title": {
@@ -31,5 +34,6 @@
     [
       "has_gas_mask"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

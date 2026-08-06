@@ -1,35 +1,38 @@
 {
   "parent": "valoria:valoria/visit_the_valoria",
   "criteria": {
-    "has_nihility_monitor": {
-      "trigger": "minecraft:inventory_changed",
+    "requirement": {
       "conditions": {
         "items": [
           {
-            "item": "valoria:nihility_monitor"
+            "items": [
+              "valoria:pyratite"
+            ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.valoria.dosimetry.description"
+      "translate": "advancements.valoria.pyratite.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "valoria:nihility_monitor"
+      "item": "valoria:pyratite"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.valoria.dosimetry.title"
+      "translate": "advancements.valoria.pyratite.title"
     }
   },
   "requirements": [
     [
-      "has_nihility_monitor"
+      "requirement"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }
