@@ -1,14 +1,11 @@
 package com.idark.valoria.client.model.curio;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.google.common.collect.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 
-public class HandsModelSlim extends HumanoidModel<LivingEntity>{
-    public ModelPart root, right_glove, left_glove;
+public class HandsModelSlim extends HandsModel{
 
     public HandsModelSlim(ModelPart root){
         super(root);

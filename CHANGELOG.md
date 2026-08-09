@@ -1,6 +1,7 @@
 # 1.0.3.4
 
 # **Added**
+- Added Rot immune tag
 - Added Small block icon to Boss Summonable items to show an actual block where it needs to be used
 - Added additional tooltip line to Gunpowder charge describing its use
 - Added Wicked Shield to Wicked Crystal LootTable
@@ -9,6 +10,8 @@
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Glove rendering to cache Model on Layer creation this will significantly improve optimization
+- Fixed Glove rendering to use Forge Event instead of a mixin and copy Arm rotations properly to increase compatibility with other mods (Tested with TACZ)
 - Fixed Alchemy Stations breaking process
 - Fixed Alchemy Stations wrong particles
 - Fixed Wrong BlockState key for Heavy Workbench preventing from Loot drop
@@ -27,6 +30,7 @@
 - Fixed Meat cutter was healing without depending on blocked damage
 
 # **Changed**
+- Converted project to Data Gen, cleaned up some trash files
 - Nerfer Overdrive enchantment (Max: 30% -> 10%)
 - Reworked Shields
 - Changed Healing flask recipe

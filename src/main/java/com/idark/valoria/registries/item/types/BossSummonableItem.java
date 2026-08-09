@@ -2,25 +2,20 @@ package com.idark.valoria.registries.item.types;
 
 import net.minecraft.*;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
-import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.gfx.*;
-import pro.komaru.tridot.client.gfx.particle.*;
-import pro.komaru.tridot.client.gfx.particle.data.*;
-import pro.komaru.tridot.util.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -30,6 +25,7 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
     private ResourceKey<Level> dimension = Level.OVERWORLD;
     private boolean specificDimension = false;
     private final float expandValue;
+    private final VoxelShape AIR = Block.box(5.0D, 5.0D, 5.0D, 11.0D, 11.0D, 11.0D);
 
     public BossSummonableItem(Supplier<? extends EntityType<? extends Mob>> type, Properties pProperties){
         super(type, pProperties);
@@ -69,7 +65,7 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
     }
 
     @Override
-    protected EntityType<?> getDefaultType(){
+    public EntityType<?> getDefaultType(){
         return this.typeSupplier.get();
     }
 
@@ -77,85 +73,47 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
     public InteractionResult useOn(UseOnContext pContext){
         Level level = pContext.getLevel();
         Player player = pContext.getPlayer();
-        AABB spawnAABB = getAABB(player, getDefaultType().create(level));
+        BlockPos pos = pContext.getClickedPos().above();
+        AABB spawnAABB = getAABB(pos);
+
         SpawnResult result = canSpawnHere(level, spawnAABB);
         if(result.success()){
             return super.useOn(pContext);
-        }else{
-            player.displayClientMessage(result.failMessage(), true);
-            if(!result.preventingBlocks.isEmpty()){
-                showParticleBox(level, spawnAABB);
-                for(BlockPos pos : result.preventingBlocks)
-                    if(level.isClientSide())
-                        showBlockingParticles(level, pos);
-            }
+        } else {
+            if (level.isClientSide) player.displayClientMessage(result.failMessage(), true);
         }
 
         return InteractionResult.FAIL;
     }
 
-    public void showParticleBox(Level level, AABB box){
-        if(!(level instanceof ServerLevel server)) return;
-        double step = 0.5;
-        for(double x = box.minX; x <= box.maxX; x += step){
-            for(double y = box.minY; y <= box.maxY; y += step){
-                for(double z = box.minZ; z <= box.maxZ; z += step){
-                    boolean onEdge =
-                    Mth.equal(x, box.minX) || x + step > box.maxX ||
-                    Mth.equal(y, box.minY) || y + step > box.maxY ||
-                    Mth.equal(z, box.minZ) || z + step > box.maxZ;
-                    if(onEdge){
-                        server.sendParticles(ParticleTypes.MYCELIUM, x, y, z, 1, 0, 0, 0, 0);
-                    }
-                }
-            }
-        }
-    }
-
-    public void showBlockingParticles(Level level, BlockPos pos){
-        ParticleBuilder.create(TridotParticles.SQUARE)
-        .setScaleData(GenericParticleData.create(0.05f).build())
-        .setColorData(ColorParticleData.create(Col.red).build())
-        .setGravity(0).setLifetime(60).setHasPhysics(false).spawnVoxelShape(level, new Vec3(pos.getX(), pos.getY(), pos.getZ()), level.getBlockState(pos).getShape(level, pos), 15).getParticleOptions();
-    }
-
     @NotNull
-    public AABB getAABB(Player player, Entity mob){
-        AABB mobBoundingBox = mob.getBoundingBox();
-        Vec3 origin = player.getEyePosition();
-        Vec3 direction = player.getForward();
-        BlockHitResult hitResult = player.level().clip(new ClipContext(origin, origin.add(direction.scale(5)),
-        ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, player));
-        BlockPos centerPos = hitResult.getBlockPos().above();
+    public AABB getAABB(BlockPos targetPos) {
+        EntityDimensions dim = getDefaultType().getDimensions();
+        double width = dim.width + this.expandValue;
+        double height = dim.height;
 
-        double width = mobBoundingBox.getXsize() + this.expandValue;
-        double height = mobBoundingBox.getYsize();
-        double depth = mobBoundingBox.getZsize() + this.expandValue;
-
-        double minX = centerPos.getX() - width / 2.0;
-        double minY = centerPos.getY();
-        double minZ = centerPos.getZ() - depth / 2.0;
-        double maxX = centerPos.getX() + width / 2.0;
-        double maxY = centerPos.getY() + height;
-        double maxZ = centerPos.getZ() + depth / 2.0;
-
-        return new AABB(minX, minY, minZ, maxX, maxY, maxZ);
+        double minX = targetPos.getX() + 0.5 - width / 2.0;
+        double minY = targetPos.getY();
+        double minZ = targetPos.getZ() + 0.5 - width / 2.0;
+        return new AABB(minX, minY, minZ, minX + width, minY + height, minZ + width);
     }
 
     public SpawnResult canSpawnHere(Level world, AABB blockAABB){
         if(specificDimension && world.dimension() != dimension) return SpawnResult.fail();
 
-        BlockPos min = new BlockPos((int)Math.floor(blockAABB.minX), (int)Math.floor(blockAABB.minY), (int)Math.floor(blockAABB.minZ));
-        BlockPos max = new BlockPos((int)Math.floor(blockAABB.maxX), (int)Math.floor(blockAABB.maxY), (int)Math.floor(blockAABB.maxZ));
+        BlockPos min = BlockPos.containing(blockAABB.minX, blockAABB.minY, blockAABB.minZ);
+        BlockPos max = BlockPos.containing(blockAABB.maxX, blockAABB.maxY, blockAABB.maxZ);
+        List<PreventingBlock> preventingBlocks = new ArrayList<>();
 
-        List<BlockPos> preventingBlocks = new ArrayList<>();
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
         int baseY = min.getY();
         for(int x = min.getX(); x <= max.getX(); x++){
             for(int z = min.getZ(); z <= max.getZ(); z++){
-                BlockPos groundPos = new BlockPos(x, baseY - 1, z);
-                BlockState groundState = world.getBlockState(groundPos);
-                if(groundState.isAir() || !groundState.isSolid() || world.getFluidState(groundPos).isSource()){
-                    preventingBlocks.add(groundPos);
+                mutablePos.set(x, baseY - 1, z);
+                BlockState groundState = world.getBlockState(mutablePos);
+                VoxelShape shape = groundState.getCollisionShape(world, mutablePos);
+                if(groundState.isAir() || !groundState.isSolid() || world.getFluidState(mutablePos).isSource()){
+                    preventingBlocks.add(new PreventingBlock(mutablePos.immutable(), shape.isEmpty() ? AIR : shape));
                 }
             }
         }
@@ -163,11 +121,12 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
         for(int x = min.getX(); x <= max.getX(); x++){
             for(int y = baseY; y <= max.getY(); y++){
                 for(int z = min.getZ(); z <= max.getZ(); z++){
-                    BlockPos checkPos = new BlockPos(x, y, z);
-                    BlockState state = world.getBlockState(checkPos);
-                    if(!state.getCollisionShape(world, checkPos).isEmpty() || world.getFluidState(checkPos).isSource()){
-                        if(!state.canBeReplaced() && state.getDestroySpeed(world, checkPos) >= 0){
-                            preventingBlocks.add(checkPos);
+                    mutablePos.set(x, y, z);
+                    BlockState state = world.getBlockState(mutablePos);
+                    VoxelShape shape = state.getCollisionShape(world, mutablePos);
+                    if(!shape.isEmpty() || world.getFluidState(mutablePos).isSource()){
+                        if(!state.canBeReplaced() && state.getDestroySpeed(world, mutablePos) >= 0){
+                            preventingBlocks.add(new PreventingBlock(mutablePos.immutable(), shape));
                         }
                     }
                 }
@@ -177,13 +136,14 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
         return SpawnResult.checkResult(blockAABB, preventingBlocks);
     }
 
-    public record SpawnResult(boolean success, List<BlockPos> preventingBlocks, Component failMessage){
+    public record PreventingBlock(BlockPos pos, VoxelShape shape) {}
 
+    public record SpawnResult(boolean success, List<PreventingBlock> preventingBlocks, Component failMessage){
         public static SpawnResult fail(){
             return new SpawnResult(false, List.of(), Component.translatable("tooltip.valoria.boss_summon.dimension_fail").withStyle(ChatFormatting.GRAY));
         }
 
-        public static SpawnResult checkResult(AABB aabb, List<BlockPos> preventingBlocks){
+        public static SpawnResult checkResult(AABB aabb, List<PreventingBlock> preventingBlocks){
             var size = Math.floor(aabb.getSize()) + 3;
             return new SpawnResult(preventingBlocks.isEmpty(), preventingBlocks, Component.translatable("tooltip.valoria.boss_summon.block_fail", size + "x" + size).withStyle(ChatFormatting.GRAY));
         }

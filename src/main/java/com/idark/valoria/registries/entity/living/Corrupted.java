@@ -2,7 +2,6 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -23,7 +22,7 @@ import pro.komaru.tridot.util.*;
 import javax.annotation.*;
 
 public class Corrupted extends Monster{
-    public final StaticAnimationState attackAnimationState = new StaticAnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public boolean isRunning;
@@ -39,7 +38,7 @@ public class Corrupted extends Monster{
     public void handleEntityEvent(byte pId) {
         if (pId == 4) {
             this.idleAnimationState.stop();
-            this.attackAnimationState.start(this.tickCount, 40);
+            this.attackAnimationState.start(this.tickCount);
         } else {
             super.handleEntityEvent(pId);
         }

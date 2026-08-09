@@ -65,6 +65,8 @@ public class ValoriaClient{
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
 
     public static LoopedSoundInstance BOSS_MUSIC;
+    public static HandsModel hands;
+    public static HandsModelSlim handsSlim;
 
     public static void setupClient(final FMLClientSetupEvent event){
         event.enqueueWork(() -> {
@@ -324,6 +326,8 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.AddLayers event) {
+            hands = new HandsModel(event.getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER));
+            handsSlim = new HandsModelSlim(event.getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER_SLIM));
             PlayerRenderer defaultRenderer = event.getSkin("default");
             if (defaultRenderer != null) {
                 defaultRenderer.addLayer(new StunEffectLayer(defaultRenderer));
@@ -342,8 +346,10 @@ public class ValoriaClient{
             event.registerLayerDefinition(ValoriaLayers.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.BELT_LAYER, BeltModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.BAG_LAYER, JewelryBagModel::createBodyLayer);
+
             event.registerLayerDefinition(ValoriaLayers.HANDS_LAYER, HandsModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
+
             event.registerLayerDefinition(ValoriaLayers.MONOCLE_LAYER, MonocleModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.RESPIRATOR_LAYER, RespiratorModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.CROWN_LAYER, CrownModel::createBodyLayer);

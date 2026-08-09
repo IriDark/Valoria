@@ -58,7 +58,7 @@ public class CorruptedModel<T extends Corrupted> extends AbstractHierarchicalMod
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animate(pEntity.attackAnimationState, CorruptedAnimation.ATTACK_MELEE, pAgeInTicks);
-        if(!pEntity.attackAnimationState.isPlaying){
+        if(!pEntity.attackAnimationState.isStarted()){
             if(pEntity.isRunning){
                 this.animateWalk(CorruptedAnimation.RUN, pLimbSwing, pLimbSwingAmount, 2, pAgeInTicks);
             }else{

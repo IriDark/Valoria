@@ -9,21 +9,35 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
+import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.BossSummonableItem.*;
+import com.idark.valoria.registries.item.types.curio.hands.*;
 import com.idark.valoria.util.*;
+import com.mojang.blaze3d.systems.*;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
+import top.theillusivec4.curios.api.*;
 
 import java.text.*;
 import java.util.*;
@@ -31,6 +45,200 @@ import java.util.*;
 public class ClientEvents{
     public static final DecimalFormat FORMAT = new DecimalFormat("###.##", new DecimalFormatSymbols(Locale.ENGLISH));
     private static final ResourceLocation FLAME_ICON = Valoria.loc("textures/gui/flame_icon.png");
+    private static SpawnResult cachedSpawnResult = null;
+    private static BlockPos cachedTargetPos = null;
+    private static long lastCheckTime = 0;
+
+    @SubscribeEvent
+    public static void onRenderLevel(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) return;
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null || mc.player.getMainHandItem().isEmpty()) return;
+
+        if (mc.player.getMainHandItem().getItem() instanceof BossSummonableItem summonableItem) {
+            HitResult hit = mc.hitResult;
+            if (hit != null && hit.getType() == HitResult.Type.BLOCK){
+                BlockHitResult blockHit = (BlockHitResult)hit;
+                BlockPos targetPos = blockHit.getBlockPos().above();
+
+                AABB box = summonableItem.getAABB(targetPos);
+                renderBeautifulBox(event.getPoseStack(), mc.gameRenderer.getMainCamera().getPosition(), box);
+                renderBlocking(summonableItem, mc.player.level(), event.getPoseStack(), mc.gameRenderer.getMainCamera().getPosition(), targetPos, box);
+            }
+        }
+    }
+
+    public static void renderBeautifulBox(PoseStack poseStack, Vec3 cameraPos, AABB box) {
+        AABB renderBox = box.move(-cameraPos.x, -cameraPos.y, -cameraPos.z);
+
+        poseStack.pushPose();
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableCull();
+        RenderSystem.disableDepthTest();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder builder = tesselator.getBuilder();
+
+        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+
+        poseStack.pushPose();
+        poseStack.translate(renderBox.minX, renderBox.minY, renderBox.minZ);
+
+        float width = (float)(renderBox.maxX - renderBox.minX);
+        float height = (float)(renderBox.maxY - renderBox.minY);
+        float length = (float)(renderBox.maxZ - renderBox.minZ);
+
+        RenderBuilder.create()
+        .setFormat(DefaultVertexFormat.POSITION_COLOR)
+        .setVertexConsumer(builder)
+        .setColor(0.4f, 0.0f, 0.6f, 0.1f)
+        .renderCube(poseStack, width, height, length);
+
+        poseStack.popPose();
+        tesselator.end();
+
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        builder.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
+
+        float lineR = 0.8f; float lineG = 0.0f; float lineB = 1.0f; float lineA = 1.0f;
+        LevelRenderer.renderLineBox(poseStack, builder, renderBox, lineR, lineG, lineB, lineA);
+
+        tesselator.end();
+        RenderSystem.enableDepthTest();
+        RenderSystem.enableCull();
+        RenderSystem.disableBlend();
+
+        poseStack.popPose();
+    }
+
+    private static float[] getColor(ItemStack stack){
+        if(stack.getItem() instanceof DyeableGlovesItem){
+            int color = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
+            float r = (float)(color >> 16 & 255) / 255.0F;
+            float g = (float)(color >> 8 & 255) / 255.0F;
+            float b = (float)(color & 255) / 255.0F;
+
+            return new float[]{r, g, b};
+        }else{
+            return new float[]{1, 1, 1};
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRenderArm(RenderArmEvent event) {
+        MultiBufferSource pBuffer = event.getMultiBufferSource();
+        int pLight = event.getPackedLight();
+        var pPlayer = event.getPlayer();
+        var playerArm = event.getArm();
+        var pPose = event.getPoseStack();
+
+        var curioSlots = CuriosApi.getCuriosHelper().findCurios(pPlayer, (stack) -> stack.getItem() instanceof GlovesItem);
+        for(SlotResult slot : curioSlots){
+            if(slot.slotContext().cosmetic() || slot.slotContext().visible()){
+                ItemStack stack = slot.stack();
+                if(stack.getItem() instanceof ICurioTexture item && item instanceof GlovesItem){
+                    float[] color = getColor(stack);
+                    boolean slim = !pPlayer.getModelName().equals("default");
+                    var pTexture = item.getTexture(stack, pPlayer);
+                    if(pTexture == null) continue;
+
+                    var pModel = slim ? ValoriaClient.handsSlim : ValoriaClient.hands;
+                    var entityRenderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(pPlayer);
+                    if (entityRenderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer playerRenderer) {
+                        var playerModel = playerRenderer.getModel();
+                        if (playerArm == HumanoidArm.RIGHT) {
+                            pModel.right_glove.copyFrom(playerModel.rightArm);
+                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        } else {
+                            pModel.left_glove.copyFrom(playerModel.leftArm);
+                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        }
+                    } else {
+                        // Safe fallback just in case the renderer isn't PlayerRenderer
+                        if (playerArm == HumanoidArm.RIGHT) {
+                            pModel.right_glove.setRotation(0, 0, 0);
+                            pModel.right_glove.setPos(-5.0F, 2.0F, 0.0F);
+                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        } else {
+                            pModel.left_glove.setRotation(0, 0, 0);
+                            pModel.left_glove.setPos(5.0F, 2.0F, 0.0F);
+                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void renderBlocking(BossSummonableItem summonableItem, Level level, PoseStack poseStack, Vec3 cameraPos, BlockPos targetPos, AABB box) {
+        poseStack.pushPose();
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableCull();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder builder = tesselator.getBuilder();
+
+        long currentTime = System.currentTimeMillis();
+        if (cachedSpawnResult == null || !targetPos.equals(cachedTargetPos) || currentTime - lastCheckTime > 500) {
+            cachedSpawnResult = summonableItem.canSpawnHere(level, box);
+            cachedTargetPos = targetPos;
+            lastCheckTime = currentTime;
+        }
+
+        SpawnResult result = cachedSpawnResult;
+        if (!result.success()) {
+            if (!result.preventingBlocks().isEmpty()) {
+                RenderSystem.disableDepthTest();
+                builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+                for (PreventingBlock pb : result.preventingBlocks()) {
+                    BlockPos pos = pb.pos();
+                    AABB blockBounds = pb.shape().bounds().move(pos.getX() - cameraPos.x, pos.getY() - cameraPos.y, pos.getZ() - cameraPos.z);
+
+                    poseStack.pushPose();
+                    poseStack.translate(blockBounds.minX, blockBounds.minY, blockBounds.minZ);
+
+                    float width = (float)(blockBounds.maxX - blockBounds.minX);
+                    float height = (float)(blockBounds.maxY - blockBounds.minY);
+                    float length = (float)(blockBounds.maxZ - blockBounds.minZ);
+
+                    RenderBuilder.create()
+                    .setFormat(DefaultVertexFormat.POSITION_COLOR)
+                    .setVertexConsumer(builder)
+                    .setColor(1.0f, 0.0f, 0.0f, 0.1f)
+                    .renderCube(poseStack, width, height, length);
+
+                    poseStack.popPose();
+                }
+
+                tesselator.end();
+
+                builder.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
+                float errR = 1.0f; float errG = 0.0f; float errB = 0.0f; float errA = 0.5f;
+                for (PreventingBlock pb : result.preventingBlocks()) {
+                    BlockPos pos = pb.pos();
+                    VoxelShape shape = pb.shape();
+
+                    double renderX = pos.getX() - cameraPos.x;
+                    double renderY = pos.getY() - cameraPos.y;
+                    double renderZ = pos.getZ() - cameraPos.z;
+                    LevelRenderer.renderVoxelShape(poseStack, builder, shape, renderX, renderY, renderZ, errR, errG, errB, errA, false);
+                }
+
+                tesselator.end();
+            }
+        }
+
+        RenderSystem.enableCull();
+        RenderSystem.disableBlend();
+        RenderSystem.enableDepthTest();
+
+        poseStack.popPose();
+    }
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {

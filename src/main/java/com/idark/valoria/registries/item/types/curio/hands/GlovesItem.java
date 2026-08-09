@@ -14,16 +14,27 @@ public class GlovesItem extends CurioAccessoryItem implements ICurioTexture{
         super(builder);
     }
 
+    private ResourceLocation cachedDefaultTexture = null;
+    private ResourceLocation cachedSlimTexture = null;
+
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity){
         if(builder.texPath == null) return null;
 
-        boolean flag = entity instanceof AbstractClientPlayer player && !player.getModelName().equals("default");
-        if(builder.dependsOnStack){
-            return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() + ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath() + (flag ? "_slim" : "") + ".png");
+        if (cachedDefaultTexture == null) {
+            String basePath = builder.texPath.getPath();
+            if(builder.dependsOnStack){
+                basePath += ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
+            }else{
+                basePath += builder.texPath.getPath();
+            }
+
+            cachedDefaultTexture = new ResourceLocation(builder.texPath.getNamespace(), basePath + ".png");
+            cachedSlimTexture = new ResourceLocation(builder.texPath.getNamespace(), basePath + "_slim.png");
         }
 
-        return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() +builder.texPath + (flag ? "_slim" : "") + ".png");
+        boolean slim = entity instanceof AbstractClientPlayer player && !player.getModelName().equals("default");
+        return slim ? cachedSlimTexture : cachedDefaultTexture;
     }
 
     public static class GlovesBuilder extends AbstractCurioBuilder<GlovesItem, GlovesBuilder>{

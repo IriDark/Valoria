@@ -45,15 +45,17 @@ public class NihilityShieldOverlay implements IGuiOverlay{
             float scaleBase = (float)Math.cos(time) * 0.5F + 0.5F;
             float alpha = 0.2F + (alphaBase * 0.15F);
             float scale = 1.0F + (scaleBase * 0.0025F);
-            PoseStack pose = guiGraphics.pose();
-            pose.pushPose();
+            if(alpha > 0.01){
+                PoseStack pose = guiGraphics.pose();
+                pose.pushPose();
 
-            pose.translate(screenWidth / 2.0F, screenHeight / 2.0F, 0);
-            pose.scale(scale, scale, 1.0F);
-            pose.translate(-screenWidth / 2.0F, -screenHeight / 2.0F, 0);
+                pose.translate(screenWidth / 2.0F, screenHeight / 2.0F, 0);
+                pose.scale(scale, scale, 1.0F);
+                pose.translate(-screenWidth / 2.0F, -screenHeight / 2.0F, 0);
 
-            renderOverlay(guiGraphics, alpha, screenWidth, screenHeight);
-            pose.popPose();
+                renderOverlay(guiGraphics, alpha, screenWidth, screenHeight);
+                pose.popPose();
+            }
         }
     }
 }
