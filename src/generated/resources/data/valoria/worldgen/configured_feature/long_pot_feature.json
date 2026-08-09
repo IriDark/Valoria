@@ -1,0 +1,50 @@
+{
+  "type": "valoria:simple_pot",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "valoria:pot_long",
+            "Properties": {
+              "facing": "north",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "valoria:pot_long_handles",
+            "Properties": {
+              "facing": "north",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "valoria:pot_long_mossy",
+            "Properties": {
+              "facing": "north",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "valoria:pot_long_mossy_handles",
+            "Properties": {
+              "facing": "north",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 2
+        }
+      ]
+    }
+  }
+}

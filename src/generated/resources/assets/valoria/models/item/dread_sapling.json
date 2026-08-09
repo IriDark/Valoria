@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "valoria:block/aloe_small"
+    "layer0": "valoria:block/dread_sapling"
   }
 }

@@ -1,3 +1,6 @@
 {
-  "parent": "valoria:block/eldritch_hanging_sign"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "valoria:item/eldritch_hanging_sign"
+  }
 }

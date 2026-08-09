@@ -60,6 +60,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.skip(ItemsRegistry.wickedShield.get());
         this.skip(ItemsRegistry.phantasmShield.get());
 
+        this.skip(ItemsRegistry.jewelryBag.get());
         this.skip(BlockRegistry.umbralKeypad.get().asItem());
         this.skip(BlockRegistry.jewelerTable.get().asItem());
         this.skip(BlockRegistry.stoneCrusher.get().asItem());

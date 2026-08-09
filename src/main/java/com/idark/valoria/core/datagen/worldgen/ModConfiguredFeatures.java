@@ -2,12 +2,16 @@ package com.idark.valoria.core.datagen.worldgen;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.level.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.data.worldgen.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
+import net.minecraft.util.random.*;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.feature.stateproviders.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 import java.util.*;
@@ -22,6 +26,9 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> pyratiteOre = registerKey("pyratite_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> wickedAmethystOre = registerKey("wicked_amethyst_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> pearliumOre = registerKey("pearlium_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LONG_POT = registerKey("long_pot_feature");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_POT = registerKey("small_pot_feature");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LIMESTONE = registerKey("limestone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> dormantCrystals = registerKey("dormant_crystals");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
@@ -37,6 +44,29 @@ public class ModConfiguredFeatures {
         registerOre(context, pyratiteOre, List.of(OreConfiguration.target(picriteReplaceables, BlockRegistry.pyratiteOre.get().defaultBlockState())), 5);
         registerOre(context, wickedAmethystOre, List.of(OreConfiguration.target(voidStoneReplaceables, BlockRegistry.wickedAmethystOre.get().defaultBlockState())), 14);
         registerOre(context, pearliumOre, List.of(OreConfiguration.target(crystalStoneReplaceables, BlockRegistry.pearliumOre.get().defaultBlockState())), 14);
+
+        RuleTest limestoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
+        context.register(LIMESTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
+                List.of(OreConfiguration.target(limestoneReplaceables, BlockRegistry.limestone.get().defaultBlockState())),
+                64, 0.0f
+        )));
+
+        context.register(LONG_POT, new ConfiguredFeature<>(LevelGen.POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potLong.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potLongHandles.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potLongMossy.get().defaultBlockState(), 2)
+                .add(BlockRegistry.potLongMossyHandles.get().defaultBlockState(), 2)
+                .build())
+        )));
+
+        context.register(SMALL_POT, new ConfiguredFeature<>(LevelGen.POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potSmall.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potSmallHandles.get().defaultBlockState(), 1)
+                .build())
+        )));
+
         registerOre(context, dormantCrystals, List.of(OreConfiguration.target(voidStoneReplaceables, BlockRegistry.dormantCrystals.get().defaultBlockState())), 8);
     }
 

@@ -3,11 +3,6 @@
   "biomes": "#minecraft:is_overworld",
   "features": [
     "valoria:ephemarite_placed",
-    "valoria:amber_ore_placed",
-    "valoria:ruby_ore_placed",
-    "valoria:sapphire_ore_placed",
-    "valoria:cobalt_ore_placed",
-    "valoria:limestone_placed",
     "valoria:amber_geode",
     "valoria:ruby_geode",
     "valoria:sapphire_geode",

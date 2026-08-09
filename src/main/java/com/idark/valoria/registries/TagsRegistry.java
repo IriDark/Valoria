@@ -121,5 +121,6 @@ public class TagsRegistry{
     public static final TagKey<Item> GEODES = item(new ResourceLocation(Valoria.ID, "geodes"));
     public static final TagKey<Item> STONE_CRUSHER_TOOL = item(new ResourceLocation(Valoria.ID, "stone_crusher_tool"));
     public static final TagKey<Item> SMOKE_PARTICLE = item(new ResourceLocation(Valoria.ID, "smoke_particle"));
+    public static final TagKey<Item> ROT_IMMUNE = item(new ResourceLocation(Valoria.ID, "rot_immune"));
     public static final TagKey<PaintingVariant> MODDED = painting(new ResourceLocation(Valoria.ID, "painting"));
 }

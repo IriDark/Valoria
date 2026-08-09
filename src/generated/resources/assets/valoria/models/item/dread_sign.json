@@ -1,3 +1,6 @@
 {
-  "parent": "valoria:block/dread_sign"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "valoria:item/dread_sign"
+  }
 }

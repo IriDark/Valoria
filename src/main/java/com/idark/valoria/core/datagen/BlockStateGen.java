@@ -168,7 +168,8 @@ public class BlockStateGen extends CoreStateGen {
         simpleBlockItem(BlockRegistry.smoothVoidSandstoneStairs.get(), models().getExistingFile(modLoc("block/" + name(BlockRegistry.smoothVoidSandstoneStairs.get()))));
 
         paneBlockWithRenderType((IronBarsBlock) BlockRegistry.bronzeGlassPane.get(), blockTexture(BlockRegistry.bronzeGlass.get()), blockTexture(BlockRegistry.bronzeBlock.get()), "cutout");
-        itemModels().withExistingParent(name(BlockRegistry.bronzeGlassPane.get()), "item/generated").texture("layer0", modLoc("block/bronze_glass"));
+        simpleItem(BlockRegistry.bronzeGlassPane.get(), modLoc("block/" + name(BlockRegistry.bronzeGlass.get())));
+
 
         doorBlockWithRenderType((DoorBlock) BlockRegistry.bronzeDoor.get(), modLoc("block/bronze_door_bottom"), modLoc("block/bronze_door_top"), "cutout");
         itemModels().withExistingParent(name(BlockRegistry.bronzeDoor.get()), "item/generated").texture("layer0", modLoc("item/bronze_door"));
@@ -212,9 +213,9 @@ public class BlockStateGen extends CoreStateGen {
         simpleBlockItem(BlockRegistry.dreadwoodTrapdoor.get(), models().getExistingFile(modLoc("block/" + name(BlockRegistry.dreadwoodTrapdoor.get()) + "_bottom")));
 
         signBlock((StandingSignBlock)BlockRegistry.dreadwoodSign.get(), (WallSignBlock)BlockRegistry.dreadwoodWallSign.get(), modLoc("block/" + name(BlockRegistry.dreadwoodPlanks.get())));
-        simpleBlockWithItem(BlockRegistry.dreadwoodSign.get(), modLoc("item/" + name(BlockRegistry.dreadwoodSign.get())));
+        simpleItem(BlockRegistry.dreadwoodSign.get(), modLoc("item/" + name(BlockRegistry.dreadwoodSign.get())));
         hangingSignBlock(BlockRegistry.dreadwoodHangingSign.get(), BlockRegistry.dreadwoodWallHangingSign.get(), modLoc("block/" + name(BlockRegistry.dreadwoodPlanks.get())));
-        simpleBlockWithItem(BlockRegistry.dreadwoodHangingSign.get(), modLoc("item/" + name(BlockRegistry.dreadwoodHangingSign.get())));
+        simpleItem(BlockRegistry.dreadwoodHangingSign.get(), modLoc("item/" + name(BlockRegistry.dreadwoodHangingSign.get())));
 
         buttonBlock((ButtonBlock)BlockRegistry.dreadwoodButton.get(), modLoc("block/" + name(BlockRegistry.dreadwoodPlanks.get())));
         simpleBlockItem(BlockRegistry.dreadwoodButton.get(), models().getExistingFile(modLoc("block/" + name(BlockRegistry.dreadwoodButton.get()))));
@@ -404,7 +405,15 @@ public class BlockStateGen extends CoreStateGen {
 
         getVariantBuilder(BlockRegistry.cryptPot.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.cryptPot.get())))).buildLast());
         simpleItem(BlockRegistry.cryptPot.get(), modLoc("item/" + name(BlockRegistry.cryptPot.get())));
+        simpleItem(BlockRegistry.voidSerpents.get(), modLoc("block/void_serpents_preview"));
+        simpleItem(BlockRegistry.falseFlower.get(), modLoc("block/" + name(BlockRegistry.falseFlower.get())));
+        simpleItem(BlockRegistry.falseFlowerSmall.get(), modLoc("block/" + name(BlockRegistry.falseFlowerSmall.get())));
+        simpleItem(BlockRegistry.voidRoots.get(), modLoc("block/" + name(BlockRegistry.voidRoots.get())));
+        simpleItem(BlockRegistry.aloe.get(), modLoc("block/" + name(BlockRegistry.aloe.get()) + "_top"));
+        simpleItem(BlockRegistry.aloeSmall.get(), modLoc("block/" + name(BlockRegistry.aloeSmall.get())));
+        simpleItem(BlockRegistry.cattail.get());
 
+        simpleItem(BlockRegistry.dreadwoodSapling.get(), modLoc("block/" + name(BlockRegistry.dreadwoodSapling.get())));
         pottedPlantBlock(BlockRegistry.pottedAloeSmall.get(), "aloe_small");
         pottedPlantBlock(BlockRegistry.pottedBlightedGrass.get(), "potted_blighted_grass");
         pottedPlantBlock(BlockRegistry.pottedBloodroot.get(), "potted_bloodroot");
@@ -642,9 +651,9 @@ public class BlockStateGen extends CoreStateGen {
         simpleBlockItem(trapdoor, models().getExistingFile(modLoc("block/" + name(trapdoor) + "_bottom")));
 
         signBlock(sign, wallSign, modLoc("block/" + name(planks)));
-        simpleBlockWithItem(sign, modLoc("item/" + name(sign)));
+        simpleItem(sign, modLoc("item/" + name(sign)));
         hangingSignBlock(hangingSign, wallHangingSign, modLoc("block/" + name(planks)));
-        simpleBlockWithItem(hangingSign, modLoc("item/" + name(hangingSign)));
+        simpleItem(hangingSign, modLoc("item/" + name(hangingSign)));
 
         buttonBlock(button, modLoc("block/" + name(planks)));
         simpleBlockItem(button, models().getExistingFile(modLoc("block/" + name(button))));

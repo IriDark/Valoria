@@ -19,7 +19,6 @@ import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.registries.level.events.*;
@@ -325,7 +324,7 @@ public class Events{
                     Inventory inv = player.getInventory();
                     for(int i = 0; i < inv.getContainerSize(); i++){
                         ItemStack stack = inv.getItem(i);
-                        if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
+                        if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.is(TagsRegistry.ROT_IMMUNE))){
                             CompoundTag tag = stack.getOrCreateTag();
                             ValoriaUtils.addNBT("ValoriaRot", 1, 100, stack);
                             int rot = tag.getInt("ValoriaRot");

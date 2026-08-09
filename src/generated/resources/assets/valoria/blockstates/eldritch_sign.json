@@ -1,12 +1,7 @@
 {
   "variants": {
-    "": [
-      {
-        "model": "valoria:block/eldritch_sign"
-      },
-      {
-        "model": "valoria:block/eldritch_sign"
-      }
-    ]
+    "": {
+      "model": "valoria:block/eldritch_sign"
+    }
   }
 }

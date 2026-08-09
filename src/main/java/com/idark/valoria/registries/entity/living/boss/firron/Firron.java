@@ -8,7 +8,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.util.*;
-import net.minecraft.client.*;
 import net.minecraft.commands.arguments.EntityAnchorArgument.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -34,7 +33,7 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.level.pathfinder.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.bossbars.*;
@@ -167,31 +166,60 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
             this.lookAt(Anchor.EYES, Valoria.proxy.getPlayer().position().add(0, 2, 0));
             Seq<CutsceneNode> nodes = Seq.with();
             Vec3 tablePos = this.position();
-
+            Vec3 playerPos = Valoria.proxy.getPlayer().position().add(0, 2, 0);
             Vec3 targetFacePos = this.position().add(0, 2, 0);
-            Vec3 forwardVector = Vec3.directionFromRotation(0, this.getYRot());
+
+            Vec3 forward = playerPos.subtract(targetFacePos).normalize();
+            Vec3 flatForward = new Vec3(forward.x, 0, forward.z).normalize();
+
+            Vec3 right = new Vec3(-flatForward.z, 0, flatForward.x).normalize();
             double distanceInFront = 3.5;
-            Vec3 cameraFrontPos = targetFacePos.add(forwardVector.scale(distanceInFront));
+            Vec3 cameraFrontPos = targetFacePos.add(flatForward.scale(distanceInFront));
 
-            Vec3 approachPos = cameraFrontPos.add(3, -1.5, 3);
+            Vec3 end = cameraFrontPos
+                .add(right.scale(3))
+                .add(0, -2, 0)
+                .add(flatForward.scale(5));
+
+            Vec3 approachPos = cameraFrontPos
+                .add(right.scale(3))
+                .add(0, -1.5, 0)
+                .add(flatForward.scale(3));
+
+            Vec3 mid = cameraFrontPos
+                .add(right.scale(-3))
+                .add(0, 4, 0)
+                .add(flatForward.scale(-3));
+
             nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
-                    .yawToTarget(tablePos)
-                    .pitch(-60)
-                    .setFov(60)
+                .yawToTarget(tablePos)
+                .pitch(-60)
+                .setFov(60)
+                .fade(0.0f, 10)
+                .playSound(SoundEvents.PORTAL_TRIGGER, 0.25f, 1.3f)
             );
 
-            Vec3 mid = cameraFrontPos.add(-3, 4, -3);
             nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
-                    .yawToTarget(targetFacePos)
-                    .pitchToTarget(targetFacePos)
-                    .setFov(90)
+                .yawToTarget(targetFacePos)
+                .pitchToTarget(targetFacePos)
+                .setFov(90)
             );
 
-            Vec3 end = Valoria.proxy.getPlayer().position().add(6, 2, -1);
-            nodes.add(new CutsceneNode(end, Interp.pow5, 75)
-                    .yawToTarget(tablePos)
-                    .pitchToTarget(tablePos)
-                    .setFov(60)
+            nodes.add(new CutsceneNode(end, Interp.smooth, 15)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(75)
+                .playSound(SoundEvents.WARDEN_HEARTBEAT, 1.5f, 0.8f)
+            );
+
+            nodes.add(new CutsceneNode(end, Interp.smooth, 50)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(60)
+
+                .playSound(SoundEvents.WARDEN_ROAR, 2.0f, 0.8f)
+                .addScreenShake(new ScreenshakeInstance(30).intensity(1.5f).interp(Interp.sine))
+                .fadeOut(1.0f, 25)
             );
 
             CutsceneManager.start(nodes);

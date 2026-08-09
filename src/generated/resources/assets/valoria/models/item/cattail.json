@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "valoria:block/cattail_top"
+    "layer0": "valoria:item/cattail"
   }
 }

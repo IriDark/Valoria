@@ -2,12 +2,15 @@ package com.idark.valoria.core.datagen;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.consumables.*;
 import net.minecraft.core.*;
 import net.minecraft.data.*;
 import net.minecraft.data.tags.*;
 import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.data.*;
+import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 
 import java.util.concurrent.*;
@@ -35,5 +38,11 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 
         tag(ItemTags.MUSIC_DISCS)
         .add(ItemsRegistry.necromancerMusicDisc.get());
+
+        for(Item entry : ForgeRegistries.ITEMS){
+            if(entry instanceof ValoriaFood) {
+                tag(TagsRegistry.ROT_IMMUNE).add(entry);
+            }
+        }
     }
 }

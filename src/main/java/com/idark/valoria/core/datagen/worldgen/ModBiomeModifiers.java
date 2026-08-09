@@ -2,6 +2,7 @@ package com.idark.valoria.core.datagen.worldgen;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.level.modifier.*;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.data.worldgen.*;
@@ -10,6 +11,8 @@ import net.minecraft.tags.*;
 import net.minecraft.world.level.levelgen.*;
 import net.minecraftforge.common.world.*;
 import net.minecraftforge.registries.*;
+
+import java.util.*;
 
 public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_AMBER_ORE = registerKey("add_amber_ore");
@@ -21,6 +24,9 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_WICKED_AMETHYST_ORE = registerKey("add_wicked_amethyst_ore");
     public static final ResourceKey<BiomeModifier> ADD_PEARLIUM_ORE = registerKey("add_pearlium_ore");
     public static final ResourceKey<BiomeModifier> ADD_DORMANT_CRYSTALS = registerKey("add_dormant_crystals");
+    public static final ResourceKey<BiomeModifier> ADD_LONG_POT = registerKey("add_long_pot");
+    public static final ResourceKey<BiomeModifier> ADD_SMALL_POT = registerKey("add_small_pot");
+    public static final ResourceKey<BiomeModifier> ADD_LIMESTONE = registerKey("add_limestone_ore");
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -70,6 +76,31 @@ public class ModBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.dormantCrystalsPlaced)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
+
+        context.register(ADD_LIMESTONE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.limestonePlaced)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_LONG_POT, new AddFeaturesByFilterBiomeModifier(
+                biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_overworld"))),
+                Optional.of(biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:spawns_cold_variant_frogs")))),
+                Optional.empty(),
+                Optional.empty(),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.longPotPlaced)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_SMALL_POT, new AddFeaturesByFilterBiomeModifier(
+                biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_overworld"))),
+                Optional.of(biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:spawns_cold_variant_frogs")))),
+                Optional.empty(),
+                Optional.empty(),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.smallPotPlaced)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
     }
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {

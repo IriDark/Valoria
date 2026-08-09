@@ -1,12 +1,7 @@
 {
   "variants": {
-    "": [
-      {
-        "model": "valoria:block/dread_sign"
-      },
-      {
-        "model": "valoria:block/dread_sign"
-      }
-    ]
+    "": {
+      "model": "valoria:block/dread_sign"
+    }
   }
 }
