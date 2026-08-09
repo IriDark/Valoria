@@ -19,6 +19,7 @@ import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.player.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -113,65 +114,6 @@ public class ClientEvents{
         poseStack.popPose();
     }
 
-    private static float[] getColor(ItemStack stack){
-        if(stack.getItem() instanceof DyeableGlovesItem){
-            int color = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
-            float r = (float)(color >> 16 & 255) / 255.0F;
-            float g = (float)(color >> 8 & 255) / 255.0F;
-            float b = (float)(color & 255) / 255.0F;
-
-            return new float[]{r, g, b};
-        }else{
-            return new float[]{1, 1, 1};
-        }
-    }
-
-    @SubscribeEvent
-    public static void onRenderArm(RenderArmEvent event) {
-        MultiBufferSource pBuffer = event.getMultiBufferSource();
-        int pLight = event.getPackedLight();
-        var pPlayer = event.getPlayer();
-        var playerArm = event.getArm();
-        var pPose = event.getPoseStack();
-
-        var curioSlots = CuriosApi.getCuriosHelper().findCurios(pPlayer, (stack) -> stack.getItem() instanceof GlovesItem);
-        for(SlotResult slot : curioSlots){
-            if(slot.slotContext().cosmetic() || slot.slotContext().visible()){
-                ItemStack stack = slot.stack();
-                if(stack.getItem() instanceof ICurioTexture item && item instanceof GlovesItem){
-                    float[] color = getColor(stack);
-                    boolean slim = !pPlayer.getModelName().equals("default");
-                    var pTexture = item.getTexture(stack, pPlayer);
-                    if(pTexture == null) continue;
-
-                    var pModel = slim ? ValoriaClient.handsSlim : ValoriaClient.hands;
-                    var entityRenderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(pPlayer);
-                    if (entityRenderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer playerRenderer) {
-                        var playerModel = playerRenderer.getModel();
-                        if (playerArm == HumanoidArm.RIGHT) {
-                            pModel.right_glove.copyFrom(playerModel.rightArm);
-                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
-                        } else {
-                            pModel.left_glove.copyFrom(playerModel.leftArm);
-                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
-                        }
-                    } else {
-                        // Safe fallback just in case the renderer isn't PlayerRenderer
-                        if (playerArm == HumanoidArm.RIGHT) {
-                            pModel.right_glove.setRotation(0, 0, 0);
-                            pModel.right_glove.setPos(-5.0F, 2.0F, 0.0F);
-                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
-                        } else {
-                            pModel.left_glove.setRotation(0, 0, 0);
-                            pModel.left_glove.setPos(5.0F, 2.0F, 0.0F);
-                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public static void renderBlocking(BossSummonableItem summonableItem, Level level, PoseStack poseStack, Vec3 cameraPos, BlockPos targetPos, AABB box) {
         poseStack.pushPose();
 
@@ -238,6 +180,65 @@ public class ClientEvents{
         RenderSystem.enableDepthTest();
 
         poseStack.popPose();
+    }
+
+    private static float[] getColor(ItemStack stack){
+        if(stack.getItem() instanceof DyeableGlovesItem){
+            int color = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
+            float r = (float)(color >> 16 & 255) / 255.0F;
+            float g = (float)(color >> 8 & 255) / 255.0F;
+            float b = (float)(color & 255) / 255.0F;
+
+            return new float[]{r, g, b};
+        }else{
+            return new float[]{1, 1, 1};
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRenderArm(RenderArmEvent event) {
+        MultiBufferSource pBuffer = event.getMultiBufferSource();
+        int pLight = event.getPackedLight();
+        var pPlayer = event.getPlayer();
+        var playerArm = event.getArm();
+        var pPose = event.getPoseStack();
+
+        var curioSlots = CuriosApi.getCuriosHelper().findCurios(pPlayer, (stack) -> stack.getItem() instanceof GlovesItem);
+        for(SlotResult slot : curioSlots){
+            if(slot.slotContext().cosmetic() || slot.slotContext().visible()){
+                ItemStack stack = slot.stack();
+                if(stack.getItem() instanceof ICurioTexture item && item instanceof GlovesItem){
+                    float[] color = getColor(stack);
+                    boolean slim = !pPlayer.getModelName().equals("default");
+                    var pTexture = item.getTexture(stack, pPlayer);
+                    if(pTexture == null) continue;
+
+                    var pModel = slim ? ValoriaClient.handsSlim : ValoriaClient.hands;
+                    var entityRenderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(pPlayer);
+                    if (entityRenderer instanceof PlayerRenderer playerRenderer) {
+                        var playerModel = playerRenderer.getModel();
+                        if (playerArm == HumanoidArm.RIGHT) {
+                            pModel.right_glove.copyFrom(playerModel.rightArm);
+                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        } else {
+                            pModel.left_glove.copyFrom(playerModel.leftArm);
+                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        }
+                    } else {
+                        // Safe fallback just in case the renderer isn't PlayerRenderer
+                        if (playerArm == HumanoidArm.RIGHT) {
+                            pModel.right_glove.setRotation(0, 0, 0);
+                            pModel.right_glove.setPos(-5.0F, 2.0F, 0.0F);
+                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        } else {
+                            pModel.left_glove.setRotation(0, 0, 0);
+                            pModel.left_glove.setPos(5.0F, 2.0F, 0.0F);
+                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent

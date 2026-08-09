@@ -43,6 +43,7 @@
 - Optimized Curse runes
 - Improved (Reworked) Russian translation by Kerdo
 - Improved and Updated Ukrainian locale
+- Improved Boss Summonable, now it's a proper area rendering
 - Improved Nihility Monitor tooltip description so it will be less confusing
 
 # 1.0.3.2
