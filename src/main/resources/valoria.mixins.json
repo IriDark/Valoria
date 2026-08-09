@@ -14,7 +14,6 @@
   "client": [
     "client.AbstractClientPlayerMixin",
     "client.ClientLevelMixin",
-    "client.PlayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
