@@ -1181,7 +1181,6 @@
   "tooltip.valoria.core_charges": "充能",
   "tooltip.valoria.corpsecleaver": "消耗 2 ❤ 發射肉塊，成功命中時恢復等於造成傷害 50% 的生命值",
   "tooltip.valoria.crit": "%s 機率造成致命傷害",
-  "tooltip.valoria.crossbow.speed": "充能時間: %s",
   "tooltip.valoria.curses": "隨機施加其中一種效果，機率 %s",
   "tooltip.valoria.deep": "提供短暫的水下呼吸",
   "tooltip.valoria.download": " 下載最新",

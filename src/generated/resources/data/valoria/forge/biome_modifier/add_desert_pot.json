@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:has_desert_pyramid",
+  "features": "valoria:desert_pot",
+  "step": "underground_ores"
+}

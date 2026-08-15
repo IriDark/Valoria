@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:pot_long_mossy_handles"
+          "name": "valoria:pot_long_handles"
         }
       ],
       "rolls": 1.0

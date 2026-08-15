@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "valoria:block/shade_planks"
-  }
+  "parent": "valoria:block/shade_button"
 }

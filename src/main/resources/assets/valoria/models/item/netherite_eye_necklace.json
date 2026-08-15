@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "valoria:item/netherite_eye_necklace"
+  },
+  "overrides": [
+    {
+      "predicate": { "valoria:eye_state": 1.0 },
+      "model": "valoria:item/netherite_eye_necklace_closing_1"
+    },
+    {
+      "predicate": { "valoria:eye_state": 2.0 },
+      "model": "valoria:item/netherite_eye_necklace_closing_2"
+    },
+    {
+      "predicate": { "valoria:eye_state": 3.0 },
+      "model": "valoria:item/netherite_eye_necklace_closed"
+    }
+  ]
+}

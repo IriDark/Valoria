@@ -1,0 +1,8 @@
+{
+  "parent": "valoria:block/layered_flower_pot_cross",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "layer": "valoria:block/eldritch_sapling_tint",
+    "plant": "valoria:block/eldritch_sapling"
+  }
+}

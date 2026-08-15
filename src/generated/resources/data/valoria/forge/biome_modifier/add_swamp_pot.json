@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:has_swamp_hut",
+  "features": "valoria:swamp_pot",
+  "step": "underground_ores"
+}

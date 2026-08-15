@@ -153,12 +153,9 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
     private void foodCooking(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result) {
         String resultName = ForgeRegistries.ITEMS.getKey(result.asItem()).getPath();
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, new ResourceLocation(Valoria.ID, resultName + "_from_smelting"));
         SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 100, RecipeSerializer.SMOKING_RECIPE).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, new ResourceLocation(Valoria.ID, resultName + "_from_smoking"));
         SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 600, RecipeSerializer.CAMPFIRE_COOKING_RECIPE).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, new ResourceLocation(Valoria.ID, resultName + "_from_campfire_cooking"));
-    }
-
-    private void foodSmelting(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result, String recipeName) {
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, new ResourceLocation(Valoria.ID, recipeName));
     }
 
     protected static void valoriaNetheriteSmithing(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item pIngredientItem, RecipeCategory pCategory, Item pResultItem) {
@@ -167,6 +164,23 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
     @Override
     public void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemsRegistry.ironCelestialNecklace.get())
+                .requires(ItemsRegistry.ironSunNecklace.get())
+                .requires(ItemsRegistry.ironMoonNecklace.get())
+                .unlockedBy("has_iron_sun_necklace", has(ItemsRegistry.ironSunNecklace.get()))
+                .save(pWriter, Valoria.loc("iron_celestial_necklace_from_merging"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemsRegistry.goldenCelestialNecklace.get())
+                .requires(ItemsRegistry.goldenSunNecklace.get())
+                .requires(ItemsRegistry.goldenMoonNecklace.get())
+                .unlockedBy("has_golden_sun_necklace", has(ItemsRegistry.goldenSunNecklace.get()))
+                .save(pWriter, Valoria.loc("golden_celestial_necklace_from_merging"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemsRegistry.netheriteCelestialNecklace.get())
+                .requires(ItemsRegistry.netheriteSunNecklace.get())
+                .requires(ItemsRegistry.netheriteMoonNecklace.get())
+                .unlockedBy("has_netherite_sun_necklace", has(ItemsRegistry.netheriteSunNecklace.get()))
+                .save(pWriter, Valoria.loc("netherite_celestial_necklace_from_merging"));
 
         generateTools(pWriter, ItemsRegistry.bronzeIngot.get(), Items.STICK, ItemsRegistry.bronzeSword.get(), null, null, null, null);
         generateIngotBlockNugget(pWriter, BlockRegistry.bronzeBlock.get(), ItemsRegistry.bronzeIngot.get(), ItemsRegistry.bronzeNugget.get());
@@ -191,16 +205,6 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         generateArmor(pWriter, ItemsRegistry.crimtaneIngot.get(), ItemsRegistry.crimtaneHelmet.get(), ItemsRegistry.crimtaneChestplate.get(), ItemsRegistry.crimtaneLeggings.get(), ItemsRegistry.crimtaneBoots.get());
         generateTools(pWriter, ItemsRegistry.crimtaneIngot.get(), Items.STICK, ItemsRegistry.crimtaneSword.get(), ItemsRegistry.crimtanePickaxe.get(), ItemsRegistry.crimtaneAxe.get(), ItemsRegistry.crimtaneShovel.get(), ItemsRegistry.crimtaneHoe.get());
         generateIngotBlockNugget(pWriter, BlockRegistry.crimtaneBlock.get(), ItemsRegistry.crimtaneIngot.get(), null);
-
-        java.util.Set<net.minecraft.resources.ResourceLocation> seenRecipeIds = new java.util.HashSet<>();
-        Consumer<FinishedRecipe> origWriter = pWriter;
-        Consumer<FinishedRecipe> deduplicatingWriter = finishedRecipe -> {
-            if (seenRecipeIds.add(finishedRecipe.getId())) {
-                origWriter.accept(finishedRecipe);
-            }
-        };
-        pWriter = deduplicatingWriter;
-
         buildManualRecipes(pWriter);
 
         // ===== FOOD =====
@@ -210,13 +214,6 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         foodCooking(pWriter, BlockRegistry.glowVioletSprout.get(), ItemsRegistry.cookedGlowVioletSprout.get());
         foodCooking(pWriter, ItemsRegistry.goblinMeat.get(), ItemsRegistry.cookedGoblinMeat.get());
         foodCooking(pWriter, ItemsRegistry.scavengerMeat.get(), ItemsRegistry.scavengerCookedMeat.get());
-
-        foodSmelting(pWriter, BlockRegistry.abyssalGlowfern.get(), ItemsRegistry.cookedAbyssalGlowfern.get(), "cooked_abyssal_glowfern_from_smelting");
-        foodSmelting(pWriter, ItemsRegistry.crabLeg.get(), ItemsRegistry.cookedCrablLeg.get(), "cooked_crab_leg");
-        foodSmelting(pWriter, ItemsRegistry.devilMeat.get(), ItemsRegistry.cookedDevilMeat.get(), "cooked_devil_meat");
-        foodSmelting(pWriter, BlockRegistry.glowVioletSprout.get(), ItemsRegistry.cookedGlowVioletSprout.get(), "cooked_glow_violet_sprout_from_smelting");
-        foodSmelting(pWriter, ItemsRegistry.goblinMeat.get(), ItemsRegistry.cookedGoblinMeat.get(), "cooked_goblin_meat");
-        foodSmelting(pWriter, ItemsRegistry.scavengerMeat.get(), ItemsRegistry.scavengerCookedMeat.get(), "cooked_scavenger_meat");
 
         // ===== TOOLS =====
         spearRecipe(pWriter, ItemTags.LOGS, ItemsRegistry.woodenSpear.get());
@@ -246,6 +243,11 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceEmerald.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceEmerald.get());
         valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceRuby.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceRuby.get());
         valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceSapphire.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceSapphire.get());
+
+        valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenEyeNecklace.get(), RecipeCategory.MISC, ItemsRegistry.netheriteEyeNecklace.get());
+        valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenSunNecklace.get(), RecipeCategory.MISC, ItemsRegistry.netheriteSunNecklace.get());
+        valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenMoonNecklace.get(), RecipeCategory.MISC, ItemsRegistry.netheriteMoonNecklace.get());
+        valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenCelestialNecklace.get(), RecipeCategory.MISC, ItemsRegistry.netheriteCelestialNecklace.get());
 
         valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenRingAmber.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingAmber.get());
         valoriaNetheriteSmithing(pWriter, ItemsRegistry.goldenRingDiamond.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingDiamond.get());
@@ -643,6 +645,11 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.DIAMOND), Ingredient.of(ItemsRegistry.goldenRapier.get()), Ingredient.of(Items.DIAMOND), RecipeCategory.MISC, ItemsRegistry.diamondRapier.get()).unlocks("has_item", has(ItemsRegistry.goldenRapier.get())).save(pWriter, new ResourceLocation(Valoria.ID, "diamond_rapier"));
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.GOLD_INGOT), Ingredient.of(ItemsRegistry.ironRapier.get()), Ingredient.of(Items.GOLD_INGOT), RecipeCategory.MISC, ItemsRegistry.goldenRapier.get()).unlocks("has_item", has(ItemsRegistry.ironRapier.get())).save(pWriter, new ResourceLocation(Valoria.ID, "golden_rapier"));
+        
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.GOLD_INGOT), Ingredient.of(ItemsRegistry.ironEyeNecklace.get()), Ingredient.of(Items.GOLD_INGOT), RecipeCategory.MISC, ItemsRegistry.goldenEyeNecklace.get()).unlocks("has_item", has(ItemsRegistry.ironEyeNecklace.get())).save(pWriter, new ResourceLocation(Valoria.ID, "golden_eye_necklace"));
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.GOLD_INGOT), Ingredient.of(ItemsRegistry.ironSunNecklace.get()), Ingredient.of(Items.GOLD_INGOT), RecipeCategory.MISC, ItemsRegistry.goldenSunNecklace.get()).unlocks("has_item", has(ItemsRegistry.ironSunNecklace.get())).save(pWriter, new ResourceLocation(Valoria.ID, "golden_sun_necklace"));
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.GOLD_INGOT), Ingredient.of(ItemsRegistry.ironMoonNecklace.get()), Ingredient.of(Items.GOLD_INGOT), RecipeCategory.MISC, ItemsRegistry.goldenMoonNecklace.get()).unlocks("has_item", has(ItemsRegistry.ironMoonNecklace.get())).save(pWriter, new ResourceLocation(Valoria.ID, "golden_moon_necklace"));
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.GOLD_INGOT), Ingredient.of(ItemsRegistry.ironCelestialNecklace.get()), Ingredient.of(Items.GOLD_INGOT), RecipeCategory.MISC, ItemsRegistry.goldenCelestialNecklace.get()).unlocks("has_item", has(ItemsRegistry.ironCelestialNecklace.get())).save(pWriter, new ResourceLocation(Valoria.ID, "golden_celestial_necklace"));
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.IRON_INGOT), Ingredient.of(ItemsRegistry.stoneRapier.get()), Ingredient.of(Items.IRON_INGOT), RecipeCategory.MISC, ItemsRegistry.ironRapier.get()).unlocks("has_item", has(ItemsRegistry.stoneRapier.get())).save(pWriter, new ResourceLocation(Valoria.ID, "iron_rapier"));
     }
 

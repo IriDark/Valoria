@@ -28,6 +28,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> pearliumOre = registerKey("pearlium_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LONG_POT = registerKey("long_pot_feature");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_POT = registerKey("small_pot_feature");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DESERT_POT = registerKey("desert_pot_feature");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SWAMP_POT = registerKey("swamp_pot_feature");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LIMESTONE = registerKey("limestone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> dormantCrystals = registerKey("dormant_crystals");
 
@@ -57,6 +59,22 @@ public class ModConfiguredFeatures {
                 .add(BlockRegistry.potLongHandles.get().defaultBlockState(), 1)
                 .add(BlockRegistry.potLongMossy.get().defaultBlockState(), 2)
                 .add(BlockRegistry.potLongMossyHandles.get().defaultBlockState(), 2)
+                .build())
+        )));
+
+        context.register(DESERT_POT, new ConfiguredFeature<>(LevelGen.POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potDesert.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potDesertHandles.get().defaultBlockState(), 1)
+                .build())
+        )));
+
+        context.register(SWAMP_POT, new ConfiguredFeature<>(LevelGen.POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potLongMossy.get().defaultBlockState(), 4)
+                .add(BlockRegistry.potLongMossyHandles.get().defaultBlockState(), 4)
+                .add(BlockRegistry.potLong.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potLongHandles.get().defaultBlockState(), 1)
                 .build())
         )));
 

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "valoria:netherite_sun_necklace"
+    },
+    {
+      "item": "valoria:netherite_moon_necklace"
+    }
+  ],
+  "result": {
+    "item": "valoria:netherite_celestial_necklace"
+  }
+}

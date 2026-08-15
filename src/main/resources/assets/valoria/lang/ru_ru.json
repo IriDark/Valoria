@@ -1431,7 +1431,6 @@
   "tooltip.valoria.void_cleanse": "Использование уберёт %s со шкалы небытия",
   "tooltip.valoria.download": " Скачать последнюю",
   "menu.valoria.soul_infuser": "Инфузер душ",
-  "tooltip.valoria.crossbow.speed": "Время зарядки: %s",
   "tooltip.valoria.poisoned": "Это оружие отравит врагов на следующие %s ударов",
   "tooltip.valoria.healing_consumable": "Восстанавливает %s❤ сердец",
   "tooltip.valoria.original_food": "Похоже, твоя еда сгнила, раньше это было %s, возможно, ты сможешь как-то её восстановить?",
@@ -1628,5 +1627,7 @@
   "block.valoria.mossy_tombstone_bricks_wall": "Mossy Tombstone Bricks Wall",
   "block.valoria.mossy_tombstone_slab": "Mossy Tombstone Slab",
   "block.valoria.mossy_tombstone_stairs": "Mossy Tombstone Stairs",
-  "block.valoria.mossy_tombstone_wall": "Mossy Tombstone Wall"
+  "block.valoria.mossy_tombstone_wall": "Mossy Tombstone Wall",
+  "tooltip.valoria.eye_necklace": "Реагирует на уровень освещенности. В темноте глаз закрывается, накладывая дебаффы на владельца.",
+  "tooltip.valoria.celestial": "Реагирует на время суток, давая баффы или дебаффы в зависимости от текущей фазы."
 }

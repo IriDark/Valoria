@@ -73,7 +73,7 @@ public class BlockRegistry{
     dreadwoodPressurePlate, dreadwoodButton, dreadwoodLog, strippedDreadwoodLog, dreadWood, strippedDreadWood, dreadwoodPlanks, dreadwoodPlanksStairs, dreadwoodPlanksSlab, dreadwoodSapling, pottedDreadwoodSapling, dreadwoodFence, dreadwoodFenceGate, dreadwoodSign, dreadwoodWallSign, dreadwoodHangingSign, dreadwoodWallHangingSign,
 
     //loot blocks
-    potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, cryptPot, decoratedCryptPot,
+    potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, potDesert, potDesertHandles, cryptPot, decoratedCryptPot,
 
     //other
     valoriaPortal, valoriaPortalFrame, grave, tomb, mossyTomb, woodenTomb, mossyWoodenTomb, sarcophagus, umbralKeypad, umbralActivator, umbralBlock, cutUmbralBlock, umbralBricks, quicksand, bronzeLamp, decoratedBronzeLamp, bronzeLampBlock,
@@ -552,8 +552,10 @@ public class BlockRegistry{
         potSmallHandles = registerBlock("pot_small_handles", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potSmall).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
         potLong = registerBlock("pot_long", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
         potLongHandles = registerBlock("pot_long_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongMossy = registerBlock("pot_long_mossy", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongMossyHandles = registerBlock("pot_long_mossy_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongMossy = registerBlock("pot_long_mossy", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongMossyHandles = registerBlock("pot_long_mossy_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLongMossy).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potDesert = registerBlock("pot_desert", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potDesertHandles = registerBlock("pot_desert_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potDesert).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
         cryptPot = registerBlock("crypt_pot", BlockRegistry::cryptPot);
         decoratedCryptPot = registerBlock("decorated_crypt_pot", BlockRegistry::cryptPot);
 

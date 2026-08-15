@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "valoria:block/void_roots"
-  }
+  "parent": "valoria:block/void_roots"
 }

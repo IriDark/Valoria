@@ -7,6 +7,7 @@ import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
+import net.minecraft.client.resources.language.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -217,19 +218,14 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     }
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
-        return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
-        new AbilityComponent(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/dash.png")),
-        new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        Seq<TooltipComponent> seq = Seq.with(
+            new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
+            new AbilityComponent(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/dash.png"))
         );
-    }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
-        if(builder.chargeTime > 0 && flags.isAdvanced()){
-            tooltip.add(Component.translatable("tooltip.valoria.katana_charge", builder.chargeTime).withStyle(ChatFormatting.GRAY));
-        }
+        seq.add(new TextComponent(Component.translatable("tooltip.tridot.crossbow.speed", builder.chargeTime > 0 ? Utils.Items.formatTickDuration(builder.chargeTime) : I18n.get("tooltip.valoria.timed.instant")).withStyle(style -> style.withColor(ChatFormatting.GRAY).withFont(Valoria.FONT))));
+        seq.add(new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT))));
+        return seq;
     }
 
     public static class Builder extends AbstractKatanaBuilder<KatanaItem>{

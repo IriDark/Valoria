@@ -11,7 +11,7 @@ import software.bernie.geckolib.util.*;
 
 import java.util.function.*;
 
-public class FlameSwordItem extends SwordItem implements GeoItem{
+public class FlameSwordItem extends SwordItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public FlameSwordItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){

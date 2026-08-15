@@ -2,11 +2,13 @@
 
 # **Added**
 - Added Rot immune tag
+- Added Sun, Moon, and Celestial necklaces
 - Added Small block icon to Boss Summonable items to show an actual block where it needs to be used
 - Added additional tooltip line to Gunpowder charge describing its use
 - Added Wicked Shield to Wicked Crystal LootTable
 - Added another init layer to Alchemy Station and Heavy Workbench just to be sure everything inits
 - Added Draugr Shield to Draugr LootTable
+- Added Desert Pot
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
@@ -28,8 +30,14 @@
 - Fixed Adhesive bandage missing curio tags
 - Fixed rare crash caused by missing type of Maggot entity
 - Fixed Meat cutter was healing without depending on blocked damage
+- Fixed Murasama description
+- Fixed Rune of Cold description
+- Fixed Nihility Overlay rendering when no nihility was present
+- Fixed SoundEvent bug when CooldownNotify items wasn't playing sound on Cooldown end (Katanas, Scythes...)
+- Fixed Shade blossom aging
 
 # **Changed**
+- Updated and improved tooltips for Eye, Sun, Moon, and Celestial necklaces
 - Converted project to Data Gen, cleaned up some trash files
 - Nerfer Overdrive enchantment (Max: 30% -> 10%)
 - Reworked Shields
@@ -45,6 +53,8 @@
 - Improved and Updated Ukrainian locale
 - Improved Boss Summonable, now it's a proper area rendering
 - Improved Nihility Monitor tooltip description so it will be less confusing
+- Improved Crossbow description
+- Improved Dash Visual
 
 # 1.0.3.2
 

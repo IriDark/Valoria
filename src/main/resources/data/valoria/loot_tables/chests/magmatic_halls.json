@@ -88,6 +88,11 @@
           "type": "minecraft:item",
           "name": "valoria:netherite_necklace_health",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:netherite_sun_necklace",
+          "weight": 1
         }
       ]
     }

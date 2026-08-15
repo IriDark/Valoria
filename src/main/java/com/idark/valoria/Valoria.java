@@ -409,7 +409,7 @@ public class Valoria{
             
             generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
             generator.addProvider(event.includeServer(), new net.minecraftforge.common.data.ForgeAdvancementProvider(packOutput, lookupProvider, existingFileHelper, java.util.List.of(new ModAdvancements())));
-
+            
             generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
             generator.addProvider(event.includeClient(), new ModItemModelProvider(packOutput, existingFileHelper));
             generator.addProvider(event.includeClient(), new ModSoundProvider(packOutput, existingFileHelper));

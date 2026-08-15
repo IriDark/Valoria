@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite_sun_necklace": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:netherite_sun_necklace"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:netherite_celestial_necklace_from_merging"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_netherite_sun_necklace",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:netherite_celestial_necklace_from_merging"
+    ]
+  },
+  "sends_telemetry_event": false
+}

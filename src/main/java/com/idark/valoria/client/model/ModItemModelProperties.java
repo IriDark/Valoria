@@ -12,7 +12,16 @@ public class ModItemModelProperties{
     }
 
     public static void makeNight(Item item){
-        ItemProperties.register(item, new ResourceLocation("night"), (stack, clientWorld, livingEntity, player) -> stack.getOrCreateTag().getBoolean("IsNightActive") ? 1 : 0);
+        ItemProperties.register(item, new ResourceLocation("night"), (stack, clientWorld, livingEntity, player) -> stack.getOrCreateTag().getBoolean("IsDarkActive") ? 1 : 0);
+    }
+
+    public static void makeEyeState(Item item){
+        ItemProperties.register(item, new ResourceLocation("valoria", "eye_state"), (stack, clientWorld, livingEntity, player) -> {
+            if (stack.hasTag()) {
+                return (float) stack.getTag().getInt("EyeState");
+            }
+            return 0.0F;
+        });
     }
 
     public static void makeSize(Item item){

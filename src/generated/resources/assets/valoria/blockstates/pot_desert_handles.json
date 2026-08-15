@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 90
+      }
+    ],
+    "facing=east,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 90
+      }
+    ],
+    "facing=north,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 180
+      }
+    ],
+    "facing=north,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 180
+      }
+    ],
+    "facing=south,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 180
+      }
+    ],
+    "facing=south,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 180
+      }
+    ],
+    "facing=west,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 90
+      }
+    ],
+    "facing=west,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_desert_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_ankh",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_desert_handles_scarab",
+        "y": 90
+      }
+    ]
+  }
+}

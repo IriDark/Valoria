@@ -8,15 +8,22 @@ import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
 
 public class ShadeBlossomBlock extends CropBlock implements BonemealableBlock{
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
 
     public ShadeBlossomBlock(Properties pProperties){
         super(pProperties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
+    }
+
+    protected IntegerProperty getAgeProperty() {
+        return AGE;
     }
 
     public int getMaxAge() {
@@ -75,5 +82,9 @@ public class ShadeBlossomBlock extends CropBlock implements BonemealableBlock{
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context){
         return SHAPE;
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(AGE);
     }
 }

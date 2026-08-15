@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "valoria:block/dread_planks"
-  }
+  "parent": "valoria:block/dread_button"
 }

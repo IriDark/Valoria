@@ -1,7 +1,7 @@
 {
   "type": "valoria:add_features_by_filter",
   "allowed_biomes": "#minecraft:is_overworld",
-  "denied_biomes": "#minecraft:spawns_cold_variant_frogs",
+  "denied_biomes": "#valoria:no_pots",
   "features": "valoria:long_pot",
   "step": "underground_ores"
 }

@@ -35,7 +35,6 @@ public class RuneCold extends AbstractRuneItem{
         tooltip.add(Component.translatable("tooltip.valoria.immunity", MobEffects.POISON.getDisplayName()).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
         .append(Component.translatable("tooltip.tridot.value", Component.translatable("tooltip.valoria.freezing")).withStyle(Styles.create(Pal.crystalBlue))));
-        tooltip.add(Component.empty());
     }
 
     @Override

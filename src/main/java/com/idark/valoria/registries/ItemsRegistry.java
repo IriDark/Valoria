@@ -22,6 +22,7 @@ import com.idark.valoria.registries.item.types.ranged.bows.*;
 import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
+import net.minecraft.client.resources.language.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
@@ -148,13 +149,14 @@ public class ItemsRegistry{
     ironChain, ironNecklaceAmber, ironNecklaceDiamond, ironNecklaceEmerald, ironNecklaceRuby, ironNecklaceSapphire, ironNecklaceHealth, ironNecklaceArmor, ironNecklaceWealth, ironRogueNecklace,
     goldenChain, goldenNecklaceAmber, goldenNecklaceDiamond, goldenNecklaceEmerald, goldenNecklaceRuby, goldenNecklaceSapphire, goldenNecklaceHealth, goldenNecklaceArmor, goldenNecklaceWealth, goldenRogueNecklace,
     netheriteChain, netheriteNecklaceAmber, netheriteNecklaceDiamond, netheriteNecklaceEmerald, netheriteNecklaceRuby, netheriteNecklaceSapphire, netheriteNecklaceHealth, netheriteNecklaceArmor, netheriteNecklaceWealth, netheriteRogueNecklace,
+    ironEyeNecklace, goldenEyeNecklace, netheriteEyeNecklace, ironSunNecklace, goldenSunNecklace, netheriteSunNecklace, ironMoonNecklace, goldenMoonNecklace, netheriteMoonNecklace, ironCelestialNecklace, goldenCelestialNecklace, netheriteCelestialNecklace,
     leatherBelt, samuraiBelt,
     ironRing, ironRingAmber, ironRingDiamond, ironRingRuby, ironRingEmerald, ironRingSapphire,
     goldenRing, goldenRingAmber, goldenRingDiamond, goldenRingRuby, goldenRingEmerald, goldenRingSapphire,
     netheriteRing, netheriteRingAmber, netheriteRingDiamond, netheriteRingRuby, netheriteRingEmerald, netheriteRingSapphire,
     leatherGloves, ironGloves, goldenGloves, diamondGloves, netheriteGloves,
     voidCrystal, amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
-    theFallenCollectorCrown, brokenMonocle, monocle, jewelryBag, pickNecklace, eyeNecklace,
+    theFallenCollectorCrown, brokenMonocle, monocle, jewelryBag, pickNecklace,
     bandage, devilHeart, harmonyHeart, medicatedDevilHeart, medicatedHarmonyHeart, elementalCharm,
     skeletalVambrace, magmaticVambrace, magmaticGauntlet,
 
@@ -365,7 +367,7 @@ public class ItemsRegistry{
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
 
         // weapons
-        flameSword = registerItem("flame_sword", () -> new FlameSwordItem(Tiers.NETHERITE, 5, 2, new Properties()));
+        flameSword = registerItem("flame_sword", () -> new FlameSwordItem(Tiers.NETHERITE, 5, -1.8f, new Properties()));
         club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
         clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, 6, -2.4f, new Item.Properties()));
@@ -587,11 +589,87 @@ public class ItemsRegistry{
         .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(5f, Operation.ADDITION))
         .build());
 
-        eyeNecklace = registerItem("eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
-        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.025f, Operation.MULTIPLY_TOTAL))
-        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.005f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.025f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.005f, Operation.MULTIPLY_TOTAL))
+        ironEyeNecklace = registerItem("iron_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
+        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
+        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        goldenEyeNecklace = registerItem("golden_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
+        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        netheriteEyeNecklace = registerItem("netherite_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
+        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        ironSunNecklace = registerItem("iron_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        goldenSunNecklace = registerItem("golden_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        netheriteSunNecklace = registerItem("netherite_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        ironMoonNecklace = registerItem("iron_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
+        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        goldenMoonNecklace = registerItem("golden_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        netheriteMoonNecklace = registerItem("netherite_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        ironCelestialNecklace = registerItem("iron_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        goldenCelestialNecklace = registerItem("golden_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .build());
+
+        netheriteCelestialNecklace = registerItem("netherite_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
+        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
         .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
         .build());
 
@@ -899,7 +977,7 @@ public class ItemsRegistry{
         lithicRune = registerItem("lithic_rune", () -> new EmptyRuneItem(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)));
         lithicRuneVision = registerItem("lithic_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON),  1200));
         lithicRuneWealth = registerItem("lithic_rune_of_wealth", () -> new CurioWealth(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        lithicRuneCurses = registerItem("lithic_rune_of_curses", () -> new CurioCurses(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lithicRuneCurses = registerItem("lithic_rune_of_curses", () -> new CurioCurses(0.05f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneStrength = registerItem("lithic_rune_of_strength", () -> new CurioStrength(0.025f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneAccuracy = registerItem("lithic_rune_of_accuracy", () -> new RuneAccuracy(0.05f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneDeep = registerItem("lithic_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
@@ -917,7 +995,7 @@ public class ItemsRegistry{
         voidSlateRune = registerItem("void_slate_rune", () -> new EmptyRuneItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         voidSlateRuneVision = registerItem("void_slate_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID), 5200));
         voidSlateRuneWealth = registerItem("void_slate_rune_of_wealth", () -> new CurioWealth(2.5f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
-        voidSlateRuneCurses = registerItem("void_slate_rune_of_curses", () -> new CurioCurses(0.05f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneCurses = registerItem("void_slate_rune_of_curses", () -> new CurioCurses(0.5f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneStrength = registerItem("void_slate_rune_of_strength", () -> new CurioStrength(0.15f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneAccuracy = registerItem("void_slate_rune_of_accuracy", () -> new RuneAccuracy(0.40f, 1.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneDeep = registerItem("void_slate_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
@@ -1075,11 +1153,14 @@ public class ItemsRegistry{
             }
 
             public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
-                return Seq.with(
-                new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
-                new AbilityComponent(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/murasama_dash.png")),
-                new TextComponent(Component.translatable("tooltip.valoria.hold_rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+                Seq<TooltipComponent> seq = Seq.with(
+                new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
+                new AbilityComponent(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/murasama_dash.png"))
                 );
+
+                seq.add(new TextComponent(Component.translatable("tooltip.tridot.crossbow.speed", builder.chargeTime > 0 ? Utils.Items.formatTickDuration(builder.chargeTime) : I18n.get("tooltip.valoria.timed.instant")).withStyle(style -> style.withColor(ChatFormatting.GRAY).withFont(Valoria.FONT))));
+                seq.add(new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT))));
+                return seq;
             }
 
             public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand){

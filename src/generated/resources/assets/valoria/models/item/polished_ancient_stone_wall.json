@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "valoria:block/polished_ancient_stone"
-  }
+  "parent": "valoria:block/polished_ancient_stone_wall_inventory"
 }

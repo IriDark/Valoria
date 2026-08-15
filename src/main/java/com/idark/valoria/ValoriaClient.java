@@ -131,7 +131,18 @@ public class ValoriaClient{
             CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceHealth.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceWealth.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.pickNecklace.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.eyeNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironEyeNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenEyeNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteEyeNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironSunNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenSunNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteSunNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironMoonNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenMoonNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteMoonNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironCelestialNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenCelestialNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteCelestialNecklace.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironRogueNecklace.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.goldenRogueNecklace.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.netheriteRogueNecklace.get(), NecklaceRenderer::new);
@@ -314,7 +325,12 @@ public class ValoriaClient{
             ModItemModelProperties.makeShield(ItemsRegistry.pyratiteShield.get());
             ModItemModelProperties.makeShield(ItemsRegistry.bronzeShield.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
-            ModItemModelProperties.makeNight(ItemsRegistry.eyeNecklace.get());
+            ModItemModelProperties.makeEyeState(ItemsRegistry.ironEyeNecklace.get());
+            ModItemModelProperties.makeEyeState(ItemsRegistry.goldenEyeNecklace.get());
+            ModItemModelProperties.makeEyeState(ItemsRegistry.netheriteEyeNecklace.get());
+            ModItemModelProperties.makeNight(ItemsRegistry.ironCelestialNecklace.get());
+            ModItemModelProperties.makeNight(ItemsRegistry.goldenCelestialNecklace.get());
+            ModItemModelProperties.makeNight(ItemsRegistry.netheriteCelestialNecklace.get());
         }
 
         @SubscribeEvent

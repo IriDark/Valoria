@@ -59,6 +59,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.skip(ItemsRegistry.pyratiteShield.get());
         this.skip(ItemsRegistry.wickedShield.get());
         this.skip(ItemsRegistry.phantasmShield.get());
+        this.skip(ItemsRegistry.ironEyeNecklace.get());
+        this.skip(ItemsRegistry.goldenEyeNecklace.get());
+        this.skip(ItemsRegistry.netheriteEyeNecklace.get());
 
         this.skip(ItemsRegistry.jewelryBag.get());
         this.skip(BlockRegistry.umbralKeypad.get().asItem());
@@ -91,6 +94,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.skip(BlockRegistry.potSmallHandles.get().asItem());
         this.skip(BlockRegistry.potLong.get().asItem());
         this.skip(BlockRegistry.potLongHandles.get().asItem());
+        this.skip(BlockRegistry.potDesert.get().asItem());
+        this.skip(BlockRegistry.potDesertHandles.get().asItem());
         this.skip(BlockRegistry.potLongMossy.get().asItem());
         this.skip(BlockRegistry.potLongMossyHandles.get().asItem());
         this.skip(BlockRegistry.cryptPot.get().asItem());
@@ -104,6 +109,15 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.skip(ItemsRegistry.crystal.get().asItem());
         this.skip(ItemsRegistry.mannequin.get().asItem());
         this.skip(ItemsRegistry.flameSword.get().asItem());
+        this.skip(BlockRegistry.bronzeGlassPane.get().asItem());
+        this.skip(BlockRegistry.abyssalGlowfern.get().asItem());
+        this.skip(BlockRegistry.aloe.get().asItem());
+        this.skip(BlockRegistry.bloodVein.get().asItem());
+        this.skip(BlockRegistry.caveRoot.get().asItem());
+        this.skip(BlockRegistry.glowVioletSprout.get().asItem());
+        this.skip(BlockRegistry.soulFlower.get().asItem());
+        this.skip(BlockRegistry.suspiciousIce.get().asItem());
+        this.skip(BlockRegistry.suspiciousTombstone.get().asItem());
 
         // Automatic Item Model generation for Block Items in BlockRegistry
         for (RegistryObject<Block> entry : BlockRegistry.BLOCK.getEntries()){

@@ -24,6 +24,8 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> dormantCrystalsPlaced = registerKey("dormant_crystals_placed");
     public static final ResourceKey<PlacedFeature> longPotPlaced = registerKey("long_pot");
     public static final ResourceKey<PlacedFeature> smallPotPlaced = registerKey("small_pot");
+    public static final ResourceKey<PlacedFeature> desertPotPlaced = registerKey("desert_pot");
+    public static final ResourceKey<PlacedFeature> swampPotPlaced = registerKey("swamp_pot");
     public static final ResourceKey<PlacedFeature> limestonePlaced = registerKey("limestone_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
@@ -42,6 +44,8 @@ public class ModPlacedFeatures {
         register(context, limestonePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.LIMESTONE), ModOrePlacement.commonOrePlacement(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(120))));
         register(context, longPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.LONG_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread()));
         register(context, smallPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.SMALL_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread()));
+        register(context, desertPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.DESERT_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread()));
+        register(context, swampPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.SWAMP_POT), List.of(CountPlacement.of(3), InSquarePlacement.spread()));
 
     }
 

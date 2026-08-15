@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_top_right_open",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "valoria:block/eldritch_door_bottom",
     "top": "valoria:block/eldritch_door_top"

@@ -1,7 +1,9 @@
 {
-  "parent": "minecraft:block/cross",
+  "parent": "valoria:block/tinted_glowing_plant",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "valoria:block/void_serpents"
+    "glowing": "valoria:block/void_serpents",
+    "particle": "valoria:block/soulflower",
+    "tinted": "valoria:block/void_serpents_tint"
   }
 }

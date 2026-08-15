@@ -27,7 +27,11 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         BlockRegistry.cryptPot.get(),
         BlockRegistry.decoratedCryptPot.get(),
         BlockRegistry.potSmall.get(),
-        BlockRegistry.potLong.get()
+        BlockRegistry.potLong.get(),
+        BlockRegistry.potLongMossy.get(),
+        BlockRegistry.potLongMossyHandles.get(),
+        BlockRegistry.potDesert.get(),
+        BlockRegistry.potDesertHandles.get()
     );
 
 

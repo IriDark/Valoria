@@ -14,7 +14,9 @@
     "valoria:blaze_reap_from_ancient_city",
     "valoria:candy_corn_from_mobs_effect",
     "valoria:red_envelope_from_mobs_feb",
-    "valoria:red_envelope_from_mobs_jan"
+    "valoria:red_envelope_from_mobs_jan",
+    "valoria:eye_necklace_from_ancient_city",
+    "valoria:sun_necklace_from_desert_pyramid"
   ],
   "replace": false
 }

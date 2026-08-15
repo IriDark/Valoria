@@ -167,13 +167,13 @@ public class BlockStateGen extends CoreStateGen {
         stairsBlock((StairBlock) BlockRegistry.smoothVoidSandstoneStairs.get(), modLoc("block/void_sandstone_top"));
         simpleBlockItem(BlockRegistry.smoothVoidSandstoneStairs.get(), models().getExistingFile(modLoc("block/" + name(BlockRegistry.smoothVoidSandstoneStairs.get()))));
 
-        paneBlockWithRenderType((IronBarsBlock) BlockRegistry.bronzeGlassPane.get(), blockTexture(BlockRegistry.bronzeGlass.get()), blockTexture(BlockRegistry.bronzeBlock.get()), "cutout");
-        simpleItem(BlockRegistry.bronzeGlassPane.get(), modLoc("block/" + name(BlockRegistry.bronzeGlass.get())));
+        paneBlockWithRenderType((IronBarsBlock) BlockRegistry.bronzeGlassPane.get(), blockTexture(BlockRegistry.bronzeGlass.get()), blockTexture(BlockRegistry.bronzeBlock.get()), "translucent");
+        itemModels().withExistingParent(name(BlockRegistry.bronzeGlassPane.get()), "item/generated").texture("layer0", modLoc("block/" + name(BlockRegistry.bronzeGlass.get())));
 
 
-        doorBlockWithRenderType((DoorBlock) BlockRegistry.bronzeDoor.get(), modLoc("block/bronze_door_bottom"), modLoc("block/bronze_door_top"), "cutout");
+        doorBlockWithRenderType((DoorBlock) BlockRegistry.bronzeDoor.get(), modLoc("block/bronze_door_bottom"), modLoc("block/bronze_door_top"), "translucent");
         itemModels().withExistingParent(name(BlockRegistry.bronzeDoor.get()), "item/generated").texture("layer0", modLoc("item/bronze_door"));
-        trapdoorBlockWithRenderType((TrapDoorBlock) BlockRegistry.bronzeTrapdoor.get(), modLoc("block/bronze_trapdoor"), true, "cutout");
+        trapdoorBlockWithRenderType((TrapDoorBlock) BlockRegistry.bronzeTrapdoor.get(), modLoc("block/bronze_trapdoor"), true, "translucent");
         simpleBlockItem(BlockRegistry.bronzeTrapdoor.get(), models().getExistingFile(modLoc("block/bronze_trapdoor_bottom")));
 
         woodset(BlockRegistry.eldritchLog.get(), BlockRegistry.strippedEldritchLog.get(), BlockRegistry.eldritchPlanks.get(), BlockRegistry.eldritchLeaves.get(),
@@ -206,10 +206,10 @@ public class BlockStateGen extends CoreStateGen {
         logBlock((RotatedPillarBlock) BlockRegistry.strippedDreadwoodLog.get());
         simpleBlockWithItem(BlockRegistry.dreadwoodPlanks.get());
 
-        doorBlock((DoorBlock)BlockRegistry.dreadwoodDoor.get(), modLoc("block/" + name(BlockRegistry.dreadwoodDoor.get()) + "_bottom"), modLoc("block/" + name(BlockRegistry.dreadwoodDoor.get()) + "_top"));
+        doorBlockWithRenderType((DoorBlock)BlockRegistry.dreadwoodDoor.get(), modLoc("block/" + name(BlockRegistry.dreadwoodDoor.get()) + "_bottom"), modLoc("block/" + name(BlockRegistry.dreadwoodDoor.get()) + "_top"), "cutout");
         simpleItem(BlockRegistry.dreadwoodDoor.get(), modLoc("item/" + name(BlockRegistry.dreadwoodDoor.get())));
 
-        trapdoorBlock((TrapDoorBlock)BlockRegistry.dreadwoodTrapdoor.get(), modLoc("block/" + name(BlockRegistry.dreadwoodTrapdoor.get())), true);
+        trapdoorBlockWithRenderType((TrapDoorBlock)BlockRegistry.dreadwoodTrapdoor.get(), modLoc("block/" + name(BlockRegistry.dreadwoodTrapdoor.get())), true, "cutout");
         simpleBlockItem(BlockRegistry.dreadwoodTrapdoor.get(), models().getExistingFile(modLoc("block/" + name(BlockRegistry.dreadwoodTrapdoor.get()) + "_bottom")));
 
         signBlock((StandingSignBlock)BlockRegistry.dreadwoodSign.get(), (WallSignBlock)BlockRegistry.dreadwoodWallSign.get(), modLoc("block/" + name(BlockRegistry.dreadwoodPlanks.get())));
@@ -275,15 +275,11 @@ public class BlockStateGen extends CoreStateGen {
         trapBlock(BlockRegistry.tombstoneFirechargeTrap.get(), BlockRegistry.polishedTombstone.get());
         trapBlock(BlockRegistry.cobbledShaleFirechargeTrap.get(), BlockRegistry.polishedCobbledShale.get());
 
-        horizontalBlockCustom(BlockRegistry.mossyTomb.get(), "mossy_tomb", 90, 180);
-        horizontalBlockCustom(BlockRegistry.mossyWoodenTomb.get(), "mossy_wooden_tomb", 90, 180);
-        horizontalBlockCustom(BlockRegistry.tomb.get(), "tomb", 90, 180);
-        horizontalBlockCustom(BlockRegistry.woodenTomb.get(), "wooden_tomb", 90, 180);
-        horizontalBlockCustom(BlockRegistry.grave.get(), "grave", 90, 180);
-
-        horizontalBlockCustom(BlockRegistry.potLongHandles.get(), "pot_long_handles", 180, 90);
-        horizontalBlockCustom(BlockRegistry.potLongMossyHandles.get(), "pot_long_mossy_handles", 180, 90);
-        horizontalBlockCustom(BlockRegistry.potSmallHandles.get(), "pot_small_handles", 180, 90);
+        horizontalBlockCustom(BlockRegistry.mossyTomb.get(), "mossy_tomb", 180, 90);
+        horizontalBlockCustom(BlockRegistry.mossyWoodenTomb.get(), "mossy_wooden_tomb", 180, 90);
+        horizontalBlockCustom(BlockRegistry.tomb.get(), "tomb", 180, 90);
+        horizontalBlockCustom(BlockRegistry.woodenTomb.get(), "wooden_tomb", 180, 90);
+        horizontalBlockCustom(BlockRegistry.grave.get(), "grave", 180, 90);
 
         for (Block cupBlock : new Block[]{BlockRegistry.woodenCup.get(), BlockRegistry.beerCup.get(), BlockRegistry.cacaoCup.get(), BlockRegistry.coffeeCup.get(), BlockRegistry.teaCup.get(), BlockRegistry.greenTeaCup.get(), BlockRegistry.cup.get(), BlockRegistry.rumCup.get()}) {
             String bName = name(cupBlock);
@@ -306,7 +302,7 @@ public class BlockStateGen extends CoreStateGen {
             } else simpleItem(bottleBlock);
         }
 
-        for (Block doublePlant : new Block[]{BlockRegistry.doubleGoldy.get(), BlockRegistry.cattail.get(), BlockRegistry.doubleVoidvine.get()}) {
+        for (Block doublePlant : new Block[]{BlockRegistry.doubleGoldy.get(), BlockRegistry.doubleVoidvine.get()}) {
             String bName = name(doublePlant);
             ModelFile lowerModel = models().cross(bName, modLoc("block/" + bName)).renderType("cutout");
             ModelFile upperModel = models().cross(bName + "_top", modLoc("block/" + bName + "_top")).renderType("cutout");
@@ -358,9 +354,9 @@ public class BlockStateGen extends CoreStateGen {
         tintedPlantBlock(BlockRegistry.aloeSmall.get());
         plantBlock(BlockRegistry.blightedGrass.get(), modLoc("block/" + name(BlockRegistry.blightedGrass.get())));
         plantBlock(BlockRegistry.bloodroot.get(), modLoc("block/" + name(BlockRegistry.bloodroot.get())));
-        simpleBlockWithItem(BlockRegistry.bronzeGlass.get());
+        glassBlock(BlockRegistry.bronzeGlass.get());
         simpleBlockWithItem(BlockRegistry.bronzeVent.get());
-        axisBlock((RotatedPillarBlock) BlockRegistry.chargedVoidPillar.get(), blockTexture(BlockRegistry.chargedVoidPillar.get()), blockTexture(BlockRegistry.chargedVoidPillar.get()));
+        axisBlock((RotatedPillarBlock) BlockRegistry.chargedVoidPillar.get(), blockTexture(BlockRegistry.chargedVoidPillar.get()), modLoc("block/void_pillar_end"));
         simpleBlockWithItem(BlockRegistry.chiseledAmbaneStoneBricks.get());
         simpleBlockWithItem(BlockRegistry.cobaltBlock.get());
         simpleBlockWithItem(BlockRegistry.cobbledShaleFirechargeTrap.get());
@@ -380,7 +376,8 @@ public class BlockStateGen extends CoreStateGen {
 
         simpleBlockWithItem(BlockRegistry.deepslateRubyOre.get());
         simpleBlockWithItem(BlockRegistry.deepslateSapphireOre.get());
-        simpleBlockWithItem(BlockRegistry.dormantCrystals.get());
+        simpleBlock(BlockRegistry.dormantCrystals.get(), models().getExistingFile(modLoc("block/dormant_crystals")));
+        simpleBlockItem(BlockRegistry.dormantCrystals.get(), models().getExistingFile(modLoc("block/dormant_crystals")));
         plantBlock(BlockRegistry.driedPlant.get(), modLoc("block/" + name(BlockRegistry.driedPlant.get())));
         plantBlock(BlockRegistry.driedRoots.get(), modLoc("block/" + name(BlockRegistry.driedRoots.get())));
         simpleBlockWithItem(BlockRegistry.fleshBlock.get());
@@ -394,11 +391,30 @@ public class BlockStateGen extends CoreStateGen {
         simpleBlockWithItem(BlockRegistry.polishedTombstone.get());
         simpleBlockWithItem(BlockRegistry.polishedVoidStone.get());
 
+        horizontalBlockCustom(BlockRegistry.potLongHandles.get(), "pot_long_handles", 180, 90);
+        horizontalBlockCustom(BlockRegistry.potLongMossyHandles.get(), "pot_long_mossy_handles", 180, 90);
+        getVariantBuilder(BlockRegistry.potDesertHandles.get()).forAllStates(state -> {
+            Direction dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+            int rotY = switch (dir) {
+                case EAST, WEST -> 90;
+                case NORTH, SOUTH -> 180;
+                default -> 0;
+            };
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(modLoc("block/pot_desert_handles"))).rotationX(0).rotationY(rotY).weight(8).nextModel()
+                    .modelFile(models().getExistingFile(modLoc("block/pot_desert_handles_ankh"))).rotationX(0).rotationY(rotY).weight(1).nextModel()
+                    .modelFile(models().getExistingFile(modLoc("block/pot_desert_handles_scarab"))).rotationX(0).rotationY(rotY).weight(1)
+                    .build();
+        });
+        horizontalBlockCustom(BlockRegistry.potSmallHandles.get(), "pot_small_handles", 180, 90);
         getVariantBuilder(BlockRegistry.potLong.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potLong.get())))).buildLast());
         simpleItem(BlockRegistry.potLong.get(), modLoc("item/" + name(BlockRegistry.potLong.get())));
 
         getVariantBuilder(BlockRegistry.potLongMossy.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potLongMossy.get())))).buildLast());
         simpleItem(BlockRegistry.potLongMossy.get(), modLoc("item/" + name(BlockRegistry.potLongMossy.get())));
+
+        getVariantBuilder(BlockRegistry.potDesert.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potDesert.get())))).buildLast());
+        simpleItem(BlockRegistry.potDesert.get(), modLoc("item/" + name(BlockRegistry.potDesert.get())));
 
         getVariantBuilder(BlockRegistry.potSmall.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potSmall.get())))).buildLast());
         simpleItem(BlockRegistry.potSmall.get(), modLoc("item/" + name(BlockRegistry.potSmall.get())));
@@ -406,12 +422,9 @@ public class BlockStateGen extends CoreStateGen {
         getVariantBuilder(BlockRegistry.cryptPot.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.cryptPot.get())))).buildLast());
         simpleItem(BlockRegistry.cryptPot.get(), modLoc("item/" + name(BlockRegistry.cryptPot.get())));
         simpleItem(BlockRegistry.voidSerpents.get(), modLoc("block/void_serpents_preview"));
-        simpleItem(BlockRegistry.falseFlower.get(), modLoc("block/" + name(BlockRegistry.falseFlower.get())));
-        simpleItem(BlockRegistry.falseFlowerSmall.get(), modLoc("block/" + name(BlockRegistry.falseFlowerSmall.get())));
-        simpleItem(BlockRegistry.voidRoots.get(), modLoc("block/" + name(BlockRegistry.voidRoots.get())));
-        simpleItem(BlockRegistry.aloe.get(), modLoc("block/" + name(BlockRegistry.aloe.get()) + "_top"));
-        simpleItem(BlockRegistry.aloeSmall.get(), modLoc("block/" + name(BlockRegistry.aloeSmall.get())));
-        simpleItem(BlockRegistry.cattail.get());
+        getVariantBuilder(BlockRegistry.cattail.get())
+                .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(models().getExistingFile(modLoc("block/cattail"))))
+                .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(models().getExistingFile(modLoc("block/cattail_top"))));
 
         simpleItem(BlockRegistry.dreadwoodSapling.get(), modLoc("block/" + name(BlockRegistry.dreadwoodSapling.get())));
         pottedPlantBlock(BlockRegistry.pottedAloeSmall.get(), "aloe_small");
@@ -427,13 +440,16 @@ public class BlockStateGen extends CoreStateGen {
         pottedPlantBlock(BlockRegistry.pottedSoulFlower.get(), "soulflower");
         pottedPlantBlock(BlockRegistry.pottedVoidRoots.get(), "potted_void_roots");
         pottedPlantBlock(BlockRegistry.pottedDreadwoodSapling.get(), "dread_sapling");
+        layeredPottedPlantBlock(BlockRegistry.pottedEldritchSapling.get(), "eldritch_sapling");
+        layeredPottedPlantBlock(BlockRegistry.pottedShadewoodSapling.get(), "shade_sapling");
         pottedPlantBlock(BlockRegistry.pottedMagmaroot.get(), "potted_crimson_magmaroot");
         pottedPlantBlock(BlockRegistry.pottedGoldy.get(), "potted_crimson_goldy");
         pottedPlantBlock(BlockRegistry.pottedRajush.get(), "potted_crimson_rajush");
         pottedPlantBlock(BlockRegistry.pottedVoidSerpents.get(), "void_serpents_preview");
 
         simpleBlockWithItem(BlockRegistry.pyratiteBlock.get());
-        simpleBlockWithItem(BlockRegistry.quicksand.get());
+        simpleBlock(BlockRegistry.quicksand.get(), models().getExistingFile(modLoc("block/quicksand")));
+        simpleBlockItem(BlockRegistry.quicksand.get(), models().getExistingFile(modLoc("block/quicksand")));
         simpleBlockWithItem(BlockRegistry.rawCobaltOreBlock.get());
         simpleBlockWithItem(BlockRegistry.rubyBlock.get());
         simpleBlockWithItem(BlockRegistry.rubyOre.get());
@@ -445,7 +461,13 @@ public class BlockStateGen extends CoreStateGen {
         simpleBlockWithItem(BlockRegistry.unchargedShardBlock.get());
         simpleBlockWithItem(BlockRegistry.voidChiseledBrick.get());
         simpleBlockWithItem(BlockRegistry.voidChiseledSandstone.get());
-        plantBlock(BlockRegistry.voidSerpents.get(), modLoc("block/" + name(BlockRegistry.voidSerpents.get())));
+        getVariantBuilder(BlockRegistry.voidSerpents.get()).partialState().addModels(new ConfiguredModel(
+            models().withExistingParent(name(BlockRegistry.voidSerpents.get()), "valoria:block/tinted_glowing_plant")
+                .texture("tinted", modLoc("block/void_serpents_tint"))
+                .texture("glowing", modLoc("block/void_serpents"))
+                .texture("particle", modLoc("block/soulflower"))
+                .renderType("cutout")
+        ));
         simpleBlockWithItem(BlockRegistry.voidTaintLantern.get());
         plantBlock(BlockRegistry.voidvine.get(), modLoc("block/" + name(BlockRegistry.voidvine.get())));
         simpleBlockWithItem(BlockRegistry.wickedAmethystBlock.get());
@@ -458,8 +480,8 @@ public class BlockStateGen extends CoreStateGen {
         axisBlock((RotatedPillarBlock) BlockRegistry.tombstonePillar.get(), blockTexture(BlockRegistry.tombstonePillar.get()), blockTexture(BlockRegistry.tombstonePillar.get()));
         axisBlock((RotatedPillarBlock) BlockRegistry.cutTombstonePillar.get(), blockTexture(BlockRegistry.cutTombstonePillar.get()), blockTexture(BlockRegistry.cutTombstonePillar.get()));
         axisBlock((RotatedPillarBlock) BlockRegistry.wickedTombstonePillar.get(), blockTexture(BlockRegistry.wickedTombstonePillar.get()), blockTexture(BlockRegistry.wickedTombstonePillar.get()));
-        axisBlock((RotatedPillarBlock) BlockRegistry.voidPillar.get(), blockTexture(BlockRegistry.voidPillar.get()), blockTexture(BlockRegistry.voidPillar.get()));
-        axisBlock((RotatedPillarBlock) BlockRegistry.voidPillarAmethyst.get(), blockTexture(BlockRegistry.voidPillarAmethyst.get()), blockTexture(BlockRegistry.voidPillarAmethyst.get()));
+        axisBlock((RotatedPillarBlock) BlockRegistry.voidPillar.get(), blockTexture(BlockRegistry.voidPillar.get()), modLoc("block/void_pillar_end"));
+        axisBlock((RotatedPillarBlock) BlockRegistry.voidPillarAmethyst.get(), blockTexture(BlockRegistry.voidPillarAmethyst.get()), modLoc("block/void_pillar_end"));
         axisBlock((RotatedPillarBlock) BlockRegistry.meatPillar.get(), blockTexture(BlockRegistry.meatPillar.get()), blockTexture(BlockRegistry.meatPillar.get()));
 
         plantBlock(BlockRegistry.magmaroot.get(), modLoc("block/" + name(BlockRegistry.magmaroot.get())));
@@ -491,6 +513,19 @@ public class BlockStateGen extends CoreStateGen {
         ModelFile potModel = models().withExistingParent(name(block), "minecraft:block/flower_pot_cross").renderType("cutout")
         .texture("plant", modLoc("block/" + plantTextureName));
         getVariantBuilder(block).partialState().addModels(new ConfiguredModel(potModel));
+    }
+
+    private void layeredPottedPlantBlock(Block block, String plantTextureName) {
+        ModelFile potModel = models().withExistingParent(name(block), "valoria:block/layered_flower_pot_cross").renderType("cutout")
+        .texture("plant", modLoc("block/" + plantTextureName))
+        .texture("layer", modLoc("block/" + plantTextureName + "_tint"));
+        getVariantBuilder(block).partialState().addModels(new ConfiguredModel(potModel));
+    }
+
+    private void glassBlock(Block block) {
+        BlockModelBuilder model = models().cubeAll(name(block), blockTexture(block)).renderType("translucent");
+        getVariantBuilder(block).partialState().addModels(new ConfiguredModel(model));
+        simpleBlockItem(block, model);
     }
 
     private void simpleBlockWithItem(Block block) {
@@ -644,10 +679,10 @@ public class BlockStateGen extends CoreStateGen {
         simpleBlockWithItem(planks);
         leavesBlock(leaves);
 
-        doorBlock(door, modLoc("block/" + name(door) + "_bottom"), modLoc("block/" + name(door) + "_top"));
+        doorBlockWithRenderType(door, modLoc("block/" + name(door) + "_bottom"), modLoc("block/" + name(door) + "_top"), "cutout");
         simpleItem(door, modLoc("item/" + name(door)));
 
-        trapdoorBlock(trapdoor, modLoc("block/" + name(trapdoor)), true);
+        trapdoorBlockWithRenderType(trapdoor, modLoc("block/" + name(trapdoor)), true, "cutout");
         simpleBlockItem(trapdoor, models().getExistingFile(modLoc("block/" + name(trapdoor) + "_bottom")));
 
         signBlock(sign, wallSign, modLoc("block/" + name(planks)));

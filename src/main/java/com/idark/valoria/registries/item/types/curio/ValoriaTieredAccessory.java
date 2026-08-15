@@ -50,7 +50,7 @@ public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, IB
     public void curioTick(SlotContext slotContext, ItemStack stack){
         ICurioItem.super.curioTick(slotContext, stack);
         LivingEntity wearer = slotContext.entity();
-        if(stack.is(TagsRegistry.FIRE_IMMUNE)) {
+        if(wearer.isOnFire() && stack.is(TagsRegistry.FIRE_IMMUNE)) {
             wearer.extinguishFire();
         }
 

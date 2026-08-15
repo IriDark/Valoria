@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:spawns_cold_variant_frogs",
+    "#minecraft:has_desert_pyramid",
+    "#minecraft:has_swamp_hut"
+  ]
+}

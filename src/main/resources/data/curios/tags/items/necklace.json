@@ -32,6 +32,17 @@
     "valoria:netherite_necklace_armor",
     "valoria:netherite_necklace_wealth",
     "valoria:netherite_rogue_necklace",
-    "valoria:eye_necklace"
+    "valoria:iron_eye_necklace",
+    "valoria:golden_eye_necklace",
+    "valoria:netherite_eye_necklace",
+    "valoria:iron_sun_necklace",
+    "valoria:golden_sun_necklace",
+    "valoria:netherite_sun_necklace",
+    "valoria:iron_moon_necklace",
+    "valoria:golden_moon_necklace",
+    "valoria:netherite_moon_necklace",
+    "valoria:iron_celestial_necklace",
+    "valoria:golden_celestial_necklace",
+    "valoria:netherite_celestial_necklace"
   ]
 }

@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_bottom_left",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "valoria:block/shade_door_bottom",
     "top": "valoria:block/shade_door_top"

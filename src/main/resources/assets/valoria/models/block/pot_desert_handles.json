@@ -1,0 +1,9 @@
+{
+  "parent": "valoria:block/pot_long",
+  "render_type": "minecraft:cutout",
+  "texture_size": [64, 64],
+  "textures": {
+    "0": "valoria:block/pot_desert_handles",
+    "particle": "valoria:block/pot_desert_handles"
+  }
+}

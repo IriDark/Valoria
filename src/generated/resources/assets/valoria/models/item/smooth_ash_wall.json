@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "valoria:block/smooth_ash"
-  }
+  "parent": "valoria:block/smooth_ash_wall_inventory"
 }
