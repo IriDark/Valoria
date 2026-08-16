@@ -86,7 +86,7 @@ public class ValoriaClient{
             TooltipModifierHandler.add(BASE_DASH_DISTANCE_UUID);
             TooltipModifierHandler.add(BASE_ATTACK_RADIUS_UUID);
             TooltipModifierHandler.add(BASE_NECROMANCY_COUNT_UUID);
-            TooltipModifierHandler.add(BASE_NECROMANCY_LIFETIME_UUID);
+
             TooltipModifierHandler.add(BASE_NATURE_DAMAGE_UUID);
             TooltipModifierHandler.add(BASE_NATURE_RESISTANCE_UUID);
             TooltipModifierHandler.add(BASE_DEPTH_DAMAGE_UUID);
@@ -268,6 +268,8 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.SHURIKEN.get(), ShurikenRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchantRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.NECROMANCER.get(), NecromancerRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.WICKED_CRYSTAL.get(), WickedCrystalRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.DRYADOR.get(), DryadorRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.DRAUGR.get(), DraugrRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.GOBLIN.get(), GoblinRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.FLESH_SENTINEL.get(), FleshSentinelRenderer::new);

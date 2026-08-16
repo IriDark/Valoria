@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.living.minions;
 
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -24,8 +25,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.common.registry.entity.*;
-import pro.komaru.tridot.common.registry.entity.goal.FollowOwnerGoal;
 import pro.komaru.tridot.common.registry.entity.goal.*;
+import pro.komaru.tridot.common.registry.entity.goal.FollowOwnerGoal;
 
 import javax.annotation.*;
 import java.util.*;
@@ -70,7 +71,8 @@ public class UndeadEntity extends AbstractMinionEntity{
 
     protected void registerGoals(){
         super.registerGoals();
-        this.targetSelector.addGoal(0, new FollowOwnerGoal(this, 1, 24, 8, true));
+        this.targetSelector.addGoal(0, new FocusOwnerTargetGoal(this));
+        this.targetSelector.addGoal(1, new FollowOwnerGoal(this, 1, 28, 6, true));
         this.targetSelector.addGoal(0, new CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(0, new UndeadEntityRandomMoveGoal());

@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
@@ -27,33 +26,29 @@ import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
-import static com.idark.valoria.Valoria.*;
 import static net.minecraftforge.registries.ForgeRegistries.Keys.ENTITY_TYPES;
 
-public class SummonBook extends Item{
-    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public boolean hasLimitedLife;
+public class SummonBook extends Item {
     private static final ResourceKey<EntityType<?>> DEFAULT_VARIANT = ResourceKey.create(ENTITY_TYPES, new ResourceLocation(Valoria.ID, "undead"));
 
-    /**
-     * @param lifetime Summoned mob lifetime, specified in Seconds
-     * @param count    Count of summoned mobs
-     */
-    public SummonBook(int lifetime, int count, Properties pProperties){
+    protected final int slotCost;
+
+    public SummonBook(Properties pProperties, int slotCost){
         super(pProperties.stacksTo(1));
-        this.hasLimitedLife = true;
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeReg.NECROMANCY_LIFETIME.get(), new AttributeModifier(BASE_NECROMANCY_LIFETIME_UUID, "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeReg.NECROMANCY_COUNT.get(), new AttributeModifier(BASE_NECROMANCY_COUNT_UUID, "Tool modifier", count, AttributeModifier.Operation.ADDITION));
-        this.defaultModifiers = builder.build();
+        this.slotCost = slotCost;
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
-        return pEquipmentSlot == EquipmentSlot.MAINHAND ? defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
+    public SummonBook(Properties pProperties){
+        this(pProperties, 1);
+    }
+
+    public int getSlotCost() {
+        return slotCost;
     }
 
     protected EntityType<?> getDefaultType(ItemStack stack){
         String entityId = stack.getOrCreateTagElement("EntityTag").getString("id");
+        if(entityId.isEmpty()) return ForgeRegistries.ENTITY_TYPES.getValue(DEFAULT_VARIANT.location());
         ResourceLocation entityLocation = new ResourceLocation(entityId);
         return ForgeRegistries.ENTITY_TYPES.getValue(entityLocation);
     }
@@ -71,33 +66,67 @@ public class SummonBook extends Item{
         return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : Col.toDecimal(Pal.lightViolet);
     }
 
-    public int getLifetime(Player player){
-        return (int)(player.getAttributeValue(AttributeReg.NECROMANCY_LIFETIME.get()) * 20);
-    }
-
     public void applyCooldown(Player playerIn){
         for(Item item : ForgeRegistries.ITEMS){
             if(item instanceof SummonBook){
-                playerIn.getCooldowns().addCooldown(item, 175 + getLifetime(playerIn));
+                playerIn.getCooldowns().addCooldown(item, 10);
             }
         }
     }
 
-    private void spawnMinions(ServerLevel serverLevel, Player player, ItemStack stack){
+    protected boolean checkAndClearCapacity(ServerLevel serverLevel, Player player) {
+        List<AbstractMinionEntity> activeMinions = serverLevel.getEntitiesOfClass(
+            AbstractMinionEntity.class,
+            player.getBoundingBox().inflate(48),
+            minion -> minion.getOwner() == player
+        );
+
+        int maxMinions = (int)player.getAttributeValue(AttributeReg.NECROMANCY_COUNT.get());
+        if (this.slotCost > maxMinions) {
+            player.displayClientMessage(Component.translatable("message.valoria.not_enough_minion_slots").withStyle(ChatFormatting.RED), true);
+            return false;
+        }
+
+        int currentSlots = activeMinions.stream().mapToInt(m -> m.getPersistentData().contains("MinionSlots") ? m.getPersistentData().getInt("MinionSlots") : 1).sum();
+        while (currentSlots + this.slotCost > maxMinions && !activeMinions.isEmpty()) {
+            AbstractMinionEntity oldest = activeMinions.stream()
+                .max(Comparator.comparingInt(e -> e.tickCount))
+                .orElse(null);
+
+            int freed = oldest.getPersistentData().contains("MinionSlots") ? oldest.getPersistentData().getInt("MinionSlots") : 1;
+            oldest.discard();
+            activeMinions.remove(oldest);
+            currentSlots -= freed;
+        }
+
+        return true;
+    }
+
+    protected void spawnMinion(ServerLevel serverLevel, Player player, ItemStack stack){
+        if(!checkAndClearCapacity(serverLevel, player)) return;
+
         BlockPos blockpos = player.getOnPos().above();
         Entity base = getDefaultType(stack).create(player.level());
         if(base instanceof AbstractMinionEntity summoned){
             var rand = serverLevel.random;
-            double x = (double)blockpos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            double x = (double)blockpos.getX() + (rand.nextDouble() - rand.nextDouble()) * 4;
             double y = blockpos.getY() + rand.nextInt(1, 2);
-            double z = (double)blockpos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            double z = (double)blockpos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 4;
             BlockPos spawnPos = BlockPos.containing(new Vec3(x, y, z));
             if(serverLevel.isEmptyBlock(blockpos)){
                 summoned.moveTo(spawnPos, 0.0F, 0.0F);
                 summoned.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 summoned.setOwner(player);
                 summoned.setBoundOrigin(blockpos);
-                if(hasLimitedLife) summoned.setLimitedLife(getLifetime(player) + serverLevel.random.nextInt(60));
+                summoned.getPersistentData().putBoolean("PlayerSummoned", true);
+                summoned.getPersistentData().putInt("MinionSlots", this.slotCost);
+                
+                AttributeInstance attackDamage = summoned.getAttribute(Attributes.ATTACK_DAMAGE);
+                if(attackDamage != null){
+                    double multiplier = player.getAttributeValue(AttributeReg.SUMMON_DAMAGE.get());
+                    attackDamage.setBaseValue(attackDamage.getBaseValue() * multiplier);
+                }
+
                 serverLevel.addFreshEntity(summoned);
                 PacketHandler.sendToTracking(serverLevel, blockpos, new MinionSummonParticlePacket(summoned.getId(), player.getOnPos().above()));
             }
@@ -127,10 +156,7 @@ public class SummonBook extends Item{
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
         Player player = (Player)entityLiving;
         if(level instanceof ServerLevel server){
-            for(int i = 0; i < (int)(player.getAttributeValue(AttributeReg.NECROMANCY_COUNT.get())); ++i){
-                spawnMinions(server, player, stack);
-            }
-
+            spawnMinion(server, player, stack);
             if(!player.isCreative()){
                 stack.hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }

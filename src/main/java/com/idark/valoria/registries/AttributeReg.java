@@ -10,8 +10,8 @@ public class AttributeReg{
     public static final RegistryObject<Attribute> DASH_DISTANCE = ATTRIBUTES.register("dash_distance", () -> new RangedAttribute("attribute.valoria.dash_distance", 0.0D, 0.0D, 128.0D).setSyncable(true));
     public static final RegistryObject<Attribute> ATTACK_RADIUS = ATTRIBUTES.register("attack_radius", () -> new RangedAttribute("attribute.valoria.attack_radius", 0.0D, 0.0D, 32.0D).setSyncable(true));
     public static final RegistryObject<Attribute> EXCAVATION_SPEED = ATTRIBUTES.register("excavation_speed", () -> new RangedAttribute("attribute.valoria.excavation_speed", 2.0D, 0.0D, 1024.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> NECROMANCY_LIFETIME = ATTRIBUTES.register("necromancy_lifetime", () -> new RangedAttribute("attribute.valoria.necromancy_lifetime", 0.0D, 0.0D, 4028.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> NECROMANCY_COUNT = ATTRIBUTES.register("necromancy_count", () -> new RangedAttribute("attribute.valoria.necromancy_count", 0.0D, 0.0D, 15.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> SUMMON_DAMAGE = ATTRIBUTES.register("summon_damage", () -> new RangedAttribute("attribute.valoria.summon_damage", 1.0D, 0.0D, 1024.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> NECROMANCY_COUNT = ATTRIBUTES.register("necromancy_count", () -> new RangedAttribute("attribute.valoria.necromancy_count", 1.0D, 0.0D, 15.0D).setSyncable(true));
 
     public static final RegistryObject<Attribute> ELEMENTAL_RESISTANCE = ATTRIBUTES.register("elemental_resistance", () -> new RangedAttribute("attribute.valoria.elemental_resistance", 0.0D, -100.0D, 100.0D).setSyncable(true));
     public static final RegistryObject<Attribute> NATURE_DAMAGE = ATTRIBUTES.register("nature_damage", () -> new RangedAttribute("attribute.valoria.nature_damage", 0.0D, 0.0D, 1024.0D));

@@ -187,7 +187,7 @@ public class PixieEntity extends AbstractMinionEntity{
         super.registerGoals();
         this.goalSelector.addGoal(0, new HealOwnerGoal());
         this.goalSelector.addGoal(0, new RandomMoveGoal());
-        this.goalSelector.addGoal(0, new FollowOwnerGoal(1, 16, 6));
+        this.goalSelector.addGoal(0, new FollowOwnerGoal(1, 28, 6));
     }
 
     protected SoundEvent getAmbientSound(){

@@ -66,7 +66,6 @@ public class Valoria{
     public static UUID BASE_ENTITY_REACH_UUID = UUID.fromString("c2e6b27c-fff1-4296-a6b2-7cfff13296cf");
     public static UUID BASE_DASH_DISTANCE_UUID = UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82");
     public static UUID BASE_ATTACK_RADIUS_UUID = UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e");
-    public static UUID BASE_NECROMANCY_LIFETIME_UUID = UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e");
     public static UUID BASE_NECROMANCY_COUNT_UUID = UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed");
 
     public static UUID BASE_NATURE_DAMAGE_UUID = UUID.fromString("15171755-91d0-466e-9717-5591d0b66eba");
@@ -271,7 +270,7 @@ public class Valoria{
         public static void attachAttribute(EntityAttributeModificationEvent event){
             event.add(EntityType.PLAYER, AttributeReg.DASH_DISTANCE.get());
             event.add(EntityType.PLAYER, AttributeReg.ATTACK_RADIUS.get());
-            event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_LIFETIME.get());
+            event.add(EntityType.PLAYER, AttributeReg.SUMMON_DAMAGE.get());
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_COUNT.get());
             event.add(EntityType.PLAYER, AttributeReg.MAX_NIHILITY.get());
             event.add(EntityType.PLAYER, AttributeReg.NIHILITY_RESILIENCE.get());

@@ -43,7 +43,7 @@ public class CrownItem extends Item implements ICurioItem, Vanishable{
         atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
         if(slotContext.entity() instanceof Player player){
             if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.FALLEN_COLLECTOR, player)){
-                atts.put(AttributeReg.NECROMANCY_LIFETIME.get(), new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
+                atts.put(AttributeReg.SUMMON_DAMAGE.get(), new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
             }
         }
 
