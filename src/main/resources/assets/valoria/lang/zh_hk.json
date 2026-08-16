@@ -1662,5 +1662,20 @@
   "block.valoria.mossy_tombstone_bricks_wall": "Mossy Tombstone Bricks Wall",
   "block.valoria.mossy_tombstone_slab": "Mossy Tombstone Slab",
   "block.valoria.mossy_tombstone_stairs": "Mossy Tombstone Stairs",
-  "block.valoria.mossy_tombstone_wall": "Mossy Tombstone Wall"
+  "block.valoria.mossy_tombstone_wall": "Mossy Tombstone Wall",
+  "item.valoria.iron_eye_necklace": "Iron Eye Necklace",
+  "item.valoria.golden_eye_necklace": "Golden Eye Necklace",
+  "item.valoria.netherite_eye_necklace": "Netherite Eye Necklace",
+  "item.valoria.iron_sun_necklace": "Iron Sun Necklace",
+  "item.valoria.golden_sun_necklace": "Golden Sun Necklace",
+  "item.valoria.netherite_sun_necklace": "Netherite Sun Necklace",
+  "item.valoria.iron_moon_necklace": "Iron Moon Necklace",
+  "item.valoria.golden_moon_necklace": "Golden Moon Necklace",
+  "item.valoria.netherite_moon_necklace": "Netherite Moon Necklace",
+  "item.valoria.iron_celestial_necklace": "Iron Celestial Necklace",
+  "item.valoria.golden_celestial_necklace": "Golden Celestial Necklace",
+  "item.valoria.netherite_celestial_necklace": "Netherite Celestial Necklace",
+  "tooltip.valoria.timed.instant": "Instant",
+  "tooltip.valoria.eye_necklace": "Reacts to light levels. Closes in the dark, inflicting a debuff on the wearer.",
+  "tooltip.valoria.celestial": "Reacts to the time of day, granting buffs or debuffs depending on the current phase."
 }

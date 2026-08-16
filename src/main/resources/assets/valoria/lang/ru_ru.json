@@ -1629,6 +1629,18 @@
   "block.valoria.mossy_tombstone_stairs": "Mossy Tombstone Stairs",
   "block.valoria.mossy_tombstone_wall": "Mossy Tombstone Wall",
   "tooltip.valoria.eye_necklace": "Реагирует на уровень освещенности. В темноте глаз закрывается, накладывая дебаффы на владельца.",
-  "tooltip.valoria.celestial": "Реагирует на время суток, давая баффы или дебаффы в зависимости от текущей фазы."
+  "tooltip.valoria.celestial": "Реагирует на время суток, давая баффы или дебаффы в зависимости от текущей фазы.",
+  "item.valoria.iron_eye_necklace": "Iron Eye Necklace",
+  "item.valoria.golden_eye_necklace": "Golden Eye Necklace",
+  "item.valoria.netherite_eye_necklace": "Netherite Eye Necklace",
+  "item.valoria.iron_sun_necklace": "Iron Sun Necklace",
+  "item.valoria.golden_sun_necklace": "Golden Sun Necklace",
+  "item.valoria.netherite_sun_necklace": "Netherite Sun Necklace",
+  "item.valoria.iron_moon_necklace": "Iron Moon Necklace",
+  "item.valoria.golden_moon_necklace": "Golden Moon Necklace",
+  "item.valoria.netherite_moon_necklace": "Netherite Moon Necklace",
+  "item.valoria.iron_celestial_necklace": "Iron Celestial Necklace",
+  "item.valoria.golden_celestial_necklace": "Golden Celestial Necklace",
+  "item.valoria.netherite_celestial_necklace": "Netherite Celestial Necklace",
+  "tooltip.valoria.timed.instant": "Instant"
 }
-
