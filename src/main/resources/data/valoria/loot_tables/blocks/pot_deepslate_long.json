@@ -3,29 +3,20 @@
   "pools": [
     {
       "rolls": {
-        "min": 2,
-        "max": 4
-      },
-      "bonus_rolls": {
-        "min": 0,
-        "max": 2
+        "min": 1,
+        "max": 3
       },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:throwable_bomb",
-          "weight": 5,
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
-            }
-          ]
+          "weight": 12,
+          "conditions": []
         },
         {
           "type": "minecraft:item",
           "name": "valoria:dynamite",
-          "weight": 3,
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -35,12 +26,37 @@
               }
             }
           ],
+          "conditions": []
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "minecraft:decorated_pot_sherds",
+          "expand": true,
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:silence_armor_trim_smithing_template",
+          "weight": 1,
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.4
+              "chance": 0.05
             }
-          ]
+          ],
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:snout_armor_trim_smithing_template",
+          "weight": 1,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ],
+          "functions": []
         },
         {
           "type": "minecraft:item",
@@ -48,24 +64,134 @@
           "weight": 4,
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
+              "function": "minecraft:limit_count",
+              "limit": 5
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1,
+              "function": "minecraft:set_count"
             }
           ],
-          "conditions": [
+          "name": "minecraft:saddle",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.6
+              "add": false,
+              "count": 1,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:lead",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:name_tag",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 4
             }
           ]
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_ingot",
-          "weight": 5,
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_nugget",
+          "weight": 18,
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 12
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "minecraft:wool",
+          "expand": true,
+          "weight": 14,
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:disc_fragment_5",
+          "weight": 4,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glow_berries",
+          "weight": 12,
+          "conditions": [],
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 8
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_shard",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sculk",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_shard",
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -74,115 +200,77 @@
                 "max": 3
               }
             }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.7
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:flint",
-          "weight": 4,
+          "name": "minecraft:experience_bottle",
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 2
               }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
-          "weight": 4,
+          "name": "minecraft:candle",
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 3,
-                "max": 6
+                "min": 1,
+                "max": 4
               }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
-          "weight": 5,
+          "name": "minecraft:sculk_vein",
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 6,
-                "max": 14
+                "min": 1,
+                "max": 5
               }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.65
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gunpowder",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 3,
-                "max": 6
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.8
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
+          "name": "minecraft:book",
           "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 2,
-                "max": 4
+                "min": 1,
+                "max": 1
               }
             }
-          ],
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:echo_shard",
+          "weight": 1,
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.35
+              "chance": 0.05
             }
           ]
         }
-      ]
+      ],
+      "functions": []
     }
   ]
 }

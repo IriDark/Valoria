@@ -160,7 +160,6 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     implementation fg.deobf("curse.maven:jade-324717:4986594")
-    //implementation fg.deobf("curse.maven:farmers-delight-398521:4679319") // todo
     implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
     implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
     implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
@@ -171,8 +170,6 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:cyanide-541676:5778405")
     runtimeOnly fg.deobf("curse.maven:obscure-api-638417:4616364")
 
-    // client sided
-    // remove those on server or datagen build
     //clientRuntimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
     clientRuntimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
     clientRuntimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")

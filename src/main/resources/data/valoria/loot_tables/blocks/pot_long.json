@@ -6,66 +6,39 @@
         "min": 2,
         "max": 4
       },
-      "bonus_rolls": {
-        "min": 0,
-        "max": 2
-      },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:throwable_bomb",
-          "weight": 5,
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:dynamite",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.4
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_ingot",
-          "weight": 4,
+          "name": "minecraft:torch",
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 2,
-                "max": 4
+                "max": 6
               }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.6
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "weight": 5,
+          "name": "minecraft:arrow",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal",
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -74,113 +47,94 @@
                 "max": 3
               }
             }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.7
-            }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:flint",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2,
-                "max": 6
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bone",
+          "name": "minecraft:iron_nugget",
           "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 3,
-                "max": 6
+                "max": 7
               }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.5
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 6,
-                "max": 14
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.65
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gunpowder",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 3,
-                "max": 6
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.8
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
+          "name": "minecraft:raw_iron",
           "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 2,
-                "max": 4
+                "min": 1,
+                "max": 2
               }
             }
-          ],
-          "conditions": [
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_copper",
+          "weight": 3,
+          "functions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.35
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:throwable_bomb",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:dynamite",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "minecraft:villager_plantable_seeds",
+          "weight": 2,
+          "expand": true
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "minecraft:fox_food",
+          "weight": 2,
+          "expand": false
         }
       ]
     }

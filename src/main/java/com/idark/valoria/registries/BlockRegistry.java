@@ -407,8 +407,8 @@ public class BlockRegistry{
         shadePlanksSlab = registerBlock("shade_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE).sound(SoundsRegistry.SHADE_WOOD)));
         shadePlanksStairs = registerBlock("shade_planks_stairs", () -> new StairBlock(() -> BlockRegistry.shadePlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).sound(SoundsRegistry.SHADE_WOOD).mapColor(MapColor.COLOR_PURPLE)));
         shadeLeaves = registerBlock("shade_leaves", () -> new ShadeLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_CYAN)));
-        shadeBranchVine = BLOCK.register("shade_branch_vine", () -> new ShadeBranchVineBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)));
         shadeBranch = registerBlock("shade_branch", () -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)), () -> new BlockItem(BlockRegistry.shadeBranch.get(), new Item.Properties()));
+        shadeBranchVine = BLOCK.register("shade_branch_vine", () -> new ShadeBranchVineBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).lootFrom(BlockRegistry.shadeBranch).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)));
 
         shadeSapling = registerBlock("shade_sapling", () -> new ValoriaSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_CYAN)));
         pottedShadewoodSapling = BLOCK.register("potted_shade_sapling", () -> new FlowerPotBlock(BlockRegistry.shadeSapling.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));

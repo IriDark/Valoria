@@ -14,6 +14,7 @@
 - Added Moon Necklace
 - Added Sun Necklace
 - Added Celestial Necklace
+- Added ServerConfig values to edit Pot spawn chances and tries per chunk
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
@@ -46,6 +47,7 @@
 - Converted project to Data Gen, cleaned up some trash files
 - Nerfer Overdrive enchantment (Max: 30% -> 10%)
 - Reworked Shields
+- Reworked Pot LootTables
 - Reworked Eye Necklace
 - Changed Healing flask recipe
 - Slightly Increased Ent spawn
@@ -55,6 +57,7 @@
 - Increased Oceanic shell drop from River Golems
 - Updated Chinese Translation
 - Optimized Curse runes
+- Optimized Pot generation
 - Improved (Reworked) Russian translation by Kerdo
 - Improved and Updated Ukrainian locale
 - Improved Boss Summonable, now it's a proper area rendering

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.*;
 public class ServerConfig{
     public static ForgeConfigSpec.ConfigValue<Boolean> ENABLE_CODEX_PROGRESSION, ENABLE_FOOD_ROT, ENABLE_NIHILITY, CRITICAL_NIHILITY_BLINDNESS, PATREON_REWARDS;
 
+    public static ForgeConfigSpec.ConfigValue<Integer> POT_TRIES, CAVE_POT_TRIES;
     public static ForgeConfigSpec.ConfigValue<Double> POT_SPAWN_CHANCE, CAVE_POT_SPAWN_CHANCE,
     FOOD_ROT_INTERVAL,
     NIHILITY_DAMAGE_MULTIPLIER, NIHILITY_ACCUMULATION_INTERVAL, NIHILITY_DECAY_INTERVAL,
@@ -42,8 +43,10 @@ public class ServerConfig{
         builder.pop();
 
         builder.comment("Level Generation").push("levelgen");
-            POT_SPAWN_CHANCE = builder.comment("Pots spawn chance").defineInRange("PotSpawnChance", 0.015d, 0.0d, 1.0d);
-            CAVE_POT_SPAWN_CHANCE = builder.comment("Cave pots spawn chance").defineInRange("CavePotSpawnChance", 0.035d, 0.0d, 1.0d);
+            POT_TRIES = builder.comment("How many tries generator will perform to generate a pot (0 -> n)").defineInRange("PotSpawnTries", 4, 0, 1);
+            POT_SPAWN_CHANCE = builder.comment("Pots spawn chance").defineInRange("PotSpawnChance", 0.025d, 0.0d, 1.0d);
+            CAVE_POT_TRIES = builder.comment("How many tries generator will perform to generate a cave pot (0 -> n)").defineInRange("CavePotSpawnTries", 8, 0, 1);
+            CAVE_POT_SPAWN_CHANCE = builder.comment("Cave pots spawn chance").defineInRange("CavePotSpawnChance", 0.03d, 0.0d, 1.0d);
         builder.pop();
 
         builder.comment("Misc").push("misc");
