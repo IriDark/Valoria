@@ -39,7 +39,17 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets {
+    main {
+        resources { srcDir 'src/generated/resources' }
+    }
+
+    client {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+
 minecraft {
     mappings channel: 'parchment', version: '2023.09.03-1.20.1'
     copyIdeResources = true
@@ -61,11 +71,17 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', "valoria"
+            ideaModule "${project.name}.client.main"
+            mods {
+                valoria {
+                    source sourceSets.main
+                    source sourceSets.client
+                }
+            }
         }
 
         client1 {
             parent runs.client
-
             args "--username", "IriDark_"
         }
 
@@ -157,16 +173,13 @@ dependencies {
 
     // client sided
     // remove those on server or datagen build
-    //runtimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
-    //runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
-
-    /*
-    runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
-    runtimeOnly fg.deobf("curse.maven:obscure-tooltips-715660:4686579")
-    runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
-    runtimeOnly fg.deobf("curse.maven:detailed-enchantments-1401816:8431077")
-    runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
-    */
+    //clientRuntimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
+    clientRuntimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
+    clientRuntimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
+    clientRuntimeOnly fg.deobf("curse.maven:obscure-tooltips-715660:4686579")
+    clientRuntimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
+    clientRuntimeOnly fg.deobf("curse.maven:detailed-enchantments-1401816:8431077")
+    clientRuntimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
 }
 
 jar {
