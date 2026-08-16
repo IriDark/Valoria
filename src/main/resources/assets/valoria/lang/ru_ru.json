@@ -1642,5 +1642,6 @@
   "item.valoria.iron_celestial_necklace": "Iron Celestial Necklace",
   "item.valoria.golden_celestial_necklace": "Golden Celestial Necklace",
   "item.valoria.netherite_celestial_necklace": "Netherite Celestial Necklace",
-  "tooltip.valoria.timed.instant": "Instant"
+  "tooltip.valoria.timed.instant": "Instant",
+  "message.valoria.not_enough_minion_slots": "Not enough minion slots"
 }
