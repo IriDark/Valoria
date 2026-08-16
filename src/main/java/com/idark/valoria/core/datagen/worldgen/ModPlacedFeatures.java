@@ -24,6 +24,10 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> dormantCrystalsPlaced = registerKey("dormant_crystals_placed");
     public static final ResourceKey<PlacedFeature> longPotPlaced = registerKey("long_pot");
     public static final ResourceKey<PlacedFeature> smallPotPlaced = registerKey("small_pot");
+    public static final ResourceKey<PlacedFeature> cavePotSmallPlaced = registerKey("cave_pot_small");
+    public static final ResourceKey<PlacedFeature> cavePotLongPlaced = registerKey("cave_pot_long");
+    public static final ResourceKey<PlacedFeature> deepslatePotSmallPlaced = registerKey("deepslate_pot_small");
+    public static final ResourceKey<PlacedFeature> deepslatePotLongPlaced = registerKey("deepslate_pot_long");
     public static final ResourceKey<PlacedFeature> desertPotPlaced = registerKey("desert_pot");
     public static final ResourceKey<PlacedFeature> swampPotPlaced = registerKey("swamp_pot");
     public static final ResourceKey<PlacedFeature> limestonePlaced = registerKey("limestone_placed");
@@ -42,8 +46,15 @@ public class ModPlacedFeatures {
         register(context, dormantCrystalsPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.dormantCrystals), ModOrePlacement.commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(42))));
 
         register(context, limestonePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.LIMESTONE), ModOrePlacement.commonOrePlacement(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(120))));
-        register(context, longPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.LONG_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread()));
-        register(context, smallPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.SMALL_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread()));
+        register(context, longPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.LONG_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(50), VerticalAnchor.absolute(320))));
+        register(context, smallPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.SMALL_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(50), VerticalAnchor.absolute(320))));
+        
+        register(context, cavePotSmallPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.CAVE_POT_SMALL), List.of(CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(50))));
+        register(context, cavePotLongPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.CAVE_POT_LONG), List.of(CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(50))));
+        
+        register(context, deepslatePotSmallPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.DEEPSLATE_POT_SMALL), List.of(CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(0))));
+        register(context, deepslatePotLongPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.DEEPSLATE_POT_LONG), List.of(CountPlacement.of(1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(0))));
+
         register(context, desertPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.DESERT_POT), List.of(CountPlacement.of(1), InSquarePlacement.spread()));
         register(context, swampPotPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.SWAMP_POT), List.of(CountPlacement.of(3), InSquarePlacement.spread()));
 

@@ -1,0 +1,9 @@
+{
+  "parent": "valoria:block/pot_long_glow",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "valoria:block/pot_deepslate_long_handles_rune_3",
+    "glow": "valoria:block/pot_deepslate_long_handles_rune_3_glow",
+    "particle": "valoria:block/pot_deepslate_long_handles_rune_3"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/jade_crossbow",
+  "textures": {
+    "layer0": "valoria:item/jade_crossbow_pulling_1"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "type": "valoria:simple_pot",
+  "type": "valoria:cave_pot",
   "config": {
     "to_place": {
       "type": "minecraft:weighted_state_provider",

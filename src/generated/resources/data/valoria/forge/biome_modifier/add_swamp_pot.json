@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#minecraft:has_swamp_hut",
+  "biomes": "#valoria:mossy_pot_spawn_biomes",
   "features": "valoria:swamp_pot",
   "step": "underground_ores"
 }

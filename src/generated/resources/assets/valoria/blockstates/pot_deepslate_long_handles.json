@@ -1,0 +1,188 @@
+{
+  "variants": {
+    "facing=east,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 90
+      }
+    ],
+    "facing=east,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 90
+      }
+    ],
+    "facing=north,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 180
+      }
+    ],
+    "facing=north,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 180
+      }
+    ],
+    "facing=south,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 180
+      }
+    ],
+    "facing=south,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 180
+      }
+    ],
+    "facing=west,waterlogged=false": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 90
+      }
+    ],
+    "facing=west,waterlogged=true": [
+      {
+        "model": "valoria:block/pot_deepslate_long_handles",
+        "weight": 8,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_0",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_1",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_2",
+        "y": 90
+      },
+      {
+        "model": "valoria:block/pot_deepslate_long_handles_rune_3",
+        "y": 90
+      }
+    ]
+  }
+}

@@ -31,6 +31,10 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> DESERT_POT = registerKey("desert_pot_feature");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SWAMP_POT = registerKey("swamp_pot_feature");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LIMESTONE = registerKey("limestone");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CAVE_POT_SMALL = registerKey("cave_pot_small_feature");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CAVE_POT_LONG = registerKey("cave_pot_long_feature");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DEEPSLATE_POT_SMALL = registerKey("deepslate_pot_small_feature");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DEEPSLATE_POT_LONG = registerKey("deepslate_pot_long_feature");
     public static final ResourceKey<ConfiguredFeature<?, ?>> dormantCrystals = registerKey("dormant_crystals");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
@@ -53,7 +57,7 @@ public class ModConfiguredFeatures {
                 64, 0.0f
         )));
 
-        context.register(LONG_POT, new ConfiguredFeature<>(LevelGen.POT.get(), new SimpleBlockConfiguration(
+        context.register(LONG_POT, new ConfiguredFeature<>(LevelGen.CAVE_POT.get(), new SimpleBlockConfiguration(
             new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(BlockRegistry.potLong.get().defaultBlockState(), 1)
                 .add(BlockRegistry.potLongHandles.get().defaultBlockState(), 1)
@@ -78,10 +82,38 @@ public class ModConfiguredFeatures {
                 .build())
         )));
 
-        context.register(SMALL_POT, new ConfiguredFeature<>(LevelGen.POT.get(), new SimpleBlockConfiguration(
+        context.register(SMALL_POT, new ConfiguredFeature<>(LevelGen.CAVE_POT.get(), new SimpleBlockConfiguration(
             new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(BlockRegistry.potSmall.get().defaultBlockState(), 1)
                 .add(BlockRegistry.potSmallHandles.get().defaultBlockState(), 1)
+                .build())
+        )));
+
+        context.register(CAVE_POT_SMALL, new ConfiguredFeature<>(LevelGen.CAVE_POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potCaveSmall.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potCaveSmallHandles.get().defaultBlockState(), 1)
+                .build())
+        )));
+        
+        context.register(CAVE_POT_LONG, new ConfiguredFeature<>(LevelGen.CAVE_POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potCaveLong.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potCaveLongHandles.get().defaultBlockState(), 1)
+                .build())
+        )));
+        
+        context.register(DEEPSLATE_POT_SMALL, new ConfiguredFeature<>(LevelGen.CAVE_POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potDeepslateSmall.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potDeepslateSmallHandles.get().defaultBlockState(), 1)
+                .build())
+        )));
+        
+        context.register(DEEPSLATE_POT_LONG, new ConfiguredFeature<>(LevelGen.CAVE_POT.get(), new SimpleBlockConfiguration(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(BlockRegistry.potDeepslateLong.get().defaultBlockState(), 1)
+                .add(BlockRegistry.potDeepslateLongHandles.get().defaultBlockState(), 1)
                 .build())
         )));
 

@@ -1,3 +1,6 @@
 {
-  "parent": "valoria:block/eldritch_button"
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "valoria:block/eldritch_planks"
+  }
 }

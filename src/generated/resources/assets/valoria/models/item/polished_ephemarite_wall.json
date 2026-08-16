@@ -1,3 +1,6 @@
 {
-  "parent": "valoria:block/polished_ephemarite_wall_inventory"
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "valoria:block/polished_ephemarite"
+  }
 }

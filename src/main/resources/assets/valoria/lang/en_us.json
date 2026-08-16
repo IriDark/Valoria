@@ -1639,5 +1639,7 @@
   "codex.valoria.firron.hint": "Craft the Obsidian Heart",
   "tooltip.valoria.boss_summonable.dimension": "Should be used in - %s.",
   "tooltip.valoria.eye_necklace": "Reacts to light levels. Closes in the dark, inflicting a debuff on the wearer.",
-  "tooltip.valoria.celestial": "Reacts to the time of day, granting buffs or debuffs depending on the current phase."
+  "tooltip.valoria.celestial": "Reacts to the time of day, granting buffs or debuffs depending on the current phase.",
+  "message.valoria.not_enough_minion_slots": "Not enough minion slots"
 }
+

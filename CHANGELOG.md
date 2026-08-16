@@ -9,6 +9,11 @@
 - Added another init layer to Alchemy Station and Heavy Workbench just to be sure everything inits
 - Added Draugr Shield to Draugr LootTable
 - Added Desert Pot
+- Added Cave Pot
+- Added Deepslate Pot
+- Added Moon Necklace
+- Added Sun Necklace
+- Added Celestial Necklace
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
@@ -41,6 +46,7 @@
 - Converted project to Data Gen, cleaned up some trash files
 - Nerfer Overdrive enchantment (Max: 30% -> 10%)
 - Reworked Shields
+- Reworked Eye Necklace
 - Changed Healing flask recipe
 - Slightly Increased Ent spawn
 - Slightly Decreased Nature Golem spawn
@@ -55,6 +61,8 @@
 - Improved Nihility Monitor tooltip description so it will be less confusing
 - Improved Crossbow description
 - Improved Dash Visual
+- Removed Blaze Powder from Long Pot
+- Removed netherite scrap drop from Decorated Crypt Pot
 
 # 1.0.3.2
 

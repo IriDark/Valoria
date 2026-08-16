@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#valoria:pot_spawn_biomes",
+  "features": "valoria:deepslate_pot_long",
+  "step": "underground_ores"
+}

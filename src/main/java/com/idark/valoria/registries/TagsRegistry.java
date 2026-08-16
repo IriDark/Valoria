@@ -57,6 +57,10 @@ public class TagsRegistry{
 
     public static final TagKey<Biome> IS_VALORIA = biome(new ResourceLocation(Valoria.ID, "is_valoria"));
 
+    public static final TagKey<Biome> POT_SPAWN_BIOMES = biome(new ResourceLocation(Valoria.ID, "pot_spawn_biomes"));
+    public static final TagKey<Biome> DESERT_POT_SPAWN_BIOMES = biome(new ResourceLocation(Valoria.ID, "desert_pot_spawn_biomes"));
+    public static final TagKey<Biome> MOSSY_POT_SPAWN_BIOMES = biome(new ResourceLocation(Valoria.ID, "mossy_pot_spawn_biomes"));
+
     public static final TagKey<Block> MINEABLE_WITH_MULTITOOL = block(new ResourceLocation(Valoria.ID, "mineable/multitool"));
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
     public static final TagKey<Block> PICRITE_ORE_REPLACEABLES = block(new ResourceLocation(Valoria.ID, "picrite_ore_replaceables"));

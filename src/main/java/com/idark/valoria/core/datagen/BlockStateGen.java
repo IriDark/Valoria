@@ -356,7 +356,8 @@ public class BlockStateGen extends CoreStateGen {
         plantBlock(BlockRegistry.bloodroot.get(), modLoc("block/" + name(BlockRegistry.bloodroot.get())));
         glassBlock(BlockRegistry.bronzeGlass.get());
         simpleBlockWithItem(BlockRegistry.bronzeVent.get());
-        axisBlock((RotatedPillarBlock) BlockRegistry.chargedVoidPillar.get(), blockTexture(BlockRegistry.chargedVoidPillar.get()), modLoc("block/void_pillar_end"));
+        axisBlock((RotatedPillarBlock) BlockRegistry.chargedVoidPillar.get(), models().getExistingFile(modLoc("block/charged_void_pillar")), models().getExistingFile(modLoc("block/charged_void_pillar_horizontal")));
+        simpleBlockItem(BlockRegistry.chargedVoidPillar.get(), models().getExistingFile(modLoc("block/charged_void_pillar")));
         simpleBlockWithItem(BlockRegistry.chiseledAmbaneStoneBricks.get());
         simpleBlockWithItem(BlockRegistry.cobaltBlock.get());
         simpleBlockWithItem(BlockRegistry.cobbledShaleFirechargeTrap.get());
@@ -406,6 +407,9 @@ public class BlockStateGen extends CoreStateGen {
                     .modelFile(models().getExistingFile(modLoc("block/pot_desert_handles_scarab"))).rotationX(0).rotationY(rotY).weight(1)
                     .build();
         });
+
+        simpleItem(BlockRegistry.potDesertHandles.get(), modLoc("item/" + name(BlockRegistry.potDesertHandles.get())));
+
         horizontalBlockCustom(BlockRegistry.potSmallHandles.get(), "pot_small_handles", 180, 90);
         getVariantBuilder(BlockRegistry.potLong.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potLong.get())))).buildLast());
         simpleItem(BlockRegistry.potLong.get(), modLoc("item/" + name(BlockRegistry.potLong.get())));
@@ -418,6 +422,37 @@ public class BlockStateGen extends CoreStateGen {
 
         getVariantBuilder(BlockRegistry.potSmall.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potSmall.get())))).buildLast());
         simpleItem(BlockRegistry.potSmall.get(), modLoc("item/" + name(BlockRegistry.potSmall.get())));
+        
+        getVariantBuilder(BlockRegistry.potCaveSmall.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potCaveSmall.get())))).buildLast());
+        simpleItem(BlockRegistry.potCaveSmall.get(), modLoc("item/" + name(BlockRegistry.potCaveSmall.get())));
+        horizontalBlockCustom(BlockRegistry.potCaveSmallHandles.get(), "pot_cave_small_handles", 180, 90);
+        
+        getVariantBuilder(BlockRegistry.potCaveLong.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potCaveLong.get())))).buildLast());
+        simpleItem(BlockRegistry.potCaveLong.get(), modLoc("item/" + name(BlockRegistry.potCaveLong.get())));
+        horizontalBlockCustom(BlockRegistry.potCaveLongHandles.get(), "pot_cave_long_handles", 180, 90);
+
+        getVariantBuilder(BlockRegistry.potDeepslateSmall.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potDeepslateSmall.get())))).buildLast());
+        simpleItem(BlockRegistry.potDeepslateSmall.get(), modLoc("item/" + name(BlockRegistry.potDeepslateSmall.get())));
+        horizontalBlockCustom(BlockRegistry.potDeepslateSmallHandles.get(), "pot_deepslate_small_handles", 180, 90);
+
+        getVariantBuilder(BlockRegistry.potDeepslateLong.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.potDeepslateLong.get())))).buildLast());
+        simpleItem(BlockRegistry.potDeepslateLong.get(), modLoc("item/" + name(BlockRegistry.potDeepslateLong.get())));
+
+        getVariantBuilder(BlockRegistry.potDeepslateLongHandles.get()).forAllStates(state -> {
+            Direction dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+            int rotY = switch (dir) {
+                case EAST, WEST -> 90;
+                case NORTH, SOUTH -> 180;
+                default -> 0;
+            };
+            return ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(modLoc("block/pot_deepslate_long_handles"))).rotationX(0).rotationY(rotY).weight(8).nextModel()
+                .modelFile(models().getExistingFile(modLoc("block/pot_deepslate_long_handles_rune_0"))).rotationX(0).rotationY(rotY).weight(1).nextModel()
+                .modelFile(models().getExistingFile(modLoc("block/pot_deepslate_long_handles_rune_1"))).rotationX(0).rotationY(rotY).weight(1).nextModel()
+                .modelFile(models().getExistingFile(modLoc("block/pot_deepslate_long_handles_rune_2"))).rotationX(0).rotationY(rotY).weight(1).nextModel()
+                .modelFile(models().getExistingFile(modLoc("block/pot_deepslate_long_handles_rune_3"))).rotationX(0).rotationY(rotY).weight(1).build();
+        });
+        simpleItem(BlockRegistry.potDeepslateLongHandles.get(), modLoc("item/pot_deepslate_long_handles"));
 
         getVariantBuilder(BlockRegistry.cryptPot.get()).partialState().addModels(ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block/" + name(BlockRegistry.cryptPot.get())))).buildLast());
         simpleItem(BlockRegistry.cryptPot.get(), modLoc("item/" + name(BlockRegistry.cryptPot.get())));
@@ -477,11 +512,12 @@ public class BlockStateGen extends CoreStateGen {
         slabWithItem((SlabBlock) BlockRegistry.crackedLimestoneBricksSlab.get(), BlockRegistry.crackedLimestoneBricks.get());
         wallWithItem((WallBlock) BlockRegistry.crackedLimestoneBricksWall.get(), BlockRegistry.crackedLimestoneBricks.get());
 
-        axisBlock((RotatedPillarBlock) BlockRegistry.tombstonePillar.get(), blockTexture(BlockRegistry.tombstonePillar.get()), blockTexture(BlockRegistry.tombstonePillar.get()));
-        axisBlock((RotatedPillarBlock) BlockRegistry.cutTombstonePillar.get(), blockTexture(BlockRegistry.cutTombstonePillar.get()), blockTexture(BlockRegistry.cutTombstonePillar.get()));
-        axisBlock((RotatedPillarBlock) BlockRegistry.wickedTombstonePillar.get(), blockTexture(BlockRegistry.wickedTombstonePillar.get()), blockTexture(BlockRegistry.wickedTombstonePillar.get()));
+        axisBlock((RotatedPillarBlock) BlockRegistry.tombstonePillar.get(), blockTexture(BlockRegistry.tombstonePillar.get()), modLoc("block/tombstone_pillar_end"));
+        axisBlock((RotatedPillarBlock) BlockRegistry.cutTombstonePillar.get(), blockTexture(BlockRegistry.cutTombstonePillar.get()), modLoc("block/tombstone_pillar_end"));
+        axisBlock((RotatedPillarBlock) BlockRegistry.wickedTombstonePillar.get(), blockTexture(BlockRegistry.wickedTombstonePillar.get()), modLoc("block/tombstone_pillar_end"));
         axisBlock((RotatedPillarBlock) BlockRegistry.voidPillar.get(), blockTexture(BlockRegistry.voidPillar.get()), modLoc("block/void_pillar_end"));
-        axisBlock((RotatedPillarBlock) BlockRegistry.voidPillarAmethyst.get(), blockTexture(BlockRegistry.voidPillarAmethyst.get()), modLoc("block/void_pillar_end"));
+        axisBlock((RotatedPillarBlock) BlockRegistry.voidPillarAmethyst.get(), models().getExistingFile(modLoc("block/void_pillar_amethyst")), models().getExistingFile(modLoc("block/void_pillar_amethyst_horizontal")));
+        simpleBlockItem(BlockRegistry.voidPillarAmethyst.get(), models().getExistingFile(modLoc("block/void_pillar_amethyst")));
         axisBlock((RotatedPillarBlock) BlockRegistry.meatPillar.get(), blockTexture(BlockRegistry.meatPillar.get()), blockTexture(BlockRegistry.meatPillar.get()));
 
         plantBlock(BlockRegistry.magmaroot.get(), modLoc("block/" + name(BlockRegistry.magmaroot.get())));

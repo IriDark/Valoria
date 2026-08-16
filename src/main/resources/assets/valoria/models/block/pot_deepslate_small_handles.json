@@ -1,0 +1,8 @@
+{
+  "parent": "valoria:block/pot_small_handles",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "valoria:block/pot_deepslate_small_handles",
+    "particle": "valoria:block/pot_deepslate_small_handles"
+  }
+}

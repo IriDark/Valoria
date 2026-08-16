@@ -2,7 +2,6 @@ package com.idark.valoria.core.datagen.worldgen;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.level.modifier.*;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.data.worldgen.*;
@@ -11,8 +10,6 @@ import net.minecraft.tags.*;
 import net.minecraft.world.level.levelgen.*;
 import net.minecraftforge.common.world.*;
 import net.minecraftforge.registries.*;
-
-import java.util.*;
 
 public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_AMBER_ORE = registerKey("add_amber_ore");
@@ -26,6 +23,10 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_DORMANT_CRYSTALS = registerKey("add_dormant_crystals");
     public static final ResourceKey<BiomeModifier> ADD_LONG_POT = registerKey("add_long_pot");
     public static final ResourceKey<BiomeModifier> ADD_SMALL_POT = registerKey("add_small_pot");
+    public static final ResourceKey<BiomeModifier> ADD_CAVE_POT_SMALL = registerKey("add_cave_pot_small");
+    public static final ResourceKey<BiomeModifier> ADD_CAVE_POT_LONG = registerKey("add_cave_pot_long");
+    public static final ResourceKey<BiomeModifier> ADD_DEEPSLATE_POT_SMALL = registerKey("add_deepslate_pot_small");
+    public static final ResourceKey<BiomeModifier> ADD_DEEPSLATE_POT_LONG = registerKey("add_deepslate_pot_long");
     public static final ResourceKey<BiomeModifier> ADD_DESERT_POT = registerKey("add_desert_pot");
     public static final ResourceKey<BiomeModifier> ADD_SWAMP_POT = registerKey("add_swamp_pot");
     public static final ResourceKey<BiomeModifier> ADD_LIMESTONE = registerKey("add_limestone_ore");
@@ -85,32 +86,50 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
 
-        context.register(ADD_LONG_POT, new AddFeaturesByFilterBiomeModifier(
-                biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_overworld"))),
-                Optional.of(biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("valoria:no_pots")))),
-                Optional.empty(),
-                Optional.empty(),
+        context.register(ADD_LONG_POT, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(TagsRegistry.POT_SPAWN_BIOMES),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.longPotPlaced)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
 
-        context.register(ADD_SMALL_POT, new AddFeaturesByFilterBiomeModifier(
-                biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:is_overworld"))),
-                Optional.of(biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("valoria:no_pots")))),
-                Optional.empty(),
-                Optional.empty(),
+        context.register(ADD_SMALL_POT, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(TagsRegistry.POT_SPAWN_BIOMES),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.smallPotPlaced)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+        
+        context.register(ADD_CAVE_POT_SMALL, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(TagsRegistry.POT_SPAWN_BIOMES),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.cavePotSmallPlaced)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_CAVE_POT_LONG, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(TagsRegistry.POT_SPAWN_BIOMES),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.cavePotLongPlaced)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_DEEPSLATE_POT_SMALL, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(TagsRegistry.POT_SPAWN_BIOMES),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.deepslatePotSmallPlaced)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_DEEPSLATE_POT_LONG, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(TagsRegistry.POT_SPAWN_BIOMES),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.deepslatePotLongPlaced)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
 
         context.register(ADD_DESERT_POT, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:has_desert_pyramid"))),
+                biomes.getOrThrow(TagsRegistry.DESERT_POT_SPAWN_BIOMES),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.desertPotPlaced)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
 
         context.register(ADD_SWAMP_POT, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(TagKey.create(Registries.BIOME, new ResourceLocation("minecraft:has_swamp_hut"))),
+                biomes.getOrThrow(TagsRegistry.MOSSY_POT_SPAWN_BIOMES),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.swampPotPlaced)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));

@@ -1,0 +1,30 @@
+{
+  "type": "valoria:cave_pot",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "valoria:pot_deepslate_long",
+            "Properties": {
+              "facing": "north",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "valoria:pot_deepslate_long_handles",
+            "Properties": {
+              "facing": "north",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

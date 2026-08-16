@@ -35,7 +35,9 @@ import static com.idark.valoria.registries.ItemsRegistry.BLOCK_ITEMS;
 
 public class BlockRegistry{
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
-    public static RegistryObject<Block>
+    public static RegistryObject<Block> potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, potDesert, potDesertHandles,
+    potCaveSmall, potCaveSmallHandles, potCaveLong, potCaveLongHandles, potDeepslateSmall, potDeepslateSmallHandles, potDeepslateLong, potDeepslateLongHandles,
+    cryptPot, decoratedCryptPot,
     shadeChest, shadeTrappedChest, eldritchChest, eldritchTrappedChest,
     eldritchDoor, eldritchTrapdoor, shadeDoor, shadeTrapdoor, dreadwoodDoor, dreadwoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
     pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, jadeOre, picriteJadeOre, wickedAmethystOre, dormantCrystals, pearliumOre,
@@ -71,9 +73,6 @@ public class BlockRegistry{
     shadePressurePlate, shadeButton, shadeLog, strippedShadeLog, shadeWood, strippedShadeWood, shadePlanks, shadePlanksStairs, shadePlanksSlab, shadeLeaves, shadeBranch, shadeBranchVine, shadeSapling, pottedShadewoodSapling, shadeFence, shadeFenceGate, shadeSign, shadeWallSign, shadeHangingSign, shadeWallHangingSign,
     eldritchPressurePlate, eldritchButton, eldritchLog, strippedEldritchLog, eldritchWood, strippedEldritchWood, eldritchPlanks, eldritchPlanksStairs, eldritchPlanksSlab, eldritchLeaves, eldritchSapling, pottedEldritchSapling, eldritchFence, eldritchFenceGate, eldritchSign, eldritchWallSign, eldritchHangingSign, eldritchWallHangingSign,
     dreadwoodPressurePlate, dreadwoodButton, dreadwoodLog, strippedDreadwoodLog, dreadWood, strippedDreadWood, dreadwoodPlanks, dreadwoodPlanksStairs, dreadwoodPlanksSlab, dreadwoodSapling, pottedDreadwoodSapling, dreadwoodFence, dreadwoodFenceGate, dreadwoodSign, dreadwoodWallSign, dreadwoodHangingSign, dreadwoodWallHangingSign,
-
-    //loot blocks
-    potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, potDesert, potDesertHandles, cryptPot, decoratedCryptPot,
 
     //other
     valoriaPortal, valoriaPortalFrame, grave, tomb, mossyTomb, woodenTomb, mossyWoodenTomb, sarcophagus, umbralKeypad, umbralActivator, umbralBlock, cutUmbralBlock, umbralBricks, quicksand, bronzeLamp, decoratedBronzeLamp, bronzeLampBlock,
@@ -556,6 +555,16 @@ public class BlockRegistry{
         potLongMossyHandles = registerBlock("pot_long_mossy_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLongMossy).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
         potDesert = registerBlock("pot_desert", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
         potDesertHandles = registerBlock("pot_desert_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potDesert).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        
+        potCaveSmall = registerBlock("pot_cave_small", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potCaveSmallHandles = registerBlock("pot_cave_small_handles", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potCaveLong = registerBlock("pot_cave_long", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potCaveLongHandles = registerBlock("pot_cave_long_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potDeepslateSmall = registerBlock("pot_deepslate_small", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potDeepslateSmallHandles = registerBlock("pot_deepslate_small_handles", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potDeepslateLong = registerBlock("pot_deepslate_long", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potDeepslateLongHandles = registerBlock("pot_deepslate_long_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        
         cryptPot = registerBlock("crypt_pot", BlockRegistry::cryptPot);
         decoratedCryptPot = registerBlock("decorated_crypt_pot", BlockRegistry::cryptPot);
 

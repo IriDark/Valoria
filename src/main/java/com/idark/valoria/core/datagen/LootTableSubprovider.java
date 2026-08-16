@@ -23,18 +23,6 @@ import java.util.function.*;
 public class LootTableSubprovider extends BlockLootSubProvider {
     public final List<Block> blocks = new ArrayList<>();
 
-    private static final Set<Block> IGNORED_BLOCKS = Set.of(
-        BlockRegistry.cryptPot.get(),
-        BlockRegistry.decoratedCryptPot.get(),
-        BlockRegistry.potSmall.get(),
-        BlockRegistry.potLong.get(),
-        BlockRegistry.potLongMossy.get(),
-        BlockRegistry.potLongMossyHandles.get(),
-        BlockRegistry.potDesert.get(),
-        BlockRegistry.potDesertHandles.get()
-    );
-
-
     public LootTableSubprovider() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
@@ -60,6 +48,25 @@ public class LootTableSubprovider extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         return blocks;
     }
+
+    private final Set<Block> ignoredBlocks = Set.of(
+        BlockRegistry.cryptPot.get(),
+        BlockRegistry.decoratedCryptPot.get(),
+        BlockRegistry.potSmall.get(),
+        BlockRegistry.potLong.get(),
+        BlockRegistry.potLongMossy.get(),
+        BlockRegistry.potLongMossyHandles.get(),
+        BlockRegistry.potDesert.get(),
+        BlockRegistry.potDesertHandles.get(),
+        BlockRegistry.potCaveSmall.get(),
+        BlockRegistry.potCaveSmallHandles.get(),
+        BlockRegistry.potCaveLong.get(),
+        BlockRegistry.potCaveLongHandles.get(),
+        BlockRegistry.potDeepslateSmall.get(),
+        BlockRegistry.potDeepslateSmallHandles.get(),
+        BlockRegistry.potDeepslateLong.get(),
+        BlockRegistry.potDeepslateLongHandles.get()
+    );
 
     @Override
     protected void generate() {
@@ -116,16 +123,12 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.dropItem(BlockRegistry.driedPlant.get(), Items.STICK);
         this.dropItem(BlockRegistry.driedRoots.get(), Items.STICK);
         for (RegistryObject<Block> entry : BlockRegistry.BLOCK.getEntries()){
-            if (IGNORED_BLOCKS.contains(entry.get())) {
+            Block block = entry.get();
+            if (ignoredBlocks.contains(block) || block.getLootTable().equals(BuiltInLootTables.EMPTY)) {
                 continue;
             }
 
-            Block block = entry.get();
             if(!this.blocks.contains(block)){
-                if (block.getLootTable().equals(BuiltInLootTables.EMPTY)) {
-                    continue;
-                }
-
                 if(block instanceof SlabBlock slab){
                     this.add(slab, b -> createSlabItemTable(b));
                 }else if(block instanceof DoorBlock door){
