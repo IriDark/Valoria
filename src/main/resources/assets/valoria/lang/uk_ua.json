@@ -1679,5 +1679,9 @@
   "tooltip.valoria.timed.instant": "Instant",
   "tooltip.valoria.eye_necklace": "Reacts to light levels. Closes in the dark, inflicting a debuff on the wearer.",
   "tooltip.valoria.celestial": "Reacts to the time of day, granting buffs or debuffs depending on the current phase.",
-  "message.valoria.not_enough_minion_slots": "Not enough minion slots"
+  "message.valoria.not_enough_minion_slots": "Not enough minion slots",
+  "advancements.valoria.lumberjack.title": "Lumberjack",
+  "advancements.valoria.lumberjack.description": "Use an axe to pierce the bark of an Ent.",
+  "advancements.valoria.stonemason.title": "Stonemason",
+  "advancements.valoria.stonemason.description": "Slay a Golem using a pickaxe."
 }
