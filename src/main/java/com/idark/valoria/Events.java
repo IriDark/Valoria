@@ -405,9 +405,9 @@ public class Events{
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof Player){
-            event.addCapability(new ResourceLocation(Valoria.ID, "pages"), new UnloackbleCap());
-            event.addCapability(new ResourceLocation(Valoria.ID, "nihility_level"), new NihilityLevelCap());
-            event.addCapability(new ResourceLocation(Valoria.ID, "magma_level"), new MagmaLevelCap());
+            event.addCapability(Valoria.loc("pages"), new UnloackbleCap());
+            event.addCapability(Valoria.loc("nihility_level"), new NihilityLevelCap());
+            event.addCapability(Valoria.loc("magma_level"), new MagmaLevelCap());
         }
     }
 

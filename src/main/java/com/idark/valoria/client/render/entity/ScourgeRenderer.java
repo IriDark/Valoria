@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ScourgeRenderer extends MobRenderer<ScourgeEntity, ScourgeModel<ScourgeEntity>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/scourge.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/scourge.png");
 
     public ScourgeRenderer(EntityRendererProvider.Context context){
         super(context, new ScourgeModel<>(ScourgeModel.createBodyLayer().bakeRoot()), 0.35F);

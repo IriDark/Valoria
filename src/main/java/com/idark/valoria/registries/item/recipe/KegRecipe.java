@@ -1,20 +1,18 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.idark.valoria.Valoria;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
+import com.google.gson.*;
+import com.idark.valoria.*;
+import net.minecraft.core.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.*;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 public class KegRecipe implements Recipe<Container>{
     private final NonNullList<Ingredient> inputs;
@@ -85,7 +83,7 @@ public class KegRecipe implements Recipe<Container>{
 
     public static class Serializer implements RecipeSerializer<KegRecipe>{
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "keg_brewery");
+        public static final ResourceLocation ID = Valoria.loc("keg_brewery");
 
         private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray){
             NonNullList<Ingredient> nonnulllist = NonNullList.create();

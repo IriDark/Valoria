@@ -17,7 +17,7 @@ import net.minecraft.world.item.*;
 import java.util.*;
 
 public class KegScreen extends AbstractContainerScreen<KegMenu>{
-    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/keg_brewery.png");
+    private final ResourceLocation GUI = Valoria.loc("textures/gui/container/keg_brewery.png");
 
     public KegScreen(KegMenu screenContainer, Inventory inv, Component titleIn){
         super(screenContainer, inv, titleIn);

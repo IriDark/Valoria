@@ -8,7 +8,6 @@ import com.idark.valoria.client.ui.screen.book.pages.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.npc.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.item.*;
@@ -132,7 +131,7 @@ public class CodexEntries{
         VALORIA_PORTAL = new Chapter(
         "codex.valoria.valoria_portal.name",
         new GeneralPage("codex.valoria.valoria_portal"),
-        new GeneralPage().addImage(new ResourceLocation(Valoria.ID, "textures/gui/book/valoria_portal.png"), 124, 124));
+        new GeneralPage().addImage(Valoria.loc("textures/gui/book/valoria_portal.png"), 124, 124));
 
         PICK = new Chapter(
         "codex.valoria.pick.name",
@@ -429,7 +428,7 @@ public class CodexEntries{
         CRYPT = new Chapter(
         "codex.valoria.crypt.name",
         new GeneralPage("codex.valoria.crypt"),
-        new GeneralPage("codex.valoria.crypt_continuation").hideTitle().addImage(new ResourceLocation(Valoria.ID, "textures/gui/book/crypt.png"), -5, -25, 128, 128));
+        new GeneralPage("codex.valoria.crypt_continuation").hideTitle().addImage(Valoria.loc("textures/gui/book/crypt.png"), -5, -25, 128, 128));
 
         FORTRESS = new Chapter(
         "codex.valoria.fortress.name",

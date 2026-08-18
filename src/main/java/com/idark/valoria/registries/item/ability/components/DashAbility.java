@@ -8,7 +8,6 @@ import com.idark.valoria.registries.item.ability.*;
 import com.idark.valoria.registries.item.ability.AbilityComponent;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
@@ -30,7 +29,7 @@ import pro.komaru.tridot.util.struct.data.*;
 import java.lang.Math;
 
 public class DashAbility extends AbilityComponent {
-    public static final AbilityType<DashAbility> TYPE = new AbilityType<>(new ResourceLocation(Valoria.ID, "dash")) {
+    public static final AbilityType<DashAbility> TYPE = new AbilityType<>(Valoria.loc("dash")) {
         @Override
         public DashAbility createInstance() {
             return new DashAbility();
@@ -119,7 +118,7 @@ public class DashAbility extends AbilityComponent {
             performDash(stack, level, player, pos, rand);
             level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1F, 1F);
             if(level.isClientSide){
-                OverlayHandler.addInstance(new TimedOverlayInstance().setTexture(new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png")).setShowTime(25).setFadeIn(0));
+                OverlayHandler.addInstance(new TimedOverlayInstance().setTexture(Valoria.loc("textures/gui/overlay/speedlines.png")).setShowTime(25).setFadeIn(0));
             }
         }
 

@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class CorruptedRenderer extends MobRenderer<Corrupted, CorruptedModel<Corrupted>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/corrupted.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/corrupted.png");
 
     public CorruptedRenderer(EntityRendererProvider.Context context){
         super(context, new CorruptedModel<>(CorruptedModel.createBodyLayer().bakeRoot()), 0.4F);

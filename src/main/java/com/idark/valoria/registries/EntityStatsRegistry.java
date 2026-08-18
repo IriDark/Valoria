@@ -23,41 +23,41 @@ public class EntityStatsRegistry{
 
     //bosses
     public static AttributeSupplier NECROMANCER = register(500, 5).build();
-    public static AttributeSupplier DRYADOR = register(1000, 4, 0.10).add(Attributes.FOLLOW_RANGE, 20).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).build();
-    public static AttributeSupplier FIRRON = register(1250, 10, 0.20).add(Attributes.FOLLOW_RANGE, 20).add(Attributes.ARMOR, 20).add(Attributes.ARMOR_TOUGHNESS, 5).build();
+    public static AttributeSupplier DRYADOR = register(750, 4, 0.10).add(Attributes.FOLLOW_RANGE, 20).build();
+    public static AttributeSupplier FIRRON = register(1250, 10, 0.20).add(Attributes.FOLLOW_RANGE, 20).add(Attributes.ARMOR, 10).add(Attributes.ARMOR_TOUGHNESS, 2).build();
     public static AttributeSupplier WICKED_CRYSTAL = register(2000, 0).build();
 
     //monsters - overworld
-    public static AttributeSupplier GOBLIN = register(25, 5, 0.17).build();
-    public static AttributeSupplier TROLL = register(30, 6).build();
+    public static AttributeSupplier GOBLIN = register(10, 2, 0.17).build();
+    public static AttributeSupplier TROLL = register(25, 5).build();
     public static AttributeSupplier DRAUGR = register(30, 5).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.FOLLOW_RANGE, 20).build();
-    public static AttributeSupplier SWAMP_WANDERER = register(35, 8).add(Attributes.KNOCKBACK_RESISTANCE, Tmp.rnd.nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
-    public static AttributeSupplier SCOURGE = register(45, 6, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
+    public static AttributeSupplier SWAMP_WANDERER = register(20, 8).add(Attributes.KNOCKBACK_RESISTANCE, Tmp.rnd.nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
+    public static AttributeSupplier SCOURGE = register(35, 5, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).build();
     public static AttributeSupplier ENT = register(50, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.5).build();
-    public static AttributeSupplier NATURE_GOLEM = register(125, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
-    public static AttributeSupplier RIVER_GOLEM = register(125, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
-    public static AttributeSupplier SORCERER = register(25, 1.5).build();
-    public static AttributeSupplier MAGGOT = register(6, 3.5).build();
+    public static AttributeSupplier NATURE_GOLEM = register(75, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
+    public static AttributeSupplier RIVER_GOLEM = register(75, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
+    public static AttributeSupplier SORCERER = register(15, 1.5).build();
+    public static AttributeSupplier MAGGOT = register(5, 2).build();
     public static AttributeSupplier KING_CRAB = register(50, 5).add(Attributes.FOLLOW_RANGE, 20).build();
 
     //minions - overworld
     public static AttributeSupplier UNDEAD = registerFlying(8, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
-    public static AttributeSupplier PIXIE = registerFlying(15, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
+    public static AttributeSupplier PIXIE = registerFlying(10, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
     public static AttributeSupplier DEVIL = register(35, 1).add(Attributes.FOLLOW_RANGE, 18).build();
 
     //monsters - valoria
-    public static AttributeSupplier SHADEWOOD_SPIDER = register(40, 4, 0.35).add(Attributes.FOLLOW_RANGE, 18).build();
-    public static AttributeSupplier CORRUPTED_TROLL = register(45, 12).build();
-    public static AttributeSupplier CORRUPTED = register(60, 6.5).add(Attributes.FOLLOW_RANGE, 18).build();
-    public static AttributeSupplier WICKED_SCORPION = register(85, 5).add(Attributes.FOLLOW_RANGE, 15).build();
+    public static AttributeSupplier SHADEWOOD_SPIDER = register(35, 4, 0.35).add(Attributes.FOLLOW_RANGE, 18).build();
+    public static AttributeSupplier CORRUPTED_TROLL = register(35, 6).build();
+    public static AttributeSupplier CORRUPTED = register(50, 8).add(Attributes.FOLLOW_RANGE, 18).build();
+    public static AttributeSupplier WICKED_SCORPION = register(85, 4).add(Attributes.FOLLOW_RANGE, 15).build();
 
     //animals - valoria
-    public static AttributeSupplier SCAVENGER = register(65, 10).add(Attributes.FOLLOW_RANGE, 15).build();
+    public static AttributeSupplier SCAVENGER = register(25, 5).add(Attributes.FOLLOW_RANGE, 15).build();
 
     //minions - valoria
-    public static AttributeSupplier FLESH_SENTINEL = registerFlying(20, 12.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
+    public static AttributeSupplier FLESH_SENTINEL = registerFlying(20, 4, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
     public static AttributeSupplier WICKED_SHIELD = registerFlying(25, 0, 0.85).build();
     public static AttributeSupplier CRYSTAL = registerFlying(35, 0, 0.85).build();
 

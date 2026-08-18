@@ -9,13 +9,12 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import pro.komaru.tridot.client.*;
 
 public class KegBlockEntityRenderer implements BlockEntityRenderer<KegBlockEntity>{
 
-    public static final ModelResourceLocation KEG_BARREL = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "keg_barrel"), "");
+    public static final ModelResourceLocation KEG_BARREL = new ModelResourceLocation(Valoria.loc("keg_barrel"), "");
 
     public KegBlockEntityRenderer(){
     }

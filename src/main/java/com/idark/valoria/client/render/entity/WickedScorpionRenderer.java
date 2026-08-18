@@ -10,12 +10,12 @@ import net.minecraft.resources.*;
 import pro.komaru.tridot.client.model.render.entity.*;
 
 public class WickedScorpionRenderer extends MobRenderer<WickedScorpion, WickedScorpionModel<WickedScorpion>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/wicked_scorpion.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/wicked_scorpion.png");
 
     public WickedScorpionRenderer(EntityRendererProvider.Context context){
         super(context, new WickedScorpionModel<>(WickedScorpionModel.createBodyLayer().bakeRoot()), 0.75F);
         this.addLayer(new LuminescentLayer.Builder<>(this)
-                .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/wicked_scorpion_eyes.png"))
+                .setTexture(Valoria.loc("textures/entity/wicked_scorpion_eyes.png"))
                 .build());
     }
 

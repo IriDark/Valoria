@@ -6,7 +6,6 @@ import jeresources.api.*;
 import jeresources.compatibility.api.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;
-import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 
@@ -20,10 +19,10 @@ public class JerCompat {
         if (clientLevel != null) {
             IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
             if (mobRegistry != null) {
-                mobRegistry.register(EntityTypeRegistry.WICKED_CRYSTAL.get().create(clientLevel), new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"));
-                mobRegistry.register(EntityTypeRegistry.DRYADOR.get().create(clientLevel), new ResourceLocation(Valoria.ID, "items/dryador_treasure_bag"));
-                mobRegistry.register(EntityTypeRegistry.NECROMANCER.get().create(clientLevel), new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"));
-                mobRegistry.register(EntityTypeRegistry.FIRRON.get().create(clientLevel), new ResourceLocation(Valoria.ID, "items/firron_treasure_bag"));
+                mobRegistry.register(EntityTypeRegistry.WICKED_CRYSTAL.get().create(clientLevel), Valoria.loc("items/wicked_crystal_treasure_bag"));
+                mobRegistry.register(EntityTypeRegistry.DRYADOR.get().create(clientLevel), Valoria.loc("items/dryador_treasure_bag"));
+                mobRegistry.register(EntityTypeRegistry.NECROMANCER.get().create(clientLevel), Valoria.loc("items/necromancer_treasure_bag"));
+                mobRegistry.register(EntityTypeRegistry.FIRRON.get().create(clientLevel), Valoria.loc("items/firron_treasure_bag"));
             }
         }
     }
@@ -35,15 +34,15 @@ public class JerCompat {
     }
 
     private static void dungeonRegistry(IDungeonRegistry dungeonRegistry){
-        dungeonRegistry.registerChest("Fortress", new ResourceLocation(Valoria.ID, "chests/fortress"));
-        dungeonRegistry.registerChest("Fortress Good", new ResourceLocation(Valoria.ID, "chests/fortress_good"));
-        dungeonRegistry.registerChest("Fortress Normal", new ResourceLocation(Valoria.ID, "chests/fortress_normal"));
+        dungeonRegistry.registerChest("Fortress", Valoria.loc("chests/fortress"));
+        dungeonRegistry.registerChest("Fortress Good", Valoria.loc("chests/fortress_good"));
+        dungeonRegistry.registerChest("Fortress Normal", Valoria.loc("chests/fortress_normal"));
 
-        dungeonRegistry.registerChest("Crypt", new ResourceLocation(Valoria.ID, "chests/crypt"));
-        dungeonRegistry.registerChest("Crypt Sarcophagus", new ResourceLocation(Valoria.ID, "items/sarcophagus"));
-        dungeonRegistry.registerChest("Necromancer Crypt", new ResourceLocation(Valoria.ID, "chests/necromancer_crypt"));
-        dungeonRegistry.registerChest("Crystallized Deep Ruins", new ResourceLocation(Valoria.ID, "chests/crystallized_deep_ruins"));
-        dungeonRegistry.registerChest("Fractured Skull", new ResourceLocation(Valoria.ID, "chests/fractured_skull"));
-        dungeonRegistry.registerChest("Monstrosity", new ResourceLocation(Valoria.ID, "chests/monstrosity"));
+        dungeonRegistry.registerChest("Crypt", Valoria.loc("chests/crypt"));
+        dungeonRegistry.registerChest("Crypt Sarcophagus", Valoria.loc("items/sarcophagus"));
+        dungeonRegistry.registerChest("Necromancer Crypt", Valoria.loc("chests/necromancer_crypt"));
+        dungeonRegistry.registerChest("Crystallized Deep Ruins", Valoria.loc("chests/crystallized_deep_ruins"));
+        dungeonRegistry.registerChest("Fractured Skull", Valoria.loc("chests/fractured_skull"));
+        dungeonRegistry.registerChest("Monstrosity", Valoria.loc("chests/monstrosity"));
     }
 }

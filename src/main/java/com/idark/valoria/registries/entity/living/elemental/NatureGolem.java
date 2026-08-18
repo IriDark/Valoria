@@ -55,9 +55,9 @@ public class NatureGolem extends AbstractElementalGolem{
     }
 
     public enum Variant implements StringRepresentable{
-        DEFAULT(0, "default", new ResourceLocation(Valoria.ID, "textures/entity/nature_golem.png")),
-        MOSSY_0(1, "mossy_0", new ResourceLocation(Valoria.ID, "textures/entity/nature_golem_moss_0.png")),
-        MOSSY_1(2, "mossy_1", new ResourceLocation(Valoria.ID, "textures/entity/nature_golem_moss_1.png"));
+        DEFAULT(0, "default", Valoria.loc("textures/entity/nature_golem.png")),
+        MOSSY_0(1, "mossy_0", Valoria.loc("textures/entity/nature_golem_moss_0.png")),
+        MOSSY_1(2, "mossy_1", Valoria.loc("textures/entity/nature_golem_moss_1.png"));
 
         private static final IntFunction<Variant> BY_ID = ByIdMap.continuous(Variant::getId, values(), OutOfBoundsStrategy.ZERO);
         public final ResourceLocation texture;

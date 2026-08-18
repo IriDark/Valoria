@@ -29,7 +29,7 @@ import java.util.*;
 import static net.minecraftforge.registries.ForgeRegistries.Keys.ENTITY_TYPES;
 
 public class SummonBook extends Item {
-    private static final ResourceKey<EntityType<?>> DEFAULT_VARIANT = ResourceKey.create(ENTITY_TYPES, new ResourceLocation(Valoria.ID, "undead"));
+    private static final ResourceKey<EntityType<?>> DEFAULT_VARIANT = ResourceKey.create(ENTITY_TYPES, Valoria.loc("undead"));
 
     protected final int slotCost;
 

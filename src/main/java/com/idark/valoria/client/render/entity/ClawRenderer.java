@@ -16,7 +16,7 @@ import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ClawRenderer extends EntityRenderer<ClawEntity>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/projectile/claw.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/projectile/claw.png");
     private final ClawModel<ClawEntity> model;
 
     public ClawRenderer(EntityRendererProvider.Context pContext){

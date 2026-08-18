@@ -6,7 +6,6 @@ import com.idark.valoria.registries.level.*;
 import com.mojang.logging.*;
 import com.mojang.serialization.*;
 import net.minecraft.core.*;
-import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
@@ -109,7 +108,7 @@ public class ValoriaMonsterRoomFeature extends Feature<NoneFeatureConfiguration>
 
                         if(j3 == 1){
                             this.safeSetBlock(worldgenlevel, blockpos2, StructurePiece.reorient(worldgenlevel, blockpos2, Blocks.CHEST.defaultBlockState()), predicate);
-                            RandomizableContainerBlockEntity.setLootTable(worldgenlevel, randomsource, blockpos2, new ResourceLocation(Valoria.ID, "chests/dungeon"));
+                            RandomizableContainerBlockEntity.setLootTable(worldgenlevel, randomsource, blockpos2, Valoria.loc("chests/dungeon"));
                             break;
                         }
                     }

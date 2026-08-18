@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render;
+package com.idark.valoria.client.render.layers;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;

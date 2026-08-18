@@ -1,7 +1,6 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
-import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.eventbus.api.*;
@@ -179,7 +178,7 @@ public class SoundsRegistry{
     }
 
     public static RegistryObject<SoundEvent> registerSound(String name){
-        return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.ID, name)));
+        return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(Valoria.loc(name)));
     }
 
     public static void register(IEventBus eventBus){

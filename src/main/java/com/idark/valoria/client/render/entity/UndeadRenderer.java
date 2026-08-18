@@ -1,21 +1,19 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.UndeadModel;
-import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.registries.entity.living.minions.*;
+import net.minecraft.client.model.geom.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.layers.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class UndeadRenderer extends MobRenderer<UndeadEntity, UndeadModel>{
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/undead.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/undead.png");
 
     public UndeadRenderer(EntityRendererProvider.Context p_174435_){
         super(p_174435_, new UndeadModel(p_174435_.bakeLayer(ModelLayers.VEX)), 0.3F);

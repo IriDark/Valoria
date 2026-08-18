@@ -14,7 +14,7 @@ import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class CrystalSpikesRenderer extends EntityRenderer<CrystalSpikes>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/crystal_spikes.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/crystal_spikes.png");
     private final CrystalSpikesModel<CrystalSpikes> model;
 
     public CrystalSpikesRenderer(EntityRendererProvider.Context pContext){

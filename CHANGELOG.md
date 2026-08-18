@@ -15,6 +15,7 @@
 - Added Sun Necklace
 - Added Celestial Necklace
 - Added ServerConfig values to edit Pot spawn chances and tries per chunk
+- Added 2 new advancements that will describe damage scaling
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
@@ -52,6 +53,8 @@
 - Changed Healing flask recipe
 - Slightly Increased Ent spawn
 - Slightly Decreased Nature Golem spawn
+- Mob balance changes
+- Mob spawnrate changes
 - Increased Ancient shard generation chances
 - Increased Nature Gift drop from Nature Golems
 - Increased Oceanic shell drop from River Golems

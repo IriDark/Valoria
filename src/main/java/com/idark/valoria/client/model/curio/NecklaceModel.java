@@ -5,14 +5,13 @@ import com.idark.valoria.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 
 public class NecklaceModel extends HumanoidModel<LivingEntity>{
     public ModelPart root, model;
-    public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "amulet"), "main");
+    public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(Valoria.loc("amulet"), "main");
 
     public NecklaceModel(ModelPart root){
         super(root);

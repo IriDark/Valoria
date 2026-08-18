@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.client.*;
 
 public class BeltRenderer implements ICurioRenderer{
-    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/necklace/empty.png");
+    public static ResourceLocation TEXTURE = Valoria.loc("textures/entity/necklace/empty.png");
 
     BeltModel model = null;
 

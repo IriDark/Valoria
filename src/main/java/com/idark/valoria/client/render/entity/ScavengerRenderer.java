@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 
 public class ScavengerRenderer extends MobRenderer<Scavenger, ScavengerModel<Scavenger>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/scavenger.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/scavenger.png");
 
     public ScavengerRenderer(EntityRendererProvider.Context context){
         super(context, new ScavengerModel<>(ScavengerModel.createBodyLayer().bakeRoot()), 0.75f);

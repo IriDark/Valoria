@@ -1,23 +1,20 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.DevourerModel;
-import com.idark.valoria.registries.entity.projectile.Devourer;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class DevourerRenderer extends EntityRenderer<Devourer>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/devourer.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/devourer.png");
     private final DevourerModel<Devourer> model;
 
     public DevourerRenderer(EntityRendererProvider.Context pContext){

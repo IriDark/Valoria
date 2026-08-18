@@ -15,7 +15,7 @@ import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class CrystalShardRenderer extends EntityRenderer<CrystalShard>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/crystal_spikes.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/crystal_spikes.png");
     private final CrystalShardModel<CrystalShard> model;
 
     public CrystalShardRenderer(EntityRendererProvider.Context pContext){

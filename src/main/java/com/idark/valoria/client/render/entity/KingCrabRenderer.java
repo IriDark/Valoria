@@ -13,8 +13,8 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class KingCrabRenderer extends MobRenderer<KingCrabEntity, KingCrabModel<KingCrabEntity>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/king_crab.png");
-    protected static final ResourceLocation TEXTURE_SHIELDED = new ResourceLocation(Valoria.ID, "textures/entity/king_crab_shielded.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/king_crab.png");
+    protected static final ResourceLocation TEXTURE_SHIELDED = Valoria.loc("textures/entity/king_crab_shielded.png");
 
     public KingCrabRenderer(EntityRendererProvider.Context context){
         super(context, new KingCrabModel<>(KingCrabModel.createBodyLayer().bakeRoot()), 0.8F);

@@ -7,12 +7,11 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import pro.komaru.tridot.client.*;
 
 public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCystBlockEntity>{
-    public static final ModelResourceLocation CYST = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "cyst"), "");
+    public static final ModelResourceLocation CYST = new ModelResourceLocation(Valoria.loc("cyst"), "");
 
     public FleshCystBlockEntityRenderer(){
     }

@@ -16,8 +16,8 @@ import static pro.komaru.tridot.client.render.TridotRenderTypes.getDelayedRender
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaPortalRenderer<T extends ValoriaPortalBlockEntity> implements BlockEntityRenderer<T>{
-    public static final ResourceLocation BACKGROUND_LOC = new ResourceLocation(Valoria.ID, "textures/environment/valoria_portal.png");
-    public static final ResourceLocation LAYER_LOC = new ResourceLocation(Valoria.ID, "textures/environment/valoria_portal_layer2.png");
+    public static final ResourceLocation BACKGROUND_LOC = Valoria.loc("textures/environment/valoria_portal.png");
+    public static final ResourceLocation LAYER_LOC = Valoria.loc("textures/environment/valoria_portal_layer2.png");
 
     public ValoriaPortalRenderer(BlockEntityRendererProvider.Context pContext){
     }

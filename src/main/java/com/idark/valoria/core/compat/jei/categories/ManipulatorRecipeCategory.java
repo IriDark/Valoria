@@ -26,7 +26,7 @@ public class ManipulatorRecipeCategory extends AbstractRecipeCategory<Manipulato
 
     public ManipulatorRecipeCategory(IGuiHelper helper){
         super(ModRecipeTypes.MANIPULATOR, Component.translatable("jei.valoria.manipulator"), helper.createDrawableItemLike(BlockRegistry.elementalManipulator.get()), 148, 48);
-        ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/manipulator.png");
+        ResourceLocation backgroundImage = Valoria.loc("textures/gui/jei/manipulator.png");
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
     }
 
@@ -49,11 +49,11 @@ public class ManipulatorRecipeCategory extends AbstractRecipeCategory<Manipulato
         String time = Integer.toString(seconds);
         int stringWidth = font_renderer.width(time);
 
-        ResourceLocation timeIcon = new ResourceLocation(Valoria.ID, "textures/gui/jei/time.png");
+        ResourceLocation timeIcon = Valoria.loc("textures/gui/jei/time.png");
         gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
 
-        ResourceLocation cores = new ResourceLocation(Valoria.ID, "textures/gui/container/manipulator.png");
-        ResourceLocation arrow = new ResourceLocation(Valoria.ID, "textures/gui/jei/progress_arrow.png");
+        ResourceLocation cores = Valoria.loc("textures/gui/container/manipulator.png");
+        ResourceLocation arrow = Valoria.loc("textures/gui/jei/progress_arrow.png");
         int width = 22;
         if(ClientTick.ticksInGame % recipe.getTime() > 0){
             width /= ((double)recipe.getTime() / (double)(ClientTick.ticksInGame % recipe.getTime()));

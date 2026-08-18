@@ -69,6 +69,6 @@ public class PyratiteArrow extends AbstractProjectile implements TexturedArrow{
 
     @Override
     public ResourceLocation getTexture(){
-        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/pyratite_arrow.png");
+        return Valoria.loc("textures/entity/projectile/arrow/pyratite_arrow.png");
     }
 }

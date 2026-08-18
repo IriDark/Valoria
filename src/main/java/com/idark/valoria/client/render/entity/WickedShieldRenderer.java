@@ -12,7 +12,7 @@ import pro.komaru.tridot.client.*;
 
 @OnlyIn(Dist.CLIENT)
 public class WickedShieldRenderer extends MobRenderer<WickedShield, WickedShieldModel<WickedShield>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/item/wicked_shield.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/item/wicked_shield.png");
 
     public WickedShieldRenderer(EntityRendererProvider.Context context){
         super(context, new WickedShieldModel<>(WickedShieldModel.createBodyLayer().bakeRoot()), 0.0F);

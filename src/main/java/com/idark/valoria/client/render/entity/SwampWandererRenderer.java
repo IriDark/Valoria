@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class SwampWandererRenderer extends HumanoidMobRenderer<SwampWandererEntity, SwampWandererModel<SwampWandererEntity>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/swamp_wanderer.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/swamp_wanderer.png");
 
     public SwampWandererRenderer(EntityRendererProvider.Context context){
         super(context, new SwampWandererModel<>(SwampWandererModel.createBodyLayer().bakeRoot()), 0.5F);

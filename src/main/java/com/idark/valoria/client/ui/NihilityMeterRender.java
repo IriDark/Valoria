@@ -22,7 +22,7 @@ import pro.komaru.tridot.util.math.*;
 @OnlyIn(Dist.CLIENT)
 public class NihilityMeterRender extends Gui{
     private final long DISPLAY_DURATION = 100L;
-    public final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/gui/nihility_meter.png");
+    public final ResourceLocation TEXTURE = Valoria.loc("textures/gui/nihility_meter.png");
     float animTime = 15;
     private boolean isHiding = false;
     private long counter = DISPLAY_DURATION;

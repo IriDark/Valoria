@@ -14,7 +14,7 @@ import java.util.*;
 @OnlyIn(Dist.CLIENT)
 public class MusicToast implements Toast{
     public static MusicToast instance;
-    public ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/gui/music_toast.png");
+    public ResourceLocation TEXTURE = Valoria.loc("textures/gui/music_toast.png");
     public String music;
     public String author;
 

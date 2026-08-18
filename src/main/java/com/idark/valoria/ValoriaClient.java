@@ -35,7 +35,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.player.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -194,7 +193,7 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e){
-            e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects());
+            e.register(Valoria.loc("valoria_sky"), new ValoriaEffects());
         }
 
         @SubscribeEvent
@@ -348,14 +347,14 @@ public class ValoriaClient{
             handsSlim = new HandsModelSlim(event.getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER_SLIM));
             PlayerRenderer defaultRenderer = event.getSkin("default");
             if (defaultRenderer != null) {
-                defaultRenderer.addLayer(new StunEffectLayer(defaultRenderer));
-                defaultRenderer.addLayer(new NihilityProtectionLayer(defaultRenderer));
+                // defaultRenderer.addLayer(new StunEffectLayer(defaultRenderer));
+                // defaultRenderer.addLayer(new NihilityProtectionLayer(defaultRenderer));
             }
 
             PlayerRenderer slimRenderer = event.getSkin("slim");
             if (slimRenderer != null) {
-                slimRenderer.addLayer(new StunEffectLayer(slimRenderer));
-                slimRenderer.addLayer(new NihilityProtectionLayer(slimRenderer));
+                // slimRenderer.addLayer(new StunEffectLayer(slimRenderer));
+                // slimRenderer.addLayer(new NihilityProtectionLayer(slimRenderer));
             }
         }
 
@@ -404,3 +403,4 @@ public class ValoriaClient{
         }
     }
 }
+

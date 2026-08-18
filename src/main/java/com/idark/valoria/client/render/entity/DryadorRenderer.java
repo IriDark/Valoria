@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 
 public class DryadorRenderer extends MobRenderer<DryadorEntity, DryadorModel<DryadorEntity>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/dryador.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/dryador.png");
 
     public DryadorRenderer(EntityRendererProvider.Context context){
         super(context, new DryadorModel<>(DryadorModel.createBodyLayer().bakeRoot()), 0.75F);

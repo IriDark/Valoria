@@ -331,17 +331,17 @@ public class ItemsRegistry{
         // loot bags
         dirtGeode = registerItem("dirt_geode", () -> new CrushableItem(new Item.Properties().rarity(Rarity.RARE)));
         stoneGeode = registerItem("stone_geode", () -> new CrushableItem(new Item.Properties().rarity(Rarity.RARE)));
-        starterBundle = registerItem("starter_bundle", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/start"), new Item.Properties().rarity(Rarity.UNCOMMON)));
-        redEnvelopeCommon = registerItem("red_envelope_common", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_common"), new Item.Properties().rarity(Rarity.COMMON)));
-        redEnvelopeUncommon = registerItem("red_envelope_uncommon", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_uncommon"), new Item.Properties().rarity(Rarity.UNCOMMON)));
-        redEnvelopeRare = registerItem("red_envelope_rare", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_rare"), new Item.Properties().rarity(Rarity.RARE)));
-        redEnvelopeEpic = registerItem("red_envelope_epic", () -> new CardLootItem(new ResourceLocation(Valoria.ID, "items/red_envelope_epic"), new Item.Properties().rarity(Rarity.EPIC)));
-        minersBag = registerItem("miners_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
-        gemBag = registerItem("gem_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
-        necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
-        crystalTreasureBag = registerItem("wicked_crystal_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
-        dryadorTreasureBag = registerItem("dryador_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/dryador_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
-        firronTreasureBag = registerItem("firron_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/firron_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        starterBundle = registerItem("starter_bundle", () -> new TreasureBag(Valoria.loc("items/start"), new Item.Properties().rarity(Rarity.UNCOMMON)));
+        redEnvelopeCommon = registerItem("red_envelope_common", () -> new CardLootItem(Valoria.loc("items/red_envelope_common"), new Item.Properties().rarity(Rarity.COMMON)));
+        redEnvelopeUncommon = registerItem("red_envelope_uncommon", () -> new CardLootItem(Valoria.loc("items/red_envelope_uncommon"), new Item.Properties().rarity(Rarity.UNCOMMON)));
+        redEnvelopeRare = registerItem("red_envelope_rare", () -> new CardLootItem(Valoria.loc("items/red_envelope_rare"), new Item.Properties().rarity(Rarity.RARE)));
+        redEnvelopeEpic = registerItem("red_envelope_epic", () -> new CardLootItem(Valoria.loc("items/red_envelope_epic"), new Item.Properties().rarity(Rarity.EPIC)));
+        minersBag = registerItem("miners_bag", () -> new TreasureBag(Valoria.loc("items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        gemBag = registerItem("gem_bag", () -> new TreasureBag(Valoria.loc("items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(Valoria.loc("items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        crystalTreasureBag = registerItem("wicked_crystal_treasure_bag", () -> new TreasureBag(Valoria.loc("items/wicked_crystal_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        dryadorTreasureBag = registerItem("dryador_treasure_bag", () -> new TreasureBag(Valoria.loc("items/dryador_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        firronTreasureBag = registerItem("firron_treasure_bag", () -> new TreasureBag(Valoria.loc("items/firron_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
         // locators
         cryptLocator = registerItem("crypt_locator", () -> new StructureLocatorItem(Pal.seaGreen, TagsRegistry.NECROMANCER_CRYPT_LOCATOR, new Item.Properties()));
@@ -401,7 +401,7 @@ public class ItemsRegistry{
         // halloween
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
-        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).build());
+        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(Valoria.loc("textures/gui/overlay/roots.png")).build());
         reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
@@ -536,54 +536,54 @@ public class ItemsRegistry{
 
         // accessories
         ironChain = registerItem("iron_chain", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.05f, Operation.ADDITION))
         .build());
 
         ironNecklaceAmber = registerItem("iron_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.005f, Operation.ADDITION))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         ironNecklaceDiamond = registerItem("iron_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(2.5f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
         .build());
 
         ironNecklaceEmerald = registerItem("iron_necklace_emerald", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.LUCK, new AttributeData(1.45f, Operation.ADDITION))
         .build());
 
         ironNecklaceRuby = registerItem("iron_necklace_ruby", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(1f, Operation.ADDITION))
         .build());
 
         ironNecklaceSapphire = registerItem("iron_necklace_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .build());
 
         ironNecklaceHealth = registerItem("iron_necklace_health", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .build());
 
         ironNecklaceArmor = registerItem("iron_necklace_armor", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .build());
 
         ironNecklaceWealth = registerItem("iron_necklace_wealth", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.LUCK, new AttributeData(2.5f, Operation.ADDITION))
         .build());
 
         ironRogueNecklace = registerItem("iron_rogue_necklace", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.075f, Operation.MULTIPLY_TOTAL))
         .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(5f, Operation.ADDITION))
         .build());
@@ -593,7 +593,7 @@ public class ItemsRegistry{
         .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenEyeNecklace = registerItem("golden_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
@@ -601,7 +601,7 @@ public class ItemsRegistry{
         .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteEyeNecklace = registerItem("netherite_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
@@ -609,43 +609,43 @@ public class ItemsRegistry{
         .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         ironSunNecklace = registerItem("iron_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenSunNecklace = registerItem("golden_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteSunNecklace = registerItem("netherite_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         ironMoonNecklace = registerItem("iron_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
         .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenMoonNecklace = registerItem("golden_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
         .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteMoonNecklace = registerItem("netherite_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
         .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
         .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         ironCelestialNecklace = registerItem("iron_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.EPIC))
@@ -653,7 +653,7 @@ public class ItemsRegistry{
         .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenCelestialNecklace = registerItem("golden_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
@@ -661,7 +661,7 @@ public class ItemsRegistry{
         .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteCelestialNecklace = registerItem("netherite_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
@@ -669,127 +669,127 @@ public class ItemsRegistry{
         .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenChain = registerItem("golden_chain", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.1f, Operation.ADDITION))
         .build());
 
         goldenNecklaceAmber = registerItem("golden_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.01f, Operation.ADDITION))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         goldenNecklaceDiamond = registerItem("golden_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(3f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.75f, Operation.ADDITION))
         .build());
 
         goldenNecklaceEmerald = registerItem("golden_necklace_emerald", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.LUCK, new AttributeData(2f, Operation.ADDITION))
         .build());
 
         goldenNecklaceRuby = registerItem("golden_necklace_ruby", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(1.5f, Operation.ADDITION))
         .build());
 
         goldenNecklaceSapphire = registerItem("golden_necklace_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.075f, Operation.MULTIPLY_TOTAL))
         .build());
 
         goldenNecklaceHealth = registerItem("golden_necklace_health", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.08f, Operation.MULTIPLY_TOTAL))
         .build());
 
         goldenNecklaceArmor = registerItem("golden_necklace_armor", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.08f, Operation.MULTIPLY_TOTAL))
         .build());
 
         goldenNecklaceWealth = registerItem("golden_necklace_wealth", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.LUCK, new AttributeData(3.25f, Operation.ADDITION))
         .build());
 
         goldenRogueNecklace = registerItem("golden_rogue_necklace", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(10f, Operation.ADDITION))
         .build());
 
         netheriteChain = registerItem("netherite_chain", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.1f, Operation.ADDITION))
         .build());
 
         netheriteNecklaceAmber = registerItem("netherite_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.015f, Operation.ADDITION))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         netheriteNecklaceDiamond = registerItem("netherite_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(5f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
         .build());
 
         netheriteNecklaceEmerald = registerItem("netherite_necklace_emerald", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.LUCK, new AttributeData(2.75f, Operation.ADDITION))
         .build());
 
         netheriteNecklaceRuby = registerItem("netherite_necklace_ruby", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(2f, Operation.ADDITION))
         .build());
 
         netheriteNecklaceSapphire = registerItem("netherite_necklace_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .build());
 
         netheriteNecklaceHealth = registerItem("netherite_necklace_health", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.12f, Operation.MULTIPLY_TOTAL))
         .build());
 
         netheriteNecklaceArmor = registerItem("netherite_necklace_armor", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.12f, Operation.MULTIPLY_TOTAL))
         .build());
 
         netheriteNecklaceWealth = registerItem("netherite_necklace_wealth", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.LUCK, new AttributeData(5f, Operation.ADDITION))
         .build());
 
         netheriteRogueNecklace = registerItem("netherite_rogue_necklace", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.125f, Operation.MULTIPLY_TOTAL))
         .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(10f, Operation.ADDITION))
         .build());
 
         pickNecklace = registerItem("pick_necklace", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
+        .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(AttributeReg.EXCAVATION_SPEED, new AttributeData(3, Operation.ADDITION))
         .build());
 
         leatherBelt = registerItem("leather_belt", () -> new CurioAccessoryItem.Builder(ItemTierRegistry.NONE, new Properties().stacksTo(1).durability(250).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/body/"))
+        .setTexPath(Valoria.loc("textures/curio/body/"))
         .addSlot("charm", new AttributeData(1f, Operation.ADDITION))
         .build());
 
         samuraiBelt = registerItem("samurai_belt", () -> new CurioAccessoryItem.Builder(ItemTierRegistry.NONE, new Properties().stacksTo(1).durability(700).rarity(Rarity.EPIC))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/body/"))
+        .setTexPath(Valoria.loc("textures/curio/body/"))
         .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .build());
@@ -873,49 +873,49 @@ public class ItemsRegistry{
         .build());
 
         leatherGloves = registerItem("leather_gloves", () -> new DyeableGlovesItem.DyeableBuilder(ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.25f, Operation.ADDITION))
         .build());
 
         ironGloves = registerItem("iron_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.IRON, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.COMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(1.5f, Operation.ADDITION))
         .build());
 
         goldenGloves = registerItem("golden_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.GOLD, new Item.Properties().stacksTo(1).durability(150).rarity(Rarity.UNCOMMON))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(1.0f, Operation.ADDITION))
         .build());
 
         diamondGloves = registerItem("diamond_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.DIAMOND, new Item.Properties().stacksTo(1).durability(350).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(1.0f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(1.5f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
         .build());
 
         netheriteGloves = registerItem("netherite_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.NETHERITE, new Item.Properties().stacksTo(1).durability(800).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(1.5f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(2.0f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(1.0f, Operation.ADDITION))
         .build());
 
         magmaticGauntlet = registerItem("magmatic_gauntlet", () -> new GlovesItem.GlovesBuilder(Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(2.5f, Operation.ADDITION))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(4.0f, Operation.ADDITION))
         .addAttr(AttributeReg.INFERNAL_RESISTANCE, new AttributeData(5.0f, Operation.ADDITION))
         .build());
 
         skeletalVambrace = registerItem("skeletal_vambrace", () -> new GlovesItem.GlovesBuilder(ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(1.5f, Operation.ADDITION))
         .build());
 
         magmaticVambrace = registerItem("magmatic_vambrace", () -> new GlovesItem.GlovesBuilder(ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE))
-        .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/gloves/"))
+        .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(2.0f, Operation.ADDITION))
         .addAttr(AttributeReg.INFERNAL_RESISTANCE, new AttributeData(5f, Operation.ADDITION))
         .build());
@@ -1101,7 +1101,7 @@ public class ItemsRegistry{
     }
 
     public static void setupBook() {
-        ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/models/book/codex.png");
+        ResourceLocation texture = Valoria.loc("textures/models/book/codex.png");
         BookHandler.register(new Book(ItemsRegistry.codex.get().getDefaultInstance()) {
             public ResourceLocation getTexture(Level level, Vec3 pos, ItemStack itemStack, BookComponent component) {
                 return texture;

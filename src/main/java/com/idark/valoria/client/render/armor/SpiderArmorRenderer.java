@@ -7,7 +7,7 @@ import software.bernie.geckolib.model.*;
 import software.bernie.geckolib.renderer.*;
 
 public class SpiderArmorRenderer extends GeoArmorRenderer<SamuraiArmorItem>{
-    private static final ResourceLocation GEO = new ResourceLocation(Valoria.ID, "armor/spider");
+    private static final ResourceLocation GEO = Valoria.loc("armor/spider");
 
     public SpiderArmorRenderer() {
         super(new DefaultedItemGeoModel<>(GEO));

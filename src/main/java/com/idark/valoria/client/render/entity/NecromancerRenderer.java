@@ -18,7 +18,7 @@ import pro.komaru.tridot.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, NecromancerModel<NecromancerEntity>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/necromancer.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/necromancer.png");
 
     public NecromancerRenderer(EntityRendererProvider.Context context){
         super(context, new NecromancerModel<>(NecromancerModel.createBodyLayer().bakeRoot()), 0.4F);

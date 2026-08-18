@@ -10,9 +10,9 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class MaggotRenderer extends MobRenderer<MaggotEntity, SilverfishModel<MaggotEntity>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/maggot.png");
-    protected static final ResourceLocation TEXTURE_ROT = new ResourceLocation(Valoria.ID, "textures/entity/maggot_rot.png");
-    protected static final ResourceLocation TEXTURE_ROTTEN = new ResourceLocation(Valoria.ID, "textures/entity/maggot_rotten.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/maggot.png");
+    protected static final ResourceLocation TEXTURE_ROT = Valoria.loc("textures/entity/maggot_rot.png");
+    protected static final ResourceLocation TEXTURE_ROTTEN = Valoria.loc("textures/entity/maggot_rotten.png");
 
    public MaggotRenderer(EntityRendererProvider.Context p_174378_) {
       super(p_174378_, new SilverfishModel<>(p_174378_.bakeLayer(ModelLayers.SILVERFISH)), 0.3F);

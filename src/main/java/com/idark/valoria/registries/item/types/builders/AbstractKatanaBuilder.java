@@ -14,7 +14,7 @@ import net.minecraft.world.item.Item.*;
 public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public Tier tier = ItemTierRegistry.NONE;
     public Item.Properties itemProperties;
-    public ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png");
+    public ResourceLocation texture = Valoria.loc("textures/gui/overlay/speedlines.png");
     public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
     public SoundEvent chargedSound;

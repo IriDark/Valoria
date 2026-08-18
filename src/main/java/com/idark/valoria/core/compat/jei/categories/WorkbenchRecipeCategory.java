@@ -58,7 +58,7 @@ public class WorkbenchRecipeCategory extends AbstractRecipeCategory<WorkbenchRec
     @Override
     public void draw(WorkbenchRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY){
         super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-        ResourceLocation tex = new ResourceLocation(Valoria.ID, "textures/gui/jei/workbench.png");
+        ResourceLocation tex = Valoria.loc("textures/gui/jei/workbench.png");
         guiGraphics.blit(tex, width / 2 - 56, 0, 0, 0, 112, 48, 256, 256);
     }
 

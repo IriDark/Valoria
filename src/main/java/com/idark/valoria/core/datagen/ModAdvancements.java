@@ -5,10 +5,12 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.EntityPredicate.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.data.*;
 
@@ -174,7 +176,19 @@ public class ModAdvancements implements ForgeAdvancementProvider.AdvancementGene
             .rewards(AdvancementRewards.Builder.experience(200))
             .save(saver, Valoria.loc("valoria/wicked_crystal"), existingFileHelper);
 
-    }
+        Advancement lumberjack = Advancement.Builder.advancement()
+            .parent(the_valoria)
+            .display(new ItemStack(Items.IRON_AXE), Component.translatable("advancements.valoria.lumberjack.title"), Component.translatable("advancements.valoria.lumberjack.description"), null, FrameType.TASK, true, true, false)
+            .addCriterion("requirement", new KilledTrigger.TriggerInstance(CriteriaTriggers.PLAYER_KILLED_ENTITY.getId(), EntityPredicate.wrap(Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ItemTags.AXES).build()).build()).build()), EntityPredicate.wrap(Builder.entity().of(EntityTypeRegistry.ENT.get()).build()), DamageSourcePredicate.ANY))
+            .save(saver, Valoria.loc("valoria/lumberjack"), existingFileHelper);
+
+        Advancement stonemason = Advancement.Builder.advancement()
+            .parent(the_valoria)
+            .display(new ItemStack(Items.IRON_PICKAXE), Component.translatable("advancements.valoria.stonemason.title"), Component.translatable("advancements.valoria.stonemason.description"), null, FrameType.TASK, true, true, false)
+            .addCriterion("requirement", new KilledTrigger.TriggerInstance(CriteriaTriggers.PLAYER_KILLED_ENTITY.getId(), EntityPredicate.wrap(Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES).build()).build()).build()), EntityPredicate.wrap(Builder.entity().of(TagsRegistry.STONE_GOLEMS).build()), DamageSourcePredicate.ANY))
+            .requirements(RequirementsStrategy.OR)
+            .save(saver, Valoria.loc("valoria/stonemason"), existingFileHelper);
+}
 
     public Advancement useStoneCrusher(Advancement parent, Consumer<Advancement> saver, ExistingFileHelper existingFileHelper) {
         CompoundTag itemsNbt = new CompoundTag();
@@ -201,3 +215,4 @@ public class ModAdvancements implements ForgeAdvancementProvider.AdvancementGene
         .save(saver, Valoria.loc("valoria/use_stone_crusher"), existingFileHelper);
     }
 }
+

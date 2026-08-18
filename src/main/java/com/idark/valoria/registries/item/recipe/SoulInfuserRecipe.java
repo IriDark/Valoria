@@ -124,7 +124,7 @@ public class SoulInfuserRecipe implements Recipe<Container>{
 
     public static class Serializer implements RecipeSerializer<SoulInfuserRecipe>{
         public static final SoulInfuserRecipe.Serializer INSTANCE = new SoulInfuserRecipe.Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "soul_infuser");
+        public static final ResourceLocation ID = Valoria.loc("soul_infuser");
 
         @Override
         public @NotNull SoulInfuserRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe){

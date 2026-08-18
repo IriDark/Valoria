@@ -5,7 +5,6 @@ import com.idark.valoria.registries.item.ability.*;
 import com.idark.valoria.registries.item.ability.AbilityComponent;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
@@ -16,7 +15,7 @@ import pro.komaru.tridot.util.struct.data.*;
 import java.util.*;
 
 public class DescriptionAbility extends AbilityComponent {
-    public static final AbilityType<DescriptionAbility> TYPE = new AbilityType<>(new ResourceLocation(Valoria.ID, "description")) {
+    public static final AbilityType<DescriptionAbility> TYPE = new AbilityType<>(Valoria.loc("description")) {
         @Override
         public DescriptionAbility createInstance() {
             return new DescriptionAbility();

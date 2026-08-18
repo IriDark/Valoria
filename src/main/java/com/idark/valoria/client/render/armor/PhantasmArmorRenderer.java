@@ -7,7 +7,7 @@ import software.bernie.geckolib.model.*;
 import software.bernie.geckolib.renderer.*;
 
 public class PhantasmArmorRenderer extends GeoArmorRenderer<PhantasmArmor>{
-    private static final ResourceLocation GEO = new ResourceLocation(Valoria.ID, "armor/phantasm");
+    private static final ResourceLocation GEO = Valoria.loc("armor/phantasm");
 
     public PhantasmArmorRenderer() {
         super(new DefaultedItemGeoModel<>(GEO));

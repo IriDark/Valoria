@@ -9,7 +9,6 @@ import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
@@ -88,7 +87,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<CustomChestBoatEntity>> DREADWOOD_CHEST_BOAT = register("dreadwood_chest_boat", EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.dreadwoodChestBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
 
     public static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder){
-        return ENTITY_TYPES.register(name, () -> builder.build(new ResourceLocation(Valoria.ID, name).toString()));
+        return ENTITY_TYPES.register(name, () -> builder.build(Valoria.loc(name).toString()));
     }
 
     public static void register(IEventBus eventBus){

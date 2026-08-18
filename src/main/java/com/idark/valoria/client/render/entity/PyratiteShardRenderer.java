@@ -15,7 +15,7 @@ import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class PyratiteShardRenderer extends EntityRenderer<PyratiteShard>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/pyratite_shard.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/pyratite_shard.png");
     private final CrystalShardModel<PyratiteShard> model;
 
     public PyratiteShardRenderer(EntityRendererProvider.Context pContext){

@@ -1,32 +1,28 @@
 package com.idark.valoria.client.ui.screen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.menus.JewelryMenu;
-import com.idark.valoria.registries.block.entity.JewelryBlockEntity;
-import com.idark.valoria.registries.item.skins.SkinTrimItem;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.item.skins.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class JewelryScreen extends AbstractContainerScreen<JewelryMenu>{
-    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/jewelry.png");
+    private final ResourceLocation GUI = Valoria.loc("textures/gui/container/jewelry.png");
     private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM = new ResourceLocation("item/empty_slot_smithing_template_armor_trim");
     private static final ResourceLocation EMPTY_SLOT_DIAMOND = new ResourceLocation("item/empty_slot_diamond");
     private static final List<ResourceLocation> SLOT_ICONS = List.of(EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM, EMPTY_SLOT_DIAMOND);
-    private static final ResourceLocation EMPTY_SLOT_RING = new ResourceLocation(Valoria.ID, "item/base_empty_slot_ring");
-    private static final ResourceLocation EMPTY_SLOT_NECKLACE = new ResourceLocation(Valoria.ID, "item/base_empty_slot_necklace");
+    private static final ResourceLocation EMPTY_SLOT_RING = Valoria.loc("item/base_empty_slot_ring");
+    private static final ResourceLocation EMPTY_SLOT_NECKLACE = Valoria.loc("item/base_empty_slot_necklace");
     private static final List<ResourceLocation> DEFAULT_ICON = List.of(EMPTY_SLOT_RING, EMPTY_SLOT_NECKLACE);
     private final CyclingSlotBackground templateIcon = new CyclingSlotBackground(1);
     private final CyclingSlotBackground baseIcon = new CyclingSlotBackground(0);

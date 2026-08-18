@@ -37,7 +37,7 @@ import pro.komaru.tridot.util.struct.data.*;
 import java.util.*;
 
 public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayRenderItem, TooltipComponentItem{
-    private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
+    private static final ResourceLocation BAR = Valoria.loc("textures/gui/overlay/magma_charge.png");
     public ArcRandom arcRandom = Tmp.rnd;
     private final float attackDamage;
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;

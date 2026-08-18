@@ -13,8 +13,8 @@ import pro.komaru.tridot.client.*;
 
 @OnlyIn(Dist.CLIENT)
 public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrystalModel<WickedCrystal>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/wicked_crystal_phase1.png");
-    protected static final ResourceLocation TEXTURE_PHASE = new ResourceLocation(Valoria.ID, "textures/entity/wicked_crystal_phase2.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/wicked_crystal_phase1.png");
+    protected static final ResourceLocation TEXTURE_PHASE = Valoria.loc("textures/entity/wicked_crystal_phase2.png");
 
     public WickedCrystalRenderer(EntityRendererProvider.Context context){
         super(context, new WickedCrystalModel<>(WickedCrystalModel.createBodyLayer().bakeRoot()), 0.0F);

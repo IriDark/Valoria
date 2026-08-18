@@ -8,12 +8,11 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import pro.komaru.tridot.client.*;
 
 public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity>{
-    public static final ModelResourceLocation SPHERE = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "elemental_sphere"), "");
+    public static final ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.loc("elemental_sphere"), "");
 
     public ManipulatorBlockEntityRenderer(){
     }

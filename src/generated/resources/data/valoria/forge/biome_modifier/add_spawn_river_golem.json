@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#valoria:river_golem_spawnable",
+  "spawners": {
+    "type": "valoria:river_golem",
+    "maxCount": 3,
+    "minCount": 1,
+    "weight": 65
+  }
+}

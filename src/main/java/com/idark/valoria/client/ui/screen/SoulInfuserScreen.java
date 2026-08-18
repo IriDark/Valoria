@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class SoulInfuserScreen extends AbstractContainerScreen<SoulInfuserMenu>{
-    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/soul_infuser.png");
+    private final ResourceLocation GUI = Valoria.loc("textures/gui/container/soul_infuser.png");
 
     public SoulInfuserScreen(SoulInfuserMenu screenContainer, Inventory inv, Component titleIn){
         super(screenContainer, inv, titleIn);

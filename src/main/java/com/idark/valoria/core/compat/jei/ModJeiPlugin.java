@@ -14,7 +14,7 @@ import net.minecraft.world.item.*;
 
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin{
-    private static final ResourceLocation JEI = new ResourceLocation(Valoria.ID, "jei_plugin");
+    private static final ResourceLocation JEI = Valoria.loc("jei_plugin");
 
     @Override
     public ResourceLocation getPluginUid(){

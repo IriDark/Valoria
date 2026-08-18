@@ -22,7 +22,7 @@ import java.util.*;
 public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulItem{
     public int max;
     public int base;
-    public static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/soul_collector.png");
+    public static final ResourceLocation BAR = Valoria.loc("textures/gui/overlay/soul_collector.png");
 
     public SoulCollectorItem(Properties pProperties){
         super(pProperties.durability(5));

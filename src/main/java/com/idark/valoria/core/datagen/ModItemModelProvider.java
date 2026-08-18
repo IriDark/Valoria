@@ -174,12 +174,12 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private ItemModelBuilder simpleItem(String name, String path) {
         return withExistingParent(name, new ResourceLocation("item/generated"))
-                .texture("layer0", new ResourceLocation(Valoria.ID, path + name));
+                .texture("layer0", Valoria.loc(path + name));
     }
 
     private ItemModelBuilder handheldItem(String name) {
         return withExistingParent(name, new ResourceLocation("item/handheld"))
-                .texture("layer0", new ResourceLocation(Valoria.ID, "item/" + name));
+                .texture("layer0", Valoria.loc("item/" + name));
     }
 
     private void largeHandheldRotated(Item... items) {

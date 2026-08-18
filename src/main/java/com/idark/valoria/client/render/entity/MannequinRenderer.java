@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinModel<MannequinEntity>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/mannequin.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/mannequin.png");
 
     public MannequinRenderer(EntityRendererProvider.Context context){
         super(context, new MannequinModel<>(MannequinModel.createBodyLayer().bakeRoot()), 0.0F);

@@ -9,7 +9,7 @@ import software.bernie.geckolib.model.*;
 import software.bernie.geckolib.renderer.*;
 
 public class FallenCollectorArmorRenderer extends GeoArmorRenderer<FallenCollectorArmorItem>{
-    private static final ResourceLocation GEO = new ResourceLocation(Valoria.ID, "armor/collector");
+    private static final ResourceLocation GEO = Valoria.loc("armor/collector");
 
     @Override
     public RenderType getRenderType(FallenCollectorArmorItem animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick){

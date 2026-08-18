@@ -15,7 +15,7 @@ import org.lwjgl.glfw.*;
 
 @OnlyIn(Dist.CLIENT)
 public class BookGui extends Screen{
-    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/codex.png");
+    public static final ResourceLocation BACKGROUND = Valoria.loc("textures/gui/book/codex.png");
     public ItemStack item;
     public Chapter currentChapter;
     public int currentPage;

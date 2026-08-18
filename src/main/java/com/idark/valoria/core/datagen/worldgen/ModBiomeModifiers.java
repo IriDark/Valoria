@@ -7,9 +7,12 @@ import net.minecraft.core.registries.*;
 import net.minecraft.data.worldgen.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.*;
 import net.minecraftforge.common.world.*;
 import net.minecraftforge.registries.*;
+
+import java.util.*;
 
 public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_AMBER_ORE = registerKey("add_amber_ore");
@@ -30,6 +33,17 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_DESERT_POT = registerKey("add_desert_pot");
     public static final ResourceKey<BiomeModifier> ADD_SWAMP_POT = registerKey("add_swamp_pot");
     public static final ResourceKey<BiomeModifier> ADD_LIMESTONE = registerKey("add_limestone_ore");
+
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_KING_CRAB = registerKey("add_spawn_king_crab");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_ENT = registerKey("add_spawn_ent");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_NATURE_GOLEM = registerKey("add_spawn_nature_golem");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_RIVER_GOLEM = registerKey("add_spawn_river_golem");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_SCOURGE = registerKey("add_spawn_scourge");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_SWAMP_WANDERER = registerKey("add_spawn_swamp_wanderer");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_DEVIL = registerKey("add_spawn_devil");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_GOBLIN = registerKey("add_spawn_goblin");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_TROLL = registerKey("add_spawn_troll");
+    public static final ResourceKey<BiomeModifier> ADD_SPAWN_SORCERER = registerKey("add_spawn_sorcerer");
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -134,9 +148,49 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
 
+        context.register(ADD_SPAWN_KING_CRAB, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_BEACH),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.KING_CRAB.get(), 10, 1, 2))
+        ));
+        context.register(ADD_SPAWN_ENT, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_FOREST),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.ENT.get(), 5, 1, 2))
+        ));
+        context.register(ADD_SPAWN_NATURE_GOLEM, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_FOREST),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.NATURE_GOLEM.get(), 5, 1, 2))
+        ));
+        context.register(ADD_SPAWN_RIVER_GOLEM, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(TagsRegistry.RIVER_GOLEM_SPAWNABLE),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.RIVER_GOLEM.get(), 65, 1, 3))
+        ));
+        context.register(ADD_SPAWN_SCOURGE, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(net.minecraftforge.common.Tags.Biomes.IS_SWAMP),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.SCOURGE.get(), 45, 1, 2))
+        ));
+        context.register(ADD_SPAWN_SWAMP_WANDERER, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(net.minecraftforge.common.Tags.Biomes.IS_SWAMP),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.SWAMP_WANDERER.get(), 25, 1, 3))
+        ));
+        context.register(ADD_SPAWN_DEVIL, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_NETHER),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.DEVIL.get(), 15, 1, 2))
+        ));
+        context.register(ADD_SPAWN_GOBLIN, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.GOBLIN.get(), 5, 1, 4))
+        ));
+        context.register(ADD_SPAWN_TROLL, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.TROLL.get(), 3, 2, 4))
+        ));
+        context.register(ADD_SPAWN_SORCERER, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                List.of(new MobSpawnSettings.SpawnerData(EntityTypeRegistry.SORCERER.get(), 5, 1, 2))
+        ));
     }
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {
-        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Valoria.ID, name));
+        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, Valoria.loc(name));
     }
 }

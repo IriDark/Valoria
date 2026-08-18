@@ -15,7 +15,7 @@ public class NatureGolemRenderer extends MobRenderer<NatureGolem, NatureGolemMod
 
     public NatureGolemRenderer(EntityRendererProvider.Context context){
         super(context, new NatureGolemModel<>(NatureGolemModel.createBodyLayer().bakeRoot()), 0.6F);
-        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(new ResourceLocation(Valoria.ID, "textures/entity/nature_golem_glow.png"))
+        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(Valoria.loc("textures/entity/nature_golem_glow.png"))
         .setAlpha(0.5f).build());
     }
 

@@ -11,7 +11,6 @@ import net.minecraftforge.registries.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-//todo
 public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)

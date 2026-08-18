@@ -9,7 +9,6 @@ import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -37,7 +36,7 @@ public class ScytheAbility extends AbilityComponent {
     public Interp screenShakeEasing = Interp.circleOut;
     public ParticleOptions particleOptions = ParticleTypes.POOF;
     public final ArcRandom arcRandom = Tmp.rnd;
-    public static final AbilityType<ScytheAbility> TYPE = new AbilityType<>(new ResourceLocation(Valoria.ID, "scythe")) {
+    public static final AbilityType<ScytheAbility> TYPE = new AbilityType<>(Valoria.loc("scythe")) {
         @Override
         public ScytheAbility createInstance() {
             return new ScytheAbility();

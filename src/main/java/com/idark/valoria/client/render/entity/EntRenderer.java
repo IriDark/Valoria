@@ -12,11 +12,11 @@ import pro.komaru.tridot.client.model.render.entity.*;
 
 @OnlyIn(Dist.CLIENT)
 public class EntRenderer extends MobRenderer<Ent, EntModel<Ent>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/ent.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/ent.png");
 
     public EntRenderer(EntityRendererProvider.Context context){
         super(context, new EntModel<>(EntModel.createBodyLayer().bakeRoot()), 0.4F);
-        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(new ResourceLocation(Valoria.ID, "textures/entity/ent_glow.png"))
+        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(Valoria.loc("textures/entity/ent_glow.png"))
         .setAlpha(0.45f).build());
     }
 

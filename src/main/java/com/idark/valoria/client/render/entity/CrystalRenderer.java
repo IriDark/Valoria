@@ -10,9 +10,9 @@ import net.minecraft.resources.*;
 import pro.komaru.tridot.client.*;
 
 public class CrystalRenderer extends MobRenderer<CrystalEntity, CrystalModel<CrystalEntity>>{
-    protected static final ResourceLocation TEXTURE_ICE = new ResourceLocation(Valoria.ID, "textures/entity/crystal_ice.png");
-    protected static final ResourceLocation TEXTURE_FIRE = new ResourceLocation(Valoria.ID, "textures/entity/crystal_fire.png");
-    protected static final ResourceLocation TEXTURE_POISON = new ResourceLocation(Valoria.ID, "textures/entity/crystal_poison.png");
+    protected static final ResourceLocation TEXTURE_ICE = Valoria.loc("textures/entity/crystal_ice.png");
+    protected static final ResourceLocation TEXTURE_FIRE = Valoria.loc("textures/entity/crystal_fire.png");
+    protected static final ResourceLocation TEXTURE_POISON = Valoria.loc("textures/entity/crystal_poison.png");
 
     public CrystalRenderer(EntityRendererProvider.Context context){
         super(context, new CrystalModel<>(CrystalModel.createBodyLayer().bakeRoot()), 0);

@@ -10,7 +10,6 @@ import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -178,7 +177,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
         if(pState.getValue(OPEN) && !pState.getValue(LOOTED)){
             if(pPlayer instanceof ServerPlayer serverPlayer){
                 Vec3 block = new Vec3(pPos.getX() - 0.5f, pPos.getY(), pPos.getZ() - 0.5f);
-                Utils.Items.spawnLoot(pLevel, pPos.above(), Utils.Items.createLoot(new ResourceLocation(Valoria.ID, "items/sarcophagus"), Utils.Items.getGiftParameters((ServerLevel)pLevel, block, serverPlayer)));
+                Utils.Items.spawnLoot(pLevel, pPos.above(), Utils.Items.createLoot(Valoria.loc("items/sarcophagus"), Utils.Items.getGiftParameters((ServerLevel)pLevel, block, serverPlayer)));
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(OPEN, true).setValue(LOOTED, true));
                 BlockState oppositeState = pLevel.getBlockState(oppositePos);
                 if(oppositeState.getBlock() == this){

@@ -26,7 +26,7 @@ import pro.komaru.tridot.util.math.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 public class EtherealSwordItem extends ValoriaSword implements TooltipComponentItem, RadiusItem, OverlayRenderItem{
-    private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/soul_bar.png");
+    private static final ResourceLocation BAR = Valoria.loc("textures/gui/overlay/soul_bar.png");
     public ArcRandom arcRandom = Tmp.rnd;
     public int max;
     public int current;

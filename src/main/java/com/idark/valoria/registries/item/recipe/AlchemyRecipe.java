@@ -121,7 +121,7 @@ public class AlchemyRecipe implements Recipe<Container> {
 
     public static class Serializer implements RecipeSerializer<AlchemyRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "alchemy");
+        public static final ResourceLocation ID = Valoria.loc("alchemy");
 
         @Override
         public AlchemyRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

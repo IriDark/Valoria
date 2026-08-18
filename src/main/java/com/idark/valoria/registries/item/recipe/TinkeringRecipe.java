@@ -93,7 +93,7 @@ public class TinkeringRecipe implements Recipe<Container>{
 
     public static class Serializer implements RecipeSerializer<TinkeringRecipe>{
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "tinkering");
+        public static final ResourceLocation ID = Valoria.loc("tinkering");
 
         public TinkeringRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson){
             String s = GsonHelper.getAsString(pJson, "group", "");

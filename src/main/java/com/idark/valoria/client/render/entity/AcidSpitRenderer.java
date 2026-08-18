@@ -14,7 +14,7 @@ import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class AcidSpitRenderer extends EntityRenderer<AcidSpit>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/projectile/acid_spit.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/projectile/acid_spit.png");
     private final AcidSpitModel<AcidSpit> model;
 
     public AcidSpitRenderer(EntityRendererProvider.Context pContext){

@@ -14,11 +14,11 @@ import java.awt.*;
 
 @OnlyIn(Dist.CLIENT)
 public class RiverGolemRenderer extends MobRenderer<RiverGolem, RiverGolemModel<RiverGolem>> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/river_golem.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/river_golem.png");
 
     public RiverGolemRenderer(EntityRendererProvider.Context context){
         super(context, new RiverGolemModel<>(RiverGolemModel.createBodyLayer().bakeRoot()), 0.6F);
-        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(new ResourceLocation(Valoria.ID, "textures/entity/river_golem_glow.png"))
+        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(Valoria.loc("textures/entity/river_golem_glow.png"))
         .setAlpha(0.5f).setColor(Color.WHITE).build());
     }
 

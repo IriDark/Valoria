@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class FleshSentinelRenderer extends MobRenderer<FleshSentinel, FleshSentinelModel<FleshSentinel>>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/flesh_sentinel.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/flesh_sentinel.png");
 
     public FleshSentinelRenderer(EntityRendererProvider.Context context){
         super(context, new FleshSentinelModel<>(FleshSentinelModel.createBodyLayer().bakeRoot()), 0.4F);

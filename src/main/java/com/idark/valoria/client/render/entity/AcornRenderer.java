@@ -17,7 +17,7 @@ import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class AcornRenderer extends EntityRenderer<AcornProjectile>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/projectile/acorn.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/projectile/acorn.png");
     private final AcornModel<AcornProjectile> model;
 
     public AcornRenderer(EntityRendererProvider.Context pContext){

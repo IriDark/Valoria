@@ -4,7 +4,6 @@ import com.idark.valoria.*;
 import com.idark.valoria.client.render.tile.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
-import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -34,6 +33,6 @@ public class ShaderRegistry{
     }
 
     public static void shaderRegistry(RegisterShadersEvent event) throws IOException{
-        event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(Valoria.ID, "valoria_portal"), DefaultVertexFormat.POSITION), shader -> ShaderRegistry.VALORIA_PORTAL = shader);
+        event.registerShader(new ShaderInstance(event.getResourceProvider(), Valoria.loc("valoria_portal"), DefaultVertexFormat.POSITION), shader -> ShaderRegistry.VALORIA_PORTAL = shader);
     }
 }

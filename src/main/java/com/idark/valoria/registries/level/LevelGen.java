@@ -64,6 +64,13 @@ public class LevelGen{
     public static final ResourceKey<Level> VALORIA_KEY = registerKey(Registries.DIMENSION, "the_valoria");
     public static final ResourceKey<DimensionType> VALORIA_TYPE = registerKey(Registries.DIMENSION_TYPE, "the_valoria");
     public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME, "void_barren");
+    public static final ResourceKey<Biome> MEATY_CAVES = registerKey(Registries.BIOME, "meaty_caves");
+    public static final ResourceKey<Biome> MEATY_LANDS = registerKey(Registries.BIOME, "meaty_lands");
+    public static final ResourceKey<Biome> RIVER = registerKey(Registries.BIOME, "river");
+    public static final ResourceKey<Biome> VOID_DESERT = registerKey(Registries.BIOME, "void_desert");
+    public static final ResourceKey<Biome> VOID_HILLS = registerKey(Registries.BIOME, "void_hills");
+    public static final ResourceKey<Biome> VOID_PEAKS = registerKey(Registries.BIOME, "void_peaks");
+    public static final ResourceKey<Biome> VOID_SHORE = registerKey(Registries.BIOME, "void_shore");
     public static final ResourceKey<Biome> BARREN_ECOTONE = registerKey(Registries.BIOME, "barren_ecotone");
     public static final ResourceKey<Biome> ECOTONE = registerKey(Registries.BIOME, "ecotone");
     public static final ResourceKey<Biome> COAST = registerKey(Registries.BIOME, "coast");
@@ -86,10 +93,11 @@ public class LevelGen{
             ).apply(builder, AddFeaturesByFilterBiomeModifier::new)));
 
     public static <T> ResourceKey<T> registerKey(ResourceKey<? extends Registry<T>> pRegistryKey, String name){
-        return ResourceKey.create(pRegistryKey, new ResourceLocation(Valoria.ID, name));
+        return ResourceKey.create(pRegistryKey, Valoria.loc(name));
     }
 
     private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec){
         return () -> codec;
     }
 }
+

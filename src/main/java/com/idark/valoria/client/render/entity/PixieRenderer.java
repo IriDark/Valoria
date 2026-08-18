@@ -11,7 +11,7 @@ import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel>{
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/pixie.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/pixie.png");
 
     public PixieRenderer(EntityRendererProvider.Context p_174435_){
         super(p_174435_, new PixieModel(PixieModel.createBodyLayer().bakeRoot()), 0.3F);

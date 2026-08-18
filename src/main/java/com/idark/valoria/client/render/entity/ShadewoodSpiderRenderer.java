@@ -10,12 +10,12 @@ import pro.komaru.tridot.client.model.render.entity.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ShadewoodSpiderRenderer<T extends ShadewoodSpider> extends MobRenderer<T, ShadewoodSpiderModel<T>>{
-    private static final ResourceLocation SPIDER_LOCATION = new ResourceLocation(Valoria.ID, "textures/entity/shadewood_spider.png");
+    private static final ResourceLocation SPIDER_LOCATION = Valoria.loc("textures/entity/shadewood_spider.png");
 
     public ShadewoodSpiderRenderer(EntityRendererProvider.Context pContext){
         super(pContext, new ShadewoodSpiderModel<>(ShadewoodSpiderModel.createBodyLayer().bakeRoot()), 0.8F);
         this.addLayer(new LuminescentLayer.Builder<>(this)
-                .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/shadewood_spider_eyes.png"))
+                .setTexture(Valoria.loc("textures/entity/shadewood_spider_eyes.png"))
                 .build());
     }
 

@@ -15,7 +15,7 @@ import pro.komaru.tridot.client.*;
 
 @OnlyIn(Dist.CLIENT)
 public class WaterBubbleRenderer extends EntityRenderer<WaterBubble>{
-   private static final ResourceLocation LOCATION = new ResourceLocation(Valoria.ID, "textures/entity/water_bubble.png");
+   private static final ResourceLocation LOCATION = Valoria.loc("textures/entity/water_bubble.png");
    private final WaterBubbleModel<WaterBubble> model;
 
    public WaterBubbleRenderer(Context pContext) {

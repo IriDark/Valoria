@@ -17,7 +17,7 @@ import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu>{
-    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/manipulator.png");
+    private final ResourceLocation GUI = Valoria.loc("textures/gui/container/manipulator.png");
     private static final Component MISSING_TEMPLATE_TOOLTIP = Component.translatable("container.upgrade.missing_template_tooltip");
 
     public ManipulatorScreen(ManipulatorMenu screenContainer, Inventory inv, Component titleIn){

@@ -67,6 +67,6 @@ public class SkinTrimItem extends Item{
     }
 
     public String getDescriptionId(){
-        return Util.makeDescriptionId("item", new ResourceLocation(Valoria.ID, "skin_trim"));
+        return Util.makeDescriptionId("item", Valoria.loc("skin_trim"));
     }
 }

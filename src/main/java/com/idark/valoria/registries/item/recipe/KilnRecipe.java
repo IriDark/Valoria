@@ -37,7 +37,7 @@ public class KilnRecipe extends AbstractCookingRecipe{
 
     public static class Serializer implements RecipeSerializer<KilnRecipe>{
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "kiln");
+        public static final ResourceLocation ID = Valoria.loc("kiln");
 
         @Override
         public KilnRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe){

@@ -57,6 +57,6 @@ public class AquariusArrow extends AbstractProjectile implements TexturedArrow{
 
     @Override
     public ResourceLocation getTexture(){
-        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/aquarius_arrow.png");
+        return Valoria.loc("textures/entity/projectile/arrow/aquarius_arrow.png");
     }
 }

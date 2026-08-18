@@ -37,7 +37,7 @@ import pro.komaru.tridot.util.struct.data.*;
 import java.util.*;
 
 public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, OverlayRenderItem, TooltipComponentItem{
-    private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
+    private static final ResourceLocation BAR = Valoria.loc("textures/gui/overlay/blazecharge_bar.png");
 
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
         super(tier, attackDamageIn, attackSpeedIn, builder);

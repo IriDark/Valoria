@@ -80,11 +80,11 @@ public abstract class ItemTabRegistry{
     .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
     public static ResourceLocation getBackgroundImage(){
-        return new ResourceLocation(Valoria.ID, "textures/gui/container/tab_valoria_item_legacy.png");
+        return Valoria.loc("textures/gui/container/tab_valoria_item_legacy.png");
     }
 
     public static ResourceLocation getTabsImage(){
-        return new ResourceLocation(Valoria.ID, "textures/gui/container/tabs_valoria_legacy.png");
+        return Valoria.loc("textures/gui/container/tabs_valoria_legacy.png");
     }
 
     public static void register(IEventBus eventBus){

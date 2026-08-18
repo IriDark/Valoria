@@ -34,7 +34,7 @@ public class GeneralPage extends Page {
     private int lastX = 0;
     private int lastY = 0;
 
-    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/codex.png");
+    public static final ResourceLocation BACKGROUND = Valoria.loc("textures/gui/book/codex.png");
     public static final Quaternionf ENTITY_ANGLE = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float)Math.PI);
 
     private boolean hasTitle = true;

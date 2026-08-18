@@ -5,7 +5,6 @@ import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.core.*;
-import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
@@ -16,7 +15,7 @@ import net.minecraftforge.server.*;
 public final class PacketHandler{
     private static final String PROTOCOL = "10";
     public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Valoria.ID, "network"),
+            Valoria.loc("network"),
             () -> PROTOCOL,
             PROTOCOL::equals,
             PROTOCOL::equals

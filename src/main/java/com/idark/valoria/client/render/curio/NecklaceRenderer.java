@@ -18,7 +18,7 @@ import top.theillusivec4.curios.api.client.*;
 
 
 public class NecklaceRenderer implements ICurioRenderer{
-    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/necklace/empty.png");
+    public static ResourceLocation TEXTURE = Valoria.loc("textures/entity/necklace/empty.png");
 
     NecklaceModel model = null;
 

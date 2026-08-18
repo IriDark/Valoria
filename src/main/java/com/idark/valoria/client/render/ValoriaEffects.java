@@ -21,8 +21,8 @@ import javax.annotation.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaEffects extends DimensionSpecialEffects {
-    private static final ResourceLocation ARETHEA_LOCATION = new ResourceLocation(Valoria.ID, "textures/environment/arethea.png");
-    private static final ResourceLocation EARTH_LOCATION = new ResourceLocation(Valoria.ID, "textures/environment/earth.png");
+    private static final ResourceLocation ARETHEA_LOCATION = Valoria.loc("textures/environment/arethea.png");
+    private static final ResourceLocation EARTH_LOCATION = Valoria.loc("textures/environment/earth.png");
 
     private static final ResourceLocation MOON_LOCATION = new ResourceLocation("textures/environment/moon_phases.png");
 

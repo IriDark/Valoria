@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
 import net.minecraft.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 
@@ -23,6 +22,6 @@ public class SkinFragmentItem extends SkinTrimItem{
     }
 
     public String getDescriptionId(){
-        return Util.makeDescriptionId("item", new ResourceLocation(Valoria.ID, "skin_fragment"));
+        return Util.makeDescriptionId("item", Valoria.loc("skin_fragment"));
     }
 }
