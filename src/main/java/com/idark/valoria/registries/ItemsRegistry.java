@@ -348,8 +348,8 @@ public class ItemsRegistry{
         fortressLocator = registerItem("fortress_locator", () -> new StructureLocatorItem(Pal.majestyPurple, TagsRegistry.FORTRESS_LOCATOR, new Item.Properties()));
 
         // boss summonables
-        necromancerGrimoire = registerItem("necromancer_grimoire", () -> new BossDescriptionItem(() -> EntityTypeRegistry.NECROMANCER.get(), BlockRegistry.crypticAltar.get(), new Item.Properties()));
-        suspiciousGem = registerItem("suspicious_gem", () -> new BossDescriptionItem(() -> EntityTypeRegistry.WICKED_CRYSTAL.get(), BlockRegistry.wickedAltar.get(), new Item.Properties().rarity(RarityRegistry.VOID)));
+        necromancerGrimoire = registerItem("necromancer_grimoire", () -> new BossDescriptionItem(EntityTypeRegistry.NECROMANCER::get, BlockRegistry.crypticAltar.get(), new Item.Properties()));
+        suspiciousGem = registerItem("suspicious_gem", () -> new BossDescriptionItem(EntityTypeRegistry.WICKED_CRYSTAL::get, BlockRegistry.wickedAltar.get(), new Item.Properties().rarity(RarityRegistry.VOID)));
         harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, Level.OVERWORLD, EntityTypeRegistry.DRYADOR, new Item.Properties().rarity(RarityRegistry.NATURE)));
         obsidianHeart = registerItem("obsidian_heart", () -> new BossSummonableItem(8, Level.NETHER, EntityTypeRegistry.FIRRON, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
 

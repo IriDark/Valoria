@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:beetroot_seeds"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

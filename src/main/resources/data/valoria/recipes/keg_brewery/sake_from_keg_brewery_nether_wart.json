@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

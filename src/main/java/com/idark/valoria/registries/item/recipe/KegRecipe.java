@@ -29,6 +29,9 @@ public class KegRecipe implements Recipe<Container>{
 
     @Override
     public boolean matches(Container pContainer, Level pLevel){
+        if(inputs.size() >= 2){
+            return inputs.get(0).test(pContainer.getItem(0)) && inputs.get(1).test(pContainer.getItem(1));
+        }
         return inputs.get(0).test(pContainer.getItem(0));
     }
 

@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

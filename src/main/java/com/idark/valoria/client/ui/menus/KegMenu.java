@@ -1,6 +1,5 @@
 package com.idark.valoria.client.ui.menus;
 
-import com.idark.valoria.client.ui.menus.slots.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import net.minecraft.core.*;
@@ -12,6 +11,7 @@ import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
 import pro.komaru.tridot.client.render.gui.screen.*;
+import pro.komaru.tridot.client.render.gui.screen.ResultSlot;
 
 public class KegMenu extends ContainerMenuBase{
     public BlockEntity blockEntity;
@@ -24,8 +24,9 @@ public class KegMenu extends ContainerMenuBase{
         this.layoutPlayerInventorySlots(8, 84);
         if(blockEntity != null && blockEntity instanceof KegBlockEntity keg){
             if(blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()){
-                this.addSlot(new SlotItemHandler(keg.itemHandler, 0, 44, 33));
-                this.addSlot(new KegResultSlot(keg, keg.itemOutputHandler, 0, 116, 33));
+                this.addSlot(new SlotItemHandler(keg.itemHandler, 0, 25, 34));
+                this.addSlot(new SlotItemHandler(keg.itemHandler, 1, 56, 34));
+                this.addSlot(new ResultSlot(keg.itemOutputHandler, 0, 128, 34));
             }
         }
     }

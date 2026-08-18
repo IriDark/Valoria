@@ -22,8 +22,8 @@ import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 import pro.komaru.tridot.common.registry.block.entity.*;
 import pro.komaru.tridot.util.*;
 
@@ -35,7 +35,7 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     public int progressMax = 0;
     public int ambientSoundTime;
     public boolean startCraft = false;
-    public final ItemStackHandler itemHandler = createHandler(1);
+    public final ItemStackHandler itemHandler = createHandler(2);
     public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
     public final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> itemOutputHandler);
@@ -76,6 +76,26 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
             }
         };
     }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side){
+        if(cap == ForgeCapabilities.ITEM_HANDLER){
+            if(side == null){
+                CombinedInvWrapper item = new CombinedInvWrapper(itemHandler, itemOutputHandler);
+                return LazyOptional.of(() -> item).cast();
+            }
+
+            if(side == Direction.DOWN){
+                return outputHandler.cast();
+            }else{
+                return handler.cast();
+            }
+        }
+
+        return super.getCapability(cap, side);
+    }
+
 
     @Override
     public Component getDisplayName(){
@@ -146,19 +166,6 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
         return SoundsRegistry.KEG_AMBIENT.get();
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side){
-        if(cap == ForgeCapabilities.ITEM_HANDLER){
-            if(side == null){
-                CombinedInvWrapper item = new CombinedInvWrapper(itemHandler, itemOutputHandler);
-                return LazyOptional.of(() -> item).cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
-    }
-
     @Override
     public void tick(){
         if(!level.isClientSide){
@@ -191,14 +198,18 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
         Optional<KegRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
         this.itemHandler.extractItem(0, 1, false);
+        this.itemHandler.extractItem(1, 1, false);
         this.itemOutputHandler.insertItem(0, result, false);
         this.playBrewSound();
     }
 
     private Optional<KegRecipe> getCurrentRecipe(){
-        SimpleContainer inventory = new SimpleContainer(3);
-        inventory.setItem(0, itemHandler.getStackInSlot(0));
-        return this.level.getRecipeManager().getRecipeFor(KegRecipe.Type.INSTANCE, inventory, level);
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0; i < itemHandler.getSlots(); i++){
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(KegRecipe.Type.INSTANCE, inventory, this.level);
     }
 
     private boolean hasProgressFinished(){

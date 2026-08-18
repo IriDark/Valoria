@@ -35,7 +35,11 @@ public class KegRecipeCategory extends AbstractRecipeCategory<KegRecipe>{
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         ItemStack resultStack = recipe.getResultItem(RegistryAccess.EMPTY);
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 4, 16).addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 8, 16).addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
+        if(recipeIngredients.size() >= 2){
+            builder.addSlot(RecipeIngredientRole.INPUT, 38, 16).addItemStacks(Arrays.asList(recipeIngredients.get(1).getItems()));
+        }
+        
         builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 16).addItemStack(resultStack);
     }
 
@@ -56,7 +60,7 @@ public class KegRecipeCategory extends AbstractRecipeCategory<KegRecipe>{
         }
 
         ResourceLocation timeIcon = Valoria.loc("textures/gui/jei/time.png");
-        gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
+        gui.blit(timeIcon, 8, 6 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
         gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }

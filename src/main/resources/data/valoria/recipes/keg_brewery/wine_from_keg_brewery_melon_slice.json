@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:melon_slice"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

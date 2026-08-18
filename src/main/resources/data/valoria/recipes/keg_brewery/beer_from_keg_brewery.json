@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:wheat"
+    },
+    {
+      "item": "valoria:wooden_cup"
     }
   ],
   "output": {

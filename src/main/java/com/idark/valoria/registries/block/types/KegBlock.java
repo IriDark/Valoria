@@ -1,16 +1,12 @@
 package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.client.ui.menus.*;
-import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
-import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
-import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -55,8 +51,11 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving){
         if(state.getBlock() != newState.getBlock()){
             BlockEntity tile = world.getBlockEntity(pos);
-            if(tile instanceof BlockSimpleInventory && !((BlockSimpleInventory)tile).getItemHandler().getItem(0).is(TagsRegistry.CUP_DRINKS) && !((BlockSimpleInventory)tile).getItemHandler().getItem(0).is(TagsRegistry.BOTTLE_DRINKS)){
-                Containers.dropContents(world, pos, ((BlockSimpleInventory)tile).getItemHandler());
+            if(tile instanceof KegBlockEntity keg){
+                for(int i = 0; i < keg.itemHandler.getSlots(); i++){
+                    Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), keg.itemHandler.getStackInSlot(i));
+                }
+                Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), keg.itemOutputHandler.getStackInSlot(0));
             }
 
             super.onRemove(state, world, pos, newState, isMoving);
@@ -69,35 +68,10 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
-        KegBlockEntity tile = (KegBlockEntity)world.getBlockEntity(pos);
-        ItemStack stack = player.getItemInHand(hand).copy();
-        boolean isHoldingCup = stack.getItem() == ItemsRegistry.woodenCup.get();
-        boolean isHoldingBottle = stack.getItem() == ItemsRegistry.bottle.get();
-
-        if(isHoldingCup || isHoldingBottle){
-            if(!tile.itemOutputHandler.getStackInSlot(0).isEmpty() && isCupOrBottle(tile, player, hand)){
-                BlockSimpleInventory.addHandPlayerItem(world, player, hand, stack, tile.itemOutputHandler.getStackInSlot(0).getItem().getDefaultInstance());
-                if(!player.isCreative()) player.getItemInHand(hand).shrink(1);
-
-                tile.itemOutputHandler.extractItem(0, 1, false);
-                ValoriaUtils.SUpdateTileEntityPacket(tile);
-                return InteractionResult.SUCCESS;
-            }
-
-            return InteractionResult.FAIL;
-        }else{
+        if(!world.isClientSide) {
             if(player instanceof ServerPlayer serv) NetworkHooks.openScreen(serv, getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
         }
-
         return InteractionResult.SUCCESS;
-    }
-
-    public boolean isCupOrBottle(KegBlockEntity tile, Player player, InteractionHand hand){
-        ItemStack itemStack = tile.itemOutputHandler.getStackInSlot(0);
-        ItemStack playerHeldItem = player.getItemInHand(hand).copy();
-        boolean isHoldingCup = playerHeldItem.getItem() == ItemsRegistry.woodenCup.get();
-        boolean isHoldingBottle = playerHeldItem.getItem() == ItemsRegistry.bottle.get();
-        return (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS)) || (isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS));
     }
 
     @Override

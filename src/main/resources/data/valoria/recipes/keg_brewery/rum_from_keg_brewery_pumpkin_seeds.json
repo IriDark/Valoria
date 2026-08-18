@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:pumpkin_seeds"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

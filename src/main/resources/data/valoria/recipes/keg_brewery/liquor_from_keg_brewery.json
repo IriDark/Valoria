@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

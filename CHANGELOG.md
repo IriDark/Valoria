@@ -50,6 +50,7 @@
 - Reworked Shields
 - Reworked Pot LootTables
 - Reworked Eye Necklace
+- Reworked Keg for better understanding
 - Changed Healing flask recipe
 - Slightly Increased Ent spawn
 - Slightly Decreased Nature Golem spawn

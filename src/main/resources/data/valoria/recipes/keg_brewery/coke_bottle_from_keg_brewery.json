@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:sugar_cane"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

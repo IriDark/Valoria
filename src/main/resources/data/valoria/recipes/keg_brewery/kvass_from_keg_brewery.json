@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:bread"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

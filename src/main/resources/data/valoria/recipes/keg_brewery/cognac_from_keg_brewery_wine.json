@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "valoria:wine_bottle"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

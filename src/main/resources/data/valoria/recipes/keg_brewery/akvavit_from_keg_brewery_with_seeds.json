@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {

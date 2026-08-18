@@ -73,6 +73,13 @@ public class LootTableSubprovider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        this.dropOther(BlockRegistry.tombstoneSpikesTrap.get(), BlockRegistry.polishedTombstone.get());
+        this.dropOther(BlockRegistry.tombstoneFirechargeTrap.get(), BlockRegistry.polishedTombstone.get());
+        this.dropOther(BlockRegistry.voidSpikesTrap.get(), BlockRegistry.polishedVoidStone.get());
+        this.dropOther(BlockRegistry.voidFirechargeTrap.get(), BlockRegistry.polishedVoidStone.get());
+        this.dropOther(BlockRegistry.cobbledShaleSpikesTrap.get(), BlockRegistry.polishedCobbledShale.get());
+        this.dropOther(BlockRegistry.cobbledShaleFirechargeTrap.get(), BlockRegistry.polishedCobbledShale.get());
+
         this.add(BlockRegistry.eldritchDoor.get(), block -> createDoorTable(BlockRegistry.eldritchDoor.get()));
         this.add(BlockRegistry.shadeDoor.get(), block -> createDoorTable(BlockRegistry.shadeDoor.get()));
         this.add(BlockRegistry.dreadwoodDoor.get(), block -> createDoorTable(BlockRegistry.dreadwoodDoor.get()));

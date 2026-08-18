@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "minecraft:potato"
+    },
+    {
+      "item": "valoria:bottle"
     }
   ],
   "output": {
