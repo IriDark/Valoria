@@ -7,23 +7,29 @@ import com.idark.valoria.registries.item.recipe.*;
 import mezz.jei.api.constants.*;
 import mezz.jei.api.gui.builder.*;
 import mezz.jei.api.gui.drawable.*;
+import mezz.jei.api.gui.ingredient.*;
 import mezz.jei.api.helpers.*;
 import mezz.jei.api.recipe.*;
 import mezz.jei.api.recipe.category.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
+import net.minecraftforge.registries.*;
 
-@SuppressWarnings("removal")
+import java.util.*;
+
 public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
+    public static final Map<ResourceLocation, List<ItemStack>> DROPS = new HashMap<>();
     private final Component title;
     private final IDrawable background;
     private final IDrawable icon;
 
     public CrusherRecipeCategory(IGuiHelper helper){
         title = Component.translatable("jei.valoria.crusher");
-        ResourceLocation backgroundImage = Valoria.loc("textures/gui/jei/jewelry.png");
-        background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
+        ResourceLocation backgroundImage = Valoria.loc("textures/gui/jei/stone_crusher.png");
+        background = helper.createDrawable(backgroundImage, 0, 0, 116, 130);
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.stoneCrusher.get()));
     }
 
@@ -48,16 +54,30 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
     }
 
     @Override
+    public void draw(CrusherRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY){
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+    }
+
+    @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CrusherRecipe recipe, IFocusGroup focusGroup){
-        ResourceLocation loot = recipe.getOutput();
-//        var serv = Valoria.proxy.getLevel().getServer();
-//        if (serv == null) return;
-//
-//        var loottable = serv.getLootData().getLootTable(loot);
-//        LootParams.Builder params = new LootParams.Builder(serv.overworld()).withParameter(LootContextParams.ORIGIN, new Vec3(0, 0, 0));
-//        List<ItemStack> possibleDrops = loottable.getRandomItems(params.create(LootContextParamSets.ALL_PARAMS));
-//        Valoria.LOGGER.info("Loot Table: {}", loot);
-//        Valoria.LOGGER.info("Generated Drops: {}", possibleDrops);
-//        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 16).addItemStacks(possibleDrops);
+        List<ItemStack> drops = DROPS.getOrDefault(recipe.getId(), List.of());
+        List<ItemStack> pickaxes = new ArrayList<>(List.of());
+        for(var item : ForgeRegistries.ITEMS) {
+            var stack = new ItemStack(item);
+            if(stack.is(ItemTags.PICKAXES)) pickaxes.add(stack);
+        }
+
+        builder.addSlot(RecipeIngredientRole.CATALYST, 41, 24).addItemStacks(pickaxes);
+        builder.addSlot(RecipeIngredientRole.INPUT, 49, 6).addIngredients(recipe.getIngredients().get(0));
+        int maxItems = 7;
+        for (int i = 0; i < drops.size(); i++) {
+            int column = i % maxItems;
+            int row = i / maxItems;
+
+            int xOffset = 2 + column * 16;
+            int yOffset = 71 + (row * 16);
+
+            builder.addSlot(RecipeIngredientRole.OUTPUT, xOffset, yOffset).addItemStack(drops.get(i));
+        }
     }
 }

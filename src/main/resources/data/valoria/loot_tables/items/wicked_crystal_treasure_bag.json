@@ -42,17 +42,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:crystal_summon_book",
-          "weight": 5,
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.35
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:void_edge",
           "weight": 5,
           "functions": [],

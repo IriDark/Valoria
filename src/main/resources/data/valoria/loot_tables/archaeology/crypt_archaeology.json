@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:lotus_fragment",
+          "name": "valoria:lotus_scythe_fragment",
           "weight": 1,
           "functions": [],
           "conditions": [

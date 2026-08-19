@@ -18,6 +18,7 @@ import com.idark.valoria.registries.effect.*;
 import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
+import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
@@ -42,7 +43,9 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
@@ -66,12 +69,49 @@ import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
 
+import javax.annotation.*;
 import java.util.*;
 
 import static com.idark.valoria.util.ValoriaUtils.*;
 
 public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
+
+    @SubscribeEvent
+    public void onDatapackSync(OnDatapackSyncEvent event) {
+        MinecraftServer server = event.getPlayerList().getServer();
+        syncCrusherRecipes(server, event.getPlayer());
+    }
+
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            MinecraftServer server = player.getServer();
+            if (server != null) {
+                syncCrusherRecipes(server, player);
+            }
+        }
+    }
+
+    /**
+     * Syncs loot data to client, sends CrusherSyncPacket to all players when /reload command was executed
+     * @see OnDatapackSyncEvent#getPlayer()
+     */
+    public void syncCrusherRecipes(MinecraftServer server, @Nullable ServerPlayer targetPlayer) {
+        RecipeManager recipeManager = server.getRecipeManager();
+        List<CrusherRecipe> recipes = recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE);
+        for (CrusherRecipe recipe : recipes) {
+            ResourceLocation lootTableId = recipe.getOutput();
+            LootTable lootTable = server.getLootData().getLootTable(lootTableId);
+            List<ItemStack> possibleDrops = ValoriaUtils.getLootTableItems(lootTable);
+            CrusherSyncPacket packet = new CrusherSyncPacket(recipe.getId(), possibleDrops);
+            if (targetPlayer != null) {
+                PacketHandler.sendEntity(targetPlayer, packet);
+            } else {
+                PacketHandler.sendToAll(packet);
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onMissingMappings(MissingMappingsEvent event){

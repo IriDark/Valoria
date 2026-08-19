@@ -16,6 +16,7 @@
 - Added Celestial Necklace
 - Added ServerConfig values to edit Pot spawn chances and tries per chunk
 - Added 2 new advancements that will describe damage scaling
+- Added Stone Crusher JEI
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**

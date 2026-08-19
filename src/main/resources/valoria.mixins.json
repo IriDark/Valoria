@@ -8,12 +8,13 @@
     "AttributeMixin",
     "HalfTransparentBlockMixin",
     "LivingEntityMixin",
+    "LootTableAccessor",
     "MobAmbientSoundInvoker",
     "RangedAttributeMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
-    "client.ClientLevelMixin",
+    "client.ClientLevelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

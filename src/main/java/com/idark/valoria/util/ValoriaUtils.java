@@ -1,6 +1,7 @@
 package com.idark.valoria.util;
 
 import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.mixin.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.mojang.blaze3d.vertex.*;
@@ -24,6 +25,8 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.items.*;
@@ -230,6 +233,22 @@ public class ValoriaUtils{
                 }
             }
         }
+    }
+
+    public static List<ItemStack> getLootTableItems(LootTable table) {
+        List<ItemStack> allDrops = new ArrayList<>();
+        List<LootPool> pools = ((LootTableAccessor) table).getPools();
+        for (LootPool pool : pools) {
+            LootPoolEntryContainer[] entries = pool.entries;
+            for (LootPoolEntryContainer entry : entries) {
+                if (entry instanceof LootItem itemEntry) {
+                    Item item = itemEntry.item;
+                    allDrops.add(new ItemStack(item));
+                }
+            }
+        }
+
+        return allDrops;
     }
 
     /**
