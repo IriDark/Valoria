@@ -26,7 +26,7 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipeClickArea(JewelryScreen.class, 102, 48, 22, 15, ModRecipeTypes.JEWELRY);
         registration.addRecipeClickArea(ManipulatorScreen.class, 102, 48, 22, 15, ModRecipeTypes.MANIPULATOR);
         registration.addRecipeClickArea(KilnScreen.class, 78, 32, 28, 23, ModRecipeTypes.KILN, RecipeTypes.FUELING);
-        registration.addRecipeClickArea(KegScreen.class, 78, 32, 22, 22, ModRecipeTypes.BREWERY);
+        registration.addRecipeClickArea(KegScreen.class, 89, 32, 22, 22, ModRecipeTypes.BREWERY);
         registration.addRecipeClickArea(SoulInfuserScreen.class, 102, 28, 22, 22, ModRecipeTypes.SOUL_INFUSER);
     }
 

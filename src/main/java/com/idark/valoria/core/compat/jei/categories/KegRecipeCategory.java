@@ -58,9 +58,5 @@ public class KegRecipeCategory extends AbstractRecipeCategory<KegRecipe>{
             width /= ((double)recipe.getTime() / (double)(ClientTick.ticksInGame % recipe.getTime()));
             gui.blit(arrow, 90, 16, 0, 0, width, 16, 32, 32);
         }
-
-        ResourceLocation timeIcon = Valoria.loc("textures/gui/jei/time.png");
-        gui.blit(timeIcon, 8, 6 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
-        gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }
