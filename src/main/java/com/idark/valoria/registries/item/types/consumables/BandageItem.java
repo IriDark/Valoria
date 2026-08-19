@@ -12,7 +12,6 @@ import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -59,18 +58,15 @@ public class BandageItem extends Item{
 
     @Override
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, Level level, @NotNull LivingEntity entity) {
-        if (level.isClientSide) return stack;
-        if (!(entity instanceof Player player)) return stack;
+        if(entity instanceof ServerPlayer serverPlayer){
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
+            serverPlayer.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
-        CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
-
-        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-        effects.forEach(eff -> entity.addEffect(new MobEffectInstance(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), eff.isAmbient(), eff.isVisible(), eff.showIcon())));
-
-        if (!player.getAbilities().instabuild) stack.shrink(1);
-
-        cureEffects(stack, entity);
-        if (level instanceof ServerLevel serv) serv.sendParticles(ParticleRegistry.HEAL.get(), entity.getX(), entity.getY() + 0.7D, entity.getZ(), 12, 0, 0, 0, 0.025f);
+            cureEffects(stack, entity);
+            effects.forEach(eff -> serverPlayer.addEffect(new MobEffectInstance(eff)));
+            if(!serverPlayer.getAbilities().instabuild) stack.shrink(1);
+            if(level instanceof ServerLevel serverLevel) serverLevel.sendParticles(ParticleRegistry.HEAL.get(), entity.getX(), entity.getY() + 0.7D, entity.getZ(), 12, 0, 0, 0, 0.025f);
+        }
 
         return stack;
     }

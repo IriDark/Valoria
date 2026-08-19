@@ -10,7 +10,6 @@ import mezz.jei.api.gui.ingredient.*;
 import mezz.jei.api.helpers.*;
 import mezz.jei.api.recipe.*;
 import mezz.jei.api.recipe.category.*;
-import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -23,6 +22,7 @@ import java.util.*;
 
 public class KegRecipeCategory extends AbstractRecipeCategory<KegRecipe>{
     private final IDrawable background;
+    private final static ResourceLocation ARROW = Valoria.loc("textures/gui/jei/progress_arrow.png");
 
     public KegRecipeCategory(IGuiHelper helper){
         super(ModRecipeTypes.BREWERY, Component.translatable("jei.valoria.brewery"), helper.createDrawableItemLike(BlockRegistry.keg.get()), 148, 48);
@@ -46,17 +46,10 @@ public class KegRecipeCategory extends AbstractRecipeCategory<KegRecipe>{
     @Override
     public void draw(KegRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY){
         background.draw(gui);
-        Font font_renderer = Minecraft.getInstance().font;
-        int ticks = recipe.getTime();
-        int seconds = ticks / 20;
-        String time = Integer.toString(seconds);
-        int stringWidth = font_renderer.width(time);
-
-        ResourceLocation arrow = Valoria.loc("textures/gui/jei/progress_arrow.png");
         int width = 22;
         if(ClientTick.ticksInGame % recipe.getTime() > 0){
             width /= ((double)recipe.getTime() / (double)(ClientTick.ticksInGame % recipe.getTime()));
-            gui.blit(arrow, 90, 16, 0, 0, width, 16, 32, 32);
+            gui.blit(ARROW, 90, 16, 0, 0, width, 16, 32, 32);
         }
     }
 }

@@ -19,6 +19,7 @@
 - Added Firron LootTable to JER Compat (i hope it will reduce amount of question related to Valoria portal shards)
 
 # **Fixed**
+- Fixed Possible issues with Bandages
 - Fixed Glove rendering to cache Model on Layer creation this will significantly improve optimization
 - Fixed Glove rendering to use Forge Event instead of a mixin and copy Arm rotations properly to increase compatibility with other mods (Tested with TACZ)
 - Fixed Alchemy Stations breaking process
