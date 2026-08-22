@@ -44,6 +44,10 @@
 - Fixed Nihility Overlay rendering when no nihility was present
 - Fixed SoundEvent bug when CooldownNotify items wasn't playing sound on Cooldown end (Katanas, Scythes...)
 - Fixed Shade blossom aging
+- Fixed Necromancer healing math on Knockback spell
+- Fixed Firron Rushing
+- Fixed Firron stun animation
+- Fixed Scythe radius attribute for elemental scythes
 
 # **Changed**
 - Updated and improved tooltips for Eye, Sun, Moon, and Celestial necklaces

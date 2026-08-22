@@ -7,6 +7,8 @@ import com.idark.valoria.registries.item.types.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 
+import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
+
 public class VoidScytheItem extends ScytheItem{
     private final float attackDamage;
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -17,6 +19,7 @@ public class VoidScytheItem extends ScytheItem{
         builder.put(AttributeReg.NIHILITY_DAMAGE.get(), new AttributeModifier(Valoria.BASE_NIHILITY_DAMAGE_UUID, "Weapon modifier", 2, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage - 2, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", scytheBuilder.attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 

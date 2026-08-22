@@ -23,8 +23,8 @@ public class EntityStatsRegistry{
 
     //bosses
     public static AttributeSupplier NECROMANCER = register(500, 5).build();
-    public static AttributeSupplier DRYADOR = register(750, 4, 0.10).add(Attributes.FOLLOW_RANGE, 20).build();
-    public static AttributeSupplier FIRRON = register(1250, 10, 0.20).add(Attributes.FOLLOW_RANGE, 20).add(Attributes.ARMOR, 10).add(Attributes.ARMOR_TOUGHNESS, 2).build();
+    public static AttributeSupplier DRYADOR = register(750, 4, 0.3).add(Attributes.FOLLOW_RANGE, 20).build();
+    public static AttributeSupplier FIRRON = register(1250, 10, 0.3).add(Attributes.FOLLOW_RANGE, 20).add(Attributes.ARMOR, 10).add(Attributes.ARMOR_TOUGHNESS, 2).build();
     public static AttributeSupplier WICKED_CRYSTAL = register(2000, 0).build();
 
     //monsters - overworld

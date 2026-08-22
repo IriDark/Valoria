@@ -8,7 +8,6 @@ import com.idark.valoria.registries.*;
 import mezz.jei.api.*;
 import mezz.jei.api.constants.*;
 import mezz.jei.api.registration.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 
@@ -51,9 +50,6 @@ public class ModJeiPlugin implements IModPlugin{
     @Override
     public void registerRecipes(IRecipeRegistration registration){
         ModJeiRecipes modRecipes = new ModJeiRecipes();
-        registration.addIngredientInfo(BlockRegistry.stoneCrusher.get(), Component.translatable("codex.valoria.stone_crusher.description"));
-        registration.addIngredientInfo(ItemsRegistry.runicDust.get(), Component.translatable("jei.valoria.runic_dust"));
-        registration.addIngredientInfo(BlockRegistry.crystalStone.get(), Component.translatable("jei.valoria.crystal_stone"));
         registration.addRecipes(ModRecipeTypes.BREWERY, modRecipes.getBreweryRecipes());
         registration.addRecipes(ModRecipeTypes.JEWELRY, modRecipes.getJewelryRecipes());
         registration.addRecipes(ModRecipeTypes.KILN, modRecipes.getKilnRecipes());

@@ -26,6 +26,8 @@ import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
+import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
+
 public class InfernalScytheItem extends ScytheItem{
     public ArcRandom arcRandom = Tmp.rnd;
     private final float attackDamage;
@@ -38,6 +40,7 @@ public class InfernalScytheItem extends ScytheItem{
         builder.put(AttributeReg.INFERNAL_DAMAGE.get(), new AttributeModifier(Valoria.BASE_INFERNAL_DAMAGE_UUID, "Weapon modifier", 2, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage - 2, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 

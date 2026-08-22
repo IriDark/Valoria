@@ -11,10 +11,12 @@ import mezz.jei.api.gui.ingredient.*;
 import mezz.jei.api.helpers.*;
 import mezz.jei.api.recipe.*;
 import mezz.jei.api.recipe.category.*;
+import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
+import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.*;
 
@@ -29,7 +31,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
     public CrusherRecipeCategory(IGuiHelper helper){
         title = Component.translatable("jei.valoria.crusher");
         ResourceLocation backgroundImage = Valoria.loc("textures/gui/jei/stone_crusher.png");
-        background = helper.createDrawable(backgroundImage, 0, 0, 116, 130);
+        background = helper.createDrawable(backgroundImage, 0, 0, 116, 134);
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.stoneCrusher.get()));
     }
 
@@ -56,6 +58,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
     @Override
     public void draw(CrusherRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY){
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+        guiGraphics.drawCenteredString(Minecraft.getInstance().font, "Possible loot", 55, 62, CommonColors.WHITE);
     }
 
     @Override
@@ -75,7 +78,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
             int row = i / maxItems;
 
             int xOffset = 2 + column * 16;
-            int yOffset = 71 + (row * 16);
+            int yOffset = 73 + (row * 16);
 
             builder.addSlot(RecipeIngredientRole.OUTPUT, xOffset, yOffset).addItemStack(drops.get(i));
         }

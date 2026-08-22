@@ -155,6 +155,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.goalSelector.addGoal(1, new NecromancerEntity.KnockbackEntitiesGoal(true, new MobEffectInstance(MobEffects.WEAKNESS, 120, 0), new MobEffectInstance(MobEffects.BLINDNESS, 45, 0)));
         this.goalSelector.addGoal(1, new NecromancerEntity.KnockbackEntitiesGoal(false, new MobEffectInstance(MobEffects.WEAKNESS, 120, 0), new MobEffectInstance(MobEffects.BLINDNESS, 45, 0)));
         this.goalSelector.addGoal(2, new NecromancerEntity.KnockbackEntitiesGoal(false));
+
         // misc
         this.goalSelector.addGoal(1, new NecromancerEntity.HealSelfSpellGoal());
         this.goalSelector.addGoal(2, new NecromancerEntity.HealTargetSpellGoal());
@@ -534,9 +535,9 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                         dY *= powerAfterDamp;
                         dZ *= powerAfterDamp;
                         Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
-                        if(this.strong){
-                            NecromancerEntity.this.heal(NecromancerEntity.this.getHealth() * 0.05f);
-                            entity.hurt(NecromancerEntity.this.level().damageSources().generic(), entity.getHealth() * 0.5f);
+                        if(this.strong && !NecromancerEntity.this.isAlliedTo(entity)){
+                            NecromancerEntity.this.heal(entity.getMaxHealth() * 0.10f);
+                            entity.hurt(NecromancerEntity.this.level().damageSources().magic(), entity.getMaxHealth() * 0.25f);
                         }
 
                         for(MobEffectInstance effectInstance : effects){

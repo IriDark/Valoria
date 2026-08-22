@@ -87,7 +87,7 @@ public class CrusherBlock extends Block implements EntityBlock{
     private void crushItem(Level world, Player player, InteractionHand handIn, CrusherBlockEntity tile){
         if(player instanceof ServerPlayer serverPlayer){
             tile.craftItem(serverPlayer);
-            player.getItemInHand(handIn).hurtAndBreak(world.getRandom().nextInt(0, 2), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            player.getItemInHand(handIn).hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
     }
 

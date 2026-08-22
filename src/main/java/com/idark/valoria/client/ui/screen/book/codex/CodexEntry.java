@@ -141,7 +141,7 @@ public class CodexEntry{
         float screenY = (y - codex.getCenterY()) * codex.zoom + codex.getCenterY();
         float scaledIconSize = 22 * codex.zoom;
 
-        MutableComponent transl = isUnlocked() ? translate : unknownTranslate;
+        MutableComponent transl = ServerConfig.ENABLE_CODEX_TITLE.get() || isUnlocked() ? translate : unknownTranslate;
         List<Component> tooltipLines = getTooltipLines(transl);
 
         int maxLineWidth = 0;

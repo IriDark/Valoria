@@ -69,16 +69,16 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     private AttackInstance currentAttack;
     public IBossPhase currentPhase = new BossPhase(this, () -> Firron.this.getHealth() <= Firron.this.getMaxHealth() / 2).setSound(SoundEvents.ANVIL_PLACE);
 
-    public int stunTicks;
-    public boolean isStunned;
-
-    private Vec3 rushDirection;
+    private final int prepareDuration = 80;
+    private final int rushDuration = 80;
     private int animationTicks = 0;
+
+    public int stunTicks;
     private int rushPrepareTicks;
     private int rushTicks;
-    private int prepareDuration = 80;
-    private int rushDuration = 80;
     private boolean rushing;
+    public boolean isStunned;
+    private Vec3 rushDirection;
 
     public static final float sweepAttackRange = 1.5f;
     public static final float tripleSweepAttackRange = 3;
@@ -230,13 +230,13 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         rushTicks++;
 
         //better to end the rush rather than crash the game
-        if (hitWall() || rushTicks > rushDuration || rushDirection == null) {
+        if ((rushTicks > 10 && hitWall()) || rushTicks > rushDuration || rushDirection == null) {
             endRush(!hitWall());
             return;
         }
 
         Vec3 dir = rushDirection;
-        this.setDeltaMovement(dir.scale(0.7f));
+        this.setDeltaMovement(new Vec3(dir.x * 0.7f, this.getDeltaMovement().y, dir.z * 0.7f));
         this.hurtMarked = true;
         this.hasImpulse = true;
 
@@ -293,7 +293,8 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     }
 
     public void startRush(LivingEntity target) {
-        this.rushDirection = target.position().subtract(this.position()).normalize();
+        Vec3 dir = target.position().subtract(this.position());
+        this.rushDirection = new Vec3(dir.x, 0, dir.z).normalize();
         this.rushing = true;
         this.rushTicks = 0;
         this.rushPrepareTicks = 0;
@@ -397,6 +398,10 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         .triggerableAnim("rush_bash", RUSH_BASH)
         .triggerableAnim("rush_ram", RUSH_RAM)
         .triggerableAnim("rush_stun_begin", RUSH_STUN_BEGIN)
+        .triggerableAnim("summon_start", SUMMON_START)
+        .triggerableAnim("summon_hold", SUMMON_HOLD)
+        .triggerableAnim("summon_end", SUMMON_END)
+        .triggerableAnim("stun_end", STUN_END)
 
         .setCustomInstructionKeyframeHandler((e) -> {
             String data = e.getKeyframeData().getInstructions();
@@ -428,6 +433,10 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
                 return state.setAndContinue(STUN_LOOP);
             }
 
+            if (state.getController().getCurrentRawAnimation() == STUN_END) {
+                return state.setAndContinue(STUN_END);
+            }
+
             return PlayState.STOP;
         })
         .triggerableAnim("stun_end", STUN_END).receiveTriggeredAnimations()
@@ -441,6 +450,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
 
     public void setStunned(int duration) {
         this.stunTicks = duration;
+        this.isStunned = true;
         this.level().broadcastEntityEvent(this, (byte)90);
         this.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), duration, 0));
     }
@@ -542,6 +552,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
             case 91: {
                 this.isStunned = false;
                 this.triggerAnim("StatusController", "stun_end");
+                this.triggerAnim("AttackController", "stun_end");
                 break;
             }
 
@@ -571,10 +582,12 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         if(this.hasEffect(effect) && stunTicks == 0 && !this.level().isClientSide()) {
             this.level().broadcastEntityEvent(this, (byte)90);
             this.stunTicks = this.getEffect(effect).getDuration();
+            this.isStunned = true;
         }
 
         if (stunTicks > 0) {
             if(--stunTicks <= 0) {
+                this.isStunned = false;
                 this.level().broadcastEntityEvent(this, (byte)91);
             }
         }

@@ -5,7 +5,7 @@ import net.minecraftforge.common.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class ServerConfig{
-    public static ForgeConfigSpec.ConfigValue<Boolean> ENABLE_CODEX_PROGRESSION, ENABLE_FOOD_ROT, ENABLE_NIHILITY, CRITICAL_NIHILITY_BLINDNESS, PATREON_REWARDS;
+    public static ForgeConfigSpec.ConfigValue<Boolean> ENABLE_CODEX_PROGRESSION, ENABLE_CODEX_TITLE, ENABLE_FOOD_ROT, ENABLE_NIHILITY, CRITICAL_NIHILITY_BLINDNESS, PATREON_REWARDS;
 
     public static ForgeConfigSpec.ConfigValue<Integer> POT_TRIES, CAVE_POT_TRIES;
     public static ForgeConfigSpec.ConfigValue<Double> POT_SPAWN_CHANCE, CAVE_POT_SPAWN_CHANCE,
@@ -27,6 +27,7 @@ public class ServerConfig{
 
     public ServerConfig(ForgeConfigSpec.Builder builder){
         builder.comment("Gameplay Settings").push("gameplay");
+            ENABLE_CODEX_TITLE = builder.comment("Enable codex title").define("enableCodexTitle", true);
             ENABLE_CODEX_PROGRESSION = builder.comment("Enables the progression system for the Codex.",
             "If true, players must unlock entries via gameplay.",
             "If false, all entries are visible by default.")
