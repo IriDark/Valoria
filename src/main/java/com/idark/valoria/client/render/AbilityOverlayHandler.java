@@ -6,7 +6,6 @@ import com.idark.valoria.registries.item.ability.AbilityHelper.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
-import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
@@ -17,10 +16,6 @@ import net.minecraftforge.client.gui.overlay.*;
 import java.util.*;
 
 public class AbilityOverlayHandler{
-    private static ItemStack cachedStack = ItemStack.EMPTY;
-    private static Tag cachedAbilitiesTag = null;;
-    private static List<ActiveAbility> cachedAbilities = new ArrayList<>();
-
     public final static ResourceLocation bg = Valoria.loc("textures/gui/tooltips/ability_slot.png");
 
     @OnlyIn(Dist.CLIENT)
@@ -38,25 +33,19 @@ public class AbilityOverlayHandler{
             stack = mc.player.getOffhandItem();
         }
 
-        if(!stack.hasTag() || !stack.getTag().contains("valoria_abilities")) return;
-        CompoundTag currentNBT = stack.getTag();
-        Tag currentAbilitiesTag = currentNBT.get("valoria_abilities");
-        if (stack != cachedStack || !Objects.equals(currentAbilitiesTag, cachedAbilitiesTag)) {
-            cachedStack = stack;
-            cachedAbilitiesTag = currentAbilitiesTag != null ? currentAbilitiesTag.copy() : null;
-            cachedAbilities = AbilityHelper.getActiveAbilities(stack);
-        }
+        List<ActiveAbility> abilities = AbilityHelper.getActiveAbilities(stack);
+        if (abilities.isEmpty()) return;
 
         gui.pose().pushPose();
-        render(mc, gui, currentNBT);
+        render(mc, gui, stack, abilities);
         gui.pose().popPose();
     }
 
-    private static void render(Minecraft mc, GuiGraphics gui, CompoundTag currentNBT){
+    private static void render(Minecraft mc, GuiGraphics gui, ItemStack stack, List<ActiveAbility> abilities){
         long currentTime = mc.level.getGameTime();
         int x = gui.guiWidth() / 2 + 175;
         int y = gui.guiHeight() / 2 + 200;
-        List<ActiveAbility> abilities = cachedAbilities;
+        
         for (int i = 0; i < abilities.size(); i++){
             var element = abilities.get(i);
             int drawX = x + i * 34 + (32 / 2);
@@ -66,28 +55,32 @@ public class AbilityOverlayHandler{
 
             String name = element.type().name;
             gui.pose().pushPose();
-            gui.pose().translate(drawX + (32 / 2), y + 34, 0);
+            gui.pose().translate(drawX + (32 / 2f), y + 34, 0);
             gui.pose().scale(0.65f, 0.65f, 1.0f);
             gui.drawCenteredString(mc.font, name, 0, 0, CommonColors.WHITE);
             gui.pose().popPose();
-            if (currentNBT.contains("ability_cooldowns")) {
-                CompoundTag cdTag = currentNBT.getCompound("ability_cooldowns");
-                String id = element.ability().type.id.toString();
-                if (cdTag.contains(id)) {
-                    long endTime = cdTag.getLong(id);
-                    int maxTicks = cdTag.getInt(id + "_max");
-                    if (currentTime < endTime) {
-                        float progress = (float) (endTime - currentTime) / maxTicks;
-                        int cdHeight = (int) (progress * 32);
-                        int offset = 32 - cdHeight;
+            
+            long endTime = AbilityHelper.getCooldown(mc.player, element.ability());
+            int maxTicks = AbilityHelper.getMaxCooldown(mc.player, element.ability());
+            if (endTime > 0 && currentTime < endTime && maxTicks > 0) {
+                float progress = (float) (endTime - currentTime) / maxTicks;
+                int cdHeight = (int) (progress * 32);
+                int offset = 32 - cdHeight;
 
-                        RenderSystem.enableBlend();
-                        gui.setColor(255, 255, 255, 0.75f);
-                        gui.blit(bg, drawX, y + offset, 0, offset, 32, cdHeight, 64, 64);
-                        gui.setColor(1, 1, 1, 1);
-                        RenderSystem.disableBlend();
-                    }
-                }
+                RenderSystem.enableBlend();
+                gui.setColor(255, 255, 255, 0.75f);
+                gui.blit(bg, drawX, y + offset, 0, offset, 32, cdHeight, 64, 64);
+                gui.setColor(1, 1, 1, 1);
+                RenderSystem.disableBlend();
+            }
+            
+            int usages = AbilityHelper.getUsages(mc.player, element.ability());
+            if (usages > 0 && element.ability().maxUsages > 1) {
+                gui.pose().pushPose();
+                gui.pose().translate(drawX + 32, y + 32, 0);
+                gui.pose().scale(0.65f, 0.65f, 1.0f);
+                gui.drawCenteredString(mc.font, usages + "/" + element.ability().maxUsages, 0, 0, CommonColors.WHITE);
+                gui.pose().popPose();
             }
         }
     }

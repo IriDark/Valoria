@@ -7,7 +7,6 @@ import com.idark.valoria.registries.item.ability.itemComponents.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.screens.inventory.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
@@ -24,9 +23,6 @@ import java.util.*;
 public class AbilityClientEvents{
     public static int currentIndex = 0;
     private static ItemStack lastHoveredStack = ItemStack.EMPTY;
-    private static ItemStack cachedTooltipStack = ItemStack.EMPTY;
-    private static CompoundTag cachedTooltipNBT = null;
-    private static List<ActiveAbility> cachedAbilities = new ArrayList<>();
 
     @SubscribeEvent
     public static void onKeyInput(ScreenEvent.KeyPressed event){
@@ -34,15 +30,20 @@ public class AbilityClientEvents{
             Slot hoveredSlot = gui.getSlotUnderMouse();
             if(hoveredSlot != null && hoveredSlot.hasItem()){
                 ItemStack stack = hoveredSlot.getItem();
-                if(stack.hasTag() && stack.getTag().contains("valoria_abilities")){
-                    setLastHoveredStack(stack);
-                    if(event.getKeyCode() == GLFW.GLFW_KEY_DOWN || event.getKeyCode() == GLFW.GLFW_KEY_LEFT){
-                        currentIndex--;
-                    }else if(event.getKeyCode() == GLFW.GLFW_KEY_UP || event.getKeyCode() == GLFW.GLFW_KEY_RIGHT){
-                        currentIndex++;
+                List<ActiveAbility> abilities = AbilityHelper.getActiveAbilities(stack);
+                if(!abilities.isEmpty()){
+                    if (abilities.size() > 1) {
+                        setLastHoveredStack(stack);
+                        if(event.getKeyCode() == GLFW.GLFW_KEY_DOWN || event.getKeyCode() == GLFW.GLFW_KEY_LEFT){
+                            currentIndex--;
+                            event.setCanceled(true);
+                        }else if(event.getKeyCode() == GLFW.GLFW_KEY_UP || event.getKeyCode() == GLFW.GLFW_KEY_RIGHT){
+                            currentIndex++;
+                            event.setCanceled(true);
+                        }
+                    } else {
+                        resetLastHovered();
                     }
-
-                    event.setCanceled(true);
                 }
             } else {
                 resetLastHovered();
@@ -56,15 +57,20 @@ public class AbilityClientEvents{
             Slot hoveredSlot = gui.getSlotUnderMouse();
             if(hoveredSlot != null && hoveredSlot.hasItem()){
                 ItemStack stack = hoveredSlot.getItem();
-                if(stack.hasTag() && stack.getTag().contains("valoria_abilities")){
-                    setLastHoveredStack(stack);
-                    if(event.getScrollDelta() < 0){
-                        currentIndex--;
-                    }else if(event.getScrollDelta() > 0){
-                        currentIndex++;
+                List<ActiveAbility> abilities = AbilityHelper.getActiveAbilities(stack);
+                if(!abilities.isEmpty()){
+                    if (abilities.size() > 1) {
+                        setLastHoveredStack(stack);
+                        if(event.getScrollDelta() < 0){
+                            currentIndex--;
+                            event.setCanceled(true);
+                        }else if(event.getScrollDelta() > 0){
+                            currentIndex++;
+                            event.setCanceled(true);
+                        }
+                    } else {
+                        resetLastHovered();
                     }
-
-                    event.setCanceled(true);
                 }
             } else {
                 resetLastHovered();
@@ -90,7 +96,7 @@ public class AbilityClientEvents{
         if (player == null) return;
 
         ItemStack stack = player.getMainHandItem();
-        if (!stack.hasTag() || !stack.getTag().contains("valoria_abilities")) return;
+        if (AbilityHelper.getActiveAbilities(stack).isEmpty()) return;
 
         boolean isShift = player.isShiftKeyDown();
         boolean isLeftClick = event.isAttack();
@@ -115,20 +121,11 @@ public class AbilityClientEvents{
     @SubscribeEvent
     public static void onTooltipGatherComponents(RenderTooltipEvent.GatherComponents event) {
         ItemStack stack = event.getItemStack();
-        if (!stack.hasTag() || !stack.getTag().contains("valoria_abilities")) return;
+        List<ActiveAbility> abilities = AbilityHelper.getActiveAbilities(stack);
+        if (abilities.isEmpty()) return;
 
         Player player = Minecraft.getInstance().player;
         if (player == null) return;
-
-        CompoundTag currentNBT = stack.getTag();
-        if (stack != cachedTooltipStack || !Objects.equals(currentNBT, cachedTooltipNBT)) {
-            cachedTooltipStack = stack;
-            cachedTooltipNBT = currentNBT != null ? currentNBT.copy() : null;
-            cachedAbilities = AbilityHelper.getActiveAbilities(stack);
-        }
-
-        List<ActiveAbility> abilities = cachedAbilities;
-        if (abilities.isEmpty()) return;
 
         List<Either<FormattedText, TooltipComponent>> elements = event.getTooltipElements();
         int insertIndex = 1;

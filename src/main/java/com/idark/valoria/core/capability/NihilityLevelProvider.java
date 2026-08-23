@@ -3,16 +3,25 @@ package com.idark.valoria.core.capability;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
+import org.jetbrains.annotations.*;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<CompoundTag>{
+public class NihilityLevelProvider implements INihilityLevel, ICapabilitySerializable<CompoundTag>{
     public float nihilityAmount = 0;
     private float maxNihilityAmount = 100f;
+    private final LazyOptional<INihilityLevel> optional = LazyOptional.of(() -> this);
+
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, Direction side){
+        return cap == INihilityLevel.INSTANCE ? optional.cast() : LazyOptional.empty();
+    }
 
     public void modifyAmount(@Nullable LivingEntity entity, float amount) {
         setAmountFromServer(entity, this.nihilityAmount + amount);
@@ -55,7 +64,7 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
     }
 
     private void sendDataToClient(@Nullable LivingEntity entity) {
-        if (entity == null || !(entity instanceof ServerPlayer player)) return;
+        if (!(entity instanceof ServerPlayer player)) return;
         PacketHandler.sendTo(player, new NihilityPacket(this, player));
     }
 
@@ -69,5 +78,10 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
     @Override
     public void deserializeNBT(CompoundTag nbt){
         this.nihilityAmount = nbt.getFloat("nihility_level");
+    }
+
+    @Override
+    public void copyFrom(INihilityLevel source) {
+        this.nihilityAmount = source.getAmount();
     }
 }

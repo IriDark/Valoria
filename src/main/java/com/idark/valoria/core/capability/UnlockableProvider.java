@@ -2,15 +2,24 @@ package com.idark.valoria.core.capability;
 
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
+import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
+import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-public class UnlockableProvider implements IUnlockable, INBTSerializable<CompoundTag>{
+public class UnlockableProvider implements IUnlockable, ICapabilitySerializable<CompoundTag>{
     Set<Unlockable> unlockables = new HashSet<>();
     Set<Unlockable> claimed = new HashSet<>();
     Set<Unlockable> viewed = new HashSet<>();
+    private final LazyOptional<IUnlockable> optional = LazyOptional.of(() -> this);
+
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, Direction side){
+        return cap == IUnlockable.INSTANCE ? optional.cast() : LazyOptional.empty();
+    }
 
     @Override
     public boolean isViewed(Unlockable unlockable){
@@ -146,5 +155,15 @@ public class UnlockableProvider implements IUnlockable, INBTSerializable<Compoun
                 if(unlockable != null) markViewed(unlockable);
             }
         }
+    }
+
+    @Override
+    public void copyFrom(IUnlockable source) {
+        this.unlockables.clear();
+        this.unlockables.addAll(source.getUnlockables());
+        this.claimed.clear();
+        this.claimed.addAll(source.getClaimed());
+        this.viewed.clear();
+        this.viewed.addAll(source.getViewed());
     }
 }

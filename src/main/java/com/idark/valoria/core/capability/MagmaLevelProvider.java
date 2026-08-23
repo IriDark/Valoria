@@ -2,16 +2,25 @@ package com.idark.valoria.core.capability;
 
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
+import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
+import org.jetbrains.annotations.*;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public class MagmaLevelProvider implements IMagmaLevel, INBTSerializable<CompoundTag>{
+public class MagmaLevelProvider implements IMagmaLevel, ICapabilitySerializable<CompoundTag>{
     public float magmaAmount = 0;
     private float maxMagmaAmount = 0;
+    private final LazyOptional<IMagmaLevel> optional = LazyOptional.of(() -> this);
+
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, Direction side){
+        return cap == IMagmaLevel.INSTANCE ? optional.cast() : LazyOptional.empty();
+    }
 
     public void modifyAmount(@Nullable LivingEntity entity, float amount) {
         setAmountFromServer(entity, this.magmaAmount + amount);
@@ -69,7 +78,7 @@ public class MagmaLevelProvider implements IMagmaLevel, INBTSerializable<Compoun
     }
 
     private void sendDataToClient(@Nullable LivingEntity entity) {
-        if (entity == null || !(entity instanceof ServerPlayer player)) return;
+        if (!(entity instanceof ServerPlayer player)) return;
         PacketHandler.sendTo(player, new MagmaPacket(this, player));
     }
 
@@ -83,5 +92,10 @@ public class MagmaLevelProvider implements IMagmaLevel, INBTSerializable<Compoun
     @Override
     public void deserializeNBT(CompoundTag nbt){
         this.magmaAmount = nbt.getFloat("magma_level");
+    }
+
+    @Override
+    public void copyFrom(IMagmaLevel source) {
+        this.magmaAmount = source.getAmount();
     }
 }

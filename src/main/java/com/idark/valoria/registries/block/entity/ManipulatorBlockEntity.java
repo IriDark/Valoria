@@ -41,6 +41,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
     public final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> itemOutputHandler);
+    public final LazyOptional<IItemHandler> combinedHandler = LazyOptional.of(() -> new CombinedInvWrapper(itemHandler, itemOutputHandler));
 
     public int progress = 0;
     public int progressMax = 0;
@@ -94,8 +95,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side){
         if(cap == ForgeCapabilities.ITEM_HANDLER){
             if(side == null){
-                CombinedInvWrapper item = new CombinedInvWrapper(itemHandler, itemOutputHandler);
-                return LazyOptional.of(() -> item).cast();
+                return combinedHandler.cast();
             }
 
             if(side == Direction.DOWN){
@@ -106,6 +106,14 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         }
 
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps(){
+        super.invalidateCaps();
+        handler.invalidate();
+        outputHandler.invalidate();
+        combinedHandler.invalidate();
     }
 
     @Override

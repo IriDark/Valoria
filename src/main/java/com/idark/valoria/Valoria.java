@@ -123,6 +123,7 @@ public class Valoria{
 
         forgeBus.register(this);
         forgeBus.register(new Events());
+        forgeBus.register(new CapabilityEvents());
         forgeBus.register(new StructureEvents());
         if (FMLEnvironment.dist.isClient()) {
             forgeBus.register(ClientEvents.class);
@@ -209,6 +210,7 @@ public class Valoria{
             event.register(IUnlockable.class);
             event.register(INihilityLevel.class);
             event.register(IMagmaLevel.class);
+            event.register(PlayerAbilityTracker.class);
         }
 
         @SubscribeEvent

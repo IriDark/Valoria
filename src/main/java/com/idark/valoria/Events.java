@@ -3,7 +3,6 @@ package com.idark.valoria;
 import com.google.common.collect.*;
 import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
-import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
@@ -22,10 +21,8 @@ import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
-import com.idark.valoria.registries.level.events.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
-import net.minecraft.advancements.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -49,20 +46,15 @@ import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
-import net.minecraftforge.common.util.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.TickEvent.*;
-import net.minecraftforge.event.entity.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.entity.player.PlayerEvent.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 import pro.komaru.tridot.api.*;
-import pro.komaru.tridot.api.render.text.DotStyleEffects.*;
-import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
@@ -272,6 +264,49 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void playerTick(TickEvent.PlayerTickEvent event){
+        if (event.phase != TickEvent.Phase.END) return;
+        Player player = event.player;
+        if(ServerConfig.ENABLE_FOOD_ROT.get()){
+            if(player.level().dimension().equals(LevelGen.VALORIA_KEY)){
+                if(player.tickCount % (ServerConfig.FOOD_ROT_INTERVAL.get() * 20) == 0){
+                    Inventory inv = player.getInventory();
+                    for(int i = 0; i < inv.getContainerSize(); i++){
+                        ItemStack stack = inv.getItem(i);
+                        if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.is(TagsRegistry.ROT_IMMUNE))){
+                            CompoundTag tag = stack.getOrCreateTag();
+                            ValoriaUtils.addNBT("ValoriaRot", 1, 100, stack);
+                            int rot = tag.getInt("ValoriaRot");
+                            if(rot == 100){
+                                convertToRot(event, stack, inv, i);
+                            }else{
+                                tag.putInt("ValoriaRot", rot);
+                                stack.setTag(tag);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void convertToRot(PlayerTickEvent event, ItemStack stack, Inventory inv, int i){
+        CompoundTag tag;
+        ItemStack rotStack = new ItemStack(ItemsRegistry.rot.get());
+        tag = rotStack.getOrCreateTag();
+
+        rotStack.setTag(tag.copy());
+        var key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        if(key == null) return;
+
+        tag.putString("OriginalItem", key.toString());
+        rotStack.setTag(tag);
+        rotStack.setCount(stack.getCount());
+        inv.setItem(i, rotStack);
+        event.player.playSound(SoundEvents.FROGSPAWN_PLACE);
+    }
+
+    @SubscribeEvent
     public void onAttackEntity(AttackEntityEvent event){
         Player player = event.getEntity();
         ItemStack stack = player.getMainHandItem();
@@ -300,131 +335,6 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onRespawn(PlayerRespawnEvent ev){
-        Player player = ev.getEntity();
-        player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
-            nihilityLevel.setAmountFromServer(player, 0);
-        });
-
-        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(nihilityLevel -> {
-            nihilityLevel.setAmountFromServer(player, 0);
-        });
-    }
-
-    @SubscribeEvent
-    public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event){
-        Player player = event.getEntity();
-        if(player instanceof ServerPlayer sp){
-            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
-            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
-            if(unlocked != null) all.removeAll(unlocked);
-            for(Unlockable unknown : all){
-                if(unknown instanceof OnDimensionChangeListener entityU) entityU.checkCondition(sp, event.getTo());
-            }
-        }
-
-        if(event.getTo() == LevelGen.VALORIA_KEY){
-            onValoriaEnter(player);
-        }
-    }
-
-    public void onValoriaEnter(Player player){
-        Level level = player.level();
-        if(level instanceof ServerLevel s && player instanceof ServerPlayer sp){
-            ResourceLocation loc = Valoria.loc("advancements/valoria/visit_the_valoria.json");
-            Advancement adv = s.getServer().getAdvancements().getAdvancement(loc);
-            if(adv == null || !sp.getAdvancements().getOrStartProgress(adv).isDone()) {
-                player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event){
-        if (event.phase != TickEvent.Phase.END) return;
-        Player player = event.player;
-        if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
-            if(ServerConfig.ENABLE_NIHILITY.get()){
-                tickNihility(event, serverPlayer, player);
-            }
-
-            tickMagma(event, player);
-            tickCodex(serverPlayer, player);
-        }
-
-        if(ServerConfig.ENABLE_NIHILITY.get()){
-            if(player.level().isClientSide()){
-                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
-            }
-        }
-
-        if(ServerConfig.ENABLE_FOOD_ROT.get()){
-            if(player.level().dimension().equals(LevelGen.VALORIA_KEY)){
-                if(player.tickCount % ServerConfig.FOOD_ROT_INTERVAL.get() * 20 == 0){
-                    Inventory inv = player.getInventory();
-                    for(int i = 0; i < inv.getContainerSize(); i++){
-                        ItemStack stack = inv.getItem(i);
-                        if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.is(TagsRegistry.ROT_IMMUNE))){
-                            CompoundTag tag = stack.getOrCreateTag();
-                            ValoriaUtils.addNBT("ValoriaRot", 1, 100, stack);
-                            int rot = tag.getInt("ValoriaRot");
-                            if(rot == 100){
-                                convertToRot(event, stack, inv, i);
-                            }else{
-                                tag.putInt("ValoriaRot", rot);
-                                stack.setTag(tag);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private void tickNihility(PlayerTickEvent event, ServerPlayer serverPlayer, Player player){
-        player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
-            if(!player.getAbilities().instabuild && !player.isSpectator()){
-                NihilityEvent.tick(nihilityLevel, serverPlayer);
-            }
-        });
-    }
-
-    private void tickCodex(ServerPlayer serverPlayer, Player player){
-        if(player.tickCount % ServerConfig.CODEX_UPDATE_INTERVAL.get() * 20 == 0){
-            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
-            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
-            if(unlocked != null) all.removeAll(unlocked);
-            for(Unlockable unknown : all){
-                unknown.tick(serverPlayer);
-            }
-        }
-    }
-
-    private void tickMagma(PlayerTickEvent event, Player player){
-        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
-            if(!player.getAbilities().instabuild && !player.isSpectator()){
-                MagmaEvent.tick(event, magmaLevel, player);
-            }
-        });
-    }
-
-    private static void convertToRot(PlayerTickEvent event, ItemStack stack, Inventory inv, int i){
-        CompoundTag tag;
-        ItemStack rotStack = new ItemStack(ItemsRegistry.rot.get());
-        tag = rotStack.getOrCreateTag();
-
-        rotStack.setTag(tag.copy());
-        var key = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        if(key == null) return;
-
-        tag.putString("OriginalItem", key.toString());
-        rotStack.setTag(tag);
-        rotStack.setCount(stack.getCount());
-        inv.setItem(i, rotStack);
-        event.player.playSound(SoundEvents.FROGSPAWN_PLACE);
-    }
-
-    @SubscribeEvent
     public void onFluid(BlockEvent.FluidPlaceBlockEvent e) {
         if(e.getNewState().is(Blocks.STONE) || e.getNewState().is(Blocks.COBBLESTONE)){
             if(e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY){
@@ -439,15 +349,6 @@ public class Events{
             if(zombie.level().getBiome(zombie.blockPosition()).is(Biomes.IS_SWAMP)) {
                 zombie.convertTo(EntityTypeRegistry.SWAMP_WANDERER.get(), false);
             }
-        }
-    }
-
-    @SubscribeEvent
-    public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
-        if(event.getObject() instanceof Player){
-            event.addCapability(Valoria.loc("pages"), new UnloackbleCap());
-            event.addCapability(Valoria.loc("nihility_level"), new NihilityLevelCap());
-            event.addCapability(Valoria.loc("magma_level"), new MagmaLevelCap());
         }
     }
 
@@ -490,31 +391,9 @@ public class Events{
     }
 
     @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event) {
-        MinecraftServer server = event.getServer();
-        if (server.getTickCount() % 100 != 0) return;
-        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
-            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
-            if(unlocked != null) all.removeAll(unlocked);
-            for(Unlockable unknown : all){
-                if(unknown instanceof OnDungeonVisitListener entityU) entityU.checkCondition(player, player.serverLevel());
-            }
-        }
-    }
-
-    @SubscribeEvent
     public void onMobKilled(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             LivingEntity victim = event.getEntity();
-
-            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
-            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
-            if(unlocked != null) all.removeAll(unlocked);
-            for(Unlockable unknown : all){
-                if(unknown instanceof OnMobKilledListener entityU) entityU.checkCondition(player, victim);
-            }
-
             var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioOnKillItem, player);
             if(curioStack != null){
                 ((CurioOnKillItem)curioStack.getItem()).onKill(curioStack, player, victim);
@@ -871,53 +750,6 @@ public class Events{
             var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioCritDamageItem, event.getEntity());
             if(curioStack != null){
                 ((CurioCritDamageItem)curioStack.getItem()).critDamage(event);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onClone(PlayerEvent.Clone event){
-        event.getOriginal().reviveCaps();
-        event.getEntity().getCapability(IUnlockable.INSTANCE).ifPresent((k) -> event.getOriginal().getCapability(IUnlockable.INSTANCE).ifPresent((o) ->
-                ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));
-        if(!event.getEntity().level().isClientSide){
-            PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket(event.getEntity()));
-        }
-
-        event.getOriginal().reviveCaps();
-        event.getEntity().getCapability(INihilityLevel.INSTANCE).ifPresent((k) -> event.getOriginal().getCapability(INihilityLevel.INSTANCE).ifPresent((o) ->
-        ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));
-        if(!event.getEntity().level().isClientSide){
-            PacketHandler.sendTo((ServerPlayer)event.getEntity(), new NihilityPacket(new NihilityLevelProvider(), event.getEntity()));
-        }
-
-        event.getOriginal().reviveCaps();
-        event.getEntity().getCapability(IMagmaLevel.INSTANCE).ifPresent((k) -> event.getOriginal().getCapability(IMagmaLevel.INSTANCE).ifPresent((o) ->
-        ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));
-        if(!event.getEntity().level().isClientSide){
-            PacketHandler.sendTo((ServerPlayer)event.getEntity(), new MagmaPacket(new MagmaLevelProvider(), event.getEntity()));
-        }
-    }
-
-    @SubscribeEvent
-    public void registerCustomAI(EntityJoinLevelEvent event){
-        if(event.getEntity() instanceof LivingEntity && !event.getLevel().isClientSide){
-            if(event.getEntity() instanceof Player player){
-                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket(player));
-                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> {
-                    nihility.modifyAmount(player, 1);
-                    nihility.decrease(player, 1);
-                });
-
-                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new NihilityPacket(new NihilityLevelProvider(), player));
-
-                player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magma -> {
-                    magma.modifyAmount(player, 1);
-                    magma.decrease(player, 1);
-                });
-
-                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new MagmaPacket(new MagmaLevelProvider(), player));
-
             }
         }
     }

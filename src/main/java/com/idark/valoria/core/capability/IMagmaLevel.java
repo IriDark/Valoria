@@ -26,4 +26,6 @@ public interface IMagmaLevel{
     void setMaxAmount(float amount);
 
     float getMaxAmount(@Nullable LivingEntity entity);
+
+    void copyFrom(IMagmaLevel source);
 }

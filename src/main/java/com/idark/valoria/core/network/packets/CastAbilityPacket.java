@@ -23,7 +23,7 @@ public class CastAbilityPacket extends RateLimitedPacket{
 
     public void execute(ServerPlayer player){
         ItemStack stack = player.getMainHandItem();
-        CastType type = CastType.values()[this.event];
+        CastType type = CastType.fromEvent(this.event);
         AbilityHelper.tryCast(player, stack, type);
     }
 }

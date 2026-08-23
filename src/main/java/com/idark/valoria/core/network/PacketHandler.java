@@ -82,6 +82,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, ProgressionDisableCodexPacket.class, ProgressionDisableCodexPacket::encode, ProgressionDisableCodexPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, CrusherSyncPacket.class, CrusherSyncPacket::encode, CrusherSyncPacket::decode, CrusherSyncPacket::handle);
 
+        HANDLER.registerMessage(id++, SyncAbilityStatePacket.class, SyncAbilityStatePacket::encode, SyncAbilityStatePacket::decode, SyncAbilityStatePacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

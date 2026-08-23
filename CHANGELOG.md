@@ -48,6 +48,8 @@
 - Fixed Firron Rushing
 - Fixed Firron stun animation
 - Fixed Scythe radius attribute for elemental scythes
+- Fixed Memory leaks
+- Fixed Capability syncs
 
 # **Changed**
 - Updated and improved tooltips for Eye, Sun, Moon, and Celestial necklaces

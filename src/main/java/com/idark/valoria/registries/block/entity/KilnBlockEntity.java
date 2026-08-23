@@ -24,6 +24,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.items.*;
+import net.minecraftforge.items.wrapper.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.*;
@@ -39,6 +43,7 @@ public class KilnBlockEntity extends BaseContainerBlockEntity implements Worldly
     int litDuration;
     int cookingProgress;
     int cookingTotalTime;
+    private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
     protected final ContainerData dataAccess = new ContainerData(){
         public int get(int p_58431_){
             return switch(p_58431_){
@@ -423,10 +428,9 @@ public class KilnBlockEntity extends BaseContainerBlockEntity implements Worldly
         }
     }
 
-    net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers = net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
     @Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing){
-        if(!this.remove && facing != null && capability == net.minecraftforge.common.capabilities.ForgeCapabilities.ITEM_HANDLER){
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing){
+        if(!this.remove && facing != null && capability == ForgeCapabilities.ITEM_HANDLER){
             if(facing == Direction.UP)
                 return handlers[0].cast();
             else if(facing == Direction.DOWN)
@@ -440,12 +444,12 @@ public class KilnBlockEntity extends BaseContainerBlockEntity implements Worldly
     @Override
     public void invalidateCaps(){
         super.invalidateCaps();
-        for(net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler> handler : handlers) handler.invalidate();
+        for(LazyOptional<? extends IItemHandler> handler : handlers) handler.invalidate();
     }
 
     @Override
     public void reviveCaps(){
         super.reviveCaps();
-        this.handlers = net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
+        this.handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
     }
 }

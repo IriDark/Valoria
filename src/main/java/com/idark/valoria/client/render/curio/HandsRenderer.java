@@ -20,6 +20,8 @@ import top.theillusivec4.curios.api.client.*;
 
 public class HandsRenderer implements ICurioRenderer{
     public static ResourceLocation TEXTURE = Valoria.loc("textures/entity/necklace/empty.png");
+    private HandsModel handsModel;
+    private HandsModelSlim handsModelSlim;
 
     public boolean isDefault(LivingEntity entity){
         if(entity instanceof AbstractClientPlayer player){
@@ -35,7 +37,6 @@ public class HandsRenderer implements ICurioRenderer{
             float r = (float)(color >> 16 & 255) / 255.0F;
             float g = (float)(color >> 8 & 255) / 255.0F;
             float b = (float)(color & 255) / 255.0F;
-
             return new float[]{r, g, b};
         }else{
             return new float[]{1, 1, 1};
@@ -50,16 +51,23 @@ public class HandsRenderer implements ICurioRenderer{
         }
 
         float[] color = getColor(stack);
-        if(isDefault(slotContext.entity())){
-            HandsModel model = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER));
-            ICurioRenderer.followBodyRotations(entity, model);
-            model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-            model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
-        }else{
-            HandsModelSlim model = new HandsModelSlim(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER_SLIM));
-            ICurioRenderer.followBodyRotations(entity, model);
-            model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-            model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+        boolean isSlim = !isDefault(entity);
+        
+        HandsModel model;
+        if (isSlim) {
+            if (handsModelSlim == null) handsModelSlim = new HandsModelSlim(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER_SLIM));
+            model = handsModelSlim;
+        } else {
+            if (handsModel == null) handsModel = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER));
+            model = handsModel;
         }
+
+        ICurioRenderer.followBodyRotations(entity, model);
+        if(renderLayerParent.getModel() instanceof HumanoidModel<?> parentModel){
+            parentModel.copyPropertiesTo((HumanoidModel)model);
+        }
+
+        model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
     }
 }

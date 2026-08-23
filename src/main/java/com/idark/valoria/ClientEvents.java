@@ -203,42 +203,58 @@ public class ClientEvents{
         var playerArm = event.getArm();
         var pPose = event.getPoseStack();
 
-        var curioSlots = CuriosApi.getCuriosHelper().findCurios(pPlayer, (stack) -> stack.getItem() instanceof GlovesItem);
-        for(SlotResult slot : curioSlots){
-            if(slot.slotContext().cosmetic() || slot.slotContext().visible()){
-                ItemStack stack = slot.stack();
-                if(stack.getItem() instanceof ICurioTexture item && item instanceof GlovesItem){
-                    float[] color = getColor(stack);
-                    boolean slim = !pPlayer.getModelName().equals("default");
-                    var pTexture = item.getTexture(stack, pPlayer);
-                    if(pTexture == null) continue;
-
-                    var pModel = slim ? ValoriaClient.handsSlim : ValoriaClient.hands;
-                    var entityRenderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(pPlayer);
-                    if (entityRenderer instanceof PlayerRenderer playerRenderer) {
-                        var playerModel = playerRenderer.getModel();
-                        if (playerArm == HumanoidArm.RIGHT) {
-                            pModel.right_glove.copyFrom(playerModel.rightArm);
-                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
-                        } else {
-                            pModel.left_glove.copyFrom(playerModel.leftArm);
-                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+        CuriosApi.getCuriosHelper().getCuriosHandler(pPlayer).ifPresent(handler -> {
+            var stacksHandler = handler.getCurios().get("hands");
+            if(stacksHandler != null){
+                for(int i = 0; i < stacksHandler.getSlots(); i++){
+                    if(stacksHandler.getRenders().get(i)){
+                        ItemStack stack = stacksHandler.getCosmeticStacks().getStackInSlot(i);
+                        if(stack.isEmpty()){
+                            stack = stacksHandler.getStacks().getStackInSlot(i);
                         }
-                    } else {
-                        // Safe fallback just in case the renderer isn't PlayerRenderer
-                        if (playerArm == HumanoidArm.RIGHT) {
-                            pModel.right_glove.setRotation(0, 0, 0);
-                            pModel.right_glove.setPos(-5.0F, 2.0F, 0.0F);
-                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
-                        } else {
-                            pModel.left_glove.setRotation(0, 0, 0);
-                            pModel.left_glove.setPos(5.0F, 2.0F, 0.0F);
-                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+
+                        if(stack.getItem() instanceof GlovesItem item){
+                            float[] color = getColor(stack);
+                            boolean slim = !pPlayer.getModelName().equals("default");
+                            var pTexture = item.getTexture(stack, pPlayer);
+                            if(pTexture == null) continue;
+
+                            var pModel = slim ? ValoriaClient.handsSlim : ValoriaClient.hands;
+                            var entityRenderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(pPlayer);
+                            if(entityRenderer instanceof PlayerRenderer playerRenderer){
+                                var playerModel = playerRenderer.getModel();
+                                playerModel.attackTime = 0.0F;
+                                playerModel.crouching = false;
+                                playerModel.swimAmount = 0.0F;
+                                playerModel.setupAnim(pPlayer, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+
+                                if(playerArm == HumanoidArm.RIGHT){
+                                    pModel.right_glove.copyFrom(playerModel.rightArm);
+                                    pModel.right_glove.xRot = 0.0F;
+                                    pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                }else{
+                                    pModel.left_glove.copyFrom(playerModel.leftArm);
+                                    pModel.left_glove.xRot = 0.0F;
+                                    pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                }
+                            }else{
+                                // Safe fallback
+                                float yPos = slim ? 2.5F : 2.0F;
+                                if(playerArm == HumanoidArm.RIGHT){
+                                    pModel.right_glove.setRotation(0.0F, -0.1F, 0.0F);
+                                    pModel.right_glove.setPos(-5.0F, yPos, 0.0F);
+                                    pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                }else{
+                                    pModel.left_glove.setRotation(0.0F, 0.1F, 0.0F);
+                                    pModel.left_glove.setPos(5.0F, yPos, 0.0F);
+                                    pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                }
+                            }
                         }
                     }
                 }
             }
-        }
+        });
     }
 
     @SubscribeEvent

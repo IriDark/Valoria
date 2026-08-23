@@ -20,42 +20,21 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import org.jetbrains.annotations.*;
 
 /**
  * Used to debug some particle packets and other things
  */
-public class DebugItem extends Item{
+public class DebugItem extends ModularWeaponItem {
 
     public DebugItem(Properties pProperties){
-        super(pProperties);
-    }
-
-    public int getUseDuration(@NotNull ItemStack stack){
-        return 72000;
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        super.inventoryTick(stack, level, entity, slotId, isSelected);
-        if (!level.isClientSide && !stack.getOrCreateTag().contains("valoria_abilities")) {
-            DashAbility dashAbility = new DashAbility();
-            dashAbility.maxUsages = 3;
-            dashAbility.itemCooldown = 20;
-
-            var scythe = new ScytheAbility();
-            scythe.cancelVanillaBehaviour=true;
-            scythe.usages=3;
-            scythe.itemCooldown=60;
-
-            AbilityHelper.setAbility(stack, CastType.RIGHT_CLICK, dashAbility);
-            AbilityHelper.setAbility(stack, CastType.SHIFT_RIGHT_CLICK, dashAbility);
-            AbilityHelper.setAbility(stack, CastType.RIGHT_CLICK, dashAbility);
-            AbilityHelper.setAbility(stack, CastType.LEFT_CLICK, scythe);
-            AbilityHelper.setAbility(stack, CastType.SHIFT_LEFT_CLICK, dashAbility);
-            AbilityHelper.setAbility(stack, new DescriptionAbility().addLine(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY)));
-            AbilityHelper.setAbility(stack, new DescriptionAbility().addLine(Component.literal("ВЫЕБИТЕ КЕРДО НАХУй").withStyle(ChatFormatting.GRAY)));
-        }
+        super(net.minecraft.world.item.Tiers.IRON, 1, -2.4F, pProperties);
+        this.addAbility(CastType.RIGHT_CLICK, new DashAbility().setMaxUsages(3).setItemCooldown(20));
+        this.addAbility(CastType.SHIFT_RIGHT_CLICK, new DashAbility().setMaxUsages(3).setItemCooldown(20));
+        this.addAbility(CastType.LEFT_CLICK, new ScytheAbility().setMaxUsages(3).setItemCooldown(60).setCancelVanilla(true));
+        this.addAbility(CastType.SHIFT_LEFT_CLICK, new DashAbility().setMaxUsages(3).setItemCooldown(20));
+        this.addAbility(CastType.NOT_SPECIFIED, new DescriptionAbility()
+            .addLine(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY))
+            .addLine(Component.literal("Debug Tooltip").withStyle(ChatFormatting.GRAY)));
     }
 
     private void spawn(ServerLevel level, Player entity){

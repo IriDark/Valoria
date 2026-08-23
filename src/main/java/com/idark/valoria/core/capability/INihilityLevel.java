@@ -22,4 +22,6 @@ public interface INihilityLevel{
     void setMaxAmount(float amount);
 
     float getMaxAmount(@Nullable LivingEntity entity);
+
+    void copyFrom(INihilityLevel source);
 }

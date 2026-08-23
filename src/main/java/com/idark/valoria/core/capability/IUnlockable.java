@@ -40,4 +40,6 @@ public interface IUnlockable{
     void clearClaimed();
 
     Set<Unlockable> getClaimed();
+
+    void copyFrom(IUnlockable source);
 }
