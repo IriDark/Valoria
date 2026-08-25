@@ -344,8 +344,14 @@ task curseforge(type: TaskPublishCurseForge) {
     def projectId = "698244"
     def mainFile = upload(projectId, jar)
     mainFile.displayName = "Valoria-${version}"
-    mainFile.changelog = getChangelogText()
     mainFile.releaseType = "release"
+    mainFile.gameVersions = ["Server", "Client"]
+    mainFile.changelog = getChangelogText()
+
+    mainFile.addGameVersion("1.20.1")
+    mainFile.addModLoader("Forge")
+    mainFile.addModLoader("NeoForge")
+    mainFile.addJavaVersion("Java 17")
 
     mainFile.addRequirement("tridot")
     mainFile.addRequirement("geckolib")
