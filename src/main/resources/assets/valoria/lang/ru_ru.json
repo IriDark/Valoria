@@ -1653,5 +1653,20 @@
   "tooltip.valoria.infernal_arrow.effect": "Поджигает цель",
   "tooltip.valoria.wicked_arrow.effect": "Иссушает цель",
   "tooltip.valoria.pyratite_arrow.effect": "Взрывается при попадании",
-  "tooltip.valoria.arrow_damage": "Базовый урон: %s"
+  "tooltip.valoria.arrow_damage": "Базовый урон: %s",
+  "block.valoria.pot_desert": "Desert Pot",
+  "block.valoria.pot_desert_handles": "Desert Pot",
+  "block.valoria.pot_cave_small": "Cave Pot",
+  "block.valoria.pot_cave_small_handles": "Cave Pot With Handles",
+  "block.valoria.pot_cave_long": "Long Cave Pot",
+  "block.valoria.pot_cave_long_handles": "Long Cave Pot With Handles",
+  "block.valoria.pot_deepslate_small": "Deepslate Pot",
+  "block.valoria.pot_deepslate_small_handles": "Deepslate Pot With Handles",
+  "block.valoria.pot_deepslate_long": "Long Deepslate Pot",
+  "block.valoria.pot_deepslate_long_handles": "Long Deepslate Pot With Handles",
+  "item.valoria.jade_bow": "Jade Bow",
+  "item.valoria.jade_crossbow": "Jade crossbow",
+  "block.valoria.cracked_tombstone_bricks_slab": "Cracked Tombstone Bricks Slab",
+  "block.valoria.cracked_tombstone_bricks_stairs": "Cracked Tombstone Bricks Stairs",
+  "item.valoria.pyratite_plate": "Pyratite Plate"
 }
