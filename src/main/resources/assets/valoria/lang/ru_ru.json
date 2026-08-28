@@ -1333,7 +1333,7 @@
   "tooltip.valoria.familiar": "Это оружие... так, знакомо мне...",
   "tooltip.valoria.geode": "Можно разбить киркой на камнеломе",
   "tooltip.valoria.harvest": " Уровень добычи: %s",
-  "tooltip.valoria.homing": "Обладает самонаводкой, но меньшим уроном",
+  "tooltip.valoria.homing": "Самонаведение",
   "tooltip.valoria.immunity": "Даёт носителю иммунитет к:",
   "tooltip.valoria.infernal_scythe": "Шанс %s поджечь цель при атаке",
   "tooltip.valoria.infernal_sword": "Извержение, вызывает инфернальный круговой удар поджигая цели вокруг вас",
@@ -1647,5 +1647,11 @@
   "advancements.valoria.lumberjack.title": "Дровосек",
   "advancements.valoria.lumberjack.description": "Используйте топор, чтобы пробить кору Энта.",
   "advancements.valoria.stonemason.title": "Каменотёс",
-  "advancements.valoria.stonemason.description": "Сразите Голема при помощи кирки."
+  "advancements.valoria.stonemason.description": "Сразите Голема при помощи кирки.",
+  "tooltip.valoria.nature_arrow.effect": "Отравляет при попадании",
+  "tooltip.valoria.aquarius_arrow.effect": "Замедляет и тушит огонь",
+  "tooltip.valoria.infernal_arrow.effect": "Поджигает цель",
+  "tooltip.valoria.wicked_arrow.effect": "Иссушает цель",
+  "tooltip.valoria.pyratite_arrow.effect": "Взрывается при попадании",
+  "tooltip.valoria.arrow_damage": "Базовый урон: %s"
 }

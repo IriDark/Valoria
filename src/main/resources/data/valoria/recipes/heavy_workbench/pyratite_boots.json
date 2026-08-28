@@ -2,7 +2,8 @@
   "group": "equipment",
   "type": "valoria:heavy_workbench",
   "ingredients": [
-    { "ingredient": { "item": "valoria:pyratite" }, "count": 6 }
+    { "ingredient": { "item": "valoria:pyratite_plate" }, "count": 8 },
+    { "ingredient": { "item": "valoria:pyratite" }, "count": 2 }
   ],
   "result": {
     "item": "valoria:pyratite_boots",

@@ -2,12 +2,8 @@
   "group": "equipment",
   "type": "valoria:heavy_workbench",
   "ingredients": [
-    {
-      "ingredient": {
-        "item": "valoria:spider_chitin"
-      },
-      "count": 12
-    }
+    { "ingredient": { "item": "valoria:spider_fang" }, "count": 4 },
+    { "ingredient": { "item": "valoria:spider_chitin" }, "count": 16 }
   ],
   "result": {
     "item": "valoria:spider_chestplate",

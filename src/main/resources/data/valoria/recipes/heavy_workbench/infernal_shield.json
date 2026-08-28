@@ -1,0 +1,13 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:infernal_ingot" }, "count": 6 },
+    { "ingredient": { "item": "valoria:infernal_stone" }, "count": 4 },
+    { "ingredient": { "item": "valoria:infernal_core" }, "count": 1 }
+  ],
+  "result": {
+    "item": "valoria:infernal_shield",
+    "count": 1
+  }
+}

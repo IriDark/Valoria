@@ -160,8 +160,8 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
             }
         }
 
-        craftableRecipes.sort(Comparator.comparing((b) -> b.recipe.getId()));
-        nonCraftableRecipes.sort(Comparator.comparing((b) -> b.recipe.getId()));
+        craftableRecipes.sort(Comparator.comparing((r -> r.recipe.getResultItem(RegistryAccess.EMPTY).getDescriptionId())));
+        nonCraftableRecipes.sort(Comparator.comparing((r -> r.recipe.getResultItem(RegistryAccess.EMPTY).getDescriptionId())));
         renderedRecipes.clear();
         renderedRecipes.addAll(craftableRecipes).addAll(nonCraftableRecipes);
     }

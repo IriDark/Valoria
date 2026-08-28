@@ -12,7 +12,7 @@
 
 ---
 
-*Lost in the shattered world? Knowledge is your best weapon against the corruption. Consult the official Wiki for guides, lore, and survival strategies.*
+*Knowledge is your best weapon. Consult the official Wiki for guides, lore, and survival strategies.*
 
 [![wiki.png](https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/src/main/resources/assets/valoria/textures/banners/wiki.png)](https://iridark.gitbook.io/valoria-wiki)
 
@@ -29,7 +29,7 @@ Amanda, Lion1... Thank you very much <3
 
 ---
 
-# ✦ ABOUT THIS MOD ✦
+# ABOUT THIS MOD
 **An ancient cataclysm—the Elemental Collapse—tore reality asunder. From the ashes, a new world was born: a realm of dark myth and terrifying ruin.**
 
 *Valoria* transforms Minecraft into an epic, dark-fantasy RPG experience. Journey through desolate landscapes haunted by monstrous creatures, piece together the fractured history of a fallen world, and discover if hope can be rekindled from the embers.

@@ -198,12 +198,9 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         generateIngotBlockNugget(pWriter, BlockRegistry.infernalBlock.get(), ItemsRegistry.infernalIngot.get(), null);
         generateTools(pWriter, ItemsRegistry.voidIngot.get(), Items.STICK, null, ItemsRegistry.voidPickaxe.get(), ItemsRegistry.voidAxe.get(), ItemsRegistry.voidShovel.get(), ItemsRegistry.voidHoe.get());
         generateTools(pWriter, ItemsRegistry.jade.get(), Items.STICK, ItemsRegistry.jadeSword.get(), ItemsRegistry.jadePickaxe.get(), ItemsRegistry.jadeAxe.get(), ItemsRegistry.jadeShovel.get(), ItemsRegistry.jadeHoe.get());
-        generateArmor(pWriter, ItemsRegistry.pyratite.get(), ItemsRegistry.pyratiteHelmet.get(), ItemsRegistry.pyratiteChestplate.get(), ItemsRegistry.pyratiteLeggings.get(), ItemsRegistry.pyratiteBoots.get());
         generateIngotBlockNugget(pWriter, BlockRegistry.pyratiteBlock.get(), ItemsRegistry.pyratite.get(), null);
         generateTools(pWriter, ItemsRegistry.pearliumIngot.get(), Items.STICK, ItemsRegistry.pearliumSword.get(), ItemsRegistry.pearliumPickaxe.get(), ItemsRegistry.pearliumAxe.get(), null, null);
         generateIngotBlockNugget(pWriter, BlockRegistry.pearlium.get(), ItemsRegistry.pearliumIngot.get(), null);
-        generateArmor(pWriter, ItemsRegistry.crimtaneIngot.get(), ItemsRegistry.crimtaneHelmet.get(), ItemsRegistry.crimtaneChestplate.get(), ItemsRegistry.crimtaneLeggings.get(), ItemsRegistry.crimtaneBoots.get());
-        generateTools(pWriter, ItemsRegistry.crimtaneIngot.get(), Items.STICK, ItemsRegistry.crimtaneSword.get(), ItemsRegistry.crimtanePickaxe.get(), ItemsRegistry.crimtaneAxe.get(), ItemsRegistry.crimtaneShovel.get(), ItemsRegistry.crimtaneHoe.get());
         generateIngotBlockNugget(pWriter, BlockRegistry.crimtaneBlock.get(), ItemsRegistry.crimtaneIngot.get(), null);
         buildManualRecipes(pWriter);
 

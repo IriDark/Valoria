@@ -28,7 +28,7 @@ public class SoulArrowItem extends ArrowItem implements DispensedArrow{
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.homing").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.valoria.arrow_damage", 1).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.valoria.homing").withStyle(ChatFormatting.DARK_AQUA));
     }
-
 }

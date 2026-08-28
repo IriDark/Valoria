@@ -6,9 +6,11 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
+import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
@@ -28,7 +30,7 @@ import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
-public class KingCrabEntity extends MultiAttackMob implements Enemy{
+public class KingCrabEntity extends MultiAttackMob implements NeutralMob, Enemy{
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState splashAttackAnimationState = new AnimationState();
@@ -37,15 +39,19 @@ public class KingCrabEntity extends MultiAttackMob implements Enemy{
     public final AnimationState revealAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
 
-    private static final EntityDataAccessor<Integer> HITS_NEEDED = SynchedEntityData.defineId(KingCrabEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> HIDE_ANIMATION_STARTED = SynchedEntityData.defineId(KingCrabEntity.class, EntityDataSerializers.BOOLEAN);
-
     private int idleAnimationTimeout = 0;
     public int shieldHurtTime = 0;
     public int hookAttackAnimationTime = 0;
     public int splashAttackAnimationTime = 0;
     private int animatedDeathTime;
     private boolean initAnim;
+
+    @Nullable
+    public UUID persistentAngerTarget;
+    public static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(KingCrabEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> HITS_NEEDED = SynchedEntityData.defineId(KingCrabEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HIDE_ANIMATION_STARTED = SynchedEntityData.defineId(KingCrabEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(80, 250);
 
     public KingCrabEntity(EntityType<? extends KingCrabEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -72,6 +78,56 @@ public class KingCrabEntity extends MultiAttackMob implements Enemy{
 
     public int getHits() {
         return this.entityData.get(HITS_NEEDED);
+    }
+
+    public int getRemainingPersistentAngerTime(){
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
+
+    public void setRemainingPersistentAngerTime(int pTime){
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, pTime);
+    }
+
+    public void startPersistentAngerTimer(){
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+    @Nullable
+    public UUID getPersistentAngerTarget(){
+        return this.persistentAngerTarget;
+    }
+
+    public void setPersistentAngerTarget(@Nullable UUID pTarget){
+        this.persistentAngerTarget = pTarget;
+    }
+
+    protected void defineSynchedData(){
+        super.defineSynchedData();
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+        this.entityData.define(HITS_NEEDED, 0);
+        this.entityData.define(HIDE_ANIMATION_STARTED, false);
+    }
+
+    public void addAdditionalSaveData(CompoundTag pCompound){
+        super.addAdditionalSaveData(pCompound);
+        this.addPersistentAngerSaveData(pCompound);
+        pCompound.putInt("HitsNeeded", this.getHits());
+        pCompound.putBoolean("AnimationStarted", this.getHideAnimationState());
+    }
+
+    public void readAdditionalSaveData(CompoundTag pCompound){
+        super.readAdditionalSaveData(pCompound);
+        this.readPersistentAngerSaveData(this.level(), pCompound);
+        this.setHits(pCompound.getInt("HitsNeeded"));
+        this.setHideAnimationState(pCompound.getBoolean("AnimationStarted"));
+    }
+
+    public void aiStep(){
+        if(!this.level().isClientSide && level() instanceof ServerLevel serverLevel){
+            this.updatePersistentAnger(serverLevel, true);
+        }
+
+        super.aiStep();
     }
 
     @Override
@@ -286,26 +342,6 @@ public class KingCrabEntity extends MultiAttackMob implements Enemy{
      */
     public double getPassengersRidingOffset(){
         return this.getBbHeight() * 0.75F;
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag pCompound){
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("HitsNeeded", this.getHits());
-        pCompound.putBoolean("AnimationStarted", this.getHideAnimationState());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag pCompound){
-        super.readAdditionalSaveData(pCompound);
-        this.setHits(pCompound.getInt("HitsNeeded"));
-        this.setHideAnimationState(pCompound.getBoolean("AnimationStarted"));
-    }
-
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(HITS_NEEDED, 0);
-        this.entityData.define(HIDE_ANIMATION_STARTED, false);
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock){

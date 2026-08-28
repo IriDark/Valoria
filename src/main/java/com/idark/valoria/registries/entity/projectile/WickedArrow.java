@@ -5,6 +5,7 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -52,6 +53,14 @@ public class WickedArrow extends AbstractProjectile implements TexturedArrow{
 
             ParticleEffects.swirlTrail(this.level(), pos, ColorParticleData.create(Pal.vividPink, Pal.darkViolet).build());
             ParticleEffects.smoothTrail(this.level(), target, pos, ColorParticleData.create(Pal.vividPink, Pal.darkViolet).build());
+        }
+    }
+
+    @Override
+    public void onHitEntity(EntityHitResult pResult){
+        super.onHitEntity(pResult);
+        if(pResult.getEntity() instanceof LivingEntity living){
+            living.addEffect(new MobEffectInstance(MobEffects.WITHER, 10, 0));
         }
     }
 

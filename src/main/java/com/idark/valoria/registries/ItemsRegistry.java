@@ -98,7 +98,7 @@ public class ItemsRegistry{
     valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, shadeBlossomSeeds, aloePiece, crabClaw, crabShell,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
-    bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, jade, pyratite, relicGold, ancientShard,
+    bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, jade, pyratite, pyratitePlate, relicGold, ancientShard,
     emptyGazer, emptyWinglet, emptyTotem,
 
     // skin
@@ -292,6 +292,7 @@ public class ItemsRegistry{
         infernalIngot = registerItem("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         voidIngot = registerItem("void_ingot", RarityRegistry.VOID);
         pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.PYRATITE)));
+        pyratitePlate = registerItem("pyratite_plate", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.PYRATITE)));
         jade = registerItem("jade");
         natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
         rottenBone = registerItem("rotten_bone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.MARSH), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));

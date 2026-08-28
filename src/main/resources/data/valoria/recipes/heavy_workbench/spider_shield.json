@@ -1,0 +1,13 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:spider_fang" }, "count": 6 },
+    { "ingredient": { "item": "valoria:spider_chitin" }, "count": 16 },
+    { "ingredient": { "item": "valoria:shade_blossom_leaf" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:spider_shield",
+    "count": 1
+  }
+}

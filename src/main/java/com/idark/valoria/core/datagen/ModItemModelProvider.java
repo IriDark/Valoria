@@ -44,6 +44,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         bow(ItemsRegistry.natureBow.get(), ItemsRegistry.aquariusBow.get(), ItemsRegistry.infernalBow.get(), ItemsRegistry.voidBow.get(), ItemsRegistry.phantasmBow.get(), ItemsRegistry.jadeBow.get());
         bow(1.2F, 0.88F, ItemsRegistry.lunarBow.get(), ItemsRegistry.samuraiLongBow.get());
         crossbow(ItemsRegistry.natureCrossbow.get(), ItemsRegistry.aquariusCrossbow.get(), ItemsRegistry.infernalCrossbow.get(), ItemsRegistry.voidCrossbow.get(), ItemsRegistry.phantasmCrossbow.get(), ItemsRegistry.jadeCrossbow.get());
+        this.add(ItemsRegistry.pixie.get(), gen -> simpleItem(gen, modLoc("item/pixie_spawn_egg")));
 
         this.skip(ItemsRegistry.spectralBlade.get());
         this.skip(ItemsRegistry.spectralBladeThrown.get());
@@ -125,7 +126,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             String name = entry.getId().getPath();
             if(!entries.contains(block.asItem())){
                 if(block instanceof DoorBlock){
-                    this.add(block.asItem(), item -> simpleItem(name, "item/"));
+                    this.add(block.asItem(), item -> itemPath(name, "item/"));
                 }else if(block instanceof WallBlock){
                     this.add(block.asItem(), item -> wallInventory(name, modLoc("block/" + name.replace("_wall", ""))));
                 }else if(block instanceof ChestBlock){
@@ -157,7 +158,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 }else if(item instanceof TieredItem || item instanceof SwordItem || item instanceof DiggerItem){
                     this.add(item, gen -> handheldItem(name));
                 }else{
-                    this.add(item, gen -> simpleItem(name, "item/"));
+                    this.add(item, gen -> itemPath(name, "item/"));
                 }
             }
         }
@@ -172,7 +173,20 @@ public class ModItemModelProvider extends ItemModelProvider {
         return name.replace(suffix, "");
     }
 
-    private ItemModelBuilder simpleItem(String name, String path) {
+    public String name(Item item) {
+        return key(item).getPath();
+    }
+
+    public ResourceLocation key(Item item) {
+        return ForgeRegistries.ITEMS.getKey(item);
+    }
+
+    private ItemModelBuilder simpleItem(Item item, ResourceLocation loc) {
+        return withExistingParent(name(item), new ResourceLocation("item/generated"))
+        .texture("layer0", loc);
+    }
+
+    private ItemModelBuilder itemPath(String name, String path) {
         return withExistingParent(name, new ResourceLocation("item/generated"))
                 .texture("layer0", Valoria.loc(path + name));
     }

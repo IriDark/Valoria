@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_shield"
+  },
+  "core": "infernal_core",
+  "cores": 1,
+  "time": 500,
+  "ingredients": [
+    {
+      "item": "valoria:aquarius_shield"
+    },
+    {
+      "item": "valoria:infernal_upgrade_smithing_template"
+    }
+  ]
+}

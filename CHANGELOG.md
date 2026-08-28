@@ -1,3 +1,40 @@
+# 1.0.4.1
+
+# **Added**
+- Added Heavy Workbench recipes for Crimtane Tools and Armor
+- Added Heavy Workbench recipes for Pyratite Armor
+- Added Bows and Crossbows to Forge and Tridot tags
+- Added Pyratite Plate item
+- Added recipes for elemental bows and crossbows to the Heavy Workbench
+- Added upgrade recipes for elemental shields to the Manipulator
+- Added visual tooltips and on-hit effects for custom arrows (Nature, Aquarius, Infernal, Wicked, Pyratite, Soul)
+- Added Jade bow and Jade crossbow recipes
+- Added Bronze shield recipe
+- Added Nature shield recipe
+- Added Aquarius shield recipe
+- Added Infernal shield recipe
+- Added Void shield recipe
+- Added Crimtane shield recipe
+- Added Spider shield recipe
+- Added Keybinds to Curio accessories and Curio 
+
+# **Fixed**
+- Fixed Cattail model, datagen generated wrong one
+- Fixed Jade bow and Jade crossbow data tags
+- Fixed some of the shields had misplaced placement in hands
+- Fixed Pixie spawn egg texture
+
+# **Changed**
+- Updated and tweaked models for curved shields (Pyratite, Spider, Void, and basic Curved Shield)
+- Adjusted Shadewood Spider and King Crab loot tables (better drop chances and Looting scaling)
+- Changed Spider Helmet recipe
+- Changed Spider Chestplate recipe
+- Changed Spider Leggings recipe
+- Changed Spider Boots recipe
+- Changed Shadewood drops
+- King Crabs are neutral now
+- Resorted Heavy Workbench and Alchemy recipes
+
 # 1.0.4
 
 # **Added**

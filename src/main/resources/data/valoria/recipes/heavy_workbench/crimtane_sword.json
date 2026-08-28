@@ -1,0 +1,13 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:crimtane_ingot" }, "count": 8 },
+    { "ingredient": { "item": "valoria:remains" }, "count": 2 },
+    { "ingredient": { "item": "valoria:pain_crystal" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:crimtane_sword",
+    "count": 1
+  }
+}

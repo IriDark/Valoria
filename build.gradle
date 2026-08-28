@@ -374,5 +374,4 @@ modrinth {
         required.project "geckolib"
         required.project "curios"
     }
-
 }

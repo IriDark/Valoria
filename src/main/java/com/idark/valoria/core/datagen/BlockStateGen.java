@@ -460,6 +460,7 @@ public class BlockStateGen extends CoreStateGen {
         getVariantBuilder(BlockRegistry.cattail.get())
                 .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(models().getExistingFile(modLoc("block/cattail"))))
                 .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(models().getExistingFile(modLoc("block/cattail_top"))));
+        simpleItem(BlockRegistry.cattail.get(), modLoc("item/cattail"));
 
         simpleItem(BlockRegistry.dreadwoodSapling.get(), modLoc("block/" + name(BlockRegistry.dreadwoodSapling.get())));
         pottedPlantBlock(BlockRegistry.pottedAloeSmall.get(), "aloe_small");
