@@ -1,9 +1,10 @@
 {
+	"format_version": "1.21.6",
 	"render_type": "minecraft:cutout",
 	"texture_size": [128, 128],
 	"textures": {
-		"0": "valoria:block/sarcophagus_loot",
-		"particle": "valoria:block/sarcophagus_loot"
+		"0": "valoria:block/sarcophagus",
+		"particle": "valoria:block/sarcophagus"
 	},
 	"elements": [
 		{

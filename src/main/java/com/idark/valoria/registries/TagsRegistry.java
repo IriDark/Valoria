@@ -5,6 +5,7 @@ import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.item.*;
@@ -20,6 +21,10 @@ public class TagsRegistry{
 
     public static TagKey<Block> block(final ResourceLocation name){
         return TagKey.create(Registries.BLOCK, name);
+    }
+
+    public static TagKey<MobEffect> effect(final ResourceLocation name){
+        return TagKey.create(Registries.MOB_EFFECT, name);
     }
 
     public static TagKey<EntityType<?>> entity(final ResourceLocation name){
@@ -48,6 +53,7 @@ public class TagsRegistry{
     public static final TagKey<EntityType<?>> DAMAGE_INDICATOR_IGNORED = entity(Valoria.loc("damage_indicator_ignored"));
     public static final TagKey<EntityType<?>> HARMONY_CREATURES = entity(Valoria.loc("harmony_creatures"));
     public static final TagKey<EntityType<?>> STONE_GOLEMS = entity(Valoria.loc("stone_golems"));
+    public static final TagKey<EntityType<?>> POT_SPAWNS = entity(Valoria.loc("pot_spawns"));
 
     public static final TagKey<Structure> NECROMANCER_CRYPT_LOCATOR = dungeon(Valoria.loc("necromancer_crypt_locator"));
     public static final TagKey<Structure> FORTRESS_LOCATOR = dungeon(Valoria.loc("fortress_locator"));
@@ -129,4 +135,5 @@ public class TagsRegistry{
     public static final TagKey<Item> SMOKE_PARTICLE = item(Valoria.loc("smoke_particle"));
     public static final TagKey<Item> ROT_IMMUNE = item(Valoria.loc("rot_immune"));
     public static final TagKey<PaintingVariant> MODDED = painting(Valoria.loc("painting"));
+    public static final TagKey<MobEffect> CURSES = effect(Valoria.loc("curses"));
 }

@@ -1,8 +1,9 @@
 package com.idark.valoria.registries.block.types;
 
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
-import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
@@ -46,10 +47,13 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
         super.destroy(pLevel, pPos, pState);
         if(pLevel instanceof ServerLevel serverLevel){
             if(Tmp.rnd.chance(0.125)){
-                var mob = EntityType.SILVERFISH.create(serverLevel);
-                if(mob != null){
-                    mob.moveTo((double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                    serverLevel.addFreshEntity(mob);
+                var entityType = ValoriaUtils.getRandomEntityFromTag(serverLevel.random, TagsRegistry.POT_SPAWNS);
+                if (entityType != null) {
+                    var mob = entityType.create(serverLevel);
+                    if(mob != null){
+                        mob.moveTo((double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
+                        serverLevel.addFreshEntity(mob);
+                    }
                 }
             }
         }

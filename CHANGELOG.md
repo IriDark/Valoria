@@ -1,3 +1,22 @@
+# 1.1.0
+
+# **Added**
+- Added new models and visual states for looted Sarcophagus
+- Added magical sparkle particles to opened but unlooted Sarcophagus
+
+# **Fixed**
+- Fixed multiblock blocks (like Sarcophagus and tall plants) dropping items when broken in Creative mode
+- Fixed Crypt structure generating one block too low and occasionally eating large chunks of surface terrain
+
+# **Changed**
+- Moved Sarcophagus mob equipment and Halloween logic from hardcode to `sarcophagus_gear.json` loot table
+- Refactored entity spawning and gear distribution logic using data-driven LootTables
+- Increased the Sarcophagus open sound volume
+- Optimized Sarcophagus logic to only process on the server side
+- Moved Curio Curses effects from hardcode to `valoria:curses` tag to allow data-driven configuration
+- Extracted MobEffect tag lookup logic into reusable `ValoriaUtils` methods
+- Moved PotBlock mob spawning from hardcode (Silverfish) to `valoria:pot_spawns` entity type tag
+
 # 1.0.4.1
 
 # **Added**

@@ -55,7 +55,7 @@ public class ValoriaCurioItem extends Item implements ICurioItem, IBreakableCuri
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         if(stack.is(TagsRegistry.GRANTS_IMMUNITIES)){
-            tooltip.add(Component.translatable("tooltip.valoria.immunity", MobEffects.POISON.getDisplayName()).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.valoria.immunity").withStyle(ChatFormatting.GRAY));
             if(stack.is(TagsRegistry.POISON_IMMUNE)){
                 tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
                 .append(Component.translatable("tooltip.tridot.value", MobEffects.POISON.getDisplayName()).withStyle(Styles.nature)));

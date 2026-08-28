@@ -22,14 +22,12 @@ import com.idark.valoria.registries.item.ability.*;
 import com.idark.valoria.registries.item.ability.components.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
-import com.idark.valoria.registries.item.types.curio.charm.rune.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.registries.level.events.*;
 import com.mojang.logging.*;
 import net.mehvahdjukaar.dummmmmmy.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -178,15 +176,6 @@ public class Valoria{
             fireblock.setFlammable(BlockRegistry.dreadwoodPlanks.get(), 5, 25);
             fireblock.setFlammable(BlockRegistry.strippedDreadwoodLog.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.strippedDreadWood.get(), 5, 30);
-
-            CurioCurses.effects(
-            MobEffects.DARKNESS,
-            MobEffects.WEAKNESS,
-            MobEffects.WITHER,
-            MobEffects.POISON,
-            MobEffects.MOVEMENT_SLOWDOWN,
-            MobEffects.DIG_SLOWDOWN
-            );
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
             .put(BlockRegistry.shadeLog.get(), BlockRegistry.strippedShadeLog.get())

@@ -1,0 +1,68 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "name": "helmet",
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:empty", "weight": 60 },
+        { "type": "minecraft:item", "name": "minecraft:leather_helmet", "weight": 25 },
+        { "type": "minecraft:item", "name": "minecraft:chainmail_helmet", "weight": 10 },
+        { "type": "minecraft:item", "name": "minecraft:golden_helmet", "weight": 5 }
+      ]
+    },
+    {
+      "name": "chestplate",
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:empty", "weight": 60 },
+        { "type": "minecraft:item", "name": "minecraft:leather_chestplate", "weight": 25 },
+        { "type": "minecraft:item", "name": "minecraft:chainmail_chestplate", "weight": 10 },
+        { "type": "minecraft:item", "name": "minecraft:golden_chestplate", "weight": 5 }
+      ]
+    },
+    {
+      "name": "leggings",
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:empty", "weight": 60 },
+        { "type": "minecraft:item", "name": "minecraft:leather_leggings", "weight": 25 },
+        { "type": "minecraft:item", "name": "minecraft:chainmail_leggings", "weight": 10 },
+        { "type": "minecraft:item", "name": "minecraft:golden_leggings", "weight": 5 }
+      ]
+    },
+    {
+      "name": "boots",
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:empty", "weight": 60 },
+        { "type": "minecraft:item", "name": "minecraft:leather_boots", "weight": 25 },
+        { "type": "minecraft:item", "name": "minecraft:chainmail_boots", "weight": 10 },
+        { "type": "minecraft:item", "name": "minecraft:golden_boots", "weight": 5 }
+      ]
+    },
+    {
+      "name": "halloween_extras",
+      "conditions": [
+        {
+          "condition": "tridot:local_date",
+          "day_of_month": {
+            "min": 1,
+            "max": 31
+          },
+          "month": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {"type": "minecraft:item", "name": "valoria:iron_scythe", "weight": 30},
+        {"type": "minecraft:item", "name": "valoria:golden_scythe", "weight": 15},
+        {"type": "minecraft:item", "name": "minecraft:carved_pumpkin", "weight": 20},
+        {"type": "minecraft:empty", "weight": 50}
+      ]
+    }
+  ]
+}

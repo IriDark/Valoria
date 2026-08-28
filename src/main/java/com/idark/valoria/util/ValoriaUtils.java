@@ -14,6 +14,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.*;
+import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.*;
+import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.items.*;
@@ -46,6 +48,44 @@ import java.util.function.*;
 
 public class ValoriaUtils{
 
+    /**
+     * Spawns a bunch of entities with the equipment gathered from a LootTable (equipment chances are calculated inside the LootTable itself)
+     * @param pEntityType Entity type that will be spawned
+     * @param totalTries Total tries that will be executed in the loop to perform a spawn try
+     * @param loot LootTable resource location
+     */
+    public static void spawnEntities(int totalTries, EntityType<? extends LivingEntity> pEntityType, ServerLevel pLevel, BlockPos pPos, ResourceLocation loot){
+        RandomSource rand = pLevel.getRandom();
+        for(int tries = 0; tries < totalTries; tries++){
+            double x = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            double y = pPos.getY() + rand.nextInt(0, 3);
+            double z = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            if(pLevel.noCollision(null, pEntityType.getAABB(x, y, z))){
+                LivingEntity pEntity = pEntityType.create(pLevel);
+                if(pEntity == null) continue;
+
+                pEntity.moveTo(x, y, z, rand.nextFloat() * 360.0F, 0.0F);
+                applyLootGear(pLevel, pPos, loot, pEntity);
+                pLevel.addFreshEntity(pEntity);
+            }
+        }
+    }
+
+    public static void applyLootGear(ServerLevel pLevel, BlockPos pPos, ResourceLocation loot, LivingEntity pEntity){
+        var params = new LootParams.Builder(pLevel).withParameter(LootContextParams.THIS_ENTITY, pEntity).withParameter(LootContextParams.ORIGIN, pPos.getCenter()).create(LootContextParamSets.GIFT);
+        Utils.Items.createLoot(loot, params)
+        .forEach(stack -> {
+            EquipmentSlot slot = LivingEntity.getEquipmentSlotForItem(stack);
+            if(pEntity.hasItemInSlot(slot)) return;
+
+            pEntity.setItemSlot(slot, stack);
+            if (pEntity instanceof Mob mob) {
+                mob.setDropChance(slot, 0.0F);
+            }
+        });
+    }
+
+    @SuppressWarnings("deprecation")
     public static ItemStack getRandomItemFromTag(RandomSource randomSource, TagKey<Item> weaponTag) {
         var optionalTag = BuiltInRegistries.ITEM.getTag(weaponTag);
         if (optionalTag.isPresent()) {
@@ -56,6 +96,44 @@ public class ValoriaUtils{
         }
 
         return ItemStack.EMPTY;
+    }
+
+    @SuppressWarnings("deprecation")
+    public static EntityType<?> getRandomEntityFromTag(RandomSource randomSource, TagKey<EntityType<?>> entityTag) {
+        var optionalTag = BuiltInRegistries.ENTITY_TYPE.getTag(entityTag);
+        if (optionalTag.isPresent()) {
+            Holder<EntityType<?>> randomEntity = optionalTag.get().getRandomElement(randomSource).orElse(null);
+            if (randomEntity != null) {
+                return randomEntity.value();
+            }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("deprecation")
+    public static MobEffect getRandomEffectFromTag(RandomSource randomSource, TagKey<MobEffect> effectTag) {
+        var optionalTag = BuiltInRegistries.MOB_EFFECT.getTag(effectTag);
+        if (optionalTag.isPresent()) {
+            Holder<MobEffect> randomEffect = optionalTag.get().getRandomElement(randomSource).orElse(null);
+            if (randomEffect != null) {
+                return randomEffect.value();
+            }
+        }
+
+        return null;
+    }
+
+    @SuppressWarnings("deprecation")
+    public static List<MobEffect> getEffectsFromTag(TagKey<MobEffect> effectTag) {
+        List<MobEffect> effects = new ArrayList<>();
+        var optionalTag = BuiltInRegistries.MOB_EFFECT.getTag(effectTag);
+        if (optionalTag.isPresent()) {
+            for (Holder<MobEffect> holder : optionalTag.get()) {
+                effects.add(holder.value());
+            }
+        }
+
+        return effects;
     }
 
     public static int getCurrentNBTValue(String key, ItemStack pStack) {

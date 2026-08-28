@@ -32,36 +32,68 @@
       "model": "valoria:block/sarcophagus_half",
       "y": 0
     },
-    "facing=east,part=head,open=true": {
+    "facing=east,part=head,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_open",
       "y": 180
     },
-    "facing=north,part=head,open=true": {
+    "facing=north,part=head,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_open",
       "y": 90
     },
-    "facing=south,part=head,open=true": {
+    "facing=south,part=head,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_open",
       "y": -90
     },
-    "facing=west,part=head,open=true": {
+    "facing=west,part=head,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_open",
       "y": 0
     },
-    "facing=east,part=foot,open=true": {
+    "facing=east,part=foot,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_half_open",
       "y": 180
     },
-    "facing=north,part=foot,open=true": {
+    "facing=north,part=foot,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_half_open",
       "y": 90
     },
-    "facing=south,part=foot,open=true": {
+    "facing=south,part=foot,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_half_open",
       "y": -90
     },
-    "facing=west,part=foot,open=true": {
+    "facing=west,part=foot,looted=false,open=true": {
       "model": "valoria:block/sarcophagus_half_open",
+      "y": 0
+    },
+    "facing=east,looted=true,part=head,open=true": {
+      "model": "valoria:block/sarcophagus_open_looted",
+      "y": 180
+    },
+    "facing=north,looted=true,part=head,open=true": {
+      "model": "valoria:block/sarcophagus_open_looted",
+      "y": 90
+    },
+    "facing=south,looted=true,part=head,open=true": {
+      "model": "valoria:block/sarcophagus_open_looted",
+      "y": -90
+    },
+    "facing=west,looted=true,part=head,open=true": {
+      "model": "valoria:block/sarcophagus_open_looted",
+      "y": 0
+    },
+    "facing=east,looted=true,part=foot,open=true": {
+      "model": "valoria:block/sarcophagus_half_open_looted",
+      "y": 180
+    },
+    "facing=north,looted=true,part=foot,open=true": {
+      "model": "valoria:block/sarcophagus_half_open_looted",
+      "y": 90
+    },
+    "facing=south,looted=true,part=foot,open=true": {
+      "model": "valoria:block/sarcophagus_half_open_looted",
+      "y": -90
+    },
+    "facing=west,looted=true,part=foot,open=true": {
+      "model": "valoria:block/sarcophagus_half_open_looted",
       "y": 0
     }
   }

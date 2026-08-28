@@ -1,6 +1,7 @@
 package com.idark.valoria.core.datagen;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.block.types.plants.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.loot.*;
@@ -151,6 +152,10 @@ public class LootTableSubprovider extends BlockLootSubProvider {
                     }else{
                         this.dropSelf(pot);
                     }
+                }else if(block instanceof DoublePlantBlock plant){
+                    this.add(plant, b -> LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(ExplosionCondition.survivesExplosion()).add(LootItem.lootTableItem(b).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))))));
+                }else if(block instanceof SarcophagusBlock sarcophagus){
+                    this.add(sarcophagus, b -> LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(ExplosionCondition.survivesExplosion()).add(LootItem.lootTableItem(b).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SarcophagusBlock.PART, BedPart.HEAD))))));
                 }else{
                     this.dropSelf(block);
                 }
