@@ -1,8 +1,17 @@
 {
   "replace": false,
   "values": [
-    "valoria:bronze_nugget",
-    "valoria:cobalt_nugget",
-    "valoria:black_gold_nugget"
+    {
+      "id": "#forge:nuggets/bronze",
+      "required": false
+    },
+    {
+      "id": "#forge:nuggets/cobalt",
+      "required": false
+    },
+    {
+      "id": "#forge:nuggets/black_gold",
+      "required": false
+    }
   ]
 }

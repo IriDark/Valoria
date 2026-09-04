@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:storage_blocks/amber",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/amethyst",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/sapphire",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/ruby",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/bronze",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/cobalt",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/black_gold",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/crimtane",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/nature",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/aquarius",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/infernal",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/awakened_void",
+      "required": false
+    }
+  ]
+}

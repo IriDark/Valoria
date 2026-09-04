@@ -17,6 +17,16 @@
 - Extracted MobEffect tag lookup logic into reusable `ValoriaUtils` methods
 - Moved PotBlock mob spawning from hardcode (Silverfish) to `valoria:pot_spawns` entity type tag
 
+# 1.0.4.2
+
+# **Fixed**
+- Fixed crash related to Swamp wanderer spawning
+- Fixed multiblock blocks (like Sarcophagus and tall plants) dropping items when broken in Creative mode
+- Fixed Crypt structure generating one block too low and occasionally eating large chunks of surface terrain
+
+# **Changed**
+- Added tags to most of Valoria materials
+
 # 1.0.4.1
 
 # **Added**

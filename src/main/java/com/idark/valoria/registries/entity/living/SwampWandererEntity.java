@@ -84,6 +84,11 @@ public class SwampWandererEntity extends Zombie{
         }
     }
 
+    @Override
+    protected void randomizeReinforcementsChance() {
+        // shit
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();

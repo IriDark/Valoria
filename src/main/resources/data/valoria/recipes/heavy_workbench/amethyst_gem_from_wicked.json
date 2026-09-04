@@ -1,0 +1,11 @@
+{
+  "group": "materials",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:wicked_amethyst" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:amethyst_gem",
+    "count": 1
+  }
+}
