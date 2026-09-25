@@ -1715,5 +1715,19 @@
   "codex.valoria.necklaces": "Ожерелья дают сильные пассивные эффекты. Они могут быть созданы из разных драгоценных камней, чтобы улучшить ваши способности.",
   "gui.valoria.no_abilities": "Способностей не найдено :(",
   "gui.valoria.close": "Закрыть [Esc]",
-  "screen.valoria.ability_wheel": "Колесо способностей"
+  "screen.valoria.ability_wheel": "Колесо способностей",
+  "tooltip.valoria.nature_golem_core": "Regenerates wearer health when under the open sky. Thorns & roots on hurt.",
+  "tooltip.valoria.river_golem_core": "Water breathing & swift swim. Extinguishes fire. Tidal wave on hurt.",
+  "tooltip.valoria.magmatic_golem_core": "Retaliates with infernal flame on hurt.",
+  "tooltip.valoria.elemental_golem_core": "Combines all the powers of Golem cores into one.",
+  "tooltip.valoria.rmb_shift.bind": "[ + SHIFT] - to bind location",
+  "tooltip.valoria.bound_to": "Bound to: ",
+  "ability.valoria.rift_teleport": "Create Rift",
+  "ability.valoria.rift_bound": "Bound rift",
+  "tooltip.valoria.rift_ring": "Allows wearer to open timed rifts, keep in mind that other players would be able to enter your rift too.",
+  "message.valoria.rift_ring_bound": "Rift was bound to %s",
+  "message.valoria.rift_ring_unbound": "Rift is not bound to any position",
+  "menu.valoria.heavy_anvil": "Heavy Anvil",
+  "tooltip.valoria.hammer_smash": "Perform a jump from a ground falling and causing AOE damage",
+  "tooltip.tridot.katana.invulnerabillity_time": "Invulnerabillity time: %s"
 }
