@@ -625,6 +625,20 @@ public class ModSoundProvider extends SoundDefinitionsProvider {
                 .subtitle("subtitles.valoria.ability.use")
                 .with(sound(new ResourceLocation("valoria:item/abilities/water_ability"))));
 
+        add("item.hammer_swoosh.use", SoundDefinition.definition()
+                .subtitle("subtitles.valoria.ability.use")
+                .with(sound(new ResourceLocation("valoria:item/abilities/hammer_swoosh"))));
+
+        add("item.hammer_smash.use", SoundDefinition.definition()
+                .subtitle("subtitles.valoria.ability.use")
+                .with(sound(new ResourceLocation("valoria:item/abilities/hammer_smash"))));
+
+        add("item.hammer_hit.attack", SoundDefinition.definition()
+                .subtitle("subtitles.entity.player.attack.strong")
+                .with(sound(new ResourceLocation("valoria:item/abilities/hammer_hit0")))
+                .with(sound(new ResourceLocation("valoria:item/abilities/hammer_hit1")))
+                .with(sound(new ResourceLocation("valoria:item/abilities/hammer_hit2"))));
+
         add("item.phantasm_ability_legacy.use", SoundDefinition.definition()
                 .subtitle("subtitles.valoria.ability.use")
                 .with(sound(new ResourceLocation("valoria:item/abilities/phantom_totem_legacy"))));

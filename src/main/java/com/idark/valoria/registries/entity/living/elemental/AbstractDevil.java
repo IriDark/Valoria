@@ -14,6 +14,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.dimension.*;
 import net.minecraft.world.level.pathfinder.*;
+import net.minecraftforge.common.*;
 import pro.komaru.tridot.common.registry.entity.*;
 
 import java.util.function.*;
@@ -108,12 +109,12 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
     }
 
     public ItemStack getProjectile(ItemStack pShootable){
-        if(pShootable.getItem() instanceof ProjectileWeaponItem){
-            Predicate<ItemStack> predicate = ((ProjectileWeaponItem)pShootable.getItem()).getSupportedHeldProjectiles();
+        if(pShootable.getItem() instanceof ProjectileWeaponItem projectileWeaponItem){
+            Predicate<ItemStack> predicate = projectileWeaponItem.getSupportedHeldProjectiles();
             ItemStack itemstack = ProjectileWeaponItem.getHeldProjectile(this, predicate);
-            return net.minecraftforge.common.ForgeHooks.getProjectile(this, pShootable, itemstack.isEmpty() ? new ItemStack(Items.ARROW) : itemstack);
+            return ForgeHooks.getProjectile(this, pShootable, itemstack.isEmpty() ? new ItemStack(Items.ARROW) : itemstack);
         }else{
-            return net.minecraftforge.common.ForgeHooks.getProjectile(this, pShootable, ItemStack.EMPTY);
+            return ForgeHooks.getProjectile(this, pShootable, ItemStack.EMPTY);
         }
     }
 

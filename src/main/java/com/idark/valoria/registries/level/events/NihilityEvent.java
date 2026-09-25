@@ -1,10 +1,14 @@
 package com.idark.valoria.registries.level.events;
 
+import com.idark.valoria.*;
+import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.*;
 import net.minecraft.server.level.*;
@@ -14,6 +18,8 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;
@@ -64,9 +70,7 @@ public class NihilityEvent{
             boolean criticalFlag = amount > max * criticalLevel;
             if (criticalFlag) {
                 if (Tmp.rnd.chance(0.05f)) {
-                    player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
-                            SoundEvents.WARDEN_HEARTBEAT, net.minecraft.sounds.SoundSource.PLAYERS,
-                            1.0f, 0.8f);
+                    player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.WARDEN_HEARTBEAT, net.minecraft.sounds.SoundSource.PLAYERS, 1.0f, 0.8f);
                 }
 
                 if (ServerConfig.CRITICAL_NIHILITY_BLINDNESS.get()) {
@@ -74,11 +78,19 @@ public class NihilityEvent{
                         player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 120, 0));
                     }
                 }
+
+                player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+                    if(!k.isUnlocked(RegisterUnlockables.nihility)) {
+                        UnlockUtils.add(player, RegisterUnlockables.nihility);
+                        player.displayClientMessage(Component.translatable("tooltip.valoria.nihility.escape").withStyle(net.minecraft.ChatFormatting.RED), true);
+                    }
+                });
             }
         }
     }
 
     private static void onMaxAction(INihilityLevel nihilityLevel, ServerPlayer player, float damage){
+        Valoria.LOGGER.debug("Performing {} action", ServerConfig.MAX_NIHILITY_ACTION.get().name());
         switch(ServerConfig.MAX_NIHILITY_ACTION.get()) {
             case DAMAGE -> player.hurt(DamageSourceRegistry.voidHarm(player.level()), damage);
             case TELEPORT -> {
@@ -89,8 +101,7 @@ public class NihilityEvent{
                     if(targetLevel != null){
                         Optional<Vec3> respawnPos = Optional.empty();
                         if(player.getRespawnPosition() != null){
-                            respawnPos = Player.findRespawnPositionAndUseSpawnBlock(
-                            targetLevel, player.getRespawnPosition(), player.getRespawnAngle(), player.isRespawnForced(), true);
+                            respawnPos = Player.findRespawnPositionAndUseSpawnBlock(targetLevel, player.getRespawnPosition(), player.getRespawnAngle(), player.isRespawnForced(), true);
                         }
 
                         Vec3 target = respawnPos.orElseGet(() -> {
@@ -109,7 +120,9 @@ public class NihilityEvent{
     }
 
     public static void clientTick(INihilityLevel nihilityLevel, Player player) {
-
+        float max = Math.max(1.0F, nihilityLevel.getMaxAmount(player));
+        float amount = nihilityLevel.getAmount();
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ValoriaClient.handleBreathSound(amount, max));
     }
 
     private static boolean isDamagingLevel(Player player, float amountClient, float maxClient){

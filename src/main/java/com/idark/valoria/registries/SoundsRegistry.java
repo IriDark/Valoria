@@ -52,6 +52,9 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> PHANTASM_ABILITY = registerSound("item.phantasm_ability.use");
     public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY_LEGACY = registerSound("item.bloodhound_ability_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY = registerSound("item.bloodhound_ability.use");
+    public static final RegistryObject<SoundEvent> HAMMER_SWOOSH = registerSound("item.hammer_swoosh.use");
+    public static final RegistryObject<SoundEvent> HAMMER_HIT = registerSound("item.hammer_hit.attack");
+    public static final RegistryObject<SoundEvent> HAMMER_SMASH = registerSound("item.hammer_smash.use");
     public static final RegistryObject<SoundEvent> NIHILITY_ALERT = registerSound("item.nihility_alert.active");
     public static final RegistryObject<SoundEvent> SHIELD_PARRY = registerSound("item.shield.parry");
     public static final RegistryObject<SoundEvent> VAMPIRIC_RUNE = registerSound("item.vampiric_rune.activate");

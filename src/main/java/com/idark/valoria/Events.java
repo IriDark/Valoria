@@ -98,7 +98,7 @@ public class Events{
             List<ItemStack> possibleDrops = ValoriaUtils.getLootTableItems(lootTable);
             CrusherSyncPacket packet = new CrusherSyncPacket(recipe.getId(), possibleDrops);
             if (targetPlayer != null) {
-                PacketHandler.sendEntity(targetPlayer, packet);
+                PacketHandler.sendTo(targetPlayer, packet);
             } else {
                 PacketHandler.sendToAll(packet);
             }
@@ -524,6 +524,11 @@ public class Events{
             }
         }
 
+        if (entity instanceof ISpawnAnimated spawnAnim && !spawnAnim.hasSpawned()) {
+            event.setCanceled(true);
+            return;
+        }
+
         if(pSource.getEntity() instanceof LivingEntity attacker){
             if (!(entity instanceof ILivingEntityData data)) return;
             if(level instanceof ServerLevel s){
@@ -750,6 +755,25 @@ public class Events{
             var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CurioCritDamageItem, event.getEntity());
             if(curioStack != null){
                 ((CurioCritDamageItem)curioStack.getItem()).critDamage(event);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerFall(LivingFallEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            MobEffectInstance effect = player.getEffect(EffectsRegistry.HAMMER_SMASH.get());
+            if (effect != null) {
+                int level = effect.getAmplifier();
+                float baseReduction = 0.40f;
+                float reductionPerLevel = 0.20f;
+                float totalReduction = Math.min(1.0f, baseReduction + (level * reductionPerLevel));
+
+                if (totalReduction >= 1.0f) {
+                    event.setCanceled(true);
+                } else {
+                    event.setDamageMultiplier(event.getDamageMultiplier() * (1.0f - totalReduction));
+                }
             }
         }
     }

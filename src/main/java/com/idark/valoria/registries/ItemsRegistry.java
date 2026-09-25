@@ -120,6 +120,7 @@ public class ItemsRegistry{
     // weapons
     flameSword,
     club, clawhook, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
+    blackGoldHammer, bronzeHammer, infernalHammer, voidHammer,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
     silkenBlade, silkenKunai, silkenWakizashi, meatCutter, quantumReaper, bloodHound,
     blazeReap, gunpowderCharge, pyratiteCharge,
@@ -153,12 +154,13 @@ public class ItemsRegistry{
     leatherBelt, samuraiBelt,
     ironRing, ironRingAmber, ironRingDiamond, ironRingRuby, ironRingEmerald, ironRingSapphire,
     goldenRing, goldenRingAmber, goldenRingDiamond, goldenRingRuby, goldenRingEmerald, goldenRingSapphire,
-    netheriteRing, netheriteRingAmber, netheriteRingDiamond, netheriteRingRuby, netheriteRingEmerald, netheriteRingSapphire,
+    netheriteRing, netheriteRingAmber, netheriteRingDiamond, netheriteRingRuby, netheriteRingEmerald, netheriteRingSapphire, riftRing,
     leatherGloves, ironGloves, goldenGloves, diamondGloves, netheriteGloves,
     voidCrystal, amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
     theFallenCollectorCrown, brokenMonocle, monocle, jewelryBag, pickNecklace,
     bandage, devilHeart, harmonyHeart, medicatedDevilHeart, medicatedHarmonyHeart, elementalCharm,
     skeletalVambrace, magmaticVambrace, magmaticGauntlet,
+    natureGolemCore, riverGolemCore, magmaticGolemCore, elementalGolemCore,
 
     nihilityMonitor, respirator, gasMask,
 
@@ -179,7 +181,7 @@ public class ItemsRegistry{
     draugrShield, bronzeShield, natureShield, aquariusShield, infernalShield, voidShield, phantasmShield, crimtaneShield, spiderShield, pyratiteShield, crabBuckler, wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, firron, pixie, entMob, natureGolem, dryador, riverGolem, kingCrab, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
+    pumpkinContract, goblin, firron, pixie, entMob, natureGolem, dryador, riverGolem, kingCrab, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, magmaticGolem, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
         blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
@@ -368,6 +370,10 @@ public class ItemsRegistry{
 
         // weapons
         flameSword = registerItem("flame_sword", () -> new FlameSwordItem(Tiers.NETHERITE, 5, -1.8f, new Properties()));
+        bronzeHammer = registerItem("bronze_hammer", () -> new HammerItem(ItemTierRegistry.BRONZE, (int)ToolStats.hammer.damage, ToolStats.hammer.speed,new Item.Properties()));
+        blackGoldHammer = registerItem("black_gold_hammer", () -> new HammerItem(ItemTierRegistry.BLACK_GOLD, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties()));
+        infernalHammer = registerItem("infernal_hammer", () -> new HammerItem(ItemTierRegistry.INFERNAL, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
+        voidHammer = registerItem("void_hammer", () -> new HammerItem(ItemTierRegistry.NIHILITY, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
         club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
         clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, 6, -2.4f, new Item.Properties()));
@@ -873,6 +879,8 @@ public class ItemsRegistry{
         .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
         .build());
 
+        riftRing = registerItem("rift_ring", () -> new RiftRingItem(new Properties().stacksTo(1).durability(2000).rarity(RarityRegistry.INFERNAL)));
+
         leatherGloves = registerItem("leather_gloves", () -> new DyeableGlovesItem.DyeableBuilder(ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.25f, Operation.ADDITION))
@@ -971,6 +979,22 @@ public class ItemsRegistry{
         medicatedDevilHeart = registerItem("medicated_devil_heart", () -> new TimedMagmaImmunityItem(10, new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         medicatedHarmonyHeart = registerItem("medicated_harmony_heart", () -> new ValoriaCurioItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         elementalCharm = registerItem("elemental_charm", () -> new TimedMagmaImmunityItem(10, new Item.Properties().stacksTo(1).rarity(RarityRegistry.ELEMENTAL)));
+        natureGolemCore = registerItem("nature_golem_core", () -> new GolemCoreItem(
+                GolemCoreItem.Type.NATURE,
+                new Item.Properties().stacksTo(1).rarity(RarityRegistry.NATURE)
+        ));
+        riverGolemCore = registerItem("river_golem_core", () -> new GolemCoreItem(
+                GolemCoreItem.Type.RIVER,
+                new Item.Properties().stacksTo(1).rarity(RarityRegistry.AQUARIUS)
+        ));
+        magmaticGolemCore = registerItem("magmatic_golem_core", () -> new GolemCoreItem(
+                GolemCoreItem.Type.MAGMATIC,
+                new Item.Properties().stacksTo(1).fireResistant().rarity(RarityRegistry.INFERNAL)
+        ));
+        elementalGolemCore = registerItem("elemental_golem_core", () -> new GolemCoreItem(
+                GolemCoreItem.Type.ELEMENTAL,
+                new Item.Properties().stacksTo(1).fireResistant().rarity(RarityRegistry.ELEMENTAL)
+        ));
 
         pixiePet = registerItem("pixie_pet", () -> new PixiePetItem(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
 
@@ -1070,6 +1094,7 @@ public class ItemsRegistry{
         pixie = registerItem("pixie_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.PIXIE, new Item.Properties()));
         dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
         kingCrab = registerItem("king_crab_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.KING_CRAB, Col.hexToDecimal("c82613"), Col.hexToDecimal("7a464b"), new Item.Properties()));
+        magmaticGolem = registerItem("magmatic_golem_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.MAGMATIC_GOLEM, Col.hexToDecimal("ffe568"), Col.hexToDecimal("643431"), new Item.Properties()));
         devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
         firron = registerItem("firron_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FIRRON, Col.hexToDecimal("993131"), Col.hexToDecimal("fbf236"), new Item.Properties()));
         wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, Col.hexToDecimal("562a8a"), Col.hexToDecimal("ff62f8"), new Item.Properties()));

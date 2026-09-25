@@ -186,25 +186,21 @@ public class ValoriaUtils{
         return r.x < s.x2 && r.x2 > s.x && r.y < s.y2 && r.y2 > s.y;
     }
 
-    @Nullable
     public static ItemStack getEquippedCurio(Predicate<ItemStack> filter, LivingEntity entity) {
         var curio = CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity);
         return curio.map(stringIntegerItemStackImmutableTriple -> stringIntegerItemStackImmutableTriple.right).orElse(null);
     }
 
     public static boolean isEquippedCurio(Predicate<ItemStack> filter, LivingEntity entity) {
-        var curio = CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity);
-        return curio.isPresent();
+        return CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity).isPresent();
     }
 
     public static boolean isEquippedCurio(TagKey<Item> tag, LivingEntity entity) {
-        var curio = CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(tag), entity);
-        return curio.isPresent();
+        return CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(tag), entity).isPresent();
     }
 
     public static boolean isEquippedCurio(Item pItem, LivingEntity entity) {
-        var curio = CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(pItem), entity);
-        return curio.isPresent();
+        return CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(pItem), entity).isPresent();
     }
 
     public static void addHandPlayerItem(Level level, Player player, InteractionHand hand, ItemStack stack, ItemStack addStack) {

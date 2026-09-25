@@ -1,4 +1,4 @@
-package com.idark.valoria.client.ui;
+package com.idark.valoria.client.ui.overlay;
 
 import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;

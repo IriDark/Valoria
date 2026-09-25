@@ -5,16 +5,16 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
-public class CurioVision extends AbstractRuneItem implements InputListener{
+public class CurioVision extends AbstractRuneItem implements AbilityInputListener{
     int duration;
     public CurioVision(Properties properties, int pDuration){
         super(properties);
@@ -44,9 +44,9 @@ public class CurioVision extends AbstractRuneItem implements InputListener{
     }
 
     @Override
-    public void onInput(ServerPlayer player, ItemStack stack, int event){
-        if(event == 0) {
-            applyEffects(player, stack);
-        }
+    public Seq<CurioAbility> getCurioAbilities(ItemStack stack) {
+        return Seq.with(
+            new CurioAbility(0, stack.getHoverName().copy().withStyle(stack.getDisplayName().getStyle()), (player, st) -> applyEffects(player, st))
+        );
     }
 }

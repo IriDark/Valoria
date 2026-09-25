@@ -40,7 +40,6 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         blocks.add(pBlock);
     }
 
-
     private void dropItem(Block block, ItemLike item) {
         this.add(block, ignored -> createSingleItemTable(item));
     }

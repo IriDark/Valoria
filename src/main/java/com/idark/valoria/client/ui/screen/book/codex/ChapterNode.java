@@ -27,6 +27,35 @@ public class ChapterNode {
     public List<Component> description = Lists.newArrayList();
     public List<Component> hints = Lists.newArrayList();
 
+    public Seq<CustomLink> customLinks = Seq.with();
+    
+    public ChapterNode linkTo(ChapterNode target, LineType type, int color) {
+        customLinks.add(new CustomLink(target, type, color, ""));
+        return this;
+    }
+
+    public ChapterNode linkTo(ChapterNode target, LineType type, int color, String symbol) {
+        customLinks.add(new CustomLink(target, type, color, symbol));
+        return this;
+    }
+
+    public enum LineType {
+        SOLID, DASHED, DOTTED, SYMBOLIC
+    }
+
+    public static class CustomLink {
+        public ChapterNode target;
+        public LineType type;
+        public int color;
+        public String symbol;
+        public CustomLink(ChapterNode target, LineType type, int color, String symbol) {
+            this.target = target;
+            this.type = type;
+            this.color = color;
+            this.symbol = symbol;
+        }
+    }
+
     public ChapterNode(Chapter chapter, Item item) {
         this(chapter, item, Style.STANDARD, null);
     }

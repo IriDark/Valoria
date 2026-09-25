@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north,part=head,waterlogged=true": { "model": "valoria:block/black_gold_heavy_anvil" },
+    "facing=east,part=head,waterlogged=true":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 90 },
+    "facing=south,part=head,waterlogged=true": { "model": "valoria:block/black_gold_heavy_anvil", "y": 180 },
+    "facing=west,part=head,waterlogged=true":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 270 },
+    "facing=north,part=foot,waterlogged=true": { "model": "valoria:block/black_gold_heavy_anvil" },
+    "facing=east,part=foot,waterlogged=true":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 90 },
+    "facing=south,part=foot,waterlogged=true": { "model": "valoria:block/black_gold_heavy_anvil", "y": 180 },
+    "facing=west,part=foot,waterlogged=true":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 270 },
+    "facing=north,part=head,waterlogged=false": { "model": "valoria:block/black_gold_heavy_anvil" },
+    "facing=east,part=head,waterlogged=false":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 90 },
+    "facing=south,part=head,waterlogged=false": { "model": "valoria:block/black_gold_heavy_anvil", "y": 180 },
+    "facing=west,part=head,waterlogged=false":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 270 },
+    "facing=north,part=foot,waterlogged=false": { "model": "valoria:block/black_gold_heavy_anvil" },
+    "facing=east,part=foot,waterlogged=false":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 90 },
+    "facing=south,part=foot,waterlogged=false": { "model": "valoria:block/black_gold_heavy_anvil", "y": 180 },
+    "facing=west,part=foot,waterlogged=false":  { "model": "valoria:block/black_gold_heavy_anvil", "y": 270 }
+  }
+}

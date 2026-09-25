@@ -1,0 +1,285 @@
+package com.idark.valoria.registries.item.types;
+
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.api.render.animation.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
+import pro.komaru.tridot.util.struct.data.*;
+
+import java.util.*;
+import java.util.stream.*;
+
+import static com.idark.valoria.Valoria.*;
+
+public class HammerItem extends SwordItem implements ICustomAnimationItem, CooldownReductionItem, TooltipComponentItem, Vanishable{
+    public Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public static final Set<ToolAction> HAMMER = of(ToolActions.SWORD_DIG);
+    @OnlyIn(Dist.CLIENT)
+    private static HammerAnimation hammerAnimation = new HammerAnimation();
+
+    public HammerItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
+        super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", pAttackDamageModifier + pTier.getAttackDamageBonus(), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", pAttackSpeedModifier, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.DASH_DISTANCE.get(), new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", 1, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
+    }
+
+    private static Set<ToolAction> of(ToolAction... actions){
+        return Stream.of(actions).collect(Collectors.toCollection(Sets::newIdentityHashSet));
+    }
+
+    public UseAnim getUseAnimation(ItemStack stack){
+        return UseAnim.CUSTOM;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public ItemAnimation getAnimation(ItemStack stack){
+        return hammerAnimation;
+    }
+
+    @Override
+    public boolean canPerformAction(ItemStack stack, ToolAction toolAction){
+        return HAMMER.contains(toolAction);
+    }
+
+    public int getChargingTime() {
+        return 35;
+    }
+
+    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
+        Player player = (Player)livingEntityIn;
+        if(player.getTicksUsingItem() == this.getChargingTime()){
+            player.playNotifySound(SoundsRegistry.SPEAR_RETURN.get(), SoundSource.PLAYERS, 1, 1);
+        }
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged){
+        if(!slotChanged){
+            return false;
+        }
+
+        return super.shouldCauseReequipAnimation(oldStack, newStack, true);
+    }
+
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot pEquipmentSlot){
+        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
+    }
+
+    public static double distance(double distance, Level level, Player player){
+        double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
+        double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
+        double X = Math.sin(pitch) * Math.cos(yaw) * distance;
+        double Y = Math.cos(pitch) * distance;
+        double Z = Math.sin(pitch) * Math.sin(yaw) * distance;
+
+        Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+        Vec3 EndPos = (player.getViewVector(0.0f).scale(2.0d));
+        HitResult hitresult = Utils.Hit.hitResult(player.getEyePosition(), player, (e) -> true, EndPos, level);
+        if(hitresult != null){
+            switch(hitresult.getType()){
+                case BLOCK, MISS:
+                    X = hitresult.getLocation().x();
+                    Y = hitresult.getLocation().y();
+                    Z = hitresult.getLocation().z();
+                    break;
+                case ENTITY:
+                    Entity entity = ((EntityHitResult)hitresult).getEntity();
+                    X = entity.getX();
+                    Y = entity.getY();
+                    Z = entity.getZ();
+                    break;
+            }
+        }
+
+        return Math.sqrt((X - pos.x) * (X - pos.x) + (Y - pos.y) * (Y - pos.y) + (Z - pos.z) * (Z - pos.z));
+    }
+
+    public void applyCooldown(Player playerIn){
+        for(Item item : ForgeRegistries.ITEMS){
+            if(item instanceof HammerItem){
+                playerIn.getCooldowns().addCooldown(item, getCooldownReduction(500, playerIn.getUseItem()));
+            }
+        }
+    }
+
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn){
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if(!playerIn.isShiftKeyDown() && handIn != InteractionHand.OFF_HAND){
+            playerIn.startUsingItem(handIn);
+            return InteractionResultHolder.consume(itemstack);
+        }
+
+        return InteractionResultHolder.pass(itemstack);
+    }
+
+    public int getUseDuration(@NotNull ItemStack stack){
+        return 72000;
+    }
+
+    public double getDashDistance(Player player){
+        return player.getAttributeValue(AttributeReg.DASH_DISTANCE.get());
+    }
+
+    public double getSmashRadius(Player player){
+        return player.getAttributeValue(AttributeReg.ATTACK_RADIUS.get());
+    }
+
+    public void performEffects(LivingEntity targets, Player player){
+        performEffects(targets, player, player.getMainHandItem());
+    }
+
+    public void performEffects(LivingEntity target, Player player, ItemStack stack){
+        int collapseLevel = stack.getEnchantmentLevel(EnchantmentsRegistry.COLLAPSE.get());
+        int repulsionLevel = stack.getEnchantmentLevel(EnchantmentsRegistry.REPULSION.get()) + stack.getEnchantmentLevel(Enchantments.KNOCKBACK);
+        if (collapseLevel > 0) {
+            double dx = target.getX() - player.getX();
+            double dz = target.getZ() - player.getZ();
+            float pullStrength = 0.6F + (collapseLevel * 0.4F);
+            target.knockback(pullStrength, dx, dz);
+            target.hurtMarked = true;
+            target.hasImpulse = true;
+            target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, collapseLevel - 1));
+        } else {
+            float kbStrength = 0.6F + (repulsionLevel * 0.8F);
+            double dx = player.getX() - target.getX();
+            double dz = player.getZ() - target.getZ();
+            target.knockback(kbStrength, dx, dz);
+
+            if (repulsionLevel > 0) {
+                target.push(0, 0.25D * repulsionLevel, 0);
+            }
+
+            target.hurtMarked = true;
+            target.hasImpulse = true;
+        }
+
+        int sunderingLevel = stack.getEnchantmentLevel(EnchantmentsRegistry.SUNDERING.get());
+        if (sunderingLevel > 0) {
+            target.addEffect(new MobEffectInstance(EffectsRegistry.SUNDERED.get(), 100, sunderingLevel - 1));
+        }
+
+        int stunLevel = stack.getEnchantmentLevel(EnchantmentsRegistry.CONCUSSION.get());
+        if (stunLevel > 0) {
+            int duration = switch (stunLevel) {
+                case 1 -> 4;
+                case 2 -> 8;
+                default -> 16;
+            };
+            target.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), duration, 0));
+        }
+
+        if(EnchantmentHelper.getFireAspect(player) > 0){
+            int i = EnchantmentHelper.getFireAspect(player);
+            target.setSecondsOnFire(i * 4);
+        }
+
+        if(collapseLevel == 0){
+            target.push(0, 0.5, 0);
+        }
+    }
+
+    public void performDash(Player player, ItemStack stack, double dashDistance) {
+        Vec3 look = player.getViewVector(0.0f);
+        player.hurtMarked = true;
+        player.push(look.x * dashDistance, 1.0, look.z * dashDistance);
+        
+        int enchantLevel = stack.getEnchantmentLevel(EnchantmentsRegistry.SHOCK_ABSORPTION.get());
+        player.addEffect(new MobEffectInstance(EffectsRegistry.HAMMER_SMASH.get(), 60, enchantLevel, false, false, false));
+    }
+
+    public SmashType getSmashType(ItemStack stack) {
+        if (stack.getEnchantmentLevel(EnchantmentsRegistry.COLLAPSE.get()) > 0) {
+            return SmashType.COLLAPSE;
+        }
+        Tier tier = this.getTier();
+        if (tier == ItemTierRegistry.INFERNAL) {
+            return SmashType.INFERNAL;
+        } else if (tier == ItemTierRegistry.NIHILITY) {
+            return SmashType.VOID;
+        } else if (tier == ItemTierRegistry.BLACK_GOLD) {
+            return SmashType.BLACK_GOLD;
+        }
+        return SmashType.DEFAULT;
+    }
+
+    public void performSmash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player){
+        BlockPos pos = player.blockPosition();
+        if(level instanceof ServerLevel serv){
+            PacketHandler.sendToTracking(serv, pos, new SmashParticlePacket(player.getUUID(), getSmashType(stack)));
+        }
+
+        var radius = getSmashRadius(player);
+        AABB smashBox = player.getBoundingBox().inflate(radius);
+        List<LivingEntity> targets = level.getEntitiesOfClass(LivingEntity.class, smashBox);
+        for (LivingEntity target : targets) {
+            if (target != player) {
+                if (player.distanceToSqr(target) <= radius * radius) {
+                    target.hurt(level.damageSources().playerAttack(player), this.getDamage() * 1.75f);
+                    performEffects(target, player, stack);
+                }
+            }
+        }
+
+        level.playSound(null, player.blockPosition(), SoundsRegistry.HAMMER_SMASH.get(), SoundSource.PLAYERS, 1f, 1f);
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
+        pAttacker.level().playSound(null, pTarget.blockPosition(), SoundsRegistry.HAMMER_HIT.get(), SoundSource.PLAYERS, 1, 1);
+        return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
+
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft){
+        Player player = (Player)entityLiving;
+        if(!player.isFallFlying() && player.getTicksUsingItem() >= this.getChargingTime()){
+            player.awardStat(Stats.ITEM_USED.get(this));
+            applyCooldown(player);
+            performDash(player, stack, getDashDistance(player));
+            if(level instanceof ServerLevel serv) PacketHandler.sendToTracking(serv, player.getOnPos(), new JumpParticlePacket(player.getUUID()));
+            level.playSound(null, player.getOnPos(), SoundsRegistry.HAMMER_SWOOSH.get(), SoundSource.PLAYERS, 1F, 1F);
+        }
+    }
+
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
+        Seq<TooltipComponent> seq = Seq.with(
+        new SeparatorComponent(Component.translatable("tooltip.tridot.abilities")),
+        new AbilityComponent(Component.translatable("tooltip.valoria.hammer_smash").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/hammer_smash.png"))
+        );
+
+        seq.add(new TextComponent(Component.translatable("tooltip.tridot.crossbow.speed", Utils.Items.formatTickDuration(this.getChargingTime())).withStyle(style -> style.withColor(ChatFormatting.GRAY).withFont(Valoria.FONT))));
+        seq.add(new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT))));
+        return seq;
+    }
+}

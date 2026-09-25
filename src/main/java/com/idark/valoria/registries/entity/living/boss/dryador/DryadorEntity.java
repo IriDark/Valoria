@@ -9,7 +9,6 @@ import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
-import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -33,9 +32,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.entity.*;
@@ -55,13 +53,12 @@ import pro.komaru.tridot.util.struct.data.*;
 import java.lang.Math;
 import java.util.*;
 
-public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEffectiveWeaponEntity{
+public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEffectiveWeaponEntity {
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/dryador.png")).setDarkenScreen(true);
-    private int spawnTime = 0;
+
     public int animationTicks = 0;
     public final AnimationState idleAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
-    public AnimationState spawnAnimationState = new AnimationState();
     public StaticAnimationState phaseTransitionAnimationState = new StaticAnimationState();
     public StaticAnimationState rangedAttackAnimationState = new StaticAnimationState();
     public StaticAnimationState meleeAttackAnimationState = new StaticAnimationState();
@@ -335,11 +332,6 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
         super.tick();
         setupAnimationStates();
         checkPhaseTransition();
-        if(this.spawnTime < 10){
-            this.spawnTime++;
-            this.spawnAnimationState.start(tickCount);
-        }
-
         if (!level().isClientSide) {
             int currentTick = ((ServerLevel) level()).getServer().getTickCount();
             List<BlockPos> blocks = scheduledLifts.remove(currentTick);

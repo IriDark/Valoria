@@ -3,6 +3,7 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.monster.*;
 import pro.komaru.tridot.api.entity.*;
 import pro.komaru.tridot.util.*;
 
@@ -23,7 +24,7 @@ public class EntityStatsRegistry{
 
     //bosses
     public static AttributeSupplier NECROMANCER = register(500, 5).build();
-    public static AttributeSupplier DRYADOR = register(750, 4, 0.3).add(Attributes.FOLLOW_RANGE, 20).build();
+    public static AttributeSupplier DRYADOR = register(750, 4, 0.2).add(Attributes.FOLLOW_RANGE, 20).build();
     public static AttributeSupplier FIRRON = register(1250, 10, 0.3).add(Attributes.FOLLOW_RANGE, 20).add(Attributes.ARMOR, 10).add(Attributes.ARMOR_TOUGHNESS, 2).build();
     public static AttributeSupplier WICKED_CRYSTAL = register(2000, 0).build();
 
@@ -36,6 +37,7 @@ public class EntityStatsRegistry{
     public static AttributeSupplier ENT = register(50, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.5).build();
     public static AttributeSupplier NATURE_GOLEM = register(75, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
     public static AttributeSupplier RIVER_GOLEM = register(75, 5, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
+    public static AttributeSupplier MAGMATIC_GOLEM = register(125, 6, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.KNOCKBACK_RESISTANCE, 0.75).build();
     public static AttributeSupplier SORCERER = register(15, 1.5).build();
     public static AttributeSupplier MAGGOT = register(5, 2).build();
     public static AttributeSupplier KING_CRAB = register(50, 5).add(Attributes.FOLLOW_RANGE, 20).build();
@@ -63,6 +65,10 @@ public class EntityStatsRegistry{
 
     public static AttributeSupplier.Builder register(){
         return Mob.createMobAttributes();
+    }
+
+    public static AttributeSupplier.Builder registerZombie(double health, double damage){
+        return Zombie.createAttributes().add(Attributes.MAX_HEALTH, health).add(Attributes.ATTACK_DAMAGE, damage);
     }
 
     public static AttributeSupplier.Builder register(double health, double damage){

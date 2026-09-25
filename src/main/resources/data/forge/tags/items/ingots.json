@@ -1,15 +1,45 @@
 {
   "replace": false,
   "values": [
-    "valoria:black_gold_ingot",
-    "valoria:bronze_ingot",
-    "valoria:cobalt_ingot",
-    "valoria:ancient_ingot",
-    "valoria:pearlium_ingot",
-    "valoria:cobalt_ingot",
-    "valoria:nature_ingot",
-    "valoria:aquarius_ingot",
-    "valoria:infernal_ingot",
-    "valoria:void_ingot"
+    {
+      "id": "#forge:ingots/bronze",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/pearlium",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/cobalt",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/black_gold",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/ancient",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/crimtane",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/nature",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/aquarius",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/infernal",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/void",
+      "required": false
+    }
   ]
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:block/anvil_template",
+  "textures": {
+    "texture": "valoria:block/void_anvil"
+  }
+}

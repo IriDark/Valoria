@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:item/handheld",
+  "base": {
+    "parent": "valoria:item/hammer_template",
+    "textures": {
+      "layer0": "valoria:item/infernal_hammer_in_hand"
+    }
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/infernal_hammer"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/infernal_hammer"
+      }
+    },
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/infernal_hammer"
+      }
+    },
+    "none": {
+      "parent": "valoria:item/hammer_template",
+      "textures": {
+        "layer0": "valoria:item/infernal_hammer_in_hand"
+      }
+    }
+  }
+}

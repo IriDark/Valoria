@@ -1,12 +1,33 @@
 # 1.1.0
 
 # **Added**
+- Added Invulnerability frames to Katana dash
+- Added 4 tiers of Hammers: Bronze, Black Gold, Infernal, and Void
+- Added unique leap and ground smash ability for Hammers with custom animated expanding shockwave particle
+- Added 5 specialized enchantments for Hammers:
+  - **Shock Absorption**: mitigates fall damage during hammer smash (up to 100% on level III)
+  - **Concussion**: stuns and staggers targets in the impact radius for 0.2s - 0.8s
+  - **Repulsion**: launches enemies far away and upward from the epicenter of the smash
+  - **Collapse**: inverts knockback to pull enemies towards the player and slows them for 2s
+  - **Sundering**: shatters enemy armor upon impact for 5s
+- Added **Sundered** status effect (reduces armor rating, dynamically supporting percentage-based armor)
+- Added 4 tiers of Heavy Anvils (Bronze, Black Gold, Infernal, Void) with an interactive forging minigame, dynamic sweet-spot, instability meter, and 3D item rendering on the anvil
+- Added **Rift Ring** accessory with custom Rift shaders and mechanics
+- Added `Rings` and `Necklaces` pages to the `Jewelry` section of the Codex, and connected them directly to the gem pages using the new grey dashed `linkTo` lines
+- Added `addRecipe(ResourceLocation loc)` method to `GeneralPage` for precise control over which specific recipe is displayed in the Codex
+- Added Codex pages for all gems (Amber, Amethyst, Sapphire, Ruby) that unlock automatically upon obtaining them for the first time, detailing their spawn locations and uses
+- Added Heavy Workbench recipe to craft an Amethyst Gem from 4 Wicked Amethysts
+- Added a new Codex page about the Nihility (Void) effect, which automatically unlocks with a warning tooltip when a player takes critical void damage
 - Added new models and visual states for looted Sarcophagus
 - Added magical sparkle particles to opened but unlooted Sarcophagus
+- Added Server Config option `enableFirstJoinReward` to toggle the Starter Bundle reward on first world join
+- Added `valoria:first_join_reward` LootCondition to support data-driven toggling of the Starter Bundle reward
 
 # **Fixed**
+- Fixed Layering issues inside Codex
 - Fixed multiblock blocks (like Sarcophagus and tall plants) dropping items when broken in Creative mode
 - Fixed Crypt structure generating one block too low and occasionally eating large chunks of surface terrain
+- Fixed Abilities sound mismatching
 
 # **Changed**
 - Moved Sarcophagus mob equipment and Halloween logic from hardcode to `sarcophagus_gear.json` loot table
@@ -14,8 +35,10 @@
 - Increased the Sarcophagus open sound volume
 - Optimized Sarcophagus logic to only process on the server side
 - Moved Curio Curses effects from hardcode to `valoria:curses` tag to allow data-driven configuration
-- Extracted MobEffect tag lookup logic into reusable `ValoriaUtils` methods
 - Moved PotBlock mob spawning from hardcode (Silverfish) to `valoria:pot_spawns` entity type tag
+- Changed several drops to be guaranteed (Nihility shard for Corrupted Troll & Wicked Scorpion, Pain crystal for Corrupted, Oceanic Shell for King Crab)
+- Reduced Dryador movement speed
+- Removed annoying banners from Codex, replaced with 2 small buttons near home button
 
 # 1.0.4.2
 

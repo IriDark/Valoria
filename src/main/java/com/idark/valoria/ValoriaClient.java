@@ -13,7 +13,7 @@ import com.idark.valoria.client.render.item.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.client.sounds.LoopedSoundInstance;
-import com.idark.valoria.client.ui.*;
+import com.idark.valoria.client.ui.overlay.*;
 import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.registries.*;
@@ -35,6 +35,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.player.*;
+import net.minecraft.client.resources.sounds.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -64,8 +65,27 @@ public class ValoriaClient{
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Z, CATEGORY_KEY);
 
     public static LoopedSoundInstance BOSS_MUSIC;
+    public static SoundInstance BREATH_SOUND;
+
     public static HandsModel hands;
     public static HandsModelSlim handsSlim;
+
+    public static void handleBreathSound(float amount, float max) {
+        if (amount >= 40) {
+            if (BREATH_SOUND == null || !Minecraft.getInstance().getSoundManager().isActive(BREATH_SOUND)) {
+                float excess = amount - 40f;
+                float maxExcess = Math.max(1f, max - 40f);
+                float intensity = net.minecraft.util.Mth.clamp(excess / maxExcess, 0f, 1f);
+                
+                float chance = 0.01f + (intensity * 0.03f);
+                if (Tmp.rnd.chance(chance)) {
+                    float pitch = 1.0f - (intensity * 0.3f) + (Tmp.rnd.nextFloat() - 0.5f) * 0.1f;
+                    BREATH_SOUND = SimpleSoundInstance.forLocalAmbience(SoundsRegistry.BREATH.get(), 0.05f, pitch);
+                    Minecraft.getInstance().getSoundManager().play(BREATH_SOUND);
+                }
+            }
+        }
+    }
 
     public static void setupClient(final FMLClientSetupEvent event){
         event.enqueueWork(() -> {
@@ -183,6 +203,7 @@ public class ValoriaClient{
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
             event.registerAboveAll("nihility", NihilityHudOverlay.instance);
             event.registerAboveAll("nihility_shield", NihilityShieldOverlay.instance);
+            event.registerAboveAll("heavy_anvil", HeavyAnvilOverlay.instance);
         }
 
         @SubscribeEvent
@@ -245,12 +266,14 @@ public class ValoriaClient{
                 BlockEntityRenderers.register(BlockEntitiesRegistry.VALORIA_PORTAL_BLOCK_ENTITY.get(), ValoriaPortalRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.BOSS_TROPHY_ENTITIES.get(), BossTrophyBlockEntityRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.SOUL_INFUSER_BLOCK_ENTITY.get(), (trd) -> new SoulInfuserBlockEntityRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.ANVIL_BLOCK_ENTITY.get(), (trd) -> new com.idark.valoria.client.render.tile.HeavyAnvilBlockEntityRenderer());
 
                 Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
                 Sheets.addWoodType(ModWoodTypes.DREADWOOD);
             });
 
+            EntityRenderers.register(EntityTypeRegistry.RIFT.get(), RiftRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", false, false));
             EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", true, false));
             EntityRenderers.register(EntityTypeRegistry.ELDRITCH_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", false, false));
@@ -312,6 +335,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.FIRRON.get(), FirronRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.NATURE_GOLEM.get(), NatureGolemRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.RIVER_GOLEM.get(), RiverGolemRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.MAGMATIC_GOLEM.get(), MagmaticGolemRenderer::new);
 
             ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());

@@ -57,14 +57,8 @@ public class JewelryBagScreen extends Screen{
     public List<ItemStack> getTrinkets(){
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
-        List<ItemStack> items = player.getInventory().items;
         ArrayList<ItemStack> curioItems = new ArrayList<>();
-        for(ItemStack stack : items){
-            if(stack.getItem() instanceof ICurioItem && stack.getItem() != ItemsRegistry.jewelryBag.get()){
-                curioItems.add(stack);
-            }
-        }
-
+        CuriosApi.getCuriosHelper().findCurios(player, stack -> stack.getItem() instanceof ICurioItem && !stack.is(ItemsRegistry.jewelryBag.get())).forEach(result -> curioItems.add(result.stack()));
         return curioItems;
     }
 

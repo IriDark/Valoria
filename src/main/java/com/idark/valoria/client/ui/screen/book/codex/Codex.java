@@ -42,7 +42,7 @@ public class Codex extends DotScreen{
 
     public int backgroundWidth = 512, backgroundHeight = 512;
     public int frameWidth = 276;
-    public int frameHeight = 180;
+    public int frameHeight = 181;
     public int insideWidth = 262;
     public int insideHeight = 164;
 
@@ -85,41 +85,6 @@ public class Codex extends DotScreen{
         searchBar.setTextColor(0xFFFFFF);
         searchBar.setHint(SEARCH_HINT);
         this.addWidget(searchBar);
-
-        if (!isSidebarDisabled()){
-            boolean isAdmin = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
-            int patreonX = isAdmin ? (this.width / 2 + 5) : (this.width / 2 - 100);
-            if (isAdmin) {
-                this.addRenderableWidget(new ImageButton(this.width / 2 - 205, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/progression.png"), 200, 80, (button) -> {
-                    BooleanConsumer callback = (confirmed) -> {
-                        if (confirmed) {
-                            PacketHandler.sendToServer(new ProgressionDisableCodexPacket());
-                        }
-                        Minecraft.getInstance().setScreen(this);
-                    };
-
-                    ConfirmScreen warning = new ConfirmScreen(
-                    callback,
-                    Component.translatable("codex.screen.valoria.codex_progression.title").withStyle(ChatFormatting.RED),
-                    Component.translatable("codex.screen.valoria_progression.description_" + (ServerConfig.ENABLE_CODEX_PROGRESSION.get() ? "disable" : "enable"))
-                    );
-
-                    Minecraft.getInstance().setScreen(warning);
-                }));
-            }
-
-            this.addRenderableWidget(new ImageButton(patreonX, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/patreon.png"), 200, 80, (button) -> {
-                String url = "https://www.patreon.com/c/IriDark";
-                ConfirmLinkScreen confirmLinkScreen = new ConfirmLinkScreen((confirmed) -> {
-                    if (confirmed) {
-                        Util.getPlatform().openUri(url);
-                    }
-                    this.minecraft.setScreen(this);
-                }, url, true);
-
-                this.minecraft.setScreen(confirmLinkScreen);
-            }));
-        }
     }
 
     /**
@@ -211,24 +176,12 @@ public class Codex extends DotScreen{
         int textY = scaleY + 3;
 
         pop();
-
-        push();
-        layer(600); // shadows
-        gui.blit(FRAME, guiLeft(), guiTop(), 0, 0, frameWidth, frameHeight, 512, 512);
-        layer(0);
-        pop();
-
         push();
             renderBackground(gui, mouseX, mouseY);
-            layer(601); // home button
-            if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
-                gui.blit(FRAME, (int)(cx() - 5 - 1), guiTop() + frameHeight - 10 - 1, 10, 191, 12, 12, 512, 512);
-            }else{
-                gui.blit(FRAME, (int)(cx() - 5), guiTop() + frameHeight - 10, 0, 192, 10, 10, 512, 512);
-            }
-
+            layer(601);
             gui.fill(textX - 3, textY - 3, textX + font.width(zoomText) + 3, textY + font.lineHeight + 3, Col.packColor(150, 0, 0, 0));
             gui.drawString(font, zoomText, textX, textY, 0xFFFFFF, false);
+            layer(0);
         pop();
 
         for(CodexEntry entry : CodexEntries.entries) {
@@ -240,6 +193,37 @@ public class Codex extends DotScreen{
 
 
         renderSidebar(gui, mouseX, mouseY);
+        push();
+        layer(1200);
+        gui.blit(FRAME, guiLeft(), guiTop(), 0, 0, frameWidth, frameHeight, 512, 512);
+
+        if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
+            gui.blit(FRAME, (int)(cx() - 5 - 1), guiTop() + frameHeight - 10 - 1, 10, 191, 12, 12, 512, 512);
+        }else{
+            gui.blit(FRAME, (int)(cx() - 5), guiTop() + frameHeight - 10, 0, 192, 10, 10, 512, 512);
+        }
+
+        // Patreon Button (Left)
+        int patX = (int)(this.cx() - 21);
+        if(isHover(mouseX, mouseY, patX - 10, guiTop() + this.frameHeight - 15, 20, 20)){
+            gui.blit(FRAME, patX - 6, guiTop() + frameHeight - 11, 72, 191, 12, 12, 512, 512);
+        }else{
+            gui.blit(FRAME, patX - 5, guiTop() + frameHeight - 10, 62, 192, 11, 11, 512, 512);
+        }
+
+        // Progression Button (Right)
+        int progX = (int)(this.cx() + 20);
+        boolean isHost = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
+        if (!isHost) {
+            gui.blit(FRAME, progX - 5, guiTop() + frameHeight - 10, 107, 192, 11, 11, 512, 512);
+        } else if(isHover(mouseX, mouseY, progX - 10, guiTop() + this.frameHeight - 15, 20, 20)){
+            gui.blit(FRAME, progX - 5, guiTop() + frameHeight - 11, 95, 191, 12, 12, 512, 512);
+        } else {
+            gui.blit(FRAME, progX - 5, guiTop() + frameHeight - 10, 84, 192, 11, 11, 512, 512);
+        }
+
+        layer(0);
+        pop();
     }
 
     private void renderSidebar(GuiGraphics gui, int mouseX, int mouseY){
@@ -352,6 +336,35 @@ public class Codex extends DotScreen{
                 }
             }
 
+            int patX = (int)(this.cx() - 30);
+            if(isHover(mouseX, mouseY, patX - 10, guiTop() + this.frameHeight - 15, 20, 20)){
+                String url = "https://www.patreon.com/c/IriDark";
+                Util.getPlatform().openUri(url);
+                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
+                return true;
+            }
+            
+            int progX = (int)(this.cx() + 10);
+            boolean isHost = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
+            if (isHost && isHover(mouseX, mouseY, progX - 10, guiTop() + this.frameHeight - 15, 20, 20)) {
+                BooleanConsumer callback = (confirmed) -> {
+                    if (confirmed) {
+                        PacketHandler.sendToServer(new ProgressionDisableCodexPacket());
+                    }
+                    Minecraft.getInstance().setScreen(this);
+                };
+
+                ConfirmScreen warning = new ConfirmScreen(
+                callback,
+                Component.translatable("codex.screen.valoria.codex_progression.title").withStyle(ChatFormatting.RED),
+                Component.translatable("codex.screen.valoria_progression.description_" + (ServerConfig.ENABLE_CODEX_PROGRESSION.get() ? "disable" : "enable"))
+                );
+
+                Minecraft.getInstance().setScreen(warning);
+                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
+                return true;
+            }
+            
             if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
                 CodexEntry root = CodexEntries.entries.find(e -> e.getChapter() == CodexEntries.PAGES_CHAPTER);
                 if (root != null) {
@@ -359,7 +372,6 @@ public class Codex extends DotScreen{
                 } else {
                     xOffset = 0; yOffset = 0; zoom = 1;
                 }
-
                 sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
                 return true;
             }
@@ -558,6 +570,102 @@ public class Codex extends DotScreen{
 
                 c.entry.render(this, gui, uOffset, vOffset, insideLeft(), insideTop(), mouseX, mouseY);
             });
+            entry.node.customLinks.each(link -> {
+                if (link.target == null || link.target.entry == null) return;
+                float targetX = link.target.entry.x;
+                float targetY = link.target.entry.y;
+                float x = entry.x;
+                float y = entry.y;
+                float deltaY = targetY - y;
+                float y2 = y + deltaY ;
+
+                push();
+                move((backgroundWidth - insideWidth) / 2f, (backgroundHeight - insideHeight) / 2f);
+                move(guiLeft(), guiTop());
+                move(-uOffset, -vOffset);
+                move(22 - 4f, 22 - 4f);
+
+                layer(entriesLayer - 105);
+                drawCustomLine(gui, (int)-x, (int)-y, (int)-targetX, (int)-targetY, (int)-y2, link.color, link.type, link.symbol);
+                pop();
+            });
+
+        }
+    }
+
+    private void drawCustomLine(GuiGraphics gui, int x, int y, int targetX, int targetY, int y2, int color, ChapterNode.LineType type, String symbol) {
+        if (type == ChapterNode.LineType.SOLID) {
+            gui.vLine(x, y, y2, color);
+            gui.hLine(x, targetX, y2, color);
+            gui.vLine(targetX, y2, targetY, color);
+        } else if (type == ChapterNode.LineType.DASHED) {
+            drawDashedVLine(gui, x, y, y2, color);
+            drawDashedHLine(gui, x, targetX, y2, color);
+            drawDashedVLine(gui, targetX, y2, targetY, color);
+        } else if (type == ChapterNode.LineType.DOTTED) {
+            drawDottedVLine(gui, x, y, y2, color);
+            drawDottedHLine(gui, x, targetX, y2, color);
+            drawDottedVLine(gui, targetX, y2, targetY, color);
+        } else if (type == ChapterNode.LineType.SYMBOLIC) {
+            if (symbol == null || symbol.isEmpty()) symbol = "*";
+            drawSymbolicVLine(gui, x, y, y2, color, symbol);
+            drawSymbolicHLine(gui, x, targetX, y2, color, symbol);
+            drawSymbolicVLine(gui, targetX, y2, targetY, color, symbol);
+        }
+    }
+
+    private void drawDashedVLine(GuiGraphics gui, int x, int startY, int endY, int color) {
+        int min = Math.min(startY, endY);
+        int max = Math.max(startY, endY);
+        for (int i = min; i <= max; i += 6) {
+            gui.vLine(x, i, Math.min(i + 3, max), color);
+        }
+    }
+
+    private void drawDashedHLine(GuiGraphics gui, int startX, int endX, int y, int color) {
+        int min = Math.min(startX, endX);
+        int max = Math.max(startX, endX);
+        for (int i = min; i <= max; i += 6) {
+            gui.hLine(i, Math.min(i + 3, max), y, color);
+        }
+    }
+    
+    private void drawDottedVLine(GuiGraphics gui, int x, int startY, int endY, int color) {
+        int min = Math.min(startY, endY);
+        int max = Math.max(startY, endY);
+        for (int i = min; i <= max; i += 4) {
+            gui.vLine(x, i, Math.min(i + 1, max), color);
+        }
+    }
+
+    private void drawDottedHLine(GuiGraphics gui, int startX, int endX, int y, int color) {
+        int min = Math.min(startX, endX);
+        int max = Math.max(startX, endX);
+        for (int i = min; i <= max; i += 4) {
+            gui.hLine(i, Math.min(i + 1, max), y, color);
+        }
+    }
+
+    private void drawSymbolicVLine(GuiGraphics gui, int x, int startY, int endY, int color, String symbol) {
+        int min = Math.min(startY, endY);
+        int max = Math.max(startY, endY);
+        int width = font.width(symbol);
+        int drawX = x - width / 2;
+        int step = font.lineHeight + 4;
+        for (int i = min; i <= max; i += step) {
+            gui.drawString(font, symbol, drawX, i - font.lineHeight / 2, color, false);
+        }
+    }
+
+    private void drawSymbolicHLine(GuiGraphics gui, int startX, int endX, int y, int color, String symbol) {
+        int min = Math.min(startX, endX);
+        int max = Math.max(startX, endX);
+        int width = font.width(symbol);
+        int drawY = y - font.lineHeight / 2;
+        int step = width + 4;
+        if (step < 8) step = 8;
+        for (int i = min; i <= max; i += step) {
+            gui.drawString(font, symbol, i - width / 2, drawY, color, false);
         }
     }
 

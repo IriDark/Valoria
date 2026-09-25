@@ -604,6 +604,26 @@
     ],
     "subtitle": "subtitles.valoria.ability.use"
   },
+  "item.hammer_hit.attack": {
+    "sounds": [
+      "valoria:item/abilities/hammer_hit0",
+      "valoria:item/abilities/hammer_hit1",
+      "valoria:item/abilities/hammer_hit2"
+    ],
+    "subtitle": "subtitles.entity.player.attack.strong"
+  },
+  "item.hammer_smash.use": {
+    "sounds": [
+      "valoria:item/abilities/hammer_smash"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
+  "item.hammer_swoosh.use": {
+    "sounds": [
+      "valoria:item/abilities/hammer_swoosh"
+    ],
+    "subtitle": "subtitles.valoria.ability.use"
+  },
   "item.nihility_alert.active": {
     "sounds": [
       "valoria:item/alert"

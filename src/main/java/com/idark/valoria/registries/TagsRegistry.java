@@ -93,6 +93,7 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_BRONZE_TOOL = block(Valoria.loc("needs_bronze_tool"));
     public static final TagKey<Block> NEEDS_PEARLIUM_TOOL = block(Valoria.loc("needs_pearlium_tool"));
     public static final TagKey<Block> NEEDS_COBALT_TOOL = block(Valoria.loc("needs_cobalt_tool"));
+    public static final TagKey<Block> NEEDS_BLACK_GOLD_TOOL = block(Valoria.loc("needs_black_gold_tool"));
     public static final TagKey<Block> NEEDS_ETHEREAL_TOOL = block(Valoria.loc("needs_ethereal_tool"));
     public static final TagKey<Block> NEEDS_NATURE_TOOL = block(Valoria.loc("needs_pearlium_tool"));
     public static final TagKey<Block> NEEDS_DEPTH_TOOL = block(Valoria.loc("needs_depth_tool"));
@@ -104,6 +105,7 @@ public class TagsRegistry{
     public static final TagKey<Item> GOBLIN_SPAWNABLE_WITH = item(Valoria.loc("goblin_spawnable_with"));
     public static final TagKey<Item> FROM_SARCOPHAGUS_SPAWNABLE_WITH = item(Valoria.loc("from_sarcophagus_spawnable_with"));
     public static final TagKey<Item> FROM_SARCOPHAGUS_HALLOWEEN_SPAWNABLE_WITH = item(Valoria.loc("from_sarcophagus_halloween_spawnable_with"));
+    public static final TagKey<Item> HEAVY_ANVIL_TOOL = item(Valoria.loc("heavy_anvil_tool"));
 
     public static final TagKey<Item> EPHEMARITE_ITEMS = item(Valoria.loc("ephemarite"));
     public static final TagKey<Item> SPEARS = item(Valoria.loc("spears"));

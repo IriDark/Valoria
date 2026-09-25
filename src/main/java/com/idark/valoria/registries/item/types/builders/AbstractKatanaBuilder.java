@@ -22,6 +22,7 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public float attackDamageIn;
     public float attackSpeedIn;
     public float chance = 1;
+    public int iframeTime = 20;
     public int overlayTime = 50;
     public int cooldownTime = 75;
     public int chargeTime = 0;
@@ -109,6 +110,15 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
 
     public AbstractKatanaBuilder<T> setCooldownTime(int cooldownTime){
         this.cooldownTime = cooldownTime;
+        return this;
+    }
+
+    public AbstractKatanaBuilder<T> setIFrameTime(int time) {
+        return setInvTime(time);
+    }
+
+    public AbstractKatanaBuilder<T> setInvTime(int time){
+        this.iframeTime = time;
         return this;
     }
 

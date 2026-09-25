@@ -14,10 +14,16 @@ public class EnchantmentsRegistry{
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Valoria.ID);
     public static final EnchantmentCategory BLAZE = EnchantmentCategory.create("blaze", item -> item instanceof BlazeReapItem);
     public static final EnchantmentCategory ACCURACY_CATEGORY = EnchantmentCategory.create("accuracy_category", item -> item instanceof PhantasmBow);
+    public static final EnchantmentCategory HAMMER_CATEGORY = EnchantmentCategory.create("hammer_category", item -> item instanceof com.idark.valoria.registries.item.types.HammerItem);
 
     public static final RegistryObject<Enchantment> EXPLOSIVE_FLAME = registerEnchantment("explosive_flame", ExplosiveFlameEnchantment::new);
     public static final RegistryObject<Enchantment> BLEEDING = registerEnchantment("bleeding", BleedingEnchantment::new);
     public static final RegistryObject<Enchantment> ACCURACY = registerEnchantment("accuracy", AccuracyEnchantment::new);
+    public static final RegistryObject<Enchantment> SHOCK_ABSORPTION = registerEnchantment("shock_absorption", ShockAbsorptionEnchantment::new);
+    public static final RegistryObject<Enchantment> CONCUSSION = registerEnchantment("concussion", ConcussionEnchantment::new);
+    public static final RegistryObject<Enchantment> REPULSION = registerEnchantment("repulsion", RepulsionEnchantment::new);
+    public static final RegistryObject<Enchantment> COLLAPSE = registerEnchantment("collapse", CollapseEnchantment::new);
+    public static final RegistryObject<Enchantment> SUNDERING = registerEnchantment("sundering", SunderingEnchantment::new);
 
     private static RegistryObject<Enchantment> registerEnchantment(String id, Supplier<Enchantment> enchantment){
         return ENCHANTMENTS.register(id, enchantment);

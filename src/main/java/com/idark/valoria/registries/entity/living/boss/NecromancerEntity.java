@@ -7,6 +7,7 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.minions.*;
@@ -15,6 +16,7 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -47,20 +49,30 @@ import javax.annotation.Nullable;
 import java.lang.Math;
 import java.util.*;
 
-public class NecromancerEntity extends AbstractNecromancer implements BossEntity{
+public class NecromancerEntity extends AbstractNecromancer implements BossEntity, com.idark.valoria.core.interfaces.ISpawnAnimated {
     public final List<UUID> nearbyPlayers = new ArrayList<>();
     public final Map<UUID, Float> damageMap = new HashMap<>();
     public ArcRandom arcRandom = Tmp.rnd;
     public SkeletonMovement movement = new SkeletonMovement(this);
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/necromancer.png")).setBossMusic(SoundsRegistry.MUSIC_NECROMANCER.get()).setDarkenScreen(true);
-    private int spawnTime = 0;
+
+    private static final EntityDataAccessor<Boolean> HAS_SPAWNED = SynchedEntityData.defineId(NecromancerEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SPAWN_TICKS = SynchedEntityData.defineId(NecromancerEntity.class, EntityDataSerializers.INT);
+
+    public int clientSpawnTicks = 0;
+    public int prevClientSpawnTicks = 0;
 
     @Override
     public void tick(){
         super.tick();
         movement.setupMovement();
-        if(this.spawnTime < 10){
-            this.spawnTime++;
+        if (this.level().isClientSide) {
+            this.prevClientSpawnTicks = this.clientSpawnTicks;
+            if (!this.hasSpawned() && this.clientSpawnTicks < this.getMaxSpawnAnimationTicks()) {
+                this.clientSpawnTicks++;
+            } else if (this.hasSpawned()) {
+                this.clientSpawnTicks = this.getMaxSpawnAnimationTicks();
+            }
         }
     }
 
@@ -71,7 +83,8 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     }
 
     public float getSpawnProgress(float partialTicks){
-        return Math.min(1.0f, (this.spawnTime + partialTicks) / 10f);
+        float lerpedTicks = this.prevClientSpawnTicks + (this.clientSpawnTicks - this.prevClientSpawnTicks) * partialTicks;
+        return Math.min(1.0f, lerpedTicks / (float) this.getMaxSpawnAnimationTicks());
     }
 
     @Nullable
@@ -82,18 +95,38 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.xpReward = 100;
     }
 
-    public void readAdditionalSaveData(CompoundTag pCompound){
-        super.readAdditionalSaveData(pCompound);
-        readBossData(pCompound);
-        if(this.hasCustomName()){
-            this.bossEvent.setName(this.getDisplayName());
-        }
-    }
-
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
         saveBossData(pCompound);
+        pCompound.putBoolean("HasSpawned", this.hasSpawned());
+        pCompound.putInt("SpawnTicks", this.getSpawnAnimationTicks());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound){
+        super.readAdditionalSaveData(pCompound);
+        readBossData(pCompound);
+        if(pCompound.contains("HasSpawned")){
+            this.setSpawned(pCompound.getBoolean("HasSpawned"));
+        } else {
+            this.setSpawned(true);
+        }
+
+        if(pCompound.contains("SpawnTicks")){
+            this.setSpawnAnimationTicks(pCompound.getInt("SpawnTicks"));
+        }
+        if (this.hasCustomName()) {
+            this.bossEvent.setName(this.getDisplayName());
+        }
+    }
+
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HAS_SPAWNED, false);
+        this.entityData.define(SPAWN_TICKS, 0);
     }
 
     public void setCustomName(@Nullable Component pName){
@@ -165,6 +198,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.goalSelector.addGoal(3, new NecromancerEntity.WololoSpellGoal());
 
         // ai
+        this.goalSelector.addGoal(0, new SpawnAnimationGoal(this));
         this.goalSelector.addGoal(0, new NecromancerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
@@ -763,5 +797,35 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         public NecromancerSpells getSpell(){
             return NecromancerSpells.WOLOLO;
         }
+    }
+
+    @Override
+    public boolean hasSpawned() {
+        return this.entityData.get(HAS_SPAWNED);
+    }
+
+    @Override
+    public void setSpawned(boolean spawned) {
+        this.entityData.set(HAS_SPAWNED, spawned);
+    }
+
+    @Override
+    public int getSpawnAnimationTicks() {
+        return this.entityData.get(SPAWN_TICKS);
+    }
+
+    @Override
+    public void setSpawnAnimationTicks(int ticks) {
+        this.entityData.set(SPAWN_TICKS, ticks);
+    }
+
+    @Override
+    public int getMaxSpawnAnimationTicks() {
+        return 10;
+    }
+
+    @Override
+    public boolean shouldPlayCutscene() {
+        return true;
     }
 }

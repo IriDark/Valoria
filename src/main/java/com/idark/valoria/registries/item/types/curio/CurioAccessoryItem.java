@@ -8,7 +8,6 @@ import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -25,7 +24,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class CurioAccessoryItem extends ValoriaTieredAccessory implements InputListener, ICurioTexture, TooltipComponentItem{
+public class CurioAccessoryItem extends ValoriaTieredAccessory implements AbilityInputListener, ICurioTexture, TooltipComponentItem{
     public AbstractCurioBuilder<? extends CurioAccessoryItem, ?> builder;
     public CurioAccessoryItem(AbstractCurioBuilder<? extends CurioAccessoryItem, ?> builder){
         super(builder.tier, builder.itemProperties);
@@ -48,10 +47,13 @@ public class CurioAccessoryItem extends ValoriaTieredAccessory implements InputL
         return builder.texPath;
     }
 
-    public void onInput(ServerPlayer player, ItemStack stack, int event) {
-        if(event == 0) {
-            applyEffects(player, stack);
+    @Override
+    public Seq<CurioAbility> getCurioAbilities(ItemStack stack) {
+        if (!builder.effects.isEmpty()) {
+            return Seq.with(new CurioAbility(0, stack.getHoverName().copy().withStyle(stack.getDisplayName().getStyle()), this::applyEffects));
         }
+
+        return Seq.with();
     }
 
     public void applyEffects(Player player, ItemStack stack){

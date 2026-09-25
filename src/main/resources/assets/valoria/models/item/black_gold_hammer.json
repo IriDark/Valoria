@@ -1,0 +1,31 @@
+{
+  "parent": "minecraft:item/handheld",
+  "base": {
+    "parent": "valoria:item/hammer_template",
+    "textures": {
+      "texture": "valoria:item/black_gold_hammer_in_hand",
+      "particle": "valoria:item/black_gold_hammer_in_hand"
+    }
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/black_gold_hammer"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/black_gold_hammer"
+      }
+    },
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "valoria:item/black_gold_hammer"
+      }
+    }
+  }
+}

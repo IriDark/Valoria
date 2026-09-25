@@ -1,12 +1,11 @@
 package com.idark.valoria;
 
 
+import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.item.types.*;
@@ -260,7 +259,7 @@ public class ClientEvents{
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
         if (ValoriaClient.JEWELRY_BONUSES_KEY.consumeClick()) {
-            PacketHandler.sendToServer(new OnKeyInputPacket(0));
+            Minecraft.getInstance().setScreen(new AbilityWheelScreen(Component.translatable("screen.valoria.ability_wheel")));
         }
     }
 

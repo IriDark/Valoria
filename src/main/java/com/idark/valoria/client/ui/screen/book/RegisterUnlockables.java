@@ -12,6 +12,7 @@ import static com.idark.valoria.Valoria.loc;
 public class RegisterUnlockables{
 
     public static Unlockable
+    amber, amethyst, sapphire, ruby,
     aloe, pick, netherAlchemy, elementalAlchemy, valoriaAlchemy,
     crushables, lithicRunes, runes, voidSlateRunes,
 
@@ -20,7 +21,7 @@ public class RegisterUnlockables{
     crypt, monstrosities, fortress, valoriaPortal, valoriaVisit, shadeBlossom,
 
     cobalt, blackGold, crimtane, remains, soulCollector,
-    natureCore, aquariusCore, infernalCore, voidCore, // elemental
+    natureCore, aquariusCore, infernalCore, voidCore, nihility, // elemental
 
     rot, jade, pearlium, pyratite, ancientMetals, ethereal,
     goblin, troll, draugr, sorcerer, natureGolem, riverGolem, corruptedTroll, swampWanderer, scourge, corrupted, shadewoodSpider, wickedScorpion
@@ -34,6 +35,12 @@ public class RegisterUnlockables{
         devil = register(new EntityUnlockable(Valoria.ID + ":devil", ItemsRegistry.devilMeat.get(), EntityTypeRegistry.DEVIL.get()));
         harmonyEntities = register(new EntityTagUnlockable(Valoria.ID + ":harmony_entities", ItemsRegistry.harmonyHeart.get(), TagsRegistry.HARMONY_CREATURES));
         fortress = register(new DungeonUnlockable(Valoria.ID + ":fortress", ItemsRegistry.wickedAmethyst.get(), LevelGen.VALORIA_FORTRESS));
+        
+        amber = register(new ItemUnlockable(Valoria.ID + ":amber", false, ItemsRegistry.amberGem.get()));
+        amethyst = register(new ItemUnlockable(Valoria.ID + ":amethyst", false, ItemsRegistry.amethystGem.get()));
+        sapphire = register(new ItemUnlockable(Valoria.ID + ":sapphire", false, ItemsRegistry.sapphireGem.get()));
+        ruby = register(new ItemUnlockable(Valoria.ID + ":ruby", false, ItemsRegistry.rubyGem.get()));
+
         aloe = register(new ItemUnlockable(Valoria.ID + ":aloe", ItemsRegistry.aloePiece.get()));
         rot = register(new ItemUnlockable(Valoria.ID + ":rot", ItemsRegistry.rot.get()));
         lithicRunes = register(new ItemUnlockable(Valoria.ID + ":lithic_runes", ItemsRegistry.lithicRune.get()));
@@ -67,6 +74,7 @@ public class RegisterUnlockables{
         aquariusCore = register(new ItemUnlockable(Valoria.ID + ":aquarius_core", false, ItemsRegistry.aquariusCore.get()));
         infernalCore = register(new ItemUnlockable(Valoria.ID + ":infernal_core", false, ItemsRegistry.infernalCore.get()));
         voidCore = register(new ItemUnlockable(Valoria.ID + ":void_core", false, ItemsRegistry.voidCore.get()));
+        nihility = register(new Unlockable(ItemsRegistry.nihilityShard.get(), Valoria.ID + ":nihility", false));
 
         jade = register(new ItemUnlockable(Valoria.ID + ":jade", false, ItemsRegistry.jade.get()));
         pearlium = register(new ItemUnlockable(Valoria.ID + ":pearlium", false, ItemsRegistry.pearliumIngot.get()));

@@ -245,6 +245,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.ENT.get(), ENT);
             event.put(EntityTypeRegistry.NATURE_GOLEM.get(), NATURE_GOLEM);
             event.put(EntityTypeRegistry.RIVER_GOLEM.get(), RIVER_GOLEM);
+            event.put(EntityTypeRegistry.MAGMATIC_GOLEM.get(), MAGMATIC_GOLEM);
             event.put(EntityTypeRegistry.MAGGOT.get(), MAGGOT);
             event.put(EntityTypeRegistry.DRYADOR.get(), DRYADOR);
             event.put(EntityTypeRegistry.PIXIE.get(), PIXIE);
@@ -296,6 +297,9 @@ public class Valoria{
             event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.DEPTH_RESISTANCE.get(), -15);
             event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.INFERNAL_DAMAGE.get(), 2);
+            event.add(EntityTypeRegistry.MAGMATIC_GOLEM.get(), AttributeReg.DEPTH_RESISTANCE.get(), -15);
+            event.add(EntityTypeRegistry.MAGMATIC_GOLEM.get(), AttributeReg.INFERNAL_RESISTANCE.get(), 50);
+            event.add(EntityTypeRegistry.MAGMATIC_GOLEM.get(), AttributeReg.INFERNAL_DAMAGE.get(), 4);
             event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
             event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NIHILITY_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NIHILITY_DAMAGE.get(), 1);

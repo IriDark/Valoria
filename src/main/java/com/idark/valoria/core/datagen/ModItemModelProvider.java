@@ -40,6 +40,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         largeHandheld(ItemsRegistry.ironScythe.get(), ItemsRegistry.goldenScythe.get(), ItemsRegistry.diamondScythe.get(), ItemsRegistry.netheriteScythe.get(), ItemsRegistry.lunarScythe.get(), ItemsRegistry.jadeScythe.get(), ItemsRegistry.aquariusScythe.get(), ItemsRegistry.reaperScythe.get(), ItemsRegistry.natureScythe.get(), ItemsRegistry.crimtaneScythe.get(), ItemsRegistry.voidScythe.get(), ItemsRegistry.infernalScythe.get(), ItemsRegistry.beast.get());
         spear(ItemsRegistry.woodenSpear.get(), ItemsRegistry.stoneSpear.get(), ItemsRegistry.ironSpear.get(), ItemsRegistry.goldenSpear.get(), ItemsRegistry.diamondSpear.get(), ItemsRegistry.netheriteSpear.get(), ItemsRegistry.jadeSpear.get(), ItemsRegistry.lunarSpear.get(), ItemsRegistry.aquariusSpear.get(), ItemsRegistry.etherealSpear.get(), ItemsRegistry.natureSpear.get(), ItemsRegistry.pyratiteSpear.get(), ItemsRegistry.voidSpear.get(), ItemsRegistry.infernalSpear.get());
         separateTransforms(ItemsRegistry.glaive.get(), modLoc("item/spear"), mcLoc("item/handheld"), modLoc("item/glaive_large"), true);
+        separateTransforms(ItemsRegistry.bronzeHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
+        separateTransforms(ItemsRegistry.blackGoldHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
+        separateTransforms(ItemsRegistry.infernalHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
+        separateTransforms(ItemsRegistry.voidHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
 
         bow(ItemsRegistry.natureBow.get(), ItemsRegistry.aquariusBow.get(), ItemsRegistry.infernalBow.get(), ItemsRegistry.voidBow.get(), ItemsRegistry.phantasmBow.get(), ItemsRegistry.jadeBow.get());
         bow(1.2F, 0.88F, ItemsRegistry.lunarBow.get(), ItemsRegistry.samuraiLongBow.get());

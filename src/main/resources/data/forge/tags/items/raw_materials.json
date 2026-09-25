@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "valoria:raw_cobalt"
+    {
+      "id": "#forge:raw_materials/cobalt",
+      "required": false
+    }
   ]
 }

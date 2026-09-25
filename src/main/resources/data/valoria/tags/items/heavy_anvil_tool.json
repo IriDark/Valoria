@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:black_gold_hammer",
+    "valoria:bronze_hammer",
+    "valoria:infernal_hammer",
+    "valoria:void_hammer"
+  ]
+}

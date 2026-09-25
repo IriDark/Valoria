@@ -68,11 +68,13 @@ public class ValoriaCurioItem extends Item implements ICurioItem, IBreakableCuri
 
             if(stack.is(TagsRegistry.FIRE_IMMUNE_TIMED)){
                 tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
-                    .append(Component.translatable("tooltip.tridot.value", Blocks.FIRE.getName()).withStyle(Styles.create(Pal.infernalBright))
+                    .append(Component.translatable("tooltip.tridot.value", Blocks.FIRE.getName()).withStyle(Styles.create(Pal.infernalBright))));
+                tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
+                    .append(Component.translatable("tooltip.tridot.value", Blocks.LAVA.getName()).withStyle(Styles.create(Pal.infernal))
                     .append(Component.literal(" ")
                     .append(Component.translatable("tooltip.valoria.timed", ValoriaUtils.formatDuration(immunityTime() * 20, 1))).withStyle(Styles.create(Pal.lightishGray))
                 )));
-            } else if(stack.is(TagsRegistry.FIRE_IMMUNE_TIMED)){
+            } else if(stack.is(TagsRegistry.FIRE_IMMUNE)){
                 tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
                 .append(Component.translatable("tooltip.tridot.value", Blocks.FIRE.getName()).withStyle(Styles.create(Pal.infernalBright))));
             }

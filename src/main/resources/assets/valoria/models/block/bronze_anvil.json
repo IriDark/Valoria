@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:block/anvil_template",
+  "textures": {
+    "cross": "valoria:block/bronze_anvil"
+  }
+}

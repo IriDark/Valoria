@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:nature_golem_core"
+    },
+    {
+      "item": "valoria:river_golem_core"
+    },
+    {
+      "item": "valoria:magmatic_golem_core"
+    },
+    {
+      "item": "valoria:elemental_crystal"
+    }
+  ],
+  "result": {
+    "item": "valoria:elemental_golem_core",
+    "count": 1
+  }
+}

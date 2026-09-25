@@ -6,6 +6,7 @@ import com.idark.valoria.core.network.packets.particle.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.network.*;
@@ -81,8 +82,10 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, ReadCodexPacket.class, ReadCodexPacket::encode, ReadCodexPacket::decode, ReadCodexPacket::handle);
         HANDLER.registerMessage(id++, ProgressionDisableCodexPacket.class, ProgressionDisableCodexPacket::encode, ProgressionDisableCodexPacket::decode, RateLimitedPacket::processPacket);
         HANDLER.registerMessage(id++, CrusherSyncPacket.class, CrusherSyncPacket::encode, CrusherSyncPacket::decode, CrusherSyncPacket::handle);
-
+        HANDLER.registerMessage(id++, JumpParticlePacket.class, JumpParticlePacket::encode, JumpParticlePacket::decode, JumpParticlePacket::handle);
+        HANDLER.registerMessage(id++, SmashParticlePacket.class, SmashParticlePacket::encode, SmashParticlePacket::decode, SmashParticlePacket::handle);
         HANDLER.registerMessage(id++, SyncAbilityStatePacket.class, SyncAbilityStatePacket::encode, SyncAbilityStatePacket::decode, SyncAbilityStatePacket::handle);
+        HANDLER.registerMessage(id++, PlaySpawnCutscenePacket.class, PlaySpawnCutscenePacket::encode, PlaySpawnCutscenePacket::decode, PlaySpawnCutscenePacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){
@@ -107,7 +110,7 @@ public final class PacketHandler{
         HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)entity), msg);
     }
 
-    public static void sendEntity(Player entity, Object msg){
+    public static void sendEntity(Entity entity, Object msg){
         HANDLER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
     }
 

@@ -21,6 +21,9 @@ public class ParticleRegistry{
     public static RegistryObject<GenericParticleType> NIHILITY_FLAME = PARTICLES.register("nihility_flame", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> DASH = PARTICLES.register("dash", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> DUST = PARTICLES.register("dust", GenericParticleType::new);
+    public static RegistryObject<GenericParticleType> SMASH_CIRCLE = PARTICLES.register("smash_circle", FlatGenericParticleType::new);
+    public static RegistryObject<GenericParticleType> INWARD_CIRCLE = PARTICLES.register("inward_circle", FlatGenericParticleType::new);
+    public static RegistryObject<GenericParticleType> CRUSHED_GROUND = PARTICLES.register("crushed_ground", FlatGenericParticleType::new);
 
     public static RegistryObject<GenericParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", GenericParticleType::new);
     public static RegistryObject<LeavesParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shade_leaf", LeavesParticleType::new);
@@ -28,7 +31,7 @@ public class ParticleRegistry{
     public static RegistryObject<SimpleParticleType> HEAL = PARTICLES.register("heal", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FIREFLY = PARTICLES.register("firefly", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> VOID_GLITTER = PARTICLES.register("void_glitter", () -> new SimpleParticleType(false));
-    public static final RegistryObject<SimpleParticleType> CHOMP = PARTICLES.register("chomp", () -> new SimpleParticleType(true));
+    public static RegistryObject<SimpleParticleType> CHOMP = PARTICLES.register("chomp", () -> new SimpleParticleType(true));
 
     public static void registerParticleFactory(RegisterParticleProvidersEvent event){
         event.registerSpriteSet(ParticleRegistry.DASH.get(), GenericParticleType.Factory::new);
@@ -38,6 +41,9 @@ public class ParticleRegistry{
         event.registerSpriteSet(ParticleRegistry.TRANSFORM_PARTICLE.get(), GenericParticleType.Factory::new);
         event.registerSpriteSet(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE.get(), LeavesParticleType.Factory::new);
         event.registerSpriteSet(ParticleRegistry.CHOMP.get(), ChompParticle.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.SMASH_CIRCLE.get(), FlatGenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.INWARD_CIRCLE.get(), FlatGenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.CRUSHED_GROUND.get(), FlatGenericParticleType.Factory::new);
         event.registerSpriteSet(ParticleRegistry.FIREFLY.get(), FireflyParticle.Factory::new);
         event.registerSpriteSet(ParticleRegistry.HEAL.get(), EndRodParticle.Provider::new);
         event.registerSpriteSet(ParticleRegistry.VOID_GLITTER.get(), EndRodParticle.Provider::new);

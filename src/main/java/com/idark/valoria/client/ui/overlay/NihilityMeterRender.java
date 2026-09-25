@@ -1,4 +1,4 @@
-package com.idark.valoria.client.ui;
+package com.idark.valoria.client.ui.overlay;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;

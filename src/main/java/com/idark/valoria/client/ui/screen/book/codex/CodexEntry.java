@@ -69,6 +69,13 @@ public class CodexEntry{
 
         gui.pose().pushPose();
         float scale = 1.0f + (hoverProgress * 0.25f);
+        if (isHoveredThisFrame) {
+            float hoverScale = 1.0f + (hoverProgress * 0.5f);
+            float safeZoom = Math.max(codex.zoom, 0.1f);
+            float zoomBonus = (1.0f / safeZoom - 1.0f) * 0.75f;
+            scale = hoverScale + zoomBonus;
+        }
+
         gui.pose().translate(x + 11, y + 11, 0);
         gui.pose().scale(scale, scale, 1.0f);
         gui.pose().translate(-11, -11, 0);
@@ -137,8 +144,10 @@ public class CodexEntry{
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - guiTop) - (int)vOffset;
 
+        float safeZoom = Math.max(codex.zoom, 0.1f);
+        float zoomBonus = 4 + (safeZoom - 1.0f);
         float screenX = (x - codex.getCenterX()) * codex.zoom + codex.getCenterX();
-        float screenY = (y - codex.getCenterY()) * codex.zoom + codex.getCenterY();
+        float screenY = (y - codex.getCenterY()) * codex.zoom + zoomBonus + codex.getCenterY();
         float scaledIconSize = 22 * codex.zoom;
 
         MutableComponent transl = ServerConfig.ENABLE_CODEX_TITLE.get() || isUnlocked() ? translate : unknownTranslate;

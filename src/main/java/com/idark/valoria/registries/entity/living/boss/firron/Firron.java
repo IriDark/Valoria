@@ -1,10 +1,12 @@
 package com.idark.valoria.registries.entity.living.boss.firron;
 
 import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.util.*;
@@ -12,6 +14,7 @@ import net.minecraft.commands.arguments.EntityAnchorArgument.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -60,10 +63,12 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.*;
 
-public class Firron extends Monster implements Enemy, BossEntity, Allied, AttackSystemMob, GeoEntity{
+public class Firron extends Monster implements Enemy, BossEntity, Allied, AttackSystemMob, GeoEntity, ISpawnAnimated{
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/firron.png")).setDarkenScreen(true);
     public final List<UUID> nearbyPlayers = new ArrayList<>();
     public final Map<UUID, Float> damageMap = new HashMap<>();
+    private static final EntityDataAccessor<Boolean> HAS_SPAWNED = SynchedEntityData.defineId(Firron.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SPAWN_TICKS = SynchedEntityData.defineId(Firron.class, EntityDataSerializers.INT);
 
     private final AttackSelector selector = new AttackSelector();
     private AttackInstance currentAttack;
@@ -148,82 +153,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
             performRush();
         }
 
-        if(this.level().isClientSide()){
-            DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
-                playCutscene();
-                return new Object();
-            });
-        } else if (tickCount == 1) {
-            CutsceneHelper.init(this.level(), this.getBoundingBox(), 160);
-        }
-
         if(rushing) spawnRushParticles();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void playCutscene() {
-        if(tickCount < 20 && !CutsceneManager.active){
-            this.lookAt(Anchor.EYES, Valoria.proxy.getPlayer().position().add(0, 2, 0));
-            Seq<CutsceneNode> nodes = Seq.with();
-            Vec3 tablePos = this.position();
-            Vec3 playerPos = Valoria.proxy.getPlayer().position().add(0, 2, 0);
-            Vec3 targetFacePos = this.position().add(0, 2, 0);
-
-            Vec3 forward = playerPos.subtract(targetFacePos).normalize();
-            Vec3 flatForward = new Vec3(forward.x, 0, forward.z).normalize();
-
-            Vec3 right = new Vec3(-flatForward.z, 0, flatForward.x).normalize();
-            double distanceInFront = 3.5;
-            Vec3 cameraFrontPos = targetFacePos.add(flatForward.scale(distanceInFront));
-
-            Vec3 end = cameraFrontPos
-                .add(right.scale(3))
-                .add(0, -2, 0)
-                .add(flatForward.scale(5));
-
-            Vec3 approachPos = cameraFrontPos
-                .add(right.scale(3))
-                .add(0, -1.5, 0)
-                .add(flatForward.scale(3));
-
-            Vec3 mid = cameraFrontPos
-                .add(right.scale(-3))
-                .add(0, 4, 0)
-                .add(flatForward.scale(-3));
-
-            nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
-                .yawToTarget(tablePos)
-                .pitch(-60)
-                .setFov(60)
-                .fade(0.0f, 10)
-                .playSound(SoundEvents.PORTAL_TRIGGER, 0.25f, 1.3f)
-            );
-
-            nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
-                .yawToTarget(targetFacePos)
-                .pitchToTarget(targetFacePos)
-                .setFov(90)
-            );
-
-            nodes.add(new CutsceneNode(end, Interp.smooth, 15)
-                .yawToTarget(tablePos)
-                .pitchToTarget(tablePos)
-                .setFov(75)
-                .playSound(SoundEvents.WARDEN_HEARTBEAT, 1.5f, 0.8f)
-            );
-
-            nodes.add(new CutsceneNode(end, Interp.smooth, 50)
-                .yawToTarget(tablePos)
-                .pitchToTarget(tablePos)
-                .setFov(60)
-
-                .playSound(SoundEvents.WARDEN_ROAR, 2.0f, 0.8f)
-                .addScreenShake(new ScreenshakeInstance(30).intensity(1.5f).interp(Interp.sine))
-                .fadeOut(1.0f, 25)
-            );
-
-            CutsceneManager.start(nodes);
-        }
     }
 
     private void performRush() {
@@ -262,6 +192,13 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
                 break;
             }
         }
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HAS_SPAWNED, false);
+        this.entityData.define(SPAWN_TICKS, 0);
     }
 
     private void spawnRushParticles(){
@@ -353,7 +290,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "SpawnController", 0, state -> {
-            if (this.tickCount < 140){
+            if (!this.hasSpawned()){
                 return state.setAndContinue(SPAWN);
             }
 
@@ -606,18 +543,30 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         super.addAdditionalSaveData(pCompound);
         this.writeAttackInfo(pCompound);
         this.saveBossData(pCompound);
+        pCompound.putBoolean("HasSpawned", this.hasSpawned());
+        pCompound.putInt("SpawnTicks", this.getSpawnAnimationTicks());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.readAttackInfo(pCompound);
         this.readBossData(pCompound);
+        if(pCompound.contains("HasSpawned")){
+            this.setSpawned(pCompound.getBoolean("HasSpawned"));
+        } else {
+            this.setSpawned(true);
+        }
+
+        if(pCompound.contains("SpawnTicks")){
+            this.setSpawnAnimationTicks(pCompound.getInt("SpawnTicks"));
+        }
+
         if(this.hasCustomName()){
             this.bossEvent.setName(this.getDisplayName());
         }
     }
 
-    public void setCustomName(@javax.annotation.Nullable Component pName){
+    public void setCustomName(@Nullable Component pName){
         super.setCustomName(pName);
         this.bossEvent.setName(this.getDisplayName());
     }
@@ -698,7 +647,8 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new ExecuteAttackGoal(this));
+        this.goalSelector.addGoal(0, new SpawnAnimationGoal(this));
+        this.goalSelector.addGoal(1, new ExecuteAttackGoal(this));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, LivingEntity.class, 20));
 
@@ -758,10 +708,112 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
          * Updates look
          */
         public void tick() {
-            if (!Firron.this.isStunned && tickCount > 160) {
+            if (!Firron.this.isStunned && Firron.this.hasSpawned()) {
                 super.tick();
             }
         }
     }
 
+    @Override
+    public boolean hasSpawned() {
+        return this.entityData.get(HAS_SPAWNED);
+    }
+
+    @Override
+    public void setSpawned(boolean spawned) {
+        this.entityData.set(HAS_SPAWNED, spawned);
+    }
+
+    @Override
+    public int getSpawnAnimationTicks() {
+        return this.entityData.get(SPAWN_TICKS);
+    }
+
+    @Override
+    public void setSpawnAnimationTicks(int ticks) {
+        this.entityData.set(SPAWN_TICKS, ticks);
+    }
+
+    @Override
+    public int getMaxSpawnAnimationTicks() {
+        return 140;
+    }
+
+    @Override
+    public boolean shouldPlayCutscene() {
+        return true;
+    }
+
+    @Override
+    public void playSpawnCutscene() {
+        if(this.level().isClientSide()){
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> this::playCutscene);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void playCutscene() {
+        if(!this.hasSpawned() && !CutsceneManager.active){
+            this.lookAt(Anchor.EYES, Valoria.proxy.getPlayer().position().add(0, 2, 0));
+            Seq<CutsceneNode> nodes = Seq.with();
+            Vec3 tablePos = this.position();
+            Vec3 playerPos = Valoria.proxy.getPlayer().position().add(0, 2, 0);
+            Vec3 targetFacePos = this.position().add(0, 2, 0);
+
+            Vec3 forward = playerPos.subtract(targetFacePos).normalize();
+            Vec3 flatForward = new Vec3(forward.x, 0, forward.z).normalize();
+
+            Vec3 right = new Vec3(-flatForward.z, 0, flatForward.x).normalize();
+            double distanceInFront = 3.5;
+            Vec3 cameraFrontPos = targetFacePos.add(flatForward.scale(distanceInFront));
+
+            Vec3 end = cameraFrontPos
+            .add(right.scale(3))
+            .add(0, -2, 0)
+            .add(flatForward.scale(5));
+
+            Vec3 approachPos = cameraFrontPos
+            .add(right.scale(3))
+            .add(0, -1.5, 0)
+            .add(flatForward.scale(3));
+
+            Vec3 mid = cameraFrontPos
+            .add(right.scale(-3))
+            .add(0, 4, 0)
+            .add(flatForward.scale(-3));
+
+            nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
+            .yawToTarget(tablePos)
+            .pitch(-60)
+            .setFov(60)
+            .fade(0.0f, 10)
+            .playSound(SoundEvents.PORTAL_TRIGGER, 0.25f, 1.3f)
+            );
+
+            nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
+            .yawToTarget(targetFacePos)
+            .pitchToTarget(targetFacePos)
+            .setFov(90)
+            );
+
+            nodes.add(new CutsceneNode(end, Interp.smooth, 15)
+            .yawToTarget(tablePos)
+            .pitchToTarget(tablePos)
+            .setFov(75)
+            .playSound(SoundEvents.WARDEN_HEARTBEAT, 1.5f, 0.8f)
+            );
+
+            nodes.add(new CutsceneNode(end, Interp.smooth, 50)
+            .yawToTarget(tablePos)
+            .pitchToTarget(tablePos)
+            .setFov(60)
+
+            .playSound(SoundEvents.WARDEN_ROAR, 2.0f, 0.8f)
+            .addScreenShake(new ScreenshakeInstance(30).intensity(1.5f).interp(Interp.sine))
+            .fadeOut(1.0f, 25)
+            );
+
+            CutsceneManager.start(nodes);
+        }
+    }
 }

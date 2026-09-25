@@ -1,6 +1,7 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
+import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.*;
@@ -30,6 +31,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<Ent>> ENT = register("ent", EntityType.Builder.of(Ent::new, MobCategory.MONSTER).sized(0.8f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<NatureGolem>> NATURE_GOLEM = register("nature_golem", EntityType.Builder.<NatureGolem>of(NatureGolem::new, MobCategory.CREATURE).sized(1.5f, 2.65f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<RiverGolem>> RIVER_GOLEM = register("river_golem", EntityType.Builder.<RiverGolem>of(RiverGolem::new, MobCategory.CREATURE).sized(1.5f, 2.65f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<MagmaticGolem>> MAGMATIC_GOLEM = register("magmatic_golem", EntityType.Builder.<MagmaticGolem>of(MagmaticGolem::new, MobCategory.CREATURE).sized(1.5f, 2.65f).fireImmune().clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<MaggotEntity>> MAGGOT = register("maggot", EntityType.Builder.<MaggotEntity>of(MaggotEntity::new, MobCategory.MONSTER).sized(0.4F, 0.3F).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Corrupted>> CORRUPTED = register("corrupted", EntityType.Builder.of(Corrupted::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
@@ -72,6 +74,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<Devourer>> DEVOURER = register("devourer", EntityType.Builder.<Devourer>of(Devourer::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
     public static final RegistryObject<EntityType<CrystalSpikes>> CRYSTAL_SPIKES = register("crystal_spikes", EntityType.Builder.<CrystalSpikes>of(CrystalSpikes::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
     public static final RegistryObject<EntityType<WaterBubble>> WATER_BUBBLE = register("water_bubble", EntityType.Builder.<WaterBubble>of(WaterBubble::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
+    public static final RegistryObject<EntityType<RiftEntity>> RIFT = register("rift", EntityType.Builder.<RiftEntity>of(RiftEntity::new, MobCategory.MISC).sized(1, 2f).clientTrackingRange(6).updateInterval(2));
 
     // Boss
     public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = register("necromancer", EntityType.Builder.of(NecromancerEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));

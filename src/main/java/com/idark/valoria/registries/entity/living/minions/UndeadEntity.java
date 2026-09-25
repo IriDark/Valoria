@@ -91,11 +91,6 @@ public class UndeadEntity extends AbstractMinionEntity{
         return (i & pMask) != 0;
     }
 
-    @Override
-    public boolean isAttackable(){
-        return false;
-    }
-
     private void setUndeadFlag(int pMask, boolean pValue){
         int i = this.entityData.get(DATA_FLAGS_ID);
         if(pValue){

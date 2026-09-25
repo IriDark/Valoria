@@ -38,7 +38,7 @@ public class FirronModel extends GeoModel<Firron>{
 
         CoreGeoBone portal = getAnimationProcessor().getBone("portal");
         if(portal != null){
-            portal.setHidden(animatable.tickCount > 140);
+            portal.setHidden(animatable.hasSpawned());
         }
     }
 }

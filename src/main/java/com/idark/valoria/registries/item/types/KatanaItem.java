@@ -197,7 +197,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
             float X = (float)(Math.sin(pitch) * Math.cos(yaw));
             float Y = (float)(Math.cos(pitch) * 2);
             float Z = (float)(Math.sin(pitch) * Math.sin(yaw));
-
+            player.invulnerableTime = builder.iframeTime;
             PacketHandler.sendToTracking(srv, player.getOnPos(), new DashParticlePacket(player.getUUID(), X, Y, Z));
         }
     }
@@ -224,6 +224,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         );
 
         seq.add(new TextComponent(Component.translatable("tooltip.tridot.crossbow.speed", builder.chargeTime > 0 ? Utils.Items.formatTickDuration(builder.chargeTime) : I18n.get("tooltip.valoria.timed.instant")).withStyle(style -> style.withColor(ChatFormatting.GRAY).withFont(Valoria.FONT))));
+        if(builder.iframeTime > 0) seq.add(new TextComponent(Component.translatable("tooltip.tridot.katana.invulnerabillity_time", Utils.Items.formatTickDuration(builder.iframeTime)).withStyle(style -> style.withColor(ChatFormatting.GRAY).withFont(Valoria.FONT))));
         seq.add(new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT))));
         return seq;
     }

@@ -57,7 +57,6 @@ public class ModularWeaponItem extends SwordItem {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        // High use duration for abilities that require charging
         return 72000;
     }
 }

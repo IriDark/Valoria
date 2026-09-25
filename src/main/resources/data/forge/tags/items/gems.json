@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:gems/amber",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/amethyst",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/ruby",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/sapphire",
+      "required": false
+    }
+  ]
+}

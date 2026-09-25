@@ -5,6 +5,7 @@ public class ToolStats{
     sword = new ToolStats(3, -2.4F),
     throwable = new ToolStats(3, -2.4F),
     large_sword = new ToolStats(3, -2.8F),
+    hammer = new ToolStats(10, -3.8F),
     scythe = new ToolStats(7, -3.25F),
     spear = new ToolStats(2, -3.0F),
     katana = new ToolStats(1, -2F),

@@ -1,0 +1,88 @@
+package com.idark.valoria.registries.entity.ai.attacks;
+
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.targeting.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.phys.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.common.registry.entity.system.*;
+import pro.komaru.tridot.common.registry.entity.system.generic.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.comps.phys.*;
+
+import java.util.*;
+
+public class GolemMagmaGroundPunchAttack extends TridotMeleeAttack{
+    private final TargetingConditions targeting;
+
+    public GolemMagmaGroundPunchAttack(PathfinderMob mob, float speedMod, float range, int attackDelay, int attackDuration, int cooldown){
+        super(mob, speedMod, range, attackDelay, attackDuration, cooldown);
+        this.targeting = TargetingConditions.forCombat().range(range).ignoreLineOfSight().ignoreInvisibilityTesting();
+    }
+
+    @Override
+    public ResourceLocation getId(){
+        return Valoria.loc("magma_ground_punch");
+    }
+
+    @Override
+    public SoundEvent getAttackSound(){
+        return SoundsRegistry.ELEMENTAL_GOLEM_ATTACK_4.get();
+    }
+
+    @Override
+    public void start(AttackSystemMob systemMob){
+        mob.setAggressive(true);
+        mob.level().broadcastEntityEvent(mob, (byte)64);
+
+        this.ticksUntilNextPathRecalc = 0;
+        this.mob.getNavigation().moveTo(mob.getTarget(), speedModifier);
+        storeTargetPosition();
+    }
+
+    @Override
+    public void performAttack(){
+        Vec3 vec3 = new Vec3(mob.getX(), mob.getY(), mob.getZ());
+        List<LivingEntity> entities = mob.level().getNearbyEntities(LivingEntity.class, this.targeting, mob, mob.getBoundingBox().inflate(range));
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, Pos3.init((float)vec3.x, (float)vec3.y, (float)vec3.z), 0, 15));
+        for(LivingEntity entity : entities){
+            double distance = Math.sqrt(entity.distanceToSqr(vec3)) / range;
+            double dX = entity.getX() - vec3.x;
+            double dY = entity.getEyeY() - vec3.y;
+            double dZ = entity.getZ() - vec3.z;
+            double sqrt = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
+            if(sqrt != 0.0D){
+                dX /= sqrt;
+                dY /= sqrt;
+                dZ /= sqrt;
+                double seenPercent = Utils.Hit.seenPercent(vec3, entity, 2);
+                double power = (1.0D - distance) * seenPercent;
+                double powerAfterDamp = ProtectionEnchantment.getExplosionKnockbackAfterDampener(entity, power);
+                dX *= powerAfterDamp;
+                dY *= powerAfterDamp;
+                dZ *= powerAfterDamp;
+                Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
+
+                entity.hurtMarked = true;
+                mob.doHurtTarget(entity);
+                entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30));
+                entity.setSecondsOnFire(6);
+                if(entity.level() instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(ParticleTypes.LAVA, entity.getX(), entity.getY(), entity.getZ(), 12, 0, 0, 0, 0.5f);
+                    serverLevel.sendParticles(ParticleTypes.SMOKE, entity.getX(), entity.getY(), entity.getZ(), 18, Tmp.rnd.nextDouble() / 2, 1, Tmp.rnd.nextDouble() / 2, 0.5f);
+                    serverLevel.sendParticles(ParticleTypes.FLAME, entity.getX(), entity.getY(), entity.getZ(), 6, Tmp.rnd.nextDouble() / 2, Tmp.rnd.nextDouble() / 2, Tmp.rnd.nextDouble() / 2, 0.5f);
+                }
+
+                entity.setDeltaMovement(entity.getDeltaMovement().add(vec31));
+            }
+        }
+    }
+}

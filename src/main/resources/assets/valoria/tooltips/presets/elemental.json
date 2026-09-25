@@ -1,6 +1,6 @@
 {
   "priority": 1000,
-  "panel": "valoria:default",
+  "panel": "valoria:elemental",
   "frame": "valoria:elemental",
   "icon": "obscure_tooltips:common",
   "filter": {

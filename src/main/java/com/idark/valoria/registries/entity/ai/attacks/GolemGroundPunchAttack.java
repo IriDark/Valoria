@@ -68,7 +68,7 @@ public class GolemGroundPunchAttack extends TridotMeleeAttack{
                 dZ *= powerAfterDamp;
                 Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
 
-                entity.hurtMarked = true; //Sync movements
+                entity.hurtMarked = true;
                 mob.doHurtTarget(entity);
                 entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30));
                 entity.setDeltaMovement(entity.getDeltaMovement().add(vec31));

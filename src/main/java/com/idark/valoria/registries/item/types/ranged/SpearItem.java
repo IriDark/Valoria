@@ -179,7 +179,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         return super.onItemUseFirst(stack, context);
     }
 
-    public static final Set<ToolAction> SPEAR = of(net.minecraftforge.common.ToolActions.SWORD_DIG);
+    public static final Set<ToolAction> SPEAR = of(ToolActions.SWORD_DIG);
 
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
@@ -198,7 +198,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction){
+    public boolean canPerformAction(ItemStack stack, ToolAction toolAction){
         return SPEAR.contains(toolAction);
     }
 

@@ -146,6 +146,98 @@ public class GeneralPage extends Page {
         return this;
     }
 
+
+    public GeneralPage addRecipe(ResourceLocation loc) {
+        elements.add(new PageElement() {
+            private Ingredient[] inputs;
+            private boolean hasRecipe = false;
+            private ItemStack resultItem = ItemStack.EMPTY;
+
+            @Override
+            @OnlyIn(Dist.CLIENT)
+            public void init() {
+                Minecraft mc = Minecraft.getInstance();
+                if (mc.level != null) {
+                    RecipeManager manager = mc.level.getRecipeManager();
+
+                    Optional<? extends net.minecraft.world.item.crafting.Recipe<?>> optional = manager.byKey(loc);
+
+                    if (optional.isPresent() && optional.get() instanceof CraftingRecipe recipe) {
+                        NonNullList<Ingredient> ingredients = recipe.getIngredients();
+                        this.inputs = new Ingredient[9];
+                        Arrays.fill(this.inputs, Ingredient.EMPTY);
+                        if (recipe instanceof ShapedRecipe shaped) {
+                            int width = shaped.getWidth();
+                            int height = shaped.getHeight();
+                            for (int h = 0; h < height; h++) {
+                                for (int w = 0; w < width; w++) {
+                                    this.inputs[h * 3 + w] = ingredients.get(h * width + w);
+                                }
+                            }
+                        } else {
+                            for (int i = 0; i < ingredients.size(); i++) {
+                                this.inputs[i] = ingredients.get(i);
+                            }
+                        }
+                        this.resultItem = recipe.getResultItem(mc.level.registryAccess());
+                        this.hasRecipe = true;
+                    }
+                }
+            }
+
+            @Override
+            @OnlyIn(Dist.CLIENT)
+            public void renderPost(GuiGraphics gui, int x, int y, int mouseX, int mouseY){
+                super.renderPost(gui, x, y, mouseX, mouseY);
+                if (!hasRecipe) return;
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        int index = i * 3 + j;
+                        if (inputs != null && index < inputs.length) {
+                            Ingredient ingredient = inputs[index];
+                            ItemStack[] matchingStacks = ingredient.getItems();
+                            if (matchingStacks.length > 0) {
+                                int cycle = (ClientTick.ticksInGame / 40) % matchingStacks.length;
+                                BookGui.drawItemTooltip(matchingStacks[cycle], x + 23 + j * 18, y + 2 + i * 18, gui, mouseX, mouseY);
+                            }
+                        }
+                    }
+                }
+
+                BookGui.drawItemTooltip(resultItem, x + 89, y + 23 + 46 - 50, gui, mouseX, mouseY);
+            }
+
+            @Override
+            @OnlyIn(Dist.CLIENT)
+            public int render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
+                if (!hasRecipe) return 0;
+                gui.pose().pushPose();
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        int index = i * 3 + j;
+                        gui.blit(BACKGROUND, x + 22 + j * 18, y + 1 + i * 18, 287, 15, 18, 18, 512, 512);
+                        if (inputs != null && index < inputs.length) {
+                            Ingredient ingredient = inputs[index];
+                            ItemStack[] matchingStacks = ingredient.getItems();
+                            if (matchingStacks.length > 0) {
+                                int cycle = (ClientTick.ticksInGame / 40) % matchingStacks.length;
+                                gui.renderItem(matchingStacks[cycle], x + 23 + j * 18, y + 2 + i * 18);
+                            }
+                        }
+                    }
+                }
+                gui.pose().popPose();
+
+                gui.blit(BACKGROUND, x + 88, y + 22 + 46 - 50, 287, 15, 18, 18, 512, 512);
+                gui.renderItem(resultItem, x + 89, y + 23 + 46 - 50);
+                gui.blit(BACKGROUND, x + 77, y + 74 - 50, 306, 15, 9, 7, 512, 512); // Arrow
+                return 18 * 3;
+            }
+        });
+
+        return this;
+    }
+
     public GeneralPage addRecipe(ItemStack result) {
         elements.add(new PageElement() {
             private Ingredient[] inputs;

@@ -1,0 +1,11 @@
+{
+  "type": "valoria:heavy_anvil",
+  "ingredient": {
+    "item": "valoria:pyratite"
+  },
+  "result": {
+    "item": "valoria:pyratite_plate"
+  },
+  "required_hits": 10,
+  "max_instability": 3
+}
