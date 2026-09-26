@@ -7,7 +7,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -40,9 +40,9 @@ public class StructureLocatorEntity extends EyeOfEnder{
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TYPE, Col.white.rgba8888());
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(TYPE, Col.white.rgba8888());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class StructureLocatorEntity extends EyeOfEnder{
         };
 
         ParticleBuilder.create(TridotParticles.TRAIL)
-        .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+        .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE)
         .setBehavior(TrailParticleBehavior.create().build())
         .setColorData(ColorParticleData.create(getColor()).build())
         .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Interp.sineOut).build())

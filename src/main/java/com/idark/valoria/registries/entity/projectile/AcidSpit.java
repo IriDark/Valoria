@@ -9,10 +9,9 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.item.alchemy.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -39,11 +38,6 @@ public class AcidSpit extends AbstractProjectile{
     }
 
     public @NotNull SoundEvent getDefaultHitGroundSoundEvent(){
-        return SoundEvents.GENERIC_SPLASH;
-    }
-
-    @Override
-    public @NotNull SoundEvent getHitGroundSoundEvent(){
         return SoundEvents.GENERIC_SPLASH;
     }
 
@@ -90,7 +84,7 @@ public class AcidSpit extends AbstractProjectile{
     }
 
     @Override
-    public boolean canChangeDimensions() {
+    public boolean canChangeDimensions(Level pOldLevel, Level pNewLevel) { // PORT NOTE: signature takes both levels in 1.21
         return false;
     }
 
@@ -112,7 +106,7 @@ public class AcidSpit extends AbstractProjectile{
         if(!this.effects.isEmpty()){
             ListTag listtag = new ListTag();
             for(MobEffectInstance mobeffectinstance : this.effects){
-                listtag.add(mobeffectinstance.save(new CompoundTag()));
+                listtag.add(mobeffectinstance.save());
             }
 
             pCompound.put("CustomPotionEffects", listtag);
@@ -125,7 +119,7 @@ public class AcidSpit extends AbstractProjectile{
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.child = pCompound.getBoolean("IsChild");
-        for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(pCompound)){
+        for(MobEffectInstance mobeffectinstance : ValoriaUtils.loadCustomEffects(pCompound)){
             this.addEffect(mobeffectinstance);
         }
     }

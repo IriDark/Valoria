@@ -10,7 +10,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.lwjgl.glfw.*;
 
 @OnlyIn(Dist.CLIENT)
@@ -39,7 +39,7 @@ public class BookGui extends Screen{
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scroll){
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scroll){
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         boolean consumed = false;
         if(left != null && left.mouseScrolled(mouseX, mouseY, scroll)) consumed = true;
@@ -65,7 +65,7 @@ public class BookGui extends Screen{
             }
         }
 
-        return super.mouseScrolled(mouseX, mouseY, scroll);
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scroll);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class BookGui extends Screen{
 
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
-        renderBackground(gui);
+        renderBackground(gui, mouseX, mouseY, partialTicks);
         Minecraft mc = Minecraft.getInstance();
         RenderSystem.setShaderTexture(0, BACKGROUND);
         item = ItemStack.EMPTY;

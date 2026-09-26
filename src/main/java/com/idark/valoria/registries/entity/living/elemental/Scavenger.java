@@ -11,6 +11,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.player.*;
@@ -46,11 +47,11 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
 
     public Scavenger(EntityType<? extends Scavenger> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.setMaxUpStep(1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
+        Objects.requireNonNull(this.getAttribute(Attributes.STEP_HEIGHT)).setBaseValue(1.0D);
+        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
 
         this.xpReward = 5;
     }
@@ -140,10 +141,10 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
         super.onSyncedDataUpdated(pKey);
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.getEntityData().define(DATA_BABY_ID, false);
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_BABY_ID, false);
+        builder.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound){
@@ -220,7 +221,7 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
     @Override
     public boolean doHurtTarget(Entity pEntity){
         if (pEntity instanceof LivingEntity entity){
-            entity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 60, 0));
+            entity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING, 60, 0));
         }
 
         return super.doHurtTarget(pEntity);
@@ -245,9 +246,6 @@ public class Scavenger extends MultiAttackMob implements NeutralMob{
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-    public double getPassengersRidingOffset(){
-        return this.getBbHeight() * 0.75F;
-    }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock){
         this.playSound(SoundEvents.SNIFFER_STEP, 0.15F, 1.0F);

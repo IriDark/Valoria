@@ -5,14 +5,13 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.event.ModelEvent.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.fml.common.*;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.event.ModelEvent.*;
+import net.neoforged.neoforge.registries.*;
 import pro.komaru.tridot.client.model.*;
 import pro.komaru.tridot.client.model.item.*;
 import pro.komaru.tridot.client.model.render.item.*;
@@ -84,14 +83,14 @@ public class SkinsRegistry implements ISkinProvider{
         ItemSkinModels.add(Valoria.loc("nero"));
     }
 
-    @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = Valoria.ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientRegistryEvents{
 
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void onModelRegistry(RegisterAdditional event){
             registerKatana(event);
-            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+            for(DeferredHolder<Item, ? extends Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
                     TridotModels.addBowItemModel(event, Valoria.ID, item.getId().getPath());
                 }
@@ -119,10 +118,10 @@ public class SkinsRegistry implements ISkinProvider{
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void onModelBake(ModifyBakingResult event){
-            Map<ResourceLocation, BakedModel> map = event.getModels();
+            Map<ModelResourceLocation, BakedModel> map = event.getModels();
             bakeArmor(map);
             bakeKatana(map);
-            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+            for(DeferredHolder<Item, ? extends Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
                     TridotModels.addBowItemModel(map, item.getId());
                 }
@@ -151,7 +150,7 @@ public class SkinsRegistry implements ISkinProvider{
 
     @OnlyIn(Dist.CLIENT)
     private static void registerKatana(ModelEvent.RegisterAdditional event){
-        for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+        for(DeferredHolder<Item, ? extends Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof KatanaItem && ((KatanaItem)item.get()).builder.hasLargeModel){
                 event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, item.getId().getPath()));
             }
@@ -159,8 +158,8 @@ public class SkinsRegistry implements ISkinProvider{
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void bakeKatana(Map<ResourceLocation, BakedModel> map){
-        for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+    private static void bakeKatana(Map<ModelResourceLocation, BakedModel> map){
+        for(DeferredHolder<Item, ? extends Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof KatanaItem katana){
                 if(katana.builder.hasLargeModel){
                     LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
@@ -172,8 +171,8 @@ public class SkinsRegistry implements ISkinProvider{
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void bakeArmor(Map<ResourceLocation, BakedModel> map){
-        for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+    private static void bakeArmor(Map<ModelResourceLocation, BakedModel> map){
+        for(DeferredHolder<Item, ? extends Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof SkinableArmorItem){
                 addSkinModel(map, item.getId());
             }

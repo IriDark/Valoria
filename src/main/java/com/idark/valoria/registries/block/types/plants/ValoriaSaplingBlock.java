@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.*;
 public class ValoriaSaplingBlock extends SaplingBlock{
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
-    public ValoriaSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties){
+    public ValoriaSaplingBlock(TreeGrower treeIn, BlockBehaviour.Properties properties){
         super(treeIn, properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }

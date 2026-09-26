@@ -1,12 +1,10 @@
 package com.idark.valoria.registries.entity.living.boss.firron;
 
 import com.idark.valoria.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.util.*;
@@ -14,7 +12,6 @@ import net.minecraft.commands.arguments.EntityAnchorArgument.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -35,8 +32,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.level.pathfinder.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.bossbars.*;
@@ -53,22 +49,19 @@ import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
 import pro.komaru.tridot.util.struct.data.*;
 import software.bernie.geckolib.animatable.*;
-import software.bernie.geckolib.core.animatable.instance.*;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.*;
+import software.bernie.geckolib.animatable.instance.*;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.*;
 
-public class Firron extends Monster implements Enemy, BossEntity, Allied, AttackSystemMob, GeoEntity, ISpawnAnimated{
+public class Firron extends Monster implements Enemy, BossEntity, Allied, AttackSystemMob, GeoEntity{
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/firron.png")).setDarkenScreen(true);
     public final List<UUID> nearbyPlayers = new ArrayList<>();
     public final Map<UUID, Float> damageMap = new HashMap<>();
-    private static final EntityDataAccessor<Boolean> HAS_SPAWNED = SynchedEntityData.defineId(Firron.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> SPAWN_TICKS = SynchedEntityData.defineId(Firron.class, EntityDataSerializers.INT);
 
     private final AttackSelector selector = new AttackSelector();
     private AttackInstance currentAttack;
@@ -110,10 +103,10 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
 
     public Firron(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
 
         this.initAttacks();
         this.lookControl = new Firron.FirronLookControl(this);
@@ -130,10 +123,12 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         if(animationTicks > 0) animationTicks--;
     }
 
+    private int amplifyCount;
     private void amplifyStats(){
-        this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.MULTIPLY_TOTAL));
-        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 2f, Operation.ADDITION));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
+        int n = amplifyCount++;
+        this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier(Valoria.loc("firron_amplify_armor_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_MULTIPLIED_TOTAL));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(Valoria.loc("firron_amplify_damage_" + n), this.level().getDifficulty().getId() * 2f, Operation.ADD_VALUE));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(Valoria.loc("firron_amplify_speed_" + n), 0.025f, Operation.ADD_MULTIPLIED_TOTAL));
     }
 
     @Override
@@ -153,7 +148,79 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
             performRush();
         }
 
+        if(this.level().isClientSide()){
+            playCutscene();
+        } else if (tickCount == 1) {
+            CutsceneHelper.init(this.level(), this.getBoundingBox(), 160);
+        }
+
         if(rushing) spawnRushParticles();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void playCutscene() {
+        if(tickCount < 20 && !CutsceneManager.active){
+            this.lookAt(Anchor.EYES, Valoria.proxy.getPlayer().position().add(0, 2, 0));
+            Seq<CutsceneNode> nodes = Seq.with();
+            Vec3 tablePos = this.position();
+            Vec3 playerPos = Valoria.proxy.getPlayer().position().add(0, 2, 0);
+            Vec3 targetFacePos = this.position().add(0, 2, 0);
+
+            Vec3 forward = playerPos.subtract(targetFacePos).normalize();
+            Vec3 flatForward = new Vec3(forward.x, 0, forward.z).normalize();
+
+            Vec3 right = new Vec3(-flatForward.z, 0, flatForward.x).normalize();
+            double distanceInFront = 3.5;
+            Vec3 cameraFrontPos = targetFacePos.add(flatForward.scale(distanceInFront));
+
+            Vec3 end = cameraFrontPos
+                .add(right.scale(3))
+                .add(0, -2, 0)
+                .add(flatForward.scale(5));
+
+            Vec3 approachPos = cameraFrontPos
+                .add(right.scale(3))
+                .add(0, -1.5, 0)
+                .add(flatForward.scale(3));
+
+            Vec3 mid = cameraFrontPos
+                .add(right.scale(-3))
+                .add(0, 4, 0)
+                .add(flatForward.scale(-3));
+
+            nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
+                .yawToTarget(tablePos)
+                .pitch(-60)
+                .setFov(60)
+                .fade(0.0f, 10)
+                .playSound(SoundEvents.PORTAL_TRIGGER, 0.25f, 1.3f)
+            );
+
+            nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
+                .yawToTarget(targetFacePos)
+                .pitchToTarget(targetFacePos)
+                .setFov(90)
+            );
+
+            nodes.add(new CutsceneNode(end, Interp.smooth, 15)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(75)
+                .playSound(SoundEvents.WARDEN_HEARTBEAT, 1.5f, 0.8f)
+            );
+
+            nodes.add(new CutsceneNode(end, Interp.smooth, 50)
+                .yawToTarget(tablePos)
+                .pitchToTarget(tablePos)
+                .setFov(60)
+
+                .playSound(SoundEvents.WARDEN_ROAR, 2.0f, 0.8f)
+                .addScreenShake(new ScreenshakeInstance(30).intensity(1.5f).interp(Interp.sine))
+                .fadeOut(1.0f, 25)
+            );
+
+            CutsceneManager.start(nodes);
+        }
     }
 
     private void performRush() {
@@ -180,10 +247,10 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
                 double d1 = Math.max(0.0D, 1.0D - d2);
                 ItemStack useStack = e.getUseItem();
                 if(!(useStack.getItem() instanceof ShieldItem shieldItem)){
-                    e.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 160, 0));
+                    e.addEffect(new MobEffectInstance(EffectsRegistry.STUN, 160, 0));
                     endRush(true);
                 } else {
-                    useStack.hurtAndBreak(15, e, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                    useStack.hurtAndBreak(15, e, EquipmentSlot.MAINHAND);
                     if(e instanceof Player plr) plr.getCooldowns().addCooldown(shieldItem, 300);
                     endRush(false);
                 }
@@ -194,16 +261,9 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         }
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HAS_SPAWNED, false);
-        this.entityData.define(SPAWN_TICKS, 0);
-    }
-
     private void spawnRushParticles(){
         if(this.level().isClientSide()){
-            Player player = ClientUtils.getClientPlayer();
+            Player player = ClientUtil.getClientPlayer();
 
             ParticleBuilder.create(getBlockParticleOptions())
             .setRenderType(TridotRenderTypes.TRANSLUCENT_BLOCK_PARTICLE)
@@ -290,7 +350,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "SpawnController", 0, state -> {
-            if (!this.hasSpawned()){
+            if (this.tickCount < 140){
                 return state.setAndContinue(SPAWN);
             }
 
@@ -299,7 +359,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         .setCustomInstructionKeyframeHandler((e) -> {
             String data = e.getKeyframeData().getInstructions();
             if(data.equals("spawned;")){
-                Player player = ClientUtils.getClientPlayer();
+                Player player = ClientUtil.getClientPlayer();
 
                 ParticleBuilder.create(TridotParticles.WISP)
                 .setHasPhysics(false)
@@ -342,7 +402,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
 
         .setCustomInstructionKeyframeHandler((e) -> {
             String data = e.getKeyframeData().getInstructions();
-            Player player = ClientUtils.getClientPlayer();
+            Player player = ClientUtil.getClientPlayer();
             if(this.isStunned || rushing || animationTicks > 0 || this.tickCount < 140) return;
 
             if(data.equals("sweep1;")) {
@@ -389,7 +449,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         this.stunTicks = duration;
         this.isStunned = true;
         this.level().broadcastEntityEvent(this, (byte)90);
-        this.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), duration, 0));
+        this.addEffect(new MobEffectInstance(EffectsRegistry.STUN, duration, 0));
     }
 
     @Override
@@ -442,7 +502,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     }
 
     public boolean isWithinMeleeAttackRange(LivingEntity pEntity, float range) {
-        double d0 = this.getPerceivedTargetDistanceSquareForMeleeAttack(pEntity);
+        double d0 = this.distanceToSqr(pEntity);
         return d0 <= this.getMeleeAttackRangeSqr(pEntity, range);
     }
 
@@ -515,7 +575,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
             this.serverAiStep();
         }
 
-        var effect = EffectsRegistry.STUN.get();
+        var effect = EffectsRegistry.STUN;
         if(this.hasEffect(effect) && stunTicks == 0 && !this.level().isClientSide()) {
             this.level().broadcastEntityEvent(this, (byte)90);
             this.stunTicks = this.getEffect(effect).getDuration();
@@ -543,30 +603,18 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         super.addAdditionalSaveData(pCompound);
         this.writeAttackInfo(pCompound);
         this.saveBossData(pCompound);
-        pCompound.putBoolean("HasSpawned", this.hasSpawned());
-        pCompound.putInt("SpawnTicks", this.getSpawnAnimationTicks());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.readAttackInfo(pCompound);
         this.readBossData(pCompound);
-        if(pCompound.contains("HasSpawned")){
-            this.setSpawned(pCompound.getBoolean("HasSpawned"));
-        } else {
-            this.setSpawned(true);
-        }
-
-        if(pCompound.contains("SpawnTicks")){
-            this.setSpawnAnimationTicks(pCompound.getInt("SpawnTicks"));
-        }
-
         if(this.hasCustomName()){
             this.bossEvent.setName(this.getDisplayName());
         }
     }
 
-    public void setCustomName(@Nullable Component pName){
+    public void setCustomName(@javax.annotation.Nullable Component pName){
         super.setCustomName(pName);
         this.bossEvent.setName(this.getDisplayName());
     }
@@ -604,10 +652,6 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         return false;
     }
 
-    @Override
-    public boolean canBreatheUnderwater(){
-        return true;
-    }
 
     public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel) {
         return 0.0F;
@@ -647,8 +691,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new SpawnAnimationGoal(this));
-        this.goalSelector.addGoal(1, new ExecuteAttackGoal(this));
+        this.goalSelector.addGoal(0, new ExecuteAttackGoal(this));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, LivingEntity.class, 20));
 
@@ -671,8 +714,8 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         currentAttack = attackInstance;
     }
 
-    public void onAddedToWorld() {
-        super.onAddedToWorld();
+    public void onAddedToLevel() {
+        super.onAddedToLevel();
         getNearbyPlayers().clear();
         initializeNearbyPlayers(this.level(), this);
         applyBonusHealth(this);
@@ -708,112 +751,10 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
          * Updates look
          */
         public void tick() {
-            if (!Firron.this.isStunned && Firron.this.hasSpawned()) {
+            if (!Firron.this.isStunned && tickCount > 160) {
                 super.tick();
             }
         }
     }
 
-    @Override
-    public boolean hasSpawned() {
-        return this.entityData.get(HAS_SPAWNED);
-    }
-
-    @Override
-    public void setSpawned(boolean spawned) {
-        this.entityData.set(HAS_SPAWNED, spawned);
-    }
-
-    @Override
-    public int getSpawnAnimationTicks() {
-        return this.entityData.get(SPAWN_TICKS);
-    }
-
-    @Override
-    public void setSpawnAnimationTicks(int ticks) {
-        this.entityData.set(SPAWN_TICKS, ticks);
-    }
-
-    @Override
-    public int getMaxSpawnAnimationTicks() {
-        return 140;
-    }
-
-    @Override
-    public boolean shouldPlayCutscene() {
-        return true;
-    }
-
-    @Override
-    public void playSpawnCutscene() {
-        if(this.level().isClientSide()){
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> this::playCutscene);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void playCutscene() {
-        if(!this.hasSpawned() && !CutsceneManager.active){
-            this.lookAt(Anchor.EYES, Valoria.proxy.getPlayer().position().add(0, 2, 0));
-            Seq<CutsceneNode> nodes = Seq.with();
-            Vec3 tablePos = this.position();
-            Vec3 playerPos = Valoria.proxy.getPlayer().position().add(0, 2, 0);
-            Vec3 targetFacePos = this.position().add(0, 2, 0);
-
-            Vec3 forward = playerPos.subtract(targetFacePos).normalize();
-            Vec3 flatForward = new Vec3(forward.x, 0, forward.z).normalize();
-
-            Vec3 right = new Vec3(-flatForward.z, 0, flatForward.x).normalize();
-            double distanceInFront = 3.5;
-            Vec3 cameraFrontPos = targetFacePos.add(flatForward.scale(distanceInFront));
-
-            Vec3 end = cameraFrontPos
-            .add(right.scale(3))
-            .add(0, -2, 0)
-            .add(flatForward.scale(5));
-
-            Vec3 approachPos = cameraFrontPos
-            .add(right.scale(3))
-            .add(0, -1.5, 0)
-            .add(flatForward.scale(3));
-
-            Vec3 mid = cameraFrontPos
-            .add(right.scale(-3))
-            .add(0, 4, 0)
-            .add(flatForward.scale(-3));
-
-            nodes.add(new CutsceneNode(approachPos, Interp.smooth, 15)
-            .yawToTarget(tablePos)
-            .pitch(-60)
-            .setFov(60)
-            .fade(0.0f, 10)
-            .playSound(SoundEvents.PORTAL_TRIGGER, 0.25f, 1.3f)
-            );
-
-            nodes.add(new CutsceneNode(mid, Interp.pow5, 35)
-            .yawToTarget(targetFacePos)
-            .pitchToTarget(targetFacePos)
-            .setFov(90)
-            );
-
-            nodes.add(new CutsceneNode(end, Interp.smooth, 15)
-            .yawToTarget(tablePos)
-            .pitchToTarget(tablePos)
-            .setFov(75)
-            .playSound(SoundEvents.WARDEN_HEARTBEAT, 1.5f, 0.8f)
-            );
-
-            nodes.add(new CutsceneNode(end, Interp.smooth, 50)
-            .yawToTarget(tablePos)
-            .pitchToTarget(tablePos)
-            .setFov(60)
-
-            .playSound(SoundEvents.WARDEN_ROAR, 2.0f, 0.8f)
-            .addScreenShake(new ScreenshakeInstance(30).intensity(1.5f).interp(Interp.sine))
-            .fadeOut(1.0f, 25)
-            );
-
-            CutsceneManager.start(nodes);
-        }
-    }
 }

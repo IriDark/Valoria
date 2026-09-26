@@ -19,14 +19,12 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.items.*;
 import org.jetbrains.annotations.*;
 import org.jetbrains.annotations.Nullable;
 import pro.komaru.tridot.common.registry.block.entity.*;
@@ -38,10 +36,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     private ManipulatorRecipe cachedRecipe = null;
 
     public final ItemStackHandler itemHandler = createHandler(2);
-    public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
-    public final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> itemOutputHandler);
-    public final LazyOptional<IItemHandler> combinedHandler = LazyOptional.of(() -> new CombinedInvWrapper(itemHandler, itemOutputHandler));
 
     public int progress = 0;
     public int progressMax = 0;
@@ -88,32 +83,6 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                 return super.insertItem(slot, stack, simulate);
             }
         };
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side){
-        if(cap == ForgeCapabilities.ITEM_HANDLER){
-            if(side == null){
-                return combinedHandler.cast();
-            }
-
-            if(side == Direction.DOWN){
-                return outputHandler.cast();
-            }else{
-                return handler.cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps(){
-        super.invalidateCaps();
-        handler.invalidate();
-        outputHandler.invalidate();
-        combinedHandler.invalidate();
     }
 
     @Override
@@ -180,12 +149,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
     private void updateRecipeCache() {
         if (this.level == null) return;
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0; i < itemHandler.getSlots(); i++){
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-
-        this.cachedRecipe = this.level.getRecipeManager().getRecipeFor(ManipulatorRecipe.Type.INSTANCE, inventory, this.level).orElse(null);
+        this.cachedRecipe = this.level.getRecipeManager().getRecipeFor(ManipulatorRecipe.Type.INSTANCE, ContainerRecipeInput.of(itemHandler), this.level).map(RecipeHolder::value).orElse(null);
     }
 
     private void craftItem(){
@@ -270,19 +234,19 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public int getCoreNBT(String name){
-        CompoundTag nbt = this.serializeNBT();
-        if(nbt != null){
-            this.deserializeNBT(nbt);
-            return nbt.getInt(name);
-        }else{
-            throw new IllegalArgumentException("Unknown core");
-        }
+        return switch(name){
+            case "nature_core" -> nature_core;
+            case "infernal_core" -> infernal_core;
+            case "aquarius_core" -> aquarius_core;
+            case "void_core" -> void_core;
+            default -> 0;
+        };
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag){
-        pTag.put("inv", itemHandler.serializeNBT());
-        pTag.put("output", itemOutputHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        pTag.put("inv", itemHandler.serializeNBT(registries));
+        pTag.put("output", itemOutputHandler.serializeNBT(registries));
         pTag.putInt("progress", progress);
         pTag.putInt("progressMax", progressMax);
 
@@ -290,14 +254,14 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         pTag.putInt("infernal_core", infernal_core);
         pTag.putInt("aquarius_core", aquarius_core);
         pTag.putInt("void_core", void_core);
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag pTag){
-        super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inv"));
-        itemOutputHandler.deserializeNBT(pTag.getCompound("output"));
+    protected void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.Provider registries){
+        super.loadAdditional(pTag, registries);
+        itemHandler.deserializeNBT(registries, pTag.getCompound("inv"));
+        itemOutputHandler.deserializeNBT(registries, pTag.getCompound("output"));
         progress = pTag.getInt("progress");
         progressMax = pTag.getInt("progressMax");
 
@@ -314,16 +278,16 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     @NotNull
     @Override
-    public final CompoundTag getUpdateTag(){
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
         var tag = new CompoundTag();
-        saveAdditional(tag);
+        saveAdditional(tag, registries);
         return tag;
     }
 
@@ -346,4 +310,3 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         return new ManipulatorMenu(pContainerId, this.level, this.getBlockPos(), pPlayerInventory, pPlayer);
     }
 }
-

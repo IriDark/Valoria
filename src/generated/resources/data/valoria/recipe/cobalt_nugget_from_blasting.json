@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "valoria:cobalt_pickaxe"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:cobalt_nugget"
+  }
+}

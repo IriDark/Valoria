@@ -74,25 +74,16 @@
     "use_alternate_layer0_chance": 0.084,
     "placements_require_layer0_alternate": true,
     "outer_wall_distance": {
-      "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 2,
+      "type": "minecraft:uniform", "min_inclusive": 2,
         "max_inclusive": 3
-      }
     },
     "distribution_points": {
-      "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 2,
+      "type": "minecraft:uniform", "min_inclusive": 2,
         "max_inclusive": 3
-      }
     },
     "point_offset": {
-      "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 0,
+      "type": "minecraft:uniform", "min_inclusive": 0,
         "max_inclusive": 1
-      }
     },
     "min_gen_offset": -16,
     "max_gen_offset": 18,

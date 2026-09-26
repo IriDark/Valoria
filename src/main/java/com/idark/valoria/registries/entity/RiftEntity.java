@@ -6,23 +6,19 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
-import net.minecraft.network.protocol.*;
-import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.syncher.SynchedEntityData.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.entity.*;
-import net.minecraftforge.network.*;
-import org.jetbrains.annotations.*;
+import net.neoforged.neoforge.entity.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.util.*;
 
-public class RiftEntity extends Entity implements TraceableEntity, IEntityAdditionalSpawnData{
+public class RiftEntity extends Entity implements TraceableEntity, IEntityWithComplexSpawn{
     @Nullable private LivingEntity owner;
     @Nullable private UUID ownerUUID;
 
@@ -139,11 +135,6 @@ public class RiftEntity extends Entity implements TraceableEntity, IEntityAdditi
     }
 
     @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket(){
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
     public void playerTouch(Player pPlayer){
         super.playerTouch(pPlayer);
         if(pPlayer.isOnPortalCooldown()){
@@ -152,8 +143,8 @@ public class RiftEntity extends Entity implements TraceableEntity, IEntityAdditi
             BlockPos pos = this.getConnection().getOnPos().above();
             Level targetLevel = this.getConnection().level();
 
-            RiftTeleportEvent event = new RiftTeleportEvent(pPlayer, this, this.getConnection(), pos.getX(), pos.getY(), pos.getZ(), targetLevel);
-            if (MinecraftForge.EVENT_BUS.post(event)) return;
+            RiftTeleportEvent event = new RiftTeleportEvent(this, this.getConnection(), pos.getX(), pos.getY(), pos.getZ(), targetLevel);
+            if (event.isCanceled()) return;
 
             targetLevel = event.getTargetLevel();
             if (targetLevel == this.level()) {
@@ -169,21 +160,18 @@ public class RiftEntity extends Entity implements TraceableEntity, IEntityAdditi
         }
     }
 
-    @Override
-    protected void defineSynchedData(){
-
-    }
-
-    @Override
-    public void writeSpawnData(FriendlyByteBuf buffer) {
+    public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
         buffer.writeInt(this.maxLifeTime);
         buffer.writeInt(this.lifeTime);
     }
 
-    @Override
-    public void readSpawnData(FriendlyByteBuf buffer) {
+    public void readSpawnData(RegistryFriendlyByteBuf buffer) {
         this.maxLifeTime = buffer.readInt();
         this.lifeTime = buffer.readInt();
+    }
+
+    @Override
+    protected void defineSynchedData(Builder builder){
     }
 
     /**

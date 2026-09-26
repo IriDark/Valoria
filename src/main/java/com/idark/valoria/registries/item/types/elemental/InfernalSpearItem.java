@@ -1,17 +1,17 @@
 package com.idark.valoria.registries.item.types.elemental;
 
-import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.common.*;
+import net.minecraft.world.item.component.*;
 import pro.komaru.tridot.common.registry.item.*;
 
-import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_UUID;
-import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
+import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_ID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
 public class InfernalSpearItem extends SpearItem{
 
@@ -27,13 +27,13 @@ public class InfernalSpearItem extends SpearItem{
         super(tier, attackDamageIn, attackSpeedIn, pThrowable, builderIn);
     }
 
-    public Multimap<Attribute, AttributeModifier> createAttributes(){
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeReg.INFERNAL_DAMAGE.get(), new AttributeModifier(Valoria.BASE_INFERNAL_DAMAGE_UUID, "Weapon modifier", 3, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.builder.attackDamageIn - 3, AttributeModifier.Operation.ADDITION));
-        if(this.builder.projectileDamageIn > 0) builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", this.builder.projectileDamageIn, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", this.builder.attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ENTITY_REACH_UUID, "Spear modifier", this.builder.entityReach, AttributeModifier.Operation.ADDITION));
+    public ItemAttributeModifiers createAttributes(){
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+        builder.add(AttributeReg.INFERNAL_DAMAGE, new AttributeModifier(Valoria.BASE_INFERNAL_DAMAGE_ID, 3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.builder.attackDamageIn - 3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        if(this.builder.projectileDamageIn > 0) builder.add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, this.builder.projectileDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, this.builder.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_REACH_ID, this.builder.entityReach, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
         return builder.build();
     }
 }

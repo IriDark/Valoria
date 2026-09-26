@@ -22,7 +22,7 @@ import net.minecraft.world.phys.*;
 import pro.komaru.tridot.api.level.BaseSpawner;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
-public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEntity, GameEventListener.Holder<FleshCystBlockEntity.Listener>{
+public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEntity, GameEventListener.Provider<FleshCystBlockEntity.Listener>{
     private final FleshCystBlockEntity.Listener listener;
     private final BaseSpawner spawner = new BaseSpawner(){
         public EntityType<?> getEntityType(){
@@ -51,14 +51,16 @@ public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEn
         this.listener = new FleshCystBlockEntity.Listener(pBlockState, new BlockPositionSource(pPos));
     }
 
-    public void load(CompoundTag pTag){
-        super.load(pTag);
+    @Override
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        super.loadAdditional(pTag, registries);
         this.listener.spreader.load(pTag);
         this.spawner.load(this.level, this.worldPosition, pTag);
     }
 
-    protected void saveAdditional(CompoundTag pTag){
-        super.saveAdditional(pTag);
+    @Override
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        super.saveAdditional(pTag, registries);
         this.listener.spreader.save(pTag);
         this.spawner.save(pTag);
     }
@@ -79,15 +81,15 @@ public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEn
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     @Override
-    public final CompoundTag getUpdateTag(){
-        CompoundTag compoundtag = this.saveWithoutMetadata();
-        this.saveAdditional(compoundtag);
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
+        CompoundTag compoundtag = this.saveWithoutMetadata(registries);
+        this.saveAdditional(compoundtag, registries);
         return compoundtag;
     }
 
@@ -136,12 +138,12 @@ public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEn
             return GameEventListener.DeliveryMode.BY_DISTANCE;
         }
 
-        public boolean handleGameEvent(ServerLevel pLevel, GameEvent pGameEvent, GameEvent.Context pContext, Vec3 pPos){
-            if(pGameEvent == GameEvent.ENTITY_DIE){
+        public boolean handleGameEvent(ServerLevel pLevel, Holder<GameEvent> pGameEvent, GameEvent.Context pContext, Vec3 pPos){
+            if(pGameEvent.is(GameEvent.ENTITY_DIE)){
                 Entity $$5 = pContext.sourceEntity();
                 if($$5 instanceof LivingEntity livingentity){
                     if(!livingentity.wasExperienceConsumed()){
-                        int i = livingentity.getExperienceReward();
+                        int i = livingentity.getExperienceReward(pLevel, null);
                         if(livingentity.shouldDropExperience() && i > 0){
                             pPos = new Vec3(FleshCystBlockEntity.this.getBlockPos().getX(), FleshCystBlockEntity.this.getBlockPos().getY(), FleshCystBlockEntity.this.getBlockPos().getZ());
                             this.spreader.addCursors(BlockPos.containing(pPos.relative(Direction.UP, 0.5D)), i);

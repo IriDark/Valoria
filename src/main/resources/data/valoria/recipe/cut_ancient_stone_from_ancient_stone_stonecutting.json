@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:ancient_stone"
+  },
+  "result": {
+    "id": "valoria:ancient_stone_slab",
+    "count": 2
+  }
+}

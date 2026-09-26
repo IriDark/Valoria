@@ -23,7 +23,9 @@ import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.resources.language.*;
+import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
@@ -39,13 +41,12 @@ import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.*;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.common.*;
+import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
@@ -67,9 +68,9 @@ import java.util.List;
 import java.util.function.*;
 
 public class ItemsRegistry{
-    public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
-    public static RegistryObject<Item>
+    public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(Registries.ITEM, Valoria.ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Valoria.ID);
+    public static DeferredHolder<Item, Item>
     // Block items
     shadeBoat, shadeChestBoat,
     eldritchBoat, eldritchChestBoat,
@@ -184,68 +185,68 @@ public class ItemsRegistry{
     pumpkinContract, goblin, firron, pixie, entMob, natureGolem, dryador, riverGolem, kingCrab, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, magmaticGolem, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
-        blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
-        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.CHESTPLATE, new Properties()));
-        blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.LEGGINGS, new Properties()));
-        blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.BOOTS, new Properties()));
-        fallenCollectorHood = registerItem("the_fallen_collector_hood", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.HELMET, new Properties()));
-        fallenCollectorCoat = registerItem("the_fallen_collector_coat", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.CHESTPLATE, new Properties()));
-        fallenCollectorLeggings = registerItem("the_fallen_collector_leggings", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.LEGGINGS, new Properties()));
-        fallenCollectorBoots = registerItem("the_fallen_collector_boots", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.BOOTS, new Properties()));
-        cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.HELMET, new Item.Properties()));
-        cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-        cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-        cobaltBoots = registerItem("cobalt_boots", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.BOOTS, new Item.Properties()));
-        samuraiKabuto = registerItem("samurai_kabuto", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.HELMET, new Item.Properties()));
-        samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-        samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.BOOTS, new Item.Properties()));
-        marshHelmet = registerItem("marsh_helmet", () -> new SkinableArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        marshChestplate = registerItem("marsh_chestplate", () -> new SkinableArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        marshLeggings = registerItem("marsh_leggings", () -> new SkinableArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        marshBoots = registerItem("marsh_boots", () -> new SkinableArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        etherealHelmet = registerEffectArmor("ethereal_helmet", ArmorItem.Type.HELMET, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        etherealChestplate = registerEffectArmor("ethereal_chestplate", ArmorItem.Type.CHESTPLATE, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        etherealLeggings = registerEffectArmor("ethereal_leggings", ArmorItem.Type.LEGGINGS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        etherealBoots = registerEffectArmor("ethereal_boots", ArmorItem.Type.BOOTS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        spiderHelmet = registerItem("spider_helmet", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.WEAKNESS, 60)));
-        spiderChestplate = registerItem("spider_chestplate", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
-        spiderLeggings = registerItem("spider_leggings", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
-        spiderBoots = registerItem("spider_boots", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
-        pyratiteHelmet = registerItem("pyratite_helmet",  () -> new PyratiteArmorItem(Type.HELMET, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new PyratiteArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteLeggings = registerItem("pyratite_leggings",  () -> new PyratiteArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteBoots = registerItem("pyratite_boots",  () -> new PyratiteArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        crimtaneHelmet = registerItem("crimtane_helmet",  () -> new CrimtaneArmor(Type.HELMET, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneChestplate = registerItem("crimtane_chestplate",  () -> new CrimtaneArmor(Type.CHESTPLATE, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneLeggings = registerItem("crimtane_leggings",  () -> new CrimtaneArmor(Type.LEGGINGS, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneBoots = registerItem("crimtane_boots",  () -> new CrimtaneArmor(Type.BOOTS, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.HELMET, new Properties()));
+        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.CHESTPLATE, new Properties()));
+        blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.LEGGINGS, new Properties()));
+        blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.BOOTS, new Properties()));
+        fallenCollectorHood = registerItem("the_fallen_collector_hood", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.HELMET, new Properties()));
+        fallenCollectorCoat = registerItem("the_fallen_collector_coat", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.CHESTPLATE, new Properties()));
+        fallenCollectorLeggings = registerItem("the_fallen_collector_leggings", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.LEGGINGS, new Properties()));
+        fallenCollectorBoots = registerItem("the_fallen_collector_boots", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.BOOTS, new Properties()));
+        cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.HELMET, new Item.Properties()));
+        cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+        cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.LEGGINGS, new Item.Properties()));
+        cobaltBoots = registerItem("cobalt_boots", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.BOOTS, new Item.Properties()));
+        samuraiKabuto = registerItem("samurai_kabuto", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.HELMET, new Item.Properties()));
+        samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+        samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.LEGGINGS, new Item.Properties()));
+        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.BOOTS, new Item.Properties()));
+        marshHelmet = registerItem("marsh_helmet", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        marshChestplate = registerItem("marsh_chestplate", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        marshLeggings = registerItem("marsh_leggings", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        marshBoots = registerItem("marsh_boots", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        etherealHelmet = registerEffectArmor("ethereal_helmet", ArmorItem.Type.HELMET, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
+        etherealChestplate = registerEffectArmor("ethereal_chestplate", ArmorItem.Type.CHESTPLATE, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
+        etherealLeggings = registerEffectArmor("ethereal_leggings", ArmorItem.Type.LEGGINGS, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
+        etherealBoots = registerEffectArmor("ethereal_boots", ArmorItem.Type.BOOTS, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
+        spiderHelmet = registerItem("spider_helmet", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.WEAKNESS, 60)));
+        spiderChestplate = registerItem("spider_chestplate", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
+        spiderLeggings = registerItem("spider_leggings", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
+        spiderBoots = registerItem("spider_boots", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
+        pyratiteHelmet = registerItem("pyratite_helmet",  () -> new PyratiteArmorItem(Type.HELMET, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new PyratiteArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteLeggings = registerItem("pyratite_leggings",  () -> new PyratiteArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteBoots = registerItem("pyratite_boots",  () -> new PyratiteArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        crimtaneHelmet = registerItem("crimtane_helmet",  () -> new CrimtaneArmor(Type.HELMET, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneChestplate = registerItem("crimtane_chestplate",  () -> new CrimtaneArmor(Type.CHESTPLATE, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneLeggings = registerItem("crimtane_leggings",  () -> new CrimtaneArmor(Type.LEGGINGS, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneBoots = registerItem("crimtane_boots",  () -> new CrimtaneArmor(Type.BOOTS, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
 
         // elemental
-        natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
-        natureChestplate = registerEffectArmor("nature_chestplate", Type.CHESTPLATE, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
-        natureLeggings = registerEffectArmor("nature_leggings", Type.LEGGINGS, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
-        natureBoots = registerEffectArmor("nature_boots", Type.BOOTS, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
-        depthHelmet = registerEffectArmor("depth_helmet", Type.HELMET, ArmorRegistry.DEPTH, new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        depthChestplate = registerEffectArmor("depth_chestplate", Type.CHESTPLATE, ArmorRegistry.DEPTH, new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        depthLeggings = registerEffectArmor("depth_leggings", Type.LEGGINGS, ArmorRegistry.DEPTH, new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        depthBoots = registerEffectArmor("depth_boots", Type.BOOTS, ArmorRegistry.DEPTH, new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        infernalHelmet = registerItem("infernal_helmet", () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        infernalChestplate = registerItem("infernal_chestplate", () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        infernalLeggings = registerItem("infernal_leggings", () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        infernalBoots = registerItem("infernal_boots", () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        awakenedVoidHelmet = registerItem("awakened_void_helmet", () -> new VoidArmorItem(Type.HELMET, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        awakenedVoidChestplate = registerItem("awakened_void_chestplate", () -> new VoidArmorItem(Type.CHESTPLATE, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        awakenedVoidLeggings = registerItem("awakened_void_leggings", () -> new VoidArmorItem(Type.LEGGINGS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        awakenedVoidBoots = registerItem("awakened_void_boots", () -> new VoidArmorItem(Type.BOOTS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        phantasmHelmet = registerItem("phantasm_helmet", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.HELMET, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmChestplate = registerItem("phantasm_chestplate", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmLeggings = registerItem("phantasm_leggings", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.BOOTS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
+        natureChestplate = registerEffectArmor("nature_chestplate", Type.CHESTPLATE, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
+        natureLeggings = registerEffectArmor("nature_leggings", Type.LEGGINGS, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
+        natureBoots = registerEffectArmor("nature_boots", Type.BOOTS, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
+        depthHelmet = registerEffectArmor("depth_helmet", Type.HELMET, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
+        depthChestplate = registerEffectArmor("depth_chestplate", Type.CHESTPLATE, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
+        depthLeggings = registerEffectArmor("depth_leggings", Type.LEGGINGS, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
+        depthBoots = registerEffectArmor("depth_boots", Type.BOOTS, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
+        infernalHelmet = registerItem("infernal_helmet", () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalChestplate = registerItem("infernal_chestplate", () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalLeggings = registerItem("infernal_leggings", () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalBoots = registerItem("infernal_boots", () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        awakenedVoidHelmet = registerItem("awakened_void_helmet", () -> new VoidArmorItem(Type.HELMET, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidChestplate = registerItem("awakened_void_chestplate", () -> new VoidArmorItem(Type.CHESTPLATE, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidLeggings = registerItem("awakened_void_leggings", () -> new VoidArmorItem(Type.LEGGINGS, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidBoots = registerItem("awakened_void_boots", () -> new VoidArmorItem(Type.BOOTS, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        phantasmHelmet = registerItem("phantasm_helmet", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.HELMET, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmChestplate = registerItem("phantasm_chestplate", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmLeggings = registerItem("phantasm_leggings", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.BOOTS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
 
         //materials
         gaibRoot = registerItem("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)) {
-            public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+            public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
                 super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
                 pTooltipComponents.add(Component.translatable("tooltip.valoria.gaib_roots").withStyle(ChatFormatting.GRAY));
             }
@@ -296,20 +297,20 @@ public class ItemsRegistry{
         pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.PYRATITE)));
         pyratitePlate = registerItem("pyratite_plate", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.PYRATITE)));
         jade = registerItem("jade");
-        natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
-        rottenBone = registerItem("rotten_bone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.MARSH), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
+        natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE));
+        rottenBone = registerItem("rotten_bone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.MARSH), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE));
         marshCloth = registerItem("marsh_cloth", () -> new Item(new Item.Properties().rarity(RarityRegistry.MARSH)));
-        oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS), 0.35f, ColorParticleData.create(Pal.oceanic, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
-        infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.INFERNAL), 0.35f, ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
-        painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.BLOODY), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));
-        nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE.get()));
-        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Col.white).build(), ParticleRegistry.SPHERE.get()));
-        elementalCrystal = registerItem("elemental_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.ELEMENTAL), 0.35f, ColorParticleData.create(Pal.nature, Pal.strongRed).build(), ParticleRegistry.SPHERE.get()));
-        natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 1, Pal.nature, Pal.vividCyan, "nature_core"));
-        aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 1, Pal.oceanic, Pal.magmatic, "aquarius_core"));
-        infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 1, Pal.infernalBright, Pal.magmatic, "infernal_core"));
-        voidCore = registerItem("void_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 1, Pal.softMagenta, Pal.softMagenta, "void_core"));
-        unstableCore = registerItem("unstable_core", () -> new UnstableCore(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.ELEMENTAL), "unstable_core"));
+        oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS), 0.35f, ColorParticleData.create(Pal.oceanic, Pal.magmatic).build(), ParticleRegistry.SPHERE));
+        infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.INFERNAL), 0.35f, ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build(), ParticleRegistry.SPHERE));
+        painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.BLOODY), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE));
+        nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE));
+        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Col.white).build(), ParticleRegistry.SPHERE));
+        elementalCrystal = registerItem("elemental_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.ELEMENTAL), 0.35f, ColorParticleData.create(Pal.nature, Pal.strongRed).build(), ParticleRegistry.SPHERE));
+        natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE, new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 1, Pal.nature, Pal.vividCyan, "nature_core"));
+        aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE, new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 1, Pal.oceanic, Pal.magmatic, "aquarius_core"));
+        infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 1, Pal.infernalBright, Pal.magmatic, "infernal_core"));
+        voidCore = registerItem("void_core", () -> new CoreItem(ParticleRegistry.SPHERE, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 1, Pal.softMagenta, Pal.softMagenta, "void_core"));
+        unstableCore = registerItem("unstable_core", () -> new UnstableCore(ParticleRegistry.SPHERE, new Item.Properties().fireResistant().rarity(RarityRegistry.ELEMENTAL), "unstable_core"));
 
         valoriaPortalFrameShard = registerItem("valoria_portal_frame_shard");
         blackGoldUpgrade = registerItem("black_gold_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
@@ -370,14 +371,14 @@ public class ItemsRegistry{
 
         // weapons
         flameSword = registerItem("flame_sword", () -> new FlameSwordItem(Tiers.NETHERITE, 5, -1.8f, new Properties()));
+        club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN, 60, 0)));
         bronzeHammer = registerItem("bronze_hammer", () -> new HammerItem(ItemTierRegistry.BRONZE, (int)ToolStats.hammer.damage, ToolStats.hammer.speed,new Item.Properties()));
         blackGoldHammer = registerItem("black_gold_hammer", () -> new HammerItem(ItemTierRegistry.BLACK_GOLD, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties()));
         infernalHammer = registerItem("infernal_hammer", () -> new HammerItem(ItemTierRegistry.INFERNAL, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         voidHammer = registerItem("void_hammer", () -> new HammerItem(ItemTierRegistry.NIHILITY, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
-        club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
         clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
-        bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, 6, -2.4f, new Item.Properties()));
-        quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
+        bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, new Item.Properties().attributes(SwordItem.createAttributes(ItemTierRegistry.BRONZE, 6, -2.4f))));
+        quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, new Item.Properties().rarity(RarityRegistry.VOID).attributes(SwordItem.createAttributes(ItemTierRegistry.NONE, 8, -3f))));
 
         bloodHound = registerItem("bloodhound", () -> new HoundItem(ItemTierRegistry.BLOOD, 2, -2.2f, new Item.Properties()));
         blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ItemTierRegistry.BLAZE_REAP, 3, -3.4f, new Item.Properties()));
@@ -391,26 +392,26 @@ public class ItemsRegistry{
         crystalShard = registerItem("crystal_shard", () -> new CrystalShardItem(6d, new Item.Properties().stacksTo(16), new MobEffectInstance(MobEffects.WITHER, 120), new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
 
         // winter
-        holidayCandy = registerItem("holiday_candy", () -> new Item(new Item.Properties().stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
+        holidayCandy = registerItem("holiday_candy", () -> new Item(new Item.Properties().stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.2f).build())));
         holidayKatana = registerItem("holiday_katana", () -> new KatanaItem(ItemTierRegistry.HOLIDAY, 2, -2.2f, new Item.Properties()));
         holidayPickaxe = registerItem("holiday_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.HOLIDAY, -1, -3f, new Item.Properties()));
-        holidayAxe = registerItem("holiday_axe", () -> new AxeItem(ItemTierRegistry.HOLIDAY, 1, -3f, new Item.Properties()));
+        holidayAxe = registerItem("holiday_axe", () -> new AxeItem(ItemTierRegistry.HOLIDAY, new Item.Properties().attributes(AxeItem.createAttributes(ItemTierRegistry.HOLIDAY, 1, -3f))));
 
         // lunar
-        lunarSword = registerItem("lunar_sword", () -> new SwordItem(ItemTierRegistry.LUNAR, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarSword = registerItem("lunar_sword", () -> new SwordItem(ItemTierRegistry.LUNAR, new Item.Properties().rarity(RarityRegistry.LUNAR).attributes(SwordItem.createAttributes(ItemTierRegistry.LUNAR, (int)ToolStats.sword.damage, ToolStats.sword.speed))));
         lunarKatana = registerItem("lunar_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)).removeLargeModelCheck().setTier(ItemTierRegistry.LUNAR).build());
         lunarScythe = registerItem("lunar_scythe",() -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.LUNAR)).setTier(ItemTierRegistry.LUNAR).build());
         lunarSpear = registerItem("lunar_spear", () -> new SpearItem(ItemTierRegistry.LUNAR, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarPickaxe = registerItem("lunar_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.LUNAR, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
-        lunarAxe = registerItem("lunar_axe", () -> new AxeItem(ItemTierRegistry.LUNAR, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
+        lunarAxe = registerItem("lunar_axe", () -> new AxeItem(ItemTierRegistry.LUNAR, new Item.Properties().rarity(RarityRegistry.LUNAR).attributes(AxeItem.createAttributes(ItemTierRegistry.LUNAR, ToolStats.axe.damage, ToolStats.axe.speed))));
         lunarBow = registerItem("lunar_bow", () -> new ConfigurableBowItem(3, 1, new Item.Properties().stacksTo(1).rarity(RarityRegistry.LUNAR)));
 
         // halloween
-        candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
+        candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
         wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(Valoria.loc("textures/gui/overlay/roots.png")).build());
         reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
-        dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
+        dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, new Item.Properties().rarity(RarityRegistry.HALLOWEEN).attributes(AxeItem.createAttributes(ItemTierRegistry.HALLOWEEN, ToolStats.axe.damage, ToolStats.axe.speed))));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
         woodenSpear = registerItem("wooden_spear", () -> new SpearItem(Tiers.WOOD, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
@@ -421,12 +422,12 @@ public class ItemsRegistry{
         netheriteSpear = registerItem("netherite_spear", () -> new SpearItem(Tiers.NETHERITE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
         pyratiteSpear = registerItem("pyratite_spear", () -> new SpearItem(ItemTierRegistry.PYRATITE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         glaive = registerItem("glaive", () -> new GlaiveItem.Builder(9, -3.2f, new Item.Properties()).setCooldownTime(5, 50).setAttackRadius(2).build());
-        woodenRapier = registerItem("wooden_rapier", () -> new SwordItem(Tiers.WOOD, 0, -1.8f, new Item.Properties()));
-        stoneRapier = registerItem("stone_rapier", () -> new SwordItem(Tiers.STONE, 0, -1.8f, new Item.Properties()));
-        ironRapier = registerItem("iron_rapier", () -> new SwordItem(Tiers.IRON, 1, -1.7f, new Item.Properties()));
-        goldenRapier = registerItem("golden_rapier", () -> new SwordItem(Tiers.GOLD, 0, -1.5f, new Item.Properties()));
-        diamondRapier = registerItem("diamond_rapier", () -> new SwordItem(Tiers.DIAMOND, 2, -1.5f, new Item.Properties()));
-        netheriteRapier = registerItem("netherite_rapier", () -> new SwordItem(Tiers.NETHERITE, 2, -1.5f, new Item.Properties()));
+        woodenRapier = registerItem("wooden_rapier", () -> new SwordItem(Tiers.WOOD, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.WOOD, 0, -1.8f))));
+        stoneRapier = registerItem("stone_rapier", () -> new SwordItem(Tiers.STONE, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.STONE, 0, -1.8f))));
+        ironRapier = registerItem("iron_rapier", () -> new SwordItem(Tiers.IRON, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.IRON, 1, -1.7f))));
+        goldenRapier = registerItem("golden_rapier", () -> new SwordItem(Tiers.GOLD, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.GOLD, 0, -1.5f))));
+        diamondRapier = registerItem("diamond_rapier", () -> new SwordItem(Tiers.DIAMOND, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.DIAMOND, 2, -1.5f))));
+        netheriteRapier = registerItem("netherite_rapier", () -> new SwordItem(Tiers.NETHERITE, new Item.Properties().attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -1.5f))));
         ironScythe = registerItem("iron_scythe", () -> new ScytheItem(Tiers.IRON, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties()));
         goldenScythe = registerItem("golden_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties()).setTier(Tiers.GOLD).setAttackCount(2, 4).build());
         diamondScythe = registerItem("diamond_scythe", () -> new ScytheItem(Tiers.DIAMOND, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties()));
@@ -447,40 +448,40 @@ public class ItemsRegistry{
 
         pearliumSword = registerItem("pearlium_sword", () -> new ValoriaSword(ItemTierRegistry.PEARLIUM, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties()));
         pearliumPickaxe = registerItem("pearlium_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.PEARLIUM, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties()));
-        pearliumAxe = registerItem("pearlium_axe", () -> new AxeItem(ItemTierRegistry.PEARLIUM, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties()));
+        pearliumAxe = registerItem("pearlium_axe", () -> new AxeItem(ItemTierRegistry.PEARLIUM, new Item.Properties().attributes(AxeItem.createAttributes(ItemTierRegistry.PEARLIUM, ToolStats.axe.damage, ToolStats.axe.speed))));
 
         cobaltSword = registerItem("cobalt_sword", () -> new ValoriaSword(ItemTierRegistry.COBALT, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties()));
         cobaltPickaxe = registerItem("cobalt_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.COBALT, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties()));
-        cobaltAxe = registerItem("cobalt_axe", () -> new AxeItem(ItemTierRegistry.COBALT, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties()));
-        cobaltShovel = registerItem("cobalt_shovel", () -> new ShovelItem(ItemTierRegistry.COBALT, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
-        cobaltHoe = registerItem("cobalt_hoe", () -> new HoeItem(ItemTierRegistry.COBALT, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties()));
+        cobaltAxe = registerItem("cobalt_axe", () -> new AxeItem(ItemTierRegistry.COBALT, new Item.Properties().attributes(AxeItem.createAttributes(ItemTierRegistry.COBALT, ToolStats.axe.damage, ToolStats.axe.speed))));
+        cobaltShovel = registerItem("cobalt_shovel", () -> new ShovelItem(ItemTierRegistry.COBALT, new Item.Properties().attributes(ShovelItem.createAttributes(ItemTierRegistry.COBALT, ToolStats.shovel.damage, ToolStats.shovel.speed))));
+        cobaltHoe = registerItem("cobalt_hoe", () -> new HoeItem(ItemTierRegistry.COBALT, new Item.Properties().attributes(HoeItem.createAttributes(ItemTierRegistry.COBALT, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         cobaltMultiTool = registerItem("cobalt_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.COBALT, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties()));
 
         etherealSword = registerItem("ethereal_sword", () -> new EtherealSwordItem(ItemTierRegistry.ETHEREAL, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealSpear = registerItem("ethereal_spear", () -> new SpearItem(ItemTierRegistry.ETHEREAL, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealPickaxe = registerItem("ethereal_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.ETHEREAL, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
-        etherealAxe = registerItem("ethereal_axe", () -> new AxeItem(ItemTierRegistry.ETHEREAL, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        etherealAxe = registerItem("ethereal_axe", () -> new AxeItem(ItemTierRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL).attributes(AxeItem.createAttributes(ItemTierRegistry.ETHEREAL, ToolStats.axe.damage, ToolStats.axe.speed))));
         etherealMultiTool = registerItem("ethereal_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.COBALT, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
 
         crimtaneSword = registerItem("crimtane_sword", () -> new ValoriaSword(ItemTierRegistry.BLOOD, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtaneScythe = registerItem("crimtane_scythe", () -> new ScytheItem(ItemTierRegistry.BLOOD, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtanePickaxe = registerItem("crimtane_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.BLOOD, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneAxe = registerItem("crimtane_axe", () -> new AxeItem(ItemTierRegistry.BLOOD, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneShovel = registerItem("crimtane_shovel", () -> new ShovelItem(ItemTierRegistry.BLOOD, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneHoe = registerItem("crimtane_hoe", () -> new HoeItem(ItemTierRegistry.BLOOD, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneAxe = registerItem("crimtane_axe", () -> new AxeItem(ItemTierRegistry.BLOOD, new Item.Properties().rarity(RarityRegistry.BLOODY).attributes(AxeItem.createAttributes(ItemTierRegistry.BLOOD, ToolStats.axe.damage, ToolStats.axe.speed))));
+        crimtaneShovel = registerItem("crimtane_shovel", () -> new ShovelItem(ItemTierRegistry.BLOOD, new Item.Properties().rarity(RarityRegistry.BLOODY).attributes(ShovelItem.createAttributes(ItemTierRegistry.BLOOD, ToolStats.shovel.damage, ToolStats.shovel.speed))));
+        crimtaneHoe = registerItem("crimtane_hoe", () -> new HoeItem(ItemTierRegistry.BLOOD, new Item.Properties().rarity(RarityRegistry.BLOODY).attributes(HoeItem.createAttributes(ItemTierRegistry.BLOOD, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         crimtaneMultiTool = registerItem("crimtane_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.BLOOD, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(0.25f, new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 0)).build());
+        meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(0.25f, new MobEffectInstance(EffectsRegistry.BLEEDING, 120, 0)).build());
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ItemTierRegistry.BLOOD, 2, -2.4F, new Item.Properties().durability(1600).rarity(RarityRegistry.BLOODY)));
-        boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(12, new Item.Properties().rarity(RarityRegistry.BLOODY), new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 2)));
+        boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(12, new Item.Properties().rarity(RarityRegistry.BLOODY), new MobEffectInstance(EffectsRegistry.BLEEDING, 120, 2)));
 
         jadeSword = registerItem("jade_sword", () -> new ValoriaSword(ItemTierRegistry.JADE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties()));
         jadeKatana = registerItem("jade_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()).setTier(ItemTierRegistry.JADE).setDashDistance(1.25f).build());
         jadeScythe = registerItem("jade_scythe", () -> new ScytheItem(ItemTierRegistry.JADE, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties()));
         jadeSpear = registerItem("jade_spear", () -> new SpearItem(ItemTierRegistry.JADE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
         jadePickaxe = registerItem("jade_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.JADE, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties()));
-        jadeAxe = registerItem("jade_axe", () -> new AxeItem(ItemTierRegistry.JADE, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties()));
-        jadeShovel = registerItem("jade_shovel", () -> new ShovelItem(ItemTierRegistry.JADE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
-        jadeHoe = registerItem("jade_hoe", () -> new HoeItem(ItemTierRegistry.JADE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties()));
+        jadeAxe = registerItem("jade_axe", () -> new AxeItem(ItemTierRegistry.JADE, new Item.Properties().attributes(AxeItem.createAttributes(ItemTierRegistry.JADE, ToolStats.axe.damage, ToolStats.axe.speed))));
+        jadeShovel = registerItem("jade_shovel", () -> new ShovelItem(ItemTierRegistry.JADE, new Item.Properties().attributes(ShovelItem.createAttributes(ItemTierRegistry.JADE, ToolStats.shovel.damage, ToolStats.shovel.speed))));
+        jadeHoe = registerItem("jade_hoe", () -> new HoeItem(ItemTierRegistry.JADE, new Item.Properties().attributes(HoeItem.createAttributes(ItemTierRegistry.JADE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         jadeMultiTool = registerItem("jade_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.JADE, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties()));
         jadeBow = registerItem("jade_bow", () -> new ConfigurableBowItem(5, 1, new Item.Properties().stacksTo(1).durability(1824)));
         jadeCrossbow = registerItem("jade_crossbow", () -> new ConfigurableCrossbow(5, new Item.Properties().stacksTo(1).durability(2124)));
@@ -489,9 +490,9 @@ public class ItemsRegistry{
         natureScythe = registerItem("nature_scythe", () -> new NatureScytheItem(ItemTierRegistry.NATURE, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureSpear = registerItem("nature_spear", () -> new NatureSpearItem(ItemTierRegistry.NATURE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().stacksTo(1).durability(1684).rarity(RarityRegistry.NATURE)));
         naturePickaxe = registerItem("nature_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.NATURE, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
-        natureAxe = registerItem("nature_axe", () -> new AxeItem(ItemTierRegistry.NATURE, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
-        natureShovel = registerItem("nature_shovel", () -> new ShovelItem(ItemTierRegistry.NATURE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
-        natureHoe = registerItem("nature_hoe", () -> new HoeItem(ItemTierRegistry.NATURE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        natureAxe = registerItem("nature_axe", () -> new AxeItem(ItemTierRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE).attributes(AxeItem.createAttributes(ItemTierRegistry.NATURE, ToolStats.axe.damage, ToolStats.axe.speed))));
+        natureShovel = registerItem("nature_shovel", () -> new ShovelItem(ItemTierRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE).attributes(ShovelItem.createAttributes(ItemTierRegistry.NATURE, ToolStats.shovel.damage, ToolStats.shovel.speed))));
+        natureHoe = registerItem("nature_hoe", () -> new HoeItem(ItemTierRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE).attributes(HoeItem.createAttributes(ItemTierRegistry.NATURE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         natureMultiTool = registerItem("nature_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.NATURE, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureBow = registerItem("nature_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.NATURE_ARROW, 2, 1, new Item.Properties().stacksTo(1).durability(1024).rarity(RarityRegistry.NATURE)));
         natureCrossbow = registerItem("nature_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.NATURE_ARROW, 2, 1, new Item.Properties().stacksTo(1).durability(1224).rarity(RarityRegistry.NATURE)));
@@ -500,9 +501,9 @@ public class ItemsRegistry{
         aquariusScythe = registerItem("aquarius_scythe", () -> new AquariusScytheItem(ItemTierRegistry.AQUARIUS, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusSpear = registerItem("aquarius_spear", () -> new DepthSpearItem.Builder(ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().stacksTo(1).durability(1684).rarity(RarityRegistry.AQUARIUS)).setTier(ItemTierRegistry.AQUARIUS).build());
         aquariusPickaxe = registerItem("aquarius_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.AQUARIUS, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
-        aquariusAxe = registerItem("aquarius_axe", () -> new AxeItem(ItemTierRegistry.AQUARIUS, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
-        aquariusShovel = registerItem("aquarius_shovel", () -> new ShovelItem(ItemTierRegistry.AQUARIUS, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
-        aquariusHoe = registerItem("aquarius_hoe", () -> new HoeItem(ItemTierRegistry.AQUARIUS, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
+        aquariusAxe = registerItem("aquarius_axe", () -> new AxeItem(ItemTierRegistry.AQUARIUS, new Item.Properties().rarity(RarityRegistry.AQUARIUS).attributes(AxeItem.createAttributes(ItemTierRegistry.AQUARIUS, ToolStats.axe.damage, ToolStats.axe.speed))));
+        aquariusShovel = registerItem("aquarius_shovel", () -> new ShovelItem(ItemTierRegistry.AQUARIUS, new Item.Properties().rarity(RarityRegistry.AQUARIUS).attributes(ShovelItem.createAttributes(ItemTierRegistry.AQUARIUS, ToolStats.shovel.damage, ToolStats.shovel.speed))));
+        aquariusHoe = registerItem("aquarius_hoe", () -> new HoeItem(ItemTierRegistry.AQUARIUS, new Item.Properties().rarity(RarityRegistry.AQUARIUS).attributes(HoeItem.createAttributes(ItemTierRegistry.AQUARIUS, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         aquariusMultiTool = registerItem("aquarius_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.AQUARIUS, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusBow = registerItem("aquarius_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.AQUARIUS_ARROW, 3, 2, new Item.Properties().stacksTo(1).durability(1324).fireResistant().rarity(RarityRegistry.AQUARIUS)));
         aquariusCrossbow = registerItem("aquarius_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.AQUARIUS_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1462).rarity(RarityRegistry.AQUARIUS)));
@@ -511,9 +512,9 @@ public class ItemsRegistry{
         infernalScythe = registerItem("infernal_scythe", () -> new InfernalScytheItem(ItemTierRegistry.INFERNAL, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalSpear = registerItem("infernal_spear", () -> new InfernalSpearItem(ItemTierRegistry.INFERNAL, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
         infernalPickaxe = registerItem("infernal_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.INFERNAL, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
-        infernalAxe = registerItem("infernal_axe", () -> new AxeItem(ItemTierRegistry.INFERNAL, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
-        infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ItemTierRegistry.INFERNAL, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
-        infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ItemTierRegistry.INFERNAL, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+        infernalAxe = registerItem("infernal_axe", () -> new AxeItem(ItemTierRegistry.INFERNAL, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL).attributes(AxeItem.createAttributes(ItemTierRegistry.INFERNAL, ToolStats.axe.damage, ToolStats.axe.speed))));
+        infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ItemTierRegistry.INFERNAL, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL).attributes(ShovelItem.createAttributes(ItemTierRegistry.INFERNAL, ToolStats.shovel.damage, ToolStats.shovel.speed))));
+        infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ItemTierRegistry.INFERNAL, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL).attributes(HoeItem.createAttributes(ItemTierRegistry.INFERNAL, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         infernalMultiTool = registerItem("infernal_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.INFERNAL, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         infernalBow = registerItem("infernal_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
         infernalCrossbow = registerItem("infernal_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1824).rarity(RarityRegistry.INFERNAL)));
@@ -522,9 +523,9 @@ public class ItemsRegistry{
         voidScythe = registerItem("void_scythe", () -> new VoidScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ItemTierRegistry.NIHILITY).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 180, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 0)).build());
         voidSpear = registerItem("void_spear", () -> new VoidSpearItem(ItemTierRegistry.NIHILITY, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().stacksTo(1).durability(1684).rarity(RarityRegistry.VOID), new MobEffectInstance(MobEffects.DARKNESS, 90, 0)));
         voidPickaxe = registerItem("void_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.NIHILITY, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
-        voidAxe = registerItem("void_axe", () -> new AxeItem(ItemTierRegistry.NIHILITY, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
-        voidShovel = registerItem("void_shovel", () -> new ShovelItem(ItemTierRegistry.NIHILITY, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
-        voidHoe = registerItem("void_hoe", () -> new HoeItem(ItemTierRegistry.NIHILITY, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
+        voidAxe = registerItem("void_axe", () -> new AxeItem(ItemTierRegistry.NIHILITY, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID).attributes(AxeItem.createAttributes(ItemTierRegistry.NIHILITY, ToolStats.axe.damage, ToolStats.axe.speed))));
+        voidShovel = registerItem("void_shovel", () -> new ShovelItem(ItemTierRegistry.NIHILITY, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID).attributes(ShovelItem.createAttributes(ItemTierRegistry.NIHILITY, ToolStats.shovel.damage, ToolStats.shovel.speed))));
+        voidHoe = registerItem("void_hoe", () -> new HoeItem(ItemTierRegistry.NIHILITY, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID).attributes(HoeItem.createAttributes(ItemTierRegistry.NIHILITY, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         voidMultiTool = registerItem("void_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.NIHILITY, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
         voidBow = registerItem("bow_of_darkness", () -> new ConfigurableBowItem(EntityTypeRegistry.WICKED_ARROW,4.25f, 4, new Item.Properties().stacksTo(1).durability(2048).fireResistant().rarity(RarityRegistry.VOID)));
         voidCrossbow = registerItem("void_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.WICKED_ARROW, 4.25f, 4, new Item.Properties().fireResistant().stacksTo(1).durability(2124).rarity(RarityRegistry.VOID)));
@@ -544,415 +545,415 @@ public class ItemsRegistry{
         // accessories
         ironChain = registerItem("iron_chain", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.05f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.05f, Operation.ADD_VALUE))
         .build());
 
         ironNecklaceAmber = registerItem("iron_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.005f, Operation.ADDITION))
+        .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.005f, Operation.ADD_VALUE))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         ironNecklaceDiamond = registerItem("iron_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(2.5f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(2.5f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADD_VALUE))
         .build());
 
         ironNecklaceEmerald = registerItem("iron_necklace_emerald", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(1.45f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(1.45f, Operation.ADD_VALUE))
         .build());
 
         ironNecklaceRuby = registerItem("iron_necklace_ruby", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(1f, Operation.ADDITION))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(1f, Operation.ADD_VALUE))
         .build());
 
         ironNecklaceSapphire = registerItem("iron_necklace_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         ironNecklaceHealth = registerItem("iron_necklace_health", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         ironNecklaceArmor = registerItem("iron_necklace_armor", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         ironNecklaceWealth = registerItem("iron_necklace_wealth", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(2.5f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(2.5f, Operation.ADD_VALUE))
         .build());
 
         ironRogueNecklace = registerItem("iron_rogue_necklace", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.075f, Operation.MULTIPLY_TOTAL))
-        .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(5f, Operation.ADDITION))
+        .addAttr(Attributes.ATTACK_SPEED, new AttributeData(0.075f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(5f, Operation.ADD_VALUE))
         .build());
 
         ironEyeNecklace = registerItem("iron_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
-        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
-        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
+        .addNegativeAttr(Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNegativeAttr(Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new  AttributeData(0.03f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenEyeNecklace = registerItem("golden_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
-        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addNegativeAttr(Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNegativeAttr(Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new  AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteEyeNecklace = registerItem("netherite_eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
-        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
+        .addNegativeAttr(Attributes.MAX_HEALTH, new AttributeData(-0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNegativeAttr(Attributes.ATTACK_DAMAGE, new  AttributeData(-0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new  AttributeData(0.07f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         ironSunNecklace = registerItem("iron_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenSunNecklace = registerItem("golden_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteSunNecklace = registerItem("netherite_sun_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         ironMoonNecklace = registerItem("iron_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
-        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNightAttr(Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenMoonNecklace = registerItem("golden_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNightAttr(Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteMoonNecklace = registerItem("netherite_moon_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
-        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.15f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNightAttr(Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         ironCelestialNecklace = registerItem("iron_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNightAttr(Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(0.03f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenCelestialNecklace = registerItem("golden_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNightAttr(Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         netheriteCelestialNecklace = registerItem("netherite_celestial_necklace", () -> new CelestialNecklaceItem.CelestialBuilder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.EPIC))
-        .addNightAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
-        .addNightAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.MULTIPLY_TOTAL))
+        .addNightAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.15f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addNightAttr(Attributes.ATTACK_SPEED, new AttributeData(0.15f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.15f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(0.07f, Operation.ADD_MULTIPLIED_TOTAL))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .build());
 
         goldenChain = registerItem("golden_chain", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.1f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.1f, Operation.ADD_VALUE))
         .build());
 
         goldenNecklaceAmber = registerItem("golden_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.01f, Operation.ADDITION))
+        .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.01f, Operation.ADD_VALUE))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         goldenNecklaceDiamond = registerItem("golden_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(3f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.75f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(3f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(0.75f, Operation.ADD_VALUE))
         .build());
 
         goldenNecklaceEmerald = registerItem("golden_necklace_emerald", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(2f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(2f, Operation.ADD_VALUE))
         .build());
 
         goldenNecklaceRuby = registerItem("golden_necklace_ruby", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(1.5f, Operation.ADDITION))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(1.5f, Operation.ADD_VALUE))
         .build());
 
         goldenNecklaceSapphire = registerItem("golden_necklace_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.075f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.075f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         goldenNecklaceHealth = registerItem("golden_necklace_health", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.08f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.08f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         goldenNecklaceArmor = registerItem("golden_necklace_armor", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.08f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.08f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         goldenNecklaceWealth = registerItem("golden_necklace_wealth", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(3.25f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(3.25f, Operation.ADD_VALUE))
         .build());
 
         goldenRogueNecklace = registerItem("golden_rogue_necklace", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(10f, Operation.ADDITION))
+        .addAttr(Attributes.ATTACK_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(10f, Operation.ADD_VALUE))
         .build());
 
         netheriteChain = registerItem("netherite_chain", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.1f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.1f, Operation.ADD_VALUE))
         .build());
 
         netheriteNecklaceAmber = registerItem("netherite_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.015f, Operation.ADDITION))
+        .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.015f, Operation.ADD_VALUE))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         netheriteNecklaceDiamond = registerItem("netherite_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(5f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(5f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADD_VALUE))
         .build());
 
         netheriteNecklaceEmerald = registerItem("netherite_necklace_emerald", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(2.75f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(2.75f, Operation.ADD_VALUE))
         .build());
 
         netheriteNecklaceRuby = registerItem("netherite_necklace_ruby", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(2f, Operation.ADDITION))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(2f, Operation.ADD_VALUE))
         .build());
 
         netheriteNecklaceSapphire = registerItem("netherite_necklace_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         netheriteNecklaceHealth = registerItem("netherite_necklace_health", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.12f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(0.12f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         netheriteNecklaceArmor = registerItem("netherite_necklace_armor", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.12f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.12f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         netheriteNecklaceWealth = registerItem("netherite_necklace_wealth", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(5f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(5f, Operation.ADD_VALUE))
         .build());
 
         netheriteRogueNecklace = registerItem("netherite_rogue_necklace", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.125f, Operation.MULTIPLY_TOTAL))
-        .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(10f, Operation.ADDITION))
+        .addAttr(Attributes.ATTACK_SPEED, new AttributeData(0.125f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(10f, Operation.ADD_VALUE))
         .build());
 
         pickNecklace = registerItem("pick_necklace", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
-        .addAttr(AttributeReg.EXCAVATION_SPEED, new AttributeData(3, Operation.ADDITION))
+        .addAttr(AttributeReg.EXCAVATION_SPEED, new AttributeData(3, Operation.ADD_VALUE))
         .build());
 
         leatherBelt = registerItem("leather_belt", () -> new CurioAccessoryItem.Builder(ItemTierRegistry.NONE, new Properties().stacksTo(1).durability(250).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/body/"))
-        .addSlot("charm", new AttributeData(1f, Operation.ADDITION))
+        .addSlot("charm", new AttributeData(1f, Operation.ADD_VALUE))
         .build());
 
         samuraiBelt = registerItem("samurai_belt", () -> new CurioAccessoryItem.Builder(ItemTierRegistry.NONE, new Properties().stacksTo(1).durability(700).rarity(Rarity.EPIC))
         .setTexPath(Valoria.loc("textures/curio/body/"))
-        .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         ironRing = registerItem("iron_ring", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.05f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.05f, Operation.ADD_VALUE))
         .build());
 
         ironRingAmber = registerItem("iron_ring_amber", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.05f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.05f, Operation.ADD_VALUE))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         ironRingDiamond = registerItem("iron_ring_diamond", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(2.5f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(2.5f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADD_VALUE))
         .build());
 
         ironRingEmerald = registerItem("iron_ring_emerald", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(1.45f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(1.45f, Operation.ADD_VALUE))
         .build());
 
         ironRingRuby = registerItem("iron_ring_ruby", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(1f, Operation.ADDITION))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(1f, Operation.ADD_VALUE))
         .build());
 
         ironRingSapphire = registerItem("iron_ring_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         goldenRing = registerItem("golden_ring", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(200).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.15f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.15f, Operation.ADD_VALUE))
         .build());
 
         goldenRingAmber = registerItem("golden_ring_amber", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.15f, Operation.ADDITION))
+        .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.15f, Operation.ADD_VALUE))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         goldenRingDiamond = registerItem("golden_ring_diamond", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(3f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.75f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(3f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(0.75f, Operation.ADD_VALUE))
         .build());
 
         goldenRingEmerald = registerItem("golden_ring_emerald", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(2f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(2f, Operation.ADD_VALUE))
         .build());
 
         goldenRingRuby = registerItem("golden_ring_ruby", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(1.5f, Operation.ADDITION))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(1.5f, Operation.ADD_VALUE))
         .build());
 
         goldenRingSapphire = registerItem("golden_ring_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
-        .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.075f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.075f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         netheriteRing = registerItem("netherite_ring", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(750).rarity(Rarity.COMMON))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.15f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.15f, Operation.ADD_VALUE))
         .build());
 
         netheriteRingAmber = registerItem("netherite_ring_amber", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(750).rarity(Rarity.RARE))
-        .addAttr(() -> Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.25f, Operation.ADDITION))
+        .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.25f, Operation.ADD_VALUE))
         .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
         .build());
 
         netheriteRingDiamond = registerItem("netherite_ring_diamond", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(750).rarity(Rarity.RARE))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(5f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(5f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADD_VALUE))
         .build());
 
         netheriteRingEmerald = registerItem("netherite_ring_emerald", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(750).rarity(Rarity.RARE))
-        .addAttr(() -> Attributes.LUCK, new AttributeData(2.75f, Operation.ADDITION))
+        .addAttr(Attributes.LUCK, new AttributeData(2.75f, Operation.ADD_VALUE))
         .build());
 
         netheriteRingRuby = registerItem("netherite_ring_ruby", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(750).rarity(Rarity.RARE))
-        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(2f, Operation.ADDITION))
+        .addAttr(Attributes.MAX_HEALTH, new AttributeData(2f, Operation.ADD_VALUE))
         .build());
 
         netheriteRingSapphire = registerItem("netherite_ring_sapphire", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(750).rarity(Rarity.RARE))
-        .addAttr(() -> Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.MULTIPLY_TOTAL))
+        .addAttr(Attributes.MOVEMENT_SPEED, new AttributeData(0.10f, Operation.ADD_MULTIPLIED_TOTAL))
         .build());
 
         riftRing = registerItem("rift_ring", () -> new RiftRingItem(new Properties().stacksTo(1).durability(2000).rarity(RarityRegistry.INFERNAL)));
 
         leatherGloves = registerItem("leather_gloves", () -> new DyeableGlovesItem.DyeableBuilder(ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(0.25f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(0.25f, Operation.ADD_VALUE))
         .build());
 
         ironGloves = registerItem("iron_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.IRON, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(1.5f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(1.5f, Operation.ADD_VALUE))
         .build());
 
         goldenGloves = registerItem("golden_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.GOLD, new Item.Properties().stacksTo(1).durability(150).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(1.0f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(1.0f, Operation.ADD_VALUE))
         .build());
 
         diamondGloves = registerItem("diamond_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.DIAMOND, new Item.Properties().stacksTo(1).durability(350).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(1.0f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(1.5f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADDITION))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(1.0f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR, new AttributeData(1.5f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(0.5f, Operation.ADD_VALUE))
         .build());
 
         netheriteGloves = registerItem("netherite_gloves", () -> new GlovesItem.GlovesBuilder(Tiers.NETHERITE, new Item.Properties().stacksTo(1).durability(800).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(1.5f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(2.0f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR_TOUGHNESS, new AttributeData(1.0f, Operation.ADDITION))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(1.5f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR, new AttributeData(2.0f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR_TOUGHNESS, new AttributeData(1.0f, Operation.ADD_VALUE))
         .build());
 
         magmaticGauntlet = registerItem("magmatic_gauntlet", () -> new GlovesItem.GlovesBuilder(Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ATTACK_DAMAGE, new AttributeData(2.5f, Operation.ADDITION))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(4.0f, Operation.ADDITION))
-        .addAttr(AttributeReg.INFERNAL_RESISTANCE, new AttributeData(5.0f, Operation.ADDITION))
+        .addAttr(Attributes.ATTACK_DAMAGE, new AttributeData(2.5f, Operation.ADD_VALUE))
+        .addAttr(Attributes.ARMOR, new AttributeData(4.0f, Operation.ADD_VALUE))
+        .addAttr(AttributeReg.INFERNAL_RESISTANCE, new AttributeData(5.0f, Operation.ADD_VALUE))
         .build());
 
         skeletalVambrace = registerItem("skeletal_vambrace", () -> new GlovesItem.GlovesBuilder(ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.MULTIPLY_TOTAL))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(1.5f, Operation.ADDITION))
+        .addAttr(Attributes.ATTACK_SPEED, new AttributeData(0.05f, Operation.ADD_MULTIPLIED_TOTAL))
+        .addAttr(Attributes.ARMOR, new AttributeData(1.5f, Operation.ADD_VALUE))
         .build());
 
         magmaticVambrace = registerItem("magmatic_vambrace", () -> new GlovesItem.GlovesBuilder(ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/gloves/"))
-        .addAttr(() -> Attributes.ARMOR, new AttributeData(2.0f, Operation.ADDITION))
-        .addAttr(AttributeReg.INFERNAL_RESISTANCE, new AttributeData(5f, Operation.ADDITION))
+        .addAttr(Attributes.ARMOR, new AttributeData(2.0f, Operation.ADD_VALUE))
+        .addAttr(AttributeReg.INFERNAL_RESISTANCE, new AttributeData(5f, Operation.ADD_VALUE))
         .build());
 
         emptyGazer = registerItem("empty_gazer", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
         emptyTotem = registerItem("empty_totem", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
         emptyWinglet = registerItem("empty_winglet", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
-        voidCrystal = registerItem("void_crystal", () -> new VoidCrystalItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -4).put(AttributeReg.NIHILITY_RESISTANCE.get(), 25).build());
+        voidCrystal = registerItem("void_crystal", () -> new VoidCrystalItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -4).put(AttributeReg.NIHILITY_RESISTANCE, 25).build());
         nihilityMonitor = registerItem("nihility_monitor", () -> new NihilityMonitorItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         respirator = registerItem("respirator", () -> new RespiratorItem(new Item.Properties().stacksTo(1).durability(300).rarity(RarityRegistry.VOID)));
         gasMask = registerItem("gas_mask", () -> new GasMaskItem(new Item.Properties().stacksTo(1).durability(1200).rarity(RarityRegistry.VOID)));
 
-        amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ARMOR, Operation.MULTIPLY_TOTAL, 0.15).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.20).build());
-        amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.10).put(Attributes.KNOCKBACK_RESISTANCE, Operation.ADDITION, 0.25).build());
-        amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, Operation.ADDITION, 3.0).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.12).build());
+        amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ARMOR, Operation.ADD_MULTIPLIED_TOTAL, 0.15).put(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL, -0.20).build());
+        amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL, 0.10).put(Attributes.KNOCKBACK_RESISTANCE, Operation.ADD_VALUE, 0.25).build());
+        amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, Operation.ADD_VALUE, 3.0).put(Attributes.ATTACK_SPEED, Operation.ADD_MULTIPLIED_TOTAL, -0.12).build());
 
         emeraldTotem = registerItem("emerald_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, 1).put(Attributes.ARMOR, 3).build());
-        emeraldWinglet = registerItem("emerald_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, 2).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).build());
-        emeraldGazer = registerItem("emerald_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, -2).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.10).build());
+        emeraldWinglet = registerItem("emerald_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, 2).put(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL, 0.15).build());
+        emeraldGazer = registerItem("emerald_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, -2).put(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL, 0.10).build());
 
-        amethystTotem = registerItem("amethyst_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, 2).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.10).build());
-        amethystWinglet = registerItem("amethyst_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, -0.15).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.25).build());
-        amethystGazer = registerItem("amethyst_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, 5).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.25).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.15).build());
+        amethystTotem = registerItem("amethyst_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, 2).put(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL, -0.10).build());
+        amethystWinglet = registerItem("amethyst_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, Operation.ADD_MULTIPLIED_TOTAL, -0.15).put(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL, 0.25).build());
+        amethystGazer = registerItem("amethyst_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, 5).put(Attributes.ATTACK_SPEED, Operation.ADD_MULTIPLIED_TOTAL, -0.25).put(Attributes.MOVEMENT_SPEED, Operation.ADD_MULTIPLIED_TOTAL, -0.15).build());
 
         rubyTotem = registerItem("ruby_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 4).put(Attributes.ATTACK_DAMAGE, -2).build());
-        rubyWinglet = registerItem("ruby_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -1).put(Attributes.KNOCKBACK_RESISTANCE, Operation.MULTIPLY_TOTAL, 0.10).build());
-        rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -2).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, 0.10).build());
+        rubyWinglet = registerItem("ruby_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -1).put(Attributes.KNOCKBACK_RESISTANCE, Operation.ADD_MULTIPLIED_TOTAL, 0.10).build());
+        rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -2).put(Attributes.ATTACK_SPEED, Operation.ADD_MULTIPLIED_TOTAL, 0.10).build());
 
         theFallenCollectorCrown = registerItem("the_fallen_collector_crown", () -> new CrownItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
@@ -1039,90 +1040,90 @@ public class ItemsRegistry{
         cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 400, 1), new Item.Properties()));
         cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 400, 2), new Item.Properties()));
         clarityVial = registerItem("clarity_vial", () -> new CleansingConsumableItem(5, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), new Item.Properties()));
-        halloweenElixir = registerItem("halloween_elixir", () -> new EffectConsumableItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN), new MobEffectInstance(EffectsRegistry.SINISTER_PREDICTION.get(), 16500, 0)));
+        halloweenElixir = registerItem("halloween_elixir", () -> new EffectConsumableItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN), new MobEffectInstance(EffectsRegistry.SINISTER_PREDICTION, 16500, 0)));
 
-        applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.75f).build())));
-        goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(3).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
-        cookedGoblinMeat = registerItem("cooked_goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.4f).build())));
-        crabLeg = registerItem("crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(4).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
-        cookedCrablLeg = registerItem("cooked_crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.4f).build())));
-        devilMeat = registerItem("devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.HUNGER, 40), 0.35f).build())));
-        cookedDevilMeat = registerItem("cooked_devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.6f).build())));
-        eyeChunk = registerItem("eye_chunk", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().meat().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.1f).fast().build())));
-        taintedBerries = registerItem("tainted_berries", () -> new ValoriaFood(1, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build())));
-        scavengerMeat = registerItem("scavenger_meat", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.3f).fast().build())));
-        scavengerCookedMeat = registerItem("cooked_scavenger_meat", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.6f).fast().build())));
-        cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
-        cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+        applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationModifier(0.75f).build())));
+        goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
+        cookedGoblinMeat = registerItem("cooked_goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.4f).build())));
+        crabLeg = registerItem("crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
+        cookedCrablLeg = registerItem("cooked_crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.4f).build())));
+        devilMeat = registerItem("devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.3f).effect(new MobEffectInstance(MobEffects.HUNGER, 40), 0.35f).build())));
+        cookedDevilMeat = registerItem("cooked_devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.6f).build())));
+        eyeChunk = registerItem("eye_chunk", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationModifier(0.1f).fast().build())));
+        taintedBerries = registerItem("tainted_berries", () -> new ValoriaFood(1, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).fast().build())));
+        scavengerMeat = registerItem("scavenger_meat", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.3f).fast().build())));
+        scavengerCookedMeat = registerItem("cooked_scavenger_meat", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationModifier(0.6f).fast().build())));
+        cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+        cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         cup = registerItem("cup", () -> new BlockItem(BlockRegistry.cup.get(), new Item.Properties().stacksTo(64)));
         cacaoCup = registerItem("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.cacaoCup.get(),  64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
         coffeeCup = registerItem("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.coffeeCup.get(), 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
         teaCup = registerItem("tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.teaCup.get(),  16, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
-        greenTeaCup = registerItem("green_tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.greenTeaCup.get(),  64, ItemsRegistry.cup.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1800)));
+        greenTeaCup = registerItem("green_tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.greenTeaCup.get(),  64, ItemsRegistry.cup.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN, 1800)));
         woodenCup = registerItem("wooden_cup", () -> new BlockItem(BlockRegistry.woodenCup.get(), new Item.Properties()));
-        beerCup = registerItem("beer_cup", () -> new PlaceableDrinkItem(BlockRegistry.beerCup.get(),  64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0)));
-        rumCup = registerItem("rum_cup", () -> new PlaceableDrinkItem(BlockRegistry.rumCup.get(),  64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
+        beerCup = registerItem("beer_cup", () -> new PlaceableDrinkItem(BlockRegistry.beerCup.get(),  64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 400, 0)));
+        rumCup = registerItem("rum_cup", () -> new PlaceableDrinkItem(BlockRegistry.rumCup.get(),  64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
         bottle = registerItem("bottle", () -> new BlockItem(BlockRegistry.glassBottle.get(), new Item.Properties().stacksTo(64)));
-        kvassBottle = registerItem("kvass_bottle", () -> new PlaceableDrinkItem(BlockRegistry.kvassBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 200)));
-        wineBottle = registerItem("wine_bottle", () -> new PlaceableDrinkItem(BlockRegistry.wineBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
-        akvavitBottle = registerItem("akvavit_bottle", () -> new PlaceableDrinkItem(BlockRegistry.akvavitBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
-        sakeBottle = registerItem("sake_bottle", () -> new PlaceableDrinkItem(BlockRegistry.sakeBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 700, 1), new MobEffectInstance(MobEffects.CONFUSION, 175)));
-        liquorBottle = registerItem("liquor_bottle", () -> new PlaceableDrinkItem(BlockRegistry.liquorBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 60)));
-        rumBottle = registerItem("rum_bottle", () -> new PlaceableDrinkItem(BlockRegistry.rumBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 650, 1), new MobEffectInstance(MobEffects.CONFUSION, 100)));
-        meadBottle = registerItem("mead_bottle", () -> new PlaceableDrinkItem(BlockRegistry.meadBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 700, 0), new MobEffectInstance(MobEffects.CONFUSION, 100)));
-        cognacBottle = registerItem("cognac_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cognacBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 800, 2), new MobEffectInstance(MobEffects.CONFUSION, 175)));
-        whiskeyBottle = registerItem("whiskey_bottle", () -> new PlaceableDrinkItem(BlockRegistry.whiskeyBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
+        kvassBottle = registerItem("kvass_bottle", () -> new PlaceableDrinkItem(BlockRegistry.kvassBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN, 200)));
+        wineBottle = registerItem("wine_bottle", () -> new PlaceableDrinkItem(BlockRegistry.wineBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
+        akvavitBottle = registerItem("akvavit_bottle", () -> new PlaceableDrinkItem(BlockRegistry.akvavitBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
+        sakeBottle = registerItem("sake_bottle", () -> new PlaceableDrinkItem(BlockRegistry.sakeBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 700, 1), new MobEffectInstance(MobEffects.CONFUSION, 175)));
+        liquorBottle = registerItem("liquor_bottle", () -> new PlaceableDrinkItem(BlockRegistry.liquorBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 60)));
+        rumBottle = registerItem("rum_bottle", () -> new PlaceableDrinkItem(BlockRegistry.rumBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 650, 1), new MobEffectInstance(MobEffects.CONFUSION, 100)));
+        meadBottle = registerItem("mead_bottle", () -> new PlaceableDrinkItem(BlockRegistry.meadBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 700, 0), new MobEffectInstance(MobEffects.CONFUSION, 100)));
+        cognacBottle = registerItem("cognac_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cognacBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 800, 2), new MobEffectInstance(MobEffects.CONFUSION, 175)));
+        whiskeyBottle = registerItem("whiskey_bottle", () -> new PlaceableDrinkItem(BlockRegistry.whiskeyBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY, 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
         cokeBottle = registerItem("coke_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cokeBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
         toxinsBottle = registerItem("toxins_bottle", () -> new PoisonItem(10, new Item.Properties().rarity(Rarity.RARE)));
-        necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER, (new Properties()).stacksTo(1).rarity(Rarity.RARE), 1940));
+        necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new Item((new Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ResourceKey.create(Registries.JUKEBOX_SONG, Valoria.loc("necromancer")))));
 
         // spawn eggs
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
-        goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, Col.hexToDecimal("185b36"), Col.hexToDecimal("6BB447"), new Item.Properties()));
-        swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, Col.hexToDecimal("4d5030"), Col.hexToDecimal("b8b377"), new Item.Properties()));
-        scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, Col.hexToDecimal("5D5F36"), Col.hexToDecimal("bdae86"), new Item.Properties()));
-        maggot = registerItem("maggot_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.MAGGOT, Col.hexToDecimal("6F5B45"), Col.hexToDecimal("e3d0cc"), new Item.Properties()));
-        troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Col.hexToDecimal("232b3a"), Col.hexToDecimal("43596a"), new Item.Properties()));
-        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Col.hexToDecimal("61523f"), Col.hexToDecimal("beb4aa"), new Item.Properties()));
-        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, Col.hexToDecimal("6e4e3f"), Col.hexToDecimal("e09f59"), new Item.Properties()));
-        undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
-        necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
-        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
-        natureGolem = registerItem("nature_golem_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NATURE_GOLEM, Col.hexToDecimal("4a4e56"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
-        riverGolem = registerItem("river_golem_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.RIVER_GOLEM, Col.hexToDecimal("4a4e56"), Col.colorToDecimal(Pal.oceanic.toJava()), new Item.Properties()));
+        goblin = registerItem("goblin_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.GOBLIN, Col.hexToDecimal("185b36"), Col.hexToDecimal("6BB447"), new Item.Properties()));
+        swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, Col.hexToDecimal("4d5030"), Col.hexToDecimal("b8b377"), new Item.Properties()));
+        scourge = registerItem("scourge_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.SCOURGE, Col.hexToDecimal("5D5F36"), Col.hexToDecimal("bdae86"), new Item.Properties()));
+        maggot = registerItem("maggot_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.MAGGOT, Col.hexToDecimal("6F5B45"), Col.hexToDecimal("e3d0cc"), new Item.Properties()));
+        troll = registerItem("troll_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.TROLL, Col.hexToDecimal("232b3a"), Col.hexToDecimal("43596a"), new Item.Properties()));
+        draugr = registerItem("draugr_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.DRAUGR, Col.hexToDecimal("61523f"), Col.hexToDecimal("beb4aa"), new Item.Properties()));
+        sorcerer = registerItem("sorcerer_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.SORCERER, Col.hexToDecimal("6e4e3f"), Col.hexToDecimal("e09f59"), new Item.Properties()));
+        undead = registerItem("undead_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
+        necromancer = registerItem("necromancer_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
+        entMob = registerItem("ent_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
+        natureGolem = registerItem("nature_golem_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.NATURE_GOLEM, Col.hexToDecimal("4a4e56"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
+        riverGolem = registerItem("river_golem_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.RIVER_GOLEM, Col.hexToDecimal("4a4e56"), Col.colorToDecimal(Pal.oceanic.toJava()), new Item.Properties()));
         pixie = registerItem("pixie_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.PIXIE, new Item.Properties()));
-        dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
-        kingCrab = registerItem("king_crab_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.KING_CRAB, Col.hexToDecimal("c82613"), Col.hexToDecimal("7a464b"), new Item.Properties()));
-        magmaticGolem = registerItem("magmatic_golem_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.MAGMATIC_GOLEM, Col.hexToDecimal("ffe568"), Col.hexToDecimal("643431"), new Item.Properties()));
-        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
-        firron = registerItem("firron_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FIRRON, Col.hexToDecimal("993131"), Col.hexToDecimal("fbf236"), new Item.Properties()));
-        wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, Col.hexToDecimal("562a8a"), Col.hexToDecimal("ff62f8"), new Item.Properties()));
+        dryador = registerItem("dryador_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
+        kingCrab = registerItem("king_crab_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.KING_CRAB, Col.hexToDecimal("c82613"), Col.hexToDecimal("7a464b"), new Item.Properties()));
+        magmaticGolem = registerItem("magmatic_golem_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.MAGMATIC_GOLEM, Col.hexToDecimal("ffe568"), Col.hexToDecimal("643431"), new Item.Properties()));
+        devil = registerItem("devil_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
+        firron = registerItem("firron_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.FIRRON, Col.hexToDecimal("993131"), Col.hexToDecimal("fbf236"), new Item.Properties()));
+        wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, Col.hexToDecimal("562a8a"), Col.hexToDecimal("ff62f8"), new Item.Properties()));
         crystal = registerItem("crystal_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.CRYSTAL, new Item.Properties()));
-        shadeSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Col.hexToDecimal("373C53"), Col.hexToDecimal("6EABB7"), new Item.Properties()));
-        scavenger = registerItem("scavenger_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCAVENGER, Col.hexToDecimal("88896d"), Col.hexToDecimal("74608f"), new Item.Properties()));
-        scorpion = registerItem("wicked_scorpion_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_SCORPION, Col.hexToDecimal("29282b"), Col.hexToDecimal("74608f"), new Item.Properties()));
-        corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Col.hexToDecimal("41273E"), Col.hexToDecimal("884f72"), new Item.Properties()));
-        corrupted = registerItem("corrupted_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED, Col.hexToDecimal("b32b17"), Col.hexToDecimal("560000"), new Item.Properties()));
-        fleshSentinel = registerItem("flesh_sentinel_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FLESH_SENTINEL, Col.hexToDecimal("720706"), Col.hexToDecimal("ffc650"), new Item.Properties()));
+        shadeSpider = registerItem("shadewood_spider_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Col.hexToDecimal("373C53"), Col.hexToDecimal("6EABB7"), new Item.Properties()));
+        scavenger = registerItem("scavenger_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.SCAVENGER, Col.hexToDecimal("88896d"), Col.hexToDecimal("74608f"), new Item.Properties()));
+        scorpion = registerItem("wicked_scorpion_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.WICKED_SCORPION, Col.hexToDecimal("29282b"), Col.hexToDecimal("74608f"), new Item.Properties()));
+        corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Col.hexToDecimal("41273E"), Col.hexToDecimal("884f72"), new Item.Properties()));
+        corrupted = registerItem("corrupted_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.CORRUPTED, Col.hexToDecimal("b32b17"), Col.hexToDecimal("560000"), new Item.Properties()));
+        fleshSentinel = registerItem("flesh_sentinel_spawn_egg", () -> new DeferredSpawnEggItem(EntityTypeRegistry.FLESH_SENTINEL, Col.hexToDecimal("720706"), Col.hexToDecimal("ffc650"), new Item.Properties()));
 
         ITEMS.register(eventBus);
         BLOCK_ITEMS.register(eventBus);
     }
 
-    private static RegistryObject<Item> registerEffectArmor(String name, ArmorItem.Type type, ArmorMaterial material, Item.Properties props){
+    private static DeferredHolder<Item, Item> registerEffectArmor(String name, ArmorItem.Type type, Holder<ArmorMaterial> material, Item.Properties props){
         return ITEMS.register(name, () -> new EffectArmorItem(material, type, props));
     }
 
-    private static RegistryObject<Item> registerItem(String name){
+    private static DeferredHolder<Item, Item> registerItem(String name){
         return ITEMS.register(name, () -> new Item(new Item.Properties()));
     }
 
-    private static RegistryObject<Item> registerItem(String name, Rarity rarity){
+    private static DeferredHolder<Item, Item> registerItem(String name, Rarity rarity){
         return ITEMS.register(name, () -> new Item(new Item.Properties().rarity(rarity)));
     }
 
-    private static RegistryObject<Item> registerItem(String name, Supplier<Item> item){
+    private static DeferredHolder<Item, Item> registerItem(String name, Supplier<Item> item){
         return ITEMS.register(name, item);
     }
 
@@ -1211,11 +1212,11 @@ public class ItemsRegistry{
                         List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                         for(LivingEntity entity : detectedEntities){
                             if(!entity.equals(player)){
-                                entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                                entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + CombatCompat.sweepingRatio(player) + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
                                 performEffects(entity, player);
                                 Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
                                 if(!player.isCreative()){
-                                    stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                                    stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, EquipmentSlot.MAINHAND);
                                 }
                             }
                         }

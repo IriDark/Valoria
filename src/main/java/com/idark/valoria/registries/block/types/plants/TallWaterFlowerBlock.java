@@ -6,6 +6,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.material.*;
 
 import javax.annotation.*;
 
-public class TallWaterFlowerBlock extends DoublePlantBlock implements SimpleWaterloggedBlock, net.minecraftforge.common.IPlantable{
+public class TallWaterFlowerBlock extends DoublePlantBlock implements SimpleWaterloggedBlock{
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -86,22 +87,11 @@ public class TallWaterFlowerBlock extends DoublePlantBlock implements SimpleWate
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn){
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluidIn){
         return state.getValue(HALF) == DoubleBlockHalf.LOWER;
-    }
-
-
-    @Override
-    public net.minecraftforge.common.PlantType getPlantType(BlockGetter world, BlockPos pos){
-        return net.minecraftforge.common.PlantType.BEACH;
     }
 
     public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext){
         return false;
-    }
-
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos){
-        return defaultBlockState();
     }
 }

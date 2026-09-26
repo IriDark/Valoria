@@ -2,17 +2,24 @@ package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.util.function.*;
+public class CubeShapedParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<CubeShapedParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("cube_shaped_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CubeShapedParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), CubeShapedParticlePacket::decode);
 
-public class CubeShapedParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
 
     private final double posX, posY, posZ;
     private final int colorR, colorG, colorB;
@@ -35,9 +42,9 @@ public class CubeShapedParticlePacket{
         return new CubeShapedParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(CubeShapedParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(CubeShapedParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                 float size = msg.size;
@@ -83,7 +90,6 @@ public class CubeShapedParticlePacket{
                             .spawn(level, pos3.x, pos3.y, pos3.z);
                 }
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

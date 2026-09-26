@@ -8,7 +8,7 @@ import com.mojang.math.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.*;
 
 @OnlyIn(Dist.CLIENT)

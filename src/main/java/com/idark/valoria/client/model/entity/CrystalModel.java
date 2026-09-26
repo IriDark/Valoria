@@ -1,5 +1,6 @@
 package com.idark.valoria.client.model.entity;
 
+import net.minecraft.core.registries.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
@@ -28,7 +29,7 @@ public class CrystalModel<T extends CrystalEntity> extends EntityModel<T>{
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 }

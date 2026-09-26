@@ -1,0 +1,18 @@
+{
+  "entries": [
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_HALLOWEEN", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "HALLOWEEN" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_LUNAR", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "LUNAR" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_BLOODY", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "BLOODY" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_MARSH", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "MARSH" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_SPIDER", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "SPIDER" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_PYRATITE", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "PYRATITE" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_INFERNAL", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "INFERNAL" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_AQUARIUS", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "AQUARIUS" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_SOUL", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "SOUL" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_ETHEREAL", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "ETHEREAL" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_NATURE", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "NATURE" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_VOID", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "VOID" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_ELEMENTAL", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "ELEMENTAL" } },
+    { "enum": "net/minecraft/world/item/Rarity", "name": "VALORIA_PHANTASM", "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V", "parameters": { "class": "com/idark/valoria/registries/RarityRegistry$Proxies", "field": "PHANTASM" } }
+  ]
+}

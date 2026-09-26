@@ -59,9 +59,6 @@ public class PixieEntity extends AbstractMinionEntity{
         this.calculateEntityAnimation(false);
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions){
-        return pDimensions.height - 0.28125F;
-    }
 
     public boolean isFlapping(){
         return this.tickCount % TICKS_PER_FLAP == 0;
@@ -75,9 +72,9 @@ public class PixieEntity extends AbstractMinionEntity{
         PacketHandler.sendToTracking(serverLevel, this.getOnPos(), new SmokeParticlePacket(3, posX, posY - 0.5f, posZ, 0.005f, 0.025f, 0.005f, 255, 255, 255));
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_ID_ATTACK_TARGET, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_ID_ATTACK_TARGET, 0);
     }
 
     public float getHealAnimationScale(float pPartialTick) {
@@ -229,9 +226,6 @@ public class PixieEntity extends AbstractMinionEntity{
     /**
      * Returns the Y Offset of this entity.
      */
-    public double getMyRidingOffset(){
-        return 0.4D;
-    }
 
     public int getHealDuration() {
         return 80;
@@ -400,8 +394,8 @@ public class PixieEntity extends AbstractMinionEntity{
          */
         public void start() {
             this.timeToRecalcPath = 0;
-            this.oldWaterCost = PixieEntity.this.getPathfindingMalus(BlockPathTypes.WATER);
-            PixieEntity.this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+            this.oldWaterCost = PixieEntity.this.getPathfindingMalus(PathType.WATER);
+            PixieEntity.this.setPathfindingMalus(PathType.WATER, 0.0F);
         }
 
         /**
@@ -410,7 +404,7 @@ public class PixieEntity extends AbstractMinionEntity{
         public void stop() {
             this.owner = null;
             this.navigation.stop();
-            PixieEntity.this.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+            PixieEntity.this.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
         }
 
         /**

@@ -1,0 +1,33 @@
+{
+  "parent": "valoria:valoria/visit_the_valoria",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:pyratite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.pyratite.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "valoria:pyratite"
+    },
+    "title": {
+      "translate": "advancements.valoria.pyratite.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

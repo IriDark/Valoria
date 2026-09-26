@@ -1,0 +1,12 @@
+{
+  "type": "valoria:alchemy_upgrade",
+  "result": {
+    "item": "valoria:alchemy_station_tier_4",
+    "count": 1
+  },
+  "ingredients": [
+    { "ingredient": { "item": "valoria:void_ingot" }, "count": 2 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 8 },
+    { "ingredient": { "item": "valoria:void_core" }, "count": 2 }
+  ]
+}

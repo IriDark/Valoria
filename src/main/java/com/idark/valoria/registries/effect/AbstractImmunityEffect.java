@@ -19,7 +19,7 @@ public abstract class AbstractImmunityEffect extends MobEffect{
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier){
-        if(effectRemoveReason(pEntity)) pEntity.removeEffect(this);
+    public boolean applyEffectTick(LivingEntity pEntity, int amplifier){
+        return !effectRemoveReason(pEntity);
     }
 }

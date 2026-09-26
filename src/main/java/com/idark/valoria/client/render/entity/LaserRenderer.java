@@ -10,12 +10,12 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class LaserRenderer extends EntityRenderer<LaserEntity> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID,"textures/entity/laser.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Valoria.ID, "textures/entity/laser.png");
     private final LaserModel<LaserEntity> model;
 
     public LaserRenderer(EntityRendererProvider.Context context) {
@@ -31,7 +31,7 @@ public class LaserRenderer extends EntityRenderer<LaserEntity> {
         pMatrixStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot())));
         pMatrixStack.translate(0.0F, -1.0F, 0.0F);
         this.model.prepareMobModel(pEntity, pEntity.getYRot(), 0.0F, pPartialTicks);
-        this.model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, -1);
         pMatrixStack.popPose();
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }

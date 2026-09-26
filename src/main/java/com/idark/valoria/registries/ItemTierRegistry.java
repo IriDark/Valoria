@@ -1,47 +1,45 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.world.level.block.*;
+import net.neoforged.neoforge.common.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public class ItemTierRegistry{
-    //WOOD(0, 59, 2.0F, 0.0F, 15, () -> Ingredient.of(ItemTags.PLANKS)),
-    //STONE(1, 131, 4.0F, 1.0F, 5, () -> Ingredient.of(ItemTags.STONE_TOOL_MATERIALS)),
-    //IRON(2, 250, 6.0F, 2.0F, 14, () -> Ingredient.of(Items.IRON_INGOT)),
-    //DIAMOND(3, 1561, 8.0F, 3.0F, 10, () -> Ingredient.of(Items.DIAMOND)),
-    //GOLD(0, 32, 12.0F, 0.0F, 22, () -> Ingredient.of(Items.GOLD_INGOT)),
-    //NETHERITE(4, 2031, 9.0F, 4.0F, 15, () -> Ingredient.of(Items.NETHERITE_INGOT));
+    private static final Map<Tier, Integer> LEVELS = new IdentityHashMap<>();
+    private static final Map<Tier, ResourceLocation> NAMES = new IdentityHashMap<>();
 
-    //todo better system for (almost) automated tier adding
-    public static Tier BRONZE = TierSortingRegistry.registerTier(new ForgeTier(2, 600, 5f, 0.0F, 8, TagsRegistry.NEEDS_BRONZE_TOOL, () -> Ingredient.of(ItemsRegistry.bronzeIngot.get())), Valoria.loc("bronze"), List.of(Tiers.STONE), List.of(Tiers.IRON));
-    public static Tier PEARLIUM = registerTier(new ForgeTier(2, 425, 7f, 2.0F, 6, TagsRegistry.NEEDS_PEARLIUM_TOOL, () -> Ingredient.of(ItemsRegistry.pearliumIngot.get())), Valoria.loc("pearlium"));
-    public static Tier HOLIDAY = registerTier(new ForgeTier(2, 740, 6f, 3.0F, 8, TagsRegistry.NEEDS_HOLIDAY_TOOL, () -> Ingredient.of(ItemsRegistry.holidayCandy.get())), Valoria.loc("holiday"));
-    public static Tier HALLOWEEN = registerTier(new ForgeTier(2, 1150, 6f, 3.0F, 8, TagsRegistry.NEEDS_HALLOWEEN_TOOL, () -> Ingredient.of(ItemsRegistry.candyCorn.get())), Valoria.loc("halloween"));
-    public static Tier LUNAR = registerTier(new ForgeTier(2, 1450, 6f, 3.0F, 8, TagsRegistry.NEEDS_LUNAR_TOOL, Ingredient::of), Valoria.loc("lunar"));
-    public static Tier SAMURAI = registerTier(new ForgeTier(2, 1250, 8f, 5.0F, 7, TagsRegistry.NEEDS_SAMURAI_TOOL, () -> Ingredient.of(ItemsRegistry.ancientIngot.get())), Valoria.loc("samurai"));
-    public static Tier COBALT = TierSortingRegistry.registerTier(new ForgeTier(3, 1750, 12f, 4f, 12, TagsRegistry.NEEDS_COBALT_TOOL, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())), Valoria.loc("cobalt"), List.of(Tiers.DIAMOND), List.of(Tiers.NETHERITE));
-    public static Tier BLACK_GOLD = TierSortingRegistry.registerTier(new ForgeTier(3, 1500, 10f, 0.0F, 15, TagsRegistry.NEEDS_BLACK_GOLD_TOOL, () -> Ingredient.of(ItemsRegistry.blackGold.get())), Valoria.loc("black_gold"), List.of(Tiers.DIAMOND), List.of(Tiers.NETHERITE));
-    public static Tier ETHEREAL = TierSortingRegistry.registerTier(new ForgeTier(3, 2025, 15f, 5f, 15, TagsRegistry.NEEDS_ETHEREAL_TOOL, () -> Ingredient.of(ItemsRegistry.etherealShard.get())), Valoria.loc("ethereal"), List.of(Tiers.DIAMOND), List.of(Tiers.NETHERITE));
-    public static Tier NONE = TierSortingRegistry.registerTier(new ForgeTier(4, 1561, 10f, 4.0F, 15, TagsRegistry.NEEDS_NONE_TOOL, Ingredient::of), Valoria.loc("none"), List.of(Tiers.NETHERITE), List.of(Valoria.loc("depth")));
-    public static Tier BLAZE_REAP = TierSortingRegistry.registerTier(new ForgeTier(4, 2500, 13f, 4.0F, 15, TagsRegistry.NEEDS_BLAZEREAP_TOOL, Ingredient::of), Valoria.loc("blazereap"), List.of(Tiers.NETHERITE), List.of(Valoria.loc("depth")));
-    public static Tier NATURE = TierSortingRegistry.registerTier(new ForgeTier(4, 2651, 16f, 8.0F, 17, TagsRegistry.NEEDS_NATURE_TOOL, () -> Ingredient.of(ItemsRegistry.natureIngot.get())), Valoria.loc("nature"), List.of(Tiers.NETHERITE), List.of(Valoria.loc("depth")));
-    public static Tier AQUARIUS = TierSortingRegistry.registerTier(new ForgeTier(5, 3256, 18f, 9f, 18, TagsRegistry.NEEDS_DEPTH_TOOL, () -> Ingredient.of(ItemsRegistry.aquariusIngot.get())), Valoria.loc("depth"), List.of(Valoria.loc("nature")), List.of(Valoria.loc("infernal")));
-    public static Tier INFERNAL= TierSortingRegistry.registerTier(new ForgeTier(5, 4256, 20f, 10.0F, 19, TagsRegistry.NEEDS_INFERNAL_TOOL, () -> Ingredient.of(ItemsRegistry.infernalIngot.get())), Valoria.loc("infernal"), List.of(Valoria.loc("depth")), List.of(Valoria.loc("void")));
-    public static Tier JADE = TierSortingRegistry.registerTier(new ForgeTier(5, 4112, 22f, 11F, 20, TagsRegistry.NEEDS_JADE_TOOL, () -> Ingredient.of(ItemsRegistry.jade.get())), Valoria.loc("jade"), List.of(Tiers.NETHERITE), List.of(Valoria.loc("depth")));
-    public static Tier SPIDER = TierSortingRegistry.registerTier(new ForgeTier(5, 2831, 22f, 11F, 15, TagsRegistry.NEEDS_SPIDER_TOOL, () -> Ingredient.of(ItemsRegistry.spiderFang.get())), Valoria.loc("spider"), List.of(Tiers.NETHERITE), List.of(Valoria.loc("depth")));
-    public static Tier PYRATITE = TierSortingRegistry.registerTier(new ForgeTier(6, 3112, 24f, 13F, 15, TagsRegistry.NEEDS_PYRATITE_TOOL, () -> Ingredient.of(ItemsRegistry.pyratite.get())), Valoria.loc("pyratite"), List.of(Tiers.NETHERITE), List.of(Valoria.loc("depth")));
-    public static Tier BLOOD = TierSortingRegistry.registerTier(new ForgeTier(5, 2431, 24.0F, 15.0F, 15, TagsRegistry.NEEDS_MEAT_TOOL, () -> Ingredient.of(ItemsRegistry.painCrystal.get())), Valoria.loc("meat"), List.of(Tiers.NETHERITE), List.of(Valoria.loc("depth")));
-    public static Tier NIHILITY = TierSortingRegistry.registerTier(new ForgeTier(5, 5248, 30F, 17.0F, 20, TagsRegistry.NEEDS_VOID_TOOL, () -> Ingredient.of(ItemsRegistry.nihilityShard.get())), Valoria.loc("void"), List.of(Valoria.loc("infernal")), List.of(Valoria.loc("phantom")));
-    public static Tier PHANTOM = TierSortingRegistry.registerTier(new ForgeTier(5, 6428, 35F, 20F, 20, TagsRegistry.NEEDS_PHANTOM_TOOL, () -> Ingredient.of(ItemsRegistry.illusionStone.get())), Valoria.loc("phantom"), List.of(Valoria.loc("void")), List.of());
+    public static Tier BRONZE = tier("bronze", 2, TagsRegistry.INCORRECT_FOR_BRONZE_TOOL, 600, 5f, 0.0F, 8, () -> Ingredient.of(ItemsRegistry.bronzeIngot.get()));
+    public static Tier PEARLIUM = tier("pearlium", 2, TagsRegistry.INCORRECT_FOR_PEARLIUM_TOOL, 425, 7f, 2.0F, 6, () -> Ingredient.of(ItemsRegistry.pearliumIngot.get()));
+    public static Tier HOLIDAY = tier("holiday", 2, TagsRegistry.INCORRECT_FOR_HOLIDAY_TOOL, 740, 6f, 3.0F, 8, () -> Ingredient.of(ItemsRegistry.holidayCandy.get()));
+    public static Tier HALLOWEEN = tier("halloween", 2, TagsRegistry.INCORRECT_FOR_HALLOWEEN_TOOL, 1150, 6f, 3.0F, 8, () -> Ingredient.of(ItemsRegistry.candyCorn.get()));
+    public static Tier LUNAR = tier("lunar", 2, TagsRegistry.INCORRECT_FOR_LUNAR_TOOL, 1450, 6f, 3.0F, 8, Ingredient::of);
+    public static Tier SAMURAI = tier("samurai", 2, TagsRegistry.INCORRECT_FOR_SAMURAI_TOOL, 1250, 8f, 5.0F, 7, () -> Ingredient.of(ItemsRegistry.ancientIngot.get()));
+    public static Tier COBALT = tier("cobalt", 3, TagsRegistry.INCORRECT_FOR_COBALT_TOOL, 1750, 12f, 4f, 12, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get()));
+    public static Tier BLACK_GOLD = tier("black_gold", 3, TagsRegistry.INCORRECT_FOR_GOLD_TOOL, 1500, 10f, 0.0F, 15, () -> Ingredient.of(ItemsRegistry.blackGold.get()));
+    public static Tier ETHEREAL = tier("ethereal", 3, TagsRegistry.INCORRECT_FOR_ETHEREAL_TOOL, 2025, 14f, 5f, 15, () -> Ingredient.of(ItemsRegistry.etherealShard.get()));
+    public static Tier NONE = tier("none", 4, TagsRegistry.INCORRECT_FOR_NONE_TOOL, 1561, 10f, 4.0F, 15, Ingredient::of);
+    public static Tier BLAZE_REAP = tier("blazereap", 4, TagsRegistry.INCORRECT_FOR_BLAZEREAP_TOOL, 1561, 14f, 4.0F, 15, Ingredient::of);
+    public static Tier NATURE = tier("nature", 4, TagsRegistry.INCORRECT_FOR_NATURE_TOOL, 2651, 16f, 8.0F, 17, () -> Ingredient.of(ItemsRegistry.natureIngot.get()));
+    public static Tier AQUARIUS = tier("depth", 5, TagsRegistry.INCORRECT_FOR_DEPTH_TOOL, 3256, 18f, 9f, 18, () -> Ingredient.of(ItemsRegistry.aquariusIngot.get()));
+    public static Tier INFERNAL = tier("infernal", 5, TagsRegistry.INCORRECT_FOR_INFERNAL_TOOL, 4256, 20f, 10.0F, 19, () -> Ingredient.of(ItemsRegistry.infernalIngot.get()));
+    public static Tier JADE = tier("jade", 5, TagsRegistry.INCORRECT_FOR_JADE_TOOL, 4112, 22f, 11F, 20, () -> Ingredient.of(ItemsRegistry.jade.get()));
+    public static Tier SPIDER = tier("spider", 5, TagsRegistry.INCORRECT_FOR_SPIDER_TOOL, 2831, 22f, 11F, 15, () -> Ingredient.of(ItemsRegistry.spiderFang.get()));
+    public static Tier PYRATITE = tier("pyratite", 6, TagsRegistry.INCORRECT_FOR_PYRATITE_TOOL, 3112, 24f, 13F, 15, () -> Ingredient.of(ItemsRegistry.pyratite.get()));
+    public static Tier BLOOD = tier("meat", 5, TagsRegistry.INCORRECT_FOR_MEAT_TOOL, 2431, 24.0F, 15.0F, 15, () -> Ingredient.of(ItemsRegistry.painCrystal.get()));
+    public static Tier NIHILITY = tier("void", 5, TagsRegistry.INCORRECT_FOR_VOID_TOOL, 5248, 30F, 17.0F, 20, () -> Ingredient.of(ItemsRegistry.nihilityShard.get()));
+    public static Tier PHANTOM = tier("phantom", 5, TagsRegistry.INCORRECT_FOR_PHANTOM_TOOL, 6428, 35F, 20F, 20, () -> Ingredient.of(ItemsRegistry.illusionStone.get()));
 
     public static List<ItemStack> getTieredItems(Tier tier) {
         List<ItemStack> list = new ArrayList<>();
-        for (var entry : ForgeRegistries.ITEMS.getEntries()) {
+        for (var entry : BuiltInRegistries.ITEM.entrySet()) {
             Item item = entry.getValue();
             if (item instanceof TieredItem tieredItem && tieredItem.getTier() == tier) {
                 list.add(item.getDefaultInstance());
@@ -51,7 +49,29 @@ public class ItemTierRegistry{
         return list;
     }
 
-    public static Tier registerTier(Tier tier, ResourceLocation loc){
-        return TierSortingRegistry.registerTier(tier, loc, List.of(Tiers.STONE), List.of(Tiers.DIAMOND));
+    public static int levelOf(Tier tier){
+        Integer level = LEVELS.get(tier);
+        if(level != null) return level;
+        if(tier instanceof Tiers vanilla){
+            return switch(vanilla){
+                case WOOD, GOLD -> 0;
+                case STONE -> 1;
+                case IRON -> 2;
+                case DIAMOND -> 3;
+                case NETHERITE -> 4;
+            };
+        }
+        return 0;
+    }
+
+    public static ResourceLocation nameOf(Tier tier){
+        return NAMES.get(tier);
+    }
+
+    public static Tier tier(String name, int level, TagKey<Block> incorrectBlocks, int uses, float speed, float damage, int enchantmentValue, Supplier<Ingredient> repair){
+        SimpleTier tier = new SimpleTier(incorrectBlocks, uses, speed, damage, enchantmentValue, repair);
+        LEVELS.put(tier, level);
+        NAMES.put(tier, Valoria.loc(name));
+        return tier;
     }
 }

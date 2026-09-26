@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.render.animation.*;
 import pro.komaru.tridot.client.*;
 
@@ -34,7 +34,7 @@ public class CrushingAnimation extends ItemAnimation{
     public void renderArmWithItem(LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext displayContext, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight){
         poseStack.translate(0, -0.15f, 0);
         poseStack.translate(0, -0.125F + 0.7F - ((float)Math.PI / 5F), 0);
-        poseStack.mulPose(Axis.XP.rotationDegrees((float)(-45f * Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) / 1.2) - 65)));
+        poseStack.mulPose(Axis.XP.rotationDegrees((float)(-45f * Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true)) / 1.2) - 65)));
     }
 
     @Override

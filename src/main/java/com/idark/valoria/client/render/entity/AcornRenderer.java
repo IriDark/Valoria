@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 
 
@@ -59,7 +59,7 @@ public class AcornRenderer extends EntityRenderer<AcornProjectile>{
 
         VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(TEXTURE));
         int i = getOverlayCoords(this.getWhiteOverlayProgress(pEntity, pPartialTicks));
-        this.model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, i, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, i, -1);
         pMatrixStack.popPose();
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }

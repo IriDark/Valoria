@@ -1,20 +1,19 @@
 package com.idark.valoria.client.render.item;
 
+import com.idark.valoria.util.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.gui.*;
-import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.client.*;
+import net.neoforged.neoforge.client.*;
 
 public class NihilityDecorator implements IItemDecorator{
-    private static final ResourceLocation OVERLAY = new ResourceLocation("valoria", "textures/item/rot.png");
+    private static final ResourceLocation OVERLAY = ResourceLocation.fromNamespaceAndPath("valoria", "textures/item/rot.png");
 
     @Override
     public boolean render(GuiGraphics guiGraphics, Font font, ItemStack stack, int x, int y) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("ValoriaRot")) {
-            int stage = tag.getInt("ValoriaRot");
+        if (ValoriaUtils.hasRot(stack)) {
+            int stage = ValoriaUtils.getRot(stack);
             float alpha = Math.min(1.0f, stage / 100.0f);
             int height = (int) (16 * alpha);
             int offset = 16 - height;

@@ -6,7 +6,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.components.toasts.*;
 import net.minecraft.client.resources.language.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;

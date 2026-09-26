@@ -2,18 +2,16 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.*;
 import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
-import org.jetbrains.annotations.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.util.*;
 
 public class WaterBubble extends Entity implements TraceableEntity{
@@ -84,7 +82,7 @@ public class WaterBubble extends Entity implements TraceableEntity{
         List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, bounds, (e) -> e != this.owner || !e.isAlliedTo(this));
         for(LivingEntity entity : entities) {
             entity.hurt(this.damageSources().mobProjectile(this, owner), damage);
-            entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 20, 0));
+            entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN, 20, 0));
             this.discard();
         }
     }
@@ -128,13 +126,9 @@ public class WaterBubble extends Entity implements TraceableEntity{
     }
 
     @Override
-    protected void defineSynchedData(){
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
     }
 
-    @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket(){
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
 
     public float getAnimationProgress(float pPartialTicks){
         if(!this.clientSideAttackStarted){

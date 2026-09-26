@@ -1,11 +1,11 @@
 package com.idark.valoria;
 
-
-import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.item.types.*;
@@ -20,6 +20,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.player.*;
 import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.resources.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
@@ -30,10 +31,10 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.gui.overlay.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.fml.*;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.gui.*;
 import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
@@ -79,9 +80,9 @@ public class ClientEvents{
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder builder = tesselator.getBuilder();
+        BufferBuilder builder;
 
-        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        builder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         poseStack.pushPose();
         poseStack.translate(renderBox.minX, renderBox.minY, renderBox.minZ);
@@ -97,15 +98,15 @@ public class ClientEvents{
         .renderCube(poseStack, width, height, length);
 
         poseStack.popPose();
-        tesselator.end();
+        BufferUploader.drawWithShader(builder.buildOrThrow());
 
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        builder.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
+        builder = Tesselator.getInstance().begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
 
         float lineR = 0.8f; float lineG = 0.0f; float lineB = 1.0f; float lineA = 1.0f;
         LevelRenderer.renderLineBox(poseStack, builder, renderBox, lineR, lineG, lineB, lineA);
 
-        tesselator.end();
+        BufferUploader.drawWithShader(builder.buildOrThrow());
         RenderSystem.enableDepthTest();
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
@@ -122,7 +123,7 @@ public class ClientEvents{
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder builder = tesselator.getBuilder();
+        BufferBuilder builder;
 
         long currentTime = System.currentTimeMillis();
         if (cachedSpawnResult == null || !targetPos.equals(cachedTargetPos) || currentTime - lastCheckTime > 500) {
@@ -135,7 +136,7 @@ public class ClientEvents{
         if (!result.success()) {
             if (!result.preventingBlocks().isEmpty()) {
                 RenderSystem.disableDepthTest();
-                builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+                builder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
                 for (PreventingBlock pb : result.preventingBlocks()) {
                     BlockPos pos = pb.pos();
                     AABB blockBounds = pb.shape().bounds().move(pos.getX() - cameraPos.x, pos.getY() - cameraPos.y, pos.getZ() - cameraPos.z);
@@ -156,9 +157,9 @@ public class ClientEvents{
                     poseStack.popPose();
                 }
 
-                tesselator.end();
+                BufferUploader.drawWithShader(builder.buildOrThrow());
 
-                builder.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
+                builder = Tesselator.getInstance().begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
                 float errR = 1.0f; float errG = 0.0f; float errB = 0.0f; float errA = 0.5f;
                 for (PreventingBlock pb : result.preventingBlocks()) {
                     BlockPos pos = pb.pos();
@@ -170,7 +171,7 @@ public class ClientEvents{
                     LevelRenderer.renderVoxelShape(poseStack, builder, shape, renderX, renderY, renderZ, errR, errG, errB, errA, false);
                 }
 
-                tesselator.end();
+                BufferUploader.drawWithShader(builder.buildOrThrow());
             }
         }
 
@@ -183,7 +184,7 @@ public class ClientEvents{
 
     private static float[] getColor(ItemStack stack){
         if(stack.getItem() instanceof DyeableGlovesItem){
-            int color = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
+            int color = ((DyeableItem)stack.getItem()).getColor(stack);
             float r = (float)(color >> 16 & 255) / 255.0F;
             float g = (float)(color >> 8 & 255) / 255.0F;
             float b = (float)(color & 255) / 255.0F;
@@ -214,7 +215,7 @@ public class ClientEvents{
 
                         if(stack.getItem() instanceof GlovesItem item){
                             float[] color = getColor(stack);
-                            boolean slim = !pPlayer.getModelName().equals("default");
+                            boolean slim = !(pPlayer.getSkin().model() == PlayerSkin.Model.WIDE);
                             var pTexture = item.getTexture(stack, pPlayer);
                             if(pTexture == null) continue;
 
@@ -230,11 +231,11 @@ public class ClientEvents{
                                 if(playerArm == HumanoidArm.RIGHT){
                                     pModel.right_glove.copyFrom(playerModel.rightArm);
                                     pModel.right_glove.xRot = 0.0F;
-                                    pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                    pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1, color[0], color[1], color[2]));
                                 }else{
                                     pModel.left_glove.copyFrom(playerModel.leftArm);
                                     pModel.left_glove.xRot = 0.0F;
-                                    pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                    pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1, color[0], color[1], color[2]));
                                 }
                             }else{
                                 // Safe fallback
@@ -242,11 +243,11 @@ public class ClientEvents{
                                 if(playerArm == HumanoidArm.RIGHT){
                                     pModel.right_glove.setRotation(0.0F, -0.1F, 0.0F);
                                     pModel.right_glove.setPos(-5.0F, yPos, 0.0F);
-                                    pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                    pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1, color[0], color[1], color[2]));
                                 }else{
                                     pModel.left_glove.setRotation(0.0F, 0.1F, 0.0F);
                                     pModel.left_glove.setPos(5.0F, yPos, 0.0F);
-                                    pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                                    pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1, color[0], color[1], color[2]));
                                 }
                             }
                         }
@@ -259,25 +260,25 @@ public class ClientEvents{
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
         if (ValoriaClient.JEWELRY_BONUSES_KEY.consumeClick()) {
-            Minecraft.getInstance().setScreen(new AbilityWheelScreen(Component.translatable("screen.valoria.ability_wheel")));
+            PacketHandler.sendToServer(new OnKeyInputPacket(0));
         }
     }
 
     @SubscribeEvent
-    public static void onRenderGui(RenderGuiOverlayEvent.Post event) {
-        if (event.getOverlay() != VanillaGuiOverlay.FOOD_LEVEL.type()) return;
+    public static void onRenderGui(RenderGuiLayerEvent.Post event) {
+        if (!event.getName().equals(VanillaGuiLayers.FOOD_LEVEL)) return;
 
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         if (player == null || player.isCreative() || player.isSpectator()) return;
-        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
+        IMagmaLevel.of(player).ifPresent(magmaLevel -> {
             float max = magmaLevel.getMaxAmount(player);
             float amount = magmaLevel.getAmount();
             if(max <= 0 || amount >= max) return;
 
             GuiGraphics gui = event.getGuiGraphics();
-            int width = event.getWindow().getGuiScaledWidth();
-            int height = event.getWindow().getGuiScaledHeight();
+            int width = event.getGuiGraphics().guiWidth();
+            int height = event.getGuiGraphics().guiHeight();
 
             int left = width / 2 + 10;
             int startY = height - 39 - 10;

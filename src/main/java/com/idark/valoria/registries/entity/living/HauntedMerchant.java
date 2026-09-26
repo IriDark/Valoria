@@ -23,9 +23,9 @@ public class HauntedMerchant extends AbstractHauntedMerchant{
         ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
         this.getNavigation().setCanFloat(true);
 
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
     }
 
     public void handleEntityEvent(byte pId){
@@ -60,7 +60,7 @@ public class HauntedMerchant extends AbstractHauntedMerchant{
         if(!this.level().isClientSide && !this.isNoAi()){
             Entity entity = pSource.getEntity();
             if(entity instanceof LivingEntity living){
-                if(!pSource.isIndirect()) this.setPersistentAngerTarget(living.getUUID());
+                if(pSource.isDirect()) this.setPersistentAngerTarget(living.getUUID());
             }
         }
 

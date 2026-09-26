@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.registries.*;
+import net.minecraft.core.component.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -23,7 +24,7 @@ import java.util.function.*;
 
 public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob, Enemy{
     public final SimpleContainer inventory = new SimpleContainer(8);
-    public static final Predicate<ItemEntity> ALLOWED_ITEMS = (p_289438_) -> !p_289438_.hasPickUpDelay() && p_289438_.isAlive() || p_289438_.getItem().isEdible() || p_289438_.getItem() == Items.GOLD_INGOT.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_BLOCK.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_NUGGET.getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.samuraiKunai.get().getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.samuraiPoisonedKunai.get().getDefaultInstance() || p_289438_.getItem().getItem() instanceof SwordItem;
+    public static final Predicate<ItemEntity> ALLOWED_ITEMS = (p_289438_) -> !p_289438_.hasPickUpDelay() && p_289438_.isAlive() || p_289438_.getItem().has(DataComponents.FOOD) || p_289438_.getItem() == Items.GOLD_INGOT.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_BLOCK.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_NUGGET.getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.samuraiKunai.get().getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.samuraiPoisonedKunai.get().getDefaultInstance() || p_289438_.getItem().getItem() instanceof SwordItem;
 
     @Nullable
     public UUID persistentAngerTarget;
@@ -35,8 +36,8 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
     public AbstractGoblin(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.setCanPickUpLoot(true);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
     }
 
     @VisibleForDebug
@@ -44,8 +45,8 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
         return this.inventory;
     }
 
-    public void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit){
-        super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
+    public void dropCustomDeathLoot(ServerLevel pLevel, DamageSource pSource, boolean pRecentlyHit){
+        super.dropCustomDeathLoot(pLevel, pSource, pRecentlyHit);
         this.inventory.removeAllItems().forEach(this::spawnAtLocation);
     }
 
@@ -54,20 +55,20 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
     }
 
     public boolean canEat(ItemStack pStack){
-        return pStack.getItem().isEdible() && this.getTarget() == null && this.onGround() && !this.isSleeping();
+        return pStack.has(DataComponents.FOOD) && this.getTarget() == null && this.onGround() && !this.isSleeping();
     }
 
     public boolean wantsToPickUp(ItemStack pStack){
         Item item = pStack.getItem();
-        return item.isEdible() || item == ItemsRegistry.samuraiKunai.get() || item == ItemsRegistry.samuraiPoisonedKunai.get() || item == Items.GOLD_INGOT || item == Items.GOLD_BLOCK || item == Items.GOLD_NUGGET || item instanceof SwordItem && this.getInventory().canAddItem(pStack);
+        return item.components().has(DataComponents.FOOD) || item == ItemsRegistry.samuraiKunai.get() || item == ItemsRegistry.samuraiPoisonedKunai.get() || item == Items.GOLD_INGOT || item == Items.GOLD_BLOCK || item == Items.GOLD_NUGGET || item instanceof SwordItem && this.getInventory().canAddItem(pStack);
     }
 
-    public int getExperienceReward(){
+    protected int getBaseExperienceReward(){
         if(this.isBaby()){
             this.xpReward = (int)((double)this.xpReward * 2.5D);
         }
 
-        return super.getExperienceReward();
+        return super.getBaseExperienceReward();
     }
 
     public void aiStep(){
@@ -160,10 +161,10 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
         super.onSyncedDataUpdated(pKey);
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.getEntityData().define(DATA_BABY_ID, false);
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_BABY_ID, false);
+        builder.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound){

@@ -1,0 +1,15 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 2,
+  "ingredients": [
+    { "ingredient": { "item": "valoria:cleansing_vial" }, "count": 1 },
+    { "ingredient": { "item": "valoria:tainted_berries" }, "count": 2 },
+    { "ingredient": { "item": "valoria:shade_blossom_leaf" }, "count": 2 },
+    { "ingredient": { "item": "valoria:cave_root" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:cleansing_flask",
+    "count": 1
+  }
+}

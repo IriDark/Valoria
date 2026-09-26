@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "valoria:deep_marble"
-  },
-  "result": "valoria:deep_marble_stairs"
-}

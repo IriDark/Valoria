@@ -58,10 +58,9 @@ public class RiftRenderer extends EntityRenderer<RiftEntity> {
     }
 
     private static void vertex(VertexConsumer pConsumer, Matrix4f pPose, float pX, float pY, float pU, float pV) {
-        pConsumer.vertex(pPose, pX, pY, 0.0F)
-                 .color(255, 255, 255, 255)
-                 .uv(pU, pV)
-                 .endVertex();
+        pConsumer.addVertex(pPose, pX, pY, 0.0F)
+                 .setColor(255, 255, 255, 255)
+                 .setUv(pU, pV);
     }
 
     @Override

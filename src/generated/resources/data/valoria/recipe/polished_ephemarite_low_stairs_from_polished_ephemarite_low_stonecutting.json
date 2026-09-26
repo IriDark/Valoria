@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:polished_ephemarite_low"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:polished_ephemarite_low_stairs"
+  }
+}

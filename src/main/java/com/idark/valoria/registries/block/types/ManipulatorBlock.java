@@ -24,9 +24,8 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -137,7 +136,16 @@ public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, E
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         BlockEntity tileEntity = world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand);
         if(world instanceof ServerLevel serverLevel){
@@ -147,7 +155,7 @@ public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, E
                     ColorParticleData data = builder.getColor();
                     if(builder instanceof UnstableCore unstableCore){
                         List<CoreItem> cores = ItemsRegistry.ITEMS.getEntries().stream()
-                        .map(RegistryObject::get)
+                        .map(DeferredHolder::get)
                         .filter(CoreItem.class::isInstance)
                         .map(CoreItem.class::cast)
                         .filter(it -> it != unstableCore)
@@ -192,7 +200,7 @@ public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, E
         if(coreUpdated){
             ValoriaUtils.SUpdateTileEntityPacket(coreBlock);
         }else{
-            NetworkHooks.openScreen(player, getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
+            player.openMenu(getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
         }
 
         this.coreUpdated = false;

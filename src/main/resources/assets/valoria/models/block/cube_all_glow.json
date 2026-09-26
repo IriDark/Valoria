@@ -18,12 +18,12 @@
       "from": [ 0, 0, 0 ],
       "to": [ 16, 16, 16 ],
       "faces": {
-        "down":  { "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "down" },
-        "up":    { "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "up" },
-        "north": { "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "north" },
-        "south": { "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "south" },
-        "west":  { "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "west" },
-        "east":  { "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "east" }
+        "down":  { "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "down" },
+        "up":    { "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "up" },
+        "north": { "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "north" },
+        "south": { "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "south" },
+        "west":  { "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "west" },
+        "east":  { "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#all_glow", "cullface": "east" }
       }
     }
   ]

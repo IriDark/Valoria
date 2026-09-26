@@ -1,35 +1,36 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.*;
 import com.idark.valoria.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.*;
 import java.util.*;
 
-public class JewelryRecipe implements Recipe<Container>{
+public class JewelryRecipe implements Recipe<ContainerRecipeInput>{
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
-    private final ResourceLocation id;
     private final int time;
 
-    public JewelryRecipe(ResourceLocation id, ItemStack output, int time, Ingredient... inputItems){
-        this.id = id;
+    public JewelryRecipe(ItemStack output, int time, List<Ingredient> inputItems){
         this.output = output;
         this.time = time;
-        this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems);
+        this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems.toArray(new Ingredient[0]));
+    }
+
+    public JewelryRecipe(ItemStack output, int time, Ingredient... inputItems){
+        this(output, time, Arrays.asList(inputItems));
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel){
+    public boolean matches(ContainerRecipeInput pContainer, Level pLevel){
         boolean craft = true;
         for(int i = 0; i < 2; i += 1){
             if(!inputs.get(i).test(pContainer.getItem(i))){
@@ -45,7 +46,7 @@ public class JewelryRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
+    public ItemStack assemble(ContainerRecipeInput pContainer, HolderLookup.Provider pRegistryAccess){
         return output;
     }
 
@@ -55,7 +56,7 @@ public class JewelryRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess){
+    public ItemStack getResultItem(HolderLookup.Provider pRegistryAccess){
         return output.copy();
     }
 
@@ -67,11 +68,6 @@ public class JewelryRecipe implements Recipe<Container>{
 
     public int getTime(){
         return time;
-    }
-
-    @Override
-    public ResourceLocation getId(){
-        return id;
     }
 
     @Override
@@ -93,41 +89,27 @@ public class JewelryRecipe implements Recipe<Container>{
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = Valoria.loc("jewelry");
 
+        private static final MapCodec<JewelryRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            RecipeCodecs.ITEM_STACK.fieldOf("output").forGetter(r -> r.output),
+            Codec.INT.fieldOf("time").forGetter(r -> r.time),
+            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
+        ).apply(i, JewelryRecipe::new));
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, JewelryRecipe> STREAM_CODEC = StreamCodec.composite(
+            ItemStack.STREAM_CODEC, r -> r.output,
+            ByteBufCodecs.VAR_INT, r -> r.time,
+            RecipeCodecs.INGREDIENT_LIST_STREAM, r -> r.inputs,
+            JewelryRecipe::new
+        );
+
         @Override
-        public JewelryRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe){
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-            int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
-
-            JsonArray pIngredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            List<Ingredient> inputs = new ArrayList<>();
-            for(JsonElement e : pIngredients){
-                inputs.add(Ingredient.fromJson(e));
-            }
-
-            return new JewelryRecipe(pRecipeId, output, time, inputs.toArray(new Ingredient[0]));
+        public MapCodec<JewelryRecipe> codec(){
+            return CODEC;
         }
 
         @Override
-        public @Nullable JewelryRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer){
-            Ingredient[] inputs = new Ingredient[pBuffer.readInt()];
-            for(int i = 0; i < inputs.length; i++){
-                inputs[i] = Ingredient.fromNetwork(pBuffer);
-            }
-
-            ItemStack output = pBuffer.readItem();
-            int time = pBuffer.readInt();
-            return new JewelryRecipe(pRecipeId, output, time, inputs);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, JewelryRecipe pRecipe){
-            pBuffer.writeInt(pRecipe.getIngredients().size());
-            for(Ingredient input : pRecipe.getIngredients()){
-                input.toNetwork(pBuffer);
-            }
-
-            pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
-            pBuffer.writeInt(pRecipe.getTime());
+        public StreamCodec<RegistryFriendlyByteBuf, JewelryRecipe> streamCodec(){
+            return STREAM_CODEC;
         }
     }
 }

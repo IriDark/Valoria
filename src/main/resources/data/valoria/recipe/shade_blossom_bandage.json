@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#",
+    "#/"
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:aloe_bandage"
+    },
+    "/": {
+      "item": "valoria:shade_blossom_leaf"
+    }
+  },
+  "result": {
+    "id": "valoria:shade_blossom_bandage",
+    "count": 2
+  }
+}

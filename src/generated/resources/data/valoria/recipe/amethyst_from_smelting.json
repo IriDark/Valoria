@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 230,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "valoria:wicked_amethyst_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:wicked_amethyst"
+  }
+}

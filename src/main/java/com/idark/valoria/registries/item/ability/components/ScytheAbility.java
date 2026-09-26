@@ -16,7 +16,6 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
@@ -57,9 +56,9 @@ public class ScytheAbility extends AbilityComponent {
 
     public void performEffects(LivingEntity targets, Player player){
         targets.knockback(0.4F, player.getX() - targets.getX(), player.getZ() - targets.getZ());
-        if(EnchantmentHelper.getFireAspect(player) > 0){
-            int i = EnchantmentHelper.getFireAspect(player);
-            targets.setSecondsOnFire(i * 4);
+        int i = CombatCompat.fireAspect(player);
+        if(i > 0){
+            targets.igniteForSeconds(i * 4);
         }
     }
 
@@ -67,18 +66,18 @@ public class ScytheAbility extends AbilityComponent {
     public int execute(ServerPlayer player, Level level, ItemStack stack){
         List<LivingEntity> hitEntities = new ArrayList<>();
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
-        float radius = (float)player.getAttributeValue(AttributeReg.ATTACK_RADIUS.get());
+        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + CombatCompat.sweepingRatio(player);
+        float radius = (float)player.getAttributeValue(AttributeReg.ATTACK_RADIUS);
 
         ValoriaUtils.radiusHit(level, stack, player, particleOptions, hitEntities, pos, 0, player.getRotationVector().y, radius);
         for(LivingEntity entity : hitEntities){
             if(!player.canAttack(entity)) continue;
 
-            entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+            entity.hurt(level.damageSources().playerAttack(player), (damage + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
             performEffects(entity, player);
             Utils.Entities.applyWithChance(entity, effects, chance, arcRandom);
             if(!player.isCreative()){
-                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                stack.hurtAndBreak(hitEntities.size(), player, EquipmentSlot.MAINHAND);
             }
         }
 

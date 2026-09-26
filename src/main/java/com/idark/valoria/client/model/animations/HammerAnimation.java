@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.render.animation.*;
 import pro.komaru.tridot.client.*;
 
@@ -22,7 +22,7 @@ public class HammerAnimation extends ItemAnimation {
     }
 
     private boolean isSmashFalling(LivingEntity entity) {
-        return entity != null && entity.hasEffect(EffectsRegistry.HAMMER_SMASH.get());
+        return entity != null && entity.hasEffect(EffectsRegistry.HAMMER_SMASH);
     }
 
     private boolean isCharging(LivingEntity entity) {

@@ -3,12 +3,11 @@ package com.idark.valoria.api.events;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraftforge.eventbus.api.*;
+import net.neoforged.bus.api.*;
 
 public class CodexEvent extends Event{
 
-    @Cancelable
-    public static class OnInit extends CodexEvent{
+    public static class OnInit extends CodexEvent implements ICancellableEvent{
         public ChapterNode root;
 
         public OnInit(ChapterNode root) {
@@ -16,8 +15,7 @@ public class CodexEvent extends Event{
         }
     }
 
-    @Cancelable
-    public static class EntryAdded extends CodexEvent{
+    public static class EntryAdded extends CodexEvent implements ICancellableEvent{
         public CodexEntry entry;
 
         public EntryAdded(CodexEntry entry) {
@@ -25,8 +23,7 @@ public class CodexEvent extends Event{
         }
     }
 
-    @Cancelable
-    public static class OnPageUnlocked extends CodexEvent{
+    public static class OnPageUnlocked extends CodexEvent implements ICancellableEvent{
         public Unlockable unlockable;
 
         public OnPageUnlocked(Unlockable unlockable) {
@@ -37,8 +34,7 @@ public class CodexEvent extends Event{
     /**
      * Called when reward is being claimed, cancel to remove Valoria behaviour
      */
-    @Cancelable
-    public static class OnRewardClaim extends CodexEvent{
+    public static class OnRewardClaim extends CodexEvent implements ICancellableEvent{
         public Player player;
         public Unlockable unlockable;
 

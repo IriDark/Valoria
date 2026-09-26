@@ -8,8 +8,8 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.targeting.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.screenshake.*;
@@ -65,7 +65,7 @@ public class GolemMagmaGroundPunchAttack extends TridotMeleeAttack{
                 dZ /= sqrt;
                 double seenPercent = Utils.Hit.seenPercent(vec3, entity, 2);
                 double power = (1.0D - distance) * seenPercent;
-                double powerAfterDamp = ProtectionEnchantment.getExplosionKnockbackAfterDampener(entity, power);
+                double powerAfterDamp = power * (1.0D - entity.getAttributeValue(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE));
                 dX *= powerAfterDamp;
                 dY *= powerAfterDamp;
                 dZ *= powerAfterDamp;
@@ -73,8 +73,8 @@ public class GolemMagmaGroundPunchAttack extends TridotMeleeAttack{
 
                 entity.hurtMarked = true;
                 mob.doHurtTarget(entity);
-                entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30));
-                entity.setSecondsOnFire(6);
+                entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN, 30));
+                entity.setRemainingFireTicks(6);
                 if(entity.level() instanceof ServerLevel serverLevel) {
                     serverLevel.sendParticles(ParticleTypes.LAVA, entity.getX(), entity.getY(), entity.getZ(), 12, 0, 0, 0, 0.5f);
                     serverLevel.sendParticles(ParticleTypes.SMOKE, entity.getX(), entity.getY(), entity.getZ(), 18, Tmp.rnd.nextDouble() / 2, 1, Tmp.rnd.nextDouble() / 2, 0.5f);

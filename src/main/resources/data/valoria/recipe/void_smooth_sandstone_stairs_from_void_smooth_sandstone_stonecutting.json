@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:void_smooth_sandstone"
+  },
+  "result": {
+    "id": "valoria:void_smooth_sandstone_stairs",
+    "count": 1
+  }
+}

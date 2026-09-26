@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.*;
@@ -13,28 +12,29 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
-import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.item.*;
 
 import java.util.*;
 
-import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
 public class SpectralBladeItem extends SwordItem{
-    private final Multimap<Attribute, AttributeModifier> atr;
+    private final ItemAttributeModifiers atr;
 
     public SpectralBladeItem(int damage, float speed, Item.Properties builderIn){
-        super(ItemTierRegistry.NONE, damage, speed, builderIn);
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", damage * 1.8, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -speed, AttributeModifier.Operation.ADDITION));
-        this.atr = builder.build();
+        super(ItemTierRegistry.NONE, builderIn);
+        this.atr = ItemAttributeModifiers.builder()
+            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, damage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, damage * 1.8, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -speed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .build();
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.atr : super.getDefaultAttributeModifiers(equipmentSlot);
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers(){
+        return this.atr;
     }
 
 
@@ -42,16 +42,16 @@ public class SpectralBladeItem extends SwordItem{
         return UseAnim.SPEAR;
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
     }
 
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft){
         if(entityLiving instanceof Player playerEntity){
-            int i = this.getUseDuration(stack) - timeLeft;
+            int i = this.getUseDuration(stack, entityLiving) - timeLeft;
             if(i >= 6 && playerEntity.getXRot() > -55 && playerEntity.getXRot() < 65){
                 if(!level.isClientSide){
-                    stack.hurtAndBreak(10, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
+                    stack.hurtAndBreak(10, playerEntity, LivingEntity.getSlotForHand(entityLiving.getUsedItemHand()));
                     SpectralBladeEntity spectral = new SpectralBladeEntity(level, playerEntity, stack);
                     spectral.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), (float)playerEntity.getZ(), 2.5F + (float)0 * 0.5F, 3.2F);
                     if(playerEntity.getAbilities().instabuild){
@@ -59,7 +59,7 @@ public class SpectralBladeItem extends SwordItem{
                     }
 
                     level.addFreshEntity(spectral);
-                    level.playSound(playerEntity, spectral, SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    level.playSound(playerEntity, spectral, SoundEvents.SOUL_ESCAPE.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     playerEntity.getCooldowns().addCooldown(this, 75);
                 }
 
@@ -79,7 +79,7 @@ public class SpectralBladeItem extends SwordItem{
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         pTooltipComponents.add(Component.translatable("tooltip.valoria.spectral_blade").withStyle(ChatFormatting.GRAY));
     }

@@ -1,0 +1,11 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "item": "valoria:tombstone"
+  },
+  "experience": 0.5,
+  "cookingtime": 100,
+  "result": {
+    "id": "valoria:tombstone_brick"
+  }
+}

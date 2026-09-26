@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.block.types.plants;
 
 import com.idark.valoria.registries.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
@@ -9,6 +10,9 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
 
 public class VoidvineBlock extends BushBlock{
+    public static final MapCodec<VoidvineBlock> CODEC = simpleCodec(VoidvineBlock::new);
+    @Override protected MapCodec<? extends VoidvineBlock> codec(){ return CODEC; }
+
     private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
 
     public VoidvineBlock(BlockBehaviour.Properties properties){

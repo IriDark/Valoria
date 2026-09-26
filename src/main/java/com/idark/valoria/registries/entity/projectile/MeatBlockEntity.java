@@ -1,8 +1,10 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
@@ -30,8 +32,13 @@ public class MeatBlockEntity extends AbstractArrow{
     }
 
     public MeatBlockEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn){
-        super(EntityTypeRegistry.MEAT.get(), thrower, worldIn);
+        super(EntityTypeRegistry.MEAT.get(), thrower, worldIn, thrownStackIn.copy(), null);
         this.thrownStack = thrownStackIn.copy();
+    }
+
+    @Override
+    protected ItemStack getDefaultPickupItem(){
+        return new ItemStack(BlockRegistry.meatBlock.get());
     }
 
     public void tick(){
@@ -92,13 +99,13 @@ public class MeatBlockEntity extends AbstractArrow{
         Entity shooter = this.getOwner();
 
         if (shooter instanceof Player player) {
-            float totalDamage = (float)player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get());
+            float totalDamage = (float)player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE);
+            DamageSource damagesource = new DamageSource(DamageSourceRegistry.bleeding(this.level()).typeHolder(), this, shooter);
 
             if (entity instanceof LivingEntity livingentity) {
-                totalDamage += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
+                totalDamage += CombatCompat.damageBonus(this.level(), this.thrownStack, livingentity, damagesource);
             }
 
-            DamageSource damagesource = new DamageSource(DamageSourceRegistry.bleeding(this.level()).typeHolder(), this, shooter);
             this.dealtDamage = true;
 
             float healthBefore = 0.0F;
@@ -127,9 +134,11 @@ public class MeatBlockEntity extends AbstractArrow{
                         player.heal(actualDamage * 0.5F);
                     }
 
-                    EnchantmentHelper.doPostHurtEffects(living, shooter);
-                    EnchantmentHelper.doPostDamageEffects(player, living);
-                    living.addEffect(new MobEffectInstance((MobEffect)EffectsRegistry.BLEEDING.get(), 120, 1));
+                    if(this.level() instanceof ServerLevel serverLevel){
+                        EnchantmentHelper.doPostAttackEffectsWithItemSource(serverLevel, living, damagesource, this.thrownStack);
+                    }
+
+                    living.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING, 120, 1));
                     this.doPostHurtEffects(living);
                 }
             }
@@ -140,15 +149,11 @@ public class MeatBlockEntity extends AbstractArrow{
         return SoundEvents.FROGSPAWN_BREAK;
     }
 
-    @Override
-    public SoundEvent getHitGroundSoundEvent(){
-        return SoundEvents.FROGSPAWN_BREAK;
-    }
 
     public void readAdditionalSaveData(CompoundTag compound){
         super.readAdditionalSaveData(compound);
         if(compound.contains("thrown", 10)){
-            this.thrownStack = ItemStack.of(compound.getCompound("thrown"));
+            this.thrownStack = ItemStack.parseOptional(this.registryAccess(), compound.getCompound("thrown"));
         }
 
         this.dealtDamage = compound.getBoolean("DealtDamage");
@@ -156,7 +161,7 @@ public class MeatBlockEntity extends AbstractArrow{
 
     public void addAdditionalSaveData(CompoundTag compound){
         super.addAdditionalSaveData(compound);
-        compound.put("thrown", this.thrownStack.save(new CompoundTag()));
+        compound.put("thrown", this.thrownStack.save(this.registryAccess()));
     }
 
     public void tickDespawn(){

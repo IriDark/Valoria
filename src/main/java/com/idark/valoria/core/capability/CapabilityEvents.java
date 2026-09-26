@@ -17,13 +17,12 @@ import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.TickEvent.*;
-import net.minecraftforge.event.entity.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.entity.player.PlayerEvent.*;
-import net.minecraftforge.eventbus.api.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.event.entity.*;
+import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.player.*;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.*;
+import net.neoforged.neoforge.event.tick.*;
 import pro.komaru.tridot.api.render.text.DotStyleEffects.*;
 import pro.komaru.tridot.client.gfx.text.*;
 
@@ -52,7 +51,7 @@ public class CapabilityEvents{
         Level level = player.level();
         if(level instanceof ServerLevel s && player instanceof ServerPlayer sp){
             ResourceLocation loc = Valoria.loc("advancements/valoria/visit_the_valoria.json");
-            Advancement adv = s.getServer().getAdvancements().getAdvancement(loc);
+            AdvancementHolder adv = s.getServer().getAdvancements().get(loc);
             if(adv == null || !sp.getAdvancements().getOrStartProgress(adv).isDone()) {
                 player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
             }
@@ -60,27 +59,26 @@ public class CapabilityEvents{
     }
 
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event){
-        if (event.phase != TickEvent.Phase.END) return;
-        Player player = event.player;
+    public void playerTick(PlayerTickEvent.Post event){
+        Player player = event.getEntity();
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
             if(ServerConfig.ENABLE_NIHILITY.get()){
-                tickNihility(event, serverPlayer, player);
+                tickNihility(serverPlayer, player);
             }
 
-            tickMagma(event, player);
+            tickMagma(player);
             tickCodex(serverPlayer, player);
         }
 
         if(ServerConfig.ENABLE_NIHILITY.get()){
             if(player.level().isClientSide()){
-                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
+                INihilityLevel.of(player).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
             }
         }
     }
 
-    private void tickNihility(PlayerTickEvent event, ServerPlayer serverPlayer, Player player){
-        player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+    private void tickNihility(ServerPlayer serverPlayer, Player player){
+        INihilityLevel.of(player).ifPresent(nihilityLevel -> {
             if(!player.getAbilities().instabuild && !player.isSpectator()){
                 NihilityEvent.tick(nihilityLevel, serverPlayer);
             }
@@ -98,28 +96,16 @@ public class CapabilityEvents{
         }
     }
 
-    private void tickMagma(PlayerTickEvent event, Player player){
-        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
+    private void tickMagma(Player player){
+        IMagmaLevel.of(player).ifPresent(magmaLevel -> {
             if(!player.getAbilities().instabuild && !player.isSpectator()){
-                MagmaEvent.tick(event, magmaLevel, player);
+                MagmaEvent.tick(magmaLevel, player);
             }
         });
     }
 
     @SubscribeEvent
-    public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
-        if(event.getObject() instanceof Player){
-            event.addCapability(Valoria.loc("pages"), new UnlockableProvider());
-            event.addCapability(Valoria.loc("nihility_level"), new NihilityLevelProvider());
-            event.addCapability(Valoria.loc("magma_level"), new MagmaLevelProvider());
-            if (!event.getObject().getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).isPresent()) {
-                event.addCapability(Valoria.loc("ability_tracker"), new PlayerAbilityProvider());
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event) {
+    public void onServerTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
         if (server.getTickCount() % 100 != 0) return;
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
@@ -146,44 +132,41 @@ public class CapabilityEvents{
     @SubscribeEvent
     public void onRespawn(PlayerRespawnEvent ev){
         Player player = ev.getEntity();
-        player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+        INihilityLevel.of(player).ifPresent(nihilityLevel -> {
             nihilityLevel.setAmountFromServer(player, 0);
         });
 
-        player.getCapability(IMagmaLevel.INSTANCE).ifPresent(nihilityLevel -> {
+        IMagmaLevel.of(player).ifPresent(nihilityLevel -> {
             nihilityLevel.setAmountFromServer(player, 0);
         });
     }
 
     @SubscribeEvent
     public void onClone(PlayerEvent.Clone event){
-        event.getOriginal().reviveCaps();
         boolean isServer = !event.getEntity().level().isClientSide;
         ServerPlayer serverPlayer = isServer ? (ServerPlayer)event.getEntity() : null;
-        event.getEntity().getCapability(IUnlockable.INSTANCE).ifPresent(newStore ->
-        event.getOriginal().getCapability(IUnlockable.INSTANCE).ifPresent(newStore::copyFrom)
+        IUnlockable.of(event.getEntity()).ifPresent(newStore ->
+        IUnlockable.of(event.getOriginal()).ifPresent(newStore::copyFrom)
         );
         if(isServer) PacketHandler.sendTo(serverPlayer, new UnlockableUpdatePacket(event.getEntity()));
 
-        event.getEntity().getCapability(INihilityLevel.INSTANCE).ifPresent(newStore ->
-        event.getOriginal().getCapability(INihilityLevel.INSTANCE).ifPresent(newStore::copyFrom)
+        INihilityLevel.of(event.getEntity()).ifPresent(newStore ->
+        INihilityLevel.of(event.getOriginal()).ifPresent(newStore::copyFrom)
         );
         if(isServer) PacketHandler.sendTo(serverPlayer, new NihilityPacket(new NihilityLevelProvider(), event.getEntity()));
 
-        event.getEntity().getCapability(IMagmaLevel.INSTANCE).ifPresent(newStore ->
-        event.getOriginal().getCapability(IMagmaLevel.INSTANCE).ifPresent(newStore::copyFrom)
+        IMagmaLevel.of(event.getEntity()).ifPresent(newStore ->
+        IMagmaLevel.of(event.getOriginal()).ifPresent(newStore::copyFrom)
         );
         if(isServer) PacketHandler.sendTo(serverPlayer, new MagmaPacket(new MagmaLevelProvider(), event.getEntity()));
 
         if (event.isWasDeath()) {
-            event.getOriginal().getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(oldStore -> {
-                event.getEntity().getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(newStore -> {
+            PlayerAbilityProvider.of(event.getOriginal()).ifPresent(oldStore -> {
+                PlayerAbilityProvider.of(event.getEntity()).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
             });
         }
-
-        event.getOriginal().invalidateCaps();
     }
 
     @SubscribeEvent
@@ -191,14 +174,14 @@ public class CapabilityEvents{
         if(event.getEntity() instanceof LivingEntity && !event.getLevel().isClientSide){
             if(event.getEntity() instanceof Player player){
                 PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket(player));
-                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> {
+                INihilityLevel.of(player).ifPresent(nihility -> {
                     nihility.modifyAmount(player, 1);
                     nihility.decrease(player, 1);
                 });
 
                 PacketHandler.sendTo((ServerPlayer)event.getEntity(), new NihilityPacket(new NihilityLevelProvider(), player));
 
-                player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magma -> {
+                IMagmaLevel.of(player).ifPresent(magma -> {
                     magma.modifyAmount(player, 1);
                     magma.decrease(player, 1);
                 });

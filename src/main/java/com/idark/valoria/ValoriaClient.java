@@ -10,6 +10,7 @@ import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.item.*;
+import com.idark.valoria.client.render.layers.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.client.sounds.LoopedSoundInstance;
@@ -28,23 +29,24 @@ import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
 import net.minecraft.client.*;
-import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.player.*;
-import net.minecraft.client.resources.sounds.*;
+import net.minecraft.client.resources.*;
+import net.minecraft.core.component.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.settings.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.world.item.component.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.fml.common.*;
+import net.neoforged.fml.event.lifecycle.*;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.settings.*;
+import net.neoforged.neoforge.common.*;
 import org.lwjgl.glfw.*;
 import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.client.model.render.entity.*;
@@ -65,27 +67,8 @@ public class ValoriaClient{
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Z, CATEGORY_KEY);
 
     public static LoopedSoundInstance BOSS_MUSIC;
-    public static SoundInstance BREATH_SOUND;
-
     public static HandsModel hands;
     public static HandsModelSlim handsSlim;
-
-    public static void handleBreathSound(float amount, float max) {
-        if (amount >= 40) {
-            if (BREATH_SOUND == null || !Minecraft.getInstance().getSoundManager().isActive(BREATH_SOUND)) {
-                float excess = amount - 40f;
-                float maxExcess = Math.max(1f, max - 40f);
-                float intensity = net.minecraft.util.Mth.clamp(excess / maxExcess, 0f, 1f);
-                
-                float chance = 0.01f + (intensity * 0.03f);
-                if (Tmp.rnd.chance(chance)) {
-                    float pitch = 1.0f - (intensity * 0.3f) + (Tmp.rnd.nextFloat() - 0.5f) * 0.1f;
-                    BREATH_SOUND = SimpleSoundInstance.forLocalAmbience(SoundsRegistry.BREATH.get(), 0.05f, pitch);
-                    Minecraft.getInstance().getSoundManager().play(BREATH_SOUND);
-                }
-            }
-        }
-    }
 
     public static void setupClient(final FMLClientSetupEvent event){
         event.enqueueWork(() -> {
@@ -101,20 +84,20 @@ public class ValoriaClient{
             SplashHandler.add("Check out our amazing patrons!");
             SplashHandler.add("Valoria is growing thanks to you!");
 
-            TooltipModifierHandler.add(BASE_ENTITY_REACH_UUID);
-            TooltipModifierHandler.add(BASE_DASH_DISTANCE_UUID);
-            TooltipModifierHandler.add(BASE_ATTACK_RADIUS_UUID);
-            TooltipModifierHandler.add(BASE_NECROMANCY_COUNT_UUID);
+            TooltipModifierHandler.add(BASE_ENTITY_REACH_ID);
+            TooltipModifierHandler.add(BASE_DASH_DISTANCE_ID);
+            TooltipModifierHandler.add(BASE_ATTACK_RADIUS_ID);
+            TooltipModifierHandler.add(BASE_NECROMANCY_COUNT_ID);
 
-            TooltipModifierHandler.add(BASE_NATURE_DAMAGE_UUID);
-            TooltipModifierHandler.add(BASE_NATURE_RESISTANCE_UUID);
-            TooltipModifierHandler.add(BASE_DEPTH_DAMAGE_UUID);
-            TooltipModifierHandler.add(BASE_DEPTH_RESISTANCE_UUID);
-            TooltipModifierHandler.add(BASE_INFERNAL_DAMAGE_UUID);
-            TooltipModifierHandler.add(BASE_INFERNAL_RESISTANCE_UUID);
-            TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_UUID);
-            TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
-            TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
+            TooltipModifierHandler.add(BASE_NATURE_DAMAGE_ID);
+            TooltipModifierHandler.add(BASE_NATURE_RESISTANCE_ID);
+            TooltipModifierHandler.add(BASE_DEPTH_DAMAGE_ID);
+            TooltipModifierHandler.add(BASE_DEPTH_RESISTANCE_ID);
+            TooltipModifierHandler.add(BASE_INFERNAL_DAMAGE_ID);
+            TooltipModifierHandler.add(BASE_INFERNAL_RESISTANCE_ID);
+            TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_ID);
+            TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_ID);
+            TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_ID);
 
             MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
 
@@ -186,24 +169,27 @@ public class ValoriaClient{
             CuriosRendererRegistry.register(ItemsRegistry.jewelryBag.get(), JewelryBagRenderer::new);
 
             CuriosRendererRegistry.register(ItemsRegistry.pixiePet.get(), () -> new PetRenderer((PetItem)ItemsRegistry.pixiePet.get().asItem()));
-            MenuScreens.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
-            MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
-            MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
-            MenuScreens.register(MenuRegistry.KILN_MENU.get(), KilnScreen::new);
-            MenuScreens.register(MenuRegistry.SOUL_INFUSER_MENU.get(), SoulInfuserScreen::new);
-            MenuScreens.register(MenuRegistry.HEAVY_WORKBENCH.get(), HeavyWorkbenchScreen::new);
-            MenuScreens.register(MenuRegistry.ALCHEMY.get(), AlchemyStationScreen::new);
         });
     }
 
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RegistryEvents{
 
         @SubscribeEvent
-        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAboveAll("nihility", NihilityHudOverlay.instance);
-            event.registerAboveAll("nihility_shield", NihilityShieldOverlay.instance);
-            event.registerAboveAll("heavy_anvil", HeavyAnvilOverlay.instance);
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
+            event.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
+            event.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
+            event.register(MenuRegistry.KILN_MENU.get(), KilnScreen::new);
+            event.register(MenuRegistry.SOUL_INFUSER_MENU.get(), SoulInfuserScreen::new);
+            event.register(MenuRegistry.HEAVY_WORKBENCH.get(), HeavyWorkbenchScreen::new);
+            event.register(MenuRegistry.ALCHEMY.get(), AlchemyStationScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
+            event.registerAboveAll(Valoria.loc("nihility"), NihilityHudOverlay.instance);
+            event.registerAboveAll(Valoria.loc("nihility_shield"), NihilityShieldOverlay.instance);
         }
 
         @SubscribeEvent
@@ -230,15 +216,15 @@ public class ValoriaClient{
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.eldritchSapling.get(), BlockRegistry.eldritchLeaves.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.shadeSapling.get(), BlockRegistry.shadeLeaves.get(), BlockRegistry.shadeBranchVine.get(), BlockRegistry.shadeBranch.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.voidGrass.get(), BlockRegistry.voidTaint.get(), BlockRegistry.voidRoots.get());
-            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
-            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : DyedItemColor.getOrDefault(p_92708_, DyedItemColor.LEATHER_COLOR), ItemsRegistry.leatherGloves.get()); // PORT NOTE: DyeableLeatherItem -> DYED_COLOR component
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : DyedItemColor.getOrDefault(p_92708_, DyedItemColor.LEATHER_COLOR), ItemsRegistry.jewelryBag.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : Col.fromHex("dfff30").pack(), BlockRegistry.aloe.get(), BlockRegistry.aloeSmall.get());
         }
 
         @SubscribeEvent
         public static void OnAddItemDecorators(RegisterItemDecorationsEvent e) {
-            for(var item : ForgeRegistries.ITEMS){
-                if(item.isEdible() && item.getDefaultInstance().getUseAnimation() == UseAnim.EAT && !(item instanceof ValoriaFood)){
+            for(var item : BuiltInRegistries.ITEM){
+                if(item.components().has(DataComponents.FOOD) && item.getDefaultInstance().getUseAnimation() == UseAnim.EAT && !(item instanceof ValoriaFood)){
                     e.register(item, new NihilityDecorator());
                 }
             }
@@ -247,7 +233,7 @@ public class ValoriaClient{
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event){
             ClientBossbarRegistry.register(Valoria.loc("basic"), BasicBossbar.class);
-            MinecraftForge.EVENT_BUS.register(new NihilityMeterRender());
+            NeoForge.EVENT_BUS.register(new NihilityMeterRender());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray.toJava());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh.toJava());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.PIXIE.get(), Pal.vividGreen.toJava());
@@ -369,16 +355,16 @@ public class ValoriaClient{
         public static void registerLayers(EntityRenderersEvent.AddLayers event) {
             hands = new HandsModel(event.getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER));
             handsSlim = new HandsModelSlim(event.getEntityModels().bakeLayer(ValoriaLayers.HANDS_LAYER_SLIM));
-            PlayerRenderer defaultRenderer = event.getSkin("default");
+            PlayerRenderer defaultRenderer = event.getSkin(PlayerSkin.Model.WIDE);
             if (defaultRenderer != null) {
-                // defaultRenderer.addLayer(new StunEffectLayer(defaultRenderer));
-                // defaultRenderer.addLayer(new NihilityProtectionLayer(defaultRenderer));
+                defaultRenderer.addLayer(new StunEffectLayer(defaultRenderer));
+                defaultRenderer.addLayer(new NihilityProtectionLayer(defaultRenderer));
             }
 
-            PlayerRenderer slimRenderer = event.getSkin("slim");
+            PlayerRenderer slimRenderer = event.getSkin(PlayerSkin.Model.SLIM);
             if (slimRenderer != null) {
-                // slimRenderer.addLayer(new StunEffectLayer(slimRenderer));
-                // slimRenderer.addLayer(new NihilityProtectionLayer(slimRenderer));
+                slimRenderer.addLayer(new StunEffectLayer(slimRenderer));
+                slimRenderer.addLayer(new NihilityProtectionLayer(slimRenderer));
             }
         }
 

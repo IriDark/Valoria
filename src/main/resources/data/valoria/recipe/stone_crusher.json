@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "X/X",
+    "XTX"
+  ],
+  "key": {
+    "/": {
+      "item": "minecraft:stone"
+    },
+    "T": {
+      "item": "minecraft:iron_ingot"
+    },
+    "X": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "result": {
+    "id": "valoria:stone_crusher",
+    "count": 1
+  }
+}

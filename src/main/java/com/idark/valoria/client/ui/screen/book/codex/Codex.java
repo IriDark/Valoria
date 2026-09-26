@@ -2,6 +2,7 @@ package com.idark.valoria.client.ui.screen.book.codex;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.client.ui.widget.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -20,7 +21,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import org.lwjgl.glfw.*;
@@ -42,7 +43,7 @@ public class Codex extends DotScreen{
 
     public int backgroundWidth = 512, backgroundHeight = 512;
     public int frameWidth = 276;
-    public int frameHeight = 181;
+    public int frameHeight = 180;
     public int insideWidth = 262;
     public int insideHeight = 164;
 
@@ -85,6 +86,41 @@ public class Codex extends DotScreen{
         searchBar.setTextColor(0xFFFFFF);
         searchBar.setHint(SEARCH_HINT);
         this.addWidget(searchBar);
+
+        if (!isSidebarDisabled()){
+            boolean isAdmin = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
+            int patreonX = isAdmin ? (this.width / 2 + 5) : (this.width / 2 - 100);
+            if (isAdmin) {
+                this.addRenderableWidget(new LegacyImageButton(this.width / 2 - 205, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/progression.png"), 200, 80, (button) -> {
+                    BooleanConsumer callback = (confirmed) -> {
+                        if (confirmed) {
+                            PacketHandler.sendToServer(new ProgressionDisableCodexPacket());
+                        }
+                        Minecraft.getInstance().setScreen(this);
+                    };
+
+                    ConfirmScreen warning = new ConfirmScreen(
+                    callback,
+                    Component.translatable("codex.screen.valoria.codex_progression.title").withStyle(ChatFormatting.RED),
+                    Component.translatable("codex.screen.valoria_progression.description_" + (ServerConfig.ENABLE_CODEX_PROGRESSION.get() ? "disable" : "enable"))
+                    );
+
+                    Minecraft.getInstance().setScreen(warning);
+                }));
+            }
+
+            this.addRenderableWidget(new com.idark.valoria.client.ui.widget.LegacyImageButton(patreonX, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/patreon.png"), 200, 80, (button) -> {
+                String url = "https://www.patreon.com/c/IriDark";
+                ConfirmLinkScreen confirmLinkScreen = new ConfirmLinkScreen((confirmed) -> {
+                    if (confirmed) {
+                        Util.getPlatform().openUri(url);
+                    }
+                    this.minecraft.setScreen(this);
+                }, url, true);
+
+                this.minecraft.setScreen(confirmLinkScreen);
+            }));
+        }
     }
 
     /**
@@ -100,7 +136,7 @@ public class Codex extends DotScreen{
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double delta) {
         if (mouseX < guiLeft() - 100) {
             float maxScroll = Math.max(0, (CodexEntries.sidebarEntries.size * 18) - listHeight());
             targetSidebarScroll = (float) Mth.clamp(targetSidebarScroll - (delta * 20), 0, maxScroll);
@@ -120,7 +156,7 @@ public class Codex extends DotScreen{
     public void open() {
         CodexEntries.init();
         final Codex codex = getInstance();
-        codex.openedAtTick = codex.tick + codex.mc().getPartialTick();
+        codex.openedAtTick = codex.tick + codex.mc().getTimer().getGameTimeDeltaPartialTick(true);
         Minecraft.getInstance().setScreen(codex);
         codex.sound(() -> SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f);
 
@@ -133,7 +169,7 @@ public class Codex extends DotScreen{
     }
 
     public float time(){
-        return (tick + mc().getPartialTick()) - openedAtTick;
+        return (tick + mc().getTimer().getGameTimeDeltaPartialTick(true)) - openedAtTick;
     }
 
     @Override
@@ -145,7 +181,7 @@ public class Codex extends DotScreen{
 
         color(Mathf.clamp(progress/0.9f));
         color(progress);
-        renderBackground(gui);
+        renderBackground(gui, mouseX, mouseY, partialTicks);
         push();
 
         super.render(gui, mouseX, mouseY, partialTicks);
@@ -176,6 +212,13 @@ public class Codex extends DotScreen{
         int textY = scaleY + 3;
 
         pop();
+
+        push();
+        layer(600); // shadows
+        gui.blit(FRAME, guiLeft(), guiTop(), 0, 0, frameWidth, frameHeight, 512, 512);
+        layer(0);
+        pop();
+
         push();
             renderBackground(gui, mouseX, mouseY);
             layer(601);
@@ -186,7 +229,7 @@ public class Codex extends DotScreen{
 
         for(CodexEntry entry : CodexEntries.entries) {
             entry.renderTooltipPost(this, gui, getuOffset(), getvOffset(), guiLeft() + 8, guiTop() + 10);
-            if(Minecraft.getInstance().options.renderDebug) {
+            if(Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
                 entry.renderDebug(gui, mouseX - 160, mouseY + 15);
             }
         }
@@ -263,7 +306,7 @@ public class Codex extends DotScreen{
 
         searchBar.setX((listStartX() + 15 / 2) - 5);
         searchBar.setY(listStartY() + listHeight() + 25 + searchBar.getHeight());
-        searchBar.render(gui, mouseX, mouseY, Minecraft.getInstance().getPartialTick());
+        searchBar.render(gui, mouseX, mouseY, Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true));
         for(SidebarEntry entry : CodexEntries.sidebarEntries) {
             entry.renderTooltip(this, gui, mouseX, mouseY);
         }
@@ -274,16 +317,6 @@ public class Codex extends DotScreen{
         this.targetZoom = 1.0f;
         this.targetXOffset = (12f - entry.x) / xModifier;
         this.targetYOffset = (12f - entry.y) / yModifier;
-    }
-
-    @Override
-    public void tick(){
-        super.tick();
-        if (isSidebarDisabled()) {
-            return;
-        }
-
-        this.searchBar.tick();
     }
 
     private @NotNull String getSearchValue(){
@@ -336,35 +369,6 @@ public class Codex extends DotScreen{
                 }
             }
 
-            int patX = (int)(this.cx() - 30);
-            if(isHover(mouseX, mouseY, patX - 10, guiTop() + this.frameHeight - 15, 20, 20)){
-                String url = "https://www.patreon.com/c/IriDark";
-                Util.getPlatform().openUri(url);
-                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
-                return true;
-            }
-            
-            int progX = (int)(this.cx() + 10);
-            boolean isHost = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
-            if (isHost && isHover(mouseX, mouseY, progX - 10, guiTop() + this.frameHeight - 15, 20, 20)) {
-                BooleanConsumer callback = (confirmed) -> {
-                    if (confirmed) {
-                        PacketHandler.sendToServer(new ProgressionDisableCodexPacket());
-                    }
-                    Minecraft.getInstance().setScreen(this);
-                };
-
-                ConfirmScreen warning = new ConfirmScreen(
-                callback,
-                Component.translatable("codex.screen.valoria.codex_progression.title").withStyle(ChatFormatting.RED),
-                Component.translatable("codex.screen.valoria_progression.description_" + (ServerConfig.ENABLE_CODEX_PROGRESSION.get() ? "disable" : "enable"))
-                );
-
-                Minecraft.getInstance().setScreen(warning);
-                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
-                return true;
-            }
-            
             if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
                 CodexEntry root = CodexEntries.entries.find(e -> e.getChapter() == CodexEntries.PAGES_CHAPTER);
                 if (root != null) {
@@ -372,6 +376,7 @@ public class Codex extends DotScreen{
                 } else {
                     xOffset = 0; yOffset = 0; zoom = 1;
                 }
+
                 sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
                 return true;
             }
@@ -460,7 +465,7 @@ public class Codex extends DotScreen{
 
     private void renderSkybox(float pitch, float yaw) {
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder bufferbuilder = tesselator.getBuilder();
+        BufferBuilder bufferbuilder; // PORT NOTE: Tesselator#getBuilder is gone; begin() returns the builder and draw() consumes buildOrThrow()
 
         float aspect = (float)insideWidth / (float)insideHeight;
         Matrix4f matrix4f = (new Matrix4f()).setPerspective(1.5F, aspect, 0.05F, 10.0F);
@@ -468,11 +473,11 @@ public class Codex extends DotScreen{
         RenderSystem.backupProjectionMatrix();
         RenderSystem.setProjectionMatrix(matrix4f, VertexSorting.DISTANCE_TO_ORIGIN);
 
-        PoseStack posestack = RenderSystem.getModelViewStack();
-        posestack.pushPose();
-        posestack.setIdentity();
-        posestack.mulPose(Axis.XP.rotationDegrees(pitch));
-        posestack.mulPose(Axis.YP.rotationDegrees(yaw));
+        Matrix4fStack posestack = RenderSystem.getModelViewStack();
+        posestack.pushMatrix();
+        posestack.identity();
+        posestack.rotate(Axis.XP.rotationDegrees(pitch));
+        posestack.rotate(Axis.YP.rotationDegrees(yaw));
         RenderSystem.applyModelViewMatrix();
 
         RenderSystem.disableCull();
@@ -486,40 +491,40 @@ public class Codex extends DotScreen{
         for(int i = 0; i < 6; ++i) {
             int r = 255, g = 255, b = 255;
             RenderSystem.setShaderTexture(0, loc("textures/gui/book/skybox/panorama_" + i + ".png"));
-            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+            bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
             if (i == 0) {
-                bufferbuilder.vertex(-1.0D, -1.0D, 1.0D).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, 1.0D, 1.0D).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, 1.0D, 1.0D).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, -1.0D, 1.0D).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
+                bufferbuilder.addVertex(-1.0F, -1.0F, 1.0F).setUv(0.0F, 0.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, 1.0F, 1.0F).setUv(0.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, 1.0F, 1.0F).setUv(1.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, -1.0F, 1.0F).setUv(1.0F, 0.0F).setColor(r, g, b, 255);
             } else if (i == 1) {
-                bufferbuilder.vertex(1.0D, -1.0D, 1.0D).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, 1.0D, 1.0D).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, 1.0D, -1.0D).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, -1.0D, -1.0D).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
+                bufferbuilder.addVertex(1.0F, -1.0F, 1.0F).setUv(0.0F, 0.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, 1.0F, 1.0F).setUv(0.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, 1.0F, -1.0F).setUv(1.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, -1.0F, -1.0F).setUv(1.0F, 0.0F).setColor(r, g, b, 255);
             } else if (i == 2) {
-                bufferbuilder.vertex(1.0D, -1.0D, -1.0D).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, 1.0D, -1.0D).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, 1.0D, -1.0D).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, -1.0D, -1.0D).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
+                bufferbuilder.addVertex(1.0F, -1.0F, -1.0F).setUv(0.0F, 0.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, 1.0F, -1.0F).setUv(0.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, 1.0F, -1.0F).setUv(1.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, -1.0F, -1.0F).setUv(1.0F, 0.0F).setColor(r, g, b, 255);
             } else if (i == 3) {
-                bufferbuilder.vertex(-1.0D, -1.0D, -1.0D).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, 1.0D, -1.0D).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, 1.0D, 1.0D).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, -1.0D, 1.0D).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
+                bufferbuilder.addVertex(-1.0F, -1.0F, -1.0F).setUv(0.0F, 0.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, 1.0F, -1.0F).setUv(0.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, 1.0F, 1.0F).setUv(1.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, -1.0F, 1.0F).setUv(1.0F, 0.0F).setColor(r, g, b, 255);
             } else if (i == 4) {
-                bufferbuilder.vertex(-1.0D, 1.0D, 1.0D).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, 1.0D, -1.0D).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, 1.0D, -1.0D).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, 1.0D, 1.0D).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
+                bufferbuilder.addVertex(-1.0F, 1.0F, 1.0F).setUv(0.0F, 0.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, 1.0F, -1.0F).setUv(0.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, 1.0F, -1.0F).setUv(1.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, 1.0F, 1.0F).setUv(1.0F, 0.0F).setColor(r, g, b, 255);
             } else {
-                bufferbuilder.vertex(-1.0D, -1.0D, -1.0D).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(-1.0D, -1.0D, 1.0D).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, -1.0D, 1.0D).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
-                bufferbuilder.vertex(1.0D, -1.0D, -1.0D).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
+                bufferbuilder.addVertex(-1.0F, -1.0F, -1.0F).setUv(0.0F, 0.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(-1.0F, -1.0F, 1.0F).setUv(0.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, -1.0F, 1.0F).setUv(1.0F, 1.0F).setColor(r, g, b, 255);
+                bufferbuilder.addVertex(1.0F, -1.0F, -1.0F).setUv(1.0F, 0.0F).setColor(r, g, b, 255);
             }
 
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
         }
 
         RenderSystem.enableCull();
@@ -527,7 +532,7 @@ public class Codex extends DotScreen{
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
 
-        posestack.popPose();
+        posestack.popMatrix();
         RenderSystem.applyModelViewMatrix();
         RenderSystem.restoreProjectionMatrix();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

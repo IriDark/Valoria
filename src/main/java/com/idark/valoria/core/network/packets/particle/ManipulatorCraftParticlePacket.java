@@ -3,17 +3,24 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.util.function.*;
+public class ManipulatorCraftParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<ManipulatorCraftParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("manipulator_craft_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ManipulatorCraftParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), ManipulatorCraftParticlePacket::decode);
 
-public class ManipulatorCraftParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
 
     private final double posX;
     private final double posY;
@@ -42,9 +49,9 @@ public class ManipulatorCraftParticlePacket{
         return new ManipulatorCraftParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(ManipulatorCraftParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(ManipulatorCraftParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 Vec3 particlePos = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
                 ParticleBuilder.create(TridotParticles.WISP)
@@ -90,7 +97,6 @@ public class ManipulatorCraftParticlePacket{
                         .setLifetime(12)
                         .setVelocity(0, 0.025f, 0)
                         .spawn(pLevel, particlePos4.x, particlePos4.y, particlePos4.z);
-                ctx.get().setPacketHandled(true);
             });
         }
     }

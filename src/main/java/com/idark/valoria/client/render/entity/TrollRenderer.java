@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.model.render.entity.*;
 
 @OnlyIn(Dist.CLIENT)

@@ -1,12 +1,16 @@
 package com.idark.valoria.registries.block.types.plants;
 
 import com.idark.valoria.registries.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
 
 public class CaveRootPlantBlock extends GrowingPlantBodyBlock{
+    public static final MapCodec<CaveRootPlantBlock> CODEC = simpleCodec(CaveRootPlantBlock::new);
+    @Override protected MapCodec<? extends CaveRootPlantBlock> codec(){ return CODEC; }
+
     public static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
     public CaveRootPlantBlock(BlockBehaviour.Properties p_154975_){

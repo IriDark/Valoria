@@ -1,14 +1,10 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
 
-import javax.annotation.Nullable;
-import java.util.List;
+import java.util.*;
 
 public class DescriptionBlock extends Block{
     public MutableComponent pTooltip;
@@ -18,8 +14,9 @@ public class DescriptionBlock extends Block{
         this.pTooltip = pTooltip;
     }
 
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag){
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+    @Override
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag){
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
         pTooltip.add(this.pTooltip);
     }
 }

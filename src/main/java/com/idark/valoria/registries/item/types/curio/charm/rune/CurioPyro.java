@@ -20,7 +20,7 @@ public class CurioPyro extends AbstractRuneItem{
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack){
         super.onEquip(slotContext, prevStack, stack);
         if (slotContext.entity() instanceof Player player) {
-            player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magma -> {
+            IMagmaLevel.of(player).ifPresent(magma -> {
                 magma.addMaxAmount(player, time);
             });
         }
@@ -29,7 +29,7 @@ public class CurioPyro extends AbstractRuneItem{
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         if (slotContext.entity() instanceof Player player) {
-            player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magma -> {
+            IMagmaLevel.of(player).ifPresent(magma -> {
                 magma.decreaseMaxAmount(player,time);
             });
         }

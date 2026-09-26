@@ -5,10 +5,10 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
 import pro.komaru.tridot.client.*;
 
 import java.util.function.*;
@@ -28,7 +28,7 @@ public class BossTrophyItemRenderer extends BlockEntityWithoutLevelRenderer{
             if(blockItem.getBlock() instanceof BossTrophyBlock trophy) {
                 if(trophy.getEntity() != null){
                     var tag = new CompoundTag();
-                    tag.putString("id", ForgeRegistries.ENTITY_TYPES.getKey(trophy.getEntity().get()).toString());
+                    tag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(trophy.getEntity().get()).toString());
                     displayed = EntityType.loadEntityRecursive(tag, mc.level, Function.identity());
                 }
             }
@@ -39,7 +39,7 @@ public class BossTrophyItemRenderer extends BlockEntityWithoutLevelRenderer{
             poseStack.pushPose();
 
             poseStack.translate(0.5, 0.5, 0.5);
-            float ticks = (ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) % 360;
+            float ticks = (ClientTick.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true)) % 360;
             poseStack.translate(0, Math.sin(Math.toRadians(ticks)) * 0.05, 0);
             poseStack.mulPose(Axis.YP.rotationDegrees(ticks));
 
@@ -48,7 +48,7 @@ public class BossTrophyItemRenderer extends BlockEntityWithoutLevelRenderer{
             if (max > 1.0f) scale /= max;
             poseStack.scale(scale, scale, scale);
 
-            Minecraft.getInstance().getEntityRenderDispatcher().render(displayed, 0, 0, 0, 0, Minecraft.getInstance().getPartialTick(),
+            Minecraft.getInstance().getEntityRenderDispatcher().render(displayed, 0, 0, 0, 0, Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true),
             poseStack, buffer, light);
 
             poseStack.popPose();

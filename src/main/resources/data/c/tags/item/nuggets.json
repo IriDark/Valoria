@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:nuggets/bronze",
+      "required": false
+    },
+    {
+      "id": "#c:nuggets/cobalt",
+      "required": false
+    },
+    {
+      "id": "#c:nuggets/black_gold",
+      "required": false
+    }
+  ]
+}

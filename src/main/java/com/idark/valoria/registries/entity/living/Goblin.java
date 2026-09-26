@@ -4,7 +4,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
-import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
@@ -81,7 +80,7 @@ public class Goblin extends AbstractGoblin{
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         if(arcRandom.chance(0.3f)){
             ItemStack equipItem = ValoriaUtils.getRandomItemFromTag(pRandom, TagsRegistry.GOBLIN_SPAWNABLE_WITH);
-            this.setItemSlot(LivingEntity.getEquipmentSlotForItem(equipItem), equipItem);
+            this.setItemSlot(this.getEquipmentSlotForItem(equipItem), equipItem);
         }
     }
 
@@ -129,9 +128,9 @@ public class Goblin extends AbstractGoblin{
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 }

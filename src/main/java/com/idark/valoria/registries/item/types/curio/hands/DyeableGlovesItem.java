@@ -4,7 +4,7 @@ import com.idark.valoria.core.interfaces.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
-public class DyeableGlovesItem extends GlovesItem implements ICurioItem, ICurioTexture, DyeableLeatherItem, Vanishable{
+public class DyeableGlovesItem extends GlovesItem implements ICurioItem, ICurioTexture, DyeableItem{
     public DyeableGlovesItem(DyeableBuilder builder){
         super(builder);
     }

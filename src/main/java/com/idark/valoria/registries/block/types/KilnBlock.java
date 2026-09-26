@@ -1,13 +1,13 @@
 package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.registries.block.entity.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
@@ -25,6 +25,9 @@ import pro.komaru.tridot.common.registry.block.entity.*;
 import javax.annotation.*;
 
 public class KilnBlock extends BaseEntityBlock implements SimpleWaterloggedBlock{
+    public static final MapCodec<KilnBlock> CODEC = simpleCodec(KilnBlock::new);
+    @Override protected MapCodec<? extends KilnBlock> codec(){ return CODEC; }
+
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public KilnBlock(Properties pProperties){
@@ -52,7 +55,17 @@ public class KilnBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         if (pLevel.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
@@ -82,18 +95,6 @@ public class KilnBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new KilnBlockEntity(pPos, pState);
-    }
-
-    /**
-     * Called by BlockItem after this block has been placed.
-     */
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, LivingEntity pPlacer, ItemStack pStack) {
-        if (pStack.hasCustomHoverName()) {
-            BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-            if (blockentity instanceof KilnBlockEntity) {
-                ((KilnBlockEntity)blockentity).setCustomName(pStack.getHoverName());
-            }
-        }
     }
 
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {

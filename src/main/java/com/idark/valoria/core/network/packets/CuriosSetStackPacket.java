@@ -1,8 +1,11 @@
 package com.idark.valoria.core.network.packets;
 
+import com.idark.valoria.*;
 import com.idark.valoria.core.network.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
@@ -10,20 +13,27 @@ import top.theillusivec4.curios.api.type.capability.*;
 import top.theillusivec4.curios.api.type.inventory.*;
 
 public class CuriosSetStackPacket extends RateLimitedPacket{
+    public static final CustomPacketPayload.Type<CuriosSetStackPacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("curios_set_stack_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CuriosSetStackPacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> CuriosSetStackPacket.encode(msg, buf), CuriosSetStackPacket::decode);
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final ItemStack stack;
 
     public CuriosSetStackPacket(ItemStack stack){
         this.stack = stack.copy();
     }
 
-    public static CuriosSetStackPacket decode(FriendlyByteBuf buf){
-        return new CuriosSetStackPacket(buf.readItem());
+    public static CuriosSetStackPacket decode(RegistryFriendlyByteBuf buf){
+        return new CuriosSetStackPacket(ItemStack.OPTIONAL_STREAM_CODEC.decode(buf));
     }
 
     public void execute(ServerPlayer player){
         ItemStack toEquip = ItemStack.EMPTY;
         for(ItemStack item : player.getInventory().items){
-            if(!item.isEmpty() && item.equals(this.stack, false)){
+            if(!item.isEmpty() && ItemStack.isSameItemSameComponents(item, this.stack)){ // PORT NOTE: Forge's ItemStack#equals(ItemStack, boolean) is gone
                 toEquip = item;
                 break;
             }
@@ -57,7 +67,7 @@ public class CuriosSetStackPacket extends RateLimitedPacket{
 
     private boolean tryEquipOrReplace(ItemStack toEquip, ICurio curio, ServerPlayer player, ItemStack currentStack, SlotContext slotContext, IDynamicStackHandler stackHandler, int i){
         if (!currentStack.isEmpty()) {
-            if (!ItemStack.isSameItemSameTags(currentStack, toEquip) && currentStack.getItem() instanceof ICurioItem currentCurioItem && currentCurioItem.canUnequip(slotContext, currentStack)) {
+            if (!ItemStack.isSameItemSameComponents(currentStack, toEquip) && currentStack.getItem() instanceof ICurioItem currentCurioItem && currentCurioItem.canUnequip(slotContext, currentStack)) {
                 doSwap(curio, currentCurioItem, toEquip, currentStack, stackHandler, i, slotContext, player);
                 return true;
             }
@@ -83,7 +93,7 @@ public class CuriosSetStackPacket extends RateLimitedPacket{
         doEquip(curio, toEquip, stackHandler, i, ctx, player);
     }
 
-    public static void encode(CuriosSetStackPacket msg, FriendlyByteBuf buffer){
-        buffer.writeItem(msg.stack);
+    public static void encode(CuriosSetStackPacket msg, RegistryFriendlyByteBuf buffer){
+        ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, msg.stack);
     }
 }

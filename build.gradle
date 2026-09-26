@@ -4,31 +4,14 @@ import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 import java.nio.charset.StandardCharsets
 
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-        maven { url = 'https://maven.parchmentmc.org' }
-    }
-
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-        classpath 'org.parchmentmc:librarian:1.+'
-    }
-}
-
 plugins {
+    id 'java-library'
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'net.neoforged.moddev' version '2.0.147'
     id "com.modrinth.minotaur" version "2.+"
-    id 'org.spongepowered.mixin' version '[0.7,0.8)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'net.darkhax.curseforgegradle' version '1.1.15'
+    id 'net.darkhax.curseforgegradle' version '1.1.26'
 }
 
 version = "${version}"
@@ -37,73 +20,65 @@ base {
     archivesName = project.name
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 sourceSets {
     main {
-        resources { srcDir 'src/generated/resources' }
-    }
-
-    client {
-        compileClasspath += sourceSets.main.compileClasspath
-        runtimeClasspath += sourceSets.main.runtimeClasspath
+        resources {
+            srcDir 'src/generated/resources'
+            exclude("**/*.bbmodel")
+            exclude("src/generated/**/.cache")
+        }
     }
 }
 
-minecraft {
-    mappings channel: 'parchment', version: '2023.09.03-1.20.1'
-    copyIdeResources = true
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+neoForge {
+    version = project.neo_version
+    parchment {
+        minecraftVersion = project.parchment_minecraft_version
+        mappingsVersion = project.parchment_mappings_version
+    }
+
     runs {
         configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            jvmArg "-Dmixin.env.disableRefMap=true"
-            mods {
-                valoria {
-                    source sourceSets.main
-                }
-            }
+            gameDirectory = project.file('run')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'valoria'
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
         }
 
         client {
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            property 'forge.enabledGameTestNamespaces', "valoria"
-            ideaModule "${project.name}.client.main"
-            mods {
-                valoria {
-                    source sourceSets.main
-                    source sourceSets.client
-                }
-            }
+            client()
         }
 
         client1 {
-            parent runs.client
-            args "--username", "IriDark_"
+            client()
+            programArguments.addAll '--username', 'IriDark_'
         }
 
         server {
-            property 'forge.enabledGameTestNamespaces', "valoria"
+            server()
+            programArgument '--nogui'
         }
 
         gameTestServer {
-            property 'forge.enabledGameTestNamespaces', "valoria"
+            type = 'gameTestServer'
         }
 
         data {
-            workingDirectory project.file('run-data')
-            args '--mod', 'valoria', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            data()
+            gameDirectory = project.file('run-data')
+            programArguments.addAll '--mod', 'valoria', '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath()
         }
     }
-}
 
-mixin {
-    add sourceSets.main, "valoria.refmap.json"
-    config "valoria.mixins.json"
-    dumpTargetOnFailure true
+    mods {
+        "valoria" {
+            sourceSet sourceSets.main
+        }
+    }
 }
 
 repositories {
@@ -121,11 +96,14 @@ repositories {
     maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
     }
     maven { url = "https://repo.komaru.studio/releases" }
-    maven { url "https://maven.theillusivec4.top/"}
-    maven { url "https://cursemaven.com"}
-    maven { url "https://maven.blamejared.com"}
+    maven { url "https://maven.theillusivec4.top/" }
+    maven { url "https://cursemaven.com" }
+    maven { url "https://maven.blamejared.com" }
     maven {
         url = "https://maven.architectury.dev"
         content {
@@ -140,43 +118,40 @@ repositories {
             includeGroup "dev.latvian.apps"
         }
     }
+    maven {
+        url "https://jitpack.io"
+        content {
+            includeGroup "com.github.rtyley"
+        }
+    }
+}
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    implementation "pro.komaru:Tridot:${minecraft_version}-${tridot_version}"
+    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
 
-    // API's
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
-    runtimeOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}")
-    compileOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}:api")
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
-    implementation("com.eliotlash.mclib:mclib:20")
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    implementation "maven.modrinth:jade:${jade_version}"
+    implementation "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+    implementation "dev.latvian.mods:rhino:${rhino_version}"
+    implementation "dev.architectury:architectury-neoforge:${architectury_version}"
+    implementation "maven.modrinth:mmmmmmmmmmmm:${dummmmmmy_version}"
+    runtimeOnly "maven.modrinth:moonlight:${moonlight_version}"
+    implementation "maven.modrinth:just-enough-resources-jer:${jer_version}"
 
-    runtimeOnly fg.deobf("curse.maven:spark-361579:4738952")
-
-    // COMPAT
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    implementation fg.deobf("curse.maven:jade-324717:4986594")
-    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
-    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
-    implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
-    implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:6608233")
-    implementation fg.deobf("curse.maven:selene-499980:6740431")
-    implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:5057220")
-    runtimeOnly fg.deobf("curse.maven:just-enough-repair-materials-1241244:6415175")
-    runtimeOnly fg.deobf("curse.maven:cyanide-541676:5778405")
-    runtimeOnly fg.deobf("curse.maven:obscure-api-638417:4616364")
-
-    //clientRuntimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
-    clientRuntimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
-    clientRuntimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
-    clientRuntimeOnly fg.deobf("curse.maven:obscure-tooltips-715660:4686579")
-    clientRuntimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
-    clientRuntimeOnly fg.deobf("curse.maven:detailed-enchantments-1401816:8431077")
-    clientRuntimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
+    localRuntime "curse.maven:obscure-tooltips-715660:8922038"
+    localRuntime "curse.maven:fragmentum-neoforge-1123977:8921953"
+    localRuntime "curse.maven:just-enough-repair-materials-1241244:8706349"
+    localRuntime "curse.maven:sodium-394468:6382651"
+    localRuntime "curse.maven:irisshaders-455508:6661598"
 }
 
 jar {
@@ -187,8 +162,7 @@ jar {
                     "Implementation-Title"    : project.name,
                     "Implementation-Version"  : project.version,
                     "Implementation-Vendor"   : "IriDark",
-                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                    "MixinConfigs": "valoria.mixins.json"],)
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
 }
 
@@ -221,7 +195,7 @@ task updateResources {
         }
 
         File[] otherLangs = langFolder.listFiles( (FileFilter) (f) -> {return f != mainLangJson && f.isFile() && f.getName().endsWith(".json")})
-        println "\u001B[32m- Comparing langs with:\u001B[0m " + mainLangJson.getName()
+        println "[32m- Comparing langs with:[0m " + mainLangJson.getName()
         for (final File otherLang in otherLangs) {
             println "Processing file: " + otherLang.getName()
             try{
@@ -243,16 +217,15 @@ task updateResources {
                 OutputStreamWriter writer = createOutput(otherLang)
                 gson.toJson(LANG, LinkedHashMap.class, writer)
                 writer.close()
-                println "\u001B[32m- Compared lang file\u001B[0m " + "\u001B[36m" + otherLang.getName() + "\u001B[0m"
+                println "[32m- Compared lang file[0m " + "[36m" + otherLang.getName() + "[0m"
             } catch (Exception e) {
-                println "\u001B[31mError processing file: " + otherLang.getName() + "\u001B[0m"
+                println "[31mError processing file: " + otherLang.getName() + "[0m"
                 throw e;
             }
         }
     }
 }
 
-jar.finalizedBy('reobfJar')
 tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
@@ -287,6 +260,19 @@ task javadocJar(type: Jar) {
 
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range,
+            tridot_version_range   : tridot_version_range,
+            mod_version            : version
+    ]
+    inputs.properties replaceProperties
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
 }
 
 publishing {
@@ -310,6 +296,7 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.compilerArgs.addAll(['-Xmaxerrs', '10000'])
 }
 
 def getChangelogText() {
@@ -319,7 +306,7 @@ def getChangelogText() {
     def lines = changelogFile.readLines()
     def currentLog = new StringBuilder()
     def reading = false
-    def cleanVersion = version.toString().replace("1.20.1-", "")
+    def cleanVersion = version.toString().replace("${minecraft_version}-", "")
     for (line in lines) {
         def trimmed = line.trim()
         if (trimmed.startsWith("#") && !trimmed.contains("**")) {
@@ -348,10 +335,10 @@ task curseforge(type: TaskPublishCurseForge) {
     mainFile.gameVersions = ["Server", "Client"]
     mainFile.changelog = getChangelogText()
 
-    mainFile.addGameVersion("1.20.1")
-    mainFile.addModLoader("Forge")
+    // PORT NOTE: this build targets NeoForge 1.21.1 / Java 21 only.
+    mainFile.addGameVersion("${minecraft_version}")
     mainFile.addModLoader("NeoForge")
-    mainFile.addJavaVersion("Java 17")
+    mainFile.addJavaVersion("Java 21")
 
     mainFile.addRequirement("tridot")
     mainFile.addRequirement("geckolib")
@@ -363,15 +350,24 @@ task curseforge(type: TaskPublishCurseForge) {
 modrinth {
     token = System.getenv("modrinthtoken")
     projectId = "valoria"
-    versionNumber = version.toString().replace("1.20.1-", "");
+    versionNumber = version.toString().replace("${minecraft_version}-", "");
     versionType = "release"
     versionName = "Valoria-${version}"
     changelog = getChangelogText()
     uploadFile = tasks.jar
     additionalFiles = [noMusicJar]
+    loaders = ["neoforge"]
+    gameVersions = ["${minecraft_version}"]
     dependencies {
-        required.version "tridot", "1.20.1-"+"${tridot_version}"
+        required.version "tridot", "${minecraft_version}-" + "${tridot_version}"
         required.project "geckolib"
         required.project "curios"
+    }
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
 }

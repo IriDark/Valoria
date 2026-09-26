@@ -1,0 +1,17 @@
+{
+  "type": "jeed:potion_provider",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "jeed"
+    }
+  ],
+  "providers": [
+    {
+      "item": "minecraft:splash_potion"
+    },
+    {
+      "item": "minecraft:tipped_arrow"
+    }
+  ]
+}

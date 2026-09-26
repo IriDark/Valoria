@@ -8,7 +8,7 @@
     {
       "condition": "tridot:mob_effect",
       "effect": "valoria:sinister_prediction",
-      "target": "killer"
+      "target": "attacker"
     }
   ],
   "item": "valoria:candy_corn"

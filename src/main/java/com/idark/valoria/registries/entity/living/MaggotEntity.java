@@ -57,9 +57,9 @@ public class MaggotEntity extends Monster{
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TYPE, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(TYPE, 0);
     }
 
     public void setType(Variant variant) {
@@ -112,13 +112,7 @@ public class MaggotEntity extends Monster{
     /**
     * Returns the Y Offset of this entity.
     */
-   public double getMyRidingOffset() {
-      return 0.1D;
-   }
 
-   protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
-      return 0.13F;
-   }
 
    protected Entity.MovementEmission getMovementEmission() {
       return Entity.MovementEmission.EVENTS;
@@ -156,7 +150,4 @@ public class MaggotEntity extends Monster{
       super.setYBodyRot(pOffset);
    }
 
-   public MobType getMobType() {
-      return MobType.ARTHROPOD;
-   }
 }

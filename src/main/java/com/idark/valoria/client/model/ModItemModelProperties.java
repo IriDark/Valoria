@@ -1,5 +1,8 @@
 package com.idark.valoria.client.model;
 
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.player.*;
@@ -8,32 +11,27 @@ import net.minecraft.world.item.*;
 public class ModItemModelProperties{
 
     public static void makeShield(Item item) {
-        ItemProperties.register(item, new ResourceLocation("blocking"), (p_174575_, p_174576_, p_174577_, p_174578_) -> p_174577_ != null && p_174577_.isUsingItem() && p_174577_.getUseItem() == p_174575_ ? 1.0F : 0.0F);
+        ItemProperties.register(item, ResourceLocation.parse("blocking"), (p_174575_, p_174576_, p_174577_, p_174578_) -> p_174577_ != null && p_174577_.isUsingItem() && p_174577_.getUseItem() == p_174575_ ? 1.0F : 0.0F);
     }
 
     public static void makeNight(Item item){
-        ItemProperties.register(item, new ResourceLocation("night"), (stack, clientWorld, livingEntity, player) -> stack.getOrCreateTag().getBoolean("IsDarkActive") ? 1 : 0);
+        ItemProperties.register(item, ResourceLocation.parse("night"), (stack, clientWorld, livingEntity, player) -> EyeNecklaceItem.isDarkActive(stack) ? 1 : 0);
     }
 
     public static void makeEyeState(Item item){
-        ItemProperties.register(item, new ResourceLocation("valoria", "eye_state"), (stack, clientWorld, livingEntity, player) -> {
-            if (stack.hasTag()) {
-                return (float) stack.getTag().getInt("EyeState");
-            }
-            return 0.0F;
-        });
+        ItemProperties.register(item, ResourceLocation.fromNamespaceAndPath("valoria", "eye_state"), (stack, clientWorld, livingEntity, player) -> (float)EyeNecklaceItem.getEyeState(stack));
     }
 
     public static void makeSize(Item item){
-        ItemProperties.register(item, new ResourceLocation("size"), (sizedStack, clientWorld, livingEntity, player) -> sizedStack.getCount());
+        ItemProperties.register(item, ResourceLocation.parse("size"), (sizedStack, clientWorld, livingEntity, player) -> sizedStack.getCount());
     }
 
     public static void makeSouls(Item item){
-        ItemProperties.register(item, new ResourceLocation("souls"), (stack, clientWorld, livingEntity, player) -> stack.getOrCreateTag().getInt("Souls"));
+        ItemProperties.register(item, ResourceLocation.parse("souls"), (stack, clientWorld, livingEntity, player) -> DataComponentsRegistry.getInt(stack, DataComponentsRegistry.SOULS.get(), ISoulItem.LEGACY_KEY));
     }
 
     public static void makeCooldown(Item item){
-        ItemProperties.register(item, new ResourceLocation("itemcooldown"), (stack, clientWorld, livingEntity, player) -> {
+        ItemProperties.register(item, ResourceLocation.parse("itemcooldown"), (stack, clientWorld, livingEntity, player) -> {
             if(livingEntity instanceof Player p){
                 return p.getCooldowns().isOnCooldown(item) ? 1.0F : 0.0F;
             }

@@ -72,7 +72,16 @@ public abstract class AbstractBossAltar extends Block implements EntityBlock, Si
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         AbstractAltarBlockEntity tile = (AbstractAltarBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand).copy();
         if(!tile.canSummon(world)) return InteractionResult.PASS;

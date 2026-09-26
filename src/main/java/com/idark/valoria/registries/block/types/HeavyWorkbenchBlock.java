@@ -1,6 +1,8 @@
 package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.util.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -18,11 +20,13 @@ import net.minecraft.world.level.border.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.network.*;
 
 import javax.annotation.*;
 
 public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
+    public static final MapCodec<HeavyWorkbenchBlock> CODEC = simpleCodec(HeavyWorkbenchBlock::new);
+    @Override protected MapCodec<? extends HeavyWorkbenchBlock> codec(){ return CODEC; }
+
     public static final EnumProperty<WorkbenchPart> PART = EnumProperty.create("part", WorkbenchPart.class);
     private static final Component CONTAINER_TITLE = Component.translatable("menu.valoria.heavy_workbench");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -119,12 +123,22 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
         return makeShape(state);
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         if(pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }else{
             if(pPlayer instanceof ServerPlayer serverPlayer) {
-                NetworkHooks.openScreen(serverPlayer, getMenuProvider(pState, pLevel, pPos), buf -> {
+                serverPlayer.openMenu(getMenuProvider(pState, pLevel, pPos), buf -> {
                     buf.writeBlockPos(pPos);
                 });
             }
@@ -151,7 +165,7 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
         return RenderShape.MODEL;
     }
 
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
+    public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
         if(!pLevel.isClientSide){
             WorkbenchPart part = pState.getValue(PART);
             Direction facing = pState.getValue(FACING);
@@ -190,7 +204,7 @@ public class HeavyWorkbenchBlock extends HorizontalDirectionalBlock implements S
                 pLevel.destroyBlock(mainPos.relative(facing.getCounterClockWise()).above(), !pPlayer.isCreative());
             }
         }
-        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+        return super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack){

@@ -1,23 +1,12 @@
 package com.idark.valoria.registries.level.tree;
 
-import com.idark.valoria.registries.level.LevelGen;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.AbstractMegaTreeGrower;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.Nullable;
+import com.idark.valoria.registries.level.*;
+import net.minecraft.world.level.block.grower.*;
 
-public class EldritchTree extends AbstractMegaTreeGrower{
+import java.util.*;
 
-    @Nullable
-    @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource pRandom, boolean pHasFlowers){
-        return LevelGen.ELDRITCH_TREE;
-    }
+public final class EldritchTree{
+    public static final TreeGrower INSTANCE = new TreeGrower("valoria:eldritch", Optional.of(LevelGen.FANCY_ELDRITCH_TREE), Optional.of(LevelGen.ELDRITCH_TREE), Optional.empty());
 
-    @Nullable
-    @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource pRandom){
-        return LevelGen.FANCY_ELDRITCH_TREE;
-    }
+    private EldritchTree(){}
 }

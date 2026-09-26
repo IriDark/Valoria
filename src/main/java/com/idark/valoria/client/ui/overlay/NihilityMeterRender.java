@@ -12,9 +12,9 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.client.event.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.*;
 import pro.komaru.tridot.util.math.*;
@@ -28,9 +28,10 @@ public class NihilityMeterRender extends Gui{
     private long counter = DISPLAY_DURATION;
     private static float previousAmount = 0F;
     private static float actualPreviousAmount = 0f;
+    private final Minecraft minecraft = Minecraft.getInstance();
 
     public NihilityMeterRender(){
-        super(Minecraft.getInstance(), Minecraft.getInstance().getItemRenderer());
+        super(Minecraft.getInstance());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -40,7 +41,7 @@ public class NihilityMeterRender extends Gui{
         GuiGraphics gui = event.getGuiGraphics();
         Player player = Minecraft.getInstance().player;
         if(player == null || !ValoriaUtils.isEquippedCurio(m -> m.is(ItemsRegistry.nihilityMonitor.get()), player)) return;
-        player.getCapability(INihilityLevel.INSTANCE).ifPresent((n) -> {
+        INihilityLevel.of(player).ifPresent((n) -> {
             float clientAmount = n.getAmount();
             boolean isShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || clientAmount > 0;
             if(isShown){
@@ -91,7 +92,7 @@ public class NihilityMeterRender extends Gui{
         RenderSystem.setShaderColor(1f,1f,1f,a);
         gui.blit(TEXTURE, xMargin, yCord, getuOffset(progress), 0, 20, 59, 128, 128); // base
         if (progress >= 0) {
-            float elapsed = ClientTick.ticksInGame - counter + Minecraft.getInstance().getPartialTick();
+            float elapsed = ClientTick.ticksInGame - counter + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
             float progress2 = Mathf.clamp((elapsed - 20f) / Math.abs(progress-prevProgress) / 1.5f);
             if(isHiding) progress2 = 1f;
 
@@ -126,7 +127,7 @@ public class NihilityMeterRender extends Gui{
     }
 
     private float getScale() {
-        float timeElapsed = ClientTick.ticksInGame - counter + Minecraft.getInstance().getPartialTick();
+        float timeElapsed = ClientTick.ticksInGame - counter + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
         float animationProgress = Mth.clamp(timeElapsed / animTime, 0.0F, 1.0F);
         Interp interp = Interp.smoother;
         float scale = interp.apply(animationProgress);
@@ -137,7 +138,7 @@ public class NihilityMeterRender extends Gui{
     }
 
     private void animate(GuiGraphics gui, int xMargin, int yCord){
-        float timeElapsed = ClientTick.ticksInGame - counter + Minecraft.getInstance().getPartialTick();
+        float timeElapsed = ClientTick.ticksInGame - counter + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
         float animationProgress = Mth.clamp(timeElapsed / animTime, 0.0F, 1.0F);
         Interp interp = Interp.smoother;
         float scale = interp.apply(animationProgress);

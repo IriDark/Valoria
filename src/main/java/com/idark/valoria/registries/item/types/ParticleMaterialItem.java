@@ -9,7 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.*;
@@ -22,18 +22,24 @@ import pro.komaru.tridot.client.render.gui.particle.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
+import java.util.function.*;
+
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
 public class ParticleMaterialItem extends Item implements ParticleItemEntity, IGuiRenderItem, IGUIParticleItem{
-    public ParticleType<?> particle;
+    public Supplier<? extends ParticleType<?>> particle;
     public ColorParticleData color;
     public float alpha;
 
-    public ParticleMaterialItem(Properties pProperties, float alpha, ColorParticleData color, ParticleType<?> particle){
+    public ParticleMaterialItem(Properties pProperties, float alpha, ColorParticleData color, java.util.function.Supplier<? extends ParticleType<?>> particle){
         super(pProperties);
         this.alpha = alpha;
         this.color = color;
         this.particle = particle;
+    }
+
+    public ParticleMaterialItem(Properties pProperties, float alpha, ColorParticleData color, ParticleType<?> particle){
+        this(pProperties, alpha, color, () -> particle);
     }
 
     public ParticleMaterialItem(Properties pProperties, ColorParticleData color){
@@ -42,10 +48,14 @@ public class ParticleMaterialItem extends Item implements ParticleItemEntity, IG
         this.color = color;
     }
 
+    public ParticleType<?> getParticle(){
+        return particle == null ? null : particle.get();
+    }
+
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles(Level level, ItemEntity entity){
-        spawnItemParticles(level, entity, particle, color);
+        spawnItemParticles(level, entity, getParticle(), color);
     }
 
     @Override

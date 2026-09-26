@@ -64,7 +64,7 @@ public class MerchantTrades{
         }
 
         public MerchantOffer getOffer(Entity pTrader, RandomSource pRandom){
-            return new MerchantOffer(new ItemStack(this.currencyStack.getItem(), this.currencyCount), new ItemStack(this.soldStack.getItem(), this.numberOfItems), this.maxUses, this.experience, this.priceMultiplier);
+            return new MerchantOffer(new ItemCost(this.currencyStack.getItem(), this.currencyCount), new ItemStack(this.soldStack.getItem(), this.numberOfItems), this.maxUses, this.experience, this.priceMultiplier);
         }
     }
 }

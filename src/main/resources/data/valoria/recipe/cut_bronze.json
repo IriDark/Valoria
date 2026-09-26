@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:bronze_block"
+  },
+  "result": {
+    "id": "valoria:cut_bronze",
+    "count": 2
+  }
+}

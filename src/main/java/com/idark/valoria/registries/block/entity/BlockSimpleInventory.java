@@ -10,7 +10,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.items.*;
 
 public abstract class BlockSimpleInventory extends BlockEntity{
     private final SimpleContainer itemHandler = createItemHandler();
@@ -32,7 +31,7 @@ public abstract class BlockSimpleInventory extends BlockEntity{
             addPlayerItem(level, player, addStack);
         } else if (stack.isEmpty()) {
             player.setItemInHand(hand, addStack.copy());
-        } else if (ItemHandlerHelper.canItemStacksStack(stack, addStack) && (stack.getCount() + addStack.getCount() <= addStack.getMaxStackSize())) {
+        } else if (ItemStack.isSameItemSameComponents(stack, addStack) && (stack.getCount() + addStack.getCount() <= addStack.getMaxStackSize())) { // PORT NOTE: ItemHandlerHelper.canItemStacksStack removed
             stack.setCount(stack.getCount() + addStack.getCount());
             player.setItemInHand(hand, stack);
         } else {
@@ -57,16 +56,16 @@ public abstract class BlockSimpleInventory extends BlockEntity{
     }
 
     @Override
-    public void load(CompoundTag tag){
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries){
         NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, tmp);
+        ContainerHelper.loadAllItems(tag, tmp, registries);
         copyToInv(tmp, itemHandler);
-        super.load(tag);
+        super.loadAdditional(tag, registries);
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag){
-        ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler));
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries){
+        ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler), registries);
     }
 
     public final int inventorySize(){

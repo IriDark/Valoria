@@ -1,0 +1,12 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": {"item": "valoria:ancient_ingot"}, "count": 6 },
+    { "ingredient": {"item": "minecraft:string"}, "count": 3 }
+  ],
+  "result": {
+    "item": "valoria:samurai_long_bow",
+    "count": 1
+  }
+}

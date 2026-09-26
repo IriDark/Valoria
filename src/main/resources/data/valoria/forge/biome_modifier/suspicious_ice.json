@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_cold/overworld",
-  "features": "valoria:suspicious_ice",
-  "step": "top_layer_modification"
-}

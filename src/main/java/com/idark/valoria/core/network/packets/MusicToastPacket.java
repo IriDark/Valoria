@@ -5,16 +5,24 @@ import com.idark.valoria.client.ui.toast.*;
 import com.idark.valoria.core.config.*;
 import net.minecraft.client.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.network.handling.*;
 
 import java.util.*;
-import java.util.function.*;
 
-public class MusicToastPacket {
+public class MusicToastPacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<MusicToastPacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("music_toast_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, MusicToastPacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> MusicToastPacket.encode(msg, buf), MusicToastPacket::decode);
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final UUID uuid;
     public String music;
     public String author;
@@ -47,9 +55,8 @@ public class MusicToastPacket {
         return new MusicToastPacket(buffer.readUUID(), buffer.readUtf(), buffer.readUtf());
     }
 
-    public static void handle(MusicToastPacket packet, Supplier<NetworkEvent.Context> ctx){
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void handle(MusicToastPacket packet, IPayloadContext ctx){
+        ctx.enqueueWork(() -> {
 
             Level world = Valoria.proxy.getLevel();
             Player player = world.getPlayerByUUID(packet.uuid);
@@ -57,8 +64,6 @@ public class MusicToastPacket {
                 toast(packet);
             }
         });
-
-        ctx.get().setPacketHandled(true);
     }
 
     @OnlyIn(Dist.CLIENT)

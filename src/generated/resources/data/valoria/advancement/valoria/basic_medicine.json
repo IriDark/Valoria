@@ -1,0 +1,37 @@
+{
+  "parent": "valoria:valoria/first_help",
+  "criteria": {
+    "bandage": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:aloe_bandage_upgraded"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.basic_medicine.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "valoria:aloe_bandage_upgraded"
+    },
+    "title": {
+      "translate": "advancements.valoria.basic_medicine.title"
+    }
+  },
+  "requirements": [
+    [
+      "bandage"
+    ]
+  ],
+  "rewards": {
+    "experience": 80
+  },
+  "sends_telemetry_event": true
+}

@@ -1,41 +1,39 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.*;
 import com.idark.valoria.registries.item.types.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.items.*;
+import net.neoforged.neoforge.items.*;
 import org.jetbrains.annotations.*;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.*;
 
-public class SoulInfuserRecipe implements Recipe<Container>{
+public class SoulInfuserRecipe implements Recipe<ContainerRecipeInput>{
+    private final ItemStack ingredientStack;
     private final Ingredient input;
     private final ItemStack output;
-    private final ResourceLocation id;
     private final int souls;
     private final int time;
 
-    public SoulInfuserRecipe(ResourceLocation id, ItemStack output, int souls, int time, Ingredient input){
-        this.id = id;
+    public SoulInfuserRecipe(ItemStack output, int time, ItemStack ingredientStack){
         this.output = output;
-        this.souls = souls;
         this.time = time;
-        this.input = input;
+        this.ingredientStack = ingredientStack;
+        this.input = Ingredient.of(ingredientStack);
+        this.souls = ingredientStack.getItem() instanceof ISoulItem soulItem ? soulItem.getMaxSouls() - soulItem.getCurrentSouls(ingredientStack) : 0;
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel){
+    public boolean matches(ContainerRecipeInput pContainer, Level pLevel){
         return input.test(pContainer.getItem(0)) && pContainer.getItem(1).getItem() instanceof SoulCollectorItem;
     }
 
@@ -51,35 +49,23 @@ public class SoulInfuserRecipe implements Recipe<Container>{
         return itemstack.getItem() instanceof ISoulItem soulItem ? soulItem.getMaxSouls() - soulItem.getCurrentSouls(itemstack) : souls;
     }
 
-    public ItemStack assemble(IItemHandler itemHandler, RegistryAccess registryAccess) {
+    public ItemStack assemble(IItemHandler itemHandler, HolderLookup.Provider registryAccess) {
+        return assembleFrom(itemHandler.getStackInSlot(0));
+    }
+
+    private ItemStack assembleFrom(ItemStack inputStack){
         ItemStack outputStack = this.output.copy();
-        ItemStack inputStack = itemHandler.getStackInSlot(0);
-        Item inputItem = inputStack.getItem();
-
-        CompoundTag compoundtag = inputStack.getTag();
-        if (compoundtag != null) {
-            outputStack.setTag(compoundtag.copy());
-        }
-
-        if (inputItem instanceof ISoulItem soulItem) {
-            CompoundTag outputTag = outputStack.getOrCreateTag();
-            outputTag.putInt("Souls", soulItem.getMaxSouls());
+        outputStack.applyComponents(inputStack.getComponentsPatch());
+        if (inputStack.getItem() instanceof ISoulItem soulItem) {
+            soulItem.setSouls(soulItem.getMaxSouls(), outputStack);
         }
 
         return outputStack;
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
-        IItemHandler handler = new IItemHandler() {
-            @Override public int getSlots() { return pContainer.getContainerSize(); }
-            @Nonnull @Override public ItemStack getStackInSlot(int slot) { return pContainer.getItem(slot); }
-            @Nonnull @Override public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) { return stack; }
-            @Nonnull @Override public ItemStack extractItem(int slot, int amount, boolean simulate) { return ItemStack.EMPTY; }
-            @Override public int getSlotLimit(int slot) { return 64; }
-            @Override public boolean isItemValid(int slot, @Nonnull ItemStack stack) { return true; }
-        };
-        return assemble(handler, pRegistryAccess);
+    public @NotNull ItemStack assemble(@NotNull ContainerRecipeInput pContainer, @NotNull HolderLookup.Provider pRegistryAccess) {
+        return assembleFrom(pContainer.getItem(0));
     }
 
     @Override
@@ -88,7 +74,7 @@ public class SoulInfuserRecipe implements Recipe<Container>{
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess pRegistryAccess){
+    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistryAccess){
         return output;
     }
 
@@ -100,11 +86,6 @@ public class SoulInfuserRecipe implements Recipe<Container>{
     @Override
     public NonNullList<Ingredient> getIngredients(){
         return NonNullList.of(input);
-    }
-
-    @Override
-    public @NotNull ResourceLocation getId(){
-        return id;
     }
 
     @Override
@@ -126,35 +107,27 @@ public class SoulInfuserRecipe implements Recipe<Container>{
         public static final SoulInfuserRecipe.Serializer INSTANCE = new SoulInfuserRecipe.Serializer();
         public static final ResourceLocation ID = Valoria.loc("soul_infuser");
 
+        private static final MapCodec<SoulInfuserRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            RecipeCodecs.ITEM_STACK.fieldOf("output").forGetter(r -> r.output),
+            Codec.INT.fieldOf("time").forGetter(r -> r.time),
+            RecipeCodecs.ITEM_STACK.fieldOf("ingredient").forGetter(r -> r.ingredientStack)
+        ).apply(i, SoulInfuserRecipe::new));
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, SoulInfuserRecipe> STREAM_CODEC = StreamCodec.composite(
+            ItemStack.STREAM_CODEC, r -> r.output,
+            ByteBufCodecs.VAR_INT, r -> r.time,
+            ItemStack.STREAM_CODEC, r -> r.ingredientStack,
+            SoulInfuserRecipe::new
+        );
+
         @Override
-        public @NotNull SoulInfuserRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe){
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-            int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
-            ItemStack input = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "ingredient"));
-
-            int souls = 0;
-            if(input.getItem() instanceof ISoulItem soulItem){
-                souls = soulItem.getMaxSouls() - soulItem.getCurrentSouls(input);
-            }
-
-            return new SoulInfuserRecipe(pRecipeId, output, souls, time, Ingredient.of(input));
+        public MapCodec<SoulInfuserRecipe> codec(){
+            return CODEC;
         }
 
         @Override
-        public @Nullable SoulInfuserRecipe fromNetwork(@NotNull ResourceLocation pRecipeId, @NotNull FriendlyByteBuf pBuffer){
-            Ingredient input = Ingredient.fromNetwork(pBuffer);
-            ItemStack output = pBuffer.readItem();
-            int souls = pBuffer.readInt();
-            int time = pBuffer.readInt();
-            return new SoulInfuserRecipe(pRecipeId, output, souls, time, input);
-        }
-
-        @Override
-        public void toNetwork(@NotNull FriendlyByteBuf pBuffer, SoulInfuserRecipe pRecipe){
-            pRecipe.input.toNetwork(pBuffer);
-            pBuffer.writeItem(pRecipe.output);
-            pBuffer.writeInt(pRecipe.souls);
-            pBuffer.writeInt(pRecipe.getTime());
+        public StreamCodec<RegistryFriendlyByteBuf, SoulInfuserRecipe> streamCodec(){
+            return STREAM_CODEC;
         }
     }
 }

@@ -1,8 +1,7 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.util.*;
-import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -16,9 +15,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.fml.loading.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.cinema.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
@@ -37,11 +35,8 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
     public void startSummoning(){
         this.isSummoning = true;
         this.progress = 0;
-        if(this.level != null && this.level.isClientSide()){
-            DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
-                playCutscene();
-                return new Object();
-            });
+        if(this.level != null && this.level.isClientSide() && FMLEnvironment.dist.isClient()){
+            playCutscene();
         }
     }
 
@@ -142,16 +137,16 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag){
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries){
         pTag.putInt("progress", progress);
         pTag.putInt("progressMax", progressMax);
         pTag.putBoolean("summoning", isSummoning);
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, registries);
     }
 
     @Override
-    public void load(CompoundTag pTag){
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        super.loadAdditional(pTag, registries);
         progress = pTag.getInt("progress");
         progressMax = pTag.getInt("progressMax");
         isSummoning = pTag.getBoolean("summoning");
@@ -173,16 +168,16 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     @NotNull
     @Override
-    public final CompoundTag getUpdateTag(){
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
         var tag = new CompoundTag();
-        saveAdditional(tag);
+        saveAdditional(tag, registries);
         return tag;
     }
 

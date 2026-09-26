@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "valoria:logs/eldritch"
+    }
+  ],
+  "result": {
+    "id": "valoria:eldritch_planks",
+    "count": 4
+  }
+}

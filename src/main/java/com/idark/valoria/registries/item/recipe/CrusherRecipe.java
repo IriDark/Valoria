@@ -1,33 +1,45 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.*;
 import com.idark.valoria.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.*;
 import java.util.*;
 
-public class CrusherRecipe implements Recipe<Container>{
+public class CrusherRecipe implements Recipe<ContainerRecipeInput>{
+    private ResourceLocation id;
+
+    public ResourceLocation getId(){
+        return id;
+    }
+
+    public CrusherRecipe withId(ResourceLocation id){
+        this.id = id;
+        return this;
+    }
+
     private final NonNullList<Ingredient> inputs;
     private final ResourceLocation output;
-    private final ResourceLocation id;
 
-    public CrusherRecipe(ResourceLocation id, ResourceLocation output, Ingredient... inputItems){
-        this.id = id;
+    public CrusherRecipe(ResourceLocation output, List<Ingredient> inputItems){
         this.output = output;
-        this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems);
+        this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems.toArray(new Ingredient[0]));
+    }
+
+    public CrusherRecipe(ResourceLocation output, Ingredient... inputItems){
+        this(output, Arrays.asList(inputItems));
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel){
+    public boolean matches(ContainerRecipeInput pContainer, Level pLevel){
         if(pLevel.isClientSide()){
             return false;
         }
@@ -36,7 +48,7 @@ public class CrusherRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
+    public ItemStack assemble(ContainerRecipeInput pContainer, HolderLookup.Provider pRegistryAccess){
         return ItemStack.EMPTY;
     }
 
@@ -50,7 +62,7 @@ public class CrusherRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess){
+    public ItemStack getResultItem(HolderLookup.Provider pRegistryAccess){
         return ItemStack.EMPTY;
     }
 
@@ -58,11 +70,6 @@ public class CrusherRecipe implements Recipe<Container>{
     @Override
     public NonNullList<Ingredient> getIngredients(){
         return inputs;
-    }
-
-    @Override
-    public ResourceLocation getId(){
-        return id;
     }
 
     public ResourceLocation getOutput(){
@@ -88,38 +95,25 @@ public class CrusherRecipe implements Recipe<Container>{
         public static final CrusherRecipe.Serializer INSTANCE = new CrusherRecipe.Serializer();
         public static final ResourceLocation ID = Valoria.loc("crusher");
 
+        private static final MapCodec<CrusherRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            ResourceLocation.CODEC.fieldOf("loot_table").forGetter(r -> r.output),
+            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
+        ).apply(i, CrusherRecipe::new));
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> STREAM_CODEC = StreamCodec.composite(
+            ResourceLocation.STREAM_CODEC, r -> r.output,
+            RecipeCodecs.INGREDIENT_LIST_STREAM, r -> r.inputs,
+            CrusherRecipe::new
+        );
+
         @Override
-        public CrusherRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe){
-            ResourceLocation output = new ResourceLocation(pSerializedRecipe.get("loot_table").getAsString());
-
-            JsonArray pIngredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            List<Ingredient> inputs = new ArrayList<>();
-            for(JsonElement e : pIngredients){
-                inputs.add(Ingredient.fromJson(e));
-            }
-
-            return new CrusherRecipe(pRecipeId, output, inputs.toArray(new Ingredient[0]));
+        public MapCodec<CrusherRecipe> codec(){
+            return CODEC;
         }
 
         @Override
-        public @Nullable CrusherRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer){
-            Ingredient[] inputs = new Ingredient[pBuffer.readInt()];
-            for(int i = 0; i < inputs.length; i++){
-                inputs[i] = Ingredient.fromNetwork(pBuffer);
-            }
-
-            ResourceLocation output = pBuffer.readResourceLocation();
-            return new CrusherRecipe(pRecipeId, output, inputs);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, CrusherRecipe pRecipe){
-            pBuffer.writeInt(pRecipe.getIngredients().size());
-            for(Ingredient input : pRecipe.getIngredients()){
-                input.toNetwork(pBuffer);
-            }
-
-            pBuffer.writeResourceLocation(pRecipe.output);
+        public StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> streamCodec(){
+            return STREAM_CODEC;
         }
     }
 }

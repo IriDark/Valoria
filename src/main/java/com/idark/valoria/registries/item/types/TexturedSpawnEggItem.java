@@ -1,15 +1,15 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.*;
 import net.minecraft.core.*;
 import net.minecraft.core.dispenser.*;
-import net.minecraft.nbt.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.gameevent.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.fml.common.*;
+import net.neoforged.fml.event.lifecycle.*;
 import org.jetbrains.annotations.*;
 
 import java.util.*;
@@ -21,14 +21,14 @@ public class TexturedSpawnEggItem extends SpawnEggItem{
     private final Supplier<? extends EntityType<? extends Mob>> typeSupplier;
 
     public TexturedSpawnEggItem(Supplier<? extends EntityType<? extends Mob>> type, Properties props){
-        super((EntityType<? extends Mob>)null, 0, 0, props);
+        super(null, 0, 0, props);
         this.typeSupplier = type;
         MOD_EGGS.add(this);
     }
 
     @Override
-    public EntityType<?> getType(@Nullable CompoundTag tag){
-        EntityType<?> type = super.getType(tag);
+    public EntityType<?> getType(ItemStack stack){
+        EntityType<?> type = super.getType(stack);
         return type != null ? type : typeSupplier.get();
     }
 
@@ -49,22 +49,22 @@ public class TexturedSpawnEggItem extends SpawnEggItem{
     }
 
     private static final DispenseItemBehavior DEFAULT_DISPENSE_BEHAVIOR = (source, stack) -> {
-        Direction face = source.getBlockState().getValue(DispenserBlock.FACING);
-        EntityType<?> type = ((SpawnEggItem)stack.getItem()).getType(stack.getTag());
+        Direction face = source.state().getValue(DispenserBlock.FACING);
+        EntityType<?> type = ((SpawnEggItem)stack.getItem()).getType(stack);
 
         try{
-            type.spawn(source.getLevel(), stack, null, source.getPos().relative(face), MobSpawnType.DISPENSER, face != Direction.UP, false);
+            type.spawn(source.level(), stack, null, source.pos().relative(face), MobSpawnType.DISPENSER, face != Direction.UP, false);
         }catch(Exception exception){
-            DispenseItemBehavior.LOGGER.error("Error while dispensing spawn egg from dispenser at {}", source.getPos(), exception);
+            DispenseItemBehavior.LOGGER.error("Error while dispensing spawn egg from dispenser at {}", source.pos(), exception);
             return ItemStack.EMPTY;
         }
 
         stack.shrink(1);
-        source.getLevel().gameEvent(GameEvent.ENTITY_PLACE, source.getPos(), GameEvent.Context.of(source.getBlockState()));
+        source.level().gameEvent(GameEvent.ENTITY_PLACE, source.pos(), GameEvent.Context.of(source.state()));
         return stack;
     };
 
-    @Mod.EventBusSubscriber(modid = "forge", bus = Mod.EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = Valoria.ID, bus = EventBusSubscriber.Bus.MOD)
     private static class CommonHandler{
         @SubscribeEvent
         public static void onCommonSetup(FMLCommonSetupEvent event){

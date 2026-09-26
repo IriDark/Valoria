@@ -2,7 +2,6 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.neoforged.neoforge.common.*;
 
 import javax.annotation.*;
 
@@ -46,17 +46,14 @@ public class ShadewoodSpider extends Monster{
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-    public double getPassengersRidingOffset(){
-        return this.getBbHeight() * 0.5F;
-    }
 
     protected PathNavigation createNavigation(Level pLevel){
         return new WallClimberNavigation(this, pLevel);
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_FLAGS_ID, (byte)0);
     }
 
     /**
@@ -106,15 +103,10 @@ public class ShadewoodSpider extends Monster{
     public static boolean checkMonsterSpawnRules(EntityType<? extends Monster> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         return pLevel.getDifficulty() != Difficulty.PEACEFUL;
     }
-    public MobType getMobType(){
-        return MobType.ARTHROPOD;
-    }
 
     public boolean canBeAffected(MobEffectInstance pPotioneffect){
-        if(pPotioneffect.getEffect() == MobEffects.POISON){
-            net.minecraftforge.event.entity.living.MobEffectEvent.Applicable event = new net.minecraftforge.event.entity.living.MobEffectEvent.Applicable(this, pPotioneffect);
-            net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
-            return event.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW;
+        if(pPotioneffect.is(MobEffects.POISON)){
+            return CommonHooks.canMobEffectBeApplied(this, pPotioneffect);
         }
         return super.canBeAffected(pPotioneffect);
     }
@@ -143,14 +135,14 @@ public class ShadewoodSpider extends Monster{
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
         RandomSource randomsource = pLevel.getRandom();
         if(randomsource.nextInt(100) == 0){
             var mob = EntityTypeRegistry.CORRUPTED_TROLL.get().create(this.level());
             if(mob != null){
                 mob.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-                mob.finalizeSpawn(pLevel, pDifficulty, pReason, null, null);
+                mob.finalizeSpawn(pLevel, pDifficulty, pReason, null);
                 mob.startRiding(this);
             }
         }
@@ -163,7 +155,7 @@ public class ShadewoodSpider extends Monster{
         }
 
         if(pSpawnData instanceof Spider.SpiderEffectsGroupData spider$spidereffectsgroupdata){
-            MobEffect mobeffect = spider$spidereffectsgroupdata.effect;
+            Holder<MobEffect> mobeffect = spider$spidereffectsgroupdata.effect;
             if(mobeffect != null){
                 this.addEffect(new MobEffectInstance(mobeffect, -1));
             }
@@ -172,7 +164,4 @@ public class ShadewoodSpider extends Monster{
         return pSpawnData;
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize){
-        return 0.65F;
-    }
 }

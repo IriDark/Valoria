@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#valoria:pot_spawn_biomes",
-  "features": "valoria:small_pot",
-  "step": "underground_ores"
-}

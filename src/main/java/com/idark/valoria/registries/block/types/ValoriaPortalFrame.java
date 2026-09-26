@@ -81,7 +81,8 @@ public class ValoriaPortalFrame extends Block{
         }
     }
 
-    public boolean isPathfindable(BlockState p_196266_1_, BlockGetter p_196266_2_, BlockPos p_196266_3_, PathComputationType p_196266_4_){
+    @Override
+    protected boolean isPathfindable(BlockState state, PathComputationType type){
         return false;
     }
 }

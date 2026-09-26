@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#valoria:mossy_pot_spawn_biomes",
+  "features": "valoria:swamp_pot",
+  "step": "underground_ores"
+}

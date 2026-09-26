@@ -3,6 +3,8 @@ package com.idark.valoria.registries.item.types.curio;
 import com.google.common.collect.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -14,7 +16,6 @@ import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
 import javax.annotation.*;
-import java.util.*;
 
 public class RespiratorItem extends ValoriaCurioItem{
     public RespiratorItem(Properties properties){
@@ -27,7 +28,7 @@ public class RespiratorItem extends ValoriaCurioItem{
         LivingEntity wearer = slotContext.entity();
         if(wearer instanceof Player player){
             if(player.isCreative()) return;
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent((nihilityLevel) -> {
+            INihilityLevel.of(player).ifPresent((nihilityLevel) -> {
                 if(nihilityLevel.getAmount() > 0) {
                     if(slotContext.entity().tickCount % 160 == 0){
                         if(Tmp.rnd.chance(0.75f)) accessoryHurt(slotContext.entity(), stack);
@@ -43,16 +44,16 @@ public class RespiratorItem extends ValoriaCurioItem{
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(AttributeReg.NIHILITY_RESISTANCE.get(), new AttributeModifier(uuid, "bonus", 25, AttributeModifier.Operation.ADDITION));
-        atts.put(AttributeReg.NIHILITY_RESILIENCE.get(), new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        Multimap<Holder<Attribute>, AttributeModifier> atts = LinkedHashMultimap.create();
+        atts.put(AttributeReg.NIHILITY_RESISTANCE, new AttributeModifier(uuid, 25, AttributeModifier.Operation.ADD_VALUE));
+        atts.put(AttributeReg.NIHILITY_RESILIENCE, new AttributeModifier(uuid, 0.05, Operation.ADD_MULTIPLIED_TOTAL));
         return atts;
     }
 
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
-        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0f, 1.0f);
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_NETHERITE.value(), 1.0f, 1.0f);
     }
 }

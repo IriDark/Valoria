@@ -1,28 +1,31 @@
 package com.idark.valoria.registries.item.recipe;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.*;
 import net.minecraft.core.*;
-import net.minecraft.resources.*;
 import net.minecraft.tags.*;
-import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 
+/**
+ * PORT NOTE: CustomRecipe lost its ResourceLocation id and crafting recipes take {@link CraftingInput} plus a
+ * {@link HolderLookup.Provider} in 1.21. The poison state is the {@code valoria:poison_hits} component.
+ */
 public class PoisonWeaponRecipe extends CustomRecipe{
-    public PoisonWeaponRecipe(ResourceLocation pId, CraftingBookCategory pCategory) {
-        super(pId, pCategory);
+    public PoisonWeaponRecipe(CraftingBookCategory pCategory) {
+        super(pCategory);
     }
 
     @Override
-    public boolean matches(CraftingContainer inv, Level world) {
+    public boolean matches(CraftingInput inv, Level world) {
         boolean foundWeapon = false;
         boolean foundPoison = false;
 
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             ItemStack stack = inv.getItem(i);
             if (!stack.isEmpty()) {
-                if (stack.is(ItemTags.SWORDS) && (stack.getTag() != null && !stack.getTag().contains("poison_hits"))) {
+                if (stack.is(ItemTags.SWORDS) && !PoisonItem.isPoisoned(stack)) {
                     if (foundWeapon) return false;
                     foundWeapon = true;
                 } else if (stack.getItem() == ItemsRegistry.toxinsBottle.get()) {
@@ -37,9 +40,9 @@ public class PoisonWeaponRecipe extends CustomRecipe{
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer inv, RegistryAccess registryAccess) {
+    public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registryAccess) {
         ItemStack weapon = ItemStack.EMPTY;
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             ItemStack stack = inv.getItem(i);
             if (stack.is(ItemTags.SWORDS)) {
                 weapon = stack.copy();
@@ -47,7 +50,7 @@ public class PoisonWeaponRecipe extends CustomRecipe{
         }
 
         if (!weapon.isEmpty()) {
-            weapon.getOrCreateTag().putInt("poison_hits", 10);
+            PoisonItem.setPoisonHits(weapon, 10);
         }
 
         return weapon;

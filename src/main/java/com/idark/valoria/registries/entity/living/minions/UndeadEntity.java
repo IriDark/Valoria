@@ -6,7 +6,6 @@ import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -41,9 +40,6 @@ public class UndeadEntity extends AbstractMinionEntity{
         this.xpReward = 3;
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions){
-        return pDimensions.height - 0.28125F;
-    }
 
     public boolean isFlapping(){
         return this.tickCount % TICKS_PER_FLAP == 0;
@@ -81,14 +77,19 @@ public class UndeadEntity extends AbstractMinionEntity{
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, NecromancerEntity.class)).setAlertOthers());
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_FLAGS_ID, (byte)0);
     }
 
     private boolean getUndeadFlag(int pMask){
         int i = this.entityData.get(DATA_FLAGS_ID);
         return (i & pMask) != 0;
+    }
+
+    @Override
+    public boolean isAttackable(){
+        return false;
     }
 
     private void setUndeadFlag(int pMask, boolean pValue){
@@ -127,11 +128,11 @@ public class UndeadEntity extends AbstractMinionEntity{
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        this.populateDefaultEquipmentEnchantments(pLevel, randomsource, pDifficulty);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
@@ -194,9 +195,6 @@ public class UndeadEntity extends AbstractMinionEntity{
     /**
      * Returns the Y Offset of this entity.
      */
-    public double getMyRidingOffset(){
-        return 0.4D;
-    }
 
     class UndeadEntityRandomMoveGoal extends Goal{
         public UndeadEntityRandomMoveGoal(){

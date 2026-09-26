@@ -1,16 +1,17 @@
 package com.idark.valoria.core.network.packets;
 
+import com.idark.valoria.*;
 import com.idark.valoria.core.interfaces.*;
 import net.minecraft.client.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.entity.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 
-import java.util.function.*;
-
-public class PlaySpawnCutscenePacket {
+public class PlaySpawnCutscenePacket implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<PlaySpawnCutscenePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("play_spawn_cutscene_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, PlaySpawnCutscenePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> PlaySpawnCutscenePacket.encode(msg, buf), PlaySpawnCutscenePacket::decode);
     private final int entityId;
 
     public PlaySpawnCutscenePacket(int entityId) {
@@ -29,17 +30,21 @@ public class PlaySpawnCutscenePacket {
         return new PlaySpawnCutscenePacket(buf.readInt());
     }
 
-    public static void handle(PlaySpawnCutscenePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                if (Minecraft.getInstance().level != null) {
+    public static void handle(PlaySpawnCutscenePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
+                if(Minecraft.getInstance().level != null){
                     Entity entity = Minecraft.getInstance().level.getEntity(msg.entityId);
-                    if (entity instanceof ISpawnAnimated spawnAnimated && !spawnAnimated.hasSpawned()) {
+                    if(entity instanceof ISpawnAnimated spawnAnimated && !spawnAnimated.hasSpawned()){
                         spawnAnimated.playSpawnCutscene();
                     }
                 }
             });
-        });
-        ctx.get().setPacketHandled(true);
+        }
+    }
+
+    @Override
+    public Type type() {
+        return TYPE;
     }
 }

@@ -1,18 +1,17 @@
 package com.idark.valoria.registries.level.feature;
 
-import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.block.entity.CrushableBlockEntity;
-import com.idark.valoria.registries.level.configurations.SuspiciousStateConfiguration;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap.Types;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.storage.loot.LootTable;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.level.configurations.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.Heightmap.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.storage.loot.*;
 
 public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration>{
     public SuspiciousStateFeature(Codec<SuspiciousStateConfiguration> pCodec){
@@ -42,7 +41,7 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
                     // prevents NPE`s and synchronises positions with tile entity
                     BlockEntity blockentity = worldgenlevel.getBlockEntity(pos);
                     if(target.state.is(TagsRegistry.UNPACK_LOOT)){
-                        LootTable loot = worldgenlevel.getLevel().getServer().getLootData().getLootTable(config.loot);
+                        LootTable loot = worldgenlevel.getLevel().getServer().reloadableRegistries().getLootTable(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, config.loot));
                         CrushableBlockEntity.unpackAndSetItem(worldgenlevel.getLevel(), blockentity, loot);
                     }else{
                         CrushableBlockEntity.setLootTable(randomsource, blockentity, config.loot);

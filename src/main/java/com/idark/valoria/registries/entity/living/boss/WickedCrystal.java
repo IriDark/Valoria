@@ -289,7 +289,7 @@ public class WickedCrystal extends AbstractBoss{
             CrystalEntity crystal = EntityTypeRegistry.CRYSTAL.get().create(WickedCrystal.this.level());
             if(crystal != null && serverLevel.isEmptyBlock(blockpos)){
                 crystal.moveTo(blockpos, 0.0F, 0.0F);
-                crystal.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                crystal.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null);
                 crystal.setOwner(WickedCrystal.this);
                 crystal.movement = new FlyingAroundMovement(crystal, WickedCrystal.this);
                 crystal.movement.setRadius(4f);
@@ -499,7 +499,7 @@ public class WickedCrystal extends AbstractBoss{
             WickedShield shield = EntityTypeRegistry.WICKED_SHIELD.get().create(WickedCrystal.this.level());
             if(shield != null && serverLevel.isEmptyBlock(blockpos)){
                 shield.moveTo(blockpos, 0.0F, 0.0F);
-                shield.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                shield.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null);
                 shield.setOwner(WickedCrystal.this);
                 shield.movement = new FlyingAroundMovement(shield, WickedCrystal.this);
                 shield.movement.setRadius(2f);

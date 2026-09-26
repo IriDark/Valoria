@@ -5,15 +5,22 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.util.function.*;
+public class FireTrapParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<FireTrapParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("fire_trap_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, FireTrapParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), FireTrapParticlePacket::decode);
 
-public class FireTrapParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
 
     private final double posX, posY, posZ;
     private final int colorR, colorG, colorB;
@@ -37,9 +44,9 @@ public class FireTrapParticlePacket{
         return new FireTrapParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(FireTrapParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(FireTrapParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 for(int i = 0; i < 20; i++){
                     Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
@@ -50,7 +57,6 @@ public class FireTrapParticlePacket{
                     level.addParticle(ParticleTypes.LAVA, msg.posX + 0.5, msg.posY + 1.5, msg.posZ + 0.5, 0.0D, 0.0D, 0.0D);
                 }
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

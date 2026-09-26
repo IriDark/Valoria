@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:void_cracked_brick"
+  },
+  "result": {
+    "id": "valoria:void_cracked_brick_wall",
+    "count": 1
+  }
+}

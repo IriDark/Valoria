@@ -13,7 +13,6 @@ import com.mojang.brigadier.context.*;
 import com.mojang.brigadier.exceptions.*;
 import net.minecraft.*;
 import net.minecraft.commands.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.item.*;
@@ -27,9 +26,8 @@ public class ModCommand{
         CommandArguments pages = CommandArguments.pages("pages");
         CommandArgument nihility = CommandArgument.integer("nihility");
         CommandArgument charges = CommandArgument.integer("charges", 0, 2);
-        CommandBuilder codex = new CommandBuilder("codex").permission((p) -> p.hasPermission(2));
         CommandBuilder builder = new CommandBuilder("valoria").variants(
-        codex.variants(
+                opBranch("codex",
                         new CommandVariant(CommandPart.create("addAll"), targets).execute((p) -> {
                             giveAllPages(p.getSource(), targets.getPlayers(p));
                             return 1;
@@ -51,25 +49,33 @@ public class ModCommand{
                         })
                 ),
 
-                new CommandVariant(CommandPart.create("setCharge"), targets, charges).execute((p) -> {
-                    setCharge(p.getSource(), targets.getPlayers(p), charges.getInt(p), p);
-                    return 1;
-                }),
+                opBranch("setCharge",
+                        new CommandVariant(targets, charges).execute((p) -> {
+                            setCharge(p.getSource(), targets.getPlayers(p), charges.getInt(p), p);
+                            return 1;
+                        })
+                ),
 
-                new CommandVariant(CommandPart.create("addNihility"), targets, nihility).execute((p) -> {
-                    addNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
-                    return 1;
-                }),
-        
-                new CommandVariant(CommandPart.create("decreaseNihility"), targets, nihility).execute((p) -> {
-                    decreaseNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
-                    return 1;
-                }),
+                opBranch("addNihility",
+                        new CommandVariant(targets, nihility).execute((p) -> {
+                            addNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
+                            return 1;
+                        })
+                ),
 
-                new CommandVariant(CommandPart.create("setNihility"), targets, nihility).execute((p) -> {
-                    setNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
-                    return 1;
-                }),
+                opBranch("decreaseNihility",
+                        new CommandVariant(targets, nihility).execute((p) -> {
+                            decreaseNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
+                            return 1;
+                        })
+                ),
+
+                opBranch("setNihility",
+                        new CommandVariant(targets, nihility).execute((p) -> {
+                            setNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
+                            return 1;
+                        })
+                ),
 
                 new CommandVariant(CommandPart.create("patrons")).execute((p) -> {
                     showPatrons(p.getSource());
@@ -78,6 +84,10 @@ public class ModCommand{
         );
 
         dispatcher.register(builder.build());
+    }
+
+    private static CommandBuilder opBranch(String name, CommandVariant... variants){
+        return new CommandBuilder(name).permission((p) -> p.hasPermission(2)).variants(variants);
     }
 
     private static void showPatrons(CommandSourceStack source) {
@@ -151,7 +161,7 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.decrease.multiple", amount, targetPlayers.size()), true);
             }
 
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.decrease(player, amount));
+            INihilityLevel.of(player).ifPresent(nihilityLevel -> nihilityLevel.decrease(player, amount));
         }
     }
 
@@ -163,7 +173,7 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.add.multiple", amount, targetPlayers.size()), true);
             }
 
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.modifyAmount(player, amount));
+            INihilityLevel.of(player).ifPresent(nihilityLevel -> nihilityLevel.modifyAmount(player, amount));
         }
     }
 
@@ -175,13 +185,12 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.set.multiple", amount, targetPlayers.size()), true);
             }
 
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.setAmountFromServer(player, amount));
+            INihilityLevel.of(player).ifPresent(nihilityLevel -> nihilityLevel.setAmountFromServer(player, amount));
         }
     }
 
     public static void setCharges(ItemStack stack, int value){
-        CompoundTag nbt = stack.getOrCreateTag();
-        nbt.putInt("charge", value);
+        stack.set(com.idark.valoria.registries.DataComponentsRegistry.CHARGE, value); // PORT NOTE: "charge" NBT -> valoria:charge component
     }
 
     private static void setCharge(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int pCharge, CommandContext p) throws CommandSyntaxException{

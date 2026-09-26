@@ -2,7 +2,7 @@ package com.idark.valoria.client.ui.menus.slots;
 
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.items.*;
+import net.neoforged.neoforge.items.*;
 import org.jetbrains.annotations.*;
 
 import javax.annotation.*;

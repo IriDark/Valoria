@@ -7,7 +7,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -52,7 +52,7 @@ public class CrystalShard extends AbstractProjectile{
             };
 
             ParticleBuilder.create(TridotParticles.TRAIL)
-            .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+            .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE)
             .setBehavior(TrailParticleBehavior.create().build())
             .setColorData(ColorParticleData.create(Pal.verySoftPink, Pal.darkMagenta).build())
             .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Interp.sineOut).build())

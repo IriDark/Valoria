@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:nature_helmet"
+  },
+  "core": "nature_core",
+  "cores": 1,
+  "time": 650,
+  "ingredients": [
+    {
+      "item": "valoria:black_gold_helmet"
+    },
+    {
+      "item": "valoria:nature_upgrade_smithing_template"
+    }
+  ]
+}

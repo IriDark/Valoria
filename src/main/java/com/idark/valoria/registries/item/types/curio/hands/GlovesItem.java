@@ -4,10 +4,11 @@ import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.client.player.*;
+import net.minecraft.client.resources.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
 
 public class GlovesItem extends CurioAccessoryItem implements ICurioTexture{
     public GlovesItem(GlovesBuilder builder){
@@ -24,16 +25,16 @@ public class GlovesItem extends CurioAccessoryItem implements ICurioTexture{
         if (cachedDefaultTexture == null) {
             String basePath = builder.texPath.getPath();
             if(builder.dependsOnStack){
-                basePath += ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
+                basePath += BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
             }else{
                 basePath += builder.texPath.getPath();
             }
 
-            cachedDefaultTexture = new ResourceLocation(builder.texPath.getNamespace(), basePath + ".png");
-            cachedSlimTexture = new ResourceLocation(builder.texPath.getNamespace(), basePath + "_slim.png");
+            cachedDefaultTexture = ResourceLocation.fromNamespaceAndPath(builder.texPath.getNamespace(), basePath + ".png");
+            cachedSlimTexture = ResourceLocation.fromNamespaceAndPath(builder.texPath.getNamespace(), basePath + "_slim.png");
         }
 
-        boolean slim = entity instanceof AbstractClientPlayer player && !player.getModelName().equals("default");
+        boolean slim = entity instanceof AbstractClientPlayer player && player.getSkin().model() == PlayerSkin.Model.SLIM;
         return slim ? cachedSlimTexture : cachedDefaultTexture;
     }
 

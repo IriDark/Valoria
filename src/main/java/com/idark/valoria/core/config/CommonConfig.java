@@ -1,11 +1,11 @@
 package com.idark.valoria.core.config;
 
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.ForgeConfigSpec.*;
+import net.neoforged.neoforge.common.*;
+import net.neoforged.neoforge.common.ModConfigSpec.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class CommonConfig{
-    public static ForgeConfigSpec.ConfigValue<Integer>
+    public static ModConfigSpec.ConfigValue<Integer>
     ATTACK_NECROMANCER_CASTING_TIME, ATTACK_NECROMANCER_CASTING_INTERVAL, ATTACK_NECROMANCER_DAMAGE,
     SUMMON_NECROMANCER_CASTING_TIME, SUMMON_NECROMANCER_CASTING_INTERVAL,
     KNOCKBACK_NECROMANCER_CASTING_TIME, KNOCKBACK_NECROMANCER_CASTING_INTERVAL, KNOCKBACK_NECROMANCER_RADIUS, KNOCKBACK_NECROMANCER_RADIUS_STRONG,
@@ -19,19 +19,19 @@ public class CommonConfig{
     RADIAL_WICKED_CRYSTAL_CASTING_TIME, RADIAL_WICKED_CRYSTAL_CASTING_INTERVAL, RADIAL_WICKED_CRYSTAL_DAMAGE,
     CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_TIME, CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_INTERVAL;
 
-    public static ForgeConfigSpec.ConfigValue<Float>
+    public static ModConfigSpec.ConfigValue<Float>
     TARGET_HEAL_NECROMANCER_AMOUNT, SELF_HEAL_NECROMANCER_AMOUNT;
 
     static{
-        final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
+        final Pair<CommonConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(CommonConfig::new);
         SPEC = specPair.getRight();
         INSTANCE = specPair.getLeft();
     }
 
     public static final CommonConfig INSTANCE;
-    public static final ForgeConfigSpec SPEC;
+    public static final ModConfigSpec SPEC;
 
-    public CommonConfig(ForgeConfigSpec.Builder builder){
+    public CommonConfig(ModConfigSpec.Builder builder){
         builder.comment("Gameplay").push("gameplay");
             setupBosses(builder);
         builder.pop();

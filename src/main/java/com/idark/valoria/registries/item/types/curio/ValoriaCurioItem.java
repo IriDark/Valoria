@@ -12,9 +12,8 @@ import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;
@@ -52,13 +51,13 @@ public class ValoriaCurioItem extends Item implements ICurioItem, IBreakableCuri
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         if(stack.is(TagsRegistry.GRANTS_IMMUNITIES)){
             tooltip.add(Component.translatable("tooltip.valoria.immunity").withStyle(ChatFormatting.GRAY));
             if(stack.is(TagsRegistry.POISON_IMMUNE)){
                 tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
-                .append(Component.translatable("tooltip.tridot.value", MobEffects.POISON.getDisplayName()).withStyle(Styles.nature)));
+                .append(Component.translatable("tooltip.tridot.value", MobEffects.POISON.value().getDisplayName()).withStyle(Styles.nature)));
             }
 
             if(stack.is(TagsRegistry.BLEEDING_IMMUNE)){
@@ -94,7 +93,7 @@ public class ValoriaCurioItem extends Item implements ICurioItem, IBreakableCuri
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
-        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD.value(), 1.0f, 1.0f);
     }
 
     @Override

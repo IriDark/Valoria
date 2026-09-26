@@ -13,6 +13,7 @@ import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 import pro.komaru.tridot.common.registry.book.*;
 
+// PORT NOTE: BlockEntity sync methods carry a HolderLookup.Provider in 1.21.
 public class PedestalBlockEntity extends BlockSimpleInventory implements TickableBlockEntity{
     public BookComponent bookComponent = null;
     public PedestalBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state){
@@ -66,20 +67,20 @@ public class PedestalBlockEntity extends BlockSimpleInventory implements Tickabl
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket(){
-        return ClientboundBlockEntityDataPacket.create(this, (e) -> e.getUpdateTag());
+        return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     @NotNull
     @Override
-    public final CompoundTag getUpdateTag(){
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
         var tag = new CompoundTag();
-        saveAdditional(tag);
+        saveAdditional(tag, registries);
         return tag;
     }
 

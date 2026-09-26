@@ -15,13 +15,11 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.neoforge.items.*;
 import org.jetbrains.annotations.*;
 import org.jetbrains.annotations.Nullable;
 import pro.komaru.tridot.common.registry.block.entity.*;
@@ -36,10 +34,7 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     public int ambientSoundTime;
     public boolean startCraft = false;
     public final ItemStackHandler itemHandler = createHandler(2);
-    public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
-    public final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> itemOutputHandler);
-    public final LazyOptional<IItemHandler> combinedHandler = LazyOptional.of(() -> new CombinedInvWrapper(itemHandler, itemOutputHandler));
 
     public KegBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state){
         super(type, pos, state);
@@ -78,32 +73,6 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
         };
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side){
-        if(cap == ForgeCapabilities.ITEM_HANDLER){
-            if(side == null){
-                return combinedHandler.cast();
-            }
-
-            if(side == Direction.DOWN){
-                return outputHandler.cast();
-            }else{
-                return handler.cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps(){
-        super.invalidateCaps();
-        handler.invalidate();
-        outputHandler.invalidate();
-        combinedHandler.invalidate();
-    }
-
     @Override
     public Component getDisplayName(){
         return Component.translatable("menu.valoria.keg");
@@ -116,20 +85,20 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag){
-        super.saveAdditional(tag);
-        tag.put("inv", itemHandler.serializeNBT());
-        tag.put("output", itemOutputHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries){
+        super.saveAdditional(tag, registries);
+        tag.put("inv", itemHandler.serializeNBT(registries));
+        tag.put("output", itemOutputHandler.serializeNBT(registries));
         tag.putBoolean("startCraft", startCraft);
         tag.putInt("progress", progress);
         tag.putInt("progressMax", progressMax);
     }
 
     @Override
-    public void load(CompoundTag tag){
-        super.load(tag);
-        itemHandler.deserializeNBT(tag.getCompound("inv"));
-        itemOutputHandler.deserializeNBT(tag.getCompound("output"));
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries){
+        super.loadAdditional(tag, registries);
+        itemHandler.deserializeNBT(registries, tag.getCompound("inv"));
+        itemOutputHandler.deserializeNBT(registries, tag.getCompound("output"));
         startCraft = tag.getBoolean("startCraft");
         progress = tag.getInt("progress");
         progressMax = tag.getInt("progressMax");
@@ -178,7 +147,8 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
         if(!level.isClientSide){
             Optional<KegRecipe> recipe = getCurrentRecipe();
             ItemStack output = this.itemOutputHandler.getStackInSlot(0);
-            if(recipe.isPresent() && output.isStackable() && output.getCount() < output.getMaxStackSize() && this.itemOutputHandler.isItemValid(0, output)){
+            boolean outputFree = output.isEmpty() || (output.isStackable() && output.getCount() < output.getMaxStackSize() && this.itemOutputHandler.isItemValid(0, output));
+            if(recipe.isPresent() && outputFree){
                 increaseCraftingProgress();
                 startCraft = true;
                 setMaxProgress();
@@ -203,7 +173,7 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
 
     private void craftItem(){
         Optional<KegRecipe> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
+        ItemStack result = recipe.get().getResultItem(level.registryAccess());
         this.itemHandler.extractItem(0, 1, false);
         this.itemHandler.extractItem(1, 1, false);
         this.itemOutputHandler.insertItem(0, result, false);
@@ -211,12 +181,7 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     }
 
     private Optional<KegRecipe> getCurrentRecipe(){
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0; i < itemHandler.getSlots(); i++){
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-
-        return this.level.getRecipeManager().getRecipeFor(KegRecipe.Type.INSTANCE, inventory, this.level);
+        return this.level.getRecipeManager().getRecipeFor(KegRecipe.Type.INSTANCE, ContainerRecipeInput.of(itemHandler), this.level).map(RecipeHolder::value);
     }
 
     private boolean hasProgressFinished(){
@@ -244,9 +209,9 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     public float getBlockRotate(){
@@ -266,9 +231,9 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
 
     @NotNull
     @Override
-    public final CompoundTag getUpdateTag(){
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
         var tag = new CompoundTag();
-        saveAdditional(tag);
+        saveAdditional(tag, registries);
         return tag;
     }
 

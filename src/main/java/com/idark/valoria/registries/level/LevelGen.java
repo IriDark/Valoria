@@ -17,9 +17,9 @@ import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.*;
-import net.minecraftforge.common.world.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.common.world.*;
+import net.neoforged.neoforge.registries.*;
 
 import java.util.*;
 
@@ -30,28 +30,28 @@ public class LevelGen{
         PLACEMENT_MODIFIERS.register(eventBus);
     }
 
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Valoria.ID);
-    public static DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Valoria.ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, Valoria.ID);
+    public static DeferredRegister<MapCodec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Valoria.ID);
     public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE.key(), Valoria.ID);
-    public static final RegistryObject<PlacementModifierType<BiomeTagFilter>> BIOME_TAG = PLACEMENT_MODIFIERS.register("biome_tag", () -> typeConvert(BiomeTagFilter.CODEC));
+    public static final DeferredHolder<PlacementModifierType<?>, PlacementModifierType<BiomeTagFilter>> BIOME_TAG = PLACEMENT_MODIFIERS.register("biome_tag", () -> typeConvert(BiomeTagFilter.CODEC));
 
-    public static final RegistryObject<Feature<BlockStateConfiguration>> FALLEN_TREE = FEATURES.register("fallen_tree", () -> new FallenTreeFeature(BlockStateConfiguration.CODEC));
-    public static final RegistryObject<Feature<RandomPatchConfiguration>> CATTAIL = FEATURES.register("cattail", () -> new CattailFeature(RandomPatchConfiguration.CODEC));
-    public static final RegistryObject<Feature<SimpleBlockConfiguration>> POT = FEATURES.register("simple_pot", () -> new PotFeature(SimpleBlockConfiguration.CODEC));
-    public static final RegistryObject<Feature<SimpleBlockConfiguration>> CAVE_POT = FEATURES.register("cave_pot", () -> new CavePotFeature(SimpleBlockConfiguration.CODEC));
-    public static final RegistryObject<Feature<TwistingVinesConfig>> ABYSSAL_GLOWFERN = FEATURES.register("abyssal_glowfern", () -> new AbyssalGlowfernFeature(TwistingVinesConfig.CODEC));
-    public static final RegistryObject<Feature<TwistingVinesConfig>> VIOLET_SPROUT = FEATURES.register("violet_sprout", () -> new VioletSproutFeature(TwistingVinesConfig.CODEC));
-    public static final RegistryObject<Feature<TwistingVinesConfig>> glowVioletSprout = FEATURES.register("glow_violet_sprout", () -> new GlowVioletSproutFeature(TwistingVinesConfig.CODEC));
-    public static final RegistryObject<Feature<TaintedRootsConfig>> TAINTED_ROOTS = FEATURES.register("tainted_roots", () -> new TaintedRootsFeature(TaintedRootsConfig.CODEC));
-    public static final RegistryObject<Feature<SuspiciousStateConfiguration>> SUSPICIOUS_STATE = FEATURES.register("suspicious_state", () -> new SuspiciousStateFeature(SuspiciousStateConfiguration.CODEC));
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> SUSPICIOUS_ICEBERG = FEATURES.register("suspicious_iceberg", () -> new SuspiciousIcebergFeature(NoneFeatureConfiguration.CODEC));
-    public static final RegistryObject<Feature<FleshConfiguration>> FLESH_FEATURE = FEATURES.register("flesh_corruption", () -> new FleshFeature(FleshConfiguration.CODEC));
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> VALORIA_MONSTER_ROOM = FEATURES.register("valoria_monster_room", () -> new ValoriaMonsterRoomFeature(NoneFeatureConfiguration.CODEC));
-    public static final RegistryObject<Feature<GradientOreConfiguration>> GRADIENT_ORE = FEATURES.register("gradient_ore", () -> new GradientOreFeature(GradientOreConfiguration.CODEC));
-    public static final RegistryObject<Feature<CrystalBlobConfiguration>> CRYSTAL_BLOB = FEATURES.register("crystal_blob", () -> new CrystalBlobFeature(CrystalBlobConfiguration.CODEC));
-    public static final RegistryObject<Feature<BlockStateConfiguration>> ROOT = FEATURES.register("root", () -> new RootFeature(BlockStateConfiguration.CODEC));
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> BLOOD_VINES = FEATURES.register("blood_vines", () -> new BloodVinesFeature(NoneFeatureConfiguration.CODEC));
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_ROOT = FEATURES.register("cave_root", () -> new CaveRootFeature(NoneFeatureConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<BlockStateConfiguration>> FALLEN_TREE = FEATURES.register("fallen_tree", () -> new FallenTreeFeature(BlockStateConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<RandomPatchConfiguration>> CATTAIL = FEATURES.register("cattail", () -> new CattailFeature(RandomPatchConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<SimpleBlockConfiguration>> POT = FEATURES.register("simple_pot", () -> new PotFeature(SimpleBlockConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<SimpleBlockConfiguration>> CAVE_POT = FEATURES.register("cave_pot", () -> new CavePotFeature(SimpleBlockConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<TwistingVinesConfig>> ABYSSAL_GLOWFERN = FEATURES.register("abyssal_glowfern", () -> new AbyssalGlowfernFeature(TwistingVinesConfig.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<TwistingVinesConfig>> VIOLET_SPROUT = FEATURES.register("violet_sprout", () -> new VioletSproutFeature(TwistingVinesConfig.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<TwistingVinesConfig>> glowVioletSprout = FEATURES.register("glow_violet_sprout", () -> new GlowVioletSproutFeature(TwistingVinesConfig.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<TaintedRootsConfig>> TAINTED_ROOTS = FEATURES.register("tainted_roots", () -> new TaintedRootsFeature(TaintedRootsConfig.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<SuspiciousStateConfiguration>> SUSPICIOUS_STATE = FEATURES.register("suspicious_state", () -> new SuspiciousStateFeature(SuspiciousStateConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> SUSPICIOUS_ICEBERG = FEATURES.register("suspicious_iceberg", () -> new SuspiciousIcebergFeature(NoneFeatureConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<FleshConfiguration>> FLESH_FEATURE = FEATURES.register("flesh_corruption", () -> new FleshFeature(FleshConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> VALORIA_MONSTER_ROOM = FEATURES.register("valoria_monster_room", () -> new ValoriaMonsterRoomFeature(NoneFeatureConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<GradientOreConfiguration>> GRADIENT_ORE = FEATURES.register("gradient_ore", () -> new GradientOreFeature(GradientOreConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<CrystalBlobConfiguration>> CRYSTAL_BLOB = FEATURES.register("crystal_blob", () -> new CrystalBlobFeature(CrystalBlobConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<BlockStateConfiguration>> ROOT = FEATURES.register("root", () -> new RootFeature(BlockStateConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> BLOOD_VINES = FEATURES.register("blood_vines", () -> new BloodVinesFeature(NoneFeatureConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> CAVE_ROOT = FEATURES.register("cave_root", () -> new CaveRootFeature(NoneFeatureConfiguration.CODEC));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shade_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shade_tree");
@@ -82,8 +82,8 @@ public class LevelGen{
     public static final ResourceKey<Structure> NECROMANCER_CRYPT = registerKey(Registries.STRUCTURE, "necromancer_crypt");
     public static final ResourceKey<Structure> VALORIA_FORTRESS = registerKey(Registries.STRUCTURE, "fortress");
 
-    public static RegistryObject<Codec<AddFeaturesByFilterBiomeModifier>> ADD_FEATURES_BY_FILTER = BIOME_MODIFIER_SERIALIZERS.register("add_features_by_filter", () ->
-            RecordCodecBuilder.create(builder -> builder.group(
+    public static DeferredHolder<MapCodec<? extends BiomeModifier>, MapCodec<AddFeaturesByFilterBiomeModifier>> ADD_FEATURES_BY_FILTER = BIOME_MODIFIER_SERIALIZERS.register("add_features_by_filter", () ->
+            RecordCodecBuilder.mapCodec(builder -> builder.group(
                     Biome.LIST_CODEC.fieldOf("allowed_biomes").forGetter(AddFeaturesByFilterBiomeModifier::allowedBiomes),
                     Biome.LIST_CODEC.optionalFieldOf("denied_biomes").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::deniedBiomes),
                     Codec.FLOAT.optionalFieldOf("min_temperature").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::minimumTemperature),
@@ -96,7 +96,7 @@ public class LevelGen{
         return ResourceKey.create(pRegistryKey, Valoria.loc(name));
     }
 
-    private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec){
+    private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(MapCodec<P> codec){
         return () -> codec;
     }
 }

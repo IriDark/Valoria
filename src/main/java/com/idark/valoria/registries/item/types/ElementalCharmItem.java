@@ -3,6 +3,8 @@ package com.idark.valoria.registries.item.types;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -16,17 +18,15 @@ import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;
 
-import java.util.*;
-
 public class ElementalCharmItem extends ValoriaCurioItem implements IGUIParticleItem{
     public ElementalCharmItem(Properties pProperties){
         super(pProperties);
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(AttributeReg.ELEMENTAL_RESISTANCE.get(), new AttributeModifier(uuid, "bonus", 2.5f, AttributeModifier.Operation.ADDITION));
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        Multimap<Holder<Attribute>, AttributeModifier> atts = LinkedHashMultimap.create();
+        atts.put(AttributeReg.ELEMENTAL_RESISTANCE, new AttributeModifier(uuid, 2.5f, AttributeModifier.Operation.ADD_VALUE));
         return atts;
     }
 

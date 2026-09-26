@@ -13,7 +13,7 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.joml.*;
 import pro.komaru.tridot.client.*;
 
@@ -24,7 +24,7 @@ public class ValoriaEffects extends DimensionSpecialEffects {
     private static final ResourceLocation ARETHEA_LOCATION = Valoria.loc("textures/environment/arethea.png");
     private static final ResourceLocation EARTH_LOCATION = Valoria.loc("textures/environment/earth.png");
 
-    private static final ResourceLocation MOON_LOCATION = new ResourceLocation("textures/environment/moon_phases.png");
+    private static final ResourceLocation MOON_LOCATION = ResourceLocation.parse("textures/environment/moon_phases.png");
 
     public ValoriaEffects(){
         super(Float.NaN, true, SkyType.NORMAL, false, true);
@@ -73,7 +73,7 @@ public class ValoriaEffects extends DimensionSpecialEffects {
             float f1 = (float)vec3.y;
             float f2 = (float)vec3.z;
             FogRenderer.levelFogColor();
-            BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+            BufferBuilder bufferbuilder;
             RenderSystem.depthMask(false);
             RenderSystem.setShaderColor(f, f1, f2, 1.0F);
             ShaderInstance shaderinstance = RenderSystem.getShader();
@@ -102,28 +102,28 @@ public class ValoriaEffects extends DimensionSpecialEffects {
             float f14 = (float)(i1) / 2.0F;
             float f15 = (float)(l + 1) / 4.0F;
             float f16 = (float)(i1 + 1) / 2.0F;
-            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(f15, f16).endVertex();
-            bufferbuilder.vertex(matrix4f1, f12, -100.0F, f12).uv(f13, f16).endVertex();
-            bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(f13, f14).endVertex();
-            bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(f15, f14).endVertex();
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            bufferbuilder.addVertex(matrix4f1, -f12, -100.0F, f12).setUv(f15, f16);
+            bufferbuilder.addVertex(matrix4f1, f12, -100.0F, f12).setUv(f13, f16);
+            bufferbuilder.addVertex(matrix4f1, f12, -100.0F, -f12).setUv(f13, f14);
+            bufferbuilder.addVertex(matrix4f1, -f12, -100.0F, -f12).setUv(f15, f14);
+            BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
 
             RenderSystem.setShaderTexture(0, ARETHEA_LOCATION);
-            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
-            bufferbuilder.vertex(matrix4f1, 4, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
-            bufferbuilder.vertex(matrix4f1, 4, 100.0F, 4).uv(1.0F, 1.0F).endVertex();
-            bufferbuilder.vertex(matrix4f1, -f12, 100.0F, 4).uv(0.0F, 1.0F).endVertex();
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            bufferbuilder.addVertex(matrix4f1, -f12, 100.0F, -f12).setUv(0.0F, 0.0F);
+            bufferbuilder.addVertex(matrix4f1, 4, 100.0F, -f12).setUv(1.0F, 0.0F);
+            bufferbuilder.addVertex(matrix4f1, 4, 100.0F, 4).setUv(1.0F, 1.0F);
+            bufferbuilder.addVertex(matrix4f1, -f12, 100.0F, 4).setUv(0.0F, 1.0F);
+            BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
 
             RenderSystem.setShaderTexture(0, EARTH_LOCATION);
-            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferbuilder.vertex(matrix4f1, -5, -100.0F, 45).uv(0, 0).endVertex();
-            bufferbuilder.vertex(matrix4f1, 45, -100.0F, 45).uv(1, 0).endVertex();
-            bufferbuilder.vertex(matrix4f1, 45, -100.0F, -5).uv(1, 1).endVertex();
-            bufferbuilder.vertex(matrix4f1, -5, -100.0F, -5).uv(0, 1).endVertex();
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            bufferbuilder.addVertex(matrix4f1, -5, -100.0F, 45).setUv(0, 0);
+            bufferbuilder.addVertex(matrix4f1, 45, -100.0F, 45).setUv(1, 0);
+            bufferbuilder.addVertex(matrix4f1, 45, -100.0F, -5).setUv(1, 1);
+            bufferbuilder.addVertex(matrix4f1, -5, -100.0F, -5).setUv(0, 1);
+            BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
 
             RenderSystem.setShaderColor(0.25f, 0.25f, 0.25f, 1);
             FogRenderer.setupNoFog();

@@ -3,41 +3,46 @@ package com.idark.valoria.registries;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.npc.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.entity.ai.village.poi.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.registries.*;
 
 import java.util.*;
 
 public class MiscRegistry{
-    public static final DeferredRegister<PaintingVariant> PAINTING_TYPES = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, Valoria.ID);
-    public static final DeferredRegister<PoiType> POI = DeferredRegister.create(ForgeRegistries.POI_TYPES, Valoria.ID);
+    public static final ResourceKey<PaintingVariant> BIG_MOUNTAINS = painting("big_mountains");
+    public static final ResourceKey<PaintingVariant> FOREST_LONG = painting("forest_long");
+    public static final ResourceKey<PaintingVariant> HILLS = painting("hills");
+    public static final ResourceKey<PaintingVariant> WINTER = painting("winter");
+    public static final ResourceKey<PaintingVariant> NETHER = painting("nether");
+    public static final ResourceKey<PaintingVariant> MOUNTAINS = painting("mountains");
+    public static final ResourceKey<PaintingVariant> END = painting("end");
+    public static final ResourceKey<PaintingVariant> CAVE0 = painting("cave0");
+    public static final ResourceKey<PaintingVariant> CAVE1 = painting("cave1");
+    public static final ResourceKey<PaintingVariant> CAVE2 = painting("cave2");
+    public static final ResourceKey<PaintingVariant> CAVE3 = painting("cave3");
+    public static final ResourceKey<PaintingVariant> SAURON = painting("sauron");
+    public static final ResourceKey<PaintingVariant> FOREST = painting("forest");
+    public static final ResourceKey<PaintingVariant> VILLAGE = painting("village");
+    public static final ResourceKey<PaintingVariant> SAURON2 = painting("sauron2");
+    public static final ResourceKey<PaintingVariant> HOUSE = painting("house");
+    public static final ResourceKey<PaintingVariant> EMERALD = painting("emerald");
+    public static final ResourceKey<PaintingVariant> THE_STARRY_NIGHT = painting("starry_night");
+    public static final ResourceKey<PaintingVariant> MOUNTAIN_LANDSCAPE = painting("mountain_landscape");
+    public static final List<ResourceKey<PaintingVariant>> PAINTINGS = List.of(BIG_MOUNTAINS, FOREST_LONG, HILLS, WINTER, NETHER, MOUNTAINS, END, CAVE0, CAVE1, CAVE2, CAVE3, SAURON, FOREST, VILLAGE, SAURON2, HOUSE, EMERALD, THE_STARRY_NIGHT, MOUNTAIN_LANDSCAPE);
 
-    public static final RegistryObject<PaintingVariant> BIG_MOUNTAINS = PAINTING_TYPES.register("big_mountains", () -> new PaintingVariant(32, 48));
-    public static final RegistryObject<PaintingVariant> FOREST_LONG = PAINTING_TYPES.register("forest_long", () -> new PaintingVariant(48, 16));
-    public static final RegistryObject<PaintingVariant> HILLS = PAINTING_TYPES.register("hills", () -> new PaintingVariant(16, 32));
-    public static final RegistryObject<PaintingVariant> WINTER = PAINTING_TYPES.register("winter", () -> new PaintingVariant(16, 32));
-    public static final RegistryObject<PaintingVariant> NETHER = PAINTING_TYPES.register("nether", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> MOUNTAINS = PAINTING_TYPES.register("mountains", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> END = PAINTING_TYPES.register("end", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> CAVE0 = PAINTING_TYPES.register("cave0", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> CAVE1 = PAINTING_TYPES.register("cave1", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> CAVE2 = PAINTING_TYPES.register("cave2", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> CAVE3 = PAINTING_TYPES.register("cave3", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> SAURON = PAINTING_TYPES.register("sauron", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> FOREST = PAINTING_TYPES.register("forest", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> VILLAGE = PAINTING_TYPES.register("village", () -> new PaintingVariant(32, 16));
-    public static final RegistryObject<PaintingVariant> SAURON2 = PAINTING_TYPES.register("sauron2", () -> new PaintingVariant(16, 16));
-    public static final RegistryObject<PaintingVariant> HOUSE = PAINTING_TYPES.register("house", () -> new PaintingVariant(16, 16));
-    public static final RegistryObject<PaintingVariant> EMERALD = PAINTING_TYPES.register("emerald", () -> new PaintingVariant(16, 16));
-    public static final RegistryObject<PaintingVariant> THE_STARRY_NIGHT = PAINTING_TYPES.register("starry_night", () -> new PaintingVariant(32, 32));
-    public static final RegistryObject<PaintingVariant> MOUNTAIN_LANDSCAPE = PAINTING_TYPES.register("mountain_landscape", () -> new PaintingVariant(48, 32));
+    public static final DeferredRegister<PoiType> POI = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, Valoria.ID);
+    public static final DeferredHolder<PoiType, PoiType> VALORIA_PORTAL = POI.register("valoria_portal", () -> register(getBlockStates(BlockRegistry.valoriaPortal.get()), 0, 1));
+    public static final DeferredHolder<PoiType, PoiType> JEWELER = POI.register("jeweler", () -> register(getBlockStates(BlockRegistry.jewelerTable.get()), 1, 1));
 
-    public static final RegistryObject<PoiType> VALORIA_PORTAL = POI.register("valoria_portal", () -> register(getBlockStates(BlockRegistry.valoriaPortal.get()), 0, 1));
-    public static final RegistryObject<PoiType> JEWELER = POI.register("jeweler", () -> register(getBlockStates(BlockRegistry.jewelerTable.get()), 1, 1));
+    private static ResourceKey<PaintingVariant> painting(String name){
+        return ResourceKey.create(Registries.PAINTING_VARIANT, Valoria.loc(name));
+    }
 
     private static Set<BlockState> getBlockStates(Block pBlock){
         return ImmutableSet.copyOf(pBlock.getStateDefinition().getPossibleStates());
@@ -48,7 +53,6 @@ public class MiscRegistry{
     }
 
     public static void init(IEventBus eventBus){
-        PAINTING_TYPES.register(eventBus);
         POI.register(eventBus);
         VillagerProfessionRegistry.register(eventBus);
     }

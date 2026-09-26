@@ -1,0 +1,36 @@
+{
+  "parent": "valoria:valoria/the_valoria",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:aloe_piece"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.aloe.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "valoria:aloe_piece"
+    },
+    "title": {
+      "translate": "advancements.valoria.aloe.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 80
+  },
+  "sends_telemetry_event": true
+}

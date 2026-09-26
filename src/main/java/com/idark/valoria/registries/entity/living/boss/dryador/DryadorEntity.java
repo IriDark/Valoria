@@ -28,12 +28,12 @@ import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.entity.*;
@@ -53,12 +53,13 @@ import pro.komaru.tridot.util.struct.data.*;
 import java.lang.Math;
 import java.util.*;
 
-public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEffectiveWeaponEntity {
+public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEffectiveWeaponEntity{
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/dryador.png")).setDarkenScreen(true);
-
+    private int spawnTime = 0;
     public int animationTicks = 0;
     public final AnimationState idleAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
+    public AnimationState spawnAnimationState = new AnimationState();
     public StaticAnimationState phaseTransitionAnimationState = new StaticAnimationState();
     public StaticAnimationState rangedAttackAnimationState = new StaticAnimationState();
     public StaticAnimationState meleeAttackAnimationState = new StaticAnimationState();
@@ -162,7 +163,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
             double d0 = d2;
             double d1 = Math.max(0.0D, 1.0D - d0);
             pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(0.0D, (double)0.4F * d1, 0.0D));
-            this.doEnchantDamageEffects(this, pEntity);
+            if(this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, pEntity, this.damageSources().mobAttack(this)); // PORT NOTE: doEnchantDamageEffects -> data-driven post-attack enchantment effects
         }
 
         this.playSound(SoundEvents.IRON_GOLEM_ATTACK, 1.0F, 1.0F);
@@ -182,10 +183,13 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
         }
     }
 
+    private int amplifyCount;
+
     private void amplifyStats(){
-        this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.MULTIPLY_TOTAL));
-        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.ADDITION));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
+        int n = amplifyCount++;
+        this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_armor_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_MULTIPLIED_TOTAL));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_damage_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_VALUE));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_speed_" + n), 0.025f, Operation.ADD_MULTIPLIED_TOTAL));
     }
 
     public void checkPhaseTransition() {
@@ -196,10 +200,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
             currentPhase.onEnter();
             amplifyStats();
             if(this.level().isClientSide()){
-                DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
-                    playCutscene();
-                    return new Object();
-                });
+                playCutscene();
             } else {
                 CutsceneHelper.init(this.level(), this.getBoundingBox(), 100);
             }
@@ -317,7 +318,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
             double d2 = pTarget.getZ() - this.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
             if(Tmp.rnd.chance(0.25f)) {
-                acorn.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0));
+                acorn.addEffect(new MobEffectInstance(EffectsRegistry.STUN, 60, 0));
             }
 
             acorn.shoot(d0, d1 + d3 * (double)0.2F, d2, pVelocity, (float)(25 - this.level().getDifficulty().getId() * 4));
@@ -332,6 +333,11 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
         super.tick();
         setupAnimationStates();
         checkPhaseTransition();
+        if(this.spawnTime < 10){
+            this.spawnTime++;
+            this.spawnAnimationState.start(tickCount);
+        }
+
         if (!level().isClientSide) {
             int currentTick = ((ServerLevel) level()).getServer().getTickCount();
             List<BlockPos> blocks = scheduledLifts.remove(currentTick);

@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#valoria:is_valoria",
+  "features": "valoria:pyratite_ore_placed",
+  "step": "underground_ores"
+}

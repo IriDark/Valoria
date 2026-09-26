@@ -31,7 +31,7 @@ public class QuickSandBlock extends Block{
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity){
         RandomSource randomsource = pLevel.getRandom();
-        if(!(pEntity instanceof LivingEntity) || pEntity.getFeetBlockState().is(this)){
+        if(!(pEntity instanceof LivingEntity) || pEntity.getInBlockState().is(this)){
             pEntity.makeStuckInBlock(pState, new Vec3(0.9F, 1.5D, 0.9F));
             if(pLevel.isClientSide){
                 boolean flag = pEntity.xOld != pEntity.getX() || pEntity.zOld != pEntity.getZ();
@@ -82,7 +82,8 @@ public class QuickSandBlock extends Block{
         return Shapes.empty();
     }
 
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType){
+    @Override
+    protected boolean isPathfindable(BlockState pState, PathComputationType pType){
         return true;
     }
 }

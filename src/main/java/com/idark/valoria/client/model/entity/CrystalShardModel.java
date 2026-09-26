@@ -35,7 +35,7 @@ public class CrystalShardModel<T extends AbstractProjectile> extends EntityModel
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha){
-        bb_main.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int color){
+        bb_main.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, color);
     }
 }

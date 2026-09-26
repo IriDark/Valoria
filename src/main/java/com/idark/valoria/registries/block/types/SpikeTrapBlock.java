@@ -2,6 +2,8 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
@@ -22,7 +24,17 @@ import net.minecraft.world.phys.shapes.*;
 import javax.annotation.*;
 
 public class SpikeTrapBlock extends DirectionalBlock{
+    public static final MapCodec<SpikeTrapBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        BlockState.CODEC.fieldOf("state").forGetter(b -> b.state),
+        BlockState.CODEC.fieldOf("spike").forGetter(b -> b.spike),
+        propertiesCodec()
+    ).apply(i, SpikeTrapBlock::new));
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
+
+    @Override
+    protected MapCodec<? extends SpikeTrapBlock> codec(){
+        return CODEC;
+    }
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public BlockState state;
     public BlockState spike;

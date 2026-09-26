@@ -1,14 +1,15 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.builders.*;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.resources.language.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -20,11 +21,10 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
@@ -39,21 +39,21 @@ import pro.komaru.tridot.util.struct.data.*;
 import java.lang.Math;
 import java.util.*;
 
-import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
+import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_ID;
 
 public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem, TooltipComponentItem{
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
-    public Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public ItemAttributeModifiers defaultModifiers;
     public ArcRandom arcRandom = Tmp.rnd;
 
     public KatanaItem(AbstractKatanaBuilder<? extends KatanaItem> builderIn){
-        super(builderIn.tier, (int)builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
+        super(builderIn.tier, builderIn.itemProperties);
         this.builder = builderIn;
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn + builderIn.tier.getAttackDamageBonus(), AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeReg.DASH_DISTANCE.get(), new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION));
-        this.defaultModifiers = builder.build();
+        this.defaultModifiers = ItemAttributeModifiers.builder()
+            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, builderIn.attackDamageIn + builderIn.tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, builderIn.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(AttributeReg.DASH_DISTANCE, new AttributeModifier(BASE_DASH_DISTANCE_ID, builderIn.dashDist, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .build();
     }
 
     public KatanaItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
@@ -87,8 +87,9 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         return builder.cooldownSound;
     }
 
-    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot pEquipmentSlot){
-        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
+    @Override
+    public @NotNull ItemAttributeModifiers getDefaultAttributeModifiers(){
+        return this.defaultModifiers;
     }
 
     public static double distance(double distance, Level level, Player player){
@@ -122,14 +123,14 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
 
     public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level worldIn, BlockState state, @NotNull BlockPos pos, @NotNull LivingEntity entityLiving){
         if(state.getDestroySpeed(worldIn, pos) != 0.0F){
-            stack.hurtAndBreak(5, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            stack.hurtAndBreak(5, entityLiving, EquipmentSlot.MAINHAND);
         }
 
         return true;
     }
 
     public void applyCooldown(Player playerIn){
-        for(Item item : ForgeRegistries.ITEMS){
+        for(Item item : BuiltInRegistries.ITEM){
             if(item instanceof KatanaItem){
                 playerIn.getCooldowns().addCooldown(item, getCooldownReduction(builder.cooldownTime, playerIn.getUseItem()));
             }
@@ -146,12 +147,12 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public int getUseDuration(@NotNull ItemStack stack){
+    public int getUseDuration(@NotNull ItemStack stack, @NotNull LivingEntity entity){
         return 72000;
     }
 
     public double getDashDistance(Player player){
-        return player.getAttributeValue(AttributeReg.DASH_DISTANCE.get());
+        return player.getAttributeValue(AttributeReg.DASH_DISTANCE);
     }
 
     public int getHurtAmount(List<LivingEntity> detectedEntities){
@@ -160,9 +161,9 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
 
     public void performEffects(LivingEntity targets, Player player){
         targets.knockback(0.4F, player.getX() - targets.getX(), player.getZ() - targets.getZ());
-        if(EnchantmentHelper.getFireAspect(player) > 0){
-            int i = EnchantmentHelper.getFireAspect(player);
-            targets.setSecondsOnFire(i * 4);
+        int i = CombatCompat.fireAspect(player);
+        if(i > 0){
+            targets.igniteForSeconds(i * 4);
         }
     }
 
@@ -180,11 +181,11 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
                 List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                 for(LivingEntity entity : detectedEntities){
                     if(!entity.equals(player)){
-                        entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                        entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + CombatCompat.sweepingRatio(player) + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
                         performEffects(entity, player);
                         Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
                         if(!player.isCreative()){
-                            stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                            stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, EquipmentSlot.MAINHAND);
                         }
                     }
                 }
@@ -197,7 +198,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
             float X = (float)(Math.sin(pitch) * Math.cos(yaw));
             float Y = (float)(Math.cos(pitch) * 2);
             float Z = (float)(Math.sin(pitch) * Math.sin(yaw));
-            player.invulnerableTime = builder.iframeTime;
+
             PacketHandler.sendToTracking(srv, player.getOnPos(), new DashParticlePacket(player.getUUID(), X, Y, Z));
         }
     }
@@ -224,7 +225,6 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         );
 
         seq.add(new TextComponent(Component.translatable("tooltip.tridot.crossbow.speed", builder.chargeTime > 0 ? Utils.Items.formatTickDuration(builder.chargeTime) : I18n.get("tooltip.valoria.timed.instant")).withStyle(style -> style.withColor(ChatFormatting.GRAY).withFont(Valoria.FONT))));
-        if(builder.iframeTime > 0) seq.add(new TextComponent(Component.translatable("tooltip.tridot.katana.invulnerabillity_time", Utils.Items.formatTickDuration(builder.iframeTime)).withStyle(style -> style.withColor(ChatFormatting.GRAY).withFont(Valoria.FONT))));
         seq.add(new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT))));
         return seq;
     }

@@ -11,6 +11,6 @@ public class ElementalSmithingTemplateItem extends Item{
 
     @Override
     public String getDescriptionId(){
-        return Util.makeDescriptionId("item", new ResourceLocation("smithing_template"));
+        return Util.makeDescriptionId("item", ResourceLocation.parse("smithing_template"));
     }
 }

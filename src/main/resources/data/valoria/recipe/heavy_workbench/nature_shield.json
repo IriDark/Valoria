@@ -1,0 +1,13 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:nature_ingot" }, "count": 4 },
+    { "ingredient": { "item": "valoria:nature_gift" }, "count": 2 },
+    { "ingredient": { "tag": "minecraft:planks" }, "count": 8 }
+  ],
+  "result": {
+    "item": "valoria:nature_shield",
+    "count": 1
+  }
+}

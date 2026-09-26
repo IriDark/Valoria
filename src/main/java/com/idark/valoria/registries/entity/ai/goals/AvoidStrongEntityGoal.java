@@ -1,9 +1,8 @@
 package com.idark.valoria.registries.entity.ai.goals;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.goal.*;
 
 public class AvoidStrongEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T>{
 

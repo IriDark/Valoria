@@ -4,22 +4,14 @@ import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import org.jetbrains.annotations.*;
+import net.neoforged.neoforge.common.util.*;
 
 import java.util.*;
 
-public class UnlockableProvider implements IUnlockable, ICapabilitySerializable<CompoundTag>{
+public class UnlockableProvider implements IUnlockable, INBTSerializable<CompoundTag>{
     Set<Unlockable> unlockables = new HashSet<>();
     Set<Unlockable> claimed = new HashSet<>();
     Set<Unlockable> viewed = new HashSet<>();
-    private final LazyOptional<IUnlockable> optional = LazyOptional.of(() -> this);
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, Direction side){
-        return cap == IUnlockable.INSTANCE ? optional.cast() : LazyOptional.empty();
-    }
 
     @Override
     public boolean isViewed(Unlockable unlockable){
@@ -104,7 +96,7 @@ public class UnlockableProvider implements IUnlockable, ICapabilitySerializable<
     }
 
     @Override
-    public CompoundTag serializeNBT(){
+    public CompoundTag serializeNBT(HolderLookup.Provider provider){
         ListTag unlocked = new ListTag();
         ListTag claimed = new ListTag();
         ListTag viewed = new ListTag();
@@ -128,7 +120,7 @@ public class UnlockableProvider implements IUnlockable, ICapabilitySerializable<
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt){
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt){
         removeAllUnlockable();
         if((nbt).contains("unlocked")){
             ListTag unlockables = nbt.getList("unlocked", Tag.TAG_STRING);

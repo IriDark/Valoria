@@ -1,0 +1,13 @@
+{
+  "group": "equipment",
+  "type": "valoria:alchemy",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:lithic_rune" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:gold_ingot" }, "count": 15 },
+    { "ingredient": { "item": "valoria:runic_dust" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:lithic_rune_of_wealth",
+    "count": 1
+  }
+}

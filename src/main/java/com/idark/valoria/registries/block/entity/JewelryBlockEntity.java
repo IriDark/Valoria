@@ -14,12 +14,10 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.neoforge.items.*;
 import org.jetbrains.annotations.Nullable;
 import pro.komaru.tridot.common.registry.block.entity.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
@@ -29,10 +27,7 @@ import java.util.*;
 
 public class JewelryBlockEntity extends BlockEntity implements MenuProvider, TickableBlockEntity{
     public final ItemStackHandler itemHandler = createHandler(2);
-    public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
-    public final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> itemOutputHandler);
-    public final LazyOptional<IItemHandler> combinedHandler = LazyOptional.of(() -> new CombinedInvWrapper(itemHandler, itemOutputHandler));
     public int progress = 0;
     public int progressMax = 0;
 
@@ -69,47 +64,21 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
         };
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side){
-        if(cap == ForgeCapabilities.ITEM_HANDLER){
-            if(side == null){
-                return combinedHandler.cast();
-            }
-
-            if(side == Direction.DOWN){
-                return outputHandler.cast();
-            }else{
-                return handler.cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps(){
-        super.invalidateCaps();
-        handler.invalidate();
-        outputHandler.invalidate();
-        combinedHandler.invalidate();
-    }
-
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket(){
         return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     @Override
-    public final CompoundTag getUpdateTag(){
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
         var tag = new CompoundTag();
-        saveAdditional(tag);
+        saveAdditional(tag, registries);
         return tag;
     }
 
@@ -133,20 +102,20 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag){
-        pTag.put("inv", itemHandler.serializeNBT());
-        pTag.put("output", itemOutputHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        pTag.put("inv", itemHandler.serializeNBT(registries));
+        pTag.put("output", itemOutputHandler.serializeNBT(registries));
         pTag.putInt("progress", progress);
         pTag.putInt("progressMax", progressMax);
 
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, registries);
     }
 
     @Override
-    public void load(CompoundTag pTag){
-        super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inv"));
-        itemOutputHandler.deserializeNBT(pTag.getCompound("output"));
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        super.loadAdditional(pTag, registries);
+        itemHandler.deserializeNBT(registries, pTag.getCompound("inv"));
+        itemOutputHandler.deserializeNBT(registries, pTag.getCompound("output"));
         progress = pTag.getInt("progress");
         progressMax = pTag.getInt("progressMax");
     }
@@ -229,7 +198,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
                 ItemStack skinResult = skin.apply(itemHandler.getStackInSlot(0).copy());
                 this.itemOutputHandler.setStackInSlot(0, skinResult);
             }else{
-                ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
+                ItemStack result = recipe.get().getResultItem(level.registryAccess());
                 this.itemOutputHandler.setStackInSlot(0, result);
             }
 
@@ -260,6 +229,6 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
             inv.setItem(i, itemHandler.getStackInSlot(i));
         }
 
-        return this.level.getRecipeManager().getRecipeFor(JewelryRecipe.Type.INSTANCE, inv, level);
+        return this.level.getRecipeManager().getRecipeFor(JewelryRecipe.Type.INSTANCE, ContainerRecipeInput.of(inv), level).map(RecipeHolder::value);
     }
 }

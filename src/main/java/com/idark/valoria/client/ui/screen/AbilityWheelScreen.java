@@ -165,9 +165,9 @@ public class AbilityWheelScreen extends Screen {
                 && mouseY >= closeBtnY && mouseY <= closeBtnY + closeBtnW;
 
         if (hover && hoverAmount < 1) {
-            hoverAmount += Minecraft.getInstance().getDeltaFrameTime() / 8;
+            hoverAmount += Minecraft.getInstance().getTimer().getRealtimeDeltaTicks() / 8;
         } else if (!hover && hoverAmount > 0) {
-            hoverAmount -= Minecraft.getInstance().getDeltaFrameTime() / 4;
+            hoverAmount -= Minecraft.getInstance().getTimer().getRealtimeDeltaTicks() / 4;
         }
         hoverAmount = Math.max(0f, Math.min(1f, hoverAmount));
         if (!hover && hoverAmount <= 0) { this.onClose(); return; }

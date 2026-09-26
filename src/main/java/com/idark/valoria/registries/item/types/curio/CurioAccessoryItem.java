@@ -6,6 +6,8 @@ import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.effect.*;
@@ -14,7 +16,6 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
 import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
@@ -22,7 +23,6 @@ import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
 import javax.annotation.*;
-import java.util.*;
 
 public class CurioAccessoryItem extends ValoriaTieredAccessory implements AbilityInputListener, ICurioTexture, TooltipComponentItem{
     public AbstractCurioBuilder<? extends CurioAccessoryItem, ?> builder;
@@ -70,15 +70,15 @@ public class CurioAccessoryItem extends ValoriaTieredAccessory implements Abilit
     }
 
     private ResourceLocation getTexture(ResourceLocation texPath, ItemStack stack){
-        return new ResourceLocation(texPath.getNamespace(), texPath.getPath() + ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath() + ".png");
+        return ResourceLocation.fromNamespaceAndPath(texPath.getNamespace(), texPath.getPath() + BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath() + ".png");
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        Multimap<Attribute, AttributeModifier> m = LinkedHashMultimap.create();
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        Multimap<Holder<Attribute>, AttributeModifier> m = LinkedHashMultimap.create();
         this.builder.attributeMap.forEach((attrSupplier, data) -> {
-            AttributeModifier modifier1 = new AttributeModifier(uuid, "Attribute Modifier", data.value(), data.operation());
-            m.put(attrSupplier.get(), modifier1);
+            AttributeModifier modifier1 = new AttributeModifier(uuid, data.value(), data.operation());
+            m.put(attrSupplier, modifier1);
         });
 
         this.builder.slotModifiers.forEach((slot, data) -> {

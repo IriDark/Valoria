@@ -1,21 +1,18 @@
 package com.idark.valoria.registries.level;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.placement.PlacementContext;
-import net.minecraft.world.level.levelgen.placement.PlacementFilter;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.levelgen.placement.*;
 
 public class BiomeTagFilter extends PlacementFilter{
-    public static final Codec<BiomeTagFilter> CODEC = RecordCodecBuilder.create((builder) ->
+    public static final MapCodec<BiomeTagFilter> CODEC = RecordCodecBuilder.mapCodec((builder) ->
             builder.group(
-                    TagKey.codec(ForgeRegistries.BIOMES.getRegistryKey()).fieldOf("tag").forGetter((instance) -> instance.biomeTag)
+                    TagKey.codec(Registries.BIOME).fieldOf("tag").forGetter((instance) -> instance.biomeTag)
             ).apply(builder, BiomeTagFilter::new));
     private final TagKey<Biome> biomeTag;
 

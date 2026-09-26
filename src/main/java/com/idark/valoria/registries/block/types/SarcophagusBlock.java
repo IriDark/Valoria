@@ -5,6 +5,7 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import com.mojang.serialization.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -35,6 +36,9 @@ import pro.komaru.tridot.util.math.*;
 import javax.annotation.*;
 
 public class SarcophagusBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
+    public static final MapCodec<SarcophagusBlock> CODEC = simpleCodec(SarcophagusBlock::new); // PORT NOTE: BlockBehaviour#codec() is abstract in 1.21
+    @Override protected MapCodec<? extends SarcophagusBlock> codec(){ return CODEC; }
+
     public ArcRandom arcRandom = Tmp.rnd;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
@@ -59,8 +63,18 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
         return shape;
     }
 
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         RandomSource rand = pLevel.getRandom();
         BlockPos oppositePos = pPos.relative(pState.getValue(FACING));
         if(pState.getValue(PART) == BedPart.HEAD){
@@ -166,7 +180,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
+    public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){ // PORT NOTE: returns the (possibly changed) state in 1.21
         if(!pLevel.isClientSide && pPlayer.isCreative()){
             BedPart part = pState.getValue(PART);
             BlockPos pNeighborPos = pPos.relative(getNeighbourDirection(part, pState.getValue(FACING)));
@@ -179,7 +193,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
             }
         }
 
-        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+        return super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
     @Nullable

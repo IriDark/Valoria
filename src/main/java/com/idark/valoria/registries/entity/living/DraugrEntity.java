@@ -56,9 +56,6 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
     }
 
-    public MobType getMobType(){
-        return MobType.UNDEAD;
-    }
 
     public void rideTick(){
         super.rideTick();
@@ -72,18 +69,18 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         ItemStack equipItem = ValoriaUtils.getRandomItemFromTag(pRandom, TagsRegistry.DRAUGR_SPAWNABLE_WITH);
-        this.setItemSlot(LivingEntity.getEquipmentSlotForItem(equipItem), equipItem);
+        this.setItemSlot(this.getEquipmentSlotForItem(equipItem), equipItem);
         if(Tmp.rnd.chance(0.15f)){
             this.setItemSlot(EquipmentSlot.OFFHAND, ItemsRegistry.draugrShield.get().getDefaultInstance());
         }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty);
+        this.populateDefaultEquipmentEnchantments(pLevel, randomsource, pDifficulty);
         this.reassessWeaponGoal();
         this.setCanPickUpLoot(randomsource.nextFloat() < 0.55F * pDifficulty.getSpecialMultiplier());
         if(this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()){
@@ -123,7 +120,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
         ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> item instanceof BowItem)));
         AbstractArrow abstractarrow = this.getArrow(itemstack, pDistanceFactor);
         if(this.getMainHandItem().getItem() instanceof BowItem){
-            abstractarrow = ((BowItem)this.getMainHandItem().getItem()).customArrow(abstractarrow);
+            abstractarrow = ((BowItem)this.getMainHandItem().getItem()).customArrow(abstractarrow, itemstack, this.getMainHandItem());
         }
 
         double d0 = pTarget.getX() - this.getX();
@@ -136,7 +133,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
     }
 
     protected AbstractArrow getArrow(ItemStack pArrowStack, float pVelocity){
-        return ProjectileUtil.getMobArrow(this, pArrowStack, pVelocity);
+        return ProjectileUtil.getMobArrow(this, pArrowStack, pVelocity, this.getMainHandItem());
     }
 
     public boolean canFireProjectileWeapon(ProjectileWeaponItem pProjectileWeapon){
@@ -176,13 +173,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
         return SoundEvents.SKELETON_STEP;
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize){
-        return 1.74F;
-    }
 
-    public double getMyRidingOffset(){
-        return -0.6;
-    }
 
     public boolean isShaking(){
         return this.isFullyFrozen();

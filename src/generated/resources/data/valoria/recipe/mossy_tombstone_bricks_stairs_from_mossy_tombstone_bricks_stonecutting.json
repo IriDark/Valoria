@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:mossy_tombstone_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:mossy_tombstone_bricks_stairs"
+  }
+}

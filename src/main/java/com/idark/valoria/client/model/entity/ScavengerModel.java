@@ -1,6 +1,5 @@
 package com.idark.valoria.client.model.entity;
 
-
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import net.minecraft.client.model.geom.*;

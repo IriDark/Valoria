@@ -2,9 +2,12 @@ package com.idark.valoria.registries.item.types.curio;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.inventory.tooltip.*;
@@ -16,14 +19,15 @@ import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
 
-import java.util.*;
-import java.util.function.*;
-
 public class CelestialNecklaceItem extends CurioAccessoryItem implements TooltipComponentItem {
+    private static final String NIGHT_ACTIVE_TAG = "IsNightActive";
     public CelestialNecklaceItem(CelestialBuilder builder) {
         super(builder);
     }
-    private static final String NIGHT_ACTIVE_TAG = "IsNightActive";
+
+    public static boolean isNightActive(ItemStack stack){
+        return DataComponentsRegistry.getBool(stack, DataComponentsRegistry.NIGHT_ACTIVE.get(), NIGHT_ACTIVE_TAG);
+    }
 
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected){
@@ -32,8 +36,8 @@ public class CelestialNecklaceItem extends CurioAccessoryItem implements Tooltip
 
         if(pEntity.tickCount % 100 == 0){
             boolean isNightNow = !pLevel.isDay();
-            if(isNightNow != pStack.getOrCreateTag().getBoolean(NIGHT_ACTIVE_TAG)){
-                pStack.getOrCreateTag().putBoolean(NIGHT_ACTIVE_TAG, isNightNow);
+            if(isNightNow != isNightActive(pStack)){
+                pStack.set(DataComponentsRegistry.NIGHT_ACTIVE, isNightNow);
             }
         }
     }
@@ -43,15 +47,15 @@ public class CelestialNecklaceItem extends CurioAccessoryItem implements Tooltip
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        if(!stack.getOrCreateTag().getBoolean(NIGHT_ACTIVE_TAG)){
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        if(!isNightActive(stack)){
             return super.getAttributeModifiers(slotContext, uuid, stack);
         }
 
-        Multimap<Attribute, AttributeModifier> m = LinkedHashMultimap.create();
+        Multimap<Holder<Attribute>, AttributeModifier> m = LinkedHashMultimap.create();
         if(builder instanceof CelestialBuilder neckBuilder){
-            neckBuilder.nightAttributeMap.forEach((attrSupplier, data) -> {
-                m.put(attrSupplier.get(), new AttributeModifier(uuid, "Night Stats", data.value(), data.operation()));
+            neckBuilder.nightAttributeMap.forEach((attribute, data) -> {
+                m.put(attribute, new AttributeModifier(uuid, data.value(), data.operation()));
             });
         }
 
@@ -59,23 +63,23 @@ public class CelestialNecklaceItem extends CurioAccessoryItem implements Tooltip
     }
 
     public static class CelestialBuilder extends AbstractCurioBuilder<CelestialNecklaceItem, CelestialBuilder>{
-        public Multimap<Supplier<Attribute>, AttributeData> nightAttributeMap = HashMultimap.create();
+        public Multimap<Holder<Attribute>, AttributeData> nightAttributeMap = HashMultimap.create();
 
         public CelestialBuilder(Tier tier, Properties properties){
             super(tier, properties);
         }
 
-        public CelestialBuilder addNightAttrs(Multimap<Supplier<Attribute>, AttributeData> map){
+        public CelestialBuilder addNightAttrs(Multimap<Holder<Attribute>, AttributeData> map){
             nightAttributeMap.putAll(map);
             return this;
         }
 
-        public CelestialBuilder setNightAttrs(Multimap<Supplier<Attribute>, AttributeData> map){
+        public CelestialBuilder setNightAttrs(Multimap<Holder<Attribute>, AttributeData> map){
             nightAttributeMap = map;
             return this;
         }
 
-        public CelestialBuilder addNightAttr(Supplier<Attribute> attribute, AttributeData mod){
+        public CelestialBuilder addNightAttr(Holder<Attribute> attribute, AttributeData mod){
             nightAttributeMap.put(attribute, mod);
             return this;
         }

@@ -15,20 +15,22 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.neoforged.neoforge.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.*;
 
 import java.util.*;
 
 public class BandageItem extends Item{
+    public static final EffectCure BANDAGE_CURE = EffectCure.get("valoria_bandage");
     public boolean removeAllEffects;
     public ImmutableList<MobEffectInstance> effects;
 
     public BandageItem(boolean pCure, MobEffectInstance... pEffects){
         super(new Properties().food(new FoodProperties.Builder()
-                .alwaysEat()
+                .alwaysEdible()
                 .nutrition(0)
-                .saturationMod(0)
+                .saturationModifier(0)
                 .build())
         );
 
@@ -38,14 +40,14 @@ public class BandageItem extends Item{
 
     public BandageItem(boolean pCure, int time, int power){
         super(new Properties().food(new FoodProperties.Builder()
-                .alwaysEat()
+                .alwaysEdible()
                 .nutrition(0)
-                .saturationMod(0)
+                .saturationModifier(0)
                 .build())
         );
 
         this.removeAllEffects = pCure;
-        this.effects = ImmutableList.of(new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), time, power));
+        this.effects = ImmutableList.of(new MobEffectInstance(EffectsRegistry.ALOEREGEN, time, power));
     }
 
     public SoundEvent getDrinkingSound(){
@@ -75,17 +77,17 @@ public class BandageItem extends Item{
         if (removeAllEffects) {
             entity.getActiveEffects().stream()
                     .filter(ValoriaUtils::isCurable)
-                    .forEach(e -> e.getCurativeItems().add(stack));
+                    .forEach(e -> e.getCures().add(BANDAGE_CURE));
 
-            entity.curePotionEffects(stack);
+            entity.removeEffectsCuredBy(BANDAGE_CURE);
             return;
         }
 
-        entity.removeEffect(EffectsRegistry.BLEEDING.get());
+        entity.removeEffect(EffectsRegistry.BLEEDING);
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         Utils.Items.effectTooltip(effects, pTooltipComponents, 1, 1);
         if (removeAllEffects) {
@@ -94,7 +96,7 @@ public class BandageItem extends Item{
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack){
+    public int getUseDuration(ItemStack pStack, LivingEntity entity){
         return 32;
     }
 

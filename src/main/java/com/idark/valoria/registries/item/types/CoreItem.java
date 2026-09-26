@@ -11,8 +11,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
@@ -21,16 +21,17 @@ import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;
+import java.util.function.*;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
 public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem{
     private final String coreName;
-    public ParticleType<?> particle;
+    public Supplier<? extends ParticleType<?>> particle;
     private final ColorParticleData color;
     private final int givenCores;
 
-    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, String pCoreID){
+    public CoreItem(@NotNull Supplier<? extends ParticleType<?>> pType, Properties pProperties, String pCoreID){
         super(pProperties);
         particle = pType;
         coreName = pCoreID;
@@ -38,7 +39,7 @@ public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem
         givenCores = 0;
     }
 
-    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, String pCoreID){
+    public CoreItem(@NotNull Supplier<? extends ParticleType<?>> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, String pCoreID){
         super(pProperties);
         particle = pType;
         givenCores = pGivenCores;
@@ -46,12 +47,28 @@ public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem
         coreName = pCoreID;
     }
 
-    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, RegistryObject<Item> item){
+    public CoreItem(@NotNull Supplier<? extends ParticleType<?>> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, DeferredHolder<Item, Item> item){
         super(pProperties);
         particle = pType;
         givenCores = pGivenCores;
         color = ColorParticleData.create(pColor, pColorTo).build();
         coreName = item.getId().getPath();
+    }
+
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, String pCoreID){
+        this(() -> pType, pProperties, pCoreID);
+    }
+
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, String pCoreID){
+        this(() -> pType, pProperties, pGivenCores, pColor, pColorTo, pCoreID);
+    }
+
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, DeferredHolder<Item, Item> item){
+        this(() -> pType, pProperties, pGivenCores, pColor, pColorTo, item);
+    }
+
+    public ParticleType<?> getParticle(){
+        return particle == null ? null : particle.get();
     }
 
     public String getCoreName(){
@@ -72,7 +89,7 @@ public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         pTooltipComponents.add(Component.translatable("tooltip.valoria.core").withStyle(ChatFormatting.GRAY));
     }
@@ -80,7 +97,7 @@ public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles(Level level, ItemEntity entity){
-        spawnItemParticles(level, entity, particle, getColor());
+        spawnItemParticles(level, entity, getParticle(), getColor());
     }
 
     @Override

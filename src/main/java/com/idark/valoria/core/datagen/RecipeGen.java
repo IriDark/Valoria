@@ -2,6 +2,7 @@ package com.idark.valoria.core.datagen;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.data.*;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.*;
@@ -10,72 +11,70 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.common.crafting.*;
-import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.common.conditions.*;
 import org.jetbrains.annotations.*;
-
-import java.util.function.*;
 
 public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
-    public RecipeGen(PackOutput pOutput) {
-        super(pOutput);
+    // PORT NOTE: RecipeProvider takes the registry lookup future; RecipeOutput is RecipeOutput; Forge's
+    // ConditionalRecipe wrapper became RecipeOutput#withConditions; cooking builders need the recipe factory.
+    public RecipeGen(PackOutput pOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> registries) {
+        super(pOutput, registries);
     }
 
-    public static void slab(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pSlab, ItemLike pMaterial) {
+    public static void slab(RecipeOutput pFinishedRecipeConsumer, ItemLike pSlab, ItemLike pMaterial) {
         slabBuilder(RecipeCategory.BUILDING_BLOCKS, pSlab, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pSlab));
     }
 
-    protected static void wall(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pWall, ItemLike pMaterial) {
+    protected static void wall(RecipeOutput pFinishedRecipeConsumer, ItemLike pWall, ItemLike pMaterial) {
         wallBuilder(RecipeCategory.BUILDING_BLOCKS, pWall, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pWall));
     }
 
-    protected static void polished(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pMaterial) {
+    protected static void polished(RecipeOutput pFinishedRecipeConsumer, ItemLike pResult, ItemLike pMaterial) {
         polishedBuilder(RecipeCategory.BUILDING_BLOCKS, pResult, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pResult));
     }
 
-    public static void stairs(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pStairs, ItemLike pMaterial) {
+    public static void stairs(RecipeOutput pFinishedRecipeConsumer, ItemLike pStairs, ItemLike pMaterial) {
         stairBuilder(pStairs, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pStairs));
     }
 
-    public static void fence(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pFence, ItemLike pMaterial) {
+    public static void fence(RecipeOutput pFinishedRecipeConsumer, ItemLike pFence, ItemLike pMaterial) {
         fenceBuilder(pFence, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pFence));
     }
 
-    public static void fenceGate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pFenceGate, ItemLike pMaterial) {
+    public static void fenceGate(RecipeOutput pFinishedRecipeConsumer, ItemLike pFenceGate, ItemLike pMaterial) {
         fenceGateBuilder(pFenceGate, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pFenceGate));
     }
 
-    public static void trapdoor(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pTrapdoor, ItemLike pMaterial) {
+    public static void trapdoor(RecipeOutput pFinishedRecipeConsumer, ItemLike pTrapdoor, ItemLike pMaterial) {
         trapdoorBuilder(pTrapdoor, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pTrapdoor));
     }
 
-    public static void door(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pDoor, ItemLike pMaterial) {
+    public static void door(RecipeOutput pFinishedRecipeConsumer, ItemLike pDoor, ItemLike pMaterial) {
         doorBuilder(pDoor, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pDoor));
     }
 
-    public static void button(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pButton, ItemLike pMaterial) {
+    public static void button(RecipeOutput pFinishedRecipeConsumer, ItemLike pButton, ItemLike pMaterial) {
         buttonBuilder(pButton, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pButton));
     }
 
-    public static void sign(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pSign, ItemLike pMaterial) {
+    public static void sign(RecipeOutput pFinishedRecipeConsumer, ItemLike pSign, ItemLike pMaterial) {
         signBuilder(pSign, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pSign));
     }
 
-    public static void hangingSign(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pSign, ItemLike pMaterial) {
+    public static void hangingSign(RecipeOutput pFinishedRecipeConsumer, ItemLike pSign, ItemLike pMaterial) {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, pSign, 6).group("hanging_sign").define('#', pMaterial).define('X', Items.CHAIN).pattern("X X").pattern("###").pattern("###").unlockedBy("has_stripped_logs", has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pSign));
     }
 
-    public static void pressurePlate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pPlate, ItemLike pMaterial) {
+    public static void pressurePlate(RecipeOutput pFinishedRecipeConsumer, ItemLike pPlate, ItemLike pMaterial) {
         pressurePlateBuilder(RecipeCategory.BUILDING_BLOCKS, pPlate, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, valoriaRecipeId(pPlate));
     }
 
-    protected static void boat(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pBoat, ItemLike pMaterial) {
+    protected static void boat(RecipeOutput pFinishedRecipeConsumer, ItemLike pBoat, ItemLike pMaterial) {
         ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, pBoat).define('#', pMaterial).pattern("# #").pattern("###").group("boat").unlockedBy("in_water", insideOf(Blocks.WATER)).save(pFinishedRecipeConsumer, valoriaRecipeId(pBoat));
     }
 
-    public static void chestboat(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pBoat, ItemLike pMaterial) {
+    public static void chestboat(RecipeOutput pFinishedRecipeConsumer, ItemLike pBoat, ItemLike pMaterial) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, pBoat).requires(Blocks.CHEST).requires(pMaterial).group("chest_boat").unlockedBy("has_boat", has(ItemTags.BOATS)).save(pFinishedRecipeConsumer, valoriaRecipeId(pBoat));
     }
 
@@ -83,15 +82,15 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         return Valoria.loc(getItemName(result));
     }
 
-    protected static void planksFromLog(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pPlanks, ItemLike pLog, int pResultCount) {
+    protected static void planksFromLog(RecipeOutput pFinishedRecipeConsumer, ItemLike pPlanks, ItemLike pLog, int pResultCount) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, pPlanks, pResultCount).requires(pLog).group("planks").unlockedBy("has_log", has(pLog)).save(pFinishedRecipeConsumer, valoriaRecipeId(pPlanks));
     }
 
-    protected static void woodFromLogs(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pWood, ItemLike pLog) {
+    protected static void woodFromLogs(RecipeOutput pFinishedRecipeConsumer, ItemLike pWood, ItemLike pLog) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pWood, 3).define('#', pLog).pattern("##").pattern("##").group("bark").unlockedBy("has_log", has(pLog)).save(pFinishedRecipeConsumer, valoriaRecipeId(pWood));
     }
 
-    public static void registerWoodset(Consumer<FinishedRecipe> pWriter, ItemLike slab, ItemLike stairs, ItemLike fence, ItemLike fenceGate, ItemLike door, ItemLike trapdoor, ItemLike chestBoat, ItemLike boat, ItemLike hangingsign, ItemLike sign, ItemLike button, ItemLike pressurePlate, ItemLike planks, ItemLike wood, ItemLike log) {
+    public static void registerWoodset(RecipeOutput pWriter, ItemLike slab, ItemLike stairs, ItemLike fence, ItemLike fenceGate, ItemLike door, ItemLike trapdoor, ItemLike chestBoat, ItemLike boat, ItemLike hangingsign, ItemLike sign, ItemLike button, ItemLike pressurePlate, ItemLike planks, ItemLike wood, ItemLike log) {
         planksFromLog(pWriter, planks, log, 4);
         woodFromLogs(pWriter, wood, log);
         slab(pWriter, slab, planks);
@@ -108,62 +107,63 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         chestboat(pWriter, chestBoat, boat);
     }
 
-    public static void spearRecipe(Consumer<FinishedRecipe> consumer, ItemLike material, ItemLike spear) {
+    public static void spearRecipe(RecipeOutput consumer, ItemLike material, ItemLike spear) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, spear).define('/', Items.STICK).define('X', material).pattern(" XX").pattern(" /X").pattern("/  ").unlockedBy(getHasName(spear), has(spear)).save(consumer, valoriaRecipeId(spear));
     }
 
-    public static void spearRecipe(Consumer<FinishedRecipe> consumer, TagKey<Item> material, ItemLike spear) {
+    public static void spearRecipe(RecipeOutput consumer, TagKey<Item> material, ItemLike spear) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, spear).define('/', Items.STICK).define('X', material).pattern(" XX").pattern(" /X").pattern("/  ").unlockedBy(getHasName(spear), has(spear)).save(consumer, valoriaRecipeId(spear));
     }
 
-    public static void katanaRecipe(Consumer<FinishedRecipe> consumer, ItemLike material, ItemLike katana) {
+    public static void katanaRecipe(RecipeOutput consumer, ItemLike material, ItemLike katana) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, katana).define('/', Items.STICK).define('X', material).pattern("  X").pattern(" X ").pattern("/  ").unlockedBy(getHasName(katana), has(katana)).save(consumer, valoriaRecipeId(katana));
     }
 
-    public static void katanaRecipe(Consumer<FinishedRecipe> consumer, TagKey<Item> material, ItemLike katana) {
+    public static void katanaRecipe(RecipeOutput consumer, TagKey<Item> material, ItemLike katana) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, katana).define('/', Items.STICK).define('X', material).pattern("  X").pattern(" X ").pattern("/  ").unlockedBy(getHasName(katana), has(katana)).save(consumer, valoriaRecipeId(katana));
     }
 
-    public static void scytheRecipe(Consumer<FinishedRecipe> consumer, ItemLike material, ItemLike scythe) {
+    public static void scytheRecipe(RecipeOutput consumer, ItemLike material, ItemLike scythe) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, scythe).define('/', Items.STICK).define('X', material).pattern("XXX").pattern("X/ ").pattern("/  ").unlockedBy(getHasName(scythe), has(scythe)).save(consumer, valoriaRecipeId(scythe));
     }
 
-    public static void scytheRecipe(Consumer<FinishedRecipe> consumer, TagKey<Item> material, ItemLike scythe) {
+    public static void scytheRecipe(RecipeOutput consumer, TagKey<Item> material, ItemLike scythe) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, scythe).define('/', Items.STICK).define('X', material).pattern("XXX").pattern("X/ ").pattern("/  ").unlockedBy(getHasName(scythe), has(scythe)).save(consumer, valoriaRecipeId(scythe));
     }
 
-    public static void bookshelfRecipe(Consumer<FinishedRecipe> consumer, ItemLike plank, ItemLike bookshelf) {
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("quark")).addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, bookshelf).define('#', plank).define('B', Items.BOOK).pattern("###").pattern("BBB").pattern("###").unlockedBy(getHasName(plank), has(plank)).save(consumer1)).build(consumer, Valoria.loc("crafting/" + getItemName(bookshelf)));
+    public static void bookshelfRecipe(RecipeOutput consumer, ItemLike plank, ItemLike bookshelf) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, bookshelf).define('#', plank).define('B', Items.BOOK).pattern("###").pattern("BBB").pattern("###").unlockedBy(getHasName(plank), has(plank)).save(consumer.withConditions(new ModLoadedCondition("quark")), Valoria.loc("crafting/" + getItemName(bookshelf)));
     }
 
-    public static void ladderRecipe(Consumer<FinishedRecipe> consumer, ItemLike plank, ItemLike ladder) {
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("quark")).addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ladder, 4).define('#', Items.STICK).define('W', plank).pattern("# #").pattern("#W#").pattern("# #").unlockedBy(getHasName(plank), has(plank)).save(consumer1)).build(consumer, Valoria.loc("crafting/" + getItemName(ladder)));
+    public static void ladderRecipe(RecipeOutput consumer, ItemLike plank, ItemLike ladder) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ladder, 4).define('#', Items.STICK).define('W', plank).pattern("# #").pattern("#W#").pattern("# #").unlockedBy(getHasName(plank), has(plank)).save(consumer.withConditions(new ModLoadedCondition("quark")), Valoria.loc("crafting/" + getItemName(ladder)));
     }
 
-    public static void chestRecipes(Consumer<FinishedRecipe> consumer, Block pNormal, Block pTrapped, ItemLike planks, TagKey<Item> log) {
+    public static void chestRecipes(RecipeOutput consumer, Block pNormal, Block pTrapped, ItemLike planks, TagKey<Item> log) {
         String normalName = getItemName(pNormal);
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("quark")).addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pNormal).define('#', planks).pattern("###").pattern("# #").pattern("###").unlockedBy(getHasName(planks), has(planks)).save(consumer1, Valoria.loc("crafting/" + normalName))).build(consumer, Valoria.loc("crafting/" + normalName));
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("quark")).addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pNormal, 4).define('#', log).pattern("###").pattern("# #").pattern("###").unlockedBy(getHasName(pNormal), has(pNormal)).save(consumer1, Valoria.loc("crafting/" + normalName + "_wood"))).build(consumer, Valoria.loc("crafting/" + normalName + "_wood"));
-        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("quark")).addRecipe(consumer1 -> ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, pTrapped).requires(pNormal).requires(Items.TRIPWIRE_HOOK).unlockedBy(getHasName(pNormal), has(pNormal)).save(consumer1, Valoria.loc("crafting/" + getItemName(pTrapped)))).build(consumer, Valoria.loc("crafting/" + getItemName(pTrapped)));
+        RecipeOutput quark = consumer.withConditions(new ModLoadedCondition("quark"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pNormal).define('#', planks).pattern("###").pattern("# #").pattern("###").unlockedBy(getHasName(planks), has(planks)).save(quark, Valoria.loc("crafting/" + normalName));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pNormal, 4).define('#', log).pattern("###").pattern("# #").pattern("###").unlockedBy(getHasName(pNormal), has(pNormal)).save(quark, Valoria.loc("crafting/" + normalName + "_wood"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, pTrapped).requires(pNormal).requires(Items.TRIPWIRE_HOOK).unlockedBy(getHasName(pNormal), has(pNormal)).save(quark, Valoria.loc("crafting/" + getItemName(pTrapped)));
     }
 
-    public static void cutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pMaterial, int pCount) {
+    public static void cutterResultFromBase(RecipeOutput pFinishedRecipeConsumer, ItemLike pResult, ItemLike pMaterial, int pCount) {
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(pMaterial), RecipeCategory.BUILDING_BLOCKS, pResult, pCount).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, Valoria.loc(getConversionRecipeName(pResult, pMaterial) + "_stonecutting"));
     }
 
-    private void foodCooking(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result) {
-        String resultName = ForgeRegistries.ITEMS.getKey(result.asItem()).getPath();
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, Valoria.loc(resultName + "_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 100, RecipeSerializer.SMOKING_RECIPE).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, Valoria.loc(resultName + "_from_smoking"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 600, RecipeSerializer.CAMPFIRE_COOKING_RECIPE).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, Valoria.loc(resultName + "_from_campfire_cooking"));
+    private void foodCooking(RecipeOutput consumer, ItemLike ingredient, ItemLike result) {
+        String resultName = BuiltInRegistries.ITEM.getKey(result.asItem()).getPath();
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, Valoria.loc(resultName + "_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 100, RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, Valoria.loc(resultName + "_from_smoking"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ingredient), RecipeCategory.FOOD, result, 0.35F, 600, RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, Valoria.loc(resultName + "_from_campfire_cooking"));
     }
 
-    protected static void valoriaNetheriteSmithing(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item pIngredientItem, RecipeCategory pCategory, Item pResultItem) {
+    protected static void valoriaNetheriteSmithing(RecipeOutput pFinishedRecipeConsumer, Item pIngredientItem, RecipeCategory pCategory, Item pResultItem) {
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(pIngredientItem), Ingredient.of(Items.NETHERITE_INGOT), pCategory, pResultItem).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(pFinishedRecipeConsumer, Valoria.loc(getItemName(pResultItem) + "_smithing"));
     }
 
     @Override
-    public void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
+    public void buildRecipes(@NotNull RecipeOutput pWriter) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemsRegistry.ironCelestialNecklace.get())
                 .requires(ItemsRegistry.ironSunNecklace.get())
                 .requires(ItemsRegistry.ironMoonNecklace.get())
@@ -575,54 +575,54 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         cutterResultFromBase(pWriter, BlockRegistry.voidChiseledSandstone.get(), BlockRegistry.voidSandstone.get(), 1);
 
         // ===== SMELTING / BLASTING =====
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.amberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.amberOre.get())).save(pWriter, Valoria.loc("amber_gem_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.wickedAmethystOre.get()), RecipeCategory.MISC, ItemsRegistry.wickedAmethyst.get(), 1F, 230, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.wickedAmethystOre.get())).save(pWriter, Valoria.loc("amethyst_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.blackGoldHelmet.get()), RecipeCategory.FOOD, ItemsRegistry.blackGoldNugget.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.blackGoldHelmet.get())).save(pWriter, Valoria.loc("black_gold_nugget_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.bronzeSword.get()), RecipeCategory.FOOD, ItemsRegistry.bronzeNugget.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.bronzeSword.get())).save(pWriter, Valoria.loc("bronze_nugget_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateCobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateCobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_deepslate_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.cobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.cobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.rawCobalt.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 0.7F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.rawCobalt.get())).save(pWriter, Valoria.loc("cobalt_ingot_from_smelting_raw_cobalt"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.cobaltPickaxe.get()), RecipeCategory.FOOD, ItemsRegistry.cobaltNugget.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.cobaltPickaxe.get())).save(pWriter, Valoria.loc("cobalt_nugget_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.limestoneBricks.get()), RecipeCategory.MISC, BlockRegistry.crackedLimestoneBricks.get(), 0.3F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.limestoneBricks.get())).save(pWriter, Valoria.loc("cracked_limestone_bricks"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.tombstoneBricks.get()), RecipeCategory.MISC, BlockRegistry.crackedTombstoneBricks.get(), 0.3F, 140, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.tombstoneBricks.get())).save(pWriter, Valoria.loc("cracked_tombstone_bricks"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.crystalStone.get()), RecipeCategory.FOOD, ItemsRegistry.crystalStoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.crystalStone.get())).save(pWriter, Valoria.loc("crystal_stone_brick"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateAmberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateAmberOre.get())).save(pWriter, Valoria.loc("deepslate_amber_gem_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateRubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateRubyOre.get())).save(pWriter, Valoria.loc("deepslate_ruby_gem_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateSapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateSapphireOre.get())).save(pWriter, Valoria.loc("deepslate_sapphire_gem_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.dormantCrystals.get()), RecipeCategory.MISC, ItemsRegistry.unchargedShard.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.dormantCrystals.get())).save(pWriter, Valoria.loc("dormant_crystals_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.dunestone.get()), RecipeCategory.FOOD, ItemsRegistry.dunestoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.dunestone.get())).save(pWriter, Valoria.loc("dunestone_brick"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.picriteJadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.picriteJadeOre.get())).save(pWriter, Valoria.loc("jade_from_picrite_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.jadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.jadeOre.get())).save(pWriter, Valoria.loc("jade_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.limestone.get()), RecipeCategory.FOOD, ItemsRegistry.limestoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.limestone.get())).save(pWriter, Valoria.loc("limestone_brick"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.pyratiteOre.get()), RecipeCategory.MISC, ItemsRegistry.pyratite.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.pyratiteOre.get())).save(pWriter, Valoria.loc("pyratite_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.rubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.rubyOre.get())).save(pWriter, Valoria.loc("ruby_gem_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.sapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.sapphireOre.get())).save(pWriter, Valoria.loc("sapphire_gem_from_smelting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.tombstone.get()), RecipeCategory.FOOD, ItemsRegistry.tombstoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.tombstone.get())).save(pWriter, Valoria.loc("tombstone_brick"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.voidBrick.get()), RecipeCategory.MISC, BlockRegistry.voidCrackedBrick.get(), 0.3F, 140, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.voidBrick.get())).save(pWriter, Valoria.loc("void_cracked_brick"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.voidSandstone.get()), RecipeCategory.FOOD, BlockRegistry.smoothVoidSandstone.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.voidSandstone.get())).save(pWriter, Valoria.loc("void_smooth_sandstone"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.voidStone.get()), RecipeCategory.FOOD, ItemsRegistry.voidStoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.voidStone.get())).save(pWriter, Valoria.loc("void_stone_brick"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.amberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.amberOre.get())).save(pWriter, Valoria.loc("amber_gem_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.wickedAmethystOre.get()), RecipeCategory.MISC, ItemsRegistry.wickedAmethyst.get(), 1F, 230, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.wickedAmethystOre.get())).save(pWriter, Valoria.loc("amethyst_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.blackGoldHelmet.get()), RecipeCategory.FOOD, ItemsRegistry.blackGoldNugget.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.blackGoldHelmet.get())).save(pWriter, Valoria.loc("black_gold_nugget_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.bronzeSword.get()), RecipeCategory.FOOD, ItemsRegistry.bronzeNugget.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.bronzeSword.get())).save(pWriter, Valoria.loc("bronze_nugget_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateCobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateCobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_deepslate_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.cobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.cobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.rawCobalt.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 0.7F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.rawCobalt.get())).save(pWriter, Valoria.loc("cobalt_ingot_from_smelting_raw_cobalt"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.cobaltPickaxe.get()), RecipeCategory.FOOD, ItemsRegistry.cobaltNugget.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.cobaltPickaxe.get())).save(pWriter, Valoria.loc("cobalt_nugget_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.limestoneBricks.get()), RecipeCategory.MISC, BlockRegistry.crackedLimestoneBricks.get(), 0.3F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.limestoneBricks.get())).save(pWriter, Valoria.loc("cracked_limestone_bricks"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.tombstoneBricks.get()), RecipeCategory.MISC, BlockRegistry.crackedTombstoneBricks.get(), 0.3F, 140, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.tombstoneBricks.get())).save(pWriter, Valoria.loc("cracked_tombstone_bricks"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.crystalStone.get()), RecipeCategory.FOOD, ItemsRegistry.crystalStoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.crystalStone.get())).save(pWriter, Valoria.loc("crystal_stone_brick"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateAmberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateAmberOre.get())).save(pWriter, Valoria.loc("deepslate_amber_gem_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateRubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateRubyOre.get())).save(pWriter, Valoria.loc("deepslate_ruby_gem_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateSapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateSapphireOre.get())).save(pWriter, Valoria.loc("deepslate_sapphire_gem_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.dormantCrystals.get()), RecipeCategory.MISC, ItemsRegistry.unchargedShard.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.dormantCrystals.get())).save(pWriter, Valoria.loc("dormant_crystals_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.dunestone.get()), RecipeCategory.FOOD, ItemsRegistry.dunestoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.dunestone.get())).save(pWriter, Valoria.loc("dunestone_brick"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.picriteJadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.picriteJadeOre.get())).save(pWriter, Valoria.loc("jade_from_picrite_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.jadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.jadeOre.get())).save(pWriter, Valoria.loc("jade_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.limestone.get()), RecipeCategory.FOOD, ItemsRegistry.limestoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.limestone.get())).save(pWriter, Valoria.loc("limestone_brick"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.pyratiteOre.get()), RecipeCategory.MISC, ItemsRegistry.pyratite.get(), 1.0F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.pyratiteOre.get())).save(pWriter, Valoria.loc("pyratite_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.rubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.rubyOre.get())).save(pWriter, Valoria.loc("ruby_gem_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.sapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 120, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.sapphireOre.get())).save(pWriter, Valoria.loc("sapphire_gem_from_smelting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.tombstone.get()), RecipeCategory.FOOD, ItemsRegistry.tombstoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.tombstone.get())).save(pWriter, Valoria.loc("tombstone_brick"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.voidBrick.get()), RecipeCategory.MISC, BlockRegistry.voidCrackedBrick.get(), 0.3F, 140, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.voidBrick.get())).save(pWriter, Valoria.loc("void_cracked_brick"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.voidSandstone.get()), RecipeCategory.FOOD, BlockRegistry.smoothVoidSandstone.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.voidSandstone.get())).save(pWriter, Valoria.loc("void_smooth_sandstone"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.voidStone.get()), RecipeCategory.FOOD, ItemsRegistry.voidStoneBrick.get(), 0.1F, 200, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new).unlockedBy("has_item", has(BlockRegistry.voidStone.get())).save(pWriter, Valoria.loc("void_stone_brick"));
 
         // Blasting
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.amberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.amberOre.get())).save(pWriter, Valoria.loc("amber_gem_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.wickedAmethystOre.get()), RecipeCategory.MISC, ItemsRegistry.wickedAmethyst.get(), 1F, 160, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.wickedAmethystOre.get())).save(pWriter, Valoria.loc("amethyst_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.blackGoldHelmet.get()), RecipeCategory.FOOD, ItemsRegistry.blackGoldNugget.get(), 0.1F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.blackGoldHelmet.get())).save(pWriter, Valoria.loc("black_gold_nugget_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.bronzeSword.get()), RecipeCategory.FOOD, ItemsRegistry.bronzeNugget.get(), 0.1F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.bronzeSword.get())).save(pWriter, Valoria.loc("bronze_nugget_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.cobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.cobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateCobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateCobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_deepslate_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.rawCobalt.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 0.7F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.rawCobalt.get())).save(pWriter, Valoria.loc("cobalt_ingot_from_blasting_raw_cobalt"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.cobaltPickaxe.get()), RecipeCategory.FOOD, ItemsRegistry.cobaltNugget.get(), 0.1F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(ItemsRegistry.cobaltPickaxe.get())).save(pWriter, Valoria.loc("cobalt_nugget_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateAmberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateAmberOre.get())).save(pWriter, Valoria.loc("deepslate_amber_gem_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateRubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateRubyOre.get())).save(pWriter, Valoria.loc("deepslate_ruby_gem_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateSapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.deepslateSapphireOre.get())).save(pWriter, Valoria.loc("deepslate_sapphire_gem_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.dormantCrystals.get()), RecipeCategory.MISC, ItemsRegistry.unchargedShard.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.dormantCrystals.get())).save(pWriter, Valoria.loc("dormant_crystals_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.jadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.jadeOre.get())).save(pWriter, Valoria.loc("jade_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.picriteJadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.picriteJadeOre.get())).save(pWriter, Valoria.loc("jade_from_picrite_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.pyratiteOre.get()), RecipeCategory.MISC, ItemsRegistry.pyratite.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.pyratiteOre.get())).save(pWriter, Valoria.loc("pyratite_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.rubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.rubyOre.get())).save(pWriter, Valoria.loc("ruby_gem_from_blasting"));
-        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.sapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE).unlockedBy("has_item", has(BlockRegistry.sapphireOre.get())).save(pWriter, Valoria.loc("sapphire_gem_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.amberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.amberOre.get())).save(pWriter, Valoria.loc("amber_gem_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.wickedAmethystOre.get()), RecipeCategory.MISC, ItemsRegistry.wickedAmethyst.get(), 1F, 160, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.wickedAmethystOre.get())).save(pWriter, Valoria.loc("amethyst_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.blackGoldHelmet.get()), RecipeCategory.FOOD, ItemsRegistry.blackGoldNugget.get(), 0.1F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.blackGoldHelmet.get())).save(pWriter, Valoria.loc("black_gold_nugget_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.bronzeSword.get()), RecipeCategory.FOOD, ItemsRegistry.bronzeNugget.get(), 0.1F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.bronzeSword.get())).save(pWriter, Valoria.loc("bronze_nugget_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.cobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.cobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateCobaltOre.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateCobaltOre.get())).save(pWriter, Valoria.loc("cobalt_from_deepslate_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.rawCobalt.get()), RecipeCategory.MISC, ItemsRegistry.cobaltIngot.get(), 0.7F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.rawCobalt.get())).save(pWriter, Valoria.loc("cobalt_ingot_from_blasting_raw_cobalt"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(ItemsRegistry.cobaltPickaxe.get()), RecipeCategory.FOOD, ItemsRegistry.cobaltNugget.get(), 0.1F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(ItemsRegistry.cobaltPickaxe.get())).save(pWriter, Valoria.loc("cobalt_nugget_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateAmberOre.get()), RecipeCategory.MISC, ItemsRegistry.amberGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateAmberOre.get())).save(pWriter, Valoria.loc("deepslate_amber_gem_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateRubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateRubyOre.get())).save(pWriter, Valoria.loc("deepslate_ruby_gem_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.deepslateSapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.deepslateSapphireOre.get())).save(pWriter, Valoria.loc("deepslate_sapphire_gem_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.dormantCrystals.get()), RecipeCategory.MISC, ItemsRegistry.unchargedShard.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.dormantCrystals.get())).save(pWriter, Valoria.loc("dormant_crystals_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.jadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.jadeOre.get())).save(pWriter, Valoria.loc("jade_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.picriteJadeOre.get()), RecipeCategory.MISC, ItemsRegistry.jade.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.picriteJadeOre.get())).save(pWriter, Valoria.loc("jade_from_picrite_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.pyratiteOre.get()), RecipeCategory.MISC, ItemsRegistry.pyratite.get(), 1.0F, 100, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.pyratiteOre.get())).save(pWriter, Valoria.loc("pyratite_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.rubyOre.get()), RecipeCategory.MISC, ItemsRegistry.rubyGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.rubyOre.get())).save(pWriter, Valoria.loc("ruby_gem_from_blasting"));
+        SimpleCookingRecipeBuilder.generic(Ingredient.of(BlockRegistry.sapphireOre.get()), RecipeCategory.MISC, ItemsRegistry.sapphireGem.get(), 0.3F, 60, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new).unlockedBy("has_item", has(BlockRegistry.sapphireOre.get())).save(pWriter, Valoria.loc("sapphire_gem_from_blasting"));
     }
 
-    private void buildManualRecipes(Consumer<FinishedRecipe> pWriter) {
+    private void buildManualRecipes(RecipeOutput pWriter) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockRegistry.abyssalLantern.get()).pattern("/X").pattern("X/").define('/', Ingredient.of(BlockRegistry.abyssalGlowfern.get())).define('X', Ingredient.of(BlockRegistry.glowVioletSprout.get())).unlockedBy("has_item", has(BlockRegistry.abyssalGlowfern.get())).save(pWriter, Valoria.loc("abyssal_lantern"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemsRegistry.aloeBandage.get(), 2).pattern("/#").pattern("#/").define('#', Ingredient.of(Items.STRING)).define('/', Ingredient.of(ItemsRegistry.aloePiece.get())).unlockedBy("has_item", has(Items.STRING)).save(pWriter, Valoria.loc("aloe_bandage"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemsRegistry.aloeBandageUpgraded.get(), 2).pattern("/#").pattern("#/").define('#', Ingredient.of(ItemsRegistry.aloeBandage.get())).define('/', Ingredient.of(Items.REDSTONE)).unlockedBy("has_item", has(ItemsRegistry.aloeBandage.get())).save(pWriter, Valoria.loc("aloe_bandage_upgraded"));
@@ -650,14 +650,14 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.IRON_INGOT), Ingredient.of(ItemsRegistry.stoneRapier.get()), Ingredient.of(Items.IRON_INGOT), RecipeCategory.MISC, ItemsRegistry.ironRapier.get()).unlocks("has_item", has(ItemsRegistry.stoneRapier.get())).save(pWriter, Valoria.loc("iron_rapier"));
     }
 
-    public void generateArmor(Consumer<FinishedRecipe> pWriter, ItemLike material, ItemLike helmet, ItemLike chestplate, ItemLike leggings, ItemLike boots) {
+    public void generateArmor(RecipeOutput pWriter, ItemLike material, ItemLike helmet, ItemLike chestplate, ItemLike leggings, ItemLike boots) {
         if (helmet != null) ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet).pattern("XXX").pattern("X X").define('X', material).unlockedBy("has_material", has(material)).save(pWriter);
         if (chestplate != null) ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate).pattern("X X").pattern("XXX").pattern("XXX").define('X', material).unlockedBy("has_material", has(material)).save(pWriter);
         if (leggings != null) ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings).pattern("XXX").pattern("X X").pattern("X X").define('X', material).unlockedBy("has_material", has(material)).save(pWriter);
         if (boots != null) ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots).pattern("X X").pattern("X X").define('X', material).unlockedBy("has_material", has(material)).save(pWriter);
     }
 
-    public void generateTools(Consumer<FinishedRecipe> pWriter, ItemLike material, ItemLike stick, ItemLike sword, ItemLike pickaxe, ItemLike axe, ItemLike shovel, ItemLike hoe) {
+    public void generateTools(RecipeOutput pWriter, ItemLike material, ItemLike stick, ItemLike sword, ItemLike pickaxe, ItemLike axe, ItemLike shovel, ItemLike hoe) {
         if (sword != null) ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, sword).pattern("X").pattern("X").pattern("#").define('X', material).define('#', stick).unlockedBy("has_material", has(material)).save(pWriter);
         if (pickaxe != null) ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe).pattern("XXX").pattern(" # ").pattern(" # ").define('X', material).define('#', stick).unlockedBy("has_material", has(material)).save(pWriter);
         if (axe != null) ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, axe).pattern("XX").pattern("X#").pattern(" #").define('X', material).define('#', stick).unlockedBy("has_material", has(material)).save(pWriter);
@@ -665,13 +665,13 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         if (hoe != null) ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe).pattern("XX").pattern(" #").pattern(" #").define('X', material).define('#', stick).unlockedBy("has_material", has(material)).save(pWriter);
     }
 
-    public void generateIngotBlockNugget(Consumer<FinishedRecipe> pWriter, ItemLike block, ItemLike ingot, ItemLike nugget) {
+    public void generateIngotBlockNugget(RecipeOutput pWriter, ItemLike block, ItemLike ingot, ItemLike nugget) {
         if (block != null && ingot != null) {
             ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block).pattern("XXX").pattern("XXX").pattern("XXX").define('X', ingot).unlockedBy("has_material", has(ingot)).save(pWriter);
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ingot, 9).requires(block).unlockedBy("has_material", has(block)).save(pWriter, Valoria.loc(ForgeRegistries.ITEMS.getKey(ingot.asItem()).getPath() + "_from_block"));
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ingot, 9).requires(block).unlockedBy("has_material", has(block)).save(pWriter, Valoria.loc(BuiltInRegistries.ITEM.getKey(ingot.asItem()).getPath() + "_from_block"));
         }
         if (ingot != null && nugget != null) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ingot).pattern("XXX").pattern("XXX").pattern("XXX").define('X', nugget).unlockedBy("has_material", has(nugget)).save(pWriter, Valoria.loc(ForgeRegistries.ITEMS.getKey(ingot.asItem()).getPath() + "_from_nuggets"));
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ingot).pattern("XXX").pattern("XXX").pattern("XXX").define('X', nugget).unlockedBy("has_material", has(nugget)).save(pWriter, Valoria.loc(BuiltInRegistries.ITEM.getKey(ingot.asItem()).getPath() + "_from_nuggets"));
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, nugget, 9).requires(ingot).unlockedBy("has_material", has(ingot)).save(pWriter);
         }
     }

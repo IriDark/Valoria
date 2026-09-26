@@ -7,17 +7,17 @@ import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
-import javax.annotation.Nullable;
 import javax.annotation.*;
+import javax.annotation.Nullable;
 
 public class JewelerBlock extends Block implements EntityBlock{
 
@@ -56,12 +56,22 @@ public class JewelerBlock extends Block implements EntityBlock{
         return new JewelryBlockEntity(pPos, pState);
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         if(pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }else{
             if (pPlayer instanceof ServerPlayer serverPlayer) {
-                NetworkHooks.openScreen(serverPlayer, getMenuProvider(pLevel, pPos), buf -> buf.writeBlockPos(pPos));
+                serverPlayer.openMenu(getMenuProvider(pLevel, pPos), buf -> buf.writeBlockPos(pPos));
             }
 
             return InteractionResult.CONSUME;

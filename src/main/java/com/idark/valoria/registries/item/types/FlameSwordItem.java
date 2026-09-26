@@ -3,10 +3,10 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.client.render.item.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.neoforge.client.extensions.common.*;
 import software.bernie.geckolib.animatable.*;
-import software.bernie.geckolib.core.animatable.instance.*;
-import software.bernie.geckolib.core.animation.AnimatableManager.*;
+import software.bernie.geckolib.animatable.instance.*;
+import software.bernie.geckolib.animation.AnimatableManager.*;
 import software.bernie.geckolib.util.*;
 
 import java.util.function.*;
@@ -15,7 +15,7 @@ public class FlameSwordItem extends SwordItem implements GeoItem {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public FlameSwordItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
-        super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+        super(pTier, pProperties.attributes(SwordItem.createAttributes(pTier, pAttackDamageModifier, pAttackSpeedModifier)));
     }
 
     @Override

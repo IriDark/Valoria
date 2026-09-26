@@ -2,7 +2,6 @@ package com.idark.valoria.client.ui.menus;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.recipe.*;
-import net.minecraft.core.*;
 import net.minecraft.network.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
@@ -34,7 +33,7 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
         this.player = playerInventory.player;
         this.level = playerInventory.player.level();
         this.access = access;
-        this.allRecipes = this.level.getRecipeManager().getAllRecipesFor(WorkbenchRecipe.Type.INSTANCE);
+        this.allRecipes = this.level.getRecipeManager().getAllRecipesFor(WorkbenchRecipe.Type.INSTANCE).stream().map(h -> h.value().withId(h.id())).toList();
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
                 this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 114 + row * 18));
@@ -121,14 +120,14 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
 
     public void tryCraftRecipe(ServerPlayer player, ResourceLocation recipeId) {
         Optional<WorkbenchRecipe> recipeHolder = level.getRecipeManager().byKey(recipeId)
-        .filter(r -> r instanceof WorkbenchRecipe)
-        .map(r -> (WorkbenchRecipe) r);
+        .filter(r -> r.value() instanceof WorkbenchRecipe)
+        .map(r -> ((WorkbenchRecipe) r.value()).withId(r.id()));
 
         if (recipeHolder.isPresent()) {
             WorkbenchRecipe recipe = recipeHolder.get();
             if (checkAndSetAvailability(recipe)) {
                 consumeMaterials(recipe);
-                ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY).copy();
+                ItemStack result = recipe.getResultItem(this.level.registryAccess()).copy();
                 player.getInventory().placeItemBackInInventory(result);
                 this.broadcastChanges();
             }

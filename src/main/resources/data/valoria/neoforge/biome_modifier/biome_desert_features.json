@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_desert",
+  "features": [
+    "valoria:dried_plant",
+    "valoria:dried_roots"
+  ],
+  "step": "vegetal_decoration"
+}

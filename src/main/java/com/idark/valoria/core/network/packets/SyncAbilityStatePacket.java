@@ -1,12 +1,20 @@
 package com.idark.valoria.core.network.packets;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.item.ability.*;
 import net.minecraft.network.*;
-import net.minecraftforge.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
+import net.neoforged.neoforge.network.handling.*;
 
-import java.util.function.*;
+public class SyncAbilityStatePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<SyncAbilityStatePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("sync_ability_state_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncAbilityStatePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> SyncAbilityStatePacket.encode(msg, buf), SyncAbilityStatePacket::decode);
 
-public class SyncAbilityStatePacket {
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final String abilityId;
     private final long cooldownEndTime;
     private final int maxCooldownTicks;
@@ -35,10 +43,9 @@ public class SyncAbilityStatePacket {
         );
     }
 
-    public static void handle(SyncAbilityStatePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
+    public static void handle(SyncAbilityStatePacket msg, IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
             AbilityHelper.updateClientState(msg.abilityId, msg.cooldownEndTime, msg.maxCooldownTicks, msg.usages);
         });
-        ctx.get().setPacketHandled(true);
     }
 }

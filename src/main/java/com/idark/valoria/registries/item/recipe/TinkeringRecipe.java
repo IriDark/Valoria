@@ -1,32 +1,29 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.*;
 import com.idark.valoria.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 
-public class TinkeringRecipe implements Recipe<Container>{
+public class TinkeringRecipe implements Recipe<ContainerRecipeInput>{
     protected final Ingredient ingredient;
     protected final int ingredientCount;
     protected final ItemStack result;
-    protected final ResourceLocation id;
     protected final String group;
 
-    public TinkeringRecipe(ResourceLocation pId, String pGroup, Ingredient pIngredient, int pIngredientCount, ItemStack pResult){
-        this.id = pId;
+    public TinkeringRecipe(String pGroup, Ingredient pIngredient, int pIngredientCount, ItemStack pResult){
         this.group = pGroup;
         this.ingredient = pIngredient;
         this.ingredientCount = pIngredientCount;
         this.result = pResult;
     }
-
 
     public RecipeType<?> getType(){
         return TinkeringRecipe.Type.INSTANCE;
@@ -40,15 +37,11 @@ public class TinkeringRecipe implements Recipe<Container>{
         return ingredientCount;
     }
 
-    public ResourceLocation getId(){
-        return this.id;
-    }
-
     public String getGroup(){
         return this.group;
     }
 
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess){
+    public ItemStack getResultItem(HolderLookup.Provider pRegistryAccess){
         return this.result;
     }
 
@@ -62,13 +55,13 @@ public class TinkeringRecipe implements Recipe<Container>{
         return true;
     }
 
-    public boolean canCraft(Container pContainer){
+    public boolean canCraft(ContainerRecipeInput pContainer){
         ItemStack stackInSlot = pContainer.getItem(0);
         return this.ingredient.test(stackInSlot) && stackInSlot.getCount() >= ingredientCount;
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel){
+    public boolean matches(ContainerRecipeInput pContainer, Level pLevel){
         ItemStack stackInSlot = pContainer.getItem(0);
         return this.ingredient.test(stackInSlot);
     }
@@ -77,7 +70,7 @@ public class TinkeringRecipe implements Recipe<Container>{
         return true;
     }
 
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
+    public ItemStack assemble(ContainerRecipeInput pContainer, HolderLookup.Provider pRegistryAccess){
         ItemStack stackInSlot = pContainer.getItem(0);
         if(stackInSlot.getCount() >= ingredientCount){
             return this.result.copy();
@@ -95,35 +88,30 @@ public class TinkeringRecipe implements Recipe<Container>{
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = Valoria.loc("tinkering");
 
-        public TinkeringRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson){
-            String s = GsonHelper.getAsString(pJson, "group", "");
-            Ingredient ingredient;
-            if(GsonHelper.isArrayNode(pJson, "ingredient")){
-                ingredient = Ingredient.fromJson(GsonHelper.getAsJsonArray(pJson, "ingredient"), false);
-            }else{
-                ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson, "ingredient"), false);
-            }
+        private static final MapCodec<TinkeringRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
+            Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(r -> r.ingredient),
+            Codec.INT.optionalFieldOf("ingredient_count", 1).forGetter(r -> r.ingredientCount),
+            BuiltInRegistries.ITEM.byNameCodec().fieldOf("result").forGetter(r -> r.result.getItem()),
+            Codec.INT.fieldOf("count").forGetter(r -> r.result.getCount())
+        ).apply(i, (group, ingredient, ingredientCount, item, count) -> new TinkeringRecipe(group, ingredient, ingredientCount, new ItemStack(item, count))));
 
-            int ingredientCount = GsonHelper.getAsInt(pJson, "ingredient_count", 1);
-            String s1 = GsonHelper.getAsString(pJson, "result");
-            int i = GsonHelper.getAsInt(pJson, "count");
-            ItemStack itemstack = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(s1)), i);
-            return new TinkeringRecipe(pRecipeId, s, ingredient, ingredientCount, itemstack);
+        private static final StreamCodec<RegistryFriendlyByteBuf, TinkeringRecipe> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, r -> r.group,
+            Ingredient.CONTENTS_STREAM_CODEC, r -> r.ingredient,
+            ByteBufCodecs.VAR_INT, r -> r.ingredientCount,
+            ItemStack.STREAM_CODEC, r -> r.result,
+            TinkeringRecipe::new
+        );
+
+        @Override
+        public MapCodec<TinkeringRecipe> codec(){
+            return CODEC;
         }
 
-        public TinkeringRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer){
-            String s = pBuffer.readUtf();
-            Ingredient ingredient = Ingredient.fromNetwork(pBuffer);
-            int ingredientCount = pBuffer.readVarInt();
-            ItemStack itemstack = pBuffer.readItem();
-            return new TinkeringRecipe(pRecipeId, s, ingredient, ingredientCount, itemstack);
-        }
-
-        public void toNetwork(FriendlyByteBuf pBuffer, TinkeringRecipe pRecipe){
-            pBuffer.writeUtf(pRecipe.group);
-            pRecipe.ingredient.toNetwork(pBuffer);
-            pBuffer.writeVarInt(pRecipe.ingredientCount);
-            pBuffer.writeItem(pRecipe.result);
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, TinkeringRecipe> streamCodec(){
+            return STREAM_CODEC;
         }
     }
 }

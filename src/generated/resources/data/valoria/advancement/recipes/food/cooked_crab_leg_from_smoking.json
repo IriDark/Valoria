@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crab_leg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:crab_leg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:cooked_crab_leg_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_crab_leg"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:cooked_crab_leg_from_smoking"
+    ]
+  }
+}

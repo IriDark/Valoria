@@ -4,10 +4,11 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.server.level.*;
-import net.minecraftforge.event.entity.*;
-import net.minecraftforge.event.level.*;
-import net.minecraftforge.eventbus.api.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.event.entity.*;
+import net.neoforged.neoforge.event.level.*;
 
 public class StructureEvents{
 
@@ -29,7 +30,7 @@ public class StructureEvents{
 
     @SubscribeEvent
     public void onExplosionStart(ExplosionEvent.Start e) {
-        BlockPos pos = BlockPos.containing(e.getExplosion().getPosition());
+        BlockPos pos = BlockPos.containing(e.getExplosion().center());
         if (e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY && level.getGameRules().getBoolean(Valoria.DISABLE_BLOCK_BREAKING)) {
             if(!level.getBlockState(pos).is(TagsRegistry.ALLOWED_TO_BREAK) && isInStructure(pos, level)) e.setCanceled(true);
         }
@@ -50,7 +51,9 @@ public class StructureEvents{
     }
 
     public boolean isInStructure(BlockPos pos, ServerLevel serverLevel) {
-        var structure = serverLevel.structureManager().getStructureWithPieceAt(pos, LevelGen.VALORIA_FORTRESS);
+        var structureType = serverLevel.registryAccess().registryOrThrow(Registries.STRUCTURE).get(LevelGen.VALORIA_FORTRESS);
+        if(structureType == null) return false;
+        var structure = serverLevel.structureManager().getStructureWithPieceAt(pos, structureType);
         return !structure.getPieces().isEmpty() && structure.getBoundingBox().isInside(pos);
     }
 

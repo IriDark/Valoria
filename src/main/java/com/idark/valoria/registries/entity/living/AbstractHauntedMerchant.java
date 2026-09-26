@@ -115,13 +115,9 @@ public abstract class AbstractHauntedMerchant extends Monster implements Neutral
     public void setupAnimationStates(){
     }
 
-    public MobType getMobType(){
-        return MobType.UNDEAD;
-    }
-
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag){
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData){
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     public boolean shouldDespawnInPeaceful(){
@@ -179,9 +175,9 @@ public abstract class AbstractHauntedMerchant extends Monster implements Neutral
         this.persistentAngerTarget = pTarget;
     }
 
-    public void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    public void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound){
@@ -189,23 +185,25 @@ public abstract class AbstractHauntedMerchant extends Monster implements Neutral
         this.addPersistentAngerSaveData(pCompound);
         MerchantOffers merchantoffers = this.getOffers();
         if(!merchantoffers.isEmpty()){
-            pCompound.put("Offers", merchantoffers.createTag());
+            pCompound.put("Offers", MerchantOffers.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), merchantoffers).getOrThrow());
         }
 
         pCompound.put("Gossips", this.gossips.store(NbtOps.INSTANCE));
-        this.writeInventoryToTag(pCompound);
+        this.writeInventoryToTag(pCompound, this.registryAccess());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.readPersistentAngerSaveData(this.level(), pCompound);
-        if(pCompound.contains("Offers", 10)){
-            this.offers = new MerchantOffers(pCompound.getCompound("Offers"));
+        if(pCompound.contains("Offers")){
+            MerchantOffers.CODEC.parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), pCompound.get("Offers"))
+                .resultOrPartial(error -> Valoria.LOGGER.warn("Failed to load haunted merchant offers: '{}'", error))
+                .ifPresent(loaded -> this.offers = loaded);
         }
 
         ListTag listtag = pCompound.getList("Gossips", 10);
         this.gossips.update(new Dynamic<>(NbtOps.INSTANCE, listtag));
-        this.readInventoryFromTag(pCompound);
+        this.readInventoryFromTag(pCompound, this.registryAccess());
     }
 
     public void setTradingPlayer(@Nullable Player pPlayer){

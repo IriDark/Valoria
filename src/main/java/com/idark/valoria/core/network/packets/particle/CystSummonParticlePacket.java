@@ -4,8 +4,10 @@ import com.idark.valoria.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -13,9 +15,14 @@ import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
-import java.util.function.*;
+public class CystSummonParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<CystSummonParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("cyst_summon_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CystSummonParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), CystSummonParticlePacket::decode);
 
-public class CystSummonParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final int id;
     private final BlockPos pos;
 
@@ -28,9 +35,9 @@ public class CystSummonParticlePacket{
         return new CystSummonParticlePacket(buf.readInt(), buf.readBlockPos());
     }
 
-    public static void handle(CystSummonParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(CystSummonParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 ParticleBuilder.create(TridotParticles.WISP)
                 .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
@@ -41,7 +48,6 @@ public class CystSummonParticlePacket{
                 .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
                 .repeat(pLevel, msg.pos.getCenter().x, msg.pos.getCenter().y + 0.2, msg.pos.getCenter().z, 8);
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

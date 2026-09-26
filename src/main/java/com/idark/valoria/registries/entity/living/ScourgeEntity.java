@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
+import net.neoforged.neoforge.common.*;
 import pro.komaru.tridot.api.entity.ai.goals.*;
 
 public class ScourgeEntity extends SwampWandererEntity{
@@ -145,7 +146,7 @@ public class ScourgeEntity extends SwampWandererEntity{
 
     @Override
     public void die(DamageSource pDamageSource){
-        if(net.minecraftforge.common.ForgeHooks.onLivingDeath(this, pDamageSource)) return;
+        if(CommonHooks.onLivingDeath(this, pDamageSource)) return;
         if(!this.isRemoved() && !this.dead){
             Entity entity = pDamageSource.getEntity();
             LivingEntity livingentity = this.getKillCredit();
@@ -167,7 +168,7 @@ public class ScourgeEntity extends SwampWandererEntity{
             if(level instanceof ServerLevel serverlevel){
                 if(entity == null || entity.killedEntity(serverlevel, this)){
                     this.gameEvent(GameEvent.ENTITY_DIE);
-                    this.dropAllDeathLoot(pDamageSource);
+                    this.dropAllDeathLoot(serverlevel, pDamageSource);
                 }
 
                 this.level().broadcastEntityEvent(this, (byte)3);
@@ -218,7 +219,7 @@ public class ScourgeEntity extends SwampWandererEntity{
             LivingEntity livingentity = this.mob.getTarget();
             if (livingentity != null) {
                 this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-                double d0 = this.mob.getPerceivedTargetDistanceSquareForMeleeAttack(livingentity);
+                double d0 = this.mob.distanceToSqr(livingentity);
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                 if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0 || this.mob.getRandom().nextFloat() < 0.05F)) {
                     this.pathedTargetX = livingentity.getX();

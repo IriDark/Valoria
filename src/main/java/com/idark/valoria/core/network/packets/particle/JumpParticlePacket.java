@@ -3,10 +3,12 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -18,7 +20,9 @@ import pro.komaru.tridot.util.math.*;
 import java.util.*;
 import java.util.function.*;
 
-public class JumpParticlePacket{
+public class JumpParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<JumpParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("jump_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, JumpParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), JumpParticlePacket::decode);
     private final UUID id;
 
     public JumpParticlePacket(UUID id){
@@ -29,9 +33,9 @@ public class JumpParticlePacket{
         return new JumpParticlePacket(buf.readUUID());
     }
 
-    public static void handle(JumpParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(JumpParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 Player player = level.getPlayerByUUID(msg.id);
                 if(player != null){
@@ -52,7 +56,7 @@ public class JumpParticlePacket{
 
                     Vec3 pos = new Vec3(player.getX(), y, player.getZ());
                     ParticleBuilder.create(TridotParticles.TRAIL)
-                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE)
                     .setBehavior(TrailParticleBehavior.create().build())
                     .setColorData(ColorParticleData.create(Col.white, Pal.darkishGray).build())
                     .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Interp.bounceOut).build())
@@ -64,13 +68,16 @@ public class JumpParticlePacket{
                 }else{
                     Valoria.LOGGER.error("Player with UUID {}, not found", msg.id);
                 }
-
-                ctx.get().setPacketHandled(true);
             });
         }
     }
 
     public void encode(FriendlyByteBuf buf){
         buf.writeUUID(id);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type(){
+        return TYPE;
     }
 }

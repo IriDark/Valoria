@@ -1,23 +1,12 @@
 package com.idark.valoria.registries.level.tree;
 
 import com.idark.valoria.registries.level.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
 import net.minecraft.world.level.block.grower.*;
-import net.minecraft.world.level.levelgen.feature.*;
-import org.jetbrains.annotations.*;
 
-public class DreadwoodTree extends AbstractMegaTreeGrower{
+import java.util.*;
 
-    @Nullable
-    @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource pRandom, boolean pHasFlowers){
-        return LevelGen.DREADWOOD_TREE;
-    }
+public final class DreadwoodTree{
+    public static final TreeGrower INSTANCE = new TreeGrower("valoria:dreadwood", Optional.of(LevelGen.FANCY_DREADWOOD_TREE), Optional.of(LevelGen.DREADWOOD_TREE), Optional.empty());
 
-    @Nullable
-    @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource pRandom){
-        return LevelGen.FANCY_DREADWOOD_TREE;
-    }
+    private DreadwoodTree(){}
 }

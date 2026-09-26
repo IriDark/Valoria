@@ -17,8 +17,8 @@ import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 import java.lang.Math;
-import java.util.Random;
 import java.util.*;
+import java.util.Random;
 import java.util.function.*;
 
 public abstract class AbstractNecromancer extends Monster{
@@ -30,9 +30,9 @@ public abstract class AbstractNecromancer extends Monster{
         super(pEntityType, pLevel);
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(DATA_SPELL_CASTING_ID, (byte)0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_SPELL_CASTING_ID, (byte)0);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound){

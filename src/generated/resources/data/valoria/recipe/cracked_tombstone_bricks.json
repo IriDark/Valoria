@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 140,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "valoria:tombstone_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:cracked_tombstone_bricks"
+  }
+}

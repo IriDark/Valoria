@@ -1,16 +1,24 @@
 package com.idark.valoria.core.network.packets;
 
+import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
-import net.minecraft.client.*;
-import net.minecraft.client.player.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.entity.*;
-import net.minecraftforge.network.NetworkEvent.*;
+import net.minecraft.world.entity.player.*;
+import net.neoforged.neoforge.network.handling.*;
 
 import javax.annotation.*;
-import java.util.function.*;
 
-public class MagmaPacket{
+public class MagmaPacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<MagmaPacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("magma_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, MagmaPacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> MagmaPacket.encode(msg, buf), MagmaPacket::decode);
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final float max;
     private final float magmaLevel;
 
@@ -33,16 +41,15 @@ public class MagmaPacket{
         return new MagmaPacket(buffer.readFloat(), buffer.readFloat());
     }
 
-    public void handle(Supplier<Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            LocalPlayer player = Minecraft.getInstance().player;
+    public void handle(IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
+            Player player = Valoria.proxy.getPlayer();
             if(player == null) return;
-            player.getCapability(MagmaLevelProvider.INSTANCE).ifPresent(m -> {
+            IMagmaLevel.of(player).ifPresent(m -> {
                 m.setMaxAmount(this.max);
                 m.setAmount(this.magmaLevel);
             });
         });
 
-        ctx.get().setPacketHandled(true);
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/q",
+    "q/"
+  ],
+  "key": {
+    "q": {
+      "item": "minecraft:quartz"
+    },
+    "/": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "id": "valoria:amethyst_gem",
+    "count": 1
+  }
+}

@@ -15,8 +15,9 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.pattern.*;
+import net.minecraft.world.level.portal.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.client.gfx.*;
@@ -28,16 +29,31 @@ import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
-public class ValoriaPortalBlock extends Block implements EntityBlock{
+public class ValoriaPortalBlock extends Block implements EntityBlock, Portal{
     private static final VoxelShape shape = Block.box(0.0D, 6.0D, 0.0D, 16.0D, 8.5D, 16.0D);
     public ValoriaPortalBlock(Properties pProperties){
         super(pProperties);
     }
 
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity){
-        if(pEntity.canChangeDimensions() && Shapes.joinIsNotEmpty(Shapes.create(pEntity.getBoundingBox().move(-pPos.getX(), -pPos.getY(), -pPos.getZ())), pState.getShape(pLevel, pPos), BooleanOp.AND)){
+        if(pEntity.canUsePortal(false) && Shapes.joinIsNotEmpty(Shapes.create(pEntity.getBoundingBox().move(-pPos.getX(), -pPos.getY(), -pPos.getZ())), pState.getShape(pLevel, pPos), BooleanOp.AND)){
             handlePortal(pEntity, pPos);
         }
+    }
+
+    @Override
+    public int getPortalTransitionTime(ServerLevel level, Entity entity){
+        return 0;
+    }
+
+    @Override
+    public @Nullable DimensionTransition getPortalDestination(ServerLevel serverlevel, Entity player, BlockPos pPos){
+        MinecraftServer minecraftserver = serverlevel.getServer();
+        ResourceKey<Level> resourcekey = player.level().dimension() == LevelGen.VALORIA_KEY ? Level.OVERWORLD : LevelGen.VALORIA_KEY;
+        ServerLevel portalDimension = minecraftserver.getLevel(resourcekey);
+        if(portalDimension == null) return null;
+        boolean inside = resourcekey == LevelGen.VALORIA_KEY;
+        return new ValoriaTeleporter(serverlevel, pPos, inside).getPortalDestination(portalDimension, player);
     }
 
     @Override
@@ -82,13 +98,7 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
             ResourceKey<Level> resourcekey = player.level().dimension() == LevelGen.VALORIA_KEY ? Level.OVERWORLD : LevelGen.VALORIA_KEY;
             ServerLevel portalDimension = minecraftserver.getLevel(resourcekey);
             if(portalDimension != null && !player.isPassenger()){
-                if(resourcekey == LevelGen.VALORIA_KEY){
-                    player.changeDimension(portalDimension, new ValoriaTeleporter(serverlevel, pPos, true));
-                }else{
-                    player.changeDimension(portalDimension, new ValoriaTeleporter(serverlevel, pPos, false));
-                }
-
-                player.setPortalCooldown();
+                player.setAsInsidePortal(this, pPos);
             }
         }
     }

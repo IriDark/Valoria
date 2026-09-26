@@ -4,12 +4,14 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.util.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
@@ -18,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -30,6 +32,9 @@ import pro.komaru.tridot.util.math.*;
 import javax.annotation.*;
 
 public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterloggedBlock{
+    public static final MapCodec<FleshCystBlock> CODEC = simpleCodec(FleshCystBlock::new);
+    @Override protected MapCodec<? extends FleshCystBlock> codec(){ return CODEC; }
+
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public FleshCystBlock(Properties pProperties){
@@ -73,7 +78,7 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
                 double d0 = (double)pos.getX() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
                 double d1 = pos.getY() + randomsource.nextInt(3) - 1;
                 double d2 = (double)pos.getZ() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
-                if(world.noCollision(sentinel.getType().getAABB(d0, d1, d2))){
+                if(world.noCollision(sentinel.getType().getSpawnAABB(d0, d1, d2))){
                     sentinel.moveTo(d0, d1, d2, 0.0F, 0.0F);
                     sentinel.setBoundOrigin(pos);
                     world.addFreshEntity(sentinel);
@@ -156,8 +161,8 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     @Override
-    public int getExpDrop(BlockState state, net.minecraft.world.level.LevelReader world, net.minecraft.util.RandomSource randomSource, BlockPos pos, int fortune, int silktouch){
-        return 15 + randomSource.nextInt(25);
+    public int getExpDrop(BlockState state, LevelAccessor level, BlockPos pos, @Nullable BlockEntity blockEntity, @Nullable Entity breaker, ItemStack tool){
+        return 15 + level.getRandom().nextInt(25);
     }
 }
 

@@ -3,18 +3,25 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.util.function.*;
+public class MurasamaParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<MurasamaParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("murasama_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, MurasamaParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), MurasamaParticlePacket::decode);
 
-public class MurasamaParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
 
     private final float distance;
     private final double posX, posY, posZ;
@@ -35,9 +42,9 @@ public class MurasamaParticlePacket{
         return new MurasamaParticlePacket(buf.readFloat(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(MurasamaParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(MurasamaParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 RandomSource source = RandomSource.create();
                 double
@@ -66,7 +73,6 @@ public class MurasamaParticlePacket{
                             .spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
                 }
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

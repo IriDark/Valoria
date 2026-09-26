@@ -11,9 +11,9 @@ public class RiverGolem extends AbstractElementalGolem{
         super(type, pLevel);
         this.xpReward = 5;
         this.getNavigation().setCanFloat(false);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
 
         this.selector.addAttack(new GolemMeleeAttack(this, 1, 2, 0, 10, 20));
         this.selector.addAttack(new GolemMeleeSlapAttack(this, 1, 2, 0, 10, 40));

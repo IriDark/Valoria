@@ -1,7 +1,8 @@
 package com.idark.valoria.core.capability;
 
+import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraftforge.common.util.*;
+import net.neoforged.neoforge.common.util.*;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -42,7 +43,7 @@ public class PlayerAbilityTracker implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();
         CompoundTag usagesTag = new CompoundTag();
         for (Map.Entry<String, Integer> entry : usages.entrySet()) {
@@ -61,18 +62,18 @@ public class PlayerAbilityTracker implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         usages.clear();
         cooldowns.clear();
         maxCooldowns.clear();
-        
+
         if (nbt.contains("Usages", Tag.TAG_COMPOUND)) {
             CompoundTag usagesTag = nbt.getCompound("Usages");
             for (String key : usagesTag.getAllKeys()) {
                 usages.put(key, usagesTag.getInt(key));
             }
         }
-        
+
         if (nbt.contains("Cooldowns", Tag.TAG_COMPOUND)) {
             CompoundTag cdTag = nbt.getCompound("Cooldowns");
             for (String key : cdTag.getAllKeys()) {

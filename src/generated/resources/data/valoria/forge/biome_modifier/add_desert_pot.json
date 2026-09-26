@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#valoria:desert_pot_spawn_biomes",
-  "features": "valoria:desert_pot",
-  "step": "underground_ores"
-}

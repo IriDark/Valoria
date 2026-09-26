@@ -14,12 +14,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.portal.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.util.*;
 
 import java.util.*;
-import java.util.function.*;
 
-public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
+public class ValoriaTeleporter extends BaseTeleporter{
     protected final ServerLevel level;
 
     public ValoriaTeleporter(ServerLevel pLevel, BlockPos pos, boolean insideDim){
@@ -27,13 +25,12 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
         this.level = pLevel;
     }
 
-    @Override
-    public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo){
+    public DimensionTransition getPortalDestination(ServerLevel destWorld, Entity entity){
         entity.setPortalCooldown();
         return findPlayerMadePortal(destWorld, entity);
     }
 
-    private PortalInfo findPlayerMadePortal(ServerLevel level, Entity entity){
+    private DimensionTransition findPlayerMadePortal(ServerLevel level, Entity entity){
         BlockPos pos = entity.blockPosition();
         PoiManager poiManager = level.getPoiManager();
         poiManager.ensureLoadedAndValid(level, pos, 256);
@@ -42,20 +39,21 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
                 poi.getPos().distSqr(pos)).thenComparingInt((poi) ->
                 poi.getPos().getY())).findFirst();
 
+        DimensionTransition.PostDimensionTransition post = Entity::setPortalCooldown;
         BlockPos blockpos;
         if(optional.isEmpty()){
             FoundRectangle rectangle = createPortal(level, entity);
             blockpos = rectangle.minCorner;
             level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
-            return new PortalInfo(new Vec3(rectangle.minCorner.getX() + 2, rectangle.minCorner.getY(), rectangle.minCorner.getZ() + 2), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+            return new DimensionTransition(level, new Vec3(rectangle.minCorner.getX() + 2, rectangle.minCorner.getY(), rectangle.minCorner.getZ() + 2), Vec3.ZERO, entity.getXRot(), entity.getYRot(), post);
         }
 
         // cringe
         blockpos = optional.get().getPos();
         if(level.dimension() == LevelGen.VALORIA_KEY){
-            return new PortalInfo(new Vec3(blockpos.getX() + 1.5f, blockpos.getY(), blockpos.getZ() + 1.5f), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+            return new DimensionTransition(level, new Vec3(blockpos.getX() + 1.5f, blockpos.getY(), blockpos.getZ() + 1.5f), Vec3.ZERO, entity.getXRot(), entity.getYRot(), post);
         } else {
-            return new PortalInfo(new Vec3(blockpos.getX() - 0.5f, blockpos.getY(), blockpos.getZ() - 0.5f), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+            return new DimensionTransition(level, new Vec3(blockpos.getX() - 0.5f, blockpos.getY(), blockpos.getZ() - 0.5f), Vec3.ZERO, entity.getXRot(), entity.getYRot(), post);
         }
     }
 
@@ -66,12 +64,6 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
         BlockPos blockpos = rectangle.minCorner.offset(0, 0, 0);
         level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
         return new BlockUtil.FoundRectangle(blockpos, 3, 3);
-    }
-
-    @Override
-    public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destinationWorld, float yaw, Function<Boolean, Entity> repositionEntity){
-        entity = repositionEntity.apply(true);
-        return entity;
     }
 
     public Optional<BlockUtil.FoundRectangle> createPortal(ServerLevel world, BlockPos pos, BlockState portal, BlockState frame){

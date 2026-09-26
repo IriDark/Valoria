@@ -1,0 +1,15 @@
+{
+  "group": "equipment",
+  "type": "valoria:alchemy",
+  "level": 2,
+  "ingredients": [
+    { "ingredient": { "item": "valoria:rune" }, "count": 1 },
+    { "ingredient": { "item": "valoria:infernal_stone" }, "count": 8 },
+    { "ingredient": { "item": "valoria:devil_heart" }, "count": 1 },
+    { "ingredient": { "item": "valoria:runic_dust" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:rune_of_pyro",
+    "count": 1
+  }
+}

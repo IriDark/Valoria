@@ -1,15 +1,14 @@
 package com.idark.valoria.registries.item.types.curio;
 
-import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import pro.komaru.tridot.util.*;
 
@@ -29,19 +28,19 @@ public class VoidCrystalItem extends AbstractTalismanItem implements ISoulItem{
         return setSoulItem(super.getDefaultInstance());
     }
 
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = super.getAttributeModifiers(slot, stack);
-        if (slot == EquipmentSlot.OFFHAND && getCurrentSouls(stack) > 0) {
-            return modifiers;
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack){
+        if(getCurrentSouls(stack) > 0){
+            return super.getDefaultAttributeModifiers(stack);
         }
 
-        return ImmutableMultimap.of();
+        return ItemAttributeModifiers.EMPTY;
     }
 
     @Override
-    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex){
-        super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
-        if(!player.level().isClientSide()){
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotIndex, boolean selected){
+        super.inventoryTick(stack, level, entity, slotIndex, selected);
+        if(entity instanceof Player player && !player.level().isClientSide()){
             if(player.getItemBySlot(EquipmentSlot.OFFHAND) == stack){
                 if(player.tickCount % Tmp.rnd.nextInt(140, 180) == 0){
                     consumeSouls(1, stack);
@@ -51,8 +50,8 @@ public class VoidCrystalItem extends AbstractTalismanItem implements ISoulItem{
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("\uE253").withStyle(style -> style.withFont(Valoria.FONT)));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
+        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("").withStyle(style -> style.withFont(Valoria.FONT)));
         super.appendHoverText(stack, world, tooltip, flags);
     }
 

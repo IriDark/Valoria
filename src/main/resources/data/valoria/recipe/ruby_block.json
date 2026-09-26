@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:ruby_gem"
+    }
+  },
+  "result": {
+    "id": "valoria:ruby_block",
+    "count": 1
+  }
+}

@@ -12,7 +12,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.*;
 import org.jetbrains.annotations.*;
 
 import java.util.*;
@@ -86,11 +86,11 @@ public class CodexPageItem extends Item{
     }
 
     private static boolean onUnlock(Unlockable unlockable) {
-        return MinecraftForge.EVENT_BUS.post(new OnPageUnlocked(unlockable));
+        return NeoForge.EVENT_BUS.post(new OnPageUnlocked(unlockable)).isCanceled();
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         if(lang != null && !lang.isEmpty()){
             tooltip.add(Component.translatable("tooltip.valoria.page").withStyle(ChatFormatting.GRAY).append(Component.translatable(lang).withStyle(ChatFormatting.BLUE)));

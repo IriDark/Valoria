@@ -1,13 +1,13 @@
 package com.idark.valoria.registries.item.armor.item;
 
 import net.minecraft.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.event.entity.player.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.event.entity.player.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
 
@@ -18,7 +18,7 @@ public class HitEffectArmorItem extends SuitArmorItem{
     public float chance;
     public Type type;
 
-    public HitEffectArmorItem(ArmorMaterial material, Type type, Properties settings, float chance, MobEffectInstance... effects){
+    public HitEffectArmorItem(Holder<ArmorMaterial> material, Type type, Properties settings, float chance, MobEffectInstance... effects){
         super(material, type, settings);
         this.chance = chance;
         this.type = type;
@@ -27,10 +27,10 @@ public class HitEffectArmorItem extends SuitArmorItem{
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> list, TooltipFlag flags){
         super.appendHoverText(stack, world, list, flags);
         for(MobEffectInstance entry : effects){
-            String effect = entry.getEffect().getDisplayName().getString();
+            String effect = entry.getEffect().value().getDisplayName().getString();
             list.add(1, Component.translatable("tooltip.tridot.applies_with_chance_target", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY)
                     .append(Component.literal(effect).withStyle(stack.getRarity().getStyleModifier()))
             );

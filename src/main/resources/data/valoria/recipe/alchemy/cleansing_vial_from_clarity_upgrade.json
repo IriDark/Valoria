@@ -1,0 +1,13 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:clarity_vial" }, "count": 1 },
+    { "ingredient": { "item": "valoria:tainted_berries" }, "count": 1 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 1 }
+  ],
+  "result": {
+    "item": "valoria:cleansing_vial",
+    "count": 1
+  }
+}

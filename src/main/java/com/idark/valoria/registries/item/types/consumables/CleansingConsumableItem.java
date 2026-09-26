@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types.consumables;
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
 import net.minecraft.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -10,8 +11,6 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.registries.*;
-import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.common.registry.item.types.*;
@@ -50,7 +49,7 @@ public class CleansingConsumableItem extends AbstractConsumableItem implements T
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         pTooltipComponents.add(Component.translatable("tooltip.valoria.void_cleanse", voidCleanse).withStyle(ChatFormatting.GRAY).withStyle(style -> style.withFont(Valoria.FONT)));
     }
@@ -62,12 +61,12 @@ public class CleansingConsumableItem extends AbstractConsumableItem implements T
 
     @Override
     public void onConsume(ItemStack pStack, Level pLevel, Player player){
-        player.getCapability(INihilityLevel.INSTANCE).ifPresent(k -> {
+        INihilityLevel.of(player).ifPresent(k -> {
             k.decrease(player, voidCleanse);
         });
 
         player.addEffect(new MobEffectInstance(effect));
-        for(Item item : ForgeRegistries.ITEMS) {
+        for(Item item : BuiltInRegistries.ITEM) {
             if(item instanceof CleansingConsumableItem) {
                 player.getCooldowns().addCooldown(item, cooldownTicks);
             }

@@ -34,7 +34,7 @@ public class SweepAttack extends AttackInstance{
             mob.getNavigation().moveTo(target, speedModifier);
         }
 
-        double distSq = this.mob.getPerceivedTargetDistanceSquareForMeleeAttack(target);
+        double distSq = this.mob.distanceToSqr(target);
         if(distSq > 1024.0D){
             this.ticksUntilNextPathRecalc += 10;
         }else if(distSq > 256.0D){

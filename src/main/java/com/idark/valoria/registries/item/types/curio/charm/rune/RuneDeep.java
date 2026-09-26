@@ -5,7 +5,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
 import top.theillusivec4.curios.api.*;
 
 import java.util.*;
@@ -26,7 +25,7 @@ public class RuneDeep extends AbstractRuneItem{
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.deep").withStyle(ChatFormatting.GRAY));
     }

@@ -1,0 +1,28 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "valoria:aquarius_ingot"
+      },
+      "count": 6
+    },
+    {
+      "ingredient": {
+        "item": "valoria:oceanic_shell"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:string"
+      },
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "valoria:aquarius_bow",
+    "count": 1
+  }
+}

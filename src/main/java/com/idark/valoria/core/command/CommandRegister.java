@@ -1,11 +1,11 @@
 package com.idark.valoria.core.command;
 
-import com.idark.valoria.Valoria;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import com.idark.valoria.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.fml.common.*;
+import net.neoforged.neoforge.event.*;
 
-@Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Valoria.ID, bus = EventBusSubscriber.Bus.GAME)
 public class CommandRegister{
 
     @SubscribeEvent

@@ -1,0 +1,34 @@
+{
+  "parent": "valoria:valoria/aloe_piece",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "item": {
+          "items": "valoria:aloe_bandage"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.first_help.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "valoria:aloe_bandage"
+    },
+    "title": {
+      "translate": "advancements.valoria.first_help.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 80
+  },
+  "sends_telemetry_event": true
+}

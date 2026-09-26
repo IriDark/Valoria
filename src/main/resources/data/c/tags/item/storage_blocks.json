@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:storage_blocks/amber",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/amethyst",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/sapphire",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/ruby",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/bronze",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/cobalt",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/black_gold",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/crimtane",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/nature",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/aquarius",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/infernal",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/awakened_void",
+      "required": false
+    }
+  ]
+}

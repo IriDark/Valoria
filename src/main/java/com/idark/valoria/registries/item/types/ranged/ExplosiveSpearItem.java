@@ -12,7 +12,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 
-public class ExplosiveSpearItem extends SpearItem implements Vanishable{
+public class ExplosiveSpearItem extends SpearItem{
     private final Level.ExplosionInteraction interaction;
     private final float explosive_radius;
 
@@ -41,10 +41,10 @@ public class ExplosiveSpearItem extends SpearItem implements Vanishable{
 
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft){
         if(entityLiving instanceof Player playerEntity){
-            int i = this.getUseDuration(stack) - timeLeft;
+            int i = this.getUseDuration(stack, entityLiving) - timeLeft;
             if(i >= 6){
                 if(!worldIn.isClientSide){
-                    stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
+                    stack.hurtAndBreak(1, playerEntity, LivingEntity.getSlotForHand(entityLiving.getUsedItemHand()));
                     ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack);
                     spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float)0 * 0.5F, 1.0F);
                     spear.setExplode(interaction, explosive_radius);
@@ -52,8 +52,8 @@ public class ExplosiveSpearItem extends SpearItem implements Vanishable{
                         spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     }
 
-                    if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0){
-                        spear.setSecondsOnFire(100);
+                    if(EnchantmentsRegistry.getLevel(worldIn, stack, Enchantments.FIRE_ASPECT) > 0){
+                        spear.igniteForSeconds(100);
                     }
 
                     spear.setEffectsFromList(this.builder.effects);

@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.*;
+import com.idark.valoria.client.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.*;
 import pro.komaru.tridot.client.*;
 
 public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity>{
-    public static final ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.loc("elemental_sphere"), "");
+    public static final ModelResourceLocation SPHERE = ValoriaLayers.SPHERE;
 
     public ManipulatorBlockEntityRenderer(){
     }
@@ -25,7 +25,7 @@ public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<Manip
     @Override
     public void render(ManipulatorBlockEntity manipulatorBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         ms.pushPose();
-        double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
+        double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true)) * 0.1);
         float y = 0.6f + (float)(sinValue / 20);
         float rot = ClientTick.ticksInGame * 0.5f;
 

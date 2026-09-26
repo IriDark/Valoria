@@ -1,21 +1,21 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.*;
+import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.*;
+import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.*;
 import top.theillusivec4.curios.api.*;
 
 import java.util.*;
@@ -49,62 +49,53 @@ public class GolemCoreItem extends TimedMagmaImmunityItem {
         return this.type;
     }
 
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create();
+    private static ResourceLocation modLoc(String id) {
+        return Valoria.loc("golem_core_" + id);
+    }
 
+    @Override
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        Multimap<Holder<Attribute>, AttributeModifier> modifiers = LinkedHashMultimap.create();
         switch (this.type) {
             case NATURE -> {
-                modifiers.put(AttributeReg.NATURE_RESISTANCE.get(), new AttributeModifier(
-                        uuid, "Golem core nature resistance", 25.0D, AttributeModifier.Operation.ADDITION));
-                modifiers.put(AttributeReg.INFERNAL_RESISTANCE.get(), new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 1L, uuid.getLeastSignificantBits()),
-                        "Golem core fire weakness", -15.0D, AttributeModifier.Operation.ADDITION));
+                modifiers.put(AttributeReg.NATURE_RESISTANCE, new AttributeModifier(
+                modLoc("nature_res"), 25.0D, AttributeModifier.Operation.ADD_VALUE));
+                modifiers.put(AttributeReg.INFERNAL_RESISTANCE, new AttributeModifier(
+                modLoc("nature_fire_weakness"), -15.0D, AttributeModifier.Operation.ADD_VALUE));
                 modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 2L, uuid.getLeastSignificantBits()),
-                        "Golem core knockback resistance", 0.15D, AttributeModifier.Operation.ADDITION));
+                modLoc("nature_kb_res"), 0.15D, AttributeModifier.Operation.ADD_VALUE));
             }
             case RIVER -> {
-                modifiers.put(AttributeReg.DEPTH_RESISTANCE.get(), new AttributeModifier(
-                        uuid, "Golem core depth resistance", 25.0D, AttributeModifier.Operation.ADDITION));
-                modifiers.put(AttributeReg.INFERNAL_RESISTANCE.get(), new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 1L, uuid.getLeastSignificantBits()),
-                        "Golem core fire weakness", -15.0D, AttributeModifier.Operation.ADDITION));
+                modifiers.put(AttributeReg.DEPTH_RESISTANCE, new AttributeModifier(
+                modLoc("river_depth_res"), 25.0D, AttributeModifier.Operation.ADD_VALUE));
+                modifiers.put(AttributeReg.INFERNAL_RESISTANCE, new AttributeModifier(
+                modLoc("river_fire_weakness"), -15.0D, AttributeModifier.Operation.ADD_VALUE));
                 modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                    new UUID(uuid.getMostSignificantBits() + 2L, uuid.getLeastSignificantBits()),
-                    "Golem core knockback resistance", 0.15D, AttributeModifier.Operation.ADDITION));
-                modifiers.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(
-                    new UUID(uuid.getMostSignificantBits() + 3L, uuid.getLeastSignificantBits()),
-                    "Golem core knockback resistance", 0.05D, Operation.MULTIPLY_TOTAL));
+                modLoc("river_kb_res"), 0.15D, AttributeModifier.Operation.ADD_VALUE));
+                modifiers.put(NeoForgeMod.SWIM_SPEED, new AttributeModifier(
+                modLoc("river_swim_speed"), 0.05D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
             }
             case MAGMATIC -> {
-                modifiers.put(AttributeReg.INFERNAL_RESISTANCE.get(), new AttributeModifier(
-                        uuid, "Golem core infernal resistance", 25.0D, AttributeModifier.Operation.ADDITION));
-                modifiers.put(AttributeReg.DEPTH_RESISTANCE.get(), new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 1L, uuid.getLeastSignificantBits()),
-                        "Golem core water weakness", -15.0D, AttributeModifier.Operation.ADDITION));
+                modifiers.put(AttributeReg.INFERNAL_RESISTANCE, new AttributeModifier(
+                modLoc("magma_res"), 25.0D, AttributeModifier.Operation.ADD_VALUE));
+                modifiers.put(AttributeReg.DEPTH_RESISTANCE, new AttributeModifier(
+                modLoc("magma_water_weakness"), -15.0D, AttributeModifier.Operation.ADD_VALUE));
                 modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 2L, uuid.getLeastSignificantBits()),
-                        "Golem core knockback resistance", 0.15D, AttributeModifier.Operation.ADDITION));
+                modLoc("magma_kb_res"), 0.15D, AttributeModifier.Operation.ADD_VALUE));
             }
             case ELEMENTAL -> {
-                modifiers.put(AttributeReg.NATURE_RESISTANCE.get(), new AttributeModifier(
-                        uuid, "Elemental core nature resistance", 25.0D, AttributeModifier.Operation.ADDITION));
-                modifiers.put(AttributeReg.DEPTH_RESISTANCE.get(), new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 1L, uuid.getLeastSignificantBits()),
-                        "Elemental core depth resistance", 25.0D, AttributeModifier.Operation.ADDITION));
-                modifiers.put(AttributeReg.INFERNAL_RESISTANCE.get(), new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 2L, uuid.getLeastSignificantBits()),
-                        "Elemental core infernal resistance", 25.0D, AttributeModifier.Operation.ADDITION));
-                modifiers.put(AttributeReg.ELEMENTAL_RESISTANCE.get(), new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 3L, uuid.getLeastSignificantBits()),
-                        "Elemental core elemental resistance", 25.0D, AttributeModifier.Operation.ADDITION));
+                modifiers.put(AttributeReg.NATURE_RESISTANCE, new AttributeModifier(
+                modLoc("elem_nature_res"), 25.0D, AttributeModifier.Operation.ADD_VALUE));
+                modifiers.put(AttributeReg.DEPTH_RESISTANCE, new AttributeModifier(
+                modLoc("elem_depth_res"), 25.0D, AttributeModifier.Operation.ADD_VALUE));
+                modifiers.put(AttributeReg.INFERNAL_RESISTANCE, new AttributeModifier(
+                modLoc("elem_infernal_res"), 25.0D, AttributeModifier.Operation.ADD_VALUE));
+                modifiers.put(AttributeReg.ELEMENTAL_RESISTANCE, new AttributeModifier(
+                modLoc("elem_elem_res"), 25.0D, AttributeModifier.Operation.ADD_VALUE));
                 modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 4L, uuid.getLeastSignificantBits()),
-                        "Elemental core knockback resistance", 0.35D, AttributeModifier.Operation.ADDITION));
+                modLoc("elem_kb_res"), 0.35D, AttributeModifier.Operation.ADD_VALUE));
                 modifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(
-                        new UUID(uuid.getMostSignificantBits() + 5L, uuid.getLeastSignificantBits()),
-                        "Elemental core toughness", 2.0D, AttributeModifier.Operation.ADDITION));
+                modLoc("elem_toughness"), 2.0D, AttributeModifier.Operation.ADD_VALUE));
             }
         }
 
@@ -141,7 +132,7 @@ public class GolemCoreItem extends TimedMagmaImmunityItem {
         if (!(directAttacker instanceof LivingEntity attacker) || attacker == target) return;
 
         if (this.type == Type.MAGMATIC || this.type == Type.ELEMENTAL) {
-            attacker.setSecondsOnFire(4);
+            attacker.setRemainingFireTicks(4);
             attacker.hurt(target.damageSources().inFire(), 2.5F);
             serverLevel.sendParticles(ParticleTypes.FLAME, attacker.getX(), attacker.getY(0.5), attacker.getZ(), 12, 0.25, 0.25, 0.25, 0.05);
             serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.FIRECHARGE_USE, SoundSource.PLAYERS, 0.6F, 1.2F);
@@ -165,10 +156,9 @@ public class GolemCoreItem extends TimedMagmaImmunityItem {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-        super.appendHoverText(stack, world, tooltip, flags);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List tooltip, TooltipFlag flags) {
+        super.appendHoverText(stack, context, tooltip, flags);
         tooltip.add(Component.empty());
         switch (this.type) {
             case NATURE -> tooltip.add(Component.translatable("tooltip.valoria.nature_golem_core").withStyle(ChatFormatting.GRAY));

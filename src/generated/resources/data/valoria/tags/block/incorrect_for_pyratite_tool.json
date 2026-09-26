@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#valoria:needs_meat_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_depth_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_infernal_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_void_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_phantom_tool",
+      "required": false
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 package com.idark.valoria.core.compat.jade;
 
+import com.idark.valoria.*;
 import net.minecraft.core.*;
+import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -24,9 +26,13 @@ public class TieredToolHandler implements ToolHandler{
         this.items = items;
     }
 
-    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public ResourceLocation getUid() {
+        return Valoria.loc("tool_handler/" + name);
     }
 
     @Override

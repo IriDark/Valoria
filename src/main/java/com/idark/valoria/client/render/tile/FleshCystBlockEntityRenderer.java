@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.*;
+import com.idark.valoria.client.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.*;
@@ -11,7 +11,7 @@ import net.minecraft.world.item.*;
 import pro.komaru.tridot.client.*;
 
 public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCystBlockEntity>{
-    public static final ModelResourceLocation CYST = new ModelResourceLocation(Valoria.loc("cyst"), "");
+    public static final ModelResourceLocation CYST = ValoriaLayers.CYST;
 
     public FleshCystBlockEntityRenderer(){
     }
@@ -26,7 +26,7 @@ public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCy
         ms.pushPose();
         boolean flag = cyst.getSpawner().isNearPlayer(cyst.getLevel(), cyst.getBlockPos());
         float speed = flag ? 0.75f : 0.25f;
-        double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * speed);
+        double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true)) * speed);
         float scale = 2.15f + (float)(sinValue / 16);
 
         ms.translate(0.5f, 0.5f, 0.5f);

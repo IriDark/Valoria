@@ -6,21 +6,13 @@ import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import org.jetbrains.annotations.*;
+import net.neoforged.neoforge.common.util.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
-public class MagmaLevelProvider implements IMagmaLevel, ICapabilitySerializable<CompoundTag>{
+public class MagmaLevelProvider implements IMagmaLevel, INBTSerializable<CompoundTag>{
     public float magmaAmount = 0;
     private float maxMagmaAmount = 0;
-    private final LazyOptional<IMagmaLevel> optional = LazyOptional.of(() -> this);
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, Direction side){
-        return cap == IMagmaLevel.INSTANCE ? optional.cast() : LazyOptional.empty();
-    }
 
     public void modifyAmount(@Nullable LivingEntity entity, float amount) {
         setAmountFromServer(entity, this.magmaAmount + amount);
@@ -83,14 +75,14 @@ public class MagmaLevelProvider implements IMagmaLevel, ICapabilitySerializable<
     }
 
     @Override
-    public CompoundTag serializeNBT(){
+    public CompoundTag serializeNBT(HolderLookup.Provider provider){
         CompoundTag wrapper = new CompoundTag();
         wrapper.putFloat("magma_level", this.magmaAmount);
         return wrapper;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt){
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt){
         this.magmaAmount = nbt.getFloat("magma_level");
     }
 

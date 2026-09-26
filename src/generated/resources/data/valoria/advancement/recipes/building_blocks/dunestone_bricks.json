@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dunestone_brick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:dunestone_brick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:dunestone_bricks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dunestone_brick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:dunestone_bricks"
+    ]
+  }
+}

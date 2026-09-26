@@ -1,19 +1,19 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.shapes.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.common.*;
 
-public class DriedBlock extends BushBlock implements net.minecraftforge.common.IForgeShearable{
+public class DriedBlock extends BushBlock implements IShearable{
+    public static final MapCodec<DriedBlock> CODEC = simpleCodec(DriedBlock::new);
+    @Override protected MapCodec<? extends DriedBlock> codec(){ return CODEC; }
+
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
     public DriedBlock(BlockBehaviour.Properties builder){

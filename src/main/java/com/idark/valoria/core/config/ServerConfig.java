@@ -1,31 +1,31 @@
 package com.idark.valoria.core.config;
 
 import com.idark.valoria.core.*;
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class ServerConfig{
-    public static ForgeConfigSpec.ConfigValue<Boolean> ENABLE_CODEX_PROGRESSION, ENABLE_CODEX_TITLE, ENABLE_FOOD_ROT, ENABLE_NIHILITY, CRITICAL_NIHILITY_BLINDNESS, PATREON_REWARDS, ENABLE_FIRST_JOIN_REWARD;
+    public static ModConfigSpec.ConfigValue<Boolean> ENABLE_CODEX_PROGRESSION, ENABLE_CODEX_TITLE, ENABLE_FOOD_ROT, ENABLE_NIHILITY, CRITICAL_NIHILITY_BLINDNESS, PATREON_REWARDS, ENABLE_FIRST_JOIN_REWARD;
 
-    public static ForgeConfigSpec.ConfigValue<Integer> POT_TRIES, CAVE_POT_TRIES;
-    public static ForgeConfigSpec.ConfigValue<Double> POT_SPAWN_CHANCE, CAVE_POT_SPAWN_CHANCE,
+    public static ModConfigSpec.ConfigValue<Integer> POT_TRIES, CAVE_POT_TRIES;
+    public static ModConfigSpec.ConfigValue<Double> POT_SPAWN_CHANCE, CAVE_POT_SPAWN_CHANCE,
     FOOD_ROT_INTERVAL,
     NIHILITY_DAMAGE_MULTIPLIER, NIHILITY_ACCUMULATION_INTERVAL, NIHILITY_DECAY_INTERVAL,
     CODEX_UPDATE_INTERVAL;
 
-    public static ForgeConfigSpec.ConfigValue<MaxNihilityAction> MAX_NIHILITY_ACTION;
+    public static ModConfigSpec.ConfigValue<MaxNihilityAction> MAX_NIHILITY_ACTION;
 
 
     static{
-        final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
+        final Pair<ServerConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(ServerConfig::new);
         SPEC = specPair.getRight();
         INSTANCE = specPair.getLeft();
     }
 
     public static final ServerConfig INSTANCE;
-    public static final ForgeConfigSpec SPEC;
+    public static final ModConfigSpec SPEC;
 
-    public ServerConfig(ForgeConfigSpec.Builder builder){
+    public ServerConfig(ModConfigSpec.Builder builder){
         builder.comment("Gameplay Settings").push("gameplay");
             ENABLE_FIRST_JOIN_REWARD = builder.comment("Enable first join reward (Starter Bundle)").define("enableFirstJoinReward", true);
             ENABLE_CODEX_TITLE = builder.comment("Enable codex title").define("enableCodexTitle", true);

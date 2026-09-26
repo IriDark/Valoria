@@ -1,29 +1,29 @@
 package com.idark.valoria.core.config;
 
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class ClientConfig{
-    public static ForgeConfigSpec.ConfigValue<Integer>
+    public static ModConfigSpec.ConfigValue<Integer>
     MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE,
     SOUL_BAR_Y, SOUL_BAR_X,
     NIHILITY_METER_X, NIHILITY_METER_Y,
     MISC_UI_X, MISC_UI_Y;
-    public static ForgeConfigSpec.ConfigValue<Float> CODEX_SENSITIVITY;
+    public static ModConfigSpec.ConfigValue<Float> CODEX_SENSITIVITY;
 
-    public static ForgeConfigSpec.ConfigValue<Boolean>
+    public static ModConfigSpec.ConfigValue<Boolean>
     RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS, SHOW_UPDATES, NIHILITY_METER_ALWAYS_VISIBLE, NIHILITY_METER_ANIMATE, DAMAGE_INDICATOR;
 
     static{
-        final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
+        final Pair<ClientConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(ClientConfig::new);
         SPEC = specPair.getRight();
         INSTANCE = specPair.getLeft();
     }
 
     public static final ClientConfig INSTANCE;
-    public static final ForgeConfigSpec SPEC;
+    public static final ModConfigSpec SPEC;
 
-    public ClientConfig(ForgeConfigSpec.Builder builder){
+    public ClientConfig(ModConfigSpec.Builder builder){
         builder.comment("Misc").push("misc");
             SHOW_TOASTS = builder.define("showToasts", true);
             SHOW_UPDATES = builder.define("showUpdates", true);

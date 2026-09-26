@@ -8,12 +8,11 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.gui.overlay.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.common.config.*;
 
 @OnlyIn(Dist.CLIENT)
-public class NihilityHudOverlay implements IGuiOverlay{
+public class NihilityHudOverlay implements LayeredDraw.Layer{
     public static final NihilityHudOverlay instance = new NihilityHudOverlay();
     private final ResourceLocation location = Valoria.loc("textures/gui/overlay/corruption.png");
 
@@ -37,11 +36,14 @@ public class NihilityHudOverlay implements IGuiOverlay{
     }
 
     @Override
-    public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight){
+    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker){
+        float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
+        int screenWidth = guiGraphics.guiWidth();
+        int screenHeight = guiGraphics.guiHeight();
         var player = Minecraft.getInstance().player;
         if (player == null) return;
         if (ClientConfig.ABILITY_OVERLAY.get()) {
-            player.getCapability(NihilityLevelProvider.INSTANCE).ifPresent(nihility -> {
+            INihilityLevel.of(player).ifPresent(nihility -> {
                 float max = nihility.getMaxAmount(player);
                 float amount = nihility.getAmount();
                 float alpha = getAlpha(amount, max);

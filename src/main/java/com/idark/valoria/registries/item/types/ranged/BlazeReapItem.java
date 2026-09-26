@@ -22,10 +22,9 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.render.screenshake.*;
@@ -36,45 +35,45 @@ import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
-public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, OverlayRenderItem, TooltipComponentItem{
+public class BlazeReapItem extends ValoriaPickaxe implements OverlayRenderItem, TooltipComponentItem{
     private static final ResourceLocation BAR = Valoria.loc("textures/gui/overlay/blazecharge_bar.png");
 
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
 
+    public static int getCharge(ItemStack stack){
+        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.CHARGE.get(), "charge");
+    }
+
+    public static void setCharge(ItemStack stack, int charge){
+        stack.set(DataComponentsRegistry.CHARGE, charge);
+    }
+
     public static String getModeString(ItemStack stack){
-        CompoundTag nbt = stack.getOrCreateTag();
-        if(nbt.contains("charge")){
-            if(nbt.getInt("charge") == 1){
-                return "tooltip.valoria.rmb";
-            }
+        if(getCharge(stack) == 1){
+            return "tooltip.valoria.rmb";
         }
 
         return "tooltip.valoria.rmb_shift";
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
-    }
-
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.category == EnchantmentCategory.WEAPON || enchant.category == EnchantmentCategory.DIGGER || enchant.category == EnchantmentsRegistry.BLAZE;
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand){
         ItemStack weapon = player.getItemInHand(hand);
         ItemStack ammo = ValoriaUtils.getProjectile(player, weapon);
         RandomSource rand = level.getRandom();
-        CompoundTag nbt = weapon.getOrCreateTag();
         boolean hasAmmo = !ammo.isEmpty();
         boolean flag = ammo.getItem() instanceof GunpowderCharge;
         if(level instanceof ServerLevel serverLevel){
             if(player.isShiftKeyDown()){
-                recharge(player, serverLevel, nbt, hasAmmo, ammo, rand);
+                recharge(player, serverLevel, weapon, hasAmmo, ammo, rand);
                 return InteractionResultHolder.pass(weapon);
-            }else if(nbt.getInt("charge") == 1){
-                nbt.putInt("charge", 0);
+            }else if(getCharge(weapon) == 1){
+                setCharge(weapon, 0);
                 player.getCooldowns().addCooldown(this, 40);
                 player.awardStat(Stats.ITEM_USED.get(this));
                 Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
@@ -110,7 +109,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
                 float radius = flag ? ((GunpowderCharge)ammo.getItem()).getRadius() : 3f;
                 float damage = flag ? ((GunpowderCharge)ammo.getItem()).getDamage() : 25f;
                 float knockback = flag ? ((GunpowderCharge)ammo.getItem()).getKnockback() : 0.5f;
-                if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
+                if(EnchantmentsRegistry.getLevel(level, weapon, EnchantmentsRegistry.EXPLOSIVE_FLAME) > 0){
                     level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, radius, Level.ExplosionInteraction.TNT);
                 }else{
                     Utils.Hit.explosion(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
@@ -128,14 +127,14 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
         return InteractionResultHolder.pass(weapon);
     }
 
-    private void recharge(Player player, ServerLevel serverLevel, CompoundTag nbt, boolean hasAmmo, ItemStack ammo, RandomSource rand){
-        if(nbt.getInt("charge") == 0){
+    private void recharge(Player player, ServerLevel serverLevel, ItemStack weapon, boolean hasAmmo, ItemStack ammo, RandomSource rand){
+        if(getCharge(weapon) == 0){
             if(hasAmmo){
                 if(!player.isCreative()){
                     ammo.shrink(1);
                 }
 
-                nbt.putInt("charge", 1);
+                setCharge(weapon, 1);
                 player.getCooldowns().addCooldown(this, 20);
                 serverLevel.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
                 player.awardStat(Stats.ITEM_USED.get(this));
@@ -201,7 +200,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));

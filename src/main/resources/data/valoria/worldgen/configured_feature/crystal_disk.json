@@ -5,7 +5,7 @@
       "fallback": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "valoria:gravel"
+          "Name": "minecraft:gravel"
         }
       },
       "rules": [
@@ -52,11 +52,8 @@
       ]
     },
     "radius": {
-      "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 1,
+      "type": "minecraft:uniform", "min_inclusive": 1,
         "max_inclusive": 4
-      }
     },
     "half_height": 4
   }

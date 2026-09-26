@@ -23,9 +23,9 @@ public class NatureGolem extends AbstractElementalGolem{
         super(type, pLevel);
         this.xpReward = 5;
         this.getNavigation().setCanFloat(false);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
 
         this.selector.addAttack(new GolemMeleeAttack(this, 1, 2, 0, 10, 20));
         this.selector.addAttack(new GolemMeleeSlapAttack(this, 1, 2, 0, 10, 40));
@@ -38,12 +38,10 @@ public class NatureGolem extends AbstractElementalGolem{
     }
 
     @Override
-    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
-        if (pDataTag == null || !pDataTag.contains("Variant")) {
-            this.setVariant(Variant.byId(this.random.nextInt(Variant.values().length)));
-        }
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
+        this.setVariant(Variant.byId(this.random.nextInt(Variant.values().length)));
 
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     public void setVariant(Variant variant) {
@@ -91,9 +89,9 @@ public class NatureGolem extends AbstractElementalGolem{
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TYPE, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(TYPE, 0);
     }
 
     @Override

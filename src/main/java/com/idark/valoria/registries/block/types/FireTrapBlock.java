@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
@@ -78,7 +79,7 @@ public class FireTrapBlock extends Block{
     }
 
     private void activateTrap(Level level, BlockPos pos, Entity entityIn){
-        if(entityIn instanceof LivingEntity living && EnchantmentHelper.hasFrostWalker(living)) return;
+        if(entityIn instanceof LivingEntity living && EnchantmentsRegistry.getLevel(level, living.getItemBySlot(EquipmentSlot.FEET), Enchantments.FROST_WALKER) > 0) return;
         if(isWaterNearby(level, pos, 1)){
             level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.05F, level.getRandom().nextFloat() * 0.5F + 0.5F);
             level.addParticle(ParticleTypes.POOF, pos.getX() + level.getRandom().nextDouble(), pos.getY() + 0.7D, pos.getZ() + level.getRandom().nextDouble(), 0d, 0.05d, 0d);
@@ -88,7 +89,7 @@ public class FireTrapBlock extends Block{
                 PacketHandler.sendToTracking(serverLevel, pos, new FireTrapParticlePacket(pos.getCenter().x, pos.getY(), pos.getCenter().z, (int)color.r1, (int)color.g1, (int)color.b1, (int)color.r2, (int)color.g2, (int)color.b2));
                 if(entityIn instanceof LivingEntity living1){
                     living1.hurt(living1.damageSources().inFire(), damage);
-                    living1.setSecondsOnFire(secondsOnFire);
+                    living1.igniteForSeconds(secondsOnFire);
                     if(!effects.isEmpty()){
                         for(MobEffectInstance effectInstance : effects){
                             living1.addEffect(new MobEffectInstance(effectInstance));

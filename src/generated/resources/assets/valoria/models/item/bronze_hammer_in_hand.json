@@ -1,6 +1,6 @@
 {
   "parent": "valoria:item/hammer_template",
   "textures": {
-    "layer0": "valoria:item/bronze_hammer_in_hand"
+    "texture": "valoria:item/bronze_hammer_in_hand"
   }
 }

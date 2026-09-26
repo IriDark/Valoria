@@ -1,0 +1,9 @@
+{
+  "type": "valoria:crusher",
+  "loot_table": "valoria:blocks/crusher/ancient_stone",
+  "ingredients": [
+    {
+      "item": "valoria:ancient_stone"
+    }
+  ]
+}

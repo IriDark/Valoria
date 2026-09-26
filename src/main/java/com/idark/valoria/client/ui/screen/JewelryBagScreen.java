@@ -1,5 +1,6 @@
 package com.idark.valoria.client.ui.screen;
 
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
@@ -57,8 +58,14 @@ public class JewelryBagScreen extends Screen{
     public List<ItemStack> getTrinkets(){
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
+        List<ItemStack> items = player.getInventory().items;
         ArrayList<ItemStack> curioItems = new ArrayList<>();
-        CuriosApi.getCuriosHelper().findCurios(player, stack -> stack.getItem() instanceof ICurioItem && !stack.is(ItemsRegistry.jewelryBag.get())).forEach(result -> curioItems.add(result.stack()));
+        for(ItemStack stack : items){
+            if(stack.getItem() instanceof ICurioItem && stack.getItem() != ItemsRegistry.jewelryBag.get()){
+                curioItems.add(stack);
+            }
+        }
+
         return curioItems;
     }
 
@@ -94,9 +101,9 @@ public class JewelryBagScreen extends Screen{
         float i = 0f;
         selectedItem = getSelectedItem(trinkets, mouseX, mouseY);
         if(hover && hoverAmount < 1){
-            hoverAmount += Minecraft.getInstance().getDeltaFrameTime() / 8;
+            hoverAmount += Minecraft.getInstance().getTimer().getRealtimeDeltaTicks() / 8;
         }else if(!hover && hoverAmount > 0){
-            hoverAmount -= Minecraft.getInstance().getDeltaFrameTime() / 4;
+            hoverAmount -= Minecraft.getInstance().getTimer().getRealtimeDeltaTicks() / 4;
         }
 
         if(hoverAmount > 1){
@@ -144,7 +151,7 @@ public class JewelryBagScreen extends Screen{
         float r;
         float g;
         float b;
-        if(getOpenedBag().getItem() instanceof DyeableLeatherItem dyeableLeatherItem){
+        if(getOpenedBag().getItem() instanceof DyeableItem dyeableLeatherItem){
             int k = dyeableLeatherItem.getColor(getOpenedBag());
             r = (float)(k >> 16 & 255) / 255.0F;
             g = (float)(k >> 8 & 255) / 255.0F;

@@ -3,15 +3,16 @@ package com.idark.valoria.core.datagen;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.packs.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.client.model.generators.loaders.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.client.model.generators.loaders.*;
+import net.neoforged.neoforge.common.data.*;
+import net.neoforged.neoforge.registries.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -40,10 +41,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         largeHandheld(ItemsRegistry.ironScythe.get(), ItemsRegistry.goldenScythe.get(), ItemsRegistry.diamondScythe.get(), ItemsRegistry.netheriteScythe.get(), ItemsRegistry.lunarScythe.get(), ItemsRegistry.jadeScythe.get(), ItemsRegistry.aquariusScythe.get(), ItemsRegistry.reaperScythe.get(), ItemsRegistry.natureScythe.get(), ItemsRegistry.crimtaneScythe.get(), ItemsRegistry.voidScythe.get(), ItemsRegistry.infernalScythe.get(), ItemsRegistry.beast.get());
         spear(ItemsRegistry.woodenSpear.get(), ItemsRegistry.stoneSpear.get(), ItemsRegistry.ironSpear.get(), ItemsRegistry.goldenSpear.get(), ItemsRegistry.diamondSpear.get(), ItemsRegistry.netheriteSpear.get(), ItemsRegistry.jadeSpear.get(), ItemsRegistry.lunarSpear.get(), ItemsRegistry.aquariusSpear.get(), ItemsRegistry.etherealSpear.get(), ItemsRegistry.natureSpear.get(), ItemsRegistry.pyratiteSpear.get(), ItemsRegistry.voidSpear.get(), ItemsRegistry.infernalSpear.get());
         separateTransforms(ItemsRegistry.glaive.get(), modLoc("item/spear"), mcLoc("item/handheld"), modLoc("item/glaive_large"), true);
-        separateTransforms(ItemsRegistry.bronzeHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
-        separateTransforms(ItemsRegistry.blackGoldHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
-        separateTransforms(ItemsRegistry.infernalHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
-        separateTransforms(ItemsRegistry.voidHammer.get(), mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/hammer_template"), true);
+        hammer(ItemsRegistry.bronzeHammer.get(), ItemsRegistry.blackGoldHammer.get(), ItemsRegistry.infernalHammer.get(), ItemsRegistry.voidHammer.get());
 
         bow(ItemsRegistry.natureBow.get(), ItemsRegistry.aquariusBow.get(), ItemsRegistry.infernalBow.get(), ItemsRegistry.voidBow.get(), ItemsRegistry.phantasmBow.get(), ItemsRegistry.jadeBow.get());
         bow(1.2F, 0.88F, ItemsRegistry.lunarBow.get(), ItemsRegistry.samuraiLongBow.get());
@@ -125,7 +123,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.skip(BlockRegistry.suspiciousTombstone.get().asItem());
 
         // Automatic Item Model generation for Block Items in BlockRegistry
-        for (RegistryObject<Block> entry : BlockRegistry.BLOCK.getEntries()){
+        for (DeferredHolder<Block, ? extends Block> entry : BlockRegistry.BLOCK.getEntries()){
             Block block = entry.get();
             String name = entry.getId().getPath();
             if(!entries.contains(block.asItem())){
@@ -150,12 +148,12 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
 
         // Automatic Item Model generation for Items in ItemsRegistry
-        for (RegistryObject<Item> entry : ItemsRegistry.ITEMS.getEntries()) {
+        for (DeferredHolder<Item, ? extends Item> entry : ItemsRegistry.ITEMS.getEntries()) {
             Item item = entry.get();
             String name = entry.getId().getPath();
             if(!this.entries.contains(item)){
                 if(!(item instanceof TexturedSpawnEggItem) && item instanceof SpawnEggItem || name.contains("spawn_egg")){
-                    this.add(item, gen -> withExistingParent(name, new ResourceLocation("item/template_spawn_egg")));
+                    this.add(item, gen -> withExistingParent(name, ResourceLocation.parse("item/template_spawn_egg")));
                 } else if (!hasItemTexture(name)) {
                     Valoria.LOGGER.warn("Skipping item model for {} because item/{}.png is missing", entry.getId(), name);
                     this.skip(item);
@@ -182,21 +180,21 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     public ResourceLocation key(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item);
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 
     private ItemModelBuilder simpleItem(Item item, ResourceLocation loc) {
-        return withExistingParent(name(item), new ResourceLocation("item/generated"))
+        return withExistingParent(name(item), ResourceLocation.parse("item/generated"))
         .texture("layer0", loc);
     }
 
     private ItemModelBuilder itemPath(String name, String path) {
-        return withExistingParent(name, new ResourceLocation("item/generated"))
+        return withExistingParent(name, ResourceLocation.parse("item/generated"))
                 .texture("layer0", Valoria.loc(path + name));
     }
 
     private ItemModelBuilder handheldItem(String name) {
-        return withExistingParent(name, new ResourceLocation("item/handheld"))
+        return withExistingParent(name, ResourceLocation.parse("item/handheld"))
                 .texture("layer0", Valoria.loc("item/" + name));
     }
 
@@ -219,7 +217,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void separateTransforms(Item item, ResourceLocation baseParent, ResourceLocation iconParent, ResourceLocation inHandParent, boolean includeNone) {
-        String name = ForgeRegistries.ITEMS.getKey(item).getPath();
+        String name = BuiltInRegistries.ITEM.getKey(item).getPath();
         if (!hasItemTexture(name) || !hasItemTexture(name + "_in_hand")) {
             this.skip(item);
             return;
@@ -239,13 +237,39 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.skip(item);
     }
 
+    private void hammer(Item item) {
+        String name = BuiltInRegistries.ITEM.getKey(item).getPath();
+        if (!hasItemTexture(name) || !hasItemTexture(name + "_in_hand")) {
+            this.skip(item);
+            return;
+        }
+        ItemModelBuilder base = withExistingParent(name, mcLoc("item/handheld"));
+        ItemModelBuilder icon = withExistingParent(name + "_icon", mcLoc("item/handheld")).texture("layer0", modLoc("item/" + name));
+        ItemModelBuilder inHand = withExistingParent(name + "_in_hand", modLoc("item/hammer_template")).texture("texture", modLoc("item/" + name + "_in_hand"));
+        SeparateTransformsModelBuilder<ItemModelBuilder> transforms = base.customLoader(SeparateTransformsModelBuilder::begin)
+                .base(inHand)
+                .perspective(ItemDisplayContext.GUI, icon)
+                .perspective(ItemDisplayContext.GROUND, icon)
+                .perspective(ItemDisplayContext.FIXED, icon);
+        transforms.perspective(ItemDisplayContext.NONE, inHand);
+
+        transforms.end();
+        this.skip(item);
+    }
+
+    private void hammer(Item... items) {
+        for (Item item : items) {
+            hammer(item);
+        }
+    }
+
     private void bow(Item... items) {
         bow(0.9F, 0.68F, items);
     }
 
     private void bow(float thirdPersonYScale, float firstPersonYScale, Item... items) {
         for (Item item : items) {
-            String name = ForgeRegistries.ITEMS.getKey(item).getPath();
+            String name = BuiltInRegistries.ITEM.getKey(item).getPath();
             if (!hasItemTextures(name, name + "_pulling_0", name + "_pulling_1", name + "_pulling_2")) {
                 this.skip(item);
                 continue;
@@ -261,7 +285,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private void crossbow(Item... items) {
         for (Item item : items) {
-            String name = ForgeRegistries.ITEMS.getKey(item).getPath();
+            String name = BuiltInRegistries.ITEM.getKey(item).getPath();
             if (!hasItemTextures(name + "_standby", name + "_pulling_0", name + "_pulling_1", name + "_pulling_2", name + "_arrow", name + "_firework")) {
                 this.skip(item);
                 continue;

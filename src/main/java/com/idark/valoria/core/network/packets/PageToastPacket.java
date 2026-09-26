@@ -4,18 +4,27 @@ import com.idark.valoria.*;
 import com.idark.valoria.client.ui.toast.*;
 import com.idark.valoria.core.config.*;
 import net.minecraft.client.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.network.handling.*;
 
 import java.util.*;
-import java.util.function.*;
 
-public class PageToastPacket{
+public class PageToastPacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<PageToastPacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("page_toast_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, PageToastPacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> PageToastPacket.encode(msg, buf), PageToastPacket::decode);
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final Item stack;
     private final UUID uuid;
     private final boolean unlock;
@@ -32,19 +41,18 @@ public class PageToastPacket{
         this.unlock = pUnlock;
     }
 
-    public static void encode(PageToastPacket object, FriendlyByteBuf buffer){
+    public static void encode(PageToastPacket object, RegistryFriendlyByteBuf buffer){
         buffer.writeUUID(object.uuid);
-        buffer.writeItem(object.stack.getDefaultInstance());
+        ByteBufCodecs.registry(Registries.ITEM).encode(buffer, object.stack);
         buffer.writeBoolean(object.unlock);
     }
 
-    public static PageToastPacket decode(FriendlyByteBuf buffer){
-        return new PageToastPacket(buffer.readUUID(), buffer.readItem().getItem(), buffer.readBoolean());
+    public static PageToastPacket decode(RegistryFriendlyByteBuf buffer){
+        return new PageToastPacket(buffer.readUUID(), ByteBufCodecs.registry(Registries.ITEM).decode(buffer), buffer.readBoolean());
     }
 
-    public static void handle(PageToastPacket packet, Supplier<NetworkEvent.Context> ctx){
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void handle(PageToastPacket packet, IPayloadContext ctx){
+        ctx.enqueueWork(() -> {
 
             Level world = Valoria.proxy.getLevel();
             Player player = world.getPlayerByUUID(packet.uuid);
@@ -58,7 +66,6 @@ public class PageToastPacket{
             }
         });
 
-        ctx.get().setPacketHandled(true);
     }
 
     @OnlyIn(Dist.CLIENT)

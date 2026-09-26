@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:nature_bow"
+  },
+  "core": "nature_core",
+  "cores": 1,
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "minecraft:bow"
+    },
+    {
+      "item": "valoria:nature_upgrade_smithing_template"
+    }
+  ]
+}

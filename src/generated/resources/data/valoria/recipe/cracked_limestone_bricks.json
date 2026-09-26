@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "valoria:limestone_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:cracked_limestone_bricks"
+  }
+}

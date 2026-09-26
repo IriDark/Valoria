@@ -1,0 +1,11 @@
+{
+  "group": "accessories",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:relic_gold" }, "count": 12 }
+  ],
+  "result": {
+    "item": "valoria:the_fallen_collector_crown",
+    "count": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:polished_limestone"
+  },
+  "result": {
+    "id": "valoria:limestone_bricks_slab",
+    "count": 2
+  }
+}

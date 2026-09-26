@@ -7,9 +7,9 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.neoforge.capabilities.*;
+import net.neoforged.neoforge.items.*;
+import net.neoforged.neoforge.items.wrapper.*;
 import pro.komaru.tridot.client.render.gui.screen.*;
 import pro.komaru.tridot.client.render.gui.screen.ResultSlot;
 
@@ -23,7 +23,7 @@ public class KegMenu extends ContainerMenuBase{
         this.playerInventory = new InvWrapper(inventory);
         this.layoutPlayerInventorySlots(8, 84);
         if(blockEntity != null && blockEntity instanceof KegBlockEntity keg){
-            if(blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()){
+            if(world.getCapability(Capabilities.ItemHandler.BLOCK, pos, null) != null){
                 this.addSlot(new SlotItemHandler(keg.itemHandler, 0, 25, 34));
                 this.addSlot(new SlotItemHandler(keg.itemHandler, 1, 56, 34));
                 this.addSlot(new ResultSlot(keg.itemOutputHandler, 0, 128, 34));

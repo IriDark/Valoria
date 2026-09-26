@@ -1,17 +1,14 @@
 package com.idark.valoria.registries.entity.ai.brains;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.idark.valoria.registries.entity.ai.behaviour.TradeWithMerchant;
-import com.idark.valoria.registries.entity.ai.behaviour.TradingBehaviour;
-import com.idark.valoria.registries.entity.living.AbstractHauntedMerchant;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.Brain;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.datafixers.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.*;
 import net.minecraft.world.entity.ai.behavior.*;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.entity.ai.memory.*;
+import net.minecraft.world.entity.schedule.*;
 
 public class HauntedMerchantAI{
     public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super AbstractHauntedMerchant>>> getCorePackage(float pSpeedModifier){

@@ -1,19 +1,18 @@
 package com.idark.valoria.client.event;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.level.LevelGen;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ViewportEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.level.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.fml.common.*;
+import net.neoforged.neoforge.client.event.*;
 
 @OnlyIn(Dist.CLIENT)
 public class FogRenderer{
 
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+    @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
     public static class RegistryEvents{
 
         @SubscribeEvent

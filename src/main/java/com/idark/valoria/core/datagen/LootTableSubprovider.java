@@ -4,6 +4,7 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.block.types.plants.*;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.data.loot.*;
 import net.minecraft.world.flag.*;
 import net.minecraft.world.item.*;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.registries.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -24,8 +25,8 @@ import java.util.function.*;
 public class LootTableSubprovider extends BlockLootSubProvider {
     public final List<Block> blocks = new ArrayList<>();
 
-    public LootTableSubprovider() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public LootTableSubprovider(net.minecraft.core.HolderLookup.Provider registries) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
     }
 
     @Override
@@ -39,6 +40,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.dropOther(pBlock, pBlock);
         blocks.add(pBlock);
     }
+
 
     private void dropItem(Block block, ItemLike item) {
         this.add(block, ignored -> createSingleItemTable(item));
@@ -114,10 +116,11 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.add(BlockRegistry.cobaltOre.get(), block -> createOreDrop(block, ItemsRegistry.rawCobalt.get()));
         this.add(BlockRegistry.deepslateCobaltOre.get(), block -> createOreDrop(block, ItemsRegistry.rawCobalt.get()));
 
+        var fortune = this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE);
         this.add(BlockRegistry.taintedRoots.get(), (p_249159_) -> {
             return this.applyExplosionDecay(p_249159_, LootTable.lootTable()
-            .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(BlockRegistry.taintedRoots.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TaintedRootsBlock.AGE, 2))).add(LootItem.lootTableItem(ItemsRegistry.taintedBerries.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))
-            .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(BlockRegistry.taintedRoots.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TaintedRootsBlock.AGE, 1))).add(LootItem.lootTableItem(Items.STICK)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
+            .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(BlockRegistry.taintedRoots.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TaintedRootsBlock.AGE, 2))).add(LootItem.lootTableItem(ItemsRegistry.taintedBerries.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(fortune)))
+            .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(BlockRegistry.taintedRoots.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TaintedRootsBlock.AGE, 1))).add(LootItem.lootTableItem(Items.STICK)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(fortune))));
         });
 
         this.add(BlockRegistry.gaibRoots.get(), (block) -> {
@@ -132,7 +135,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.dropItem(BlockRegistry.shadeBranch.get(), Items.STICK);
         this.dropItem(BlockRegistry.driedPlant.get(), Items.STICK);
         this.dropItem(BlockRegistry.driedRoots.get(), Items.STICK);
-        for (RegistryObject<Block> entry : BlockRegistry.BLOCK.getEntries()){
+        for (DeferredHolder<Block, ? extends Block> entry : BlockRegistry.BLOCK.getEntries()){
             Block block = entry.get();
             if (ignoredBlocks.contains(block) || block.getLootTable().equals(BuiltInLootTables.EMPTY)) {
                 continue;
@@ -146,8 +149,8 @@ public class LootTableSubprovider extends BlockLootSubProvider {
                 }else if(block instanceof LeavesBlock leaves){
                     this.add(leaves, b -> createSingleItemTable(b));
                 }else if(block instanceof FlowerPotBlock pot){
-                    if(pot.getContent() != null && pot.getContent() != Blocks.AIR){
-                        this.add(pot, b -> createPotFlowerItemTable(pot.getContent()));
+                    if(pot.getPotted() != null && pot.getPotted() != Blocks.AIR){
+                        this.add(pot, b -> createPotFlowerItemTable(pot.getPotted()));
                     }else{
                         this.dropSelf(pot);
                     }

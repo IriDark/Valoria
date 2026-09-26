@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
+import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
@@ -33,7 +34,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public Interp screenShakeEasing = Interp.circleOut;
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
-    public Multimap<Attribute, AttributeModifier> extraAttributes = HashMultimap.create();
+    public Multimap<Holder<Attribute>, AttributeModifier> extraAttributes = HashMultimap.create();
 
     public AbstractScytheBuilder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
         this.attackDamageIn = attackDamageIn;
@@ -70,7 +71,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
         return this;
     }
 
-    public AbstractScytheBuilder<T> addAttribute(Attribute attribute, AttributeModifier modifier) {
+    public AbstractScytheBuilder<T> addAttribute(Holder<Attribute> attribute, AttributeModifier modifier) {
         this.extraAttributes.put(attribute, modifier);
         return this;
     }

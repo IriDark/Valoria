@@ -3,8 +3,10 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.network.NetworkEvent.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
@@ -12,9 +14,15 @@ import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
 import java.awt.*;
-import java.util.function.*;
 
-public class BeastAttackParticlePacket{
+public class BeastAttackParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<BeastAttackParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("beast_attack_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, BeastAttackParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), BeastAttackParticlePacket::decode);
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final double posX, posY, posZ;
     private final int colorR, colorG, colorB;
 
@@ -32,9 +40,9 @@ public class BeastAttackParticlePacket{
         return new BeastAttackParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), new Color(buf.readInt(), buf.readInt(), buf.readInt()));
     }
 
-    public static void handle(BeastAttackParticlePacket msg, Supplier<Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(BeastAttackParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                 ParticleBuilder.create(ParticleRegistry.SMOKE)
@@ -47,7 +55,6 @@ public class BeastAttackParticlePacket{
                         .randomOffset(0.025f)
                         .spawn(level, msg.posX, msg.posY, msg.posZ);
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

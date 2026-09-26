@@ -1,7 +1,7 @@
 package com.idark.valoria.core.config;
 
 import com.idark.valoria.*;
-import net.minecraftforge.fml.loading.*;
+import net.neoforged.fml.loading.*;
 
 import java.io.*;
 import java.nio.file.*;

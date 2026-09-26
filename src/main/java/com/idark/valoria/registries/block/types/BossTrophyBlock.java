@@ -2,7 +2,9 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.core.mixin.*;
 import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -19,8 +21,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -108,15 +109,23 @@ public class BossTrophyBlock extends Block implements EntityBlock, SimpleWaterlo
             trophyBlockEntity.setEntity(entity.get().create(pLevel));
         }
     }
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         ItemStack heldStack = pPlayer.getItemInHand(pHand);
         BlockEntity tile = pLevel.getBlockEntity(pPos);
         if(tile instanceof BossTrophyBlockEntity trophyBlockEntity){
             if(pPlayer.isCreative()){
                 if(heldStack.getItem() instanceof SpawnEggItem egg){
-                    trophyBlockEntity.setEntity(egg.getType(heldStack.getTag()).create(pLevel)); // replacing entity with entity from spawn egg instead
+                    trophyBlockEntity.setEntity(egg.getType(heldStack).create(pLevel)); // replacing entity with entity from spawn egg instead (PORT NOTE: getType(ItemStack) in 1.21)
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -126,7 +135,7 @@ public class BossTrophyBlock extends Block implements EntityBlock, SimpleWaterlo
 
                 Entity entity;
                 var tag = new CompoundTag();
-                tag.putString("id", ForgeRegistries.ENTITY_TYPES.getKey(trophyBlockEntity.entity).toString());
+                tag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(trophyBlockEntity.entity).toString());
                 entity = EntityType.loadEntityRecursive(tag, pLevel, Function.identity());
                 if(entity != null && entity instanceof Mob mob){
                     if(((MobAmbientSoundInvoker)mob).invokeGetAmbientSound() == null) return InteractionResult.FAIL; // no sound
@@ -137,7 +146,7 @@ public class BossTrophyBlock extends Block implements EntityBlock, SimpleWaterlo
             }
         }
 
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return InteractionResult.PASS;
     }
 
     @Override

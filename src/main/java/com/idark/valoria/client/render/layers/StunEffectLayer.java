@@ -25,7 +25,7 @@ public class StunEffectLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-        if(!player.hasEffect(EffectsRegistry.STUN.get())) return;
+        if(!player.hasEffect(EffectsRegistry.STUN)) return;
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(STAR_TEXTURE));
         float time = ageInTicks + partialTick;
 
@@ -54,32 +54,31 @@ public class StunEffectLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
 
     private void renderQuad(PoseStack poseStack, VertexConsumer consumer, int light) {
         Matrix4f matrix = poseStack.last().pose();
-        Matrix3f normal = poseStack.last().normal();
+        PoseStack.Pose normal = poseStack.last();
 
         addVertex(consumer, matrix, normal, light, -0.5F, -0.5F, 0, 1);
         addVertex(consumer, matrix, normal, light, 0.5F, -0.5F, 1, 1);
         addVertex(consumer, matrix, normal, light, 0.5F, 0.5F, 1, 0);
         addVertex(consumer, matrix, normal, light, -0.5F, 0.5F, 0, 0);
     }
-    
-    private void addVertex(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal, int light, float x, float y, float u, float v) {
+
+    private void addVertex(VertexConsumer consumer, Matrix4f matrix, PoseStack.Pose normal, int light, float x, float y, float u, float v) {
         var player = Minecraft.getInstance().player;
         int alpha = 255;
-        if(player == null || !player.hasEffect(EffectsRegistry.STUN.get())) return;
+        if(player == null || !player.hasEffect(EffectsRegistry.STUN)) return;
 
-        var effect = player.getEffect(EffectsRegistry.STUN.get());
+        var effect = player.getEffect(EffectsRegistry.STUN);
         if (effect.endsWithin(200)) {
             int k = effect.getDuration();
             int l = 10 - k / 20;
             alpha = (int)((Mth.clamp((float)k / 10.0F / 5.0F * 0.5F, 0.0F, 0.5F) + Mth.cos((float)k * (float)Math.PI / 5.0F) * Mth.clamp((float)l / 10.0F * 0.25F, 0.0F, 0.25F)) * 255);
         }
 
-        consumer.vertex(matrix, x, y, 0.0F)
-                .color(255, 255, 255, alpha)
-                .uv(u, v)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(light)
-                .normal(normal, 0.0F, 1.0F, 0.0F)
-                .endVertex();
+        consumer.addVertex(matrix, x, y, 0.0F)
+                .setColor(255, 255, 255, alpha)
+                .setUv(u, v)
+                .setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(light)
+                .setNormal(normal, 0.0F, 1.0F, 0.0F);
     }
 }

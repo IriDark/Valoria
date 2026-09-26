@@ -25,7 +25,7 @@
           "from": [-0.1, -0.1, -0.1],
           "to": [16.1, 13.1, 16.1],
 			"faces": {
-				"north": { "forge_data": {"block_light": 15, "sky_light": 15 }, "uv": [0, 3, 16, 16], "texture": "#glow", "cullface": "north"}
+				"north": { "neoforge_data": {"block_light": 15, "sky_light": 15 }, "uv": [0, 3, 16, 16], "texture": "#glow", "cullface": "north"}
 			}
 		}
 	]

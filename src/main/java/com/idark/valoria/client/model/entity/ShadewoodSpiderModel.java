@@ -1,13 +1,11 @@
 package com.idark.valoria.client.model.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
 
 public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>{
     private final ModelPart root;
@@ -117,18 +115,18 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        body0.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        body1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        rightHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        leftHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        rightMiddleHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        leftMiddleHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        rightMiddleFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        leftMiddleFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        rightFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        leftFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color){
+        body0.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        body1.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        rightHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        leftHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        rightMiddleHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        leftMiddleHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        rightMiddleFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        leftMiddleFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        rightFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        leftFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
     public ModelPart root(){

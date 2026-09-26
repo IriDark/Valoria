@@ -8,13 +8,12 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.gui.overlay.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.*;
 import pro.komaru.tridot.common.config.*;
 
 @OnlyIn(Dist.CLIENT)
-public class NihilityShieldOverlay implements IGuiOverlay{
+public class NihilityShieldOverlay implements LayeredDraw.Layer{
     public static final NihilityShieldOverlay instance = new NihilityShieldOverlay();
     private final ResourceLocation location = Valoria.loc("textures/gui/overlay/nihility_shield.png");
 
@@ -34,11 +33,14 @@ public class NihilityShieldOverlay implements IGuiOverlay{
     }
 
     @Override
-    public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight){
+    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker){
+        float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
+        int screenWidth = guiGraphics.guiWidth();
+        int screenHeight = guiGraphics.guiHeight();
         var player = Minecraft.getInstance().player;
         if (player == null) return;
         if (ClientConfig.ABILITY_OVERLAY.get()) {
-            if(!player.hasEffect(EffectsRegistry.NIHILITY_PROTECTION.get())) return;
+            if(!player.hasEffect(EffectsRegistry.NIHILITY_PROTECTION)) return;
 
             float time = (ClientTick.ticksInGame + partialTick) * 0.15F;
             float alphaBase = (float)Math.sin(time) * 0.5F + 0.5F;

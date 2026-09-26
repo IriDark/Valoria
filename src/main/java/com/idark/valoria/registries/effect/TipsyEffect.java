@@ -1,8 +1,9 @@
 package com.idark.valoria.registries.effect;
 
-import com.google.common.collect.*;
+import com.idark.valoria.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import pro.komaru.tridot.common.config.*;
@@ -10,54 +11,60 @@ import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public class TipsyEffect extends MobEffect{
-    Map<Attribute, AttributeModifier> attr = Maps.newHashMap();
+    private final Map<Holder<Attribute>, AttributeTemplate> percentModifiers = new LinkedHashMap<>();
 
     public TipsyEffect(){
         super(MobEffectCategory.NEUTRAL, Col.hexToDecimal("ecc597"));
-        addPercent(AttributeRegistry.PERCENT_ARMOR.get(), "3db84224-bf20-4333-b842-24bf20433360", -10F, Operation.ADDITION);
-        addPercent(Attributes.ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", 0.2F, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        addAttributeModifier(Attributes.ARMOR, "74841448-7BD1-4C3F-924D-EED3F7A6E439", -0.10F, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        addAttributeModifier(Attributes.ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", 0.2F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        addPercent(AttributeRegistry.PERCENT_ARMOR, Valoria.loc("tipsy_percent_armor"), -10F, Operation.ADD_VALUE);
+        addPercent(Attributes.ATTACK_DAMAGE, Valoria.loc("tipsy_attack_damage"), 0.2F, Operation.ADD_MULTIPLIED_TOTAL);
+        addAttributeModifier(Attributes.ARMOR, Valoria.loc("tipsy_armor"), -0.10F, Operation.ADD_MULTIPLIED_TOTAL);
+        addAttributeModifier(Attributes.ATTACK_DAMAGE, Valoria.loc("tipsy_attack_damage"), 0.2F, Operation.ADD_MULTIPLIED_TOTAL);
     }
 
-    public void addPercent(Attribute pAttribute, String pUuid, double pAmount, Operation pOperation) {
-        AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(pUuid), this::getDescriptionId, pAmount, pOperation);
-        this.attr.put(pAttribute, attributemodifier);
+    public void addPercent(Holder<Attribute> pAttribute, ResourceLocation id, double pAmount, Operation pOperation) {
+        this.percentModifiers.put(pAttribute, new AttributeTemplate(id, pAmount, pOperation));
     }
 
-    public void removeAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
-        for(Map.Entry<Attribute, AttributeModifier> entry : this.getAttributeModifiers().entrySet()) {
-            AttributeInstance attributeinstance = pAttributeMap.getInstance(entry.getKey());
-            if (attributeinstance != null) {
-                attributeinstance.removeModifier(entry.getValue());
-            }
-        }
-    }
-
-    public void addAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
-        for(Map.Entry<Attribute, AttributeModifier> entry : this.getAttributeModifiers().entrySet()) {
-            AttributeInstance attributeinstance = pAttributeMap.getInstance(entry.getKey());
-            if (attributeinstance != null) {
-                AttributeModifier attributemodifier = entry.getValue();
-                attributeinstance.removeModifier(attributemodifier);
-                attributeinstance.addPermanentModifier(new AttributeModifier(attributemodifier.getId(), this.getDescriptionId() + " " + pAmplifier, this.getAttributeModifierValue(pAmplifier, attributemodifier), attributemodifier.getOperation()));
-            }
-        }
-
-    }
-
-    public Map<Attribute, AttributeModifier> getAttributeModifiers() {
-        if(CommonConfig.PERCENT_ARMOR.get()){
-            return attr;
-        }
-
-        return super.getAttributeModifiers();
+    private boolean usePercentArmor(){
+        return CommonConfig.PERCENT_ARMOR.get();
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier){
+    public void createModifiers(int amplifier, BiConsumer<Holder<Attribute>, AttributeModifier> output){
+        if(usePercentArmor()){
+            this.percentModifiers.forEach((attribute, template) -> output.accept(attribute, template.create(amplifier)));
+        }else{
+            super.createModifiers(amplifier, output);
+        }
+    }
+
+    @Override
+    public void removeAttributeModifiers(AttributeMap pAttributeMap) {
+        super.removeAttributeModifiers(pAttributeMap);
+        for(Map.Entry<Holder<Attribute>, AttributeTemplate> entry : this.percentModifiers.entrySet()) {
+            AttributeInstance attributeinstance = pAttributeMap.getInstance(entry.getKey());
+            if (attributeinstance != null) {
+                attributeinstance.removeModifier(entry.getValue().id());
+            }
+        }
+    }
+
+    @Override
+    public void addAttributeModifiers(AttributeMap pAttributeMap, int pAmplifier) {
+        createModifiers(pAmplifier, (attribute, modifier) -> {
+            AttributeInstance attributeinstance = pAttributeMap.getInstance(attribute);
+            if (attributeinstance != null) {
+                attributeinstance.removeModifier(modifier.id());
+                attributeinstance.addPermanentModifier(modifier);
+            }
+        });
+    }
+
+    @Override
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier){
         return true;
     }
 }

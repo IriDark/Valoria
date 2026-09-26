@@ -2,10 +2,12 @@ package com.idark.valoria.registries.item.types.curio;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
-import net.minecraft.nbt.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.inventory.tooltip.*;
@@ -17,35 +19,41 @@ import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
 
-import java.util.*;
-import java.util.function.*;
-
 public class EyeNecklaceItem extends CurioAccessoryItem implements TooltipComponentItem{
     public EyeNecklaceItem(NecklaceBuilder builder) {
         super(builder);
     }
+
     private static final String DARK_ACTIVE_TAG = "IsDarkActive";
+    private static final String EYE_STATE_TAG = "EyeState";
+
+    public static boolean isDarkActive(ItemStack stack){
+        return DataComponentsRegistry.getBool(stack, DataComponentsRegistry.DARK_ACTIVE.get(), DARK_ACTIVE_TAG);
+    }
+
+    public static int getEyeState(ItemStack stack){
+        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.EYE_STATE.get(), EYE_STATE_TAG);
+    }
 
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected){
         super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
         if (pLevel.isClientSide()) return;
 
-        CompoundTag tag = pStack.getOrCreateTag();
         if(pEntity.tickCount % 100 == 0){
             boolean isDarkNow = pLevel.getMaxLocalRawBrightness(pEntity.blockPosition()) < 8;
-            if(isDarkNow != tag.getBoolean(DARK_ACTIVE_TAG)){
-                tag.putBoolean(DARK_ACTIVE_TAG, isDarkNow);
+            if(isDarkNow != isDarkActive(pStack)){
+                pStack.set(DataComponentsRegistry.DARK_ACTIVE, isDarkNow);
             }
         }
-        
+
         if (pEntity.tickCount % 2 == 0) {
-            int currentState = tag.getInt("EyeState");
-            boolean isDark = tag.getBoolean(DARK_ACTIVE_TAG);
+            int currentState = getEyeState(pStack);
+            boolean isDark = isDarkActive(pStack);
             if (isDark && currentState < 3) {
-                tag.putInt("EyeState", currentState + 1);
+                pStack.set(DataComponentsRegistry.EYE_STATE, currentState + 1);
             } else if (!isDark && currentState > 0) {
-                tag.putInt("EyeState", currentState - 1);
+                pStack.set(DataComponentsRegistry.EYE_STATE, currentState - 1);
             }
         }
     }
@@ -55,15 +63,15 @@ public class EyeNecklaceItem extends CurioAccessoryItem implements TooltipCompon
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
-        if (!stack.getOrCreateTag().getBoolean(DARK_ACTIVE_TAG)) {
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack) {
+        if (!isDarkActive(stack)) {
             return super.getAttributeModifiers(slotContext, uuid, stack);
         }
 
-        Multimap<Attribute, AttributeModifier> m = LinkedHashMultimap.create();
+        Multimap<Holder<Attribute>, AttributeModifier> m = LinkedHashMultimap.create();
         if (builder instanceof NecklaceBuilder neckBuilder){
-            neckBuilder.negativeAttributeMap.forEach((attrSupplier, data) -> {
-                m.put(attrSupplier.get(), new AttributeModifier(uuid, "Darkness Debuff", data.value(), data.operation()));
+            neckBuilder.negativeAttributeMap.forEach((attribute, data) -> {
+                m.put(attribute, new AttributeModifier(uuid, data.value(), data.operation()));
             });
         }
 
@@ -71,23 +79,23 @@ public class EyeNecklaceItem extends CurioAccessoryItem implements TooltipCompon
     }
 
     public static class NecklaceBuilder extends AbstractCurioBuilder<EyeNecklaceItem, NecklaceBuilder>{
-        public Multimap<Supplier<Attribute>, AttributeData> negativeAttributeMap = HashMultimap.create();
+        public Multimap<Holder<Attribute>, AttributeData> negativeAttributeMap = HashMultimap.create();
 
         public NecklaceBuilder(Tier tier, Properties properties){
             super(tier, properties);
         }
 
-        public NecklaceBuilder addNegativeAttrs(Multimap<Supplier<Attribute>, AttributeData> map){
+        public NecklaceBuilder addNegativeAttrs(Multimap<Holder<Attribute>, AttributeData> map){
             negativeAttributeMap.putAll(map);
             return this;
         }
 
-        public NecklaceBuilder setNegativeAttrs(Multimap<Supplier<Attribute>, AttributeData> map){
+        public NecklaceBuilder setNegativeAttrs(Multimap<Holder<Attribute>, AttributeData> map){
             negativeAttributeMap = map;
             return this;
         }
 
-        public NecklaceBuilder addNegativeAttr(Supplier<Attribute> attribute, AttributeData mod){
+        public NecklaceBuilder addNegativeAttr(Holder<Attribute> attribute, AttributeData mod){
             negativeAttributeMap.put(attribute, mod);
             return this;
         }

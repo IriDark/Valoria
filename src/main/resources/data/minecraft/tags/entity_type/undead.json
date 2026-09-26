@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:draugr",
+    "valoria:devil",
+    "valoria:haunted_merchant",
+    "valoria:necromancer",
+    "valoria:sorcerer"
+  ]
+}

@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -50,10 +50,6 @@ public class ShurikenProjectile extends AbstractSupplierProjectile{
         return SoundEvents.TRIDENT_HIT_GROUND;
     }
 
-    @Override
-    public @NotNull SoundEvent getHitGroundSoundEvent(){
-        return SoundEvents.TRIDENT_HIT_GROUND;
-    }
 
     @Override
     public SoundEvent getReturnSound(){
@@ -86,7 +82,7 @@ public class ShurikenProjectile extends AbstractSupplierProjectile{
             }
 
             ParticleBuilder.create(TridotParticles.TRAIL)
-                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE)
                     .setBehavior(TrailParticleBehavior.create().build())
                     .setColorData(ColorParticleData.create(color).build())
                     .setTransparencyData(GenericParticleData.create(0.5f, 0).setEasing(Interp.sineOut).build())

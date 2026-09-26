@@ -7,9 +7,9 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import net.neoforged.neoforge.capabilities.*;
+import net.neoforged.neoforge.items.*;
+import net.neoforged.neoforge.items.wrapper.*;
 import pro.komaru.tridot.client.render.gui.screen.*;
 import pro.komaru.tridot.client.render.gui.screen.ResultSlot;
 
@@ -23,12 +23,13 @@ public class SoulInfuserMenu extends ContainerMenuBase{
         this.playerInventory = new InvWrapper(playerInventory);
         this.layoutPlayerInventorySlots(8, 84);
         if(blockEntity != null){
-            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
+            IItemHandler h = world.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
+            if(h != null){
                 this.addSlot(new SlotItemHandler(h, 0, 27, 26));
                 this.addSlot(new SoulCollectorSlot(h, 1, 76, 26));
 
                 this.addSlot(new ResultSlot(h, 2, 134, 26));
-            });
+            }
         }
     }
 

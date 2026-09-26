@@ -5,7 +5,9 @@ import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.damagesource.*;
@@ -34,7 +36,7 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
     public void onAttack(ItemStack stack, LivingEntity target, DamageSource source, float damage) {
         if (!target.level().isClientSide() && source.getEntity() instanceof ServerPlayer pServer) {
             if (Tmp.rnd.chance(chance) && !pServer.getCooldowns().isOnCooldown(this)) {
-                MobEffect randomEffect = ValoriaUtils.getRandomEffectFromTag(target.level().random, TagsRegistry.CURSES);
+                Holder<MobEffect> randomEffect = ValoriaUtils.getRandomEffectFromTag(target.level().random, TagsRegistry.CURSES); // PORT NOTE: effects are Holders
                 if (randomEffect != null) {
                     target.addEffect(new MobEffectInstance(randomEffect, 200, 0, false, true));
                     pServer.getCooldowns().addCooldown(this, 100);
@@ -45,11 +47,11 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", -2, AttributeModifier.Operation.ADDITION));
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        Multimap<Holder<Attribute>, AttributeModifier> atts = LinkedHashMultimap.create();
+        atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, -2, AttributeModifier.Operation.ADD_VALUE));
         if(stack.is(ItemsRegistry.voidSlateRuneCurses.get())) {
-            atts.put(AttributeReg.NIHILITY_RESILIENCE.get(), new AttributeModifier(uuid, "debuff", -0.15, AttributeModifier.Operation.ADDITION));
+            atts.put(AttributeReg.NIHILITY_RESILIENCE, new AttributeModifier(uuid, -0.15, AttributeModifier.Operation.ADD_VALUE));
         }
 
         return atts;
@@ -58,8 +60,8 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         ImmutableList.Builder<MobEffectInstance> effectBuilder = ImmutableList.builder();
-        List<MobEffect> effects = ValoriaUtils.getEffectsFromTag(TagsRegistry.CURSES);
-        for (MobEffect effect : effects) {
+        List<Holder<MobEffect>> effects = ValoriaUtils.getEffectsFromTag(TagsRegistry.CURSES);
+        for (Holder<MobEffect> effect : effects) {
             effectBuilder.add(new MobEffectInstance(effect, 200, 0, false, true));
         }
 

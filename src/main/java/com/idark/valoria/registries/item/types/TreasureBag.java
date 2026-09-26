@@ -67,7 +67,7 @@ public class TreasureBag extends LootItem{
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> list, TooltipFlag flags){
         super.appendHoverText(stack, world, list, flags);
         list.add(1, Component.translatable("tooltip.valoria.treasure").withStyle(ChatFormatting.GRAY));
         list.add(2, Component.empty());

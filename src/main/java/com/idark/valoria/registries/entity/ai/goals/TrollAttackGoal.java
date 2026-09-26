@@ -1,19 +1,17 @@
 package com.idark.valoria.registries.entity.ai.goals;
 
-import com.idark.valoria.registries.SoundsRegistry;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.level.Level;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.level.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class TrollAttackGoal extends MeleeAttackGoal{
     protected int attackWarmupDelay;
@@ -57,9 +55,9 @@ public class TrollAttackGoal extends MeleeAttackGoal{
         return super.canUse();
     }
 
-    protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr){
-        double d0 = this.getAttackReachSqr(pEnemy);
-        if(pDistToEnemySqr <= d0 && isTimeToAttack()){
+    @Override
+    protected void checkAndPerformAttack(LivingEntity pEnemy){
+        if(this.canPerformAttack(pEnemy)){
             this.resetAttackCooldown();
             this.mob.swing(InteractionHand.MAIN_HAND);
             this.mob.doHurtTarget(pEnemy);

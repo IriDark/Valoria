@@ -5,11 +5,14 @@ import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.data.*;
 import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.common.*;
+import net.neoforged.neoforge.common.data.*;
+import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
 
+import java.util.*;
 import java.util.concurrent.*;
 
 public class ModBlockTagsProvider extends BlockTagsProvider {
@@ -21,7 +24,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
         // Automatic category tag assignment based on block type
-        for (RegistryObject<Block> entry : BlockRegistry.BLOCK.getEntries()) {
+        for (DeferredHolder<Block, ? extends Block> entry : BlockRegistry.BLOCK.getEntries()) {
             Block block = entry.get();
 
             // Structure / Shape Category Tags
@@ -101,7 +104,58 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 .add(BlockRegistry.shadePlanks.get())
                 .add(BlockRegistry.eldritchPlanks.get())
                 .add(BlockRegistry.dreadwoodPlanks.get());
+
+        addTierTags();
     }
+
+    private void addTierTags(){
+        List<SortedTier> order = List.of(
+            new SortedTier(BlockTags.INCORRECT_FOR_WOODEN_TOOL, null, false),
+            new SortedTier(BlockTags.INCORRECT_FOR_GOLD_TOOL, null, false),
+            new SortedTier(BlockTags.INCORRECT_FOR_STONE_TOOL, BlockTags.NEEDS_STONE_TOOL, false),
+            valoria(ItemTierRegistry.BRONZE, TagsRegistry.NEEDS_BRONZE_TOOL),
+            valoria(ItemTierRegistry.PEARLIUM, TagsRegistry.NEEDS_PEARLIUM_TOOL),
+            valoria(ItemTierRegistry.HOLIDAY, TagsRegistry.NEEDS_HOLIDAY_TOOL),
+            valoria(ItemTierRegistry.HALLOWEEN, TagsRegistry.NEEDS_HALLOWEEN_TOOL),
+            valoria(ItemTierRegistry.LUNAR, TagsRegistry.NEEDS_LUNAR_TOOL),
+            valoria(ItemTierRegistry.SAMURAI, TagsRegistry.NEEDS_SAMURAI_TOOL),
+            new SortedTier(BlockTags.INCORRECT_FOR_IRON_TOOL, BlockTags.NEEDS_IRON_TOOL, false),
+            new SortedTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, BlockTags.NEEDS_DIAMOND_TOOL, false),
+            valoria(ItemTierRegistry.COBALT, TagsRegistry.NEEDS_COBALT_TOOL),
+            valoria(ItemTierRegistry.ETHEREAL, TagsRegistry.NEEDS_ETHEREAL_TOOL),
+            new SortedTier(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, Tags.Blocks.NEEDS_NETHERITE_TOOL, false),
+            valoria(ItemTierRegistry.NONE, TagsRegistry.NEEDS_NONE_TOOL),
+            valoria(ItemTierRegistry.BLAZE_REAP, TagsRegistry.NEEDS_BLAZEREAP_TOOL),
+            valoria(ItemTierRegistry.NATURE, TagsRegistry.NEEDS_NATURE_TOOL),
+            valoria(ItemTierRegistry.JADE, TagsRegistry.NEEDS_JADE_TOOL),
+            valoria(ItemTierRegistry.SPIDER, TagsRegistry.NEEDS_SPIDER_TOOL),
+            valoria(ItemTierRegistry.PYRATITE, TagsRegistry.NEEDS_PYRATITE_TOOL),
+            valoria(ItemTierRegistry.BLOOD, TagsRegistry.NEEDS_MEAT_TOOL),
+            valoria(ItemTierRegistry.AQUARIUS, TagsRegistry.NEEDS_DEPTH_TOOL),
+            valoria(ItemTierRegistry.INFERNAL, TagsRegistry.NEEDS_INFERNAL_TOOL),
+            valoria(ItemTierRegistry.NIHILITY, TagsRegistry.NEEDS_VOID_TOOL),
+            valoria(ItemTierRegistry.PHANTOM, TagsRegistry.NEEDS_PHANTOM_TOOL)
+        );
+
+        for (int i = 0; i < order.size(); i++) {
+            IntrinsicTagAppender<Block> appender = tag(order.get(i).incorrect());
+            for (int j = i + 1; j < order.size(); j++) {
+                SortedTier above = order.get(j);
+                if (above.needs() == null) continue;
+                if (above.valoriaNeeds()) {
+                    appender.addOptionalTag(above.needs());
+                } else {
+                    appender.addTag(above.needs());
+                }
+            }
+        }
+    }
+
+    private static SortedTier valoria(Tier tier, TagKey<Block> needs){
+        return new SortedTier(tier.getIncorrectBlocksForDrops(), needs, true);
+    }
+
+    private record SortedTier(TagKey<Block> incorrect, @Nullable TagKey<Block> needs, boolean valoriaNeeds){}
 
     private boolean isWoodenBlock(Block block, String name) {
         return block instanceof DoorBlock || block instanceof TrapDoorBlock || block instanceof FenceBlock

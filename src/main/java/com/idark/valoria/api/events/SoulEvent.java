@@ -1,12 +1,11 @@
 package com.idark.valoria.api.events;
 
 import net.minecraft.world.item.*;
-import net.minecraftforge.eventbus.api.*;
+import net.neoforged.bus.api.*;
 
 public class SoulEvent extends Event{
 
-    @Cancelable
-    public static class Added extends SoulEvent{
+    public static class Added extends SoulEvent implements ICancellableEvent{
         public ItemStack stack;
         public int count;
 

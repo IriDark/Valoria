@@ -1,12 +1,13 @@
 package com.idark.valoria.registries.effect;
 
+import com.idark.valoria.*;
 import com.idark.valoria.util.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -20,16 +21,18 @@ public class SoulBurstEffect extends MobEffect{
 
     public SoulBurstEffect(){
         super(MobEffectCategory.BENEFICIAL, 0xd3fffd);
-        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, "a8b392d9-f483-4878-b392-d9f4839878aa", 0.25, Operation.MULTIPLY_TOTAL);
-        this.addAttributeModifier(Attributes.ATTACK_SPEED, "15369de5-d2c1-427f-b69d-e5d2c1727fb7", 0.05, Operation.MULTIPLY_TOTAL);
+        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, Valoria.loc("soul_burst_damage"), 0.25, Operation.ADD_MULTIPLIED_TOTAL);
+        this.addAttributeModifier(Attributes.ATTACK_SPEED, Valoria.loc("soul_burst_speed"), 0.05, Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier){
+    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier){
         super.applyEffectTick(pLivingEntity, pAmplifier);
         if(pLivingEntity.level().isClientSide()){
             spawnParticles(pLivingEntity);
         }
+
+        return true;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -48,7 +51,7 @@ public class SoulBurstEffect extends MobEffect{
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier){
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier){
         return true;
     }
 }

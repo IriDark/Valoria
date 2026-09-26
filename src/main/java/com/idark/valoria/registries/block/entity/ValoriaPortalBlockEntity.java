@@ -1,11 +1,9 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.BlockEntitiesRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
 
 public class ValoriaPortalBlockEntity extends BlockEntity{
     protected ValoriaPortalBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState){

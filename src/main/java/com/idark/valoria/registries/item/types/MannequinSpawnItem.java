@@ -1,26 +1,20 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.entity.living.decoration.MannequinEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.gameevent.*;
+import net.minecraft.world.phys.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class MannequinSpawnItem extends Item{
     public MannequinSpawnItem(Item.Properties properties){
@@ -41,7 +35,7 @@ public class MannequinSpawnItem extends Item{
             if(level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty() && !level.getBlockState(blockpos.below()).isAir()){
                 if(level instanceof ServerLevel serverlevel){
                     Consumer<MannequinEntity> consumer = EntityType.createDefaultStackConfig(serverlevel, itemstack, pContext.getPlayer());
-                    MannequinEntity mannequin = EntityTypeRegistry.MANNEQUIN.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
+                    MannequinEntity mannequin = EntityTypeRegistry.MANNEQUIN.get().create(serverlevel, consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
                     if(mannequin == null){
                         return InteractionResult.FAIL;
                     }

@@ -11,9 +11,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.*;
 
-public class VoidthornBlock extends DoublePlantBlock implements net.minecraftforge.common.IPlantable{
+public class VoidthornBlock extends DoublePlantBlock{
     public VoidthornBlock(Properties properties){
         super(properties);
     }
@@ -59,17 +58,7 @@ public class VoidthornBlock extends DoublePlantBlock implements net.minecraftfor
         }
     }
 
-    @Override
-    public net.minecraftforge.common.PlantType getPlantType(BlockGetter world, BlockPos pos){
-        return PlantType.DESERT;
-    }
-
     public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext){
         return false;
-    }
-
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos){
-        return defaultBlockState();
     }
 }

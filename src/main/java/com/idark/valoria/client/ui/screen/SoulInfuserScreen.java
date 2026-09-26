@@ -11,7 +11,7 @@ import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class SoulInfuserScreen extends AbstractContainerScreen<SoulInfuserMenu>{
@@ -24,7 +24,7 @@ public class SoulInfuserScreen extends AbstractContainerScreen<SoulInfuserMenu>{
 
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
-        this.renderBackground(gui);
+        this.renderBackground(gui, mouseX, mouseY, partialTicks);
         super.render(gui, mouseX, mouseY, partialTicks);
         this.renderTooltip(gui, mouseX, mouseY);
     }

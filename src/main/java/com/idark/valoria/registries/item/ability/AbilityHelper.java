@@ -49,13 +49,13 @@ public class AbilityHelper {
             return CLIENT_USAGES.getOrDefault(ability.type.id.toString(), 0);
         }
         
-        return player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES)
+        return PlayerAbilityProvider.of(player)
                 .map(cap -> cap.getUsages(ability.type.id.toString()))
                 .orElse(0);
     }
 
     public static void setUsages(ServerPlayer player, AbilityComponent ability, int usages) {
-        player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES)
+        PlayerAbilityProvider.of(player)
             .ifPresent(cap -> cap.setUsages(ability.type.id.toString(), usages));
         syncState(player, ability.type.id.toString());
     }
@@ -64,7 +64,7 @@ public class AbilityHelper {
         AbilityComponent ability = getAbility(stack, type);
         if (ability != null && ability.canCast(player, stack)) {
             int cd = ability.onCastStart(player, player.level(), stack);
-            stack.hurtAndBreak(ability.durabilityUsage, player, (p) -> p.broadcastBreakEvent(net.minecraft.world.InteractionHand.MAIN_HAND));
+            stack.hurtAndBreak(ability.durabilityUsage, player, LivingEntity.getSlotForHand(net.minecraft.world.InteractionHand.MAIN_HAND));
             
             if (stack.isEmpty()) return;
 
@@ -115,7 +115,7 @@ public class AbilityHelper {
         if (player.level().isClientSide) {
             endTime = CLIENT_COOLDOWNS.getOrDefault(abilityId, 0L);
         } else {
-            endTime = player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES)
+            endTime = PlayerAbilityProvider.of(player)
                 .map(cap -> cap.getCooldown(abilityId))
                 .orElse(0L);
         }
@@ -129,7 +129,7 @@ public class AbilityHelper {
             return CLIENT_COOLDOWNS.getOrDefault(abilityId, 0L);
         }
         
-        return player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES)
+        return PlayerAbilityProvider.of(player)
                 .map(cap -> cap.getCooldown(abilityId))
                 .orElse(0L);
     }
@@ -140,20 +140,20 @@ public class AbilityHelper {
             return CLIENT_MAX_COOLDOWNS.getOrDefault(abilityId, 1);
         }
         
-        return player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES)
+        return PlayerAbilityProvider.of(player)
                 .map(cap -> cap.getMaxCooldown(abilityId))
                 .orElse(1);
     }
 
     public static void setCooldown(ServerPlayer player, AbilityComponent ability, int ticks) {
         String id = ability.type.id.toString();
-        player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES)
+        PlayerAbilityProvider.of(player)
             .ifPresent(cap -> cap.setCooldown(id, player.level().getGameTime() + ticks, ticks));
         syncState(player, id);
     }
 
     private static void syncState(ServerPlayer player, String abilityId) {
-        player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(cap -> {
+        PlayerAbilityProvider.of(player).ifPresent(cap -> {
             long endTime = cap.getCooldown(abilityId);
             int maxTicks = cap.getMaxCooldown(abilityId);
             int usages = cap.getUsages(abilityId);

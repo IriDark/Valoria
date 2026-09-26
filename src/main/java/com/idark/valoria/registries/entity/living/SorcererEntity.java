@@ -7,6 +7,7 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
@@ -41,8 +42,8 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     public SorcererEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.xpReward = 5;
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
     }
 
     public SorcererEntity(Level pLevel){
@@ -82,7 +83,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     public boolean isAlliedTo(Entity pEntity){
         if(super.isAlliedTo(pEntity)){
             return true;
-        }else if(pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.UNDEAD){
+        }else if(pEntity instanceof LivingEntity && pEntity.getType().is(EntityTypeTags.UNDEAD)){
             return this.getTeam() == null && pEntity.getTeam() == null;
         }else{
             return false;

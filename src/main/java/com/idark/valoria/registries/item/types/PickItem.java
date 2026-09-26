@@ -1,14 +1,12 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.base.*;
-import com.google.common.collect.*;
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.block.types.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.server.network.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -16,27 +14,32 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.animation.*;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("removal")
-public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
+// PORT NOTE: Vanishable marker interface was removed in 1.21.
+public class PickItem extends Item implements ICustomAnimationItem{
     public static CrushingAnimation animation = new CrushingAnimation();
+    /**
+     * PORT NOTE: ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE (36 = 6²) was replaced by the block interaction
+     * range attribute; this keeps the 1.20.1 value of sqrt(36) - 1 = 5 blocks.
+     */
     @Deprecated
-    public static final double MAX_BRUSH_DISTANCE = Math.sqrt(ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE) - 1.0D;
+    public static final double MAX_BRUSH_DISTANCE = 5.0D;
     public float excavationSpeed;
     public float attackDamageIn;
     public float attackSpeedIn;
-    private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
+    private final Supplier<ItemAttributeModifiers> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
     public PickItem(Item.Properties pProperties, int attackDamageIn, float attackSpeedIn, int speed){
         super(pProperties);
@@ -45,16 +48,18 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
         this.excavationSpeed = (float)speed;
     }
 
-    private Multimap<Attribute, AttributeModifier> createAttributes(){
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeReg.EXCAVATION_SPEED.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Pick modifier", excavationSpeed, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        return builder.build();
+    // PORT NOTE: Multimap<Attribute, AttributeModifier> -> ItemAttributeModifiers (main-hand group).
+    private ItemAttributeModifiers createAttributes(){
+        return ItemAttributeModifiers.builder()
+            .add(AttributeReg.EXCAVATION_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, excavationSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .build();
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.attributeModifiers.get() : super.getDefaultAttributeModifiers(equipmentSlot);
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers(){
+        return this.attributeModifiers.get();
     }
 
     public InteractionResult useOn(UseOnContext pContext){
@@ -76,7 +81,7 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
         return animation;
     }
 
-    public int getUseDuration(ItemStack pStack){
+    public int getUseDuration(ItemStack pStack, LivingEntity entity){
         return 200;
     }
 
@@ -85,8 +90,8 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
             HitResult hitresult = this.calculateHitResult(pLivingEntity);
             if(hitresult instanceof BlockHitResult blockhitresult){
                 if(hitresult.getType() == HitResult.Type.BLOCK){
-                    int i = this.getUseDuration(pStack) - pRemainingUseDuration + 1;
-                    double speed = player.getAttributeValue(AttributeReg.EXCAVATION_SPEED.get());
+                    int i = this.getUseDuration(pStack, pLivingEntity) - pRemainingUseDuration + 1;
+                    double speed = player.getAttributeValue(AttributeReg.EXCAVATION_SPEED);
                     if(i % speed == 5){
                         BlockPos blockpos = blockhitresult.getBlockPos();
                         BlockState blockstate = pLevel.getBlockState(blockpos);
@@ -106,7 +111,7 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
                             if(blockentity instanceof CrushableBlockEntity blockEntity){
                                 if(blockEntity.crushing(pLevel.getGameTime(), player, blockhitresult.getDirection())){
                                     EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-                                    pStack.hurtAndBreak(1, pLivingEntity, (p_279044_) -> p_279044_.broadcastBreakEvent(equipmentslot));
+                                    pStack.hurtAndBreak(1, pLivingEntity, equipmentslot);
                                 }
                             }
                         }
@@ -123,7 +128,8 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
     }
 
     private HitResult calculateHitResult(LivingEntity pEntity){
-        return ProjectileUtil.getHitResultOnViewVector(pEntity, (p_281111_) -> !p_281111_.isSpectator() && p_281111_.isPickable(), MAX_BRUSH_DISTANCE);
+        double range = pEntity instanceof Player player ? player.blockInteractionRange() - 1.0D : MAX_BRUSH_DISTANCE;
+        return ProjectileUtil.getHitResultOnViewVector(pEntity, (p_281111_) -> !p_281111_.isSpectator() && p_281111_.isPickable(), range);
     }
 
     public void spawnDustParticles(Level pLevel, BlockHitResult pHitResult, BlockState pState, Vec3 pPos, HumanoidArm pArm){

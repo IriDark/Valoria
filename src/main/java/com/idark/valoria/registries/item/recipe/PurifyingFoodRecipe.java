@@ -1,24 +1,23 @@
 package com.idark.valoria.registries.item.recipe;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.consumables.*;
 import net.minecraft.core.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.inventory.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.registries.*;
 
 public class PurifyingFoodRecipe extends CustomRecipe{
-    public PurifyingFoodRecipe(ResourceLocation pId, CraftingBookCategory pCategory) {
-        super(pId, pCategory);
+    public PurifyingFoodRecipe(CraftingBookCategory pCategory) {
+        super(pCategory);
     }
 
     @Override
-    public boolean matches(CraftingContainer inv, Level world) {
+    public boolean matches(CraftingInput inv, Level world) {
         boolean foundRot = false;
         boolean foundVIal = false;
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             ItemStack stack = inv.getItem(i);
             if (!stack.isEmpty()) {
                 if (stack.is(ItemsRegistry.rot.get())) {
@@ -37,21 +36,22 @@ public class PurifyingFoodRecipe extends CustomRecipe{
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer inv, RegistryAccess registryAccess) {
+    public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registryAccess) {
         ItemStack rot = ItemStack.EMPTY;
-        int index = 0;
-        for (int i = 0; i < inv.getContainerSize(); i++) {
+        for (int i = 0; i < inv.size(); i++) {
             ItemStack stack = inv.getItem(i);
             if (stack.is(ItemsRegistry.rot.get())) {
-                index = i;
                 rot = stack.copy();
             }
         }
 
         if (!rot.isEmpty()) {
-            var itemOpt = ForgeRegistries.ITEMS.getDelegate(ResourceLocation.tryParse(rot.getOrCreateTag().getString("OriginalItem")));
-            if(itemOpt.isPresent()){
-                return new ItemStack(itemOpt.get());
+            var original = RotItem.getOriginalItem(rot);
+            if(original.isPresent()){
+                var itemOpt = BuiltInRegistries.ITEM.getHolder(original.get());
+                if(itemOpt.isPresent()){
+                    return new ItemStack(itemOpt.get());
+                }
             }
         }
 

@@ -20,12 +20,13 @@ import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.item.*;
@@ -36,16 +37,16 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.*;
 
-import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_UUID;
-import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
+import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_ID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
-public class SpearItem extends SwordItem implements Vanishable{
-    private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
+public class SpearItem extends SwordItem{
+    private final Supplier<ItemAttributeModifiers> attributeModifiers = Suppliers.memoize(this::createAttributes);
     public ArcRandom arcRandom = Tmp.rnd;
     public AbstractSpearBuilder<? extends SpearItem> builder;
 
     public SpearItem(AbstractSpearBuilder<? extends SpearItem> builder){
-        super(builder.tier, (int)builder.attackDamageIn, builder.attackSpeedIn, builder.itemProperties);
+        super(builder.tier, builder.itemProperties);
         this.builder = builder;
     }
 
@@ -68,21 +69,22 @@ public class SpearItem extends SwordItem implements Vanishable{
         this(new SpearItem.Builder(attackDamageIn, attackSpeedIn, builderIn).setThrowable(pThrowable).setTier(tier));
     }
 
-    private static Set<ToolAction> of(ToolAction... actions){
+    private static Set<ItemAbility> of(ItemAbility... actions){
         return Stream.of(actions).collect(Collectors.toCollection(Sets::newIdentityHashSet));
     }
 
-    public Multimap<Attribute, AttributeModifier> createAttributes(){
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.builder.attackDamageIn, AttributeModifier.Operation.ADDITION));
-        if(this.builder.projectileDamageIn > 0) builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", this.builder.projectileDamageIn, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", this.builder.attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ENTITY_REACH_UUID, "Spear modifier", this.builder.entityReach, AttributeModifier.Operation.ADDITION));
+    public ItemAttributeModifiers createAttributes(){
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+        builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.builder.attackDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        if(this.builder.projectileDamageIn > 0) builder.add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, this.builder.projectileDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, this.builder.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_REACH_ID, this.builder.entityReach, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
         return builder.build();
     }
 
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.category.canEnchant(stack.getItem()) || this.builder.throwable && (enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY);
+    @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment){
+        return super.supportsEnchantment(stack, enchantment) || this.builder.throwable && (enchantment.is(Enchantments.PIERCING) || enchantment.is(Enchantments.LOYALTY));
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
@@ -99,7 +101,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         return UseAnim.SPEAR;
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
     }
 
@@ -110,7 +112,7 @@ public class SpearItem extends SwordItem implements Vanishable{
 
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft){
         if(entityLiving instanceof Player playerEntity){
-            int i = this.getUseDuration(stack) - timeLeft;
+            int i = this.getUseDuration(stack, entityLiving) - timeLeft;
             if(i >= 6){
                 if(!worldIn.isClientSide){
                     ThrownSpearEntity spear = shootProjectile(stack, worldIn, playerEntity);
@@ -128,13 +130,13 @@ public class SpearItem extends SwordItem implements Vanishable{
 
     private @NotNull ThrownSpearEntity shootProjectile(ItemStack stack, Level worldIn, Player playerEntity){
         ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack);
-        int pierceLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
+        int pierceLevel = EnchantmentsRegistry.getLevel(worldIn, stack, Enchantments.PIERCING);
         if(pierceLevel > 0){
             spear.setPierceLevel((byte)pierceLevel);
         }
 
-        if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0){
-            spear.setSecondsOnFire(100);
+        if(EnchantmentsRegistry.getLevel(worldIn, stack, Enchantments.FIRE_ASPECT) > 0){
+            spear.igniteForSeconds(100);
         }
 
         spear.setEffectsFromList(this.builder.effects);
@@ -146,8 +148,9 @@ public class SpearItem extends SwordItem implements Vanishable{
         return spear;
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.attributeModifiers.get() : super.getDefaultAttributeModifiers(equipmentSlot);
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers(){
+        return this.attributeModifiers.get();
     }
 
     @Override
@@ -169,7 +172,7 @@ public class SpearItem extends SwordItem implements Vanishable{
             if(!worldIn.isClientSide){
                 if(!player.getAbilities().instabuild){
                     worldIn.addFreshEntity(new ItemEntity(worldIn, player.getX(), player.getY(), player.getZ(), ItemsRegistry.unchargedShard.get().getDefaultInstance()));
-                    stack.hurtAndBreak(10, player, (playerEntity) -> playerEntity.broadcastBreakEvent(handIn));
+                    stack.hurtAndBreak(10, player, LivingEntity.getSlotForHand(handIn));
                 }
             }
 
@@ -179,10 +182,10 @@ public class SpearItem extends SwordItem implements Vanishable{
         return super.onItemUseFirst(stack, context);
     }
 
-    public static final Set<ToolAction> SPEAR = of(ToolActions.SWORD_DIG);
+    public static final Set<ItemAbility> SPEAR = of(ItemAbilities.SWORD_DIG);
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         if(this.builder.throwable){
             if(stack.is(ItemsRegistry.pyratiteSpear.get())){
@@ -198,8 +201,8 @@ public class SpearItem extends SwordItem implements Vanishable{
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction){
-        return SPEAR.contains(toolAction);
+    public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility){
+        return SPEAR.contains(itemAbility);
     }
 
     public static class Builder extends AbstractSpearBuilder<SpearItem>{

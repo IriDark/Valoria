@@ -7,6 +7,8 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
+import net.minecraft.core.component.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
@@ -17,19 +19,19 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.entity.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
-import static net.minecraftforge.registries.ForgeRegistries.Keys.ENTITY_TYPES;
+import static net.minecraft.core.registries.Registries.ENTITY_TYPE;
 
 public class SummonBook extends Item {
-    private static final ResourceKey<EntityType<?>> DEFAULT_VARIANT = ResourceKey.create(ENTITY_TYPES, Valoria.loc("undead"));
+    private static final ResourceKey<EntityType<?>> DEFAULT_VARIANT = ResourceKey.create(ENTITY_TYPE, Valoria.loc("undead"));
 
     protected final int slotCost;
 
@@ -47,10 +49,11 @@ public class SummonBook extends Item {
     }
 
     protected EntityType<?> getDefaultType(ItemStack stack){
-        String entityId = stack.getOrCreateTagElement("EntityTag").getString("id");
-        if(entityId.isEmpty()) return ForgeRegistries.ENTITY_TYPES.getValue(DEFAULT_VARIANT.location());
-        ResourceLocation entityLocation = new ResourceLocation(entityId);
-        return ForgeRegistries.ENTITY_TYPES.getValue(entityLocation);
+        CustomData data = stack.get(DataComponents.ENTITY_DATA);
+        String entityId = data != null && data.contains("id") ? data.copyTag().getString("id") : "";
+        if(entityId.isEmpty()) return BuiltInRegistries.ENTITY_TYPE.get(DEFAULT_VARIANT.location());
+        ResourceLocation entityLocation = ResourceLocation.parse(entityId);
+        return BuiltInRegistries.ENTITY_TYPE.get(entityLocation);
     }
 
     public static void storeVariant(CompoundTag pTag, Holder<EntityType<?>> pType){
@@ -58,16 +61,23 @@ public class SummonBook extends Item {
     }
 
     public static void setColor(ItemStack pStack, int pColor){
-        pStack.getOrCreateTagElement("DisplayColor").putInt("color", pColor);
+        pStack.set(DataComponentsRegistry.DISPLAY_COLOR, pColor);
     }
 
     public static int getColor(ItemStack pStack){
-        CompoundTag compoundtag = pStack.getTagElement("DisplayColor");
-        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : Col.toDecimal(Pal.lightViolet);
+        Integer color = pStack.get(DataComponentsRegistry.DISPLAY_COLOR);
+        if(color != null) return color;
+        CustomData legacy = pStack.get(DataComponents.CUSTOM_DATA);
+        if(legacy != null && legacy.contains("DisplayColor")){
+            CompoundTag compoundtag = legacy.copyTag().getCompound("DisplayColor");
+            if(compoundtag.contains("color", 99)) return compoundtag.getInt("color");
+        }
+
+        return Col.toDecimal(Pal.lightViolet);
     }
 
     public void applyCooldown(Player playerIn){
-        for(Item item : ForgeRegistries.ITEMS){
+        for(Item item : BuiltInRegistries.ITEM){
             if(item instanceof SummonBook){
                 playerIn.getCooldowns().addCooldown(item, 10);
             }
@@ -81,7 +91,7 @@ public class SummonBook extends Item {
             minion -> minion.getOwner() == player
         );
 
-        int maxMinions = (int)player.getAttributeValue(AttributeReg.NECROMANCY_COUNT.get());
+        int maxMinions = (int)player.getAttributeValue(AttributeReg.NECROMANCY_COUNT);
         if (this.slotCost > maxMinions) {
             player.displayClientMessage(Component.translatable("message.valoria.not_enough_minion_slots").withStyle(ChatFormatting.RED), true);
             return false;
@@ -115,15 +125,15 @@ public class SummonBook extends Item {
             BlockPos spawnPos = BlockPos.containing(new Vec3(x, y, z));
             if(serverLevel.isEmptyBlock(blockpos)){
                 summoned.moveTo(spawnPos, 0.0F, 0.0F);
-                summoned.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                summoned.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null); // PORT NOTE: finalizeSpawn lost the CompoundTag parameter
                 summoned.setOwner(player);
                 summoned.setBoundOrigin(blockpos);
                 summoned.getPersistentData().putBoolean("PlayerSummoned", true);
                 summoned.getPersistentData().putInt("MinionSlots", this.slotCost);
-                
+
                 AttributeInstance attackDamage = summoned.getAttribute(Attributes.ATTACK_DAMAGE);
                 if(attackDamage != null){
-                    double multiplier = player.getAttributeValue(AttributeReg.SUMMON_DAMAGE.get());
+                    double multiplier = player.getAttributeValue(AttributeReg.SUMMON_DAMAGE);
                     attackDamage.setBaseValue(attackDamage.getBaseValue() * multiplier);
                 }
 
@@ -145,7 +155,7 @@ public class SummonBook extends Item {
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 7;
     }
 
@@ -158,7 +168,7 @@ public class SummonBook extends Item {
         if(level instanceof ServerLevel server){
             spawnMinion(server, player, stack);
             if(!player.isCreative()){
-                stack.hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
             }
 
             level.playSound(null, player.blockPosition(), getUseSound(), SoundSource.PLAYERS);
@@ -179,7 +189,7 @@ public class SummonBook extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
+    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.necromancy").withStyle(ChatFormatting.GRAY));
         if(getDefaultType(stack).is(TagsRegistry.MINIONS)){

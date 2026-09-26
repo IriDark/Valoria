@@ -7,21 +7,13 @@ import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import org.jetbrains.annotations.*;
+import net.neoforged.neoforge.common.util.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
-public class NihilityLevelProvider implements INihilityLevel, ICapabilitySerializable<CompoundTag>{
+public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<CompoundTag>{
     public float nihilityAmount = 0;
     private float maxNihilityAmount = 100f;
-    private final LazyOptional<INihilityLevel> optional = LazyOptional.of(() -> this);
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, Direction side){
-        return cap == INihilityLevel.INSTANCE ? optional.cast() : LazyOptional.empty();
-    }
 
     public void modifyAmount(@Nullable LivingEntity entity, float amount) {
         setAmountFromServer(entity, this.nihilityAmount + amount);
@@ -56,8 +48,8 @@ public class NihilityLevelProvider implements INihilityLevel, ICapabilitySeriali
     }
 
     public float getMaxAmount(@Nullable LivingEntity entity) {
-        if (entity != null && entity.getAttribute(AttributeReg.MAX_NIHILITY.get()) != null) {
-            return (float) entity.getAttributeValue(AttributeReg.MAX_NIHILITY.get());
+        if (entity != null && entity.getAttribute(AttributeReg.MAX_NIHILITY) != null) {
+            return (float) entity.getAttributeValue(AttributeReg.MAX_NIHILITY);
         }
 
         return this.maxNihilityAmount;
@@ -69,14 +61,14 @@ public class NihilityLevelProvider implements INihilityLevel, ICapabilitySeriali
     }
 
     @Override
-    public CompoundTag serializeNBT(){
+    public CompoundTag serializeNBT(HolderLookup.Provider provider){
         CompoundTag wrapper = new CompoundTag();
         wrapper.putFloat("nihility_level", this.nihilityAmount);
         return wrapper;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt){
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt){
         this.nihilityAmount = nbt.getFloat("nihility_level");
     }
 

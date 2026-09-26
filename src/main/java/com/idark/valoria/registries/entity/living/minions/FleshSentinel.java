@@ -40,9 +40,6 @@ public class FleshSentinel extends AbstractMinionEntity{
         this.xpReward = 3;
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions){
-        return pDimensions.height - 0.28125F;
-    }
 
     //todo meaty effect
     @Override
@@ -69,9 +66,9 @@ public class FleshSentinel extends AbstractMinionEntity{
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_FLAGS_ID, (byte)0);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -162,13 +159,6 @@ public class FleshSentinel extends AbstractMinionEntity{
      */
     public boolean onClimbable(){
         return false;
-    }
-
-    /**
-     * Returns the Y Offset of this entity.
-     */
-    public double getMyRidingOffset(){
-        return 0.4D;
     }
 
     class FleshSentinelOrbitAndShootGoal extends Goal {

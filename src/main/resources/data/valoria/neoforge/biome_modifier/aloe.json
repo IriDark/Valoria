@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#valoria:aloe_gen",
+  "features": [
+    "valoria:aloe",
+    "valoria:aloe_small"
+  ],
+  "step": "vegetal_decoration"
+}

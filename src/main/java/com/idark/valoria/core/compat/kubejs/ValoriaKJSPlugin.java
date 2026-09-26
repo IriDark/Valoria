@@ -2,24 +2,27 @@ package com.idark.valoria.core.compat.kubejs;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.compat.kubejs.schemas.*;
-import dev.latvian.mods.kubejs.*;
+import dev.latvian.mods.kubejs.plugin.*;
 import dev.latvian.mods.kubejs.recipe.schema.*;
-import dev.latvian.mods.kubejs.recipe.schema.minecraft.*;
 
-public class ValoriaKJSPlugin extends KubeJSPlugin{
+public class ValoriaKJSPlugin implements KubeJSPlugin{
     @Override
     public void init() {
     }
 
     @Override
-    public void registerRecipeSchemas(RegisterRecipeSchemasEvent event) {
-        event.namespace(Valoria.ID)
-        .register("kiln", CookingRecipeSchema.SCHEMA)
-        .register("crusher", CrusherRecipeSchema.SCHEMA)
-        .register("jewelry", JewelryRecipeSchema.SCHEMA)
-        .register("keg_brewery", KegRecipeSchema.SCHEMA)
-        .register("heavy_workbench", HeavyWorkbenchRecipeSchema.SCHEMA)
-        .register("manipulator", ManipulatorRecipeSchema.SCHEMA)
-        ;
+    public void registerRecipeComponents(dev.latvian.mods.kubejs.recipe.component.RecipeComponentTypeRegistry registry) {
+        registry.register(ValoriaRecipeComponents.ITEM_STACK);
+        registry.register(ValoriaRecipeComponents.COUNTED_INGREDIENT);
+    }
+
+    @Override
+    public void registerRecipeSchemas(RecipeSchemaRegistry registry) {
+        registry.register(Valoria.loc("kiln"), KilnRecipeSchema.SCHEMA);
+        registry.register(Valoria.loc("crusher"), CrusherRecipeSchema.SCHEMA);
+        registry.register(Valoria.loc("jewelry"), JewelryRecipeSchema.SCHEMA);
+        registry.register(Valoria.loc("keg_brewery"), KegRecipeSchema.SCHEMA);
+        registry.register(Valoria.loc("heavy_workbench"), HeavyWorkbenchRecipeSchema.SCHEMA);
+        registry.register(Valoria.loc("manipulator"), ManipulatorRecipeSchema.SCHEMA);
     }
 }

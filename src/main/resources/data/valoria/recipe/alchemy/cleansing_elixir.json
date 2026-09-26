@@ -1,0 +1,15 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 3,
+  "ingredients": [
+    { "ingredient": { "item": "valoria:cleansing_flask" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:ghast_tear" }, "count": 1 },
+    { "ingredient": { "item": "valoria:abyssal_glowfern" }, "count": 8 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:cleansing_elixir",
+    "count": 1
+  }
+}

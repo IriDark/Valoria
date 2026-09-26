@@ -8,7 +8,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.gfx.*;
@@ -71,7 +71,7 @@ public class SoulArrow extends AbstractProjectile implements TexturedArrow{
             };
 
             ParticleBuilder.create(TridotParticles.TRAIL)
-            .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+            .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE)
             .setBehavior(TrailParticleBehavior.create().build())
             .setColorData(ColorParticleData.create(Col.white, Col.fromHex("19419b")).build())
             .setTransparencyData(GenericParticleData.create(0.5f, 0).setEasing(Interp.sineOut).build())

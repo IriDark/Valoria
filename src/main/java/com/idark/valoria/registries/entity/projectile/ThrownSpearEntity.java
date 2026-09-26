@@ -9,7 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -99,10 +99,6 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
         return SoundsRegistry.SPEAR_GROUND_IMPACT.get();
     }
 
-    @Override
-    public @NotNull SoundEvent getHitGroundSoundEvent(){
-        return SoundsRegistry.SPEAR_GROUND_IMPACT.get();
-    }
 
     @Override
     public SoundEvent getReturnSound(){

@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.category.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+
 public class KilnRecipeCategory extends AbstractRecipeCategory<KilnRecipe>{
     protected final int regularCookTime;
 

@@ -1,0 +1,33 @@
+{
+  "parent": "valoria:valoria/the_valoria",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:elemental_crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.elemental_crystal.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "valoria:elemental_crystal"
+    },
+    "title": {
+      "translate": "advancements.valoria.elemental_crystal.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

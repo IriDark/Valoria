@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:void_brick_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_void_brick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:void_brick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_void_brick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:void_brick_wall"
+    ]
+  }
+}

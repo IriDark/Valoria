@@ -1,0 +1,12 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:jade" }, "count": 3 },
+    { "ingredient": { "item": "minecraft:stick"}, "count": 2 }
+  ],
+  "result": {
+    "item": "valoria:jade_hoe",
+    "count": 1
+  }
+}

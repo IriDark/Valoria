@@ -9,13 +9,13 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.extensions.*;
+import net.neoforged.neoforge.common.extensions.*;
 import org.jetbrains.annotations.*;
 
 import java.util.*;
 import java.util.function.*;
 
-public abstract class AbstractDecorationMob extends Mob implements IForgeEntity{
+public abstract class AbstractDecorationMob extends Mob implements IEntityExtension{
 
     private static final Predicate<Entity> RIDABLE_MINECARTS = (p_31582_) -> p_31582_ instanceof AbstractMinecart && ((AbstractMinecart)p_31582_).canBeRidden();
 
@@ -111,11 +111,6 @@ public abstract class AbstractDecorationMob extends Mob implements IForgeEntity{
     @Override
     public boolean isPushedByFluid(){
         return false;
-    }
-
-    @Override
-    public boolean canBreatheUnderwater(){
-        return true;
     }
 
     @Override

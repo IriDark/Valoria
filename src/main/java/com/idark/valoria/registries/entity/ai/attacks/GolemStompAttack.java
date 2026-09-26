@@ -6,8 +6,8 @@ import com.idark.valoria.registries.entity.living.elemental.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.targeting.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.screenshake.*;
@@ -76,7 +76,7 @@ public class GolemStompAttack extends AttackInstance{
                 dZ /= sqrt;
                 double seenPercent = Utils.Hit.seenPercent(vec3, entity, damage);
                 double power = (1.0D - distance) * seenPercent;
-                double powerAfterDamp = ProtectionEnchantment.getExplosionKnockbackAfterDampener(entity, power);
+                double powerAfterDamp = power * (1.0D - entity.getAttributeValue(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE));
                 dX *= powerAfterDamp;
                 dY *= powerAfterDamp;
                 dZ *= powerAfterDamp;

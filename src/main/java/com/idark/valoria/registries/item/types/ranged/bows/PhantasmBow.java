@@ -5,7 +5,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
-import net.minecraft.client.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
@@ -17,7 +16,7 @@ import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.event.*;
+import net.neoforged.neoforge.event.*;
 import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.common.registry.item.types.*;
@@ -34,27 +33,25 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
     }
 
     public ItemStack setBow(ItemStack pStack){
-        pStack.getOrCreateTag().putBoolean("isVisible", false);
-        pStack.getOrCreateTag().putBoolean("isPlayed", false);
+        pStack.set(DataComponentsRegistry.BAR_VISIBLE, false);
+        pStack.set(DataComponentsRegistry.SOUND_PLAYED, false);
         return pStack;
     }
 
     public boolean isPlayed(ItemStack pStack) {
-        return pStack.getOrCreateTag().getBoolean("isPlayed");
+        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.SOUND_PLAYED.get(), "isPlayed");
     }
 
     public boolean isVisible(ItemStack pStack) {
-        return pStack.getOrCreateTag().getBoolean("isVisible");
+        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.BAR_VISIBLE.get(), "isVisible");
     }
 
     public void setPlayed(ItemStack pStack, boolean value){
-        pStack.removeTagKey("isPlayed");
-        pStack.getOrCreateTag().putBoolean("isPlayed", value);
+        pStack.set(DataComponentsRegistry.SOUND_PLAYED, value);
     }
 
     public void setVisible(ItemStack pStack, boolean value){
-        pStack.removeTagKey("isVisible");
-        pStack.getOrCreateTag().putBoolean("isVisible", value);
+        pStack.set(DataComponentsRegistry.BAR_VISIBLE, value);
     }
 
     @Override
@@ -72,10 +69,10 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
     @Override
     public int getBarWidth(ItemStack stack) {
         if(isVisible(stack)){
-            Player plr = Minecraft.getInstance().player;
+            Player plr = Valoria.proxy.getPlayer();
             if(plr != null){
-                int current = Minecraft.getInstance().player.getUseItemRemainingTicks();
-                int used = this.getUseDuration(stack) - current;
+                int current = plr.getUseItemRemainingTicks();
+                int used = this.getUseDuration(stack, plr) - current;
 
                 float overcharge = Mth.clamp(used - time, 0, abilityUseDuration);
                 float progress = overcharge / abilityUseDuration;
@@ -95,7 +92,7 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration){
         super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
-        int i = this.getUseDuration(pStack) - pRemainingUseDuration;
+        int i = this.getUseDuration(pStack, pLivingEntity) - pRemainingUseDuration;
         if(i < 0) return;
 
         ItemStack itemstack = pLivingEntity.getProjectile(pStack);
@@ -129,10 +126,10 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft){
         if(pEntityLiving instanceof Player player){
-            boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getTagEnchantmentLevel(Enchantments.INFINITY_ARROWS, pStack) > 0;
+            boolean flag = player.getAbilities().instabuild || EnchantmentsRegistry.getLevel(pLevel, pStack, Enchantments.INFINITY) > 0;
             ItemStack itemstack = player.getProjectile(pStack);
-            int i = this.getUseDuration(pStack) - pTimeLeft;
-            i = ForgeEventFactory.onArrowLoose(pStack, pLevel, player, i, !itemstack.isEmpty() || flag);
+            int i = this.getUseDuration(pStack, pEntityLiving) - pTimeLeft;
+            i = EventHooks.onArrowLoose(pStack, pLevel, player, i, !itemstack.isEmpty() || flag);
             if(i < 0) return;
             if(!itemstack.isEmpty() || flag){
                 if(itemstack.isEmpty()){
@@ -145,7 +142,8 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
                     boolean infiniteArrows = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem)itemstack.getItem()).isInfinite(itemstack, pStack, player));
                     if(!pLevel.isClientSide()){
                         ArrowItem arrowitem = (ArrowItem)(itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
-                        AbstractArrow abstractarrow = arrowitem == Items.ARROW && arrow.get() != EntityType.ARROW ? createArrow(pLevel, player) : arrowitem.createArrow(pLevel, itemstack, player);
+                        AbstractArrow abstractarrow = arrowitem == Items.ARROW && arrow.get() != EntityType.ARROW ? createArrow(pLevel, player) : arrowitem.createArrow(pLevel, itemstack, player, pStack);
+                        abstractarrow.setOwner(player);
                         doPreSpawn(abstractarrow, player, itemstack, power, infiniteArrows);
                         if(isOvercharged(i, time)) {
                             if(abstractarrow instanceof PhantomArrow phantomArrow) {
@@ -154,21 +152,9 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
                             }
                         }
 
-                        int enchantmentPower = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, pStack);
-                        if(enchantmentPower > 0){
-                            abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (double)enchantmentPower * 0.5D + 0.5D);
-                        }
+                        applyWeaponEnchantments(pLevel, abstractarrow, pStack);
 
-                        int enchantmentPunch = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PUNCH_ARROWS, pStack);
-                        if(enchantmentPunch > 0){
-                            abstractarrow.setKnockback(enchantmentPunch);
-                        }
-
-                        if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FLAMING_ARROWS, pStack) > 0){
-                            abstractarrow.setSecondsOnFire(100);
-                        }
-
-                        pStack.hurtAndBreak(1, player, (p_289501_) -> p_289501_.broadcastBreakEvent(player.getUsedItemHand()));
+                        pStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
                         pLevel.addFreshEntity(abstractarrow);
                     }
 

@@ -1,5 +1,8 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.*;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
@@ -42,11 +45,11 @@ public class NihilityMonitorItem extends ValoriaCurioItem implements TooltipComp
     }
 
     public boolean getState(ItemStack pStack){
-        return pStack.getOrCreateTag().getBoolean("ToggleState");
+        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.TOGGLE_STATE.get(), "ToggleState");
     }
 
     public void toggle(ItemStack pStack, boolean state){
-        pStack.getOrCreateTag().putBoolean("ToggleState", !state);
+        pStack.set(DataComponentsRegistry.TOGGLE_STATE, !state);
     }
 
     @Override
@@ -61,9 +64,9 @@ public class NihilityMonitorItem extends ValoriaCurioItem implements TooltipComp
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(AttributeReg.NIHILITY_RESILIENCE.get(), new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        Multimap<Holder<Attribute>, AttributeModifier> atts = LinkedHashMultimap.create();
+        atts.put(AttributeReg.NIHILITY_RESILIENCE, new AttributeModifier(uuid, 1, AttributeModifier.Operation.ADD_VALUE));
         return atts;
     }
 
@@ -73,7 +76,7 @@ public class NihilityMonitorItem extends ValoriaCurioItem implements TooltipComp
         LivingEntity wearer = slotContext.entity();
         if(wearer instanceof Player player){
             if(!getState(stack)) return;
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent((nihilityLevel) -> {
+            INihilityLevel.of(player).ifPresent((nihilityLevel) -> {
                 float max = nihilityLevel.getMaxAmount(player);
                 float amount = nihilityLevel.getAmount();
                 float ratio = amount / max;

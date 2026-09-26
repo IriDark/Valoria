@@ -1,0 +1,11 @@
+{
+  "group": "equipment",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:worn_fabric" }, "count": 12 }
+  ],
+  "result": {
+    "item": "valoria:the_fallen_collector_coat",
+    "count": 1
+  }
+}

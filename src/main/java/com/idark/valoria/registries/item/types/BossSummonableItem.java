@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.types;
 
 import net.minecraft.*;
 import net.minecraft.core.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.*;
@@ -48,7 +47,7 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
+    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", getDefaultType().getDescription()).withStyle(ChatFormatting.GRAY));
         if (specificDimension) {
@@ -59,8 +58,8 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
     }
 
     @Override
-    public EntityType<?> getType(@Nullable CompoundTag tag){
-        EntityType<?> type = super.getType(tag);
+    public EntityType<?> getType(ItemStack stack){
+        EntityType<?> type = super.getType(stack);
         return type != null ? type : typeSupplier.get();
     }
 
@@ -89,8 +88,8 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
     @NotNull
     public AABB getAABB(BlockPos targetPos) {
         EntityDimensions dim = getDefaultType().getDimensions();
-        double width = dim.width + this.expandValue;
-        double height = dim.height;
+        double width = dim.width() + this.expandValue;
+        double height = dim.height();
 
         double minX = targetPos.getX() + 0.5 - width / 2.0;
         double minY = targetPos.getY();

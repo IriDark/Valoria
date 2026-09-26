@@ -12,7 +12,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.*;
 import pro.komaru.tridot.api.render.text.DotStyleEffects.*;
 import pro.komaru.tridot.client.*;
 import pro.komaru.tridot.client.gfx.text.*;
@@ -864,11 +864,11 @@ public class CodexEntries{
     }
 
     private static boolean onInit(ChapterNode root) {
-        return !MinecraftForge.EVENT_BUS.post(new OnInit(root));
+        return !NeoForge.EVENT_BUS.post(new OnInit(root)).isCanceled();
     }
 
     private static boolean onEntryAdded(CodexEntry entry) {
-        return !MinecraftForge.EVENT_BUS.post(new EntryAdded(entry));
+        return !NeoForge.EVENT_BUS.post(new EntryAdded(entry)).isCanceled();
     }
 
     private static CodexEntry addEntry(ChapterNode node, int x, int y) {

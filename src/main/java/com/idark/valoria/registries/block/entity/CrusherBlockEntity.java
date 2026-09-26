@@ -10,6 +10,7 @@ import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
@@ -42,7 +43,7 @@ public class CrusherBlockEntity extends BlockSimpleInventory{
     }
 
     public Optional<CrusherRecipe> getCurrentRecipe(){
-        return this.level.getRecipeManager().getRecipeFor(CrusherRecipe.Type.INSTANCE, this.getItemHandler(), level);
+        return this.level.getRecipeManager().getRecipeFor(CrusherRecipe.Type.INSTANCE, ContainerRecipeInput.of(this.getItemHandler()), level).map(RecipeHolder::value);
     }
 
     @Override
@@ -51,16 +52,16 @@ public class CrusherBlockEntity extends BlockSimpleInventory{
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     @NotNull
     @Override
-    public final CompoundTag getUpdateTag(){
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
         var tag = new CompoundTag();
-        saveAdditional(tag);
+        saveAdditional(tag, registries);
         return tag;
     }
 

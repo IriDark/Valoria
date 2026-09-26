@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.effect;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.world.damagesource.*;
@@ -8,7 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -24,7 +25,7 @@ public class BleedingEffect extends AbstractImmunityEffect{
 
     public BleedingEffect(){
         super(MobEffectCategory.HARMFUL, Col.hexToDecimal("e02c2c"));
-        addAttributeModifier(Attributes.MOVEMENT_SPEED, "1107DE5E-7AE8-2030-840A-21B21F160890", -0.05F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        addAttributeModifier(Attributes.MOVEMENT_SPEED, Valoria.loc("bleeding_speed"), -0.05F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     @Override
@@ -33,11 +34,10 @@ public class BleedingEffect extends AbstractImmunityEffect{
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier){
-        super.applyEffectTick(pEntity, amplifier);
-        if(effectRemoveReason(pEntity)) return;
+    public boolean applyEffectTick(LivingEntity pEntity, int amplifier){
+        if(!super.applyEffectTick(pEntity, amplifier)) return false;
         DamageSource dmg = DamageSourceRegistry.source(pEntity.level(), DamageSourceRegistry.BLEEDING);
-        if(!pEntity.hasEffect(EffectsRegistry.ALOEREGEN.get()) && !pEntity.hasEffect(MobEffects.REGENERATION)){
+        if(!pEntity.hasEffect(EffectsRegistry.ALOEREGEN) && !pEntity.hasEffect(MobEffects.REGENERATION)){
             if(amplifier < 1){
                 if(pEntity.getHealth() > 2){
                     pEntity.hurt(dmg, 1);
@@ -50,6 +50,8 @@ public class BleedingEffect extends AbstractImmunityEffect{
                 spawnParticles(pEntity);
             }
         }
+
+        return true;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -72,7 +74,7 @@ public class BleedingEffect extends AbstractImmunityEffect{
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier){
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier){
         int i;
         i = 65 >> amplifier;
         if(i > 0){

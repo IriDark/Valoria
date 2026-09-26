@@ -9,18 +9,17 @@ import net.minecraft.network.*;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.world.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
+import net.neoforged.neoforge.items.*;
 
 import javax.annotation.*;
 import java.util.*;
 
 public class HeavyAnvilBlockEntity extends BlockEntity {
     public final ItemStackHandler itemHandler = createHandler(1);
-    public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
     public int progress = 0;
     public int requiredHits = 0;
@@ -95,10 +94,11 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
     }
 
     public Optional<HeavyAnvilRecipe> getCurrentRecipe(){
-        if(level == null) return Optional.empty();
+        if (level == null) return Optional.empty();
         SimpleContainer inv = new SimpleContainer(1);
         inv.setItem(0, itemHandler.getStackInSlot(0));
-        return this.level.getRecipeManager().getRecipeFor(HeavyAnvilRecipe.Type.INSTANCE, inv, level);
+        return this.level.getRecipeManager().getRecipeFor(HeavyAnvilRecipe.Type.INSTANCE, ContainerRecipeInput.of(this.itemHandler), level).map(RecipeHolder::value);
+
     }
 
     public void sync() {
@@ -109,56 +109,53 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void invalidateCaps(){
-        super.invalidateCaps();
-        handler.invalidate();
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket(){
-        return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider) {
+        super.onDataPacket(net, pkt, lookupProvider);
+        CompoundTag tag = pkt.getTag();
+        if (tag != null) {
+            loadAdditional(tag, lookupProvider);
+        }
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
-    }
-
-    @Override
-    public final CompoundTag getUpdateTag(){
-        var tag = new CompoundTag();
-        saveAdditional(tag);
+    public CompoundTag getUpdateTag(HolderLookup.Provider lookupProvider) {
+        CompoundTag tag = new CompoundTag();
+        saveAdditional(tag, lookupProvider);
         return tag;
     }
 
     @Override
-    public void setChanged(){
+    public void setChanged() {
         super.setChanged();
-        if(level != null && !level.isClientSide){
+        if (level != null && !level.isClientSide) {
             ValoriaUtils.SUpdateTileEntityPacket(this);
         }
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inv"));
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
+        itemHandler.deserializeNBT(pRegistries, pTag.getCompound("inv"));
         this.progress = pTag.getInt("Progress");
         this.instability = pTag.getInt("Instability");
         this.requiredHits = pTag.getInt("RequiredHits");
         this.maxInstability = pTag.getInt("MaxInstability");
         this.cursorSpeed = pTag.getFloat("CursorSpeed");
-        if(pTag.contains("SweetMin")){
+        if (pTag.contains("SweetMin")) {
             this.sweetSpotMin = pTag.getDouble("SweetMin");
             this.sweetSpotMax = pTag.getDouble("SweetMax");
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-        pTag.put("inv", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
+        pTag.put("inv", itemHandler.serializeNBT(pRegistries));
         pTag.putInt("Progress", this.progress);
         pTag.putInt("Instability", this.instability);
         pTag.putInt("RequiredHits", this.requiredHits);

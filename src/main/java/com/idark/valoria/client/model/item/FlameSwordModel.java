@@ -11,7 +11,7 @@ public class FlameSwordModel extends GeoModel<FlameSwordItem>{
     }
 
 //    public ResourceLocation getAnimationResource(FlameSwordItem animatable) {
-//        return new ResourceLocation("valoria", "animations/flame_sword.animation.json");
+//        return ResourceLocation.fromNamespaceAndPath("valoria", "animations/flame_sword.animation.json");
 //    }
 
     public ResourceLocation getModelResource(FlameSwordItem animatable) {

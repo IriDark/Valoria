@@ -1,19 +1,14 @@
 package com.idark.valoria.registries.level.portal;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.common.util.ITeleporter;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.ai.village.poi.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.*;
 
-import java.util.function.Function;
-
-public class BaseTeleporter implements ITeleporter{
+public class BaseTeleporter{
     public static BlockPos thisPos = BlockPos.ZERO;
     public static boolean insideDimension = true;
     protected static ResourceKey<PoiType> poi;
@@ -24,15 +19,8 @@ public class BaseTeleporter implements ITeleporter{
         poi = pPoi;
     }
 
-    @Override
     public boolean isVanilla(){
         return false;
-    }
-
-    @Override
-    public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity){
-        entity.setPortalCooldown();
-        return ITeleporter.super.placeEntity(entity, currentWorld, destWorld, yaw, repositionEntity);
     }
 
     protected int getHeight(ServerLevel level, int height, int posX, int posZ, Block pBlock){

@@ -22,18 +22,35 @@ public class DispenserBehaviours{
     }
 
     public static void arrowBehaviour(Item item) {
-        DispenserBlock.registerBehavior(item, new AbstractProjectileDispenseBehavior() {
-            protected Projectile getProjectile(Level p_123407_, Position p_123408_, ItemStack p_123409_) {
-                if(p_123409_.getItem() instanceof DispensedArrow arrow){
-                    AbstractArrow projectile = arrow.createArrow(p_123407_, p_123409_);
-                    projectile.setPos(new Vec3(p_123408_.x(), p_123408_.y(), p_123408_.z()));
+        DispenserBlock.registerBehavior(item, new DefaultDispenseItemBehavior() {
+            @Override
+            public ItemStack execute(BlockSource source, ItemStack stack){
+                Level level = source.level();
+                Position position = DispenserBlock.getDispensePosition(source);
+                Direction direction = source.state().getValue(DispenserBlock.FACING);
+                Projectile projectile = getProjectile(level, position, stack);
+                projectile.shoot(direction.getStepX(), (float)direction.getStepY() + 0.1F, direction.getStepZ(), 1.1F, 6.0F);
+                level.addFreshEntity(projectile);
+                stack.shrink(1);
+                return stack;
+            }
+
+            @Override
+            protected void playSound(BlockSource source){
+                source.level().levelEvent(1002, source.pos(), 0);
+            }
+
+            protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
+                if(stack.getItem() instanceof DispensedArrow arrow){
+                    AbstractArrow projectile = arrow.createArrow(level, stack);
+                    projectile.setPos(new Vec3(position.x(), position.y(), position.z()));
                     projectile.pickup = AbstractArrow.Pickup.ALLOWED;
                     return projectile;
                 }
 
-                Arrow arrow = new Arrow(p_123407_, p_123408_.x(), p_123408_.y(), p_123408_.z());
-                arrow.pickup = AbstractArrow.Pickup.ALLOWED;
-                return arrow;
+                Arrow fallback = new Arrow(level, position.x(), position.y(), position.z(), stack.copyWithCount(1), null);
+                fallback.pickup = AbstractArrow.Pickup.ALLOWED;
+                return fallback;
             }
         });
     }

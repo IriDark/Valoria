@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.navigation.*;
 import net.minecraft.world.entity.boss.enderdragon.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.gfx.*;
@@ -31,11 +31,6 @@ public class ClawEntity extends AbstractProjectile{
     }
 
     public @NotNull SoundEvent getDefaultHitGroundSoundEvent(){
-        return SoundEvents.GENERIC_SPLASH;
-    }
-
-    @Override
-    public @NotNull SoundEvent getHitGroundSoundEvent(){
         return SoundEvents.GENERIC_SPLASH;
     }
 

@@ -6,6 +6,7 @@ import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.ability.*;
 import com.idark.valoria.registries.item.ability.AbilityComponent;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
@@ -80,9 +80,9 @@ public class DashAbility extends AbilityComponent {
 
     public void performEffects(LivingEntity targets, Player player){
         targets.knockback(0.4F, player.getX() - targets.getX(), player.getZ() - targets.getZ());
-        if(EnchantmentHelper.getFireAspect(player) > 0){
-            int i = EnchantmentHelper.getFireAspect(player);
-            targets.setSecondsOnFire(i * 4);
+        int i = CombatCompat.fireAspect(player);
+        if(i > 0){
+            targets.igniteForSeconds(i * 4);
         }
     }
 

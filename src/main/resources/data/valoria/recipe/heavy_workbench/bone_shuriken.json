@@ -1,0 +1,11 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:remains" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:bone_shuriken",
+    "count": 8
+  }
+}

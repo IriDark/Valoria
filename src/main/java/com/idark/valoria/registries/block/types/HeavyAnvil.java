@@ -4,6 +4,7 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
@@ -29,6 +30,8 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape shape = Block.box(0, 0, 0, 15, 15, 15);
+    public static final MapCodec<HeavyAnvil> CODEC = simpleCodec(HeavyAnvil::new);
+    @Override protected MapCodec<? extends HeavyAnvil> codec(){ return CODEC; }
 
     public HeavyAnvil(Properties pProperties){
         super(pProperties);
@@ -60,7 +63,16 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult hit){
         if(pLevel.isClientSide) return InteractionResult.SUCCESS;
 
         HeavyAnvilBlockEntity anvil = getAnvilBlockEntity(pLevel, pPos, pState);
@@ -189,7 +201,7 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
+    public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
         if(!pLevel.isClientSide && pPlayer.isCreative()){
             BedPart part = pState.getValue(PART);
             BlockPos pNeighborPos = pPos.relative(getNeighbourDirection(part, pState.getValue(FACING)));
@@ -202,7 +214,7 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
             }
         }
 
-        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+        return super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
     @Nullable

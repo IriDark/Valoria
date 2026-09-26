@@ -1,23 +1,25 @@
 package com.idark.valoria.registries.item.armor.item;
 
-import com.google.common.collect.*;
+import com.idark.valoria.*;
 import com.idark.valoria.client.render.armor.*;
 import com.idark.valoria.registries.*;
 import it.unimi.dsi.fastutil.objects.*;
 import net.minecraft.client.model.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.minecraft.world.item.component.*;
+import net.neoforged.neoforge.client.extensions.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.model.armor.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import software.bernie.geckolib.animatable.*;
+import software.bernie.geckolib.animatable.instance.*;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.constant.*;
-import software.bernie.geckolib.core.animatable.instance.*;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.object.*;
 import software.bernie.geckolib.renderer.*;
 import software.bernie.geckolib.util.*;
 
@@ -26,13 +28,13 @@ import java.util.function.*;
 
 public class SamuraiArmorItem extends SuitArmorItem implements GeoItem{
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public SamuraiArmorItem(ArmorMaterial material, Type type, Properties properties){
+    public SamuraiArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties){
         super(material, type, properties);
     }
 
     // prevents log spam
-    public @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type){
-        return "minecraft:textures/models/armor/diamond_layer_1.png";
+    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel){
+        return ResourceLocation.withDefaultNamespace("textures/models/armor/diamond_layer_1.png"); // PORT NOTE: getArmorTexture returns a ResourceLocation and receives the material layer in 1.21
     }
 
     @Override
@@ -65,8 +67,11 @@ public class SamuraiArmorItem extends SuitArmorItem implements GeoItem{
             if (entity instanceof ArmorStand)
                 return PlayState.CONTINUE;
 
+            if (!(entity instanceof LivingEntity living))
+                return PlayState.STOP;
+
             Set<Item> wornArmor = new ObjectOpenHashSet<>();
-            for (ItemStack stack : entity.getArmorSlots()) {
+            for (ItemStack stack : living.getArmorSlots()) {
                 if (stack.isEmpty())
                     return PlayState.STOP;
 
@@ -93,10 +98,8 @@ public class SamuraiArmorItem extends SuitArmorItem implements GeoItem{
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot){
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
-        atts.putAll(super.getDefaultAttributeModifiers(slot));
-        atts.put(AttributeReg.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("58c87772-fa46-4635-8877-72fa464635a6"), "bonus", getBonusValue(slot), AttributeModifier.Operation.ADDITION));
-        return slot == type.getSlot() ? atts.build() : super.getDefaultAttributeModifiers(slot);
+    public ItemAttributeModifiers getDefaultAttributeModifiers(){
+        EquipmentSlot slot = type.getSlot();
+        return super.getDefaultAttributeModifiers().withModifierAdded(AttributeReg.DASH_DISTANCE, new AttributeModifier(Valoria.loc("samurai_dash_bonus"), getBonusValue(slot), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(slot));
     }
 }

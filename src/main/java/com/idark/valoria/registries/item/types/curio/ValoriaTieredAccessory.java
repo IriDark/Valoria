@@ -4,6 +4,7 @@ import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
@@ -12,9 +13,8 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 import top.theillusivec4.curios.api.type.capability.ICurio.*;
@@ -22,7 +22,7 @@ import top.theillusivec4.curios.api.type.capability.ICurio.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, IBreakableCurio, Vanishable, CurioOnHurtItem{
+public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, IBreakableCurio, CurioOnHurtItem{
     public Tier tier;
     public boolean rmbEquip;
     public ValoriaTieredAccessory(Tier tier, Properties pProperties){
@@ -34,11 +34,11 @@ public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, IB
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
-        if(tier == Tiers.IRON) return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 1.0f);
-        if(tier == Tiers.GOLD) return new SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
-        if(tier == Tiers.DIAMOND) return new SoundInfo(SoundEvents.ARMOR_EQUIP_DIAMOND, 1.0f, 1.0f);
-        if(tier == Tiers.NETHERITE) return new SoundInfo(SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0f, 1.0f);
-        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0f, 1.0f);
+        if(tier == Tiers.IRON) return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_IRON.value(), 1.0f, 1.0f);
+        if(tier == Tiers.GOLD) return new SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD.value(), 1.0f, 1.0f);
+        if(tier == Tiers.DIAMOND) return new SoundInfo(SoundEvents.ARMOR_EQUIP_DIAMOND.value(), 1.0f, 1.0f);
+        if(tier == Tiers.NETHERITE) return new SoundInfo(SoundEvents.ARMOR_EQUIP_NETHERITE.value(), 1.0f, 1.0f);
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GENERIC.value(), 1.0f, 1.0f);
     }
 
     @Override
@@ -59,8 +59,9 @@ public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, IB
         }
     }
 
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.UNBREAKING || enchant == Enchantments.MENDING;
+    @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchant){
+        return enchant.is(Enchantments.VANISHING_CURSE) || enchant.is(Enchantments.UNBREAKING) || enchant.is(Enchantments.MENDING);
     }
 
     @Override
@@ -74,13 +75,13 @@ public class ValoriaTieredAccessory extends TieredItem implements ICurioItem, IB
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         if(stack.is(TagsRegistry.GRANTS_IMMUNITIES)){
             tooltip.add(Component.translatable("tooltip.valoria.immunity").withStyle(ChatFormatting.GRAY));
             if(stack.is(TagsRegistry.POISON_IMMUNE)){
                 tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
-                .append(Component.translatable("tooltip.tridot.value", MobEffects.POISON.getDisplayName()).withStyle(Styles.nature)));
+                .append(Component.translatable("tooltip.tridot.value", MobEffects.POISON.value().getDisplayName()).withStyle(Styles.nature)));
             }
 
             if(stack.is(TagsRegistry.BLEEDING_IMMUNE)){

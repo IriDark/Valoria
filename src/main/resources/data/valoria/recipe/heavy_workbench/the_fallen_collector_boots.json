@@ -1,0 +1,12 @@
+{
+  "group": "equipment",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:worn_fabric" }, "count": 4 },
+    { "ingredient": { "item": "minecraft:red_wool" }, "count": 2 }
+  ],
+  "result": {
+    "item": "valoria:the_fallen_collector_boots",
+    "count": 1
+  }
+}

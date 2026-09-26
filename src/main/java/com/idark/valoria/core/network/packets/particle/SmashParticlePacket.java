@@ -3,15 +3,19 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 
 import java.util.*;
-import java.util.function.*;
 
-public class SmashParticlePacket {
+public class SmashParticlePacket implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SmashParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("smash_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SmashParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), SmashParticlePacket::decode);
+
     private final UUID id;
     private final SmashType type;
 
@@ -33,9 +37,9 @@ public class SmashParticlePacket {
         buf.writeEnum(type);
     }
 
-    public static void handle(SmashParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide().isClient()) {
-            ctx.get().enqueueWork(() -> {
+    public static void handle(SmashParticlePacket msg, IPayloadContext ctx){
+        if (ctx.flow().isClientbound()) {
+            ctx.enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 Player player = level.getPlayerByUUID(msg.id);
                 if (player != null) {
@@ -44,8 +48,12 @@ public class SmashParticlePacket {
                 } else {
                     Valoria.LOGGER.error("Player with UUID {} not found for smash particle", msg.id);
                 }
-                ctx.get().setPacketHandled(true);
             });
         }
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type(){
+        return TYPE;
     }
 }

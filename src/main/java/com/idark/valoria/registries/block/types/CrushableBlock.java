@@ -1,27 +1,33 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.CrushableBlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import org.jetbrains.annotations.Nullable;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import org.jetbrains.annotations.*;
 
 public class CrushableBlock extends BaseEntityBlock{
+    public static final com.mojang.serialization.MapCodec<CrushableBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        Codec.BOOL.fieldOf("ice").forGetter(b -> b.isIce),
+        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("turns_into").forGetter(b -> b.turnsInto),
+        propertiesCodec(),
+        SoundEvent.DIRECT_CODEC.fieldOf("crush_sound").forGetter(b -> b.crushSound)
+    ).apply(i, CrushableBlock::new));
     public static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
+
+    @Override
+    protected MapCodec<? extends CrushableBlock> codec(){
+        return CODEC;
+    }
     private final Block turnsInto;
     private final SoundEvent crushSound;
     private final boolean isIce;

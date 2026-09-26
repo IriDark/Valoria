@@ -15,7 +15,6 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.gui.screens.inventory.*;
-import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
@@ -160,8 +159,8 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
             }
         }
 
-        craftableRecipes.sort(Comparator.comparing((r -> r.recipe.getResultItem(RegistryAccess.EMPTY).getDescriptionId())));
-        nonCraftableRecipes.sort(Comparator.comparing((r -> r.recipe.getResultItem(RegistryAccess.EMPTY).getDescriptionId())));
+        craftableRecipes.sort(Comparator.comparing((r -> r.recipe.getResultItem(Minecraft.getInstance().level.registryAccess()).getDescriptionId())));
+        nonCraftableRecipes.sort(Comparator.comparing((r -> r.recipe.getResultItem(Minecraft.getInstance().level.registryAccess()).getDescriptionId())));
         renderedRecipes.clear();
         renderedRecipes.addAll(craftableRecipes).addAll(nonCraftableRecipes);
     }
@@ -178,13 +177,12 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
     @Override
     protected void containerTick(){
         super.containerTick();
-        this.searchBox.tick();
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick){
         this.hoveredRecipe = getBlueprintAt(mouseX, mouseY);
-        this.renderBackground(guiGraphics);
+        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
@@ -221,7 +219,7 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
                 List<Component> tooltip = new ArrayList<>();
                 Optional<TooltipComponent> comp = Optional.empty();
 
-                ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
+                ItemStack result = recipe.getResultItem(Minecraft.getInstance().level.registryAccess());
                 tooltip.add(result.getHoverName().copy().withStyle(result.getDisplayName().getStyle()));
                 tooltip.add(Component.empty());
                 tooltip.add(Component.translatable("tooltip.tridot.shift_for_details", Component.translatable("key.keyboard.left.shift").getString()).withStyle(ChatFormatting.GRAY));
@@ -240,7 +238,7 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
                 if(!Screen.hasShiftDown()){
                     guiGraphics.renderTooltip(this.font, tooltip, comp, mouseX, mouseY);
                 }else{
-                    guiGraphics.renderTooltip(this.font, result.getTooltipLines(null, TooltipFlag.NORMAL), Optional.empty(), result, mouseX, mouseY);
+                    guiGraphics.renderTooltip(this.font, result.getTooltipLines(Item.TooltipContext.of(Minecraft.getInstance().level), Minecraft.getInstance().player, TooltipFlag.NORMAL), Optional.empty(), result, mouseX, mouseY);
                 }
             }
         }
@@ -355,7 +353,7 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
 
                 boolean isClicked = clickedBlueprintO == blueprintData;
                 gui.blit(TEXTURE, x, y, isClicked ? 0 : this.menu.checkAndSetAvailability(recipe) ? 20 : 40, 196, this.recipeSlotWidth, this.recipeSlotHeight);
-                ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
+                ItemStack result = recipe.getResultItem(Minecraft.getInstance().level.registryAccess());
                 gui.renderFakeItem(result, x + 2, y + 2);
             }else{
                 blueprintData.setVisible(false);
@@ -383,7 +381,7 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta){
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double delta){
         int maxScroll = this.getMaxScroll();
         if(getScrollPercent() < maxScroll && delta == -1){
             this.scrollDistance += slotSize;
@@ -397,7 +395,7 @@ public class AlchemyStationScreen extends AbstractContainerScreen<AlchemyStation
             scrollDistance = 0;
         }
 
-        return super.mouseScrolled(mouseX, mouseY, delta);
+        return super.mouseScrolled(mouseX, mouseY, scrollX, delta);
     }
 
     @Override

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 
 
@@ -32,7 +32,7 @@ public class AcidSpitRenderer extends EntityRenderer<AcidSpit>{
         this.model.prepareMobModel(pEntity, pEntity.getYRot(), 0.0F, pPartialTicks);
 
         VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(TEXTURE));
-        this.model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, -1);
         pMatrixStack.popPose();
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }

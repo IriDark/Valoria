@@ -7,7 +7,6 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.minions.*;
@@ -16,14 +15,15 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.targeting.*;
@@ -32,12 +32,10 @@ import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
@@ -45,34 +43,24 @@ import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.lang.Math;
 import java.util.*;
 
-public class NecromancerEntity extends AbstractNecromancer implements BossEntity, com.idark.valoria.core.interfaces.ISpawnAnimated {
+public class NecromancerEntity extends AbstractNecromancer implements BossEntity{
     public final List<UUID> nearbyPlayers = new ArrayList<>();
     public final Map<UUID, Float> damageMap = new HashMap<>();
     public ArcRandom arcRandom = Tmp.rnd;
     public SkeletonMovement movement = new SkeletonMovement(this);
     public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/necromancer.png")).setBossMusic(SoundsRegistry.MUSIC_NECROMANCER.get()).setDarkenScreen(true);
-
-    private static final EntityDataAccessor<Boolean> HAS_SPAWNED = SynchedEntityData.defineId(NecromancerEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> SPAWN_TICKS = SynchedEntityData.defineId(NecromancerEntity.class, EntityDataSerializers.INT);
-
-    public int clientSpawnTicks = 0;
-    public int prevClientSpawnTicks = 0;
+    private int spawnTime = 0;
 
     @Override
     public void tick(){
         super.tick();
         movement.setupMovement();
-        if (this.level().isClientSide) {
-            this.prevClientSpawnTicks = this.clientSpawnTicks;
-            if (!this.hasSpawned() && this.clientSpawnTicks < this.getMaxSpawnAnimationTicks()) {
-                this.clientSpawnTicks++;
-            } else if (this.hasSpawned()) {
-                this.clientSpawnTicks = this.getMaxSpawnAnimationTicks();
-            }
+        if(this.spawnTime < 10){
+            this.spawnTime++;
         }
     }
 
@@ -83,8 +71,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     }
 
     public float getSpawnProgress(float partialTicks){
-        float lerpedTicks = this.prevClientSpawnTicks + (this.clientSpawnTicks - this.prevClientSpawnTicks) * partialTicks;
-        return Math.min(1.0f, lerpedTicks / (float) this.getMaxSpawnAnimationTicks());
+        return Math.min(1.0f, (this.spawnTime + partialTicks) / 10f);
     }
 
     @Nullable
@@ -95,38 +82,18 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.xpReward = 100;
     }
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag pCompound){
-        super.addAdditionalSaveData(pCompound);
-        saveBossData(pCompound);
-        pCompound.putBoolean("HasSpawned", this.hasSpawned());
-        pCompound.putInt("SpawnTicks", this.getSpawnAnimationTicks());
-    }
-
-    @Override
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         readBossData(pCompound);
-        if(pCompound.contains("HasSpawned")){
-            this.setSpawned(pCompound.getBoolean("HasSpawned"));
-        } else {
-            this.setSpawned(true);
-        }
-
-        if(pCompound.contains("SpawnTicks")){
-            this.setSpawnAnimationTicks(pCompound.getInt("SpawnTicks"));
-        }
-        if (this.hasCustomName()) {
+        if(this.hasCustomName()){
             this.bossEvent.setName(this.getDisplayName());
         }
     }
 
-
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HAS_SPAWNED, false);
-        this.entityData.define(SPAWN_TICKS, 0);
+    public void addAdditionalSaveData(CompoundTag pCompound){
+        super.addAdditionalSaveData(pCompound);
+        saveBossData(pCompound);
     }
 
     public void setCustomName(@Nullable Component pName){
@@ -150,8 +117,8 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     }
 
     @Override
-    public void onAddedToWorld(){
-        super.onAddedToWorld();
+    public void onAddedToLevel(){
+        super.onAddedToLevel();
         CompoundTag data = this.getPersistentData();
         if(!data.getBoolean("NearbyPlayerHealthBonus")){
             initializeNearbyPlayers(this.level(), this);
@@ -192,13 +159,12 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         // misc
         this.goalSelector.addGoal(1, new NecromancerEntity.HealSelfSpellGoal());
         this.goalSelector.addGoal(2, new NecromancerEntity.HealTargetSpellGoal());
-        this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
+        this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(EffectsRegistry.STUN, 60, 0)));
         this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(MobEffects.WEAKNESS, 145, 0)));
         this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(MobEffects.WEAKNESS, 165, 1)));
         this.goalSelector.addGoal(3, new NecromancerEntity.WololoSpellGoal());
 
         // ai
-        this.goalSelector.addGoal(0, new SpawnAnimationGoal(this));
         this.goalSelector.addGoal(0, new NecromancerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
@@ -210,14 +176,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
-    public @NotNull MobType getMobType(){
-        return MobType.UNDEAD;
-    }
 
     public boolean isAlliedTo(Entity pEntity){
         if(super.isAlliedTo(pEntity)){
             return true;
-        }else if(pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.UNDEAD){
+        }else if(pEntity instanceof LivingEntity && pEntity.getType().is(EntityTypeTags.UNDEAD)){
             return this.getTeam() == null && pEntity.getTeam() == null;
         }else{
             return false;
@@ -233,11 +196,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty);
+        this.populateDefaultEquipmentEnchantments(pLevel, randomsource, pDifficulty);
         this.setCanPickUpLoot(randomsource.nextFloat() < 0.55F * pDifficulty.getSpecialMultiplier());
         return pSpawnData;
     }
@@ -266,13 +229,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         return SoundEvents.SKELETON_STEP;
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize){
-        return 1.74F;
-    }
 
-    public double getMyRidingOffset(){
-        return -0.6;
-    }
 
     void setWololoTarget(@Nullable Skeleton pWololoTarget){
         this.wololoTarget = pWololoTarget;
@@ -413,7 +370,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             Zombie zombie = EntityType.ZOMBIE.create(NecromancerEntity.this.level());
             if(zombie != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())){
                 zombie.moveTo(blockpos, 0.0F, 0.0F);
-                zombie.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                zombie.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null);
                 zombie.setHealth(zombie.getMaxHealth() / 2);
                 zombie.setTarget(NecromancerEntity.this.getTarget());
                 serverLevel.addFreshEntityWithPassengers(zombie);
@@ -426,7 +383,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             Skeleton skeleton = EntityType.SKELETON.create(NecromancerEntity.this.level());
             if(skeleton != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())){
                 skeleton.moveTo(blockpos, 0.0F, 0.0F);
-                skeleton.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                skeleton.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null);
                 skeleton.setHealth(skeleton.getMaxHealth() / 2);
                 skeleton.setTarget(NecromancerEntity.this.getTarget());
                 serverLevel.addFreshEntityWithPassengers(skeleton);
@@ -439,7 +396,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             SorcererEntity sorcerer = EntityTypeRegistry.SORCERER.get().create(NecromancerEntity.this.level());
             if(sorcerer != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())){
                 sorcerer.moveTo(blockpos, 0.0F, 0.0F);
-                sorcerer.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                sorcerer.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null);
                 serverLevel.addFreshEntityWithPassengers(sorcerer);
             }else{
                 spawnUndead(serverLevel, blockpos.above());
@@ -450,7 +407,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             UndeadEntity undead = EntityTypeRegistry.UNDEAD.get().create(NecromancerEntity.this.level());
             if(undead != null && serverLevel.isEmptyBlock(blockpos)){
                 undead.moveTo(blockpos, 0.0F, 0.0F);
-                undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null);
                 undead.setOwner(NecromancerEntity.this);
                 undead.setBoundOrigin(blockpos);
                 undead.setLimitedLife(20 + NecromancerEntity.this.random.nextInt(140));
@@ -564,7 +521,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                         dZ /= sqrt;
                         double seenPercent = Utils.Hit.seenPercent(vec3, entity, 2);
                         double power = (1.0D - distance) * seenPercent;
-                        double powerAfterDamp = ProtectionEnchantment.getExplosionKnockbackAfterDampener(entity, power);
+                        double powerAfterDamp = power * (1.0D - entity.getAttributeValue(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE));
                         dX *= powerAfterDamp;
                         dY *= powerAfterDamp;
                         dZ *= powerAfterDamp;
@@ -797,35 +754,5 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         public NecromancerSpells getSpell(){
             return NecromancerSpells.WOLOLO;
         }
-    }
-
-    @Override
-    public boolean hasSpawned() {
-        return this.entityData.get(HAS_SPAWNED);
-    }
-
-    @Override
-    public void setSpawned(boolean spawned) {
-        this.entityData.set(HAS_SPAWNED, spawned);
-    }
-
-    @Override
-    public int getSpawnAnimationTicks() {
-        return this.entityData.get(SPAWN_TICKS);
-    }
-
-    @Override
-    public void setSpawnAnimationTicks(int ticks) {
-        this.entityData.set(SPAWN_TICKS, ticks);
-    }
-
-    @Override
-    public int getMaxSpawnAnimationTicks() {
-        return 10;
-    }
-
-    @Override
-    public boolean shouldPlayCutscene() {
-        return true;
     }
 }

@@ -1,21 +1,18 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
+import net.neoforged.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity>{
@@ -29,7 +26,7 @@ public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity>{
         ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
         ms.mulPose(Axis.XP.rotationDegrees(180f));
         ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot()) + 40.0F));
-        ModelResourceLocation MODEL = new ModelResourceLocation(ForgeRegistries.ITEMS.getKey(entityIn.getItem().getItem()).getNamespace(), ForgeRegistries.ITEMS.getKey(entityIn.getItem().getItem()).getPath(), "inventory");
+        ModelResourceLocation MODEL = ModelResourceLocation.inventory(BuiltInRegistries.ITEM.getKey(entityIn.getItem().getItem())); // PORT NOTE: ModelResourceLocation is a record; inventory() builds the "inventory" variant
         BakedModel spear = Minecraft.getInstance().getModelManager().getModel(MODEL);
         Minecraft.getInstance().getItemRenderer().render(entityIn.getItem(), ItemDisplayContext.FIXED, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, spear.applyTransform(ItemDisplayContext.NONE, ms, false));
         ms.popPose();

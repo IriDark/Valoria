@@ -4,10 +4,10 @@ import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.neoforge.client.extensions.common.*;
 import software.bernie.geckolib.animatable.*;
-import software.bernie.geckolib.core.animatable.instance.*;
-import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.animatable.instance.*;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.*;
 
 import java.util.function.*;

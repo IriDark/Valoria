@@ -1,10 +1,9 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.HauntedMerchantAnimations;
-import com.idark.valoria.registries.entity.living.HauntedMerchant;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 
 public class HauntedMerchantModel<T extends HauntedMerchant> extends HierarchicalModel<T>{

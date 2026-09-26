@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:ambane_stone_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:chiseled_ambane_stone_bricks"
+  }
+}

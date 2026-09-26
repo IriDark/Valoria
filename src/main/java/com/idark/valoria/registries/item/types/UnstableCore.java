@@ -19,8 +19,12 @@ import pro.komaru.tridot.util.math.*;
 import java.util.*;
 
 public class UnstableCore extends CoreItem implements ParticleItemEntity, IGuiRenderItem, IGUIParticleItem{
-    public UnstableCore(@NotNull ParticleType<?> pType, Properties pProperties, String pCoreID){
+    public UnstableCore(@NotNull java.util.function.Supplier<? extends ParticleType<?>> pType, Properties pProperties, String pCoreID){
         super(pType, pProperties, pCoreID);
+    }
+
+    public UnstableCore(@NotNull ParticleType<?> pType, Properties pProperties, String pCoreID){
+        this(() -> pType, pProperties, pCoreID);
     }
 
     @Override
@@ -34,7 +38,7 @@ public class UnstableCore extends CoreItem implements ParticleItemEntity, IGuiRe
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         pTooltipComponents.add(Component.translatable("tooltip.valoria.unstable_core").withStyle(ChatFormatting.GRAY));
     }

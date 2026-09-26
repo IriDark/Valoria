@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class KingCrabRenderer extends MobRenderer<KingCrabEntity, KingCrabModel<KingCrabEntity>>{
@@ -45,7 +45,7 @@ public class KingCrabRenderer extends MobRenderer<KingCrabEntity, KingCrabModel<
             pMatrixStack.pushPose();
 
             float f7 = this.getBob(pEntity, pPartialTicks);
-            this.setupRotations(pEntity, pMatrixStack, f7, f, pPartialTicks);
+            this.setupRotations(pEntity, pMatrixStack, f7, f, pPartialTicks, pEntity.getScale());
             pMatrixStack.scale(-1.0F, -1.0F, 1.0F);
             this.scale(pEntity, pMatrixStack, pPartialTicks);
             pMatrixStack.translate(0.0F, -1.501F, 0.0F);
@@ -58,7 +58,7 @@ public class KingCrabRenderer extends MobRenderer<KingCrabEntity, KingCrabModel<
             VertexConsumer buffer = pBuffer.getBuffer(rendertype);
             int overlay = LivingEntityRenderer.getOverlayCoords(pEntity, 0.5F);
 
-            this.model.renderToBuffer(pMatrixStack, buffer, pPackedLight, overlay, 0.5f, 0.5f, 0.5f, 1.0f);
+            this.model.renderToBuffer(pMatrixStack, buffer, pPackedLight, overlay, FastColor.ARGB32.colorFromFloat(1.0f, 0.5f, 0.5f, 0.5f));
 
             pMatrixStack.popPose();
         } else {

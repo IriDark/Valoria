@@ -14,7 +14,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.dimension.*;
 import net.minecraft.world.level.pathfinder.*;
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.*;
 import pro.komaru.tridot.common.registry.entity.*;
 
 import java.util.function.*;
@@ -25,9 +25,9 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
         this.xpReward = 5;
         this.getNavigation().setCanFloat(false);
         applyOpenDoorsAbility();
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
     }
 
     /**
@@ -109,12 +109,12 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
     }
 
     public ItemStack getProjectile(ItemStack pShootable){
-        if(pShootable.getItem() instanceof ProjectileWeaponItem projectileWeaponItem){
-            Predicate<ItemStack> predicate = projectileWeaponItem.getSupportedHeldProjectiles();
+        if(pShootable.getItem() instanceof ProjectileWeaponItem){
+            Predicate<ItemStack> predicate = ((ProjectileWeaponItem)pShootable.getItem()).getSupportedHeldProjectiles();
             ItemStack itemstack = ProjectileWeaponItem.getHeldProjectile(this, predicate);
-            return ForgeHooks.getProjectile(this, pShootable, itemstack.isEmpty() ? new ItemStack(Items.ARROW) : itemstack);
+            return CommonHooks.getProjectile(this, pShootable, itemstack.isEmpty() ? new ItemStack(Items.ARROW) : itemstack);
         }else{
-            return ForgeHooks.getProjectile(this, pShootable, ItemStack.EMPTY);
+            return CommonHooks.getProjectile(this, pShootable, ItemStack.EMPTY);
         }
     }
 
@@ -128,19 +128,16 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
         return !this.isBaby();
     }
 
-    public MobType getMobType(){
-        return MobType.UNDEAD;
-    }
 
     protected void registerGoals(){
         this.targetSelector.addGoal(0, new PrepareGoal());
     }
 
-    public int getExperienceReward(){
+    protected int getBaseExperienceReward(){
         if(this.isBaby()){
             this.xpReward = this.xpReward / 2;
         }
 
-        return super.getExperienceReward();
+        return super.getBaseExperienceReward();
     }
 }

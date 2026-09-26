@@ -12,8 +12,8 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.client.event.*;
 import org.lwjgl.glfw.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
@@ -25,7 +25,7 @@ public class AbilityClientEvents{
     private static ItemStack lastHoveredStack = ItemStack.EMPTY;
 
     @SubscribeEvent
-    public static void onKeyInput(ScreenEvent.KeyPressed event){
+    public static void onKeyInput(ScreenEvent.KeyPressed.Pre event){
         if (event.getScreen() instanceof AbstractContainerScreen<?> gui){
             Slot hoveredSlot = gui.getSlotUnderMouse();
             if(hoveredSlot != null && hoveredSlot.hasItem()){
@@ -61,10 +61,10 @@ public class AbilityClientEvents{
                 if(!abilities.isEmpty()){
                     if (abilities.size() > 1) {
                         setLastHoveredStack(stack);
-                        if(event.getScrollDelta() < 0){
+                        if(event.getScrollDeltaY() < 0){
                             currentIndex--;
                             event.setCanceled(true);
-                        }else if(event.getScrollDelta() > 0){
+                        }else if(event.getScrollDeltaY() > 0){
                             currentIndex++;
                             event.setCanceled(true);
                         }
@@ -79,7 +79,7 @@ public class AbilityClientEvents{
     }
 
     private static void setLastHoveredStack(ItemStack stack){
-        if(!ItemStack.isSameItemSameTags(stack, lastHoveredStack)){
+        if(!ItemStack.isSameItemSameComponents(stack, lastHoveredStack)){
             lastHoveredStack = stack.copy();
             currentIndex = 0;
         }

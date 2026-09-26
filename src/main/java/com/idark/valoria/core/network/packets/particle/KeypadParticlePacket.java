@@ -4,15 +4,22 @@ import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.util.function.*;
+public class KeypadParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<KeypadParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("keypad_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, KeypadParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), KeypadParticlePacket::decode);
 
-public class KeypadParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final double posX;
     private final double posY;
     private final double posZ;
@@ -34,9 +41,9 @@ public class KeypadParticlePacket{
         return new KeypadParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble());
     }
 
-    public static void handle(KeypadParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(KeypadParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 var rand = Tmp.rnd;
                 for(int a = 0; a < 3; a++){
@@ -46,7 +53,6 @@ public class KeypadParticlePacket{
                     ParticleEffects.transformParticle(pLevel, targetPosition, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build());
                 }
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

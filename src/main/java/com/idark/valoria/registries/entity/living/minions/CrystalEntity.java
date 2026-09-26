@@ -28,8 +28,8 @@ import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.entity.*;
-import pro.komaru.tridot.common.registry.entity.goal.FollowOwnerGoal;
 import pro.komaru.tridot.common.registry.entity.goal.*;
+import pro.komaru.tridot.common.registry.entity.goal.FollowOwnerGoal;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;
@@ -64,9 +64,9 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TYPE, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(TYPE, 0);
     }
 
     public void setType(Variant variant) {

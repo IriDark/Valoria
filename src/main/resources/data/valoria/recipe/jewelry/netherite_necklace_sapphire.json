@@ -1,0 +1,16 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:netherite_necklace_sapphire"
+  },
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "valoria:netherite_chain"
+    },
+    {
+      "item": "valoria:sapphire_gem"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "valoria:valoria/firron",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "to": "valoria:the_valoria"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.visit_the_valoria.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "valoria:valoria_portal_frame_shard"
+    },
+    "title": {
+      "translate": "advancements.valoria.visit_the_valoria.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

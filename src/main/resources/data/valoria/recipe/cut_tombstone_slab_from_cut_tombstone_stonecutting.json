@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:cut_tombstone"
+  },
+  "result": {
+    "id": "valoria:cut_tombstone_slab",
+    "count": 2
+  }
+}

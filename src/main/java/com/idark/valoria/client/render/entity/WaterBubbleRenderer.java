@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.*;
 
 @OnlyIn(Dist.CLIENT)
@@ -37,7 +37,7 @@ public class WaterBubbleRenderer extends EntityRenderer<WaterBubble>{
        VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
        this.model.prepareMobModel(pEntity, f, 0.0F, pPartialTicks);
        this.model.setupAnim(pEntity, f, f, pEntity.tickCount + f, pEntity.getYRot(), pEntity.getXRot());
-       this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+       this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, -1);
 
 
        pPoseStack.popPose();

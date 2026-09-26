@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "XOX",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:arrow"
+    },
+    "O": {
+      "item": "valoria:wicked_amethyst"
+    }
+  },
+  "result": {
+    "id": "valoria:wicked_arrow",
+    "count": 4
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:soul_shard"
+    },
+    {
+      "item": "valoria:uncharged_shard"
+    }
+  ],
+  "result": {
+    "id": "valoria:soul_shard",
+    "count": 2
+  }
+}

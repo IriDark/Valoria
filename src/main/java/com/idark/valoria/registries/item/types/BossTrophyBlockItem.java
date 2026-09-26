@@ -6,8 +6,8 @@ import net.minecraft.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.client.extensions.common.*;
 
 import java.util.function.*;
 

@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.entity.living;
 
 import net.minecraft.core.*;
-import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -37,9 +36,9 @@ public class SwampWandererEntity extends Zombie{
 
     public SwampWandererEntity(EntityType<? extends SwampWandererEntity> type, Level pLevel){
         super(type, pLevel);
-        this.setMaxUpStep(1F);
+        Objects.requireNonNull(this.getAttribute(Attributes.STEP_HEIGHT)).setBaseValue(1D);
         this.moveControl = new SwampWandererEntity.DrownedMoveControl(this);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.waterNavigation = new WaterBoundPathNavigation(this, pLevel);
         this.groundNavigation = new GroundPathNavigation(this, pLevel);
     }
@@ -90,10 +89,10 @@ public class SwampWandererEntity extends Zombie{
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override

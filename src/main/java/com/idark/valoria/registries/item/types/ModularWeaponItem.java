@@ -13,7 +13,7 @@ public class ModularWeaponItem extends SwordItem {
     private final Map<CastType, AbilityComponent> innateAbilities = new HashMap<>();
 
     public ModularWeaponItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
-        super(tier, attackDamageModifier, attackSpeedModifier, properties);
+        super(tier, properties.attributes(SwordItem.createAttributes(tier, attackDamageModifier, attackSpeedModifier)));
     }
 
     public ModularWeaponItem addAbility(CastType type, AbilityComponent ability) {
@@ -56,7 +56,7 @@ public class ModularWeaponItem extends SwordItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
     }
 }

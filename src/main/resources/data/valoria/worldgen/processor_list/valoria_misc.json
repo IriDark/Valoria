@@ -13,7 +13,7 @@
             "probability": 0.2
           },
           "output_state": {
-            "Name": "minecraft:void_stone_wall"
+            "Name": "valoria:void_stone_wall"
           }
         },
         {
@@ -26,7 +26,7 @@
             "probability": 0.1
           },
           "output_state": {
-            "Name": "minecraft:void_stone"
+            "Name": "valoria:void_stone"
           }
         },
         {
@@ -39,7 +39,7 @@
             "probability": 0.1
           },
           "output_state": {
-            "Name": "minecraft:void_taint"
+            "Name": "valoria:void_taint"
           }
         },
         {
@@ -48,7 +48,7 @@
           },
           "input_predicate": {
             "predicate_type": "minecraft:random_block_match",
-            "block": "minecraft:void_brick",
+            "block": "valoria:void_brick",
             "probability": 0.005
           },
           "output_state": {

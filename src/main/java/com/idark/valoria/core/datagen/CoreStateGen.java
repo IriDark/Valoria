@@ -1,11 +1,12 @@
 package com.idark.valoria.core.datagen;
 
+import net.minecraft.core.registries.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.common.data.*;
+import net.neoforged.neoforge.registries.*;
 
 public abstract class CoreStateGen extends BlockStateProvider {
     public String id;
@@ -33,7 +34,7 @@ public abstract class CoreStateGen extends BlockStateProvider {
         registerKit(stairs, slab, block);
     }
 
-    public void registerKit(RegistryObject<Block> block, RegistryObject<Block> stairs, RegistryObject<Block> slab, RegistryObject<Block> wall) {
+    public void registerKit(DeferredHolder<Block, Block> block, DeferredHolder<Block, Block> stairs, DeferredHolder<Block, Block> slab, DeferredHolder<Block, Block> wall) {
         registerKit(block.get(), stairs.get(), slab.get(), wall.get());
     }
 
@@ -42,7 +43,7 @@ public abstract class CoreStateGen extends BlockStateProvider {
         blockItem(slab);
     }
 
-    public void registerDoor(RegistryObject<Block> door) {
+    public void registerDoor(DeferredHolder<Block, Block> door) {
         registerDoor(door.get());
     }
 
@@ -50,32 +51,32 @@ public abstract class CoreStateGen extends BlockStateProvider {
         doorBlock((DoorBlock) door, sided(door, "_bottom"), sided(door, "_top"));
     }
 
-    public void registerTrapdoor(RegistryObject<Block> trapdoor) {
+    public void registerTrapdoor(DeferredHolder<Block, Block> trapdoor) {
         trapdoorBlock((TrapDoorBlock) trapdoor.get(), blockTexture(trapdoor.get()), true);
     }
 
-    public void registerFence(RegistryObject<Block> fence, RegistryObject<Block> textureBlock) {
+    public void registerFence(DeferredHolder<Block, Block> fence, DeferredHolder<Block, Block> textureBlock) {
         fenceBlock((FenceBlock) fence.get(), blockTexture(textureBlock.get()));
     }
 
-    public void registerFenceGate(RegistryObject<Block> gate, RegistryObject<Block> textureBlock) {
+    public void registerFenceGate(DeferredHolder<Block, Block> gate, DeferredHolder<Block, Block> textureBlock) {
         fenceGateBlock((FenceGateBlock) gate.get(), blockTexture(textureBlock.get()));
     }
 
-    public void registerButton(RegistryObject<Block> button, RegistryObject<Block> textureBlock) {
+    public void registerButton(DeferredHolder<Block, Block> button, DeferredHolder<Block, Block> textureBlock) {
         buttonBlock((ButtonBlock) button.get(), blockTexture(textureBlock.get()));
     }
 
-    public void registerPressurePlate(RegistryObject<Block> plate, RegistryObject<Block> textureBlock) {
+    public void registerPressurePlate(DeferredHolder<Block, Block> plate, DeferredHolder<Block, Block> textureBlock) {
         pressurePlateBlock((PressurePlateBlock) plate.get(), blockTexture(textureBlock.get()));
     }
 
-    public void registerPillar(RegistryObject<Block> pillar) {
+    public void registerPillar(DeferredHolder<Block, Block> pillar) {
         axisBlock((RotatedPillarBlock) pillar.get(), blockTexture(pillar.get()), sided(pillar.get(), "_top"));
     }
 
     public ResourceLocation sided(Block block, String side) {
-        return new ResourceLocation(id, "block/" + key(block).getPath() + side);
+        return ResourceLocation.fromNamespaceAndPath(id, "block/" + key(block).getPath() + side);
     }
 
     public void hangingSignBlock(Block signBlock, Block wallSignBlock, ResourceLocation texture) {
@@ -93,7 +94,7 @@ public abstract class CoreStateGen extends BlockStateProvider {
     }
 
     public ResourceLocation key(Block block) {
-        return ForgeRegistries.BLOCKS.getKey(block);
+        return BuiltInRegistries.BLOCK.getKey(block);
     }
 
     public void plantBlock(Block block) {
@@ -128,7 +129,7 @@ public abstract class CoreStateGen extends BlockStateProvider {
         simpleBlockItem(block, model);
     }
 
-    public void plantBlock(RegistryObject<Block> blockRegistryObject) {
+    public void plantBlock(DeferredHolder<Block, Block> blockRegistryObject) {
         plantBlock(blockRegistryObject.get());
     }
 
@@ -136,7 +137,7 @@ public abstract class CoreStateGen extends BlockStateProvider {
         simpleBlock(block, models().cross(name(block), blockTexture(block)).renderType("cutout"));
     }
 
-    public void saplingBlock(RegistryObject<Block> blockRegistryObject) {
+    public void saplingBlock(DeferredHolder<Block, Block> blockRegistryObject) {
         saplingBlock(blockRegistryObject.get());
     }
 
@@ -144,7 +145,7 @@ public abstract class CoreStateGen extends BlockStateProvider {
         simpleBlockWithItem(block, models().withExistingParent(name(block), mcLoc("minecraft:block/leaves")).texture("all", blockTexture(block)).renderType("cutout"));
     }
 
-    public void leavesBlock(RegistryObject<Block> blockRegistryObject) {
+    public void leavesBlock(DeferredHolder<Block, Block> blockRegistryObject) {
         leavesBlock(blockRegistryObject.get());
     }
 
@@ -161,12 +162,12 @@ public abstract class CoreStateGen extends BlockStateProvider {
     }
 
     public void horizontalBlockWithExistingModel(Block block) {
-        ModelFile model = models().getExistingFile(new ResourceLocation(id, "block/" + name(block)));
+        ModelFile model = models().getExistingFile(ResourceLocation.fromNamespaceAndPath(id, "block/" + name(block)));
         horizontalBlock(block, model);
     }
 
     public void existingModelBlock(Block block) {
-        ModelFile model = models().getExistingFile(new ResourceLocation(id, "block/" + name(block)));
+        ModelFile model = models().getExistingFile(ResourceLocation.fromNamespaceAndPath(id, "block/" + name(block)));
         simpleBlock(block, model);
     }
 
@@ -178,7 +179,7 @@ public abstract class CoreStateGen extends BlockStateProvider {
         simpleBlockWithItem(block, cubeAll(block));
     }
 
-    public void blockWithItem(RegistryObject<Block> blockRegistryObject) {
+    public void blockWithItem(DeferredHolder<Block, Block> blockRegistryObject) {
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
     }
 }

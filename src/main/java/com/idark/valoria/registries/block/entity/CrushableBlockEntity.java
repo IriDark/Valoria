@@ -6,6 +6,7 @@ import com.mojang.logging.*;
 import it.unimi.dsi.fastutil.objects.*;
 import net.minecraft.advancements.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.resources.*;
@@ -38,7 +39,7 @@ public class CrushableBlockEntity extends BlockEntity{
     @Nullable
     private Direction hitDirection;
     @Nullable
-    private ResourceLocation lootTable;
+    private ResourceKey<LootTable> lootTable;
     private long lootTableSeed;
 
     public CrushableBlockEntity(BlockPos pPos, BlockState pBlockState){
@@ -76,7 +77,7 @@ public class CrushableBlockEntity extends BlockEntity{
 
     public void unpackLootTable(Player pPlayer){
         if(this.lootTable != null && this.level != null && !this.level.isClientSide() && this.level.getServer() != null){
-            LootTable loottable = this.level.getServer().getLootData().getLootTable(this.lootTable);
+            LootTable loottable = this.level.getServer().reloadableRegistries().getLootTable(this.lootTable);
             if(pPlayer instanceof ServerPlayer serverplayer){
                 CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, this.lootTable);
             }
@@ -165,7 +166,7 @@ public class CrushableBlockEntity extends BlockEntity{
 
     private boolean tryLoadLootTable(CompoundTag pTag){
         if(pTag.contains("LootTable", 8)){
-            this.lootTable = new ResourceLocation(pTag.getString("LootTable"));
+            this.lootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(pTag.getString("LootTable")));
             this.lootTableSeed = pTag.getLong("LootTableSeed");
             return true;
         }else{
@@ -177,7 +178,7 @@ public class CrushableBlockEntity extends BlockEntity{
         if(this.lootTable == null){
             return false;
         }else{
-            pTag.putString("LootTable", this.lootTable.toString());
+            pTag.putString("LootTable", this.lootTable.location().toString());
             if(this.lootTableSeed != 0L){
                 pTag.putLong("LootTableSeed", this.lootTableSeed);
             }
@@ -186,13 +187,14 @@ public class CrushableBlockEntity extends BlockEntity{
         }
     }
 
-    public CompoundTag getUpdateTag(){
-        CompoundTag compoundtag = super.getUpdateTag();
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries){
+        CompoundTag compoundtag = super.getUpdateTag(registries);
         if(this.hitDirection != null){
             compoundtag.putInt("hit_direction", this.hitDirection.ordinal());
         }
 
-        compoundtag.put("item", this.item.save(new CompoundTag()));
+        if(!this.item.isEmpty()) compoundtag.put("item", this.item.save(registries));
         return compoundtag;
     }
 
@@ -200,9 +202,10 @@ public class CrushableBlockEntity extends BlockEntity{
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    public void load(CompoundTag pTag){
+    @Override
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries){
         if(!this.tryLoadLootTable(pTag) && pTag.contains("item")){
-            this.item = ItemStack.of(pTag.getCompound("item"));
+            this.item = ItemStack.parseOptional(registries, pTag.getCompound("item"));
         }
 
         if(pTag.contains("hit_direction")){
@@ -211,9 +214,10 @@ public class CrushableBlockEntity extends BlockEntity{
 
     }
 
-    protected void saveAdditional(CompoundTag pTag){
-        if(!this.trySaveLootTable(pTag)){
-            pTag.put("item", this.item.save(new CompoundTag()));
+    @Override
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        if(!this.trySaveLootTable(pTag) && !this.item.isEmpty()){
+            pTag.put("item", this.item.save(registries));
         }
 
     }
@@ -254,6 +258,10 @@ public class CrushableBlockEntity extends BlockEntity{
     }
 
     public void setLootTable(ResourceLocation pLootTable, long pLootTableSeed){
+        setLootTable(ResourceKey.create(Registries.LOOT_TABLE, pLootTable), pLootTableSeed);
+    }
+
+    public void setLootTable(ResourceKey<LootTable> pLootTable, long pLootTableSeed){
         this.lootTable = pLootTable;
         this.lootTableSeed = pLootTableSeed;
     }

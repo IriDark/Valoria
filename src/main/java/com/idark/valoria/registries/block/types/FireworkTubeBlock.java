@@ -23,7 +23,17 @@ public class FireworkTubeBlock extends Block implements SimpleWaterloggedBlock{
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit){
+        return interact(pState, pLevel, pPos, pPlayer, InteractionHand.MAIN_HAND, pHit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(pState, pLevel, pPos, pPlayer, pHand, pHit));
+    }
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         pLevel.addFreshEntity(new FireworkRocketEntity(pLevel, pPos.getX() + 0.5f, pPos.above().getY(), pPos.getZ() + 0.5f, ItemStack.EMPTY));
         return InteractionResult.SUCCESS;
     }

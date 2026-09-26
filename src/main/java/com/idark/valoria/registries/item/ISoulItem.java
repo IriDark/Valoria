@@ -7,12 +7,14 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 
 public interface ISoulItem{
+    String LEGACY_KEY = "Souls";
+
     default boolean barVisible(ItemStack pStack){
         return getCurrentSouls(pStack) > 0 && getCurrentSouls(pStack) < getMaxSouls();
     }
 
     default ItemStack setSoulItem(ItemStack pStack){
-        pStack.getOrCreateTag().putInt("Souls", getBaseSouls());
+        pStack.set(DataComponentsRegistry.SOULS, getBaseSouls());
         return pStack;
     }
 
@@ -29,12 +31,11 @@ public interface ISoulItem{
     int getMaxSouls();
 
     default int getCurrentSouls(ItemStack pStack) {
-        return pStack.getOrCreateTag().getInt("Souls");
+        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.SOULS.get(), LEGACY_KEY);
     }
 
     default void setSouls(int count, ItemStack pStack){
-        pStack.removeTagKey("Souls");
-        pStack.getOrCreateTag().putInt("Souls", count);
+        pStack.set(DataComponentsRegistry.SOULS, count);
     }
 
     default SoundEvent getCollectSound(){
@@ -42,12 +43,12 @@ public interface ISoulItem{
     }
 
     default void consumeSouls(int count, ItemStack pStack){
-        pStack.getOrCreateTag().putInt("Souls", Math.max(this.getCurrentSouls(pStack) - count, 0));
+        pStack.set(DataComponentsRegistry.SOULS, Math.max(this.getCurrentSouls(pStack) - count, 0));
     }
 
     default void addCount(int count, ItemStack pStack, Player player){
         if(getCurrentSouls(pStack) < getMaxSouls()){
-            pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
+            pStack.set(DataComponentsRegistry.SOULS, getCurrentSouls(pStack) + count);
             player.level().playSound(null, player.getOnPos(), getCollectSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }
     }

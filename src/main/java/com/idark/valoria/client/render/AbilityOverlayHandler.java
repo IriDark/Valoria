@@ -9,9 +9,9 @@ import net.minecraft.client.gui.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.gui.overlay.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.gui.*;
 
 import java.util.*;
 
@@ -19,8 +19,8 @@ public class AbilityOverlayHandler{
     public final static ResourceLocation bg = Valoria.loc("textures/gui/tooltips/ability_slot.png");
 
     @OnlyIn(Dist.CLIENT)
-    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
-        if (event.getOverlay() != VanillaGuiOverlay.HOTBAR.type()) {
+    public static void onDrawScreenPost(RenderGuiLayerEvent.Post event){
+        if (!event.getName().equals(VanillaGuiLayers.HOTBAR)) {
             return;
         }
 

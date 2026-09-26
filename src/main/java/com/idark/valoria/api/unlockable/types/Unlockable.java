@@ -2,6 +2,7 @@ package com.idark.valoria.api.unlockable.types;
 
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.registries.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -102,7 +103,7 @@ public class Unlockable {
 
         if(loot != null){
             for(ResourceLocation resourcelocation : this.loot){
-                for(ItemStack itemstack : pPlayer.server.getLootData().getLootTable(resourcelocation).getRandomItems(lootparams)){
+                for(ItemStack itemstack : pPlayer.server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, resourcelocation)).getRandomItems(lootparams)){
                     addReward(pPlayer, itemstack, flag);
                     flag = true;
                 }

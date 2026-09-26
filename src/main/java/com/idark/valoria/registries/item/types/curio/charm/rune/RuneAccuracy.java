@@ -4,9 +4,7 @@ import com.idark.valoria.core.interfaces.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.eventbus.api.Event.*;
+import net.neoforged.neoforge.event.entity.player.*;
 
 import java.util.*;
 
@@ -20,7 +18,7 @@ public class RuneAccuracy extends AbstractRuneItem implements CurioCritDamageIte
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.crit", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY));
     }
@@ -39,8 +37,8 @@ public class RuneAccuracy extends AbstractRuneItem implements CurioCritDamageIte
     @Override
     public void critDamage(CriticalHitEvent event){
         if(arcRandom.chance(chance)){
-            event.setResult(Result.ALLOW);
-            event.setDamageModifier(damageModifier);
+            event.setCriticalHit(true);
+            event.setDamageMultiplier(damageModifier);
         }
     }
 }

@@ -2,9 +2,11 @@ package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.network.NetworkEvent.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -14,9 +16,14 @@ import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
-import java.util.function.*;
+public class CrusherParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<CrusherParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("crusher_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CrusherParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), CrusherParticlePacket::decode);
 
-public class CrusherParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final double posX, posY, posZ;
     private final ItemStack stack;
 
@@ -28,13 +35,13 @@ public class CrusherParticlePacket{
         this.stack = stack;
     }
 
-    public static CrusherParticlePacket decode(FriendlyByteBuf buf){
-        return new CrusherParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readItem());
+    public static CrusherParticlePacket decode(RegistryFriendlyByteBuf buf){
+        return new CrusherParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), ItemStack.OPTIONAL_STREAM_CODEC.decode(buf));
     }
 
-    public static void handle(CrusherParticlePacket msg, Supplier<Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(CrusherParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 ItemParticleOptions options = new ItemParticleOptions(TridotParticles.ITEM.get(), msg.stack);
                 ParticleBuilder.create(options)
@@ -57,16 +64,15 @@ public class CrusherParticlePacket{
                 .setHasPhysics(false)
                 .repeat(level, msg.posX, msg.posY, msg.posZ, 6);
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }
 
-    public void encode(FriendlyByteBuf buf){
+    public void encode(RegistryFriendlyByteBuf buf){
         buf.writeDouble(posX);
         buf.writeDouble(posY);
         buf.writeDouble(posZ);
 
-        buf.writeItem(stack);
+        ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, stack);
     }
 }

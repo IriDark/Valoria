@@ -1,0 +1,14 @@
+{
+  "type": "valoria:soul_infuser",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:void_crystal"
+  },
+
+  "time": 400,
+  "ingredient": {
+    "count": 1,
+    "item": "valoria:void_crystal"
+  }
+}

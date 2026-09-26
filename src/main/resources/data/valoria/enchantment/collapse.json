@@ -1,0 +1,25 @@
+{
+  "description": {
+    "translate": "enchantment.valoria.collapse"
+  },
+  "supported_items": "#valoria:hammer_category",
+  "weight": 2,
+  "max_level": 3,
+  "min_cost": {
+    "base": 15,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 45,
+    "per_level_above_first": 10
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "mainhand"
+  ],
+  "exclusive_set": [
+    "valoria:concussion",
+    "valoria:repulsion",
+    "valoria:sundering"
+  ]
+}

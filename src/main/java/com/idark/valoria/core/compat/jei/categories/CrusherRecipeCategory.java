@@ -13,12 +13,12 @@ import mezz.jei.api.recipe.*;
 import mezz.jei.api.recipe.category.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
 
 import java.util.*;
 
@@ -65,7 +65,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
     public void setRecipe(IRecipeLayoutBuilder builder, CrusherRecipe recipe, IFocusGroup focusGroup){
         List<ItemStack> drops = DROPS.getOrDefault(recipe.getId(), List.of());
         List<ItemStack> pickaxes = new ArrayList<>(List.of());
-        for(var item : ForgeRegistries.ITEMS) {
+        for(var item : BuiltInRegistries.ITEM) {
             var stack = new ItemStack(item);
             if(stack.is(ItemTags.PICKAXES)) pickaxes.add(stack);
         }

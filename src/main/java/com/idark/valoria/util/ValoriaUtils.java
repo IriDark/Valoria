@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.core.registries.*;
+import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.*;
 import net.minecraft.resources.*;
@@ -30,8 +31,7 @@ import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.items.*;
+import net.neoforged.api.distmarker.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.util.*;
@@ -60,7 +60,7 @@ public class ValoriaUtils{
             double x = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
             double y = pPos.getY() + rand.nextInt(0, 3);
             double z = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 6;
-            if(pLevel.noCollision(null, pEntityType.getAABB(x, y, z))){
+            if(pLevel.noCollision(null, pEntityType.getSpawnAABB(x, y, z))){ // PORT NOTE: getAABB -> getSpawnAABB
                 LivingEntity pEntity = pEntityType.create(pLevel);
                 if(pEntity == null) continue;
 
@@ -75,7 +75,7 @@ public class ValoriaUtils{
         var params = new LootParams.Builder(pLevel).withParameter(LootContextParams.THIS_ENTITY, pEntity).withParameter(LootContextParams.ORIGIN, pPos.getCenter()).create(LootContextParamSets.GIFT);
         Utils.Items.createLoot(loot, params)
         .forEach(stack -> {
-            EquipmentSlot slot = LivingEntity.getEquipmentSlotForItem(stack);
+            EquipmentSlot slot = pEntity.getEquipmentSlotForItem(stack); // PORT NOTE: instance method in 1.21
             if(pEntity.hasItemInSlot(slot)) return;
 
             pEntity.setItemSlot(slot, stack);
@@ -85,7 +85,18 @@ public class ValoriaUtils{
         });
     }
 
-    @SuppressWarnings("deprecation")
+    public static List<MobEffectInstance> loadCustomEffects(CompoundTag tag) {
+        List<MobEffectInstance> list = new ArrayList<>();
+        if (tag.contains("CustomPotionEffects", 9)) {
+            for (net.minecraft.nbt.Tag element : tag.getList("CustomPotionEffects", 10)) {
+                MobEffectInstance instance = MobEffectInstance.load((CompoundTag) element);
+                if (instance != null) list.add(instance);
+            }
+        }
+
+        return list;
+    }
+
     public static ItemStack getRandomItemFromTag(RandomSource randomSource, TagKey<Item> weaponTag) {
         var optionalTag = BuiltInRegistries.ITEM.getTag(weaponTag);
         if (optionalTag.isPresent()) {
@@ -110,55 +121,56 @@ public class ValoriaUtils{
         return null;
     }
 
-    @SuppressWarnings("deprecation")
-    public static MobEffect getRandomEffectFromTag(RandomSource randomSource, TagKey<MobEffect> effectTag) {
+    public static Holder<MobEffect> getRandomEffectFromTag(RandomSource randomSource, TagKey<MobEffect> effectTag) {
         var optionalTag = BuiltInRegistries.MOB_EFFECT.getTag(effectTag);
         if (optionalTag.isPresent()) {
-            Holder<MobEffect> randomEffect = optionalTag.get().getRandomElement(randomSource).orElse(null);
-            if (randomEffect != null) {
-                return randomEffect.value();
-            }
+            return optionalTag.get().getRandomElement(randomSource).orElse(null);
         }
 
         return null;
     }
 
-    @SuppressWarnings("deprecation")
-    public static List<MobEffect> getEffectsFromTag(TagKey<MobEffect> effectTag) {
-        List<MobEffect> effects = new ArrayList<>();
+    public static List<Holder<MobEffect>> getEffectsFromTag(TagKey<MobEffect> effectTag) {
+        List<Holder<MobEffect>> effects = new ArrayList<>();
         var optionalTag = BuiltInRegistries.MOB_EFFECT.getTag(effectTag);
         if (optionalTag.isPresent()) {
             for (Holder<MobEffect> holder : optionalTag.get()) {
-                effects.add(holder.value());
+                effects.add(holder);
             }
         }
 
         return effects;
     }
 
-    public static int getCurrentNBTValue(String key, ItemStack pStack) {
-        return pStack.getOrCreateTag().getInt(key);
+    public static final String ROT_LEGACY_KEY = "ValoriaRot";
+
+    public static boolean hasRot(ItemStack pStack){
+        return DataComponentsRegistry.has(pStack, DataComponentsRegistry.ROT.get(), ROT_LEGACY_KEY);
     }
 
-    public static void shrinkNBT(String key, int count, ItemStack pStack){
-        pStack.getOrCreateTag().putInt(key, Math.max(getCurrentNBTValue(key, pStack) - count, 0));
+    public static int getRot(ItemStack pStack) {
+        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.ROT.get(), ROT_LEGACY_KEY);
     }
 
-    public static void addNBT(String key, int count, int max, ItemStack pStack){
-        if(getCurrentNBTValue(key, pStack) < max){
-            pStack.getOrCreateTag().putInt(key, getCurrentNBTValue(key, pStack) + count);
+    public static void shrinkRot(int count, ItemStack pStack){
+        pStack.set(DataComponentsRegistry.ROT, Math.max(getRot(pStack) - count, 0));
+    }
+
+    public static void addRot(int count, int max, ItemStack pStack){
+        if(getRot(pStack) < max){
+            pStack.set(DataComponentsRegistry.ROT, getRot(pStack) + count);
         }
     }
 
     public static String formatDuration(int tickDuration, float pDurationFactor) {
         int i = Mth.floor((float)tickDuration * pDurationFactor);
-        return StringUtil.formatTickDuration(i);
+        return StringUtil.formatTickDuration(i, 20.0F); // PORT NOTE: takes ticks-per-second in 1.21
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void renderText(LivingEntity entityIn, Col textColor, Component component, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, int time){
         if (!(entityIn instanceof ILivingEntityData data)) return;
-        float partialTicks = Minecraft.getInstance().getPartialTick();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true); // PORT NOTE: getPartialTick() moved to the DeltaTracker
         data.valoria$setTextOffset(Mth.lerp(partialTicks, data.valoria$getTextOffset(), (float)Math.abs(Math.sin(((float)time) / 4f))));
         data.valoria$setTextOffsetPrev(data.valoria$getTextOffset());
         float alpha = data.valoria$getTextOffset();
@@ -186,21 +198,25 @@ public class ValoriaUtils{
         return r.x < s.x2 && r.x2 > s.x && r.y < s.y2 && r.y2 > s.y;
     }
 
+    @Nullable
     public static ItemStack getEquippedCurio(Predicate<ItemStack> filter, LivingEntity entity) {
         var curio = CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity);
         return curio.map(stringIntegerItemStackImmutableTriple -> stringIntegerItemStackImmutableTriple.right).orElse(null);
     }
 
     public static boolean isEquippedCurio(Predicate<ItemStack> filter, LivingEntity entity) {
-        return CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity).isPresent();
+        var curio = CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity);
+        return curio.isPresent();
     }
 
     public static boolean isEquippedCurio(TagKey<Item> tag, LivingEntity entity) {
-        return CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(tag), entity).isPresent();
+        var curio = CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(tag), entity);
+        return curio.isPresent();
     }
 
     public static boolean isEquippedCurio(Item pItem, LivingEntity entity) {
-        return CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(pItem), entity).isPresent();
+        var curio = CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(pItem), entity);
+        return curio.isPresent();
     }
 
     public static void addHandPlayerItem(Level level, Player player, InteractionHand hand, ItemStack stack, ItemStack addStack) {
@@ -208,7 +224,7 @@ public class ValoriaUtils{
             addPlayerItem(level, player, addStack);
         } else if (stack.isEmpty()) {
             player.setItemInHand(hand, addStack.copy());
-        } else if (ItemHandlerHelper.canItemStacksStack(stack, addStack) && (stack.getCount() + addStack.getCount() <= addStack.getMaxStackSize())) {
+        } else if (ItemStack.isSameItemSameComponents(stack, addStack) && (stack.getCount() + addStack.getCount() <= addStack.getMaxStackSize())) { // PORT NOTE: ItemHandlerHelper.canItemStacksStack removed
             stack.setCount(stack.getCount() + addStack.getCount());
             player.setItemInHand(hand, stack);
         } else {
@@ -237,7 +253,7 @@ public class ValoriaUtils{
     }
 
     public static float enchantmentAccuracy(ItemStack stack) {
-        int i = stack.getEnchantmentLevel(EnchantmentsRegistry.ACCURACY.get());
+        int i = EnchantmentsRegistry.getLevel(stack, EnchantmentsRegistry.ACCURACY);
         return i > 0 ? i + 0.5f : 0.0F;
     }
 
@@ -303,7 +319,7 @@ public class ValoriaUtils{
             if(!target.equals(caster)) continue;
             if(target.distanceToSqr(pos.x, pos.y, pos.z) <= radiusSqr){
                 if(Utils.Entities.canHitTarget(caster, target)){
-                    target.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30, 0));
+                    target.addEffect(new MobEffectInstance(EffectsRegistry.STUN, 30, 0));
                 }
             }
         }
@@ -313,10 +329,10 @@ public class ValoriaUtils{
         List<ItemStack> allDrops = new ArrayList<>();
         List<LootPool> pools = ((LootTableAccessor) table).getPools();
         for (LootPool pool : pools) {
-            LootPoolEntryContainer[] entries = pool.entries;
+            List<LootPoolEntryContainer> entries = pool.entries;
             for (LootPoolEntryContainer entry : entries) {
                 if (entry instanceof LootItem itemEntry) {
-                    Item item = itemEntry.item;
+                    Holder<Item> item = itemEntry.item;
                     allDrops.add(new ItemStack(item));
                 }
             }
@@ -339,7 +355,7 @@ public class ValoriaUtils{
      * Returns true if the effect is negative and non-instantaneous (is harmful but wider).
      */
     public static boolean isCurable(MobEffectInstance e) {
-        var effect = e.getEffect();
+        var effect = e.getEffect().value();
         return !effect.isBeneficial() && !effect.isInstantenous();
     }
 

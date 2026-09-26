@@ -1,6 +1,6 @@
 package com.idark.valoria.core.interfaces;
 
-import net.minecraftforge.event.entity.player.*;
+import net.neoforged.neoforge.event.entity.player.*;
 
 public interface CurioCritDamageItem{
     /**

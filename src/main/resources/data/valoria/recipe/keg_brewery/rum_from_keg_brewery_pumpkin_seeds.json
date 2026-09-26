@@ -1,0 +1,16 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 1200,
+  "ingredients": [
+    {
+      "item": "minecraft:pumpkin_seeds"
+    },
+    {
+      "item": "valoria:bottle"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:rum_bottle"
+  }
+}

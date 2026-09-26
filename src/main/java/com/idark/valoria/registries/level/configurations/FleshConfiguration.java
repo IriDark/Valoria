@@ -1,9 +1,9 @@
 package com.idark.valoria.registries.level.configurations;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 
 public record FleshConfiguration(int chargeCount, int amountPerCharge, int spreadAttempts, int growthRounds, int spreadRounds, IntProvider extraRareGrowths, float catalystChance) implements FeatureConfiguration{
     public static final Codec<FleshConfiguration> CODEC = RecordCodecBuilder.create((p_225444_) -> {

@@ -19,14 +19,16 @@ import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.core.*;
+import net.minecraft.core.component.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.*;
@@ -44,16 +46,16 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.Tags.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.TickEvent.*;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.level.*;
-import net.minecraftforge.eventbus.api.Event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.common.*;
+import net.neoforged.neoforge.common.Tags.*;
+import net.neoforged.neoforge.common.util.*;
+import net.neoforged.neoforge.event.*;
+import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent.*;
+import net.neoforged.neoforge.event.entity.player.*;
+import net.neoforged.neoforge.event.level.*;
+import net.neoforged.neoforge.event.tick.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
@@ -91,119 +93,17 @@ public class Events{
      */
     public void syncCrusherRecipes(MinecraftServer server, @Nullable ServerPlayer targetPlayer) {
         RecipeManager recipeManager = server.getRecipeManager();
-        List<CrusherRecipe> recipes = recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE);
-        for (CrusherRecipe recipe : recipes) {
+        List<RecipeHolder<CrusherRecipe>> recipes = recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE);
+        for (RecipeHolder<CrusherRecipe> holder : recipes) {
+            CrusherRecipe recipe = holder.value();
             ResourceLocation lootTableId = recipe.getOutput();
-            LootTable lootTable = server.getLootData().getLootTable(lootTableId);
+            LootTable lootTable = server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, lootTableId));
             List<ItemStack> possibleDrops = ValoriaUtils.getLootTableItems(lootTable);
-            CrusherSyncPacket packet = new CrusherSyncPacket(recipe.getId(), possibleDrops);
+            CrusherSyncPacket packet = new CrusherSyncPacket(holder.id(), possibleDrops);
             if (targetPlayer != null) {
-                PacketHandler.sendTo(targetPlayer, packet);
+                PacketHandler.sendEntity(targetPlayer, packet);
             } else {
                 PacketHandler.sendToAll(packet);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onMissingMappings(MissingMappingsEvent event){
-        for(var mapping : event.getMappings(ForgeRegistries.Keys.BLOCKS, "valoria")){
-            String oldId = mapping.getKey().getPath();
-            switch(oldId){
-                case "shadewood" -> {
-                    mapping.remap(BlockRegistry.shadeWood.get());
-                    continue;
-                }
-                case "stripped_shadewood" -> {
-                    mapping.remap(BlockRegistry.strippedShadeWood.get());
-                    continue;
-                }
-                case "stripped_shadelog" -> {
-                    mapping.remap(BlockRegistry.strippedShadeLog.get());
-                    continue;
-                }
-                case "shadelog" -> {
-                    mapping.remap(BlockRegistry.shadeLog.get());
-                    continue;
-                }
-                case "trapped_shadewood_chest" -> {
-                    mapping.remap(BlockRegistry.shadeTrappedChest.get());
-                    continue;
-                }
-                case "potted_shadewood_sappling" -> {
-                    mapping.remap(BlockRegistry.pottedShadewoodSapling.get());
-                    continue;
-                }
-            }
-
-            if(oldId.startsWith("dreadwood_")){
-                String newId = oldId.replace("dreadwood_", "dread_");
-                var newItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("valoria", newId));
-                if(newItem != null){
-                    mapping.remap(newItem);
-                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                }else{
-                    mapping.ignore();
-                }
-            }
-
-            if(oldId.startsWith("shadewood_")){
-                String newId = oldId.replace("shadewood_", "shade_");
-                var newBlock = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("valoria", newId));
-                if(newBlock != null){
-                    mapping.remap(newBlock);
-                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                }else{
-                    mapping.ignore();
-                }
-            }
-        }
-
-        for(var mapping : event.getMappings(ForgeRegistries.Keys.ITEMS, "valoria")){
-            String oldId = mapping.getKey().getPath();
-            switch(oldId){
-                case "shadewood" -> {
-                    mapping.remap(BlockRegistry.shadeWood.get().asItem());
-                    continue;
-                }
-                case "stripped_shadewood" -> {
-                    mapping.remap(BlockRegistry.strippedShadeWood.get().asItem());
-                    continue;
-                }
-                case "stripped_shadelog" -> {
-                    mapping.remap(BlockRegistry.strippedShadeLog.get().asItem());
-                    continue;
-                }
-                case "shadelog" -> {
-                    mapping.remap(BlockRegistry.shadeLog.get().asItem());
-                    continue;
-                }
-                case "trapped_shadewood_chest" -> {
-                    mapping.remap(BlockRegistry.shadeTrappedChest.get().asItem());
-                    continue;
-                }
-            }
-
-            if(oldId.startsWith("dreadwood_")){
-                String newId = oldId.replace("dreadwood_", "dread_");
-                var newItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("valoria", newId));
-                if(newItem != null){
-                    mapping.remap(newItem);
-                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                }else{
-                    mapping.ignore();
-                }
-            }
-
-            if(oldId.startsWith("shadewood_")){
-                String newId = oldId.replace("shadewood_", "shade_");
-                var newItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("valoria", newId));
-                if(newItem != null){
-                    mapping.remap(newItem);
-                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                }else{
-                    mapping.ignore();
-                }
             }
         }
     }
@@ -214,12 +114,11 @@ public class Events{
         CodexEntries.initChapters();
     }
 
-    @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event){
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
-        if(stack.hasTag() && stack.getTag().contains("poison_hits")){
-            int hits = stack.getTag().getInt("poison_hits");
+        if(PoisonItem.isPoisoned(stack)){
+            int hits = PoisonItem.getPoisonHits(stack);
             ImmutableList<MobEffectInstance> list = ImmutableList.of(new MobEffectInstance(MobEffects.POISON, 120, 0));
             tooltip.add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
             Utils.Items.effectTooltip(list, tooltip, 1, 1);
@@ -239,8 +138,8 @@ public class Events{
             }
         }
 
-        if(stack.hasTag() && stack.getTag().contains("ValoriaRot")){
-            int foodRot = ValoriaUtils.getCurrentNBTValue("ValoriaRot", stack);
+        if(ValoriaUtils.hasRot(stack)){
+            int foodRot = ValoriaUtils.getRot(stack);
             if(foodRot > 0){
                 String stageKey;
                 ChatFormatting color;
@@ -264,24 +163,19 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event){
-        if (event.phase != TickEvent.Phase.END) return;
-        Player player = event.player;
+    public void playerTick(PlayerTickEvent.Post event){
+        Player player = event.getEntity();
         if(ServerConfig.ENABLE_FOOD_ROT.get()){
             if(player.level().dimension().equals(LevelGen.VALORIA_KEY)){
                 if(player.tickCount % (ServerConfig.FOOD_ROT_INTERVAL.get() * 20) == 0){
                     Inventory inv = player.getInventory();
                     for(int i = 0; i < inv.getContainerSize(); i++){
                         ItemStack stack = inv.getItem(i);
-                        if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.is(TagsRegistry.ROT_IMMUNE))){
-                            CompoundTag tag = stack.getOrCreateTag();
-                            ValoriaUtils.addNBT("ValoriaRot", 1, 100, stack);
-                            int rot = tag.getInt("ValoriaRot");
+                        if(stack.has(DataComponents.FOOD) && stack.getUseAnimation() == UseAnim.EAT && !(stack.is(TagsRegistry.ROT_IMMUNE))){
+                            ValoriaUtils.addRot(1, 100, stack);
+                            int rot = ValoriaUtils.getRot(stack);
                             if(rot == 100){
-                                convertToRot(event, stack, inv, i);
-                            }else{
-                                tag.putInt("ValoriaRot", rot);
-                                stack.setTag(tag);
+                                convertToRot(player, stack, inv, i);
                             }
                         }
                     }
@@ -290,38 +184,30 @@ public class Events{
         }
     }
 
-    private static void convertToRot(PlayerTickEvent event, ItemStack stack, Inventory inv, int i){
-        CompoundTag tag;
+    private static void convertToRot(Player player, ItemStack stack, Inventory inv, int i){
         ItemStack rotStack = new ItemStack(ItemsRegistry.rot.get());
-        tag = rotStack.getOrCreateTag();
-
-        rotStack.setTag(tag.copy());
-        var key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        var key = BuiltInRegistries.ITEM.getKey(stack.getItem());
         if(key == null) return;
 
-        tag.putString("OriginalItem", key.toString());
-        rotStack.setTag(tag);
+        RotItem.setOriginalItem(rotStack, key);
         rotStack.setCount(stack.getCount());
         inv.setItem(i, rotStack);
-        event.player.playSound(SoundEvents.FROGSPAWN_PLACE);
+        player.playSound(SoundEvents.FROGSPAWN_PLACE);
     }
 
     @SubscribeEvent
     public void onAttackEntity(AttackEntityEvent event){
         Player player = event.getEntity();
         ItemStack stack = player.getMainHandItem();
-        if(event.isCancelable() && player.hasEffect(EffectsRegistry.STUN.get())){
+        if(player.hasEffect(EffectsRegistry.STUN)){
             event.setCanceled(true);
         }
 
-        if(stack.hasTag() && stack.getTag().contains("poison_hits")){
-            int hits = stack.getTag().getInt("poison_hits");
+        if(PoisonItem.isPoisoned(stack)){
+            int hits = PoisonItem.getPoisonHits(stack);
             if(hits > 0 && event.getTarget() instanceof LivingEntity target){
                 target.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
-                stack.getTag().putInt("poison_hits", hits - 1);
-                if(hits - 1 == 0){
-                    stack.getTag().remove("poison_hits");
-                }
+                PoisonItem.setPoisonHits(stack, hits - 1);
             }
         }
 
@@ -336,7 +222,7 @@ public class Events{
 
     @SubscribeEvent
     public void onFluid(BlockEvent.FluidPlaceBlockEvent e) {
-        if(e.getNewState().is(Blocks.STONE) || e.getNewState().is(Blocks.COBBLESTONE)){
+        if(e.getNewState().is(net.minecraft.world.level.block.Blocks.STONE) || e.getNewState().is(net.minecraft.world.level.block.Blocks.COBBLESTONE)){
             if(e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY){
                 e.setNewState(BlockRegistry.picrite.get().defaultBlockState());
             }
@@ -354,29 +240,29 @@ public class Events{
 
     @SubscribeEvent
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN)){
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onLivingBlockDestroy(LivingDestroyBlockEvent event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN)){
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onPlayerBlockDestroy(PlayerEvent.BreakSpeed event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN)){
             event.setNewSpeed(-1);
         }
     }
 
     @SubscribeEvent
-    public void onItemPickup(EntityItemPickupEvent event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
-            event.setCanceled(true);
+    public void onItemPickup(ItemEntityPickupEvent.Pre event){
+        if(event.getPlayer().hasEffect(EffectsRegistry.STUN)){
+            event.setCanPickup(TriState.FALSE);
         }
     }
 
@@ -405,21 +291,21 @@ public class Events{
     public void onEffectApply(MobEffectEvent.Applicable event){
         var entity = event.getEntity();
         var effect = event.getEffectInstance();
-        if(effect.getEffect() instanceof AbstractImmunityEffect immunityEffect){
+        if(effect.getEffect().value() instanceof AbstractImmunityEffect immunityEffect){
             if(immunityEffect.effectRemoveReason(entity)){
-                event.setResult(Result.DENY);
+                event.setResult(Applicable.Result.DO_NOT_APPLY);
             }
         }
 
-        if(effect.getEffect() == MobEffects.POISON){
+        if(effect.is(MobEffects.POISON)){
             if(isEquippedCurio(TagsRegistry.POISON_IMMUNE, entity)){
-                event.setResult(Result.DENY);
+                event.setResult(Applicable.Result.DO_NOT_APPLY);
             }
         }
     }
 
     @SubscribeEvent
-    public void onLivingHurt(LivingHurtEvent event){
+    public void onLivingHurt(LivingIncomingDamageEvent event){
         if(event.getSource().is(DamageTypeTags.BYPASSES_ARMOR)) return;
         var source = event.getSource();
         Entity attackerEntity = source.getEntity();
@@ -445,8 +331,8 @@ public class Events{
         float totalBonus = 0f;
         if(!(attacker instanceof Player && target instanceof Player plr)){
             for(ElementalType type : ElementalTypes.ELEMENTALS){
-                AttributeInstance attackAttr = attacker.getAttribute(type.damageAttr().get());
-                AttributeInstance resistAttr = target.getAttribute(type.resistAttr().get());
+                AttributeInstance attackAttr = attacker.getAttribute(type.damageAttr()); // PORT NOTE: getAttribute takes a Holder
+                AttributeInstance resistAttr = target.getAttribute(type.resistAttr());
                 if(attackAttr != null){
                     totalBonus = applyAttackBonus(attackAttr, resistAttr, target, totalBonus);
                 }
@@ -456,14 +342,14 @@ public class Events{
         if(target instanceof Player plr){
             if(!event.getSource().is(DamageTypeTags.BYPASSES_ARMOR)){
                 float incomingDamage = event.getAmount();
-                if(target.hasEffect(EffectsRegistry.NIHILITY_PROTECTION.get())){
-                    int amplifier = target.getEffect(EffectsRegistry.NIHILITY_PROTECTION.get()).getAmplifier() + 1;
+                if(target.hasEffect(EffectsRegistry.NIHILITY_PROTECTION)){
+                    int amplifier = target.getEffect(EffectsRegistry.NIHILITY_PROTECTION).getAmplifier() + 1;
                     float protectionPercent = Math.min((amplifier + 1) * 0.10f, 0.90f);
                     float totalMultiplier = Math.max(0.0f, 1.0f - protectionPercent);
                     float reducedDamage = incomingDamage * totalMultiplier;
 
                     castHurtEvent(event, reducedDamage, source, data);
-                    plr.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+                    INihilityLevel.of(plr).ifPresent(nihilityLevel -> {
                         if (!plr.getAbilities().instabuild && !plr.isSpectator()) {
                             nihilityLevel.modifyAmount(plr, incomingDamage - reducedDamage * 1.5f);
                         }
@@ -478,7 +364,7 @@ public class Events{
         castHurtEvent(event, event.getAmount() + totalBonus, source, data);
     }
 
-    private void castHurtEvent(LivingHurtEvent event, float reducedDamage, DamageSource source, ILivingEntityData data){
+    private void castHurtEvent(LivingIncomingDamageEvent event, float reducedDamage, DamageSource source, ILivingEntityData data){
         event.setAmount(reducedDamage);
         data.valoria$setLastDamageWithSource(event.getSource(), event.getAmount());
 
@@ -500,10 +386,11 @@ public class Events{
         float damage = (float)attackAttr.getValue();
         float resistance = (float)(resistAttr != null ? resistAttr.getValue() : 0);
 
-        boolean flag = attackAttr.getAttribute() != AttributeReg.NIHILITY_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
-        resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE.get()) : 0);
-        if(attackAttr.getAttribute() == AttributeReg.NIHILITY_DAMAGE.get()){
-            target.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> nihility.modifyAmount(target, damage));
+        boolean isNihility = attackAttr.getAttribute().is(AttributeReg.NIHILITY_DAMAGE.getKey());
+        boolean flag = !isNihility && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE) != null;
+        resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE) : 0);
+        if(isNihility){
+            INihilityLevel.of(target).ifPresent(nihility -> nihility.modifyAmount(target, damage));
         }
 
         float multiplier = Math.max(1f - (resistance / 100f), 0f);
@@ -511,8 +398,8 @@ public class Events{
         return totalBonus;
     }
 
-    @SubscribeEvent
-    public void onLivingAttack(LivingAttackEvent event){
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void onLivingAttack(LivingIncomingDamageEvent event){
         var pSource = event.getSource();
         var entity = event.getEntity();
         var level = entity.level();
@@ -524,16 +411,11 @@ public class Events{
             }
         }
 
-        if (entity instanceof ISpawnAnimated spawnAnim && !spawnAnim.hasSpawned()) {
-            event.setCanceled(true);
-            return;
-        }
-
         if(pSource.getEntity() instanceof LivingEntity attacker){
             if (!(entity instanceof ILivingEntityData data)) return;
             if(level instanceof ServerLevel s){
                 var pushDirection = new Vec3(entity.getX() + attacker.getX(), 0.0D, entity.getZ() + attacker.getX()).normalize();
-                if(attacker.getAttribute(AttributeReg.MISS_CHANCE.get()) != null && Tmp.rnd.chance(attacker.getAttributeValue(AttributeReg.MISS_CHANCE.get()) / 100)){
+                if(attacker.getAttribute(AttributeReg.MISS_CHANCE) != null && Tmp.rnd.chance(attacker.getAttributeValue(AttributeReg.MISS_CHANCE) / 100)){
                     level.playSound(null, attacker.blockPosition(), SoundsRegistry.MISS.get(), SoundSource.HOSTILE);
                     s.sendParticles(ParticleTypes.SMOKE, attacker.getX(), attacker.getY(), attacker.getZ(), 16, 1, 1, 1, 0.025f);
 
@@ -542,7 +424,7 @@ public class Events{
                     event.setCanceled(true);
                 }
 
-                if(entity.getAttribute(AttributeReg.DODGE_CHANCE.get()) != null && Tmp.rnd.chance(entity.getAttributeValue(AttributeReg.DODGE_CHANCE.get()) / 100)){
+                if(entity.getAttribute(AttributeReg.DODGE_CHANCE) != null && Tmp.rnd.chance(entity.getAttributeValue(AttributeReg.DODGE_CHANCE) / 100)){
                     level.playSound(null, entity.blockPosition(), SoundsRegistry.DODGE.get(), SoundSource.HOSTILE);
                     knockbackEntity(entity, pushDirection.reverse());
                     s.sendParticles(ParticleTypes.ENCHANTED_HIT, entity.getX(), entity.getY(), entity.getZ(), 16, 1, 1, 1, 0.025f);
@@ -555,15 +437,15 @@ public class Events{
         }
 
         if(entity instanceof Player plr){
-            if(pSource.is(DamageTypes.EXPLOSION) || pSource.is(DamageTypes.PLAYER_EXPLOSION)){
-                if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.PYRATITE, plr)) event.setCanceled(true);
+            if(pSource.is(net.minecraft.world.damagesource.DamageTypes.EXPLOSION) || pSource.is(net.minecraft.world.damagesource.DamageTypes.PLAYER_EXPLOSION)){ // PORT NOTE: qualified, Tags.DamageTypes is also in scope
+                if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.PYRATITE.material(), plr)) event.setCanceled(true);
             }
         }
 
-        if((pSource.is(DamageTypes.LAVA) || pSource.is(DamageTypes.IN_FIRE) || pSource.is(DamageTypes.ON_FIRE) || pSource.is(DamageTypes.HOT_FLOOR) || pSource.is(DamageTypes.UNATTRIBUTED_FIREBALL) || pSource.is(DamageTypes.FIREBALL))) {
+        if((pSource.is(net.minecraft.world.damagesource.DamageTypes.LAVA) || pSource.is(net.minecraft.world.damagesource.DamageTypes.IN_FIRE) || pSource.is(net.minecraft.world.damagesource.DamageTypes.ON_FIRE) || pSource.is(net.minecraft.world.damagesource.DamageTypes.HOT_FLOOR) || pSource.is(net.minecraft.world.damagesource.DamageTypes.UNATTRIBUTED_FIREBALL) || pSource.is(net.minecraft.world.damagesource.DamageTypes.FIREBALL))) {
             if(isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
             if(entity instanceof Player player){
-                player.getCapability(IMagmaLevel.INSTANCE).ifPresent(magmaLevel -> {
+                IMagmaLevel.of(player).ifPresent(magmaLevel -> {
                     float max = magmaLevel.getMaxAmount(player);
                     float amount = magmaLevel.getAmount();
                     if(max <= 0 || amount <= 0) return;
@@ -574,14 +456,14 @@ public class Events{
         }
 
         if(pSource.getEntity() instanceof LivingEntity e){
-            if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
+            if(e.hasEffect(EffectsRegistry.STUN)) event.setCanceled(true);
         }
 
         if(pSource.getDirectEntity() instanceof Player player){
             float f2 = player.getAttackStrengthScale(0.5F);
             boolean flag = f2 > 0.9F;
             if(isEquippedCurio(TagsRegistry.INFLICTS_FIRE, player) && flag) {
-                entity.setSecondsOnFire(15);
+                entity.igniteForSeconds(15);
             }
         }
     }
@@ -594,7 +476,7 @@ public class Events{
     @SubscribeEvent
     public void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
-        if (entity.getEffect(EffectsRegistry.STUN.get()) != null){
+        if (entity.getEffect(EffectsRegistry.STUN) != null){
             entity.setDeltaMovement(entity.getDeltaMovement().x(), 0.0D, entity.getDeltaMovement().z());
         }
     }
@@ -602,7 +484,7 @@ public class Events{
     @SubscribeEvent
     public void onPlayerLeftClick(PlayerInteractEvent.LeftClickBlock event) {
         Player player = event.getEntity();
-        if (event.isCancelable() && player.hasEffect(EffectsRegistry.STUN.get())) {
+        if (player.hasEffect(EffectsRegistry.STUN)) {
             event.setCanceled(true);
         }
     }
@@ -610,8 +492,8 @@ public class Events{
     @SubscribeEvent
     public void onUseItem(LivingEntityUseItemEvent event) {
         LivingEntity living = event.getEntity();
-        if (event.isCancelable() && living.hasEffect(EffectsRegistry.STUN.get())) {
-            event.setCanceled(true);
+        if (event instanceof ICancellableEvent cancellable && living.hasEffect(EffectsRegistry.STUN)) {
+            cancellable.setCanceled(true);
         }
     }
 
@@ -619,17 +501,7 @@ public class Events{
     public void onPlaceBlock(BlockEvent.EntityPlaceEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof LivingEntity living) {
-            if (event.isCancelable() && living.hasEffect(EffectsRegistry.STUN.get())) {
-                event.setCanceled(true);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onFillBucket(FillBucketEvent event) {
-        LivingEntity living = event.getEntity();
-        if (living != null) {
-            if (event.isCancelable() && living.hasEffect(EffectsRegistry.STUN.get())) {
+            if (living.hasEffect(EffectsRegistry.STUN)) {
                 event.setCanceled(true);
             }
         }
@@ -637,38 +509,38 @@ public class Events{
 
     @SubscribeEvent
     public void onBreakBlock(BlockEvent.BreakEvent event) {
-        if (event.isCancelable() && event.getPlayer().hasEffect(EffectsRegistry.STUN.get())) {
+        if (event.getPlayer().hasEffect(EffectsRegistry.STUN)) {
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.RightClickEmpty event) {
-        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
-            event.setCanceled(true);
+        if (event instanceof ICancellableEvent cancellable && event.getEntity().hasEffect(EffectsRegistry.STUN)) {
+            cancellable.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.LeftClickEmpty event){
-        if(event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
-            event.setCanceled(true);
+        if(event instanceof ICancellableEvent cancellable && event.getEntity().hasEffect(EffectsRegistry.STUN)){
+            cancellable.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onLivingHeal(LivingHealEvent event) {
         float amount = event.getAmount();
-        if (event.getEntity().hasEffect(EffectsRegistry.EXHAUSTION.get())) {
-            int amplifier = event.getEntity().getEffect(EffectsRegistry.EXHAUSTION.get()).getAmplifier();
+        if (event.getEntity().hasEffect(EffectsRegistry.EXHAUSTION)) {
+            int amplifier = event.getEntity().getEffect(EffectsRegistry.EXHAUSTION).getAmplifier();
             float healMultiplier = 1.0f - 0.1f * (amplifier + 1);
 
             healMultiplier = Math.max(0.5f, healMultiplier);
             amount = amount * healMultiplier;
         }
 
-        if (event.getEntity().hasEffect(EffectsRegistry.RENEWAL.get())) {
-            int amplifier = event.getEntity().getEffect(EffectsRegistry.RENEWAL.get()).getAmplifier();
+        if (event.getEntity().hasEffect(EffectsRegistry.RENEWAL)) {
+            int amplifier = event.getEntity().getEffect(EffectsRegistry.RENEWAL).getAmplifier();
             float healMultiplier = 1.0f + 0.1f * (amplifier + 1);
 
             healMultiplier = Math.min(1.5f, healMultiplier);
@@ -680,28 +552,28 @@ public class Events{
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.EntityInteract event) {
-        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+        if (event.getEntity().hasEffect(EffectsRegistry.STUN)) {
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+        if (event.getEntity().hasEffect(EffectsRegistry.STUN)) {
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event) {
-        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+        if (event.getEntity().hasEffect(EffectsRegistry.STUN)) {
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.RightClickItem event) {
-        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+        if (event.getEntity().hasEffect(EffectsRegistry.STUN)) {
             event.setCanceled(true);
         }
     }
@@ -718,7 +590,7 @@ public class Events{
                         PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
 
                         var event = new SoulEvent.Added(plr.getMainHandItem(), 1);
-                        if(!MinecraftForge.EVENT_BUS.post(event)){
+                        if(!NeoForge.EVENT_BUS.post(event).isCanceled()){ // PORT NOTE: post() returns the event in NeoForge
                             soul.addCount(event.count, itemStack, plr);
                         }
                     }
@@ -728,7 +600,7 @@ public class Events{
                         PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
 
                         var event = new SoulEvent.Added(plr.getMainHandItem(), 1);
-                        if(!MinecraftForge.EVENT_BUS.post(event)){
+                        if(!NeoForge.EVENT_BUS.post(event).isCanceled()){
                             soul.addCount(event.count, itemStack, plr);
                         }
                     }
@@ -762,7 +634,7 @@ public class Events{
     @SubscribeEvent
     public void onPlayerFall(LivingFallEvent event) {
         if (event.getEntity() instanceof Player player) {
-            MobEffectInstance effect = player.getEffect(EffectsRegistry.HAMMER_SMASH.get());
+            MobEffectInstance effect = player.getEffect(EffectsRegistry.HAMMER_SMASH);
             if (effect != null) {
                 int level = effect.getAmplifier();
                 float baseReduction = 0.40f;

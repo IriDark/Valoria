@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:void_pickaxe"
+  },
+  "core": "void_core",
+  "cores": 1,
+  "time": 1200,
+  "ingredients": [
+    {
+      "item": "minecraft:diamond_pickaxe"
+    },
+    {
+      "item": "valoria:void_upgrade_smithing_template"
+    }
+  ]
+}

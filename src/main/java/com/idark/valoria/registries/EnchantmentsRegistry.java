@@ -2,34 +2,57 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.enchantments.*;
-import com.idark.valoria.registries.item.types.ranged.*;
-import com.idark.valoria.registries.item.types.ranged.bows.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
-
-import java.util.function.*;
+import net.minecraft.world.item.enchantment.effects.*;
+import net.minecraft.world.level.*;
+import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.registries.*;
 
 public class EnchantmentsRegistry{
-    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Valoria.ID);
-    public static final EnchantmentCategory BLAZE = EnchantmentCategory.create("blaze", item -> item instanceof BlazeReapItem);
-    public static final EnchantmentCategory ACCURACY_CATEGORY = EnchantmentCategory.create("accuracy_category", item -> item instanceof PhantasmBow);
-    public static final EnchantmentCategory HAMMER_CATEGORY = EnchantmentCategory.create("hammer_category", item -> item instanceof com.idark.valoria.registries.item.types.HammerItem);
+    public static final ResourceKey<Enchantment> EXPLOSIVE_FLAME = key("explosive_flame");
+    public static final ResourceKey<Enchantment> BLEEDING = key("bleeding");
+    public static final ResourceKey<Enchantment> ACCURACY = key("accuracy");
+    public static final ResourceKey<Enchantment> SHOCK_ABSORPTION = key("shock_absorption");
+    public static final ResourceKey<Enchantment> CONCUSSION = key("concussion");
+    public static final ResourceKey<Enchantment> REPULSION = key("repulsion");
+    public static final ResourceKey<Enchantment> COLLAPSE = key("collapse");
+    public static final ResourceKey<Enchantment> SUNDERING = key("sundering");
 
-    public static final RegistryObject<Enchantment> EXPLOSIVE_FLAME = registerEnchantment("explosive_flame", ExplosiveFlameEnchantment::new);
-    public static final RegistryObject<Enchantment> BLEEDING = registerEnchantment("bleeding", BleedingEnchantment::new);
-    public static final RegistryObject<Enchantment> ACCURACY = registerEnchantment("accuracy", AccuracyEnchantment::new);
-    public static final RegistryObject<Enchantment> SHOCK_ABSORPTION = registerEnchantment("shock_absorption", ShockAbsorptionEnchantment::new);
-    public static final RegistryObject<Enchantment> CONCUSSION = registerEnchantment("concussion", ConcussionEnchantment::new);
-    public static final RegistryObject<Enchantment> REPULSION = registerEnchantment("repulsion", RepulsionEnchantment::new);
-    public static final RegistryObject<Enchantment> COLLAPSE = registerEnchantment("collapse", CollapseEnchantment::new);
-    public static final RegistryObject<Enchantment> SUNDERING = registerEnchantment("sundering", SunderingEnchantment::new);
+    public static final TagKey<Item> BLAZE = TagKey.create(Registries.ITEM, Valoria.loc("enchantable/blaze"));
+    public static final TagKey<Item> ACCURACY_CATEGORY = TagKey.create(Registries.ITEM, Valoria.loc("enchantable/accuracy"));
+    public static final TagKey<Item> HAMMER_CATEGORY = TagKey.create(Registries.ITEM, Valoria.loc("hammer_category"));
 
-    private static RegistryObject<Enchantment> registerEnchantment(String id, Supplier<Enchantment> enchantment){
-        return ENCHANTMENTS.register(id, enchantment);
+    public static final DeferredRegister<MapCodec<? extends EnchantmentEntityEffect>> ENTITY_EFFECTS = DeferredRegister.create(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Valoria.ID);
+    public static final DeferredHolder<MapCodec<? extends EnchantmentEntityEffect>, MapCodec<BleedingEnchantmentEffect>> BLEEDING_EFFECT = ENTITY_EFFECTS.register("bleeding", () -> BleedingEnchantmentEffect.CODEC);
+
+    private static ResourceKey<Enchantment> key(String id){
+        return ResourceKey.create(Registries.ENCHANTMENT, Valoria.loc(id));
+    }
+
+    /** Level of the given enchantment on the stack (0 when absent), resolved by key without needing registry access. */
+    public static int getLevel(ItemStack stack, ResourceKey<Enchantment> key){
+        return pro.komaru.tridot.common.registry.EnchantmentsRegistry.getLevel(stack, key);
+    }
+
+    public static int getLevel(Level level, ItemStack stack, ResourceKey<Enchantment> key){
+        return pro.komaru.tridot.common.registry.EnchantmentsRegistry.getLevel(level, stack, key);
+    }
+
+    public static Holder<Enchantment> holder(Level level, ResourceKey<Enchantment> key){
+        return pro.komaru.tridot.common.registry.EnchantmentsRegistry.holder(level.registryAccess(), key);
+    }
+
+    public static Holder<Enchantment> holder(HolderLookup.Provider registries, ResourceKey<Enchantment> key){
+        return pro.komaru.tridot.common.registry.EnchantmentsRegistry.holder(registries, key);
     }
 
     public static void register(IEventBus eventBus){
-        ENCHANTMENTS.register(eventBus);
+        ENTITY_EFFECTS.register(eventBus);
     }
 }

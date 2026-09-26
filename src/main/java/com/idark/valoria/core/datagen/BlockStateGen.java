@@ -4,13 +4,13 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.common.data.*;
 
 public class BlockStateGen extends CoreStateGen {
 
@@ -543,7 +543,7 @@ public class BlockStateGen extends CoreStateGen {
     }
 
     public String name(Block block) {
-        return ForgeRegistries.BLOCKS.getKey(block).getPath();
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
     }
 
     private void pottedPlantBlock(Block block, String plantTextureName) {

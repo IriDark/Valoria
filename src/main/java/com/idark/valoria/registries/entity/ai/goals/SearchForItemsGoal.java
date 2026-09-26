@@ -1,14 +1,12 @@
 package com.idark.valoria.registries.entity.ai.goals;
 
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.item.*;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 
 public class SearchForItemsGoal extends Goal{
 

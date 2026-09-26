@@ -13,8 +13,7 @@ import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.interfaces.*;
 
 import java.util.*;
@@ -47,10 +46,10 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulI
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.soul_collector").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("\uE253").withStyle(style -> style.withFont(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("").withStyle(style -> style.withFont(Valoria.FONT)));
     }
 
     public boolean isBarVisible(ItemStack pStack){
@@ -80,25 +79,16 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulI
 
     public void consumeSouls(int count, ItemStack pStack){
         int souls = Math.max(this.getCurrentSouls(pStack) - count, 0);
-        pStack.getOrCreateTag().putInt("Souls", souls);
-        if(souls == 0) {
-            ItemStack itemstack = pStack.copy();
-            CompoundTag compoundtag = pStack.getTag();
-            if (compoundtag != null) {
-                compoundtag.remove("Souls");
-                compoundtag.putInt("Souls", souls);
-                itemstack.setTag(compoundtag.copy());
-            }
-        }
+        pStack.set(DataComponentsRegistry.SOULS, souls);
     }
 
     public void addCount(int count, ItemStack pStack, Player player){
-        if(pStack.getOrCreateTag().getInt("Souls") + count >= getMaxSouls() - 1){
+        if(getCurrentSouls(pStack) + count >= getMaxSouls() - 1){
             player.getInventory().removeItem(pStack);
             ValoriaUtils.addPlayerItem(player.level(), player, ItemsRegistry.soulCollector.get().getDefaultInstance());
             player.level().playSound(null, player.getOnPos(), getTransformSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }else{
-            pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
+            pStack.set(DataComponentsRegistry.SOULS, getCurrentSouls(pStack) + count);
             player.level().playSound(null, player.getOnPos(), getCollectSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }
     }
@@ -110,11 +100,18 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulI
     @OnlyIn(Dist.CLIENT)
     @Override
     public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void render(ItemStack stack, GuiGraphics gui, int offsetX, int offsetY){
         int xCord = ClientConfig.MISC_UI_X.get() + offsetX;
         int yCord = ClientConfig.MISC_UI_Y.get() + offsetY;
         int progress = 22;
+        int souls = getCurrentSouls(stack);
+        if(souls > 0) progress /= (double)getMaxSouls() / (double)souls;
+        else progress = 0;
 
-        progress /= (double)getMaxSouls() / (double)tag.getInt("Souls");
         gui.blit(BAR, xCord, yCord, 0, 0, 24, 48, 48, 48);
         gui.blit(BAR, xCord + 6, yCord + 39 - (int) (progress * 1.5), 36, 33 - (int) (progress * 1.5), 12, (int) (progress * 1.5), 48, 48);
     }

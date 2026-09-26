@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_dry/nether",
+  "features": "valoria:mod_nether_vegetation",
+  "step": "vegetal_decoration"
+}

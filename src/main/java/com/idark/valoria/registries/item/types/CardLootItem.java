@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.animation.*;
@@ -101,7 +101,7 @@ public class CardLootItem extends LootItem implements ICustomAnimationItem{
         return stack;
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 20;
     }
 
@@ -111,7 +111,7 @@ public class CardLootItem extends LootItem implements ICustomAnimationItem{
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> list, TooltipFlag flags){
         super.appendHoverText(stack, world, list, flags);
         list.add(1, Component.translatable("tooltip.valoria.treasure").withStyle(ChatFormatting.GRAY));
         list.add(2, Component.empty());

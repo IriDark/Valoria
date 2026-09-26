@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "XOX",
+    " X "
+  ],
+  "key": {
+    "O": {
+      "item": "valoria:infernal_stone"
+    },
+    "X": {
+      "item": "minecraft:arrow"
+    }
+  },
+  "result": {
+    "id": "valoria:infernal_arrow",
+    "count": 4
+  }
+}

@@ -23,7 +23,7 @@ public class TallSandFlowerBlock extends DoublePlantBlock implements Bonemealabl
         return false;
     }
 
-    public boolean isValidBonemealTarget(LevelReader p_256234_, BlockPos p_57304_, BlockState p_57305_, boolean p_57306_) {
+    public boolean isValidBonemealTarget(LevelReader p_256234_, BlockPos p_57304_, BlockState p_57305_) {
         return true;
     }
 

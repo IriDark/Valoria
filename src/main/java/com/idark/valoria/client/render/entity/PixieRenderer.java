@@ -6,7 +6,7 @@ import com.idark.valoria.registries.entity.living.minions.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)

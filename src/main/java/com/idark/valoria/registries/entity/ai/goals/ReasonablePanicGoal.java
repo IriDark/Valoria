@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.entity.ai.goals;
 
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
 
 public class ReasonablePanicGoal extends PanicGoal{
     private final boolean reason;

@@ -1203,7 +1203,7 @@
   "tooltip.valoria.infernal_sword": "爆發技能，施展煉獄環狀斬擊，對周圍所有目標造成火焰傷害",
   "tooltip.valoria.inflicts_fire": "🔥 命中時造成火焰傷害",
   "tooltip.valoria.info": "按 %s 查看資訊",
-  "tooltip.valoria.jewelry_bonus": "選擇能力 [%s]",
+  "tooltip.valoria.jewelry_bonus": "套用加成 [%s]",
   "tooltip.valoria.katana": "快速衝刺刺穿敵人",
   "tooltip.valoria.katana_charge": "充能時間 %s ticks",
   "tooltip.valoria.magma_charges": "充能: %s",

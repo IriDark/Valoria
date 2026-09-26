@@ -1,11 +1,12 @@
 package com.idark.valoria.registries.entity.living.elemental;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.core.*;
-import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -125,9 +126,12 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         return super.hurt(pSource, pAmount);
     }
 
+    private int amplifyCount;
+
     private void amplifyStats(){
-        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.ADDITION));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
+        int n = amplifyCount++;
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(Valoria.loc("devil_amplify_damage_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_VALUE));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(Valoria.loc("devil_amplify_speed_" + n), 0.025f, Operation.ADD_MULTIPLIED_TOTAL));
     }
 
     @Override
@@ -139,15 +143,15 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         this.setItemSlot(EquipmentSlot.MAINHAND, ItemsRegistry.infernalSpear.get().getDefaultInstance());
     }
 
-    protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
+    protected void dropCustomDeathLoot(ServerLevel pLevel, DamageSource pSource, boolean pRecentlyHit) {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         this.ranged = Tmp.rnd.chance(0.25f);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override

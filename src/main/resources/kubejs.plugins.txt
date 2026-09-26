@@ -1,0 +1,1 @@
+com.idark.valoria.core.compat.kubejs.ValoriaKJSPlugin

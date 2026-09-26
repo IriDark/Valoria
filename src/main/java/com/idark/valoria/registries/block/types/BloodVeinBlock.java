@@ -2,6 +2,7 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
@@ -17,6 +18,9 @@ import pro.komaru.tridot.util.*;
 import java.util.*;
 
 public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehaviour, SimpleWaterloggedBlock{
+    public static final MapCodec<BloodVeinBlock> CODEC = simpleCodec(BloodVeinBlock::new);
+    @Override protected MapCodec<? extends BloodVeinBlock> codec(){ return CODEC; }
+
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private final MultifaceSpreader veinSpreader = new MultifaceSpreader(new BloodVeinBlock.SpreaderConfig(MultifaceSpreader.DEFAULT_SPREAD_ORDER));
     private final MultifaceSpreader sameSpaceSpreader = new MultifaceSpreader(new BloodVeinBlock.SpreaderConfig(MultifaceSpreader.SpreadType.SAME_POSITION));

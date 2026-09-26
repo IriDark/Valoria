@@ -1,0 +1,36 @@
+{
+  "parent": "valoria:valoria/the_valoria",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:harmony_heart"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.harmony_heart.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "valoria:harmony_heart"
+    },
+    "title": {
+      "translate": "advancements.valoria.harmony_heart.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "rewards": {
+    "experience": 40
+  },
+  "sends_telemetry_event": true
+}

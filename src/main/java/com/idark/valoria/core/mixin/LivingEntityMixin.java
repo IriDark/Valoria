@@ -26,10 +26,10 @@ public class LivingEntityMixin implements ILivingEntityData{
     private DamageSource lastDamageSource;
 
     @Inject(method = "defineSynchedData", at = @At("HEAD"))
-    protected void defineSynchedData(CallbackInfo ci){
-        valoria$getEntityData().define(LAST_DAMAGE, 0f);
-        valoria$getEntityData().define(MISS_TIME, 0);
-        valoria$getEntityData().define(DODGE_TIME, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci){
+        builder.define(LAST_DAMAGE, 0f);
+        builder.define(MISS_TIME, 0);
+        builder.define(DODGE_TIME, 0);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))

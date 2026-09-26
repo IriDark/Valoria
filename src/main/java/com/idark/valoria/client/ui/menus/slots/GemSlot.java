@@ -1,10 +1,9 @@
 package com.idark.valoria.client.ui.menus.slots;
 
-import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.item.skins.SkinTrimItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.skins.*;
+import net.minecraft.world.item.*;
+import net.neoforged.neoforge.items.*;
 
 public class GemSlot extends SlotItemHandler{
 

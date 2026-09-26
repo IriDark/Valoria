@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:diamond"
+  },
+  "base": {
+    "item": "valoria:golden_rapier"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:diamond_rapier"
+  },
+  "template": {
+    "item": "minecraft:diamond"
+  }
+}

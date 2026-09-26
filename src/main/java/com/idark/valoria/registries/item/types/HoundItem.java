@@ -26,10 +26,10 @@ import java.util.*;
 public class HoundItem extends SwordItem implements TooltipComponentItem{
 
     public HoundItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
+        super(tier, builderIn.attributes(SwordItem.createAttributes(tier, attackDamageIn, attackSpeedIn)));
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 25;
     }
 

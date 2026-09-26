@@ -97,11 +97,11 @@ public class BloodSight extends ValoriaCurioItem implements ParticleItemEntity{
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
-        return stack.getItem() == ItemsRegistry.monocle.get() ? new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_CHAIN, 1.0f, 1.0f) : new ICurio.SoundInfo(SoundsRegistry.EQUIP_CURSE.get(), 1.0f, 1.0f);
+        return stack.getItem() == ItemsRegistry.monocle.get() ? new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_CHAIN.value(), 1.0f, 1.0f) : new ICurio.SoundInfo(SoundsRegistry.EQUIP_CURSE.get(), 1.0f, 1.0f);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.bloodsight").withStyle(ChatFormatting.GRAY));
         if(stack.getItem() == ItemsRegistry.brokenMonocle.get()){

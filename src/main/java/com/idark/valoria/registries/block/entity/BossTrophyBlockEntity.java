@@ -4,6 +4,7 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.protocol.game.*;
@@ -11,7 +12,6 @@ import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.registries.*;
 
 import java.util.function.*;
 
@@ -28,8 +28,8 @@ public class BossTrophyBlockEntity extends BlockEntity{
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag){
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        super.saveAdditional(pTag, registries);
         EntityType<?> type = null;
         var sup = ((BossTrophyBlock)this.getBlockState().getBlock()).getEntity();
 
@@ -40,19 +40,19 @@ public class BossTrophyBlockEntity extends BlockEntity{
                 pTag.put("nbt", nbt.copy());
             }else{
                 CompoundTag tag = new CompoundTag();
-                tag.putString("id", ForgeRegistries.ENTITY_TYPES.getKey(type).toString());
+                tag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
                 pTag.put("nbt", tag);
             }
 
-            pTag.putString("pEntityID", ForgeRegistries.ENTITY_TYPES.getKey(type).toString());
+            pTag.putString("pEntityID", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
         }
     }
 
     @Override
-    public void load(CompoundTag pTag){
-        super.load(pTag);
-        ResourceLocation entityLocation = new ResourceLocation(pTag.getString("pEntityID"));
-        entity = ForgeRegistries.ENTITY_TYPES.getValue(entityLocation);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries){
+        super.loadAdditional(pTag, registries);
+        ResourceLocation entityLocation = ResourceLocation.parse(pTag.getString("pEntityID"));
+        entity = BuiltInRegistries.ENTITY_TYPE.get(entityLocation);
         nbt = pTag.getCompound("nbt");
         if (entity != null && level != null) {
             instance = EntityType.loadEntityRecursive(nbt, level, Function.identity()); // creates static entity
@@ -65,9 +65,9 @@ public class BossTrophyBlockEntity extends BlockEntity{
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
-        super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries){
+        super.onDataPacket(net, pkt, registries);
+        handleUpdateTag(pkt.getTag(), registries);
     }
 
     public void setEntity(Entity entity) {
@@ -77,9 +77,9 @@ public class BossTrophyBlockEntity extends BlockEntity{
     }
 
     @Override
-    public final CompoundTag getUpdateTag(){
-        CompoundTag compoundtag = this.saveWithoutMetadata();
-        saveAdditional(compoundtag);
+    public final CompoundTag getUpdateTag(HolderLookup.Provider registries){
+        CompoundTag compoundtag = this.saveWithoutMetadata(registries);
+        saveAdditional(compoundtag, registries);
         return compoundtag;
     }
 

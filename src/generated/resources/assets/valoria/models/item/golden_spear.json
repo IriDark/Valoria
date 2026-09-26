@@ -6,7 +6,7 @@
       "layer0": "valoria:item/golden_spear_in_hand"
     }
   },
-  "loader": "forge:separate_transforms",
+  "loader": "neoforge:separate_transforms",
   "perspectives": {
     "fixed": {
       "parent": "valoria:item/spear",

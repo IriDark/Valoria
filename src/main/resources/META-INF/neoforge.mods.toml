@@ -1,0 +1,58 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "Code: GPL-3.0 License | Assets: Attribution-NonCommercial 4.0 International"
+issueTrackerURL = "https://github.com/IriDark/Valoria/issues"
+[[mods]]
+modId = "valoria"
+version = "${mod_version}"
+displayName = "Valoria"
+updateJSONURL = "https://raw.githubusercontent.com/BelialRunnerX/Valoria-NeoForge/refs/heads/main/update.json"
+displayURL = "https://github.com/BelialRunnerX/Valoria-NeoForge"
+logoFile="valoria_icon.png"
+credits = "Calamity Mod (Sounds)"
+authors = "IriDark, Sunday, Kerdo, DuUaader"
+enumExtensions = "META-INF/enumextensions.json"
+description = '''
+Valoria — A large RPG themed project that adds some mobs, blocks, weapons, and a lot of content in "vanilla" texture style
+'''
+
+[[mixins]]
+config = "valoria.mixins.json"
+
+[[accessTransformers]]
+file = "META-INF/accesstransformer.cfg"
+
+[[dependencies.valoria]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.valoria]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.valoria]]
+modId = "curios"
+type = "required"
+versionRange = "[9,)"
+ordering = "AFTER"
+side = "BOTH"
+[[dependencies.valoria]]
+modId = "geckolib"
+type = "required"
+versionRange = "[4.7,)"
+ordering = "AFTER"
+side = "BOTH"
+[[dependencies.valoria]]
+modId = "tridot"
+type = "required"
+versionRange = "${tridot_version_range}"
+ordering = "AFTER"
+side = "BOTH"
+[modproperties.valoria]
+    catalogueImageIcon="valoria_icon.png"
+    catalogueBackground="valoria_background.png"
+    configuredBackground="valoria:textures/block/cut_crystal_stone.png"

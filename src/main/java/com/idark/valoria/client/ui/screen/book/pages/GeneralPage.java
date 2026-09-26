@@ -13,7 +13,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.*;
@@ -125,8 +125,8 @@ public class GeneralPage extends Page {
 
                 if(floating) {
                     gui.pose().pushPose();
-                    float ticks = (ClientTick.ticksInGame + mc.getPartialTick()) * 2;
-                    float ticksUp = (ClientTick.ticksInGame + mc.getPartialTick()) * 6;
+                    float ticks = (ClientTick.ticksInGame + mc.getTimer().getGameTimeDeltaPartialTick(true)) * 2;
+                    float ticksUp = (ClientTick.ticksInGame + mc.getTimer().getGameTimeDeltaPartialTick(true)) * 6;
                     ticksUp = (ticksUp) % 360;
                     float scale = size / 16.0F;
 
@@ -146,7 +146,6 @@ public class GeneralPage extends Page {
         return this;
     }
 
-
     public GeneralPage addRecipe(ResourceLocation loc) {
         elements.add(new PageElement() {
             private Ingredient[] inputs;
@@ -159,10 +158,9 @@ public class GeneralPage extends Page {
                 Minecraft mc = Minecraft.getInstance();
                 if (mc.level != null) {
                     RecipeManager manager = mc.level.getRecipeManager();
+                    Optional<? extends RecipeHolder<?>> optional = manager.byKey(loc);
 
-                    Optional<? extends net.minecraft.world.item.crafting.Recipe<?>> optional = manager.byKey(loc);
-
-                    if (optional.isPresent() && optional.get() instanceof CraftingRecipe recipe) {
+                    if (optional.isPresent() && optional.get().value() instanceof CraftingRecipe recipe) {
                         NonNullList<Ingredient> ingredients = recipe.getIngredients();
                         this.inputs = new Ingredient[9];
                         Arrays.fill(this.inputs, Ingredient.EMPTY);
@@ -251,6 +249,7 @@ public class GeneralPage extends Page {
                     RecipeManager manager = mc.level.getRecipeManager();
 
                     Optional<CraftingRecipe> optional = manager.getAllRecipesFor(RecipeType.CRAFTING).stream()
+                    .map(RecipeHolder::value)
                     .filter(r -> ItemStack.isSameItem(r.getResultItem(mc.level.registryAccess()), result))
                     .findFirst();
 
@@ -356,7 +355,7 @@ public class GeneralPage extends Page {
 
                     gui.pose().pushPose();
                     if (isDark) gui.setColor(0, 0, 0, 1);
-                    InventoryScreen.renderEntityInInventory(gui, x + wrapWidth / 2, y + (scale * 2), scale, ENTITY_ANGLE, null, entity);
+                    InventoryScreen.renderEntityInInventory(gui, x + wrapWidth / 2, y + (scale * 2), scale, new Vector3f(), ENTITY_ANGLE, null, entity);
                     if (isDark) gui.setColor(1, 1, 1, 1);
                     return (int)entity.getBoundingBox().getYsize() + 15;
                 }

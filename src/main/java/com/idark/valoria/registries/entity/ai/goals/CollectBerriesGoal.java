@@ -1,19 +1,14 @@
 package com.idark.valoria.registries.entity.ai.goals;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CaveVines;
-import net.minecraft.world.level.block.SweetBerryBushBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.core.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import org.jetbrains.annotations.*;
 
 public class CollectBerriesGoal extends MoveToBlockGoal{
     protected int ticksWaited;
@@ -48,7 +43,7 @@ public class CollectBerriesGoal extends MoveToBlockGoal{
     }
 
     protected void onReachedTarget(){
-        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(mob.level(), mob)){
+        if(net.neoforged.neoforge.event.EventHooks.canEntityGrief(mob.level(), mob)){
             BlockState blockstate = mob.level().getBlockState(this.blockPos);
             if(blockstate.is(Blocks.SWEET_BERRY_BUSH)){
                 this.pickSweetBerries(blockstate);

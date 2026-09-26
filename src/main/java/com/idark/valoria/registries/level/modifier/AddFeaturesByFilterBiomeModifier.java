@@ -1,17 +1,14 @@
 package com.idark.valoria.registries.level.modifier;
 
-import com.idark.valoria.registries.level.LevelGen;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.ModifiableBiomeInfo;
+import com.idark.valoria.registries.level.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.placement.*;
+import net.neoforged.neoforge.common.world.*;
 
-import java.util.Optional;
+import java.util.*;
 
 public record AddFeaturesByFilterBiomeModifier(HolderSet<Biome> allowedBiomes, Optional<HolderSet<Biome>> deniedBiomes,
                                                Optional<Float> minimumTemperature, Optional<Float> maximumTemperature,
@@ -25,11 +22,11 @@ public record AddFeaturesByFilterBiomeModifier(HolderSet<Biome> allowedBiomes, O
                 return;
             }
 
-            if(minimumTemperature.isPresent() && biome.get().getBaseTemperature() < minimumTemperature.get()){
+            if(minimumTemperature.isPresent() && biome.value().getBaseTemperature() < minimumTemperature.get()){
                 return;
             }
 
-            if(maximumTemperature.isPresent() && biome.get().getBaseTemperature() > maximumTemperature.get()){
+            if(maximumTemperature.isPresent() && biome.value().getBaseTemperature() > maximumTemperature.get()){
                 return;
             }
             BiomeGenerationSettingsBuilder generationSettings = builder.getGenerationSettings();
@@ -38,7 +35,7 @@ public record AddFeaturesByFilterBiomeModifier(HolderSet<Biome> allowedBiomes, O
     }
 
     @Override
-    public Codec<? extends BiomeModifier> codec(){
+    public MapCodec<? extends BiomeModifier> codec(){
         return LevelGen.ADD_FEATURES_BY_FILTER.get();
     }
 }

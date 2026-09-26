@@ -9,8 +9,9 @@ public class ExhaustionEffect extends MobEffect{
         super(MobEffectCategory.HARMFUL, Col.hexToDecimal("c6223b"));
     }
 
+    // PORT NOTE: isDurationEffectTick -> shouldApplyEffectTickThisTick.
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier){
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier){
         return true;
     }
 }

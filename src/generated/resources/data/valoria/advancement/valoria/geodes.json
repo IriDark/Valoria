@@ -1,0 +1,37 @@
+{
+  "parent": "valoria:valoria/the_valoria",
+  "criteria": {
+    "geodes": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#valoria:geodes"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.geodes.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "valoria:stone_geode"
+    },
+    "title": {
+      "translate": "advancements.valoria.geodes.title"
+    }
+  },
+  "requirements": [
+    [
+      "geodes"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

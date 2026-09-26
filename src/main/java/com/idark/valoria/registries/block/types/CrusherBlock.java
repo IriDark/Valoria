@@ -62,7 +62,17 @@ public class CrusherBlock extends Block implements EntityBlock{
         }
     }
 
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
         CrusherBlockEntity tile = (CrusherBlockEntity)world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
         ItemStack tileStack = tile.getItemHandler().getItem(0);
@@ -87,7 +97,7 @@ public class CrusherBlock extends Block implements EntityBlock{
     private void crushItem(Level world, Player player, InteractionHand handIn, CrusherBlockEntity tile){
         if(player instanceof ServerPlayer serverPlayer){
             tile.craftItem(serverPlayer);
-            player.getItemInHand(handIn).hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            player.getItemInHand(handIn).hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
         }
     }
 

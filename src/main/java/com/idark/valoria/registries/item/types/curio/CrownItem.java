@@ -7,16 +7,16 @@ import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.player.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
@@ -26,7 +26,7 @@ import java.util.*;
 
 import static pro.komaru.tridot.common.registry.item.armor.SuitArmorItem.getArmorSetItem;
 
-public class CrownItem extends Item implements ICurioItem, Vanishable{
+public class CrownItem extends Item implements ICurioItem{
     public CrownItem(Properties properties){
         super(properties);
     }
@@ -37,13 +37,13 @@ public class CrownItem extends Item implements ICurioItem, Vanishable{
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 0.10, Operation.MULTIPLY_TOTAL));
-        atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation uuid, ItemStack stack){
+        Multimap<Holder<Attribute>, AttributeModifier> atts = LinkedHashMultimap.create();
+        atts.put(Attributes.LUCK, new AttributeModifier(uuid, 0.10, Operation.ADD_MULTIPLIED_TOTAL));
+        atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, 0.05, Operation.ADD_MULTIPLIED_TOTAL));
         if(slotContext.entity() instanceof Player player){
-            if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.FALLEN_COLLECTOR, player)){
-                atts.put(AttributeReg.SUMMON_DAMAGE.get(), new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
+            if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.FALLEN_COLLECTOR.material(), player)){
+                atts.put(AttributeReg.SUMMON_DAMAGE, new AttributeModifier(uuid, 0.05, Operation.ADD_MULTIPLIED_TOTAL));
             }
         }
 
@@ -51,7 +51,7 @@ public class CrownItem extends Item implements ICurioItem, Vanishable{
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> list, TooltipFlag pIsAdvanced){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext pLevel, List<Component> list, TooltipFlag pIsAdvanced){
         super.appendHoverText(stack, pLevel, list, pIsAdvanced);
         list.add(Component.translatable("tooltip.valoria.fallen_collector_crown").withStyle(ChatFormatting.GRAY));
         LocalPlayer player = Minecraft.getInstance().player;
@@ -85,6 +85,6 @@ public class CrownItem extends Item implements ICurioItem, Vanishable{
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
-        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD.value(), 1.0f, 1.0f);
     }
 }

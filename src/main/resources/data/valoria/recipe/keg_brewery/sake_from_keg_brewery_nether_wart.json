@@ -1,0 +1,16 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 1200,
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "valoria:bottle"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:sake_bottle"
+  }
+}

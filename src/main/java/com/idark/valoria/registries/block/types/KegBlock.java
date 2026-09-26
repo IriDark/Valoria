@@ -2,11 +2,13 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.block.entity.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -16,7 +18,6 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
@@ -24,6 +25,9 @@ import javax.annotation.*;
 import javax.annotation.Nullable;
 
 public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock{
+    public static final MapCodec<KegBlock> CODEC = simpleCodec(KegBlock::new);
+    @Override protected MapCodec<? extends KegBlock> codec(){ return CODEC; }
+
     private static final BooleanProperty BREWING = BooleanProperty.create("brewing");
     private static final VoxelShape shape_west_east = Block.box(0, 0, 2, 16, 14, 14);
     private static final VoxelShape shape_north_south = Block.box(2, 0, 0, 14, 14, 16);
@@ -67,9 +71,18 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         if(!world.isClientSide) {
-            if(player instanceof ServerPlayer serv) NetworkHooks.openScreen(serv, getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
+            if(player instanceof ServerPlayer serv) serv.openMenu(getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
         }
         return InteractionResult.SUCCESS;
     }

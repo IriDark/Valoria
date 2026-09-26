@@ -9,6 +9,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.monster.*;
@@ -34,7 +35,7 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
 
     public WickedScorpion(EntityType<? extends WickedScorpion> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.setMaxUpStep(1.0F);
+        java.util.Objects.requireNonNull(this.getAttribute(Attributes.STEP_HEIGHT)).setBaseValue(1.0D); // PORT NOTE: setMaxUpStep -> STEP_HEIGHT attribute
         this.xpReward = Enemy.XP_REWARD_HUGE;
     }
 
@@ -154,9 +155,6 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-    public double getPassengersRidingOffset(){
-        return this.getBbHeight() * 0.75F;
-    }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock){
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
@@ -170,13 +168,7 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
         return pLevel.getDifficulty() != Difficulty.PEACEFUL;
     }
 
-    public MobType getMobType(){
-        return MobType.ARTHROPOD;
-    }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize){
-        return 0.65F;
-    }
 
     public class ScorpionSpitAttack extends AttackGoal{
 

@@ -1,13 +1,16 @@
 package com.idark.valoria.core.capability;
 
 import com.idark.valoria.api.unlockable.types.*;
-import net.minecraftforge.common.capabilities.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 
+import javax.annotation.*;
 import java.util.*;
 
 public interface IUnlockable{
-    Capability<IUnlockable> INSTANCE = CapabilityManager.get(new CapabilityToken<>(){
-    });
+    static Optional<IUnlockable> of(@Nullable Entity entity){
+        return entity instanceof Player player ? Optional.of(player.getData(ValoriaAttachments.UNLOCKABLES)) : Optional.empty();
+    }
 
     boolean isViewed(Unlockable unlockable);
 

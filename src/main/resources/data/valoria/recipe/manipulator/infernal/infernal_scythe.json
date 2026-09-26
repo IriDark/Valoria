@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_scythe"
+  },
+  "core": "infernal_core",
+  "cores": 1,
+  "time": 800,
+  "ingredients": [
+    {
+      "item": "valoria:diamond_scythe"
+    },
+    {
+      "item": "valoria:infernal_upgrade_smithing_template"
+    }
+  ]
+}

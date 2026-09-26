@@ -1,0 +1,13 @@
+{
+  "group": "equipment",
+  "type": "valoria:alchemy",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:lithic_rune" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:emerald" }, "count": 4 },
+    { "ingredient": { "item": "valoria:runic_dust" }, "count": 6 }
+  ],
+  "result": {
+    "item": "valoria:lithic_rune_of_accuracy",
+    "count": 1
+  }
+}

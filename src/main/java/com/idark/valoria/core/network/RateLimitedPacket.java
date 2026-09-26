@@ -2,20 +2,19 @@ package com.idark.valoria.core.network;
 
 import com.google.common.cache.*;
 import com.idark.valoria.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.server.level.*;
-import net.minecraftforge.network.NetworkEvent.*;
+import net.neoforged.neoforge.network.handling.*;
 
 import java.util.concurrent.*;
-import java.util.function.*;
 
-public abstract class RateLimitedPacket{
+public abstract class RateLimitedPacket implements CustomPacketPayload{
     private static final Cache<String, Long> RATE_LIMITER = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).build();
     private static final long RATE_LIMIT_TICKS = 3L;
 
-    public static <MSG extends RateLimitedPacket> void processPacket(MSG packet, Supplier<Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            ServerPlayer player = ctx.get().getSender();
-            if(player == null) return;
+    public static <MSG extends RateLimitedPacket> void processPacket(MSG packet, IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
+            if(!(ctx.player() instanceof ServerPlayer player)) return;
 
             long now = player.level().getGameTime();
             String key = player.getStringUUID() + ":" + packet.getClass().getSimpleName();
@@ -30,8 +29,6 @@ public abstract class RateLimitedPacket{
             RATE_LIMITER.put(key, now);
             packet.execute(player);
         });
-
-        ctx.get().setPacketHandled(true);
     }
 
     public abstract void execute(ServerPlayer player);

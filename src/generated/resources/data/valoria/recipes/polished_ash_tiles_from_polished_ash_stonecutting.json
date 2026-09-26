@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "valoria:polished_ash"
-  },
-  "result": "valoria:polished_ash_tiles"
-}

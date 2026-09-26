@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
 import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.world.*;
@@ -21,8 +21,8 @@ import pro.komaru.tridot.common.networking.packets.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 import pro.komaru.tridot.common.registry.book.*;
 
-import javax.annotation.Nullable;
 import javax.annotation.*;
+import javax.annotation.Nullable;
 
 public class PedestalBlock extends Block implements EntityBlock, SimpleWaterloggedBlock{
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 14, 16);
@@ -61,7 +61,16 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return com.idark.valoria.util.BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
         PedestalBlockEntity tile = (PedestalBlockEntity)world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
         ItemStack tileStack = tile.getItemHandler().getItem(0);

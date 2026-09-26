@@ -61,7 +61,7 @@ public class PatreonManager {
         String rewardLootTable = PATRONS.get(player.getUUID());
         if(rewardLootTable != null && !persistedNbt.getBoolean("ValoriaPatronRewardClaimed")){
             LootParams params = new LootParams.Builder(player.serverLevel()).create(LootContextParamSets.EMPTY);
-            List<ItemStack> generatedLoot = Utils.Items.createLoot(new ResourceLocation(rewardLootTable), params);
+            List<ItemStack> generatedLoot = Utils.Items.createLoot(ResourceLocation.parse(rewardLootTable), params);
             if(!generatedLoot.isEmpty()){
                 Utils.Items.giveLoot(player, generatedLoot);
                 player.sendSystemMessage(Component.literal("Thank you for supporting Valoria! Here is your reward.").withStyle(ChatFormatting.GOLD));

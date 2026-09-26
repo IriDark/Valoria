@@ -1,11 +1,10 @@
 package com.idark.valoria.client.ui.menus.slots;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.world.item.*;
+import net.neoforged.neoforge.common.*;
+import net.neoforged.neoforge.items.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 public class IngotSlot extends SlotItemHandler{
 

@@ -5,7 +5,7 @@ import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinModel<MannequinEntity>>{

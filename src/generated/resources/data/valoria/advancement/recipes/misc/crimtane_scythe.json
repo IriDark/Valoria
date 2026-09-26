@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crimtane_scythe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:crimtane_scythe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "valoria:crimtane_scythe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_crimtane_scythe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "valoria:crimtane_scythe"
+    ]
+  }
+}

@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -10,7 +11,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.alchemy.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.Level.*;
 import net.minecraft.world.level.block.state.*;
@@ -52,7 +52,7 @@ public class AcornProjectile extends ThrowableProjectile{
         if(!this.effects.isEmpty()){
             ListTag listtag = new ListTag();
             for(MobEffectInstance mobeffectinstance : this.effects){
-                listtag.add(mobeffectinstance.save(new CompoundTag()));
+                listtag.add(mobeffectinstance.save());
             }
 
             pCompound.put("CustomPotionEffects", listtag);
@@ -61,8 +61,8 @@ public class AcornProjectile extends ThrowableProjectile{
         pCompound.putShort("Fuse", (short)this.maxSwell);
     }
 
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_SWELL_DIR, 1);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        builder.define(DATA_SWELL_DIR, 1);
     }
 
     /**
@@ -70,7 +70,7 @@ public class AcornProjectile extends ThrowableProjectile{
      */
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
-        for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(pCompound)){
+        for(MobEffectInstance mobeffectinstance : ValoriaUtils.loadCustomEffects(pCompound)){
             this.addEffect(mobeffectinstance);
         }
 

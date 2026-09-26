@@ -3,17 +3,9 @@ package com.idark.valoria.api.events;
 import com.idark.valoria.registries.entity.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.event.entity.EntityEvent;
-import net.minecraftforge.eventbus.api.*;
+import net.neoforged.bus.api.*;
 
-/**
- * Fired when an entity attempts to teleport through a Rift portal.
- * This event is {@link Cancelable}.
- * If canceled, the entity will not be teleported.
- * You can also change the target coordinates and target dimension.
- */
-@Cancelable
-public class RiftTeleportEvent extends EntityEvent {
+public class RiftTeleportEvent extends EntityEvent implements ICancellableEvent{
     private final RiftEntity rift;
     private final RiftEntity connection;
     private double targetX;
@@ -21,8 +13,8 @@ public class RiftTeleportEvent extends EntityEvent {
     private double targetZ;
     private Level targetLevel;
 
-    public RiftTeleportEvent(Entity teleportingEntity, RiftEntity rift, RiftEntity connection, double targetX, double targetY, double targetZ, Level targetLevel) {
-        super(teleportingEntity);
+    public RiftTeleportEvent(RiftEntity rift, RiftEntity connection, double targetX, double targetY, double targetZ, Level targetLevel) {
+        super();
         this.rift = rift;
         this.connection = connection;
         this.targetX = targetX;

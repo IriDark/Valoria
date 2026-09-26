@@ -1,5 +1,7 @@
 package com.idark.valoria.registries.block.types;
 
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
@@ -12,7 +14,16 @@ import net.minecraft.world.phys.shapes.*;
 import javax.annotation.*;
 
 public class TombBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
+    public static final MapCodec<TombBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        Codec.BOOL.fieldOf("grave").forGetter(b -> b.isGrave),
+        propertiesCodec()
+    ).apply(i, TombBlock::new));
     private final boolean isGrave;
+
+    @Override
+    protected MapCodec<? extends TombBlock> codec(){
+        return CODEC;
+    }
     public TombBlock(BlockBehaviour.Properties properties){
         super(properties);
         this.isGrave = false;

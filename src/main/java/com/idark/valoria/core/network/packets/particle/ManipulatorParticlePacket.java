@@ -3,15 +3,22 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.network.NetworkEvent.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 
-import java.util.function.*;
+public class ManipulatorParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<ManipulatorParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("manipulator_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ManipulatorParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), ManipulatorParticlePacket::decode);
 
-public class ManipulatorParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     public BlockPos pos;
     public int given;
     public ColorParticleData data;
@@ -37,9 +44,9 @@ public class ManipulatorParticlePacket{
         buf.writeFloat(data.b2);
     }
 
-    public static void handle(ManipulatorParticlePacket msg, Supplier<Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(ManipulatorParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 for(int a = 0; a < msg.given; a++){
                     double angle = (a / (double)msg.given) * (2 * Math.PI);
@@ -54,7 +61,6 @@ public class ManipulatorParticlePacket{
                     .spawn(pLevel, msg.pos.getX() + 0.5f + x, msg.pos.getY() + 1, msg.pos.getZ() + 0.5f + z);
                 }
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

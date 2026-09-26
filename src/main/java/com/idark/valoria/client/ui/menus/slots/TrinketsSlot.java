@@ -2,7 +2,7 @@ package com.idark.valoria.client.ui.menus.slots;
 
 import com.idark.valoria.registries.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.items.*;
+import net.neoforged.neoforge.items.*;
 
 public class TrinketsSlot extends SlotItemHandler{
 

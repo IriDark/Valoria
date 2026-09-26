@@ -5,7 +5,7 @@ import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
+import net.neoforged.neoforge.registries.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 import javax.annotation.*;
@@ -115,11 +115,11 @@ public class ChapterNode {
         return addChild(new ChapterNode(chapter,item,unlockable));
     }
 
-    public ChapterNode addChild(Chapter chapter, RegistryObject<Item> item) {
+    public ChapterNode addChild(Chapter chapter, DeferredHolder<Item, Item> item) {
         return addChild(new ChapterNode(chapter,item.get()));
     }
 
-    public ChapterNode addChild(Chapter chapter, RegistryObject<Item> item, Unlockable unlockable) {
+    public ChapterNode addChild(Chapter chapter, DeferredHolder<Item, Item> item, Unlockable unlockable) {
         return addChild(new ChapterNode(chapter,item.get(),unlockable));
     }
 }

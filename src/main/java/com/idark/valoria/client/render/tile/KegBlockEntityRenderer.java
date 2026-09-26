@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.*;
+import com.idark.valoria.client.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.block.types.*;
 import com.mojang.blaze3d.vertex.*;
@@ -14,7 +14,7 @@ import pro.komaru.tridot.client.*;
 
 public class KegBlockEntityRenderer implements BlockEntityRenderer<KegBlockEntity>{
 
-    public static final ModelResourceLocation KEG_BARREL = new ModelResourceLocation(Valoria.loc("keg_barrel"), "");
+    public static final ModelResourceLocation KEG_BARREL = ValoriaLayers.KEG_MODEL;
 
     public KegBlockEntityRenderer(){
     }
@@ -28,7 +28,7 @@ public class KegBlockEntityRenderer implements BlockEntityRenderer<KegBlockEntit
     public void render(KegBlockEntity keg, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         if(keg.startCraft && KegBlock.isBrewing(keg.getBlockState())){
             ms.pushPose();
-            double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
+            double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true)) * 0.1);
             float scale = 1.15f + (float)(sinValue / 32);
 
             ms.translate(0.5f, 0.5f, 0.5f);

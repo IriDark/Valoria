@@ -2,6 +2,8 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.projectile.*;
@@ -18,6 +20,10 @@ import pro.komaru.tridot.util.*;
 import javax.annotation.*;
 
 public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
+    public static final MapCodec<PotBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        Codec.BOOL.fieldOf("long").forGetter(b -> b.potLong),
+        propertiesCodec()
+    ).apply(i, PotBlock::new));
     private final boolean potLong;
     private static final VoxelShape POT_LONG_SHAPE = makePotLongShape();
     private static final VoxelShape POT_SMALL_SHAPE = makePotSmallShape();
@@ -32,6 +38,11 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
         super(properties);
         potLong = false;
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends PotBlock> codec(){
+        return CODEC;
     }
 
     @Override

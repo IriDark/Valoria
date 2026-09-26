@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "valoria:smooth_ash"
+  },
+  "result": {
+    "count": 2,
+    "id": "valoria:smooth_ash_slab"
+  }
+}

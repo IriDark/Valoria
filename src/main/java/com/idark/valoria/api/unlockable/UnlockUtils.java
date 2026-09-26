@@ -16,25 +16,25 @@ public class UnlockUtils{
 
     public static boolean isViewed(Player player, Unlockable unlockable){
         AtomicBoolean viewed = new AtomicBoolean(false);
-        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> viewed.set(k.isViewed(unlockable)));
+        IUnlockable.of(player).ifPresent((k) -> viewed.set(k.isViewed(unlockable)));
         return viewed.get();
     }
 
     public static Set<Unlockable> getViewed(Player player) {
         AtomicReference<Set<Unlockable>> set = new AtomicReference<>();
-        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> set.set(k.getViewed()));
+        IUnlockable.of(player).ifPresent((k) -> set.set(k.getViewed()));
         return set.get();
     }
 
     public static void markViewed(Player player, Unlockable unlockable){
-        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+        IUnlockable.of(player).ifPresent((k) -> {
             if(k.isViewed(unlockable)) return;
             k.markViewed(unlockable);
         });
     }
 
     public static void removeViewed(ServerPlayer entity, Unlockable unlockable){
-        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+        IUnlockable.of(entity).ifPresent((k) -> {
             if(!k.isViewed(unlockable)) return;
             k.removeViewed(unlockable);
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
@@ -43,24 +43,24 @@ public class UnlockUtils{
 
     public static boolean isClaimed(Player player, Unlockable unlockable){
         AtomicBoolean claimed = new AtomicBoolean(false);
-        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> claimed.set(k.isClaimed(unlockable)));
+        IUnlockable.of(player).ifPresent((k) -> claimed.set(k.isClaimed(unlockable)));
         return claimed.get();
     }
 
     public static boolean isUnlocked(Player player, Unlockable unlockable){
         AtomicBoolean isKnow = new AtomicBoolean(false);
-        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> isKnow.set(k.isUnlocked(unlockable)));
+        IUnlockable.of(player).ifPresent((k) -> isKnow.set(k.isUnlocked(unlockable)));
         return isKnow.get();
     }
 
     public static Set<Unlockable> getUnlocked(Player player) {
         AtomicReference<Set<Unlockable>> set = new AtomicReference<>();
-        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> set.set(k.getUnlockables()));
+        IUnlockable.of(player).ifPresent((k) -> set.set(k.getUnlockables()));
         return set.get();
     }
 
     public static void claim(Player player, Unlockable unlockable){
-        player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+        IUnlockable.of(player).ifPresent((k) -> {
             if(k.isClaimed(unlockable)) return;
             k.claim(unlockable);
         });
@@ -87,7 +87,7 @@ public class UnlockUtils{
         var map = Unlockables.get().stream().findAny();
         if(map.isPresent()){
             Unlockable unlockable = map.get();
-            entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+            IUnlockable.of(entity).ifPresent((k) -> {
                 if(k.isUnlocked(unlockable)) return;
                 k.addUnlockable(unlockable);
                 PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
@@ -97,7 +97,7 @@ public class UnlockUtils{
     }
 
     public static void add(ServerPlayer entity, Unlockable unlockable){
-        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+        IUnlockable.of(entity).ifPresent((k) -> {
             if(k.isUnlocked(unlockable)) return;
             k.addUnlockable(unlockable);
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
@@ -106,7 +106,7 @@ public class UnlockUtils{
     }
 
     public static void remove(ServerPlayer entity, Unlockable unlockable){
-        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+        IUnlockable.of(entity).ifPresent((k) -> {
             if(!k.isUnlocked(unlockable)) return;
             k.removeUnlockable(unlockable);
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
@@ -115,7 +115,7 @@ public class UnlockUtils{
     }
 
     public static void addAll(ServerPlayer entity){
-        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+        IUnlockable.of(entity).ifPresent((k) -> {
             k.addAllUnlockable();
             k.viewAll();
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
@@ -123,7 +123,7 @@ public class UnlockUtils{
     }
 
     public static void removeAll(ServerPlayer entity){
-        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+        IUnlockable.of(entity).ifPresent((k) -> {
             k.removeAllUnlockable();
             k.clearClaimed();
             k.resetViewed();

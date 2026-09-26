@@ -5,9 +5,9 @@ import com.idark.valoria.client.render.tile.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.fml.event.lifecycle.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.fml.event.lifecycle.*;
+import net.neoforged.neoforge.client.event.*;
 import pro.komaru.tridot.client.render.*;
 
 import java.io.*;
@@ -17,7 +17,6 @@ import static pro.komaru.tridot.client.render.TridotRenderTypes.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ShaderRegistry{
-
     public static ShaderInstance VALORIA_PORTAL;
     public static ShaderInstance RIFT_SWIRL;
 
@@ -43,7 +42,7 @@ public class ShaderRegistry{
         .setWriteMaskState(TridotRenderTypes.COLOR_WRITE)
         .createCompositeState(false);
 
-        return RenderType.create(Valoria.ID + ":rift_swirl", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 256, false, false, state);
+        return RenderType.create(Valoria.ID + ":rift_swirl", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, state);
     }
 
     public static RenderType valoriaPortal(){
@@ -52,11 +51,9 @@ public class ShaderRegistry{
 
     public static void registerRenderTypes(FMLClientSetupEvent event){
         addTranslucentRenderType(ShaderRegistry.VALORIA_PORTAL_RENDER_TYPE);
-        addTranslucentRenderType(ShaderRegistry.RIFT_RENDER_TYPE);
     }
 
     public static void shaderRegistry(RegisterShadersEvent event) throws IOException{
         event.registerShader(new ShaderInstance(event.getResourceProvider(), Valoria.loc("valoria_portal"), DefaultVertexFormat.POSITION), shader -> ShaderRegistry.VALORIA_PORTAL = shader);
-        event.registerShader(new ShaderInstance(event.getResourceProvider(), Valoria.loc("rift_swirl"), DefaultVertexFormat.POSITION_COLOR_TEX), shader -> ShaderRegistry.RIFT_SWIRL = shader);
     }
 }

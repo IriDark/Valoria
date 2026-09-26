@@ -17,6 +17,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
@@ -51,9 +52,9 @@ public class Ent extends PathfinderMob implements NeutralMob, AttackSystemMob, I
         super(pEntityType, pLevel);
         this.xpReward = 15;
         this.getNavigation().setCanFloat(true);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
 
         this.selector.addAttack(new TridotMeleeAttack(this, 1, 4, 35, 40, 70));
         this.selector.addAttack(new EntMeleeSlapAttack(this, 1, 2, 0, 20, 35));
@@ -122,9 +123,9 @@ public class Ent extends PathfinderMob implements NeutralMob, AttackSystemMob, I
         this.persistentAngerTarget = pTarget;
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound){
@@ -178,7 +179,7 @@ public class Ent extends PathfinderMob implements NeutralMob, AttackSystemMob, I
             double d0 = d2;
             double d1 = Math.max(0.0D, 1.0D - d0);
             pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(0.0D, (double)0.2F * d1, 0.0D));
-            this.doEnchantDamageEffects(this, pEntity);
+            if(this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, pEntity, this.damageSources().mobAttack(this)); // PORT NOTE: doEnchantDamageEffects -> data-driven post-attack enchantment effects
         }
 
         return flag;

@@ -12,7 +12,9 @@ import net.minecraft.client.player.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.resources.*;
 import net.minecraft.resources.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
@@ -25,7 +27,7 @@ public class HandsRenderer implements ICurioRenderer{
 
     public boolean isDefault(LivingEntity entity){
         if(entity instanceof AbstractClientPlayer player){
-            return player.getModelName().equals("default");
+            return (player.getSkin().model() == PlayerSkin.Model.WIDE);
         }
 
         return false;
@@ -33,7 +35,7 @@ public class HandsRenderer implements ICurioRenderer{
 
     public float[] getColor(ItemStack stack){
         if(stack.getItem() instanceof DyeableGlovesItem){
-            int color = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
+            int color = ((DyeableItem)stack.getItem()).getColor(stack);
             float r = (float)(color >> 16 & 255) / 255.0F;
             float g = (float)(color >> 8 & 255) / 255.0F;
             float b = (float)(color & 255) / 255.0F;
@@ -68,6 +70,6 @@ public class HandsRenderer implements ICurioRenderer{
         }
 
         model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+        model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1, color[0], color[1], color[2]));
     }
 }

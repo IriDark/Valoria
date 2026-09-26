@@ -3,15 +3,22 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.util.function.*;
+public class CircleShapedParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<CircleShapedParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("circle_shaped_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CircleShapedParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), CircleShapedParticlePacket::decode);
 
-public class CircleShapedParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final double posX, posY, posZ;
     private final float yawRaw;
     private final int colorR, colorG, colorB;
@@ -31,9 +38,9 @@ public class CircleShapedParticlePacket{
         return new CircleShapedParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(CircleShapedParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(CircleShapedParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 float pRadius = 1;
                 double pitch = ((90) * Math.PI) / 180;
@@ -47,7 +54,6 @@ public class CircleShapedParticlePacket{
                     ParticleEffects.particles(level, pos, ColorParticleData.create(color, Col.black).build());
                 }
 
-                ctx.get().setPacketHandled(true);
             });
         }
     }

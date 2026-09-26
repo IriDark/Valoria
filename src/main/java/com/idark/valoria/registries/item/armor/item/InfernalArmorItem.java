@@ -5,9 +5,10 @@ import com.idark.valoria.client.model.armor.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
+import net.minecraft.core.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.neoforge.client.extensions.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
@@ -15,7 +16,7 @@ import pro.komaru.tridot.common.registry.item.skins.*;
 import java.util.function.*;
 
 public class InfernalArmorItem extends EffectArmorItem{
-	public InfernalArmorItem(Type type, ArmorMaterial material, Properties properties) {
+	public InfernalArmorItem(Type type, Holder<ArmorMaterial> material, Properties properties) {
 		super(material, type, properties);
 	}
 

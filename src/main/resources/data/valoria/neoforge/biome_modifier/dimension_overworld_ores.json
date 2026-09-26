@@ -1,0 +1,13 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "valoria:ephemarite_placed",
+    "valoria:amber_geode",
+    "valoria:ruby_geode",
+    "valoria:sapphire_geode",
+    "valoria:ancient_geode",
+    "valoria:ancient_stone"
+  ],
+  "step": "underground_ores"
+}

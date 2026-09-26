@@ -10,7 +10,7 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -59,7 +59,7 @@ public class InfernalArrow extends AbstractProjectile implements TexturedArrow{
     @Override
     public void onHitEntity(EntityHitResult pResult){
         super.onHitEntity(pResult);
-        pResult.getEntity().setSecondsOnFire(10);
+        pResult.getEntity().igniteForSeconds(10);
     }
 
     @Override

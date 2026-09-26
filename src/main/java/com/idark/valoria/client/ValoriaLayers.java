@@ -24,8 +24,8 @@ public class ValoriaLayers{
     public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(Valoria.loc("hands_slim"), "main");
     public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(Valoria.loc("belt"), "main");
     public static ModelLayerLocation BAG_LAYER = new ModelLayerLocation(Valoria.loc("jewelry_bag"), "main");
-    public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.ID, "keg_barrel", "");
-    public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
-    public static ModelResourceLocation CYST = new ModelResourceLocation(Valoria.ID, "cyst", "");
+    public static ModelResourceLocation KEG_MODEL = ModelResourceLocation.standalone(Valoria.loc("block/keg_barrel"));
+    public static ModelResourceLocation SPHERE = ModelResourceLocation.standalone(Valoria.loc("block/elemental_sphere"));
+    public static ModelResourceLocation CYST = ModelResourceLocation.standalone(Valoria.loc("block/cyst"));
     public static ModelLayerLocation THE_FALLEN_COLLECTOR_ARMOR_LAYER = addLayer(Valoria.ID, "the_fallen_collector_armor_layer");
 }

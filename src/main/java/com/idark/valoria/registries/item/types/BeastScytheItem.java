@@ -18,7 +18,6 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
@@ -37,7 +36,7 @@ public class BeastScytheItem extends ScytheItem{
     }
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
-        pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        pStack.hurtAndBreak(1, pAttacker, EquipmentSlot.MAINHAND);
         pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.PHANTOM_BITE, SoundSource.PLAYERS, 0.25f, 0.34f);
         return true;
     }
@@ -94,7 +93,7 @@ public class BeastScytheItem extends ScytheItem{
     }
 
     public void performAttack(Level level, ItemStack stack, Player player){
-        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + CombatCompat.sweepingRatio(player);
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
         List<LivingEntity> markEntities = new ArrayList<>();
@@ -105,18 +104,18 @@ public class BeastScytheItem extends ScytheItem{
         for(LivingEntity entity : hitEntities){
             if(!player.canAttack(entity)) continue;
 
-            entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+            entity.hurt(level.damageSources().playerAttack(player), (damage + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
             performEffects(entity, player);
             Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
             if(!player.isCreative()){
-                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                stack.hurtAndBreak(hitEntities.size(), player, EquipmentSlot.MAINHAND);
             }
 
             if(entity instanceof Player && ((Player)entity).isCreative()){
                 continue;
             }
 
-            entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+            entity.hurt(level.damageSources().playerAttack(player), (damage + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
             entity.setDeltaMovement((player.getX() - entity.getX()) * 0.06, 0.1D, (player.getZ() - entity.getZ()) * 0.06);
         }
 

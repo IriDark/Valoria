@@ -4,15 +4,18 @@ import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.handling.*;
 
 import java.util.*;
-import java.util.function.*;
 
-public class UnlockableUpdatePacket{
+public class UnlockableUpdatePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<UnlockableUpdatePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("unlockable_update"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, UnlockableUpdatePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> encode(msg, buf), UnlockableUpdatePacket::decode);
+
     UUID uuid;
     CompoundTag tag;
 
@@ -23,11 +26,17 @@ public class UnlockableUpdatePacket{
 
     public UnlockableUpdatePacket(Player entity){
         this.uuid = entity.getUUID();
-        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
-            if(k instanceof INBTSerializable){
-                this.tag = ((INBTSerializable<CompoundTag>)k).serializeNBT();
+        this.tag = new CompoundTag();
+        IUnlockable.of(entity).ifPresent((k) -> {
+            if(k instanceof UnlockableProvider provider){
+                this.tag = provider.serializeNBT(entity.registryAccess());
             }
         });
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
     }
 
     public static void encode(UnlockableUpdatePacket object, FriendlyByteBuf buffer){
@@ -39,19 +48,17 @@ public class UnlockableUpdatePacket{
         return new UnlockableUpdatePacket(buffer.readUUID(), buffer.readNbt());
     }
 
-    public static void handle(UnlockableUpdatePacket packet, Supplier<NetworkEvent.Context> ctx){
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void handle(UnlockableUpdatePacket packet, IPayloadContext ctx){
+        ctx.enqueueWork(() -> {
             Level world = Valoria.proxy.getLevel();
             Player player = world.getPlayerByUUID(packet.uuid);
-            if(player != null){
-                player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
-                    if(k instanceof INBTSerializable){
-                        ((INBTSerializable<CompoundTag>)k).deserializeNBT(packet.tag);
+            if(player != null && packet.tag != null){
+                IUnlockable.of(player).ifPresent((k) -> {
+                    if(k instanceof UnlockableProvider provider){
+                        provider.deserializeNBT(player.registryAccess(), packet.tag);
                     }
                 });
             }
         });
-        ctx.get().setPacketHandled(true);
     }
 }

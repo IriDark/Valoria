@@ -1,0 +1,16 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 1800,
+  "ingredients": [
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "valoria:bottle"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:liquor_bottle"
+  }
+}

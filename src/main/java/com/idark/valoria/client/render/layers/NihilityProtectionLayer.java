@@ -10,7 +10,8 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraft.util.*;
+import net.neoforged.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class NihilityProtectionLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>{
@@ -22,7 +23,7 @@ public class NihilityProtectionLayer extends RenderLayer<AbstractClientPlayer, P
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch){
-        if(!player.hasEffect(EffectsRegistry.NIHILITY_PROTECTION.get())) return;
+        if(!player.hasEffect(EffectsRegistry.NIHILITY_PROTECTION)) return;
 
         poseStack.pushPose();
         float scale = 1.05F;
@@ -36,7 +37,7 @@ public class NihilityProtectionLayer extends RenderLayer<AbstractClientPlayer, P
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.energySwirl(AURA_TEXTURE, this.xOffset(f) % 1.0F, f * 0.01F % 1.0F));
 
         float alpha = 0.45F;
-        model.renderToBuffer(poseStack, vertexConsumer, 15728880, OverlayTexture.NO_OVERLAY, alpha, alpha, alpha, alpha);
+        model.renderToBuffer(poseStack, vertexConsumer, 15728880, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(alpha, alpha, alpha, alpha));
         poseStack.popPose();
     }
 

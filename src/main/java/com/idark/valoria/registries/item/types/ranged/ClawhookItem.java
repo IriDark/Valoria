@@ -34,7 +34,7 @@ public class ClawhookItem extends Item{
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
     }
 
@@ -45,7 +45,7 @@ public class ClawhookItem extends Item{
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         pTooltipComponents.add(Component.translatable("tooltip.valoria.claw_hook").withStyle(ChatFormatting.GRAY));
     }
@@ -53,15 +53,15 @@ public class ClawhookItem extends Item{
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged){
         if(pLivingEntity instanceof Player playerEntity){
-            int i = this.getUseDuration(pStack) - pTimeCharged;
+            int i = this.getUseDuration(pStack, pLivingEntity) - pTimeCharged;
             if(i >= 6){
                 if(!pLevel.isClientSide){
                     ClawEntity claw = shootProjectile(pLevel, playerEntity);
                     playerEntity.getCooldowns().addCooldown(pStack.getItem(), 125);
                     pLevel.addFreshEntity(claw);
-                    pLevel.playSound(playerEntity, claw, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    pLevel.playSound(playerEntity, claw, SoundEvents.TRIDENT_THROW.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     if(!playerEntity.getAbilities().instabuild){
-                        pStack.hurtAndBreak((int)Mth.clamp(pLivingEntity.distanceTo(pLivingEntity) * 1, 1, 10), pLivingEntity, (e) -> e.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                        pStack.hurtAndBreak((int)Mth.clamp(pLivingEntity.distanceTo(pLivingEntity) * 1, 1, 10), pLivingEntity, EquipmentSlot.MAINHAND);
                     }
                 }
 

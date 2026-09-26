@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:ice_spikes",
+  "features": "valoria:suspicious_iceberg",
+  "step": "surface_structures"
+}

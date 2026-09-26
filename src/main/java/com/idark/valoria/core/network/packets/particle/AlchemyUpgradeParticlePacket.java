@@ -3,17 +3,24 @@ package com.idark.valoria.core.network.packets.particle;
 import com.idark.valoria.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
+import net.minecraft.network.protocol.common.custom.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.network.NetworkEvent.*;
+import net.neoforged.neoforge.network.handling.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.math.*;
 
-import java.util.function.*;
+public class AlchemyUpgradeParticlePacket implements CustomPacketPayload{
+    public static final CustomPacketPayload.Type<AlchemyUpgradeParticlePacket> TYPE = new CustomPacketPayload.Type<>(Valoria.loc("alchemy_upgrade_particle_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, AlchemyUpgradeParticlePacket> STREAM_CODEC = StreamCodec.of((buf, msg) -> msg.encode(buf), AlchemyUpgradeParticlePacket::decode);
 
-public class AlchemyUpgradeParticlePacket{
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type(){
+        return TYPE;
+    }
     private final double posX, posY, posZ;
     private final int tier;
     public AlchemyUpgradeParticlePacket(int tier, double posX, double posY, double posZ){
@@ -27,9 +34,9 @@ public class AlchemyUpgradeParticlePacket{
         return new AlchemyUpgradeParticlePacket(buf.readInt(), buf.readDouble(), buf.readDouble(), buf.readDouble());
     }
 
-    public static void handle(AlchemyUpgradeParticlePacket msg, Supplier<Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
-            ctx.get().enqueueWork(() -> {
+    public static void handle(AlchemyUpgradeParticlePacket msg, IPayloadContext ctx){
+        if(ctx.flow().isClientbound()){
+            ctx.enqueueWork(() -> {
                 ColorParticleData data;
                 if(msg.tier == 2) {
                     data = ColorParticleData.create(Pal.vividPink, Pal.darkRed).setEasing(Interp.bounceOut).build();
@@ -54,7 +61,6 @@ public class AlchemyUpgradeParticlePacket{
             });
         }
 
-        ctx.get().setPacketHandled(true);
     }
 
     public void encode(FriendlyByteBuf buf){

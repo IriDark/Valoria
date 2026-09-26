@@ -101,6 +101,27 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_JADE_TOOL = block(Valoria.loc("needs_jade_tool"));
     public static final TagKey<Block> NEEDS_VOID_TOOL = block(Valoria.loc("needs_void_tool"));
 
+    public static final TagKey<Block> INCORRECT_FOR_BRONZE_TOOL = block(Valoria.loc("incorrect_for_bronze_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_PEARLIUM_TOOL = block(Valoria.loc("incorrect_for_pearlium_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_HOLIDAY_TOOL = block(Valoria.loc("incorrect_for_holiday_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_HALLOWEEN_TOOL = block(Valoria.loc("incorrect_for_halloween_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_LUNAR_TOOL = block(Valoria.loc("incorrect_for_lunar_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_SAMURAI_TOOL = block(Valoria.loc("incorrect_for_samurai_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_COBALT_TOOL = block(Valoria.loc("incorrect_for_cobalt_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_GOLD_TOOL = block(Valoria.loc("incorrect_for_gold_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_ETHEREAL_TOOL = block(Valoria.loc("incorrect_for_ethereal_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_NONE_TOOL = block(Valoria.loc("incorrect_for_none_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_BLAZEREAP_TOOL = block(Valoria.loc("incorrect_for_blazereap_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_NATURE_TOOL = block(Valoria.loc("incorrect_for_nature_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_DEPTH_TOOL = block(Valoria.loc("incorrect_for_depth_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_INFERNAL_TOOL = block(Valoria.loc("incorrect_for_infernal_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_JADE_TOOL = block(Valoria.loc("incorrect_for_jade_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_SPIDER_TOOL = block(Valoria.loc("incorrect_for_spider_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_PYRATITE_TOOL = block(Valoria.loc("incorrect_for_pyratite_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_MEAT_TOOL = block(Valoria.loc("incorrect_for_meat_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_VOID_TOOL = block(Valoria.loc("incorrect_for_void_tool"));
+    public static final TagKey<Block> INCORRECT_FOR_PHANTOM_TOOL = block(Valoria.loc("incorrect_for_phantom_tool"));
+
     public static final TagKey<Item> DRAUGR_SPAWNABLE_WITH = item(Valoria.loc("draugr_spawnable_with"));
     public static final TagKey<Item> GOBLIN_SPAWNABLE_WITH = item(Valoria.loc("goblin_spawnable_with"));
     public static final TagKey<Item> FROM_SARCOPHAGUS_SPAWNABLE_WITH = item(Valoria.loc("from_sarcophagus_spawnable_with"));

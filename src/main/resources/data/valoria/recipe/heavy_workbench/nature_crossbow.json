@@ -1,0 +1,34 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "valoria:nature_ingot"
+      },
+      "count": 5
+    },
+    {
+      "ingredient": {
+        "item": "valoria:nature_gift"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:string"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:tripwire_hook"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "valoria:nature_crossbow",
+    "count": 1
+  }
+}

@@ -1,11 +1,9 @@
 package com.idark.valoria.client.ui.menus.slots;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SmithingTemplateItem;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.world.item.*;
+import net.neoforged.neoforge.items.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 public class SmithingTemplateSlot extends SlotItemHandler{
     public SmithingTemplateSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition){

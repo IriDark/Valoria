@@ -3,17 +3,15 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.*;
 import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.network.*;
-import org.jetbrains.annotations.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.util.*;
 
 public class CrystalSpikes extends Entity implements TraceableEntity{
@@ -123,7 +121,7 @@ public class CrystalSpikes extends Entity implements TraceableEntity{
     }
 
     @Override
-    protected void defineSynchedData(){
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
     }
 
     @Override
@@ -136,10 +134,6 @@ public class CrystalSpikes extends Entity implements TraceableEntity{
         pPlayer.hurt(this.damageSources().mobProjectile(this, owner), damage);
     }
 
-    @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket(){
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
 
     /**
      * Handles an entity event received from a {@link ClientboundEntityEventPacket}.

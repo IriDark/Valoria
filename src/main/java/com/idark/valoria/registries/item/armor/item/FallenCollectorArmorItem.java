@@ -2,14 +2,16 @@ package com.idark.valoria.registries.item.armor.item;
 
 import com.idark.valoria.client.render.armor.*;
 import net.minecraft.client.model.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.client.extensions.common.*;
+import net.neoforged.neoforge.client.extensions.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import software.bernie.geckolib.animatable.*;
-import software.bernie.geckolib.core.animatable.instance.*;
-import software.bernie.geckolib.core.animation.AnimatableManager.*;
+import software.bernie.geckolib.animatable.instance.*;
+import software.bernie.geckolib.animation.AnimatableManager.*;
 import software.bernie.geckolib.renderer.*;
 import software.bernie.geckolib.util.*;
 
@@ -17,13 +19,13 @@ import java.util.function.*;
 
 public class FallenCollectorArmorItem extends PercentageArmorItem implements GeoItem{
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public FallenCollectorArmorItem(ArmorMaterial material, Type type, Properties properties){
+    public FallenCollectorArmorItem(Holder<ArmorMaterial> material, Type type, Properties properties){
         super(material, type, properties);
     }
 
     // prevents log spam
-    public @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type){
-        return "minecraft:textures/models/armor/diamond_layer_1.png";
+    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel){
+        return ResourceLocation.withDefaultNamespace("textures/models/armor/diamond_layer_1.png"); // PORT NOTE: getArmorTexture returns a ResourceLocation and receives the material layer in 1.21
     }
 
     @Override

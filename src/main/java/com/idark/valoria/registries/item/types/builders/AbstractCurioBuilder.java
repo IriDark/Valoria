@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.builders;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
@@ -11,15 +12,13 @@ import net.minecraft.world.item.*;
 import pro.komaru.tridot.common.registry.item.builders.AbstractArmorBuilder.*;
 import pro.komaru.tridot.util.struct.data.*;
 
-import java.util.function.*;
-
 public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B extends AbstractCurioBuilder<T, B>> {
     public Tier tier;
     public Properties itemProperties;
     public ResourceLocation texPath;
     public boolean dependsOnStack = true;
 
-    public Multimap<Supplier<Attribute>, AttributeData> attributeMap = HashMultimap.create();
+    public Multimap<Holder<Attribute>, AttributeData> attributeMap = HashMultimap.create();
     public Multimap<String, AttributeData> slotModifiers = HashMultimap.create();
     public Seq<MobEffectInstance> effects = Seq.with();
     public SoundEvent equipSound;
@@ -78,17 +77,17 @@ public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B exten
         return self();
     }
 
-    public B addAttrs(Multimap<Supplier<Attribute>, AttributeData> map){
+    public B addAttrs(Multimap<Holder<Attribute>, AttributeData> map){
         attributeMap.putAll(map);
         return self();
     }
 
-    public B setAttrs(Multimap<Supplier<Attribute>, AttributeData> map){
+    public B setAttrs(Multimap<Holder<Attribute>, AttributeData> map){
         attributeMap = map;
         return self();
     }
 
-    public B addAttr(Supplier<Attribute> attribute, AttributeData mod){
+    public B addAttr(Holder<Attribute> attribute, AttributeData mod){ // PORT NOTE: attributes are Holders in 1.21
         attributeMap.put(attribute, mod);
         return self();
     }

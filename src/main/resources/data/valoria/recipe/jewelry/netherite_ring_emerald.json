@@ -1,0 +1,16 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:netherite_ring_emerald"
+  },
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "valoria:netherite_ring"
+    },
+    {
+      "item": "minecraft:emerald"
+    }
+  ]
+}

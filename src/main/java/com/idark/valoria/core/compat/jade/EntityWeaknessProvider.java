@@ -15,7 +15,6 @@ import snownee.jade.api.config.*;
 import snownee.jade.api.theme.*;
 import snownee.jade.api.ui.*;
 import snownee.jade.api.ui.IElement.*;
-import snownee.jade.impl.ui.*;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -61,7 +60,7 @@ public enum EntityWeaknessProvider implements IEntityComponentProvider, Resource
     @Override
     public void appendTooltip(ITooltip tooltip, EntityAccessor entityAccessor, IPluginConfig config){
         if(entityAccessor.getEntity() instanceof IEffectiveWeaponEntity eff){
-            boolean newLine = config.get(Identifiers.MC_HARVEST_TOOL_NEW_LINE);
+            boolean newLine = config.get(JadeIds.MC_HARVEST_TOOL_NEW_LINE);
             List<IElement> elements = this.getText(entityAccessor, eff, config);
             if (!elements.isEmpty()) {
                 elements.forEach((e) -> e.message(null));
@@ -78,7 +77,7 @@ public enum EntityWeaknessProvider implements IEntityComponentProvider, Resource
     public List<IElement> getText(EntityAccessor entityAccessor, IEffectiveWeaponEntity eff, IPluginConfig config){
         List<ItemStack> tools = List.of();
         int offsetY = 0;
-        if (!config.get(Identifiers.MC_HARVEST_TOOL_NEW_LINE)) {
+        if (!config.get(JadeIds.MC_HARVEST_TOOL_NEW_LINE)) {
             offsetY = -3;
         }
 
@@ -99,7 +98,7 @@ public enum EntityWeaknessProvider implements IEntityComponentProvider, Resource
             boolean isEffective = held.is(eff.getEffective());
             IThemeHelper t = IThemeHelper.get();
             Component text = isEffective ? t.success(CHECK) : t.danger(X);
-            elements.add((new SubTextElement(text)).translate(new Vec2(-3.0F, (float)(7 + offsetY))));
+            elements.add(IElementHelper.get().text(text).translate(new Vec2(-3.0F, (float)(7 + offsetY))));
             return elements;
         } else {
             return List.of();

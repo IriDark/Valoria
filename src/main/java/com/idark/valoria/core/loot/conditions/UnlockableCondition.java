@@ -1,20 +1,19 @@
 package com.idark.valoria.core.loot.conditions;
 
-import com.google.gson.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
-import net.minecraft.util.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import org.jetbrains.annotations.*;
 
-public class UnlockableCondition implements LootItemCondition{
-    public final String id;
-    UnlockableCondition(String id){
-        this.id = id;
-    }
+public record UnlockableCondition(String id) implements LootItemCondition{
+    public static final MapCodec<UnlockableCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        Codec.STRING.fieldOf("id").forGetter(UnlockableCondition::id)
+    ).apply(instance, UnlockableCondition::new));
 
     @NotNull
     public LootItemConditionType getType(){
@@ -37,19 +36,6 @@ public class UnlockableCondition implements LootItemCondition{
 
     public record Builder(String id) implements LootItemCondition.Builder{
         public UnlockableCondition build(){
-            return new UnlockableCondition(id);
-        }
-    }
-
-    public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<UnlockableCondition>{
-        @Override
-        public void serialize(JsonObject json, UnlockableCondition condition, JsonSerializationContext context){
-            json.add("id", context.serialize(condition.id));
-        }
-
-        @Override
-        public UnlockableCondition deserialize(JsonObject json, JsonDeserializationContext context){
-            String id = GsonHelper.getAsObject(json, "id", context, String.class);
             return new UnlockableCondition(id);
         }
     }

@@ -2,13 +2,15 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
 import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -52,7 +54,7 @@ public class LaserEntity extends Projectile{
         };
 
         ParticleBuilder.create(TridotParticles.TRAIL)
-        .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE_TEXTURE)
+        .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
         .setBehavior(TrailParticleBehavior.create().build())
         .setColorData(ColorParticleData.create(Col.fromHex("b8202d"), Col.fromHex("c4352b")).build())
         .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Interp.sineOut).build())
@@ -63,8 +65,8 @@ public class LaserEntity extends Projectile{
         .spawn(this.level(), pos.x, pos.y, pos.z);
     }
 
-    protected void defineSynchedData() {
-        this.entityData.define(DAMAGE,0f);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        builder.define(DAMAGE,0f);
     }
 
     protected void onHitEntity(EntityHitResult result) {
@@ -72,8 +74,9 @@ public class LaserEntity extends Projectile{
         if (!this.level().isClientSide) {
             Entity entity = result.getEntity();
             LivingEntity owner = (LivingEntity) this.getOwner();
-            entity.hurt(this.level().damageSources().mobProjectile(this, owner), getDamage());
-            if(owner != null) this.doEnchantDamageEffects(owner, entity);
+            DamageSource source = this.level().damageSources().mobProjectile(this, owner);
+            entity.hurt(source, getDamage());
+            if(owner != null && this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, entity, source);
         }
     }
 
@@ -95,7 +98,7 @@ public class LaserEntity extends Projectile{
             super.tick();
 
             HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-            if (hitresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+            if (hitresult.getType() != HitResult.Type.MISS && !net.neoforged.neoforge.event.EventHooks.onProjectileImpact(this, hitresult)) {
                 this.onHit(hitresult);
             }
 

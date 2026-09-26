@@ -99,10 +99,10 @@
 			"to": [13.25, 10.25, 10.25],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 8]},
 			"faces": {
-				"north": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"east": {"uv": [8, 0, 10, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"south": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"west": {"uv": [9, 3.5, 9, 3.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
+				"north": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"east": {"uv": [8, 0, 10, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"south": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"west": {"uv": [9, 3.5, 9, 3.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
 			}
 		},
 		{
@@ -110,10 +110,10 @@
 			"to": [10.25, 10.25, 13.25],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 14.5]},
 			"faces": {
-				"north": {"uv": [9, 3.5, 9, 3.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"east": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"south": {"uv": [8, 0, 10, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"west": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
+				"north": {"uv": [9, 3.5, 9, 3.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"east": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"south": {"uv": [8, 0, 10, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"west": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
 			}
 		},
 		{
@@ -121,10 +121,10 @@
 			"to": [10.25, 10.25, 4.25],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 2.5]},
 			"faces": {
-				"north": {"uv": [8, 0, 10, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"east": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 },  "texture": "#2"},
-				"south": {"uv": [9, 3.5, 9, 3.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"west": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
+				"north": {"uv": [8, 0, 10, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"east": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 },  "texture": "#2"},
+				"south": {"uv": [9, 3.5, 9, 3.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"west": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
 			}
 		},
 		{
@@ -132,10 +132,10 @@
 			"to": [4.25, 10.25, 10.25],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 8]},
 			"faces": {
-				"north": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"east": {"uv": [9, 3.5, 9, 3.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"south": {"uv": [10, 0, 10.5, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
-				"west": {"uv": [8, 0, 10, 1.5], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
+				"north": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"east": {"uv": [9, 3.5, 9, 3.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"south": {"uv": [10, 0, 10.5, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"},
+				"west": {"uv": [8, 0, 10, 1.5], "neoforge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#2"}
 			}
 		}
 	]

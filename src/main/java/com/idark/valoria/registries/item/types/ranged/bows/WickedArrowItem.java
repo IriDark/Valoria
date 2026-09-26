@@ -7,7 +7,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import org.jetbrains.annotations.*;
 
 import java.util.*;
 
@@ -26,7 +25,7 @@ public class WickedArrowItem extends ArrowItem implements DispensedArrow{
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
         pTooltip.add(Component.translatable("tooltip.valoria.arrow_damage", 4).withStyle(ChatFormatting.GRAY));
         pTooltip.add(Component.translatable("tooltip.valoria.wicked_arrow.effect").withStyle(ChatFormatting.DARK_PURPLE));

@@ -2,7 +2,6 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
-import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -30,9 +29,9 @@ public class Corrupted extends Monster{
     public Corrupted(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.xpReward = 6;
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 2.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 4.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 4.0F);
+        this.setPathfindingMalus(PathType.LAVA, 2.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 4.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_CAUTIOUS, 4.0F);
     }
 
     public void handleEntityEvent(byte pId) {
@@ -127,9 +126,9 @@ public class Corrupted extends Monster{
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.Level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -154,7 +154,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     }
 
     public void setItem(ItemStack pStack){
-        if(!pStack.is(this.getDefaultItem()) || pStack.hasTag()){
+        if(!pStack.is(this.getDefaultItem()) || !pStack.getComponentsPatch().isEmpty()){
             this.getEntityData().set(DATA_ITEM_STACK, pStack.copyWithCount(1));
         }
     }
@@ -166,7 +166,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     public void addAdditionalSaveData(CompoundTag pCompound){
         ItemStack itemstack = this.getItemRaw();
         if(!itemstack.isEmpty()){
-            pCompound.put("Item", itemstack.save(new CompoundTag()));
+            pCompound.put("Item", itemstack.save(this.registryAccess()));
         }
 
         pCompound.putInt("Fuse", this.getFuse());
@@ -178,7 +178,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
      */
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
-        ItemStack itemstack = ItemStack.of(pCompound.getCompound("Item"));
+        ItemStack itemstack = ItemStack.parseOptional(this.registryAccess(), pCompound.getCompound("Item"));
         this.setItem(itemstack);
         this.setFuse(pCompound.getInt("Fuse"));
         this.setRadius(pCompound.getFloat("Radius"));
@@ -216,9 +216,9 @@ public class ThrowableBomb extends ThrowableItemProjectile{
         return this.entityData.get(DATA_RADIUS_ID);
     }
 
-    protected void defineSynchedData(){
-        this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);
-        this.getEntityData().define(DATA_FUSE_ID, 80);
-        this.getEntityData().define(DATA_RADIUS_ID, 1.25f);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        builder.define(DATA_ITEM_STACK, ItemStack.EMPTY);
+        builder.define(DATA_FUSE_ID, 80);
+        builder.define(DATA_RADIUS_ID, 1.25f);
     }
 }

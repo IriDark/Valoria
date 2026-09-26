@@ -8,12 +8,12 @@ import net.minecraft.world.item.*;
 
 public interface IBreakableCurio{
     default void accessoryHurt(LivingEntity target, ItemStack stack){
-        stack.hurtAndBreak(1, target, (entity) -> {
+        if(!(target.level() instanceof ServerLevel serverLevel)) return;
+        stack.hurtAndBreak(1, serverLevel, target instanceof ServerPlayer serverPlayer ? serverPlayer : null, (item) -> {
+            LivingEntity entity = target;
             entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
             SoundEvents.ITEM_BREAK, entity.getSoundSource(), 0.8f, 0.8f + entity.level().random.nextFloat() * 0.4f);
-            if(entity.level() instanceof ServerLevel serverLevel){
-                serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), entity.getX(), entity.getY() + 1.0, entity.getZ(), 10, 0.2, 0.2, 0.2, 0.05);
-            }
+            serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), entity.getX(), entity.getY() + 1.0, entity.getZ(), 10, 0.2, 0.2, 0.2, 0.05);
         });
     }
 }

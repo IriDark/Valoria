@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:aquarius_spear"
+  },
+  "core": "aquarius_core",
+  "cores": 1,
+  "time": 600,
+  "ingredients": [
+    {
+      "item": "valoria:diamond_spear"
+    },
+    {
+      "item": "valoria:aquarius_upgrade_smithing_template"
+    }
+  ]
+}

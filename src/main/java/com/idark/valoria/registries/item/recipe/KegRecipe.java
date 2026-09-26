@@ -1,34 +1,37 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.*;
 import com.idark.valoria.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.*;
+import java.util.*;
 
-public class KegRecipe implements Recipe<Container>{
+public class KegRecipe implements Recipe<ContainerRecipeInput>{
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
-    private final ResourceLocation id;
     private final int time;
 
-    public KegRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id, int time){
-        this.inputs = inputItems;
+    public KegRecipe(List<Ingredient> inputItems, ItemStack output, int time){
+        NonNullList<Ingredient> list = NonNullList.create();
+        for(Ingredient ingredient : inputItems){
+            if(!ingredient.isEmpty()) list.add(ingredient);
+        }
+
+        this.inputs = list;
         this.output = output;
-        this.id = id;
         this.time = time;
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel){
+    public boolean matches(ContainerRecipeInput pContainer, Level pLevel){
         if(inputs.size() >= 2){
             return inputs.get(0).test(pContainer.getItem(0)) && inputs.get(1).test(pContainer.getItem(1));
         }
@@ -36,7 +39,7 @@ public class KegRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
+    public ItemStack assemble(ContainerRecipeInput pContainer, HolderLookup.Provider pRegistryAccess){
         return output.copy();
     }
 
@@ -46,7 +49,7 @@ public class KegRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess){
+    public ItemStack getResultItem(HolderLookup.Provider pRegistryAccess){
         return output.copy();
     }
 
@@ -58,11 +61,6 @@ public class KegRecipe implements Recipe<Container>{
     @Override
     public NonNullList<Ingredient> getIngredients(){
         return inputs;
-    }
-
-    @Override
-    public ResourceLocation getId(){
-        return id;
     }
 
     public int getTime(){
@@ -88,54 +86,27 @@ public class KegRecipe implements Recipe<Container>{
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = Valoria.loc("keg_brewery");
 
-        private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray){
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-            for(int i = 0; i < ingredientArray.size(); ++i){
-                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
-                if(!ingredient.isEmpty()){
-                    nonnulllist.add(ingredient);
-                }
-            }
+        private static final MapCodec<KegRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.inputs),
+            RecipeCodecs.ITEM_STACK.fieldOf("output").forGetter(r -> r.output),
+            Codec.INT.fieldOf("time").forGetter(r -> r.time)
+        ).apply(i, KegRecipe::new));
 
-            return nonnulllist;
+        private static final StreamCodec<RegistryFriendlyByteBuf, KegRecipe> STREAM_CODEC = StreamCodec.composite(
+            RecipeCodecs.INGREDIENT_LIST_STREAM, r -> r.inputs,
+            ItemStack.STREAM_CODEC, r -> r.output,
+            ByteBufCodecs.VAR_INT, r -> r.time,
+            KegRecipe::new
+        );
+
+        @Override
+        public MapCodec<KegRecipe> codec(){
+            return CODEC;
         }
 
         @Override
-        public KegRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe){
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-
-            int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            final NonNullList<Ingredient> inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
-
-            for(int i = 0; i < inputs.size(); i++){
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-            }
-
-            return new KegRecipe(inputs, output, pRecipeId, time);
-        }
-
-        @Override
-        public @Nullable KegRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer){
-            NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
-            for(int i = 0; i < inputs.toArray().length; i++){
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-
-            int time = pBuffer.readInt();
-            ItemStack output = pBuffer.readItem();
-            return new KegRecipe(inputs, output, pRecipeId, time);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, KegRecipe pRecipe){
-            pBuffer.writeInt(pRecipe.inputs.size());
-            for(Ingredient input : pRecipe.getIngredients()){
-                input.toNetwork(pBuffer);
-            }
-
-            pBuffer.writeInt(pRecipe.getTime());
-            pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
+        public StreamCodec<RegistryFriendlyByteBuf, KegRecipe> streamCodec(){
+            return STREAM_CODEC;
         }
     }
 }

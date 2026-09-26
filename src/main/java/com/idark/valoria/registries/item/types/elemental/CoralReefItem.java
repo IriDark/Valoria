@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types.elemental;
 
-import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
@@ -16,7 +15,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
@@ -31,23 +30,24 @@ import java.util.*;
 public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
     public ArcRandom arcRandom = Tmp.rnd;
     private final float attackDamage;
-    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    private final ItemAttributeModifiers defaultModifiers;
 
     public CoralReefItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeReg.DEPTH_DAMAGE.get(), new AttributeModifier(Valoria.BASE_DEPTH_DAMAGE_UUID, "Weapon modifier", 2, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage - 2, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        this.defaultModifiers = builder.build();
+        this.defaultModifiers = ItemAttributeModifiers.builder()
+            .add(AttributeReg.DEPTH_DAMAGE, new AttributeModifier(Valoria.BASE_DEPTH_DAMAGE_ID, 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.attackDamage - 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .build();
     }
 
     /**
      * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
      */
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
-        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers() {
+        return this.defaultModifiers;
     }
 
     /**
@@ -55,7 +55,7 @@ public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
      */
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
         if(!(pAttacker instanceof Player player)) return true;
-        pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        pStack.hurtAndBreak(1, pAttacker, EquipmentSlot.MAINHAND);
         if(Utils.Items.getAttackStrengthScale(player, 0.9f)){
             if(arcRandom.chance(0.15f)){
                 pTarget.knockback(0.6F, pAttacker.getX() - pTarget.getX(), pAttacker.getZ() - pTarget.getZ());
@@ -76,7 +76,7 @@ public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
     }
 
@@ -88,7 +88,7 @@ public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
         player.getCooldowns().addCooldown(this, 250);
         player.awardStat(Stats.ITEM_USED.get(this));
 
-        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + CombatCompat.sweepingRatio(player);
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
 
@@ -96,14 +96,14 @@ public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
         Utils.Particles.inRadius(worldIn, stack, ParticleTypes.FALLING_WATER, pos, 0, player.getRotationVector().y, 4);
         for(LivingEntity damagedEntity : hitEntities){
             if(!player.canAttack(damagedEntity)) continue;
-            damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
+            damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + CombatCompat.damageBonus(player, stack, damagedEntity)) * 1.35f);
             damagedEntity.hurtMarked = true;
             damagedEntity.knockback(2.5F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
             worldIn.playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
         }
 
         if(!player.isCreative()){
-            stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            stack.hurtAndBreak(hitEntities.size(), player, EquipmentSlot.MAINHAND);
         }
 
         worldIn.playSound(null, player.blockPosition(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.8f, 1f);

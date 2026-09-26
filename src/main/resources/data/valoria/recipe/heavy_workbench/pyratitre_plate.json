@@ -1,0 +1,11 @@
+{
+  "group": "materials",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:pyratite" }, "count": 8 }
+  ],
+  "result": {
+    "item": "valoria:pyratite_plate",
+    "count": 1
+  }
+}

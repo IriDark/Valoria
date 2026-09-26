@@ -1,0 +1,33 @@
+{
+  "parent": "valoria:valoria/visit_the_valoria",
+  "criteria": {
+    "requirement": {
+      "conditions": {
+        "items": [
+          {
+            "items": "valoria:jade"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.valoria.jade.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "valoria:jade"
+    },
+    "title": {
+      "translate": "advancements.valoria.jade.title"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

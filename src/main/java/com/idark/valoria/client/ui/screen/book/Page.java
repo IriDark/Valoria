@@ -4,7 +4,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.language.*;
 import net.minecraft.network.chat.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.util.*;
 

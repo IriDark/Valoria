@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:bleeding",
+    "valoria:accuracy",
+    "valoria:explosive_flame",
+    "valoria:collapse",
+    "valoria:concussion",
+    "valoria:repulsion",
+    "valoria:shock_absorption",
+    "valoria:sundering"
+  ]
+}

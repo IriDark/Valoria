@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 120,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "valoria:amber_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "valoria:amber_gem"
+  }
+}

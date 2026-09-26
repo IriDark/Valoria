@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_desert",
+  "features": [
+    "valoria:dunestone",
+    "valoria:quicksand_disk"
+  ],
+  "step": "underground_ores"
+}

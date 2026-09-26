@@ -3,10 +3,10 @@
   "base": {
     "parent": "valoria:item/hammer_template",
     "textures": {
-      "layer0": "valoria:item/black_gold_hammer_in_hand"
+      "texture": "valoria:item/black_gold_hammer_in_hand"
     }
   },
-  "loader": "forge:separate_transforms",
+  "loader": "neoforge:separate_transforms",
   "perspectives": {
     "fixed": {
       "parent": "minecraft:item/handheld",
@@ -29,7 +29,7 @@
     "none": {
       "parent": "valoria:item/hammer_template",
       "textures": {
-        "layer0": "valoria:item/black_gold_hammer_in_hand"
+        "texture": "valoria:item/black_gold_hammer_in_hand"
       }
     }
   }

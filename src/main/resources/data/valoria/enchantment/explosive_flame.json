@@ -1,0 +1,23 @@
+{
+  "description": {
+    "translate": "enchantment.valoria.explosive_flame"
+  },
+  "supported_items": "#valoria:enchantable/blaze",
+  "weight": 2,
+  "max_level": 1,
+  "min_cost": {
+    "base": 11,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 16,
+    "per_level_above_first": 10
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "mainhand"
+  ],
+  "exclusive_set": [
+    "minecraft:fire_aspect"
+  ]
+}

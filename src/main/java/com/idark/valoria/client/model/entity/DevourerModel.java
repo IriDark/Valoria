@@ -1,13 +1,11 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.DevourerAnimations;
-import com.idark.valoria.registries.entity.projectile.Devourer;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class DevourerModel<T extends Devourer> extends HierarchicalModel<T>{

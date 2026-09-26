@@ -1,8 +1,7 @@
 package com.idark.valoria.registries.effect;
 
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
 
 public class AloeRegenEffect extends MobEffect{
 
@@ -11,15 +10,17 @@ public class AloeRegenEffect extends MobEffect{
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier){
+    public boolean applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier){
         super.applyEffectTick(entityLivingBaseIn, amplifier);
         if(entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()){
             entityLivingBaseIn.heal(0.025F);
         }
+
+        return true;
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier){
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier){
         return true;
     }
 }

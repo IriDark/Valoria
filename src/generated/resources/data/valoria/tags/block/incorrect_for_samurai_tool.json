@@ -1,0 +1,59 @@
+{
+  "values": [
+    "#minecraft:needs_iron_tool",
+    "#minecraft:needs_diamond_tool",
+    {
+      "id": "#valoria:needs_cobalt_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_ethereal_tool",
+      "required": false
+    },
+    "#neoforge:needs_netherite_tool",
+    {
+      "id": "#valoria:needs_none_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_blazereap_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_pearlium_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_jade_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_spider_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_pyratite_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_meat_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_depth_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_infernal_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_void_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_phantom_tool",
+      "required": false
+    }
+  ]
+}

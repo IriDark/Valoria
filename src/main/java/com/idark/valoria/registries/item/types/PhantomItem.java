@@ -16,9 +16,8 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.common.Tags.*;
+import net.neoforged.neoforge.common.Tags.*;
 import org.joml.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.gfx.*;
@@ -53,7 +52,7 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
     }
 
@@ -69,7 +68,7 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
         Player player = (Player)entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         player.getCooldowns().addCooldown(this,  getCooldownReduction(650, stack));
-        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + CombatCompat.sweepingRatio(player);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
@@ -101,22 +100,22 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
 
         level.playSound(null, player.blockPosition(), SoundsRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
         if(!player.isCreative()){
-            stack.hurtAndBreak(35, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            stack.hurtAndBreak(35, player, EquipmentSlot.MAINHAND);
         }
 
+        int fireAspect = CombatCompat.fireAspect(player);
         for(LivingEntity entityInRadius : hitEntities){
             if(!player.canAttack(entityInRadius)) continue;
             if((entityInRadius instanceof Player && ((Player)entityInRadius).isCreative()) || (entityInRadius instanceof BossEntity || entityInRadius.getType().is(EntityTypes.BOSSES))){
                 continue;
             }
 
-            entityInRadius.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entityInRadius.getMobType())) * 1.35f);
-            entityInRadius.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 25));
+            entityInRadius.hurt(level.damageSources().playerAttack(player), (damage + CombatCompat.damageBonus(player, stack, entityInRadius)) * 1.35f);
+            entityInRadius.addEffect(new MobEffectInstance(EffectsRegistry.STUN, 25));
             entityInRadius.setDeltaMovement(0, 1, 0);
             entityInRadius.hurtMarked = true;
-            if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0){
-                int e = EnchantmentHelper.getFireAspect(player);
-                entityInRadius.setSecondsOnFire(e * 4);
+            if(fireAspect > 0){
+                entityInRadius.igniteForSeconds(fireAspect * 4);
             }
         }
     }

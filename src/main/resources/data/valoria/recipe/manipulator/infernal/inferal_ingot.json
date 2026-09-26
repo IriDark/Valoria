@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_ingot"
+  },
+  "core": "infernal_core",
+  "cores": 1,
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "valoria:black_gold_ingot"
+    },
+    {
+      "item": "valoria:infernal_stone"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.effect;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -13,32 +14,35 @@ public class HammerSmashEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
-    }
-
-    @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
-        if (!(entity instanceof Player player)) return;
+    public boolean applyEffectTick(LivingEntity entity, int amplifier){
+        super.applyEffectTick(entity, amplifier);
+        if (!(entity instanceof Player player)) return true;
         if (player.isInWater() || player.isInLava() || player.onClimbable() || player.isFallFlying() || player.isPassenger()) {
-            player.removeEffect(this);
-            return;
+            player.removeEffect(EffectsRegistry.HAMMER_SMASH);
+            return true;
         }
 
         if (!(player.getMainHandItem().getItem() instanceof HammerItem hammer)) {
-            player.removeEffect(this);
-            return;
+            player.removeEffect(EffectsRegistry.HAMMER_SMASH);
+            return true;
         }
 
-        MobEffectInstance inst = player.getEffect(this);
+        MobEffectInstance inst = player.getEffect(EffectsRegistry.HAMMER_SMASH);
         if (inst != null && inst.getDuration() <= 58) {
             if (player.onGround() && player.getDeltaMovement().y <= 0.05) {
                 if (!player.level().isClientSide) {
                     hammer.performSmash(player.getMainHandItem(), player.level(), player);
                 }
 
-                player.removeEffect(this);
+                player.removeEffect(EffectsRegistry.HAMMER_SMASH);
             }
         }
+
+        return true;
+    }
+
+    @Override
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier){
+        return true;
     }
 }

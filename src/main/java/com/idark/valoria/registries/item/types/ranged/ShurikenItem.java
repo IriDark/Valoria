@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
@@ -24,29 +25,31 @@ import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
-import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
 public class ShurikenItem extends Item{
-    private final Multimap<Attribute, AttributeModifier> tridentAttributes;
+    private final ItemAttributeModifiers tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
     public float chance = 1;
     public ArcRandom arc = Tmp.rnd;
 
     public ShurikenItem(int damage, Properties builderIn, float chance, MobEffectInstance... pEffects){
         super(builderIn);
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
-        this.tridentAttributes = builder.build();
+        this.tridentAttributes = projectileAttributes(damage);
         this.chance = chance;
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
     public ShurikenItem(int damage, Properties builderIn, MobEffectInstance... pEffects){
         super(builderIn);
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
-        this.tridentAttributes = builder.build();
+        this.tridentAttributes = projectileAttributes(damage);
         this.effects = ImmutableList.copyOf(pEffects);
+    }
+
+    static ItemAttributeModifiers projectileAttributes(double damage){
+        return ItemAttributeModifiers.builder()
+            .add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, damage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .build();
     }
 
     public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player){
@@ -57,18 +60,18 @@ public class ShurikenItem extends Item{
         return UseAnim.SPEAR;
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack, LivingEntity entity){
         return 72000;
     }
 
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft){
         if(entityLiving instanceof Player playerEntity){
-            int i = this.getUseDuration(stack) - timeLeft;
+            int i = this.getUseDuration(stack, entityLiving) - timeLeft;
             if(i >= 4){
                 if(!worldIn.isClientSide){
                     ShurikenProjectile shuriken = shootProjectile(stack, worldIn, playerEntity);
                     worldIn.addFreshEntity(shuriken);
-                    worldIn.playSound(playerEntity, shuriken, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    worldIn.playSound(playerEntity, shuriken, SoundEvents.TRIDENT_THROW.value(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     if(!playerEntity.getAbilities().instabuild){
                         stack.shrink(1);
                     }
@@ -106,12 +109,13 @@ public class ShurikenItem extends Item{
         return super.hurtEnemy(stack, target, attacker);
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.tridentAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers(){
+        return this.tridentAttributes;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.shuriken").withStyle(ChatFormatting.GRAY));
         Utils.Items.effectTooltip(effects, tooltip, 1, chance);

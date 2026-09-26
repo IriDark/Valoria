@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.block.types.plants;
 
 import com.idark.valoria.registries.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.util.*;
@@ -8,8 +9,12 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
+import net.neoforged.neoforge.common.*;
 
 public class ShadeBranchBlock extends GrowingPlantHeadBlock{
+    public static final MapCodec<ShadeBranchBlock> CODEC = simpleCodec(ShadeBranchBlock::new);
+    @Override protected MapCodec<? extends ShadeBranchBlock> codec(){ return CODEC; }
+
     private static final VoxelShape shape = Block.box(3, 4, 3, 15, 16, 15);
     private final double growPerTickProbability;
     public ShadeBranchBlock(BlockBehaviour.Properties p_153000_){
@@ -38,11 +43,11 @@ public class ShadeBranchBlock extends GrowingPlantHeadBlock{
      * Performs a random tick on a block.
      */
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (pState.getValue(AGE) < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos.relative(this.growthDirection), pLevel.getBlockState(pPos.relative(this.growthDirection)),pRandom.nextDouble() < this.growPerTickProbability)) {
+        if (pState.getValue(AGE) < 3 && CommonHooks.canCropGrow(pLevel, pPos.relative(this.growthDirection), pLevel.getBlockState(pPos.relative(this.growthDirection)),pRandom.nextDouble() < this.growPerTickProbability)) {
             BlockPos blockpos = pPos.relative(this.growthDirection);
             if (this.canGrowInto(pLevel.getBlockState(blockpos))) {
                 pLevel.setBlockAndUpdate(blockpos, this.getGrowIntoState(pState, pLevel.random));
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, blockpos, pLevel.getBlockState(blockpos));
+                CommonHooks.fireCropGrowPost(pLevel, blockpos, pLevel.getBlockState(blockpos));
             }
         }
     }

@@ -1,0 +1,13 @@
+{
+  "group": "equipment",
+  "type": "valoria:alchemy",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:rune" }, "count": 1 },
+    { "ingredient": { "item": "valoria:nature_gift" }, "count": 8 },
+    { "ingredient": { "item": "valoria:runic_dust" }, "count": 4 }
+  ],
+  "result": {
+    "item": "valoria:rune_of_vision",
+    "count": 1
+  }
+}

@@ -1,28 +1,37 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.*;
 import com.idark.valoria.*;
 import com.mojang.datafixers.util.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 
 import java.util.*;
 
-public class AlchemyRecipe implements Recipe<Container> {
-    private final ResourceLocation id;
+public class AlchemyRecipe implements Recipe<ContainerRecipeInput> {
+    private ResourceLocation id;
+
+    public ResourceLocation getId(){
+        return id;
+    }
+
+    public AlchemyRecipe withId(ResourceLocation id){
+        this.id = id;
+        return this;
+    }
+
     private final String group;
     private final ItemStack result;
     private final List<Pair<Ingredient, RecipeData>> inputs;
     private final int level;
 
-    public AlchemyRecipe(ResourceLocation id, String group, ItemStack result, int level, List<Pair<Ingredient, RecipeData>> inputs) {
-        this.id = id;
+    public AlchemyRecipe(String group, ItemStack result, int level, List<Pair<Ingredient, RecipeData>> inputs) {
         this.group = group;
         this.result = result;
         this.inputs = inputs;
@@ -43,11 +52,6 @@ public class AlchemyRecipe implements Recipe<Container> {
         return Serializer.INSTANCE;
     }
 
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
     public String getCategory() {
         return this.group;
     }
@@ -58,7 +62,7 @@ public class AlchemyRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess access) {
+    public ItemStack getResultItem(HolderLookup.Provider access) {
         return this.result.copy();
     }
 
@@ -83,10 +87,10 @@ public class AlchemyRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
+    public boolean matches(ContainerRecipeInput container, Level level) {
         if (level.isClientSide) return false;
         List<Pair<Ingredient, RecipeData>> required = new ArrayList<>(inputs);
-        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+        for (int slot = 0; slot < container.size(); slot++) {
             ItemStack stack = container.getItem(slot);
             if (!stack.isEmpty()) {
                 for (Pair<Ingredient, RecipeData> req : required) {
@@ -105,7 +109,7 @@ public class AlchemyRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container container, RegistryAccess access) {
+    public ItemStack assemble(ContainerRecipeInput container, HolderLookup.Provider access) {
         return this.result.copy();
     }
 
@@ -123,53 +127,29 @@ public class AlchemyRecipe implements Recipe<Container> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = Valoria.loc("alchemy");
 
+        private static final MapCodec<AlchemyRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
+            RecipeCodecs.ITEM_STACK.fieldOf("result").forGetter(r -> r.result),
+            Codec.INT.optionalFieldOf("level", 1).forGetter(r -> r.level),
+            RecipeCodecs.COUNTED_INGREDIENT.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
+        ).apply(i, AlchemyRecipe::new));
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, AlchemyRecipe> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, r -> r.group,
+            ItemStack.STREAM_CODEC, r -> r.result,
+            ByteBufCodecs.VAR_INT, r -> r.level,
+            RecipeCodecs.COUNTED_INGREDIENT_LIST_STREAM, r -> r.inputs,
+            AlchemyRecipe::new
+        );
+
         @Override
-        public AlchemyRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            String group = GsonHelper.getAsString(json, "group", "");
-            int level = GsonHelper.getAsInt(json, "level", 1);
-
-            JsonObject resultObj = GsonHelper.getAsJsonObject(json, "result");
-            ItemStack result = ShapedRecipe.itemStackFromJson(resultObj);
-            List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
-            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-
-            for (JsonElement elem : ingredients) {
-                JsonObject obj = elem.getAsJsonObject();
-                Ingredient ing = Ingredient.fromJson(obj.get("ingredient"));
-                int count = GsonHelper.getAsInt(obj, "count", 1);
-                inputs.add(Pair.of(ing, new RecipeData(count)));
-            }
-
-            return new AlchemyRecipe(recipeId, group, result, level, inputs);
+        public MapCodec<AlchemyRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public AlchemyRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            String group = buffer.readUtf();
-            int level = buffer.readInt();
-
-            ItemStack result = buffer.readItem();
-            int size = buffer.readVarInt();
-            List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                Ingredient ing = Ingredient.fromNetwork(buffer);
-                int count = buffer.readVarInt();
-                inputs.add(Pair.of(ing, new RecipeData(count)));
-            }
-
-            return new AlchemyRecipe(recipeId, group, result, level, inputs);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, AlchemyRecipe recipe) {
-            buffer.writeUtf(recipe.group);
-            buffer.writeInt(recipe.level);
-            buffer.writeItem(recipe.result);
-            buffer.writeVarInt(recipe.inputs.size());
-            for (Pair<Ingredient, RecipeData> entry : recipe.inputs) {
-                entry.getFirst().toNetwork(buffer);
-                buffer.writeVarInt(entry.getSecond().count);
-            }
+        public StreamCodec<RegistryFriendlyByteBuf, AlchemyRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

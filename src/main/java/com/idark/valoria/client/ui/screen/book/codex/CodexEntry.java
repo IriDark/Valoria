@@ -12,7 +12,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 
 import java.util.*;
 
@@ -144,10 +144,8 @@ public class CodexEntry{
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - guiTop) - (int)vOffset;
 
-        float safeZoom = Math.max(codex.zoom, 0.1f);
-        float zoomBonus = 4 + (safeZoom - 1.0f);
         float screenX = (x - codex.getCenterX()) * codex.zoom + codex.getCenterX();
-        float screenY = (y - codex.getCenterY()) * codex.zoom + zoomBonus + codex.getCenterY();
+        float screenY = (y - codex.getCenterY()) * codex.zoom + codex.getCenterY();
         float scaledIconSize = 22 * codex.zoom;
 
         MutableComponent transl = ServerConfig.ENABLE_CODEX_TITLE.get() || isUnlocked() ? translate : unknownTranslate;

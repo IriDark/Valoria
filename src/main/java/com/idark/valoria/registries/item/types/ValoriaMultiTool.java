@@ -11,14 +11,15 @@ import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.common.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.gfx.text.*;
 
@@ -28,19 +29,19 @@ import java.util.function.*;
 import java.util.stream.*;
 
 import static net.minecraft.world.item.HoeItem.changeIntoState;
-import static net.minecraftforge.common.ToolActions.*;
+import static net.neoforged.neoforge.common.ItemAbilities.*;
 
 public class ValoriaMultiTool extends DiggerItem {
     private final Tier tier;
     public ValoriaMultiTool(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
-        super(pAttackDamageModifier, pAttackSpeedModifier, pTier, TagsRegistry.MINEABLE_WITH_MULTITOOL, pProperties);
+        super(pTier, TagsRegistry.MINEABLE_WITH_MULTITOOL, pProperties.attributes(DiggerItem.createAttributes(pTier, pAttackDamageModifier, pAttackSpeedModifier)));
         this.tier = pTier;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.valoria.efficiency", speed).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
-        tooltip.add(Component.translatable("tooltip.valoria.harvest", getTier().getLevel()).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext level, List<Component> tooltip, TooltipFlag flagIn) {
+        tooltip.add(Component.translatable("tooltip.valoria.efficiency", tier.getSpeed()).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.harvest", ItemTierRegistry.levelOf(getTier())).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
     }
 
     public boolean isCorrectTags(BlockState state) {
@@ -49,12 +50,12 @@ public class ValoriaMultiTool extends DiggerItem {
 
     @Override
     public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
-        return isCorrectTags(state) && TierSortingRegistry.isCorrectTierForDrops(this.tier, state);
+        return isCorrectTags(state) && !state.is(this.tier.getIncorrectBlocksForDrops());
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return isCorrectTags(state) ? speed : super.getDestroySpeed(stack, state);
+        return isCorrectTags(state) ? tier.getSpeed() : super.getDestroySpeed(stack, state);
     }
 
     public InteractionResult useOn(UseOnContext pContext) {
@@ -63,10 +64,10 @@ public class ValoriaMultiTool extends DiggerItem {
         Player player = pContext.getPlayer();
         BlockState blockstate = level.getBlockState(blockpos);
 
-        BlockState toolModifiedState = level.getBlockState(blockpos).getToolModifiedState(pContext, net.minecraftforge.common.ToolActions.HOE_TILL, false);
+        BlockState toolModifiedState = level.getBlockState(blockpos).getToolModifiedState(pContext, ItemAbilities.HOE_TILL, false);
         Pair<Predicate<UseOnContext>, Consumer<UseOnContext>> pair = toolModifiedState == null ? null : Pair.of(ctx -> true, changeIntoState(toolModifiedState));
         if (pair != null) return performHoeBehaviour(pContext, pair, level, player, blockpos);
-        
+
         AxeResult result = getAxeResult(pContext, blockstate, level, player, blockpos);
         if (result.optional3().isPresent()) return performAxeBehaviour(pContext, player, blockpos, result, level);
         return InteractionResult.PASS;
@@ -80,9 +81,7 @@ public class ValoriaMultiTool extends DiggerItem {
             if(!level.isClientSide){
                 consumer.accept(pContext);
                 if(player != null){
-                    pContext.getItemInHand().hurtAndBreak(1, player, (p_150845_) -> {
-                        p_150845_.broadcastBreakEvent(pContext.getHand());
-                    });
+                    pContext.getItemInHand().hurtAndBreak(1, player, LivingEntity.getSlotForHand(pContext.getHand()));
                 }
             }
 
@@ -100,16 +99,16 @@ public class ValoriaMultiTool extends DiggerItem {
         level.setBlock(blockpos, result.optional3().get(), 11);
         level.gameEvent(GameEvent.BLOCK_CHANGE, blockpos, GameEvent.Context.of(player, result.optional3().get()));
         if (player != null) {
-            result.itemstack().hurtAndBreak(1, player, (p_150686_) -> p_150686_.broadcastBreakEvent(pContext.getHand()));
+            result.itemstack().hurtAndBreak(1, player, LivingEntity.getSlotForHand(pContext.getHand()));
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     private static @NotNull ValoriaMultiTool.AxeResult getAxeResult(UseOnContext pContext, BlockState blockstate, Level level, Player player, BlockPos blockpos){
-        Optional<BlockState> optional = Optional.ofNullable(blockstate.getToolModifiedState(pContext, ToolActions.AXE_STRIP, false));
-        Optional<BlockState> optional1 = optional.isPresent() ? Optional.empty() : Optional.ofNullable(blockstate.getToolModifiedState(pContext, ToolActions.AXE_SCRAPE, false));
-        Optional<BlockState> optional2 = optional.isPresent() || optional1.isPresent() ? Optional.empty() : Optional.ofNullable(blockstate.getToolModifiedState(pContext, ToolActions.AXE_WAX_OFF, false));
+        Optional<BlockState> optional = Optional.ofNullable(blockstate.getToolModifiedState(pContext, ItemAbilities.AXE_STRIP, false));
+        Optional<BlockState> optional1 = optional.isPresent() ? Optional.empty() : Optional.ofNullable(blockstate.getToolModifiedState(pContext, ItemAbilities.AXE_SCRAPE, false));
+        Optional<BlockState> optional2 = optional.isPresent() || optional1.isPresent() ? Optional.empty() : Optional.ofNullable(blockstate.getToolModifiedState(pContext, ItemAbilities.AXE_WAX_OFF, false));
         ItemStack itemstack = pContext.getItemInHand();
         Optional<BlockState> optional3 = Optional.empty();
         if (optional.isPresent()) {
@@ -124,13 +123,13 @@ public class ValoriaMultiTool extends DiggerItem {
             level.levelEvent(player, 3004, blockpos, 0);
             optional3 = optional2;
         }
-        
+
         return new AxeResult(itemstack, optional3);
     }
 
     private record AxeResult(ItemStack itemstack, Optional<BlockState> optional3){ }
-    private static final Set<ToolAction> TOOL_ACTIONS = Stream.of(AXE_DIG, AXE_STRIP, AXE_SCRAPE, AXE_WAX_OFF, PICKAXE_DIG, SHOVEL_DIG, HOE_DIG, HOE_TILL).collect(Collectors.toCollection(Sets::newIdentityHashSet));
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-        return TOOL_ACTIONS.contains(toolAction);
+    private static final Set<ItemAbility> TOOL_ACTIONS = Stream.of(AXE_DIG, AXE_STRIP, AXE_SCRAPE, AXE_WAX_OFF, PICKAXE_DIG, SHOVEL_DIG, HOE_DIG, HOE_TILL).collect(Collectors.toCollection(Sets::newIdentityHashSet));
+    public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
+        return TOOL_ACTIONS.contains(itemAbility);
     }
 }

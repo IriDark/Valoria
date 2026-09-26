@@ -98,7 +98,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -111,7 +111,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -124,7 +124,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -137,7 +137,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -150,7 +150,7 @@
             -0.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -163,7 +163,7 @@
             0.25
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -277,7 +277,7 @@
             6
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -290,7 +290,7 @@
             6
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -303,7 +303,7 @@
             6
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -316,7 +316,7 @@
             6
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -329,7 +329,7 @@
             4.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -342,7 +342,7 @@
             5.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -456,7 +456,7 @@
             6.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -469,7 +469,7 @@
             6.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -482,7 +482,7 @@
             6.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -495,7 +495,7 @@
             6.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -508,7 +508,7 @@
             4.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -521,7 +521,7 @@
             6
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -617,7 +617,7 @@
             4.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -630,7 +630,7 @@
             4.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -643,7 +643,7 @@
             4.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -656,7 +656,7 @@
             4.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -669,7 +669,7 @@
             0
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -682,7 +682,7 @@
             2
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -778,7 +778,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -791,7 +791,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -804,7 +804,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -817,7 +817,7 @@
             1.75
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -830,7 +830,7 @@
             -0.5
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }
@@ -843,7 +843,7 @@
             0.25
           ],
           "texture": "#glow",
-          "forge_data": {
+          "neoforge_data": {
             "block_light": 15,
             "sky_light": 15
           }

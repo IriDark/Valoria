@@ -37,7 +37,7 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> DEEPSLATE_POT_LONG = registerKey("deepslate_pot_long_feature");
     public static final ResourceKey<ConfiguredFeature<?, ?>> dormantCrystals = registerKey("dormant_crystals");
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest voidStoneReplaceables = new BlockMatchTest(BlockRegistry.voidStone.get());
         RuleTest picriteReplaceables = new BlockMatchTest(BlockRegistry.picrite.get());
         RuleTest crystalStoneReplaceables = new BlockMatchTest(BlockRegistry.crystalStone.get());
@@ -120,7 +120,7 @@ public class ModConfiguredFeatures {
         registerOre(context, dormantCrystals, List.of(OreConfiguration.target(voidStoneReplaceables, BlockRegistry.dormantCrystals.get().defaultBlockState())), 8);
     }
 
-    private static void registerOre(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, List<OreConfiguration.TargetBlockState> targetStates, int size) {
+    private static void registerOre(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, List<OreConfiguration.TargetBlockState> targetStates, int size) {
         register(context, key, Feature.ORE, new OreConfiguration(targetStates, size));
     }
 
@@ -136,7 +136,7 @@ public class ModConfiguredFeatures {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, Valoria.loc(name));
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 }

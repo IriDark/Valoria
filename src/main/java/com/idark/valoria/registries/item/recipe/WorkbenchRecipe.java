@@ -1,27 +1,36 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.*;
 import com.idark.valoria.*;
 import com.mojang.datafixers.util.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
+import net.minecraft.network.codec.*;
 import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 
 import java.util.*;
 
-public class WorkbenchRecipe implements Recipe<Container> {
-    private final ResourceLocation id;
+public class WorkbenchRecipe implements Recipe<ContainerRecipeInput> {
+    private ResourceLocation id;
+
+    public ResourceLocation getId(){
+        return id;
+    }
+
+    public WorkbenchRecipe withId(ResourceLocation id){
+        this.id = id;
+        return this;
+    }
+
     private final String group;
     private final ItemStack result;
     private final List<Pair<Ingredient, RecipeData>> inputs;
 
-    public WorkbenchRecipe(ResourceLocation id, String group, ItemStack result, List<Pair<Ingredient, RecipeData>> inputs) {
-        this.id = id;
+    public WorkbenchRecipe(String group, ItemStack result, List<Pair<Ingredient, RecipeData>> inputs) {
         this.group = group;
         this.result = result;
         this.inputs = inputs;
@@ -37,11 +46,6 @@ public class WorkbenchRecipe implements Recipe<Container> {
         return Serializer.INSTANCE;
     }
 
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
     public String getCategory() {
         return this.group;
     }
@@ -52,7 +56,7 @@ public class WorkbenchRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess access) {
+    public ItemStack getResultItem(HolderLookup.Provider access) {
         return this.result.copy();
     }
 
@@ -77,10 +81,10 @@ public class WorkbenchRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
+    public boolean matches(ContainerRecipeInput container, Level level) {
         if (level.isClientSide) return false;
         List<Pair<Ingredient, RecipeData>> required = new ArrayList<>(inputs);
-        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+        for (int slot = 0; slot < container.size(); slot++) {
             ItemStack stack = container.getItem(slot);
             if (!stack.isEmpty()) {
                 for (Pair<Ingredient, RecipeData> req : required) {
@@ -99,7 +103,7 @@ public class WorkbenchRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container container, RegistryAccess access) {
+    public ItemStack assemble(ContainerRecipeInput container, HolderLookup.Provider access) {
         return this.result.copy();
     }
 
@@ -117,51 +121,27 @@ public class WorkbenchRecipe implements Recipe<Container> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = Valoria.loc("heavy_workbench");
 
+        private static final MapCodec<WorkbenchRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
+            RecipeCodecs.ITEM_STACK.fieldOf("result").forGetter(r -> r.result),
+            RecipeCodecs.COUNTED_INGREDIENT.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
+        ).apply(i, WorkbenchRecipe::new));
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, WorkbenchRecipe> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, r -> r.group,
+            ItemStack.STREAM_CODEC, r -> r.result,
+            RecipeCodecs.COUNTED_INGREDIENT_LIST_STREAM, r -> r.inputs,
+            WorkbenchRecipe::new
+        );
+
         @Override
-        public WorkbenchRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            String group = GsonHelper.getAsString(json, "group", "");
-            JsonObject resultObj = GsonHelper.getAsJsonObject(json, "result");
-            ItemStack result = ShapedRecipe.itemStackFromJson(resultObj);
-
-            List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
-            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-
-            for (JsonElement elem : ingredients) {
-                JsonObject obj = elem.getAsJsonObject();
-                Ingredient ing = Ingredient.fromJson(obj.get("ingredient"));
-                int count = GsonHelper.getAsInt(obj, "count", 1);
-                inputs.add(Pair.of(ing, new RecipeData(count)));
-            }
-
-            return new WorkbenchRecipe(recipeId, group, result, inputs);
+        public MapCodec<WorkbenchRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public WorkbenchRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            String group = buffer.readUtf();
-            ItemStack result = buffer.readItem();
-
-            int size = buffer.readVarInt();
-            List<Pair<Ingredient, RecipeData>> inputs = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                Ingredient ing = Ingredient.fromNetwork(buffer);
-                int count = buffer.readVarInt();
-                inputs.add(Pair.of(ing, new RecipeData(count)));
-            }
-
-            return new WorkbenchRecipe(recipeId, group, result, inputs);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, WorkbenchRecipe recipe) {
-            buffer.writeUtf(recipe.group);
-            buffer.writeItem(recipe.result);
-
-            buffer.writeVarInt(recipe.inputs.size());
-            for (Pair<Ingredient, RecipeData> entry : recipe.inputs) {
-                entry.getFirst().toNetwork(buffer);
-                buffer.writeVarInt(entry.getSecond().count);
-            }
+        public StreamCodec<RegistryFriendlyByteBuf, WorkbenchRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

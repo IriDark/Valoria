@@ -2,11 +2,13 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -16,12 +18,11 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
-import javax.annotation.Nullable;
 import javax.annotation.*;
+import javax.annotation.Nullable;
 
 public class SoulInfuserBlock extends Block implements SimpleWaterloggedBlock, EntityBlock{
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -75,7 +76,17 @@ public class SoulInfuserBlock extends Block implements SimpleWaterloggedBlock, E
         return tile != null && tile.triggerEvent(id, param);
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit){
+        return interact(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+        return BlockInteraction.toItemResult(interact(state, level, pos, player, hand, hit));
+    }
+
+    public InteractionResult interact(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         if(pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }else{
@@ -110,7 +121,7 @@ public class SoulInfuserBlock extends Block implements SimpleWaterloggedBlock, E
     }
 
     private void openScreen(Level world, BlockPos pos, ServerPlayer player){
-        NetworkHooks.openScreen(player, getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
+        player.openMenu(getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
     }
 
     private static VoxelShape makeShape(){

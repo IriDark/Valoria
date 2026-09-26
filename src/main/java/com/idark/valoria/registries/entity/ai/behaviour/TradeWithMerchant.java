@@ -29,13 +29,13 @@ public class TradeWithMerchant extends Behavior<AbstractHauntedMerchant>{
 
     protected void start(ServerLevel pLevel, AbstractHauntedMerchant pEntity, long pGameTime){
         Villager villager = (Villager)pEntity.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
-        BehaviorUtils.lockGazeAndWalkToEachOther(pEntity, villager, 0.5F);
+        BehaviorUtils.lockGazeAndWalkToEachOther(pEntity, villager, 0.5F, 2);
     }
 
     protected void tick(ServerLevel pLevel, AbstractHauntedMerchant pOwner, long pGameTime){
         AbstractHauntedMerchant villager = (AbstractHauntedMerchant)pOwner.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
         if(!(pOwner.distanceToSqr(villager) > 5.0D)){
-            BehaviorUtils.lockGazeAndWalkToEachOther(pOwner, villager, 0.5F);
+            BehaviorUtils.lockGazeAndWalkToEachOther(pOwner, villager, 0.5F, 2);
             pOwner.gossip(pLevel, villager, pGameTime);
             if(!this.trades.isEmpty() && pOwner.getInventory().hasAnyOf(this.trades)){
                 throwHalfStack(pOwner, this.trades, villager);

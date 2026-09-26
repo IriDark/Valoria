@@ -11,15 +11,15 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 
 import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class JewelryScreen extends AbstractContainerScreen<JewelryMenu>{
     private final ResourceLocation GUI = Valoria.loc("textures/gui/container/jewelry.png");
-    private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM = new ResourceLocation("item/empty_slot_smithing_template_armor_trim");
-    private static final ResourceLocation EMPTY_SLOT_DIAMOND = new ResourceLocation("item/empty_slot_diamond");
+    private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM = ResourceLocation.parse("item/empty_slot_smithing_template_armor_trim");
+    private static final ResourceLocation EMPTY_SLOT_DIAMOND = ResourceLocation.parse("item/empty_slot_diamond");
     private static final List<ResourceLocation> SLOT_ICONS = List.of(EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM, EMPTY_SLOT_DIAMOND);
     private static final ResourceLocation EMPTY_SLOT_RING = Valoria.loc("item/base_empty_slot_ring");
     private static final ResourceLocation EMPTY_SLOT_NECKLACE = Valoria.loc("item/base_empty_slot_necklace");
@@ -54,7 +54,7 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu>{
 
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
-        this.renderBackground(gui);
+        this.renderBackground(gui, mouseX, mouseY, partialTicks);
         super.render(gui, mouseX, mouseY, partialTicks);
         this.renderTooltip(gui, mouseX, mouseY);
     }

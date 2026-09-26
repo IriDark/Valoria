@@ -1,17 +1,26 @@
 package com.idark.valoria.registries.block.types.plants;
 
-import com.idark.valoria.registries.BlockRegistry;
-import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.GrowingPlantHeadBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import com.idark.valoria.registries.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.shapes.*;
 
 public class VioletSproutBlock extends GrowingPlantHeadBlock{
+   public static final MapCodec<VioletSproutBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        propertiesCodec(),
+        Codec.BOOL.fieldOf("glow").forGetter(b -> b.pGlow)
+    ).apply(i, VioletSproutBlock::new));
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D);
     boolean pGlow;
+
+    @Override
+    protected MapCodec<? extends VioletSproutBlock> codec(){
+        return CODEC;
+    }
 
     public VioletSproutBlock(BlockBehaviour.Properties p_54300_, boolean pGlow){
         super(p_54300_, Direction.UP, SHAPE, true, 0.14D);

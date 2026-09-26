@@ -14,6 +14,7 @@ import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.*;
@@ -55,7 +56,7 @@ public class KingCrabEntity extends MultiAttackMob implements NeutralMob, Enemy{
 
     public KingCrabEntity(EntityType<? extends KingCrabEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.setMaxUpStep(1.0F);
+        java.util.Objects.requireNonNull(this.getAttribute(Attributes.STEP_HEIGHT)).setBaseValue(1.0D);
         this.xpReward = 25;
     }
 
@@ -101,11 +102,11 @@ public class KingCrabEntity extends MultiAttackMob implements NeutralMob, Enemy{
         this.persistentAngerTarget = pTarget;
     }
 
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
-        this.entityData.define(HITS_NEEDED, 0);
-        this.entityData.define(HIDE_ANIMATION_STARTED, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_REMAINING_ANGER_TIME, 0);
+        builder.define(HITS_NEEDED, 0);
+        builder.define(HIDE_ANIMATION_STARTED, false);
     }
 
     public void addAdditionalSaveData(CompoundTag pCompound){
@@ -295,9 +296,6 @@ public class KingCrabEntity extends MultiAttackMob implements NeutralMob, Enemy{
         }
     }
 
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
 
     public boolean isPushedByFluid() {
         return false;
@@ -340,9 +338,6 @@ public class KingCrabEntity extends MultiAttackMob implements NeutralMob, Enemy{
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-    public double getPassengersRidingOffset(){
-        return this.getBbHeight() * 0.75F;
-    }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock){
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
@@ -360,13 +355,7 @@ public class KingCrabEntity extends MultiAttackMob implements NeutralMob, Enemy{
         return pLevel.getRawBrightness(pPos, 0) > 8;
     }
 
-    public MobType getMobType(){
-        return MobType.ARTHROPOD;
-    }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize){
-        return 0.65F;
-    }
 
     public boolean isVisuallySwimming(){
         return this.isSwimming();

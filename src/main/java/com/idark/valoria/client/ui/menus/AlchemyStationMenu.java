@@ -51,7 +51,7 @@ public class AlchemyStationMenu extends ContainerMenuBase{
         this.player = playerInventory.player;
         this.level = playerInventory.player.level();
         this.access = access;
-        this.allRecipes = this.level.getRecipeManager().getAllRecipesFor(AlchemyRecipe.Type.INSTANCE);
+        this.allRecipes = this.level.getRecipeManager().getAllRecipesFor(AlchemyRecipe.Type.INSTANCE).stream().map(h -> h.value().withId(h.id())).toList();
         this.blockLevel = blockLevel;
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
@@ -203,8 +203,8 @@ public class AlchemyStationMenu extends ContainerMenuBase{
 
     public void tryUpgrade(ServerPlayer player, ResourceLocation recipeId){
         Optional<AlchemyUpgradeRecipe> recipeHolder = level.getRecipeManager().byKey(recipeId)
-        .filter(r -> r instanceof AlchemyUpgradeRecipe)
-        .map(r -> (AlchemyUpgradeRecipe)r);
+        .filter(r -> r.value() instanceof AlchemyUpgradeRecipe)
+        .map(r -> ((AlchemyUpgradeRecipe)r.value()).withId(r.id()));
 
         if(recipeHolder.isPresent()){
             AlchemyUpgradeRecipe recipe = recipeHolder.get();
@@ -248,20 +248,20 @@ public class AlchemyStationMenu extends ContainerMenuBase{
 
     public Optional<AlchemyUpgradeRecipe> getUpgrade(ResourceLocation recipeId) {
         return level.getRecipeManager().byKey(recipeId)
-        .filter(r -> r instanceof AlchemyUpgradeRecipe)
-        .map(r -> (AlchemyUpgradeRecipe)r);
+        .filter(r -> r.value() instanceof AlchemyUpgradeRecipe)
+        .map(r -> ((AlchemyUpgradeRecipe)r.value()).withId(r.id()));
     }
 
     public void tryCraftRecipe(ServerPlayer player, ResourceLocation recipeId){
         Optional<AlchemyRecipe> recipeHolder = level.getRecipeManager().byKey(recipeId)
-        .filter(r -> r instanceof AlchemyRecipe)
-        .map(r -> (AlchemyRecipe)r);
+        .filter(r -> r.value() instanceof AlchemyRecipe)
+        .map(r -> ((AlchemyRecipe)r.value()).withId(r.id()));
 
         if(recipeHolder.isPresent()){
             AlchemyRecipe recipe = recipeHolder.get();
             if(checkAndSetAvailability(recipe)){
                 consumeMaterials(recipe);
-                ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY).copy();
+                ItemStack result = recipe.getResultItem(this.level.registryAccess()).copy();
                 player.getInventory().placeItemBackInInventory(result);
                 this.broadcastChanges();
             }

@@ -11,7 +11,7 @@ import net.minecraft.world.level.*;
 
 public class SummonerBladeItem extends SwordItem {
     public SummonerBladeItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
-        super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+        super(pTier, pProperties.attributes(SwordItem.createAttributes(pTier, pAttackDamageModifier, pAttackSpeedModifier))); // PORT NOTE: attributes component replaces the 4-arg ctor
     }
 
     @Override

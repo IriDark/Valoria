@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types.curio;
 
+import com.idark.valoria.core.interfaces.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
@@ -7,7 +8,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 
 import javax.annotation.*;
 
-public class DyeableCurioItem extends ValoriaCurioItem implements DyeableLeatherItem{
+public class DyeableCurioItem extends ValoriaCurioItem implements DyeableItem{
     public DyeableCurioItem(Properties pProperties){
         super(pProperties);
     }
@@ -20,6 +21,6 @@ public class DyeableCurioItem extends ValoriaCurioItem implements DyeableLeather
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
-        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_LEATHER, 1.0f, 1.0f);
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 1.0f, 1.0f);
     }
 }

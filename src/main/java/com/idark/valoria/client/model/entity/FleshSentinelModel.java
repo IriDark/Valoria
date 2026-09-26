@@ -1,13 +1,9 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
-import net.minecraft.client.animation.AnimationChannel;
-import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.animation.Keyframe;
-import net.minecraft.client.animation.KeyframeAnimations;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.registries.entity.living.minions.*;
+import net.minecraft.client.animation.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 
 public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalModel<T>{

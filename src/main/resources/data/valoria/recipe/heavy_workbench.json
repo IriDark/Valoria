@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PPB",
+    "XXX"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:paper"
+    },
+    "P": {
+      "item": "minecraft:iron_ingot"
+    },
+    "X": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "id": "valoria:heavy_workbench",
+    "count": 1
+  }
+}

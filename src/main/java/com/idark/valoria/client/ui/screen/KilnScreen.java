@@ -7,11 +7,11 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class KilnScreen extends AbstractContainerScreen<KilnMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/container/furnace.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.parse("textures/gui/container/furnace.png");
     private boolean widthTooNarrow;
 
     public KilnScreen(KilnMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
@@ -32,7 +32,7 @@ public class KilnScreen extends AbstractContainerScreen<KilnMenu> {
      * @param pPartialTick the partial tick time.
      */
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        this.renderBackground(pGuiGraphics);
+        this.renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
@@ -42,11 +42,11 @@ public class KilnScreen extends AbstractContainerScreen<KilnMenu> {
         int j = this.topPos;
         pGuiGraphics.blit(TEXTURE, i, j, 0, 0, this.imageWidth, this.imageHeight);
         if (this.menu.isLit()) {
-            int k = this.menu.getLitProgress();
+            int k = (int)this.menu.getLitProgress();
             pGuiGraphics.blit(TEXTURE, i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
         }
 
-        int l = this.menu.getBurnProgress();
+        int l = (int)this.menu.getBurnProgress();
         pGuiGraphics.blit(TEXTURE, i + 79, j + 34, 176, 14, l + 1, 16);
     }
 

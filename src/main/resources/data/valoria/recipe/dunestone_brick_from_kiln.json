@@ -1,0 +1,11 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "item": "valoria:dunestone"
+  },
+  "experience": 0.5,
+  "cookingtime": 100,
+  "result": {
+    "id": "valoria:dunestone_brick"
+  }
+}

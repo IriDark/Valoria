@@ -13,12 +13,12 @@ import snownee.jade.api.*;
 
 @WailaPlugin
 public class ModPlugin implements IWailaPlugin{
-    public static final ResourceLocation JEWELRY = new ResourceLocation("valoria:jewelry");
-    public static final ResourceLocation CRUSHER = new ResourceLocation("valoria:crusher");
-    public static final ResourceLocation KEG = new ResourceLocation("valoria:keg");
-    public static final ResourceLocation KEY = new ResourceLocation("valoria:key");
-    public static final ResourceLocation MANIPULATOR = new ResourceLocation("valoria:manipulator");
-    public static final ResourceLocation ENTITY_WEAKNESS = new ResourceLocation("valoria:entity_weakness");
+    public static final ResourceLocation JEWELRY = ResourceLocation.parse("valoria:jewelry");
+    public static final ResourceLocation CRUSHER = ResourceLocation.parse("valoria:crusher");
+    public static final ResourceLocation KEG = ResourceLocation.parse("valoria:keg");
+    public static final ResourceLocation KEY = ResourceLocation.parse("valoria:key");
+    public static final ResourceLocation MANIPULATOR = ResourceLocation.parse("valoria:manipulator");
+    public static final ResourceLocation ENTITY_WEAKNESS = ResourceLocation.parse("valoria:entity_weakness");
 
     @Override
     public void register(IWailaCommonRegistration registration){

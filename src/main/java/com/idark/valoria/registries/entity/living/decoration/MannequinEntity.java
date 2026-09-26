@@ -7,18 +7,21 @@ import net.minecraft.tags.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.common.extensions.*;
+import net.neoforged.neoforge.common.extensions.*;
 import org.jetbrains.annotations.*;
 
-public class MannequinEntity extends AbstractDecorationMob implements IForgeEntity{
+import java.util.*;
+
+public class MannequinEntity extends AbstractDecorationMob implements IEntityExtension{
     public MannequinEntity(EntityType<? extends Mob> type, Level worldIn){
         super(type, worldIn);
-        this.setMaxUpStep(0.0F);
+        Objects.requireNonNull(this.getAttribute(Attributes.STEP_HEIGHT)).setBaseValue(0.0D);
     }
 
     public void tick(){

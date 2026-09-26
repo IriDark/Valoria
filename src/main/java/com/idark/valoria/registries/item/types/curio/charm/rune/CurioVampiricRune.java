@@ -12,7 +12,6 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.util.*;
 
@@ -38,7 +37,7 @@ public class CurioVampiricRune extends AbstractRuneItem implements CurioOnKillIt
 
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         var healPercent = String.format("%.1f", this.healPercent * 100f);
         var healPercentDamage = String.format("%.1f", healOnHit);
