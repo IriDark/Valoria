@@ -12,12 +12,12 @@ import pro.komaru.tridot.client.model.render.entity.*;
 
 @OnlyIn(Dist.CLIENT)
 public class MagmaticGolemRenderer extends MobRenderer<MagmaticGolem, MagmaticGolemModel<MagmaticGolem>> {
-    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/magmatice_golem.png");
+    protected static final ResourceLocation TEXTURE = Valoria.loc("textures/entity/magmatic_golem.png");
 
     public MagmaticGolemRenderer(EntityRendererProvider.Context context){
         super(context, new MagmaticGolemModel<>(MagmaticGolemModel.createBodyLayer().bakeRoot()), 0.6F);
-        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(Valoria.loc("textures/entity/magmatice_golem_glow.png"))
-        .setAlpha(0.5f).build());
+        this.addLayer(new LuminescentLayer.Builder<>(this).setTexture(Valoria.loc("textures/entity/magmatic_golem_glow.png"))
+        .setAlpha(0.45f).build());
     }
 
     @Override

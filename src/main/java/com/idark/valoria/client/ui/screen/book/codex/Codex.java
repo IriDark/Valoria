@@ -2,7 +2,6 @@ package com.idark.valoria.client.ui.screen.book.codex;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.screen.book.*;
-import com.idark.valoria.client.ui.widget.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -43,7 +42,7 @@ public class Codex extends DotScreen{
 
     public int backgroundWidth = 512, backgroundHeight = 512;
     public int frameWidth = 276;
-    public int frameHeight = 180;
+    public int frameHeight = 181;
     public int insideWidth = 262;
     public int insideHeight = 164;
 
@@ -86,41 +85,6 @@ public class Codex extends DotScreen{
         searchBar.setTextColor(0xFFFFFF);
         searchBar.setHint(SEARCH_HINT);
         this.addWidget(searchBar);
-
-        if (!isSidebarDisabled()){
-            boolean isAdmin = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
-            int patreonX = isAdmin ? (this.width / 2 + 5) : (this.width / 2 - 100);
-            if (isAdmin) {
-                this.addRenderableWidget(new LegacyImageButton(this.width / 2 - 205, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/progression.png"), 200, 80, (button) -> {
-                    BooleanConsumer callback = (confirmed) -> {
-                        if (confirmed) {
-                            PacketHandler.sendToServer(new ProgressionDisableCodexPacket());
-                        }
-                        Minecraft.getInstance().setScreen(this);
-                    };
-
-                    ConfirmScreen warning = new ConfirmScreen(
-                    callback,
-                    Component.translatable("codex.screen.valoria.codex_progression.title").withStyle(ChatFormatting.RED),
-                    Component.translatable("codex.screen.valoria_progression.description_" + (ServerConfig.ENABLE_CODEX_PROGRESSION.get() ? "disable" : "enable"))
-                    );
-
-                    Minecraft.getInstance().setScreen(warning);
-                }));
-            }
-
-            this.addRenderableWidget(new com.idark.valoria.client.ui.widget.LegacyImageButton(patreonX, 20, 200, 40, 0, 0, 40, Valoria.loc("textures/gui/patreon.png"), 200, 80, (button) -> {
-                String url = "https://www.patreon.com/c/IriDark";
-                ConfirmLinkScreen confirmLinkScreen = new ConfirmLinkScreen((confirmed) -> {
-                    if (confirmed) {
-                        Util.getPlatform().openUri(url);
-                    }
-                    this.minecraft.setScreen(this);
-                }, url, true);
-
-                this.minecraft.setScreen(confirmLinkScreen);
-            }));
-        }
     }
 
     /**
@@ -369,6 +333,35 @@ public class Codex extends DotScreen{
                 }
             }
 
+            int patX = (int)(this.cx() - 30);
+            if(isHover(mouseX, mouseY, patX - 10, guiTop() + this.frameHeight - 15, 20, 20)){
+                String url = "https://www.patreon.com/c/IriDark";
+                Util.getPlatform().openUri(url);
+                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
+                return true;
+            }
+
+            int progX = (int)(this.cx() + 10);
+            boolean isHost = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
+            if (isHost && isHover(mouseX, mouseY, progX - 10, guiTop() + this.frameHeight - 15, 20, 20)) {
+                BooleanConsumer callback = (confirmed) -> {
+                    if (confirmed) {
+                        PacketHandler.sendToServer(new ProgressionDisableCodexPacket());
+                    }
+                    Minecraft.getInstance().setScreen(this);
+                };
+
+                ConfirmScreen warning = new ConfirmScreen(
+                callback,
+                Component.translatable("codex.screen.valoria.codex_progression.title").withStyle(ChatFormatting.RED),
+                Component.translatable("codex.screen.valoria_progression.description_" + (ServerConfig.ENABLE_CODEX_PROGRESSION.get() ? "disable" : "enable"))
+                );
+
+                Minecraft.getInstance().setScreen(warning);
+                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
+                return true;
+            }
+
             if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
                 CodexEntry root = CodexEntries.entries.find(e -> e.getChapter() == CodexEntries.PAGES_CHAPTER);
                 if (root != null) {
@@ -464,8 +457,7 @@ public class Codex extends DotScreen{
     }
 
     private void renderSkybox(float pitch, float yaw) {
-        Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder bufferbuilder; // PORT NOTE: Tesselator#getBuilder is gone; begin() returns the builder and draw() consumes buildOrThrow()
+        BufferBuilder bufferbuilder;
 
         float aspect = (float)insideWidth / (float)insideHeight;
         Matrix4f matrix4f = (new Matrix4f()).setPerspective(1.5F, aspect, 0.05F, 10.0F);

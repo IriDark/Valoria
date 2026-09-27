@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import org.joml.*;
+import pro.komaru.tridot.client.compatibility.*;
 
 import java.lang.Math;
 
@@ -24,9 +25,12 @@ public class RiftRenderer extends EntityRenderer<RiftEntity> {
 
     @Override
     public void render(RiftEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+        if (ShadersIntegration.isRenderingShadowPass()) {
+            return;
+        }
+
         pMatrixStack.pushPose();
-        pMatrixStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-        pMatrixStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+        pMatrixStack.mulPose(Axis.YP.rotationDegrees(-this.entityRenderDispatcher.camera.getYRot() + 180F));
 
         float maxLife = pEntity.getMaxLifeTime();
         float currentLife = pEntity.getLifeTime() - pPartialTicks;

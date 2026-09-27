@@ -14,3 +14,8 @@ plugins {
 }
 
 rootProject.name = "Valoria"
+includeBuild('../Tridot') {
+    dependencySubstitution {
+        substitute module('pro.komaru:Tridot') using project(':')
+    }
+}

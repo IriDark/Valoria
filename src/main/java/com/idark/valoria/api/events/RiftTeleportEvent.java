@@ -4,6 +4,7 @@ import com.idark.valoria.registries.entity.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.neoforged.bus.api.*;
+import net.neoforged.neoforge.event.entity.EntityEvent;
 
 public class RiftTeleportEvent extends EntityEvent implements ICancellableEvent{
     private final RiftEntity rift;
@@ -13,8 +14,8 @@ public class RiftTeleportEvent extends EntityEvent implements ICancellableEvent{
     private double targetZ;
     private Level targetLevel;
 
-    public RiftTeleportEvent(RiftEntity rift, RiftEntity connection, double targetX, double targetY, double targetZ, Level targetLevel) {
-        super();
+    public RiftTeleportEvent(Entity teleportingEntity, RiftEntity rift, RiftEntity connection, double targetX, double targetY, double targetZ, Level targetLevel) {
+        super(teleportingEntity);
         this.rift = rift;
         this.connection = connection;
         this.targetX = targetX;

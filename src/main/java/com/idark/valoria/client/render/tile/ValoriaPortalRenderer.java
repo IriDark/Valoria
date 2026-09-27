@@ -10,6 +10,7 @@ import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.neoforged.api.distmarker.*;
 import org.joml.*;
+import pro.komaru.tridot.client.compatibility.*;
 
 import static pro.komaru.tridot.client.render.TridotRenderTypes.getDelayedRender;
 
@@ -22,6 +23,10 @@ public class ValoriaPortalRenderer<T extends ValoriaPortalBlockEntity> implement
     }
 
     public void render(T pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay){
+        if (ShadersIntegration.isRenderingShadowPass()) {
+            return;
+        }
+
         Matrix4f matrix4f = pPoseStack.last().pose();
         this.renderCube(pBlockEntity, matrix4f, getDelayedRender().getBuffer(renderType()));
     }

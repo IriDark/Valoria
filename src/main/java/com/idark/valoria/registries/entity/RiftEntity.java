@@ -143,7 +143,7 @@ public class RiftEntity extends Entity implements TraceableEntity, IEntityWithCo
             BlockPos pos = this.getConnection().getOnPos().above();
             Level targetLevel = this.getConnection().level();
 
-            RiftTeleportEvent event = new RiftTeleportEvent(this, this.getConnection(), pos.getX(), pos.getY(), pos.getZ(), targetLevel);
+            RiftTeleportEvent event = new RiftTeleportEvent(pPlayer, this, this.getConnection(), pos.getX(), pos.getY(), pos.getZ(), targetLevel);
             if (event.isCanceled()) return;
 
             targetLevel = event.getTargetLevel();
