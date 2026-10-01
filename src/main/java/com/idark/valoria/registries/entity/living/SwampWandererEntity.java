@@ -83,8 +83,7 @@ public class SwampWandererEntity extends Zombie{
         }
     }
 
-    @Override
-    protected void randomizeReinforcementsChance() {
+    protected void handleAttributes(float pDifficulty){
         // shit
     }
 

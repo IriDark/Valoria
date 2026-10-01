@@ -24,6 +24,15 @@
 - Added `valoria:first_join_reward` LootCondition to support data-driven toggling of the Starter Bundle reward
 
 # **Fixed**
+- Fixed Valoria portal frame duping
+- Fixed Water Bubble can stun King Crab
+- Fixed Multiblock LootTable 
+- Fixed Swamp Wanderer possible but rare possibility to crash the game
+- Fixed Magmatic generation
+- Fixed Fortress generation
+- Fixed Sarcophagus loot duping
+- Fixed Incorrect model generation for Tiered accessories
+- Fixed Alchemy Station (Tier 1) wasn't added to mineable with axe tag
 - Fixed Layering issues inside Codex
 - Fixed multiblock blocks (like Sarcophagus and tall plants) dropping items when broken in Creative mode
 - Fixed Crypt structure generating one block too low and occasionally eating large chunks of surface terrain

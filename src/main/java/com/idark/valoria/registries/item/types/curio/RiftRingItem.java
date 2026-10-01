@@ -131,6 +131,14 @@ public class RiftRingItem extends ValoriaCurioItem implements CooldownNotifyItem
         return rmbEquip && !slot.entity().isShiftKeyDown();
     }
 
+    public void applyCooldown(Player playerIn, int time){
+        for(Item item : BuiltInRegistries.ITEM){
+            if(item instanceof RiftRingItem){
+                playerIn.getCooldowns().addCooldown(item, time);
+            }
+        }
+    }
+
     @Override
     public Seq<CurioAbility> getCurioAbilities(ItemStack stack) {
         return Seq.with(
@@ -175,6 +183,7 @@ public class RiftRingItem extends ValoriaCurioItem implements CooldownNotifyItem
                     });
                 });
 
+                applyCooldown(player, 800);
                 player.level().playSound(null, player.blockPosition(), SoundEvents.END_PORTAL_SPAWN, SoundSource.PLAYERS, 0.1F, 1.5F);
             }),
 

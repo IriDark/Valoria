@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "valoria:alchemy_station_tier_3",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "part": "bottom_right"
+              }
+            }
+          ],
           "name": "valoria:alchemy_station_tier_3"
         }
       ],

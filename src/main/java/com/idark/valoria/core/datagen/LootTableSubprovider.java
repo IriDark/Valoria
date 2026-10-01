@@ -52,6 +52,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
     }
 
     private final Set<Block> ignoredBlocks = Set.of(
+        BlockRegistry.sarcophagus.get(),
         BlockRegistry.cryptPot.get(),
         BlockRegistry.decoratedCryptPot.get(),
         BlockRegistry.potSmall.get(),
@@ -156,8 +157,12 @@ public class LootTableSubprovider extends BlockLootSubProvider {
                     }
                 }else if(block instanceof DoublePlantBlock plant){
                     this.add(plant, b -> LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(ExplosionCondition.survivesExplosion()).add(LootItem.lootTableItem(b).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))))));
-                }else if(block instanceof SarcophagusBlock sarcophagus){
-                    this.add(sarcophagus, b -> LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(ExplosionCondition.survivesExplosion()).add(LootItem.lootTableItem(b).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SarcophagusBlock.PART, BedPart.HEAD))))));
+                }else if(block instanceof AlchemyStationBlock station){
+                    this.add(station, b -> createSinglePropConditionTable(b, AlchemyStationBlock.PART, WorkbenchPart.BOTTOM_RIGHT));
+                }else if(block instanceof HeavyWorkbenchBlock workbench){
+                    this.add(workbench, b -> createSinglePropConditionTable(b, HeavyWorkbenchBlock.PART, WorkbenchPart.BOTTOM_RIGHT));
+                }else if(block instanceof HeavyAnvil anvil){
+                    this.add(anvil, b -> createSinglePropConditionTable(b, BlockStateProperties.BED_PART, BedPart.HEAD));
                 }else{
                     this.dropSelf(block);
                 }

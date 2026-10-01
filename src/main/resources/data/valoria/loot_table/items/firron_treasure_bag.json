@@ -83,6 +83,18 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:rift_ring",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:infernal_arrow",
           "weight": 5,
           "functions": [
