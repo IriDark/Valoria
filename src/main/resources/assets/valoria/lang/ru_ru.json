@@ -1740,5 +1740,6 @@
   "item.valoria.void_hammer": "Void Hammer",
   "item.valoria.magmatic_golem_spawn_egg": "Magmatic Golem Spawn Egg",
   "item.valoria.rift_ring": "Rift Ring",
-  "entity.valoria.magmatic_golem": "Magmatic Golem"
+  "entity.valoria.magmatic_golem": "Magmatic Golem",
+  "tooltip.valoria.wip": "[WIP] В разработке"
 }

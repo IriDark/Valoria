@@ -1,15 +1,15 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": {
-    "item": "minecraft:netherite_ingot"
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
   },
   "base": {
     "item": "valoria:diamond_rapier"
   },
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
   "result": {
     "item": "valoria:netherite_rapier"
-  },
-  "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
   }
 }
