@@ -1,0 +1,8 @@
+﻿{
+  "panel": "valoria:void",
+  "frame": "valoria:void",
+  "effects": [
+    "valoria:void_rim",
+    "valoria:void"
+  ]
+}

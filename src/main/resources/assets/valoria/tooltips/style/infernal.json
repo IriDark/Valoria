@@ -1,0 +1,8 @@
+﻿{
+  "panel": "valoria:infernal",
+  "frame": "valoria:infernal",
+  "effects": [
+    "valoria:infernal_rim",
+    "valoria:infernal"
+  ]
+}

@@ -1,9 +1,0 @@
-{
-  "priority": 1000,
-  "panel": "valoria:silken",
-  "frame": "valoria:silken",
-  "icon": "obscure_tooltips:common",
-  "filter": {
-    "rarity": "spider"
-  }
-}
