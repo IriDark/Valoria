@@ -1729,5 +1729,16 @@
   "message.valoria.rift_ring_unbound": "Rift is not bound to any position",
   "menu.valoria.heavy_anvil": "Heavy Anvil",
   "tooltip.valoria.hammer_smash": "Perform a jump from a ground falling and causing AOE damage",
-  "tooltip.tridot.katana.invulnerabillity_time": "Invulnerabillity time: %s"
+  "tooltip.tridot.katana.invulnerabillity_time": "Invulnerabillity time: %s",
+  "block.valoria.bronze_heavy_anvil": "Bronze Heavy Anvil",
+  "block.valoria.black_gold_heavy_anvil": "Black Gold Heavy Anvil",
+  "block.valoria.infernal_heavy_anvil": "Infernal Heavy Anvil",
+  "block.valoria.void_heavy_anvil": "Void Heavy Anvil",
+  "item.valoria.bronze_hammer": "Bronze Hammer",
+  "item.valoria.black_gold_hammer": "Black Gold Hammer",
+  "item.valoria.infernal_hammer": "Infernal Hammer",
+  "item.valoria.void_hammer": "Void Hammer",
+  "item.valoria.magmatic_golem_spawn_egg": "Magmatic Golem Spawn Egg",
+  "item.valoria.rift_ring": "Rift Ring",
+  "entity.valoria.magmatic_golem": "Magmatic Golem"
 }
