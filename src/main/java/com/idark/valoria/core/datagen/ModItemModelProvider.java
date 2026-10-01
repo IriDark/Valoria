@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.loaders.*;
 import net.minecraftforge.common.data.*;
 import net.minecraftforge.registries.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -123,8 +124,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.skip(BlockRegistry.soulFlower.get().asItem());
         this.skip(BlockRegistry.suspiciousIce.get().asItem());
         this.skip(BlockRegistry.suspiciousTombstone.get().asItem());
-
-        // Automatic Item Model generation for Block Items in BlockRegistry
         for (RegistryObject<Block> entry : BlockRegistry.BLOCK.getEntries()){
             Block block = entry.get();
             String name = entry.getId().getPath();
@@ -149,7 +148,6 @@ public class ModItemModelProvider extends ItemModelProvider {
             }
         }
 
-        // Automatic Item Model generation for Items in ItemsRegistry
         for (RegistryObject<Item> entry : ItemsRegistry.ITEMS.getEntries()) {
             Item item = entry.get();
             String name = entry.getId().getPath();
@@ -159,7 +157,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 } else if (!hasItemTexture(name)) {
                     Valoria.LOGGER.warn("Skipping item model for {} because item/{}.png is missing", entry.getId(), name);
                     this.skip(item);
-                }else if(item instanceof TieredItem || item instanceof SwordItem || item instanceof DiggerItem){
+                }else if((item instanceof TieredItem && !(item instanceof ICurioItem)) || item instanceof SwordItem || item instanceof DiggerItem){
                     this.add(item, gen -> handheldItem(name));
                 }else{
                     this.add(item, gen -> itemPath(name, "item/"));

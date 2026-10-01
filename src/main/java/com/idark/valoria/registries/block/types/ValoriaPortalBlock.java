@@ -104,7 +104,7 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
     @Override
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos pos2, boolean unknown){
         BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(world, pos);
-        if(frame == null && world.dimension() != LevelGen.VALORIA_KEY) world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        if(frame == null) world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
 
     public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState){

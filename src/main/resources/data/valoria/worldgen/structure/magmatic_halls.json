@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#valoria:all",
+  "biomes": "#valoria:is_valoria",
   "step": "underground_structures",
   "terrain_adaptation": "bury",
   "start_pool": "valoria:magmatic_halls/center",

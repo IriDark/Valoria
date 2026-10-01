@@ -75,17 +75,19 @@ public class WaterBubble extends Entity implements TraceableEntity{
                 this.sentSpikeEvent = true;
             }
 
+            AABB bounds = this.getBoundingBox().inflate(0.2);
+            LivingEntity owner = this.getOwner();
+            List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, bounds, e -> e.isAlive() && !e.isInvulnerable() && e != owner && (owner == null || !e.isAlliedTo(owner)));
+            for(LivingEntity entity : entities) {
+                entity.hurt(this.damageSources().mobProjectile(this, owner), damage);
+                entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 20, 0));
+                this.discard();
+                break;
+            }
+
             if(--this.lifeTicks < 0){
                 this.discard();
             }
-        }
-
-        AABB bounds = this.getBoundingBox().inflate(0.2);
-        List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, bounds, (e) -> e != this.owner || !e.isAlliedTo(this));
-        for(LivingEntity entity : entities) {
-            entity.hurt(this.damageSources().mobProjectile(this, owner), damage);
-            entity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 20, 0));
-            this.discard();
         }
     }
 

@@ -20,11 +20,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        // Automatic category tag assignment based on block type
         for (RegistryObject<Block> entry : BlockRegistry.BLOCK.getEntries()) {
             Block block = entry.get();
-
-            // Structure / Shape Category Tags
             if (block instanceof SlabBlock) {
                 tag(BlockTags.SLABS).add(block);
             } else if (block instanceof StairBlock) {
@@ -53,7 +50,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 tag(BlockTags.SAPLINGS).add(block);
             }
 
-            // Mining Tool Tags
             String name = entry.getId().getPath();
             if (isWoodenBlock(block, name)) {
                 tag(BlockTags.MINEABLE_WITH_AXE).add(block);
@@ -62,11 +58,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             } else if (isHoeBlock(block, name)) {
                 tag(BlockTags.MINEABLE_WITH_HOE).add(block);
             } else {
-                // Default most stones, ores, metals, altars, bricks to pickaxe mineable
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
             }
 
-            // Mining Tier Tags
             if (name.contains("cobalt") || name.contains("ruby") || name.contains("sapphire") || name.contains("amber") || name.contains("pyratite")) {
                 tag(BlockTags.NEEDS_IRON_TOOL).add(block);
             } else if (name.contains("awakened") || name.contains("black_gold") || name.contains("crimtane") || name.contains("void_stone")) {
@@ -76,6 +70,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             }
         }
 
+        tag(BlockTags.MINEABLE_WITH_AXE).add(BlockRegistry.alchemyStationTier1.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
             .add(BlockRegistry.dunestone.get(), BlockRegistry.dunestoneStairs.get(), BlockRegistry.dunestoneSlab.get(), BlockRegistry.dunestoneWall.get(), BlockRegistry.dunestoneBricks.get())
             .add(BlockRegistry.dunestoneBricksStairs.get(), BlockRegistry.dunestoneBricksSlab.get(), BlockRegistry.dunestoneBricksWall.get(), BlockRegistry.tombstone.get())
@@ -91,7 +86,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             .add(BlockRegistry.voidCrackedBrick.get(), BlockRegistry.voidCrackedBrickStairs.get(), BlockRegistry.voidCrackedBrickSlab.get(), BlockRegistry.voidCrackedBrickWall.get(), BlockRegistry.crystalStoneBricks.get())
             .add(BlockRegistry.voidPillar.get(), BlockRegistry.voidPillarAmethyst.get(), BlockRegistry.chargedVoidPillar.get(), BlockRegistry.ancientStone.get(), BlockRegistry.ancientStoneStairs.get());
 
-        // Specific custom tags
         tag(BlockTags.LOGS)
                 .add(BlockRegistry.shadeLog.get(), BlockRegistry.strippedShadeLog.get(), BlockRegistry.shadeWood.get(), BlockRegistry.strippedShadeWood.get())
                 .add(BlockRegistry.eldritchLog.get(), BlockRegistry.strippedEldritchLog.get(), BlockRegistry.eldritchWood.get(), BlockRegistry.strippedEldritchWood.get())

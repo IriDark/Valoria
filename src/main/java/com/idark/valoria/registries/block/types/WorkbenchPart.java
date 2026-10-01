@@ -2,7 +2,7 @@ package com.idark.valoria.registries.block.types;
 
 import net.minecraft.util.*;
 
-enum WorkbenchPart implements StringRepresentable{
+public enum WorkbenchPart implements StringRepresentable{
     BOTTOM_LEFT,
     BOTTOM_RIGHT,
     TOP_LEFT,
