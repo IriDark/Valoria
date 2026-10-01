@@ -1,0 +1,13 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:diamond_rapier" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:netherite_ingot" }, "count": 1 },
+    { "ingredient": { "item": "minecraft:netherite_upgrade_smithing_template" }, "count": 1 }
+  ],
+  "result": {
+    "item": "valoria:netherite_rapier",
+    "count": 1
+  }
+}

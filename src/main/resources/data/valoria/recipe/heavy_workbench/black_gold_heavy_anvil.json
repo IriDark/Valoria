@@ -1,0 +1,11 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:black_gold_ingot" }, "count": 24 }
+  ],
+  "result": {
+    "item": "valoria:black_gold_heavy_anvil",
+    "count": 1
+  }
+}

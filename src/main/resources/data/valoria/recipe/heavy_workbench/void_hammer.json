@@ -1,0 +1,13 @@
+{
+  "group": "tools",
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:void_ingot" }, "count": 10 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 6 },
+    { "ingredient": { "item": "minecraft:stick" }, "count": 3 }
+  ],
+  "result": {
+    "item": "valoria:void_hammer",
+    "count": 1
+  }
+}

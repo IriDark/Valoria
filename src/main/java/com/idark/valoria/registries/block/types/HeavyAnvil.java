@@ -5,8 +5,10 @@ import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.mojang.serialization.*;
+import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -25,6 +27,7 @@ import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 
 import javax.annotation.*;
+import java.util.*;
 
 public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, EntityBlock{
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
@@ -249,5 +252,11 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
     public long getSeed(BlockState pState, BlockPos pPos){
         BlockPos $$2 = pPos.relative(pState.getValue(FACING), pState.getValue(PART) == BedPart.HEAD ? 0 : 1);
         return Mth.getSeed($$2.getX(), pPos.getY(), $$2.getZ());
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag){
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
+        pTooltip.add(Component.translatable("tooltip.valoria.wip").withStyle(ChatFormatting.GOLD));
     }
 }
