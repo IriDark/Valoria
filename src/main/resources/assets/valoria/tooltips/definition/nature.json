@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:nature",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_nature"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "nature"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:nature"
+      }
+    ]
+  }
+}

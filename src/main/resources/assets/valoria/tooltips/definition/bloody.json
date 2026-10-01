@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:bloody",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_bloody"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "bloody"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:bloody"
+      }
+    ]
+  }
+}

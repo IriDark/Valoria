@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:infernal",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_infernal"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "infernal"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:infernal"
+      }
+    ]
+  }
+}

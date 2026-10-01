@@ -1,0 +1,33 @@
+{
+  "priority": 1000,
+  "style": "valoria:silken",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_spider"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "spider"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:spider"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_silken"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "silken"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:silken"
+      }
+    ]
+  }
+}

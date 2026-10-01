@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:pyratite",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_pyratite"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "pyratite"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:pyratite"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:halloween",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_halloween"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "halloween"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:halloween"
+      }
+    ]
+  }
+}

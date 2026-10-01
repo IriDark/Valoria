@@ -1,0 +1,8 @@
+﻿{
+  "panel": "valoria:ethereal",
+  "frame": "valoria:ethereal",
+  "effects": [
+    "valoria:ethereal_rim",
+    "valoria:ethereal"
+  ]
+}

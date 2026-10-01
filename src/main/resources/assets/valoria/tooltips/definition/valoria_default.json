@@ -1,0 +1,10 @@
+{
+  "priority": 500,
+  "style": "valoria:default",
+  "filter": {
+    "type": "obscure_tooltips:mod",
+    "mods": [
+      "valoria"
+    ]
+  }
+}

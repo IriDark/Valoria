@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:phantasm",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_phantasm"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "phantasm"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:phantasm"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:aquarius",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_aquarius"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "aquarius"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:aquarius"
+      }
+    ]
+  }
+}

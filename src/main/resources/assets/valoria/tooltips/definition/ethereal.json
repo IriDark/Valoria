@@ -1,0 +1,21 @@
+{
+  "priority": 1000,
+  "style": "valoria:ethereal",
+  "filter": {
+    "type": "obscure_tooltips:any_of",
+    "terms": [
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria_ethereal"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "ethereal"
+      },
+      {
+        "type": "obscure_tooltips:rarity",
+        "rarity": "valoria:ethereal"
+      }
+    ]
+  }
+}
