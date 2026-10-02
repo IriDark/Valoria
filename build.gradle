@@ -335,7 +335,6 @@ task curseforge(type: TaskPublishCurseForge) {
     mainFile.gameVersions = ["Server", "Client"]
     mainFile.changelog = getChangelogText()
 
-    // PORT NOTE: this build targets NeoForge 1.21.1 / Java 21 only.
     mainFile.addGameVersion("${minecraft_version}")
     mainFile.addModLoader("NeoForge")
     mainFile.addJavaVersion("Java 21")
@@ -352,7 +351,7 @@ modrinth {
     projectId = "valoria"
     versionNumber = version.toString().replace("${minecraft_version}-", "");
     versionType = "release"
-    versionName = "Valoria-${version}"
+    versionName = "Valoria-${minecraft_version}-${version}"
     changelog = getChangelogText()
     uploadFile = tasks.jar
     additionalFiles = [noMusicJar]
