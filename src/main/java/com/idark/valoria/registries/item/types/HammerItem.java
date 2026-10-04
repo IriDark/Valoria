@@ -41,7 +41,6 @@ import java.util.stream.*;
 import static com.idark.valoria.Valoria.*;
 
 public class HammerItem extends SwordItem implements ICustomAnimationItem, CooldownReductionItem, TooltipComponentItem{
-    @OnlyIn(Dist.CLIENT)
     private static HammerAnimation hammerAnimation = new HammerAnimation();
     public static final Set<ItemAbility> HAMMER = of(ItemAbilities.SWORD_DIG);
     private final float attackDamage;

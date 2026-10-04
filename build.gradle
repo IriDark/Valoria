@@ -58,7 +58,6 @@ neoForge {
 
         server {
             server()
-            programArgument '--nogui'
         }
 
         gameTestServer {
@@ -349,9 +348,9 @@ task curseforge(type: TaskPublishCurseForge) {
 modrinth {
     token = System.getenv("modrinthtoken")
     projectId = "valoria"
-    versionNumber = version.toString().replace("${minecraft_version}-", "");
+    versionNumber = "${version}";
     versionType = "release"
-    versionName = "Valoria-${minecraft_version}-${version}"
+    versionName = "${version}"
     changelog = getChangelogText()
     uploadFile = tasks.jar
     additionalFiles = [noMusicJar]
