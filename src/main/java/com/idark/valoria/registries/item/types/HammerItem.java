@@ -41,8 +41,7 @@ import static com.idark.valoria.Valoria.*;
 public class HammerItem extends SwordItem implements ICustomAnimationItem, CooldownReductionItem, TooltipComponentItem, Vanishable{
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
     public static final Set<ToolAction> HAMMER = of(ToolActions.SWORD_DIG);
-    @OnlyIn(Dist.CLIENT)
-    private static HammerAnimation hammerAnimation = new HammerAnimation();
+    private static final HammerAnimation hammerAnimation = new HammerAnimation();
 
     public HammerItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);

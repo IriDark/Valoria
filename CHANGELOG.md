@@ -1,3 +1,8 @@
+# 1.1.0.1
+
+# **Fixed**
+- Fixed Server crashing
+
 # 1.1.0
 
 # **Added**
