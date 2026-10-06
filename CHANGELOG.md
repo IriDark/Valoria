@@ -1,3 +1,9 @@
+# 1.1.0.2
+
+# **Fixed**
+- Fixed Server crashing caused by incorrect plant generation, this issue was ignored in 1.20.1 because of older chunk generation system
+- Fixed Double nether plant generation, they should generate properly now 
+
 # 1.1.0.1
 
 # **Fixed**
