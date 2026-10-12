@@ -197,7 +197,6 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         generateTools(pWriter, ItemsRegistry.infernalIngot.get(), Items.STICK, ItemsRegistry.infernalSword.get(), ItemsRegistry.infernalPickaxe.get(), ItemsRegistry.infernalAxe.get(), ItemsRegistry.infernalShovel.get(), ItemsRegistry.infernalHoe.get());
         generateIngotBlockNugget(pWriter, BlockRegistry.infernalBlock.get(), ItemsRegistry.infernalIngot.get(), null);
         generateTools(pWriter, ItemsRegistry.voidIngot.get(), Items.STICK, null, ItemsRegistry.voidPickaxe.get(), ItemsRegistry.voidAxe.get(), ItemsRegistry.voidShovel.get(), ItemsRegistry.voidHoe.get());
-        generateTools(pWriter, ItemsRegistry.jade.get(), Items.STICK, ItemsRegistry.jadeSword.get(), ItemsRegistry.jadePickaxe.get(), ItemsRegistry.jadeAxe.get(), ItemsRegistry.jadeShovel.get(), ItemsRegistry.jadeHoe.get());
         generateIngotBlockNugget(pWriter, BlockRegistry.pyratiteBlock.get(), ItemsRegistry.pyratite.get(), null);
         generateTools(pWriter, ItemsRegistry.pearliumIngot.get(), Items.STICK, ItemsRegistry.pearliumSword.get(), ItemsRegistry.pearliumPickaxe.get(), ItemsRegistry.pearliumAxe.get(), null, null);
         generateIngotBlockNugget(pWriter, BlockRegistry.pearlium.get(), ItemsRegistry.pearliumIngot.get(), null);
