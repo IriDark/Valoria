@@ -52,7 +52,7 @@ public class EtherealSwordItem extends ValoriaSword implements TooltipComponentI
     }
 
     public static void addCharge(ItemStack stack, int charge){
-        int charges = DataComponentsRegistry.getInt(stack, DataComponentsRegistry.CHARGE.get(), "charge");
+        int charges = DataComponentsRegistry.getInt(stack, DataComponentsRegistry.CHARGE.get());
         stack.set(DataComponentsRegistry.CHARGE, charges + charge);
     }
 
@@ -61,7 +61,7 @@ public class EtherealSwordItem extends ValoriaSword implements TooltipComponentI
     }
 
     public int getCurrentSouls(ItemStack pStack){
-        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.SOULS.get(), "Souls");
+        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.SOULS.get());
     }
 
     public void setCount(int count, ItemStack pStack){

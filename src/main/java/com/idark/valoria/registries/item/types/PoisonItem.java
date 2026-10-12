@@ -16,7 +16,6 @@ import pro.komaru.tridot.api.*;
 import java.util.*;
 
 public class PoisonItem extends Item{
-    public static final String LEGACY_KEY = "poison_hits"; // PORT NOTE: legacy NBT key, now DataComponentsRegistry.POISON_HITS
     private final int toxinHits;
     public PoisonItem(int hits, Properties pProperties){
         super(pProperties);
@@ -24,16 +23,19 @@ public class PoisonItem extends Item{
     }
 
     public static boolean isPoisoned(ItemStack stack){
-        return DataComponentsRegistry.has(stack, DataComponentsRegistry.POISON_HITS.get(), LEGACY_KEY);
+        return DataComponentsRegistry.has(stack, DataComponentsRegistry.POISON_HITS.get());
     }
 
     public static int getPoisonHits(ItemStack stack){
-        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.POISON_HITS.get(), LEGACY_KEY);
+        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.POISON_HITS.get());
     }
 
     public static void setPoisonHits(ItemStack stack, int hits){
-        if(hits <= 0) DataComponentsRegistry.remove(stack, DataComponentsRegistry.POISON_HITS.get(), LEGACY_KEY);
-        else stack.set(DataComponentsRegistry.POISON_HITS, hits);
+        if(hits <= 0) {
+            stack.remove(DataComponentsRegistry.POISON_HITS.get());
+        } else {
+            stack.set(DataComponentsRegistry.POISON_HITS, hits);
+        }
     }
 
     public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
@@ -41,8 +43,6 @@ public class PoisonItem extends Item{
             return false;
         } else {
             ItemStack stack = pSlot.getItem();
-            // PORT NOTE: 1.20.1 required an existing tag (getTag() != null) before poisoning; with components the sword
-            // only needs to not be poisoned already.
             if (stack.is(ItemTags.SWORDS) && !isPoisoned(stack)) {
                 this.playSound(pPlayer);
                 setPoisonHits(stack, toxinHits);

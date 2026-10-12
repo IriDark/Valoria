@@ -20,13 +20,12 @@ import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
 
 public class CelestialNecklaceItem extends CurioAccessoryItem implements TooltipComponentItem {
-    private static final String NIGHT_ACTIVE_TAG = "IsNightActive";
     public CelestialNecklaceItem(CelestialBuilder builder) {
         super(builder);
     }
 
-    public static boolean isNightActive(ItemStack stack){
-        return DataComponentsRegistry.getBool(stack, DataComponentsRegistry.NIGHT_ACTIVE.get(), NIGHT_ACTIVE_TAG);
+    public boolean isNightActive(ItemStack stack){
+        return DataComponentsRegistry.getBool(stack, DataComponentsRegistry.NIGHT_ACTIVE.get());
     }
 
     @Override

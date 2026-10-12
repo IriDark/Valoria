@@ -16,8 +16,6 @@ import org.jetbrains.annotations.*;
 
 public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
-    // PORT NOTE: RecipeProvider takes the registry lookup future; RecipeOutput is RecipeOutput; Forge's
-    // ConditionalRecipe wrapper became RecipeOutput#withConditions; cooking builders need the recipe factory.
     public RecipeGen(PackOutput pOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> registries) {
         super(pOutput, registries);
     }

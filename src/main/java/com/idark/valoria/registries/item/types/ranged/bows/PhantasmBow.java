@@ -39,11 +39,11 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
     }
 
     public boolean isPlayed(ItemStack pStack) {
-        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.SOUND_PLAYED.get(), "isPlayed");
+        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.SOUND_PLAYED.get());
     }
 
     public boolean isVisible(ItemStack pStack) {
-        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.BAR_VISIBLE.get(), "isVisible");
+        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.BAR_VISIBLE.get());
     }
 
     public void setPlayed(ItemStack pStack, boolean value){

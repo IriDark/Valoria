@@ -43,7 +43,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements OverlayRenderItem, 
     }
 
     public static int getCharge(ItemStack stack){
-        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.CHARGE.get(), "charge");
+        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.CHARGE.get());
     }
 
     public static void setCharge(ItemStack stack, int charge){

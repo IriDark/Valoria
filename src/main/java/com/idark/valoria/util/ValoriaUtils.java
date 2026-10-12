@@ -142,14 +142,12 @@ public class ValoriaUtils{
         return effects;
     }
 
-    public static final String ROT_LEGACY_KEY = "ValoriaRot";
-
     public static boolean hasRot(ItemStack pStack){
-        return DataComponentsRegistry.has(pStack, DataComponentsRegistry.ROT.get(), ROT_LEGACY_KEY);
+        return DataComponentsRegistry.has(pStack, DataComponentsRegistry.ROT.get());
     }
 
     public static int getRot(ItemStack pStack) {
-        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.ROT.get(), ROT_LEGACY_KEY);
+        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.ROT.get());
     }
 
     public static void shrinkRot(int count, ItemStack pStack){

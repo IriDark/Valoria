@@ -1,7 +1,6 @@
 package com.idark.valoria.client.model;
 
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.resources.*;
@@ -27,7 +26,7 @@ public class ModItemModelProperties{
     }
 
     public static void makeSouls(Item item){
-        ItemProperties.register(item, ResourceLocation.parse("souls"), (stack, clientWorld, livingEntity, player) -> DataComponentsRegistry.getInt(stack, DataComponentsRegistry.SOULS.get(), ISoulItem.LEGACY_KEY));
+        ItemProperties.register(item, ResourceLocation.parse("souls"), (stack, clientWorld, livingEntity, player) -> DataComponentsRegistry.getInt(stack, DataComponentsRegistry.SOULS.get()));
     }
 
     public static void makeCooldown(Item item){

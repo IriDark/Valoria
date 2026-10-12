@@ -62,7 +62,7 @@ public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayR
     }
 
     public static int getCharge(ItemStack stack){
-        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.CHARGE.get(), "charge");
+        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.CHARGE.get());
     }
 
     public static void setCharge(ItemStack stack, int charge){

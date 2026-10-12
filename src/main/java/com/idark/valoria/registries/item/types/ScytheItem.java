@@ -111,7 +111,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + CombatCompat.sweepingRatio(player);
         float radius = (float)player.getAttributeValue(AttributeReg.ATTACK_RADIUS);
-        usageCount = DataComponentsRegistry.getInt(stack, DataComponentsRegistry.USAGE_COUNT.get(), "usageCount");
+        usageCount = DataComponentsRegistry.getInt(stack, DataComponentsRegistry.USAGE_COUNT.get());
 
         usageCount++;
         stack.set(DataComponentsRegistry.USAGE_COUNT, usageCount);

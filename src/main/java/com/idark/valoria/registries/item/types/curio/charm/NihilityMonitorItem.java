@@ -1,8 +1,5 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.*;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
@@ -10,7 +7,9 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.level.events.*;
 import net.minecraft.*;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -23,8 +22,6 @@ import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
-
-import java.util.*;
 
 public class NihilityMonitorItem extends ValoriaCurioItem implements TooltipComponentItem{
     public NihilityMonitorItem(Properties properties){
@@ -45,7 +42,7 @@ public class NihilityMonitorItem extends ValoriaCurioItem implements TooltipComp
     }
 
     public boolean getState(ItemStack pStack){
-        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.TOGGLE_STATE.get(), "ToggleState");
+        return DataComponentsRegistry.getBool(pStack, DataComponentsRegistry.TOGGLE_STATE.get());
     }
 
     public void toggle(ItemStack pStack, boolean state){

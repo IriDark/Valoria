@@ -23,16 +23,12 @@ public class EyeNecklaceItem extends CurioAccessoryItem implements TooltipCompon
     public EyeNecklaceItem(NecklaceBuilder builder) {
         super(builder);
     }
-
-    private static final String DARK_ACTIVE_TAG = "IsDarkActive";
-    private static final String EYE_STATE_TAG = "EyeState";
-
     public static boolean isDarkActive(ItemStack stack){
-        return DataComponentsRegistry.getBool(stack, DataComponentsRegistry.DARK_ACTIVE.get(), DARK_ACTIVE_TAG);
+        return DataComponentsRegistry.getBool(stack, DataComponentsRegistry.DARK_ACTIVE.get());
     }
 
     public static int getEyeState(ItemStack stack){
-        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.EYE_STATE.get(), EYE_STATE_TAG);
+        return DataComponentsRegistry.getInt(stack, DataComponentsRegistry.EYE_STATE.get());
     }
 
     @Override

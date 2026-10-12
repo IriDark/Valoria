@@ -7,8 +7,6 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 
 public interface ISoulItem{
-    String LEGACY_KEY = "Souls";
-
     default boolean barVisible(ItemStack pStack){
         return getCurrentSouls(pStack) > 0 && getCurrentSouls(pStack) < getMaxSouls();
     }
@@ -31,7 +29,7 @@ public interface ISoulItem{
     int getMaxSouls();
 
     default int getCurrentSouls(ItemStack pStack) {
-        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.SOULS.get(), LEGACY_KEY);
+        return DataComponentsRegistry.getInt(pStack, DataComponentsRegistry.SOULS.get());
     }
 
     default void setSouls(int count, ItemStack pStack){
