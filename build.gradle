@@ -288,6 +288,11 @@ processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+reobf {
+    jar { }
+    noMusicJar { }
+}
+
 jar.finalizedBy('reobfJar')
 noMusicJar.finalizedBy('reobfNoMusicJar')
 publishing {
