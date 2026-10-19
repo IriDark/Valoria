@@ -81,7 +81,7 @@ public class ScytheAbility extends AbilityComponent {
             }
         }
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(screenShakeDuration, pro.komaru.tridot.util.phys.Vec3.from(player.getEyePosition()), 0, 30).intensity(screenShakeIntensity).interp(screenShakeEasing));
+        ScreenshakeHandler.add(player, new PositionedScreenshakeInstance(screenShakeDuration, player.getEyePosition(), 0, 30).intensity(screenShakeIntensity).interp(screenShakeEasing));
         return 0;
     }
 }

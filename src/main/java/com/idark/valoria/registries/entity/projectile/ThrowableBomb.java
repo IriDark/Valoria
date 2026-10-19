@@ -187,7 +187,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     protected void explode(){
         if(level().isClientSide()) GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(position().toVector3f(), new Vector3f(1, 1, 1)).setIntensity(5).setRadius(getRadius()).setFadeTime(10));
         this.level().explode(this.getOwner(), this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), bombInteraction);
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).intensity(0.5f));
+        ScreenshakeHandler.add(this.level(), new PositionedScreenshakeInstance(3, position(), 0, 30).intensity(0.5f));
     }
 
     public void setInteraction(Level.ExplosionInteraction intr){

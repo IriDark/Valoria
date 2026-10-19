@@ -45,7 +45,6 @@ import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.entity.system.*;
 import pro.komaru.tridot.util.*;
-import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
 import pro.komaru.tridot.util.struct.data.*;
 import software.bernie.geckolib.animatable.*;
@@ -318,7 +317,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
         }else{
             this.setStunned(160);
             this.spawnCrushParticles();
-            ScreenshakeHandler.add(new PositionedScreenshakeInstance(25, Pos3.init(this.getBlockX(), this.getBlockY(), this.getBlockZ()), 0, 30).intensity(1.25f).interp(Interp.bounce));
+            ScreenshakeHandler.add(this.level(), new PositionedScreenshakeInstance(25, this.position(), 0, 30).intensity(1.25f).interp(Interp.bounce));
             this.playSound(SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, 0.5f, 0.75f);
             this.triggerAnim("AttackController", "rush_stun_begin");
         }
@@ -382,7 +381,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
                 .repeat(player.level(), this.getBlockX(), this.getBlockY(), this.getBlockZ(), 128);
 
                 player.playSound(SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, 0.5f, 0.75f);
-                ScreenshakeHandler.add(new PositionedScreenshakeInstance(10, Pos3.init(this.getBlockX(), this.getBlockY(), this.getBlockZ()), 0, 15).intensity(1.25f).interp(Interp.bounce));
+                ScreenshakeHandler.add(player, new PositionedScreenshakeInstance(10, this.position(), 0, 15).intensity(1.25f).interp(Interp.bounce));
             }
         }));
 
@@ -514,7 +513,7 @@ public class Firron extends Monster implements Enemy, BossEntity, Allied, Attack
             event.getController().setCustomInstructionKeyframeHandler((e) -> {
                 String data = e.getKeyframeData().getInstructions();
                 if(data.equals("step;")) {
-                    ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, Pos3.init(this.getBlockX(), this.getBlockY(), this.getBlockZ()), 0, 10).intensity(0.5f).interp(Interp.bounce));
+                    ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, this.position(), 0, 10).intensity(0.5f).interp(Interp.bounce));
                 }
             });
 

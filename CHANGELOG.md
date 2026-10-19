@@ -1,3 +1,13 @@
+# 1.1.0.3
+
+# **Fixed**
+- Fixed Very rare server crashing related to Screenshake
+- Fixed Pillar rotations
+- Fixed Jewelry Bag, now it's works as intended
+- Fixed Jade recipes duplication
+- Fixed Armor being stackable, thanks mojang...
+- Fixed crash related to Dryador and Devils when amplyfing stats
+
 # 1.1.0.2
 
 # **Fixed**

@@ -41,7 +41,7 @@ public class PyratiteArrow extends AbstractProjectile implements TexturedArrow{
         if(this.level().isClientSide) return;
 
         this.level().explode(this.getOwner(), this.getX(), this.getY(), this.getZ(), 2, ExplosionInteraction.MOB);
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).intensity(1f));
+        ScreenshakeHandler.add(this.level(), new PositionedScreenshakeInstance(3, position(), 0, 30).intensity(1f));
         this.discard();
     }
 

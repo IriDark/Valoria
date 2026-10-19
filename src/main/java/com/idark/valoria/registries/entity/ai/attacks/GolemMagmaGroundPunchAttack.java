@@ -16,7 +16,6 @@ import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.entity.system.*;
 import pro.komaru.tridot.common.registry.entity.system.generic.*;
 import pro.komaru.tridot.util.*;
-import pro.komaru.tridot.util.comps.phys.*;
 
 import java.util.*;
 
@@ -52,7 +51,7 @@ public class GolemMagmaGroundPunchAttack extends TridotMeleeAttack{
     public void performAttack(){
         Vec3 vec3 = new Vec3(mob.getX(), mob.getY(), mob.getZ());
         List<LivingEntity> entities = mob.level().getNearbyEntities(LivingEntity.class, this.targeting, mob, mob.getBoundingBox().inflate(range));
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, Pos3.init((float)vec3.x, (float)vec3.y, (float)vec3.z), 0, 15));
+        ScreenshakeHandler.add(mob.level(), new PositionedScreenshakeInstance(5, vec3, 0, 15));
         for(LivingEntity entity : entities){
             double distance = Math.sqrt(entity.distanceToSqr(vec3)) / range;
             double dX = entity.getX() - vec3.x;

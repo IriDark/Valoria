@@ -16,7 +16,6 @@ import pro.komaru.tridot.client.gfx.particle.options.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.util.*;
-import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
 
 @OnlyIn(Dist.CLIENT)
@@ -94,7 +93,7 @@ public class SmashFX {
             .randomVelocity(0.15, 0.025)
             .repeat(level, pos.x, groundY, pos.z, 40);
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(15, Pos3.init((float)pos.x, (float)pos.y, (float)pos.z), 3, 8).intensity(0.8f).interp(Interp.sineIn));
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(15, pos, 3, 8).intensity(0.8f).interp(Interp.sineIn));
     }
 
     private static void playBlackGold(Level level, Player player, Vec3 pos, double groundY) {
@@ -127,7 +126,7 @@ public class SmashFX {
             .setHasPhysics(false)
             .repeat(level, pos.x, groundY, pos.z, 40);
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(16, Pos3.init((float)pos.x, (float)pos.y, (float)pos.z), 3, 8).intensity(0.85f).interp(Interp.sineIn));
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(16, pos, 3, 8).intensity(0.85f).interp(Interp.sineIn));
     }
 
     private static void playInfernal(Level level, Player player, Vec3 pos, double groundY) {
@@ -174,7 +173,7 @@ public class SmashFX {
             level.addParticle(ParticleTypes.LAVA, pos.x + rx, groundY + 0.2, pos.z + rz, 0, 0.3, 0);
         }
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(18, Pos3.init((float)pos.x, (float)pos.y, (float)pos.z), 4, 10).intensity(1.0f).interp(Interp.sineIn));
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(18, pos, 4, 10).intensity(1.0f).interp(Interp.sineIn));
     }
 
     private static void playVoid(Level level, Player player, Vec3 pos, double groundY) {
@@ -228,7 +227,7 @@ public class SmashFX {
             .randomVelocity(0.15, 0.25)
             .repeat(level, pos.x, groundY + 0.1, pos.z, 25);
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(18, Pos3.init((float)pos.x, (float)pos.y, (float)pos.z), 4, 10).intensity(1.0f).interp(Interp.sineIn));
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(18, pos, 4, 10).intensity(1.0f).interp(Interp.sineIn));
     }
 
     private static void playCollapse(Level level, Player player, Vec3 pos, double groundY) {
@@ -284,6 +283,6 @@ public class SmashFX {
             level.addParticle(ParticleTypes.PORTAL, pos.x + rx, groundY + 0.2 + Math.random() * 0.5, pos.z + rz, -rx * 0.3, 0.1, -rz * 0.3);
         }
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(20, Pos3.init((float)pos.x, (float)pos.y, (float)pos.z), 4, 10).intensity(1.1f).interp(Interp.sineIn));
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(20, pos, 4, 10).intensity(1.1f).interp(Interp.sineIn));
     }
 }

@@ -129,9 +129,11 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     private int amplifyCount;
 
     private void amplifyStats(){
+        if(this.level().isClientSide()) return;
+
         int n = amplifyCount++;
-        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(Valoria.loc("devil_amplify_damage_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_VALUE));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(Valoria.loc("devil_amplify_speed_" + n), 0.025f, Operation.ADD_MULTIPLIED_TOTAL));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addOrUpdateTransientModifier(new AttributeModifier(Valoria.loc("devil_amplify_damage_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_VALUE));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addOrUpdateTransientModifier(new AttributeModifier(Valoria.loc("devil_amplify_speed_" + n), 0.025f, Operation.ADD_MULTIPLIED_TOTAL));
     }
 
     @Override

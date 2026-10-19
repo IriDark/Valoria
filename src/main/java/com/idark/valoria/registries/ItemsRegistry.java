@@ -185,14 +185,14 @@ public class ItemsRegistry{
     pumpkinContract, goblin, firron, pixie, entMob, natureGolem, dryador, riverGolem, kingCrab, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, magmaticGolem, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
-        blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.HELMET, new Properties()));
-        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.CHESTPLATE, new Properties()));
-        blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.LEGGINGS, new Properties()));
-        blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.BOOTS, new Properties()));
-        fallenCollectorHood = registerItem("the_fallen_collector_hood", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.HELMET, new Properties()));
-        fallenCollectorCoat = registerItem("the_fallen_collector_coat", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.CHESTPLATE, new Properties()));
-        fallenCollectorLeggings = registerItem("the_fallen_collector_leggings", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.LEGGINGS, new Properties()));
-        fallenCollectorBoots = registerItem("the_fallen_collector_boots", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.BOOTS, new Properties()));
+        blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.HELMET, new Properties().durability(ArmorItem.Type.HELMET.getDurability(5))));
+        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.CHESTPLATE, new Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(5))));
+        blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.LEGGINGS, new Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(5))));
+        blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.BOOTS,  new Properties().durability(ArmorItem.Type.BOOTS.getDurability(5))));
+        fallenCollectorHood = registerItem("the_fallen_collector_hood", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.HELMET, new Properties().durability(ArmorItem.Type.HELMET.getDurability(5))));
+        fallenCollectorCoat = registerItem("the_fallen_collector_coat", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.CHESTPLATE, new Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(5))));
+        fallenCollectorLeggings = registerItem("the_fallen_collector_leggings", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.LEGGINGS, new Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(5))));
+        fallenCollectorBoots = registerItem("the_fallen_collector_boots", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.BOOTS,  new Properties().durability(ArmorItem.Type.BOOTS.getDurability(5))));
         cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.HELMET, new Item.Properties()));
         cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties()));
         cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.LEGGINGS, new Item.Properties()));

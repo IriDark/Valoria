@@ -186,10 +186,12 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
     private int amplifyCount;
 
     private void amplifyStats(){
+        if(this.level().isClientSide()) return;
+
         int n = amplifyCount++;
-        this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_armor_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_MULTIPLIED_TOTAL));
-        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_damage_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_VALUE));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_speed_" + n), 0.025f, Operation.ADD_MULTIPLIED_TOTAL));
+        this.getAttribute(Attributes.ARMOR).addOrUpdateTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_armor_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_MULTIPLIED_TOTAL));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addOrUpdateTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_damage_" + n), this.level().getDifficulty().getId() * 0.5f, Operation.ADD_VALUE));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addOrUpdateTransientModifier(new AttributeModifier(Valoria.loc("dryador_amplify_speed_" + n), 0.025f, Operation.ADD_MULTIPLIED_TOTAL));
     }
 
     public void checkPhaseTransition() {
@@ -650,7 +652,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob, IEff
         @Override
         protected void performAttack(){
             liftBlocksAround(DryadorEntity.this.level(), DryadorEntity.this.getOnPos(), 8);
-            ScreenshakeHandler.add(new PositionedScreenshakeInstance(60, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).interp(Interp.bounce).intensity(0.8f));
+            ScreenshakeHandler.add(DryadorEntity.this.level(), new PositionedScreenshakeInstance(60, position(), 0, 30).interp(Interp.bounce).intensity(0.8f));
 
             Vector3d pos = new Vector3d(DryadorEntity.this.getX(), DryadorEntity.this.getY(), DryadorEntity.this.getZ());
             ValoriaUtils.stunNearby(DryadorEntity.this.level(), DryadorEntity.this, pos,0, DryadorEntity.this.getRotationVector().y, 3);

@@ -73,7 +73,7 @@ public class InfernalScytheItem extends ScytheItem{
             }
         }
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(player.getEyePosition()), 0, 30).intensity(0.5f).interp(Interp.circleOut));
+        ScreenshakeHandler.add(player, new PositionedScreenshakeInstance(3, player.getEyePosition(), 0, 30).intensity(0.5f).interp(Interp.circleOut));
     }
 
     public void performEffects(LivingEntity targets, Player player){

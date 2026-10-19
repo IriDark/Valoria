@@ -115,7 +115,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements OverlayRenderItem, 
                     Utils.Hit.explosion(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
                 }
 
-                ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, pro.komaru.tridot.util.phys.Vec3.from(player.getEyePosition()), 15, 30).intensity(radius * 0.85f).interp(Interp.bounce));
+                ScreenshakeHandler.add(player, new PositionedScreenshakeInstance(5, player.getEyePosition(), 15, 30).intensity(radius * 0.85f).interp(Interp.bounce));
                 double offset = ((rand.nextDouble() - 0.5D) * radius);
                 double speed = 0.05d * offset;
                 serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, pos.x + X, pos.y + Y, pos.z + Z, 12, offset, offset,offset, speed);

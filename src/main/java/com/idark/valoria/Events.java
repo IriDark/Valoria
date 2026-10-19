@@ -60,7 +60,6 @@ import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
-import pro.komaru.tridot.util.comps.phys.*;
 import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
@@ -355,7 +354,7 @@ public class Events{
                         }
                     });
 
-                    ScreenshakeHandler.add(new PositionedScreenshakeInstance(15, Pos3.init((float)plr.getX(), (float)plr.getY(), (float)plr.getZ()), 0, 5).intensity(0.45f).interp(Interp.fade));
+                    ScreenshakeHandler.add(plr, new PositionedScreenshakeInstance(15, plr.position(), 0, 5).intensity(0.45f).interp(Interp.fade));
                     return;
                 }
             }

@@ -28,7 +28,6 @@ import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
-import pro.komaru.tridot.util.phys.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
@@ -135,7 +134,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
             }
         }
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(builder.screenShakeDuration, Vec3.from(player.getEyePosition()), 0, 30).intensity(builder.screenShakeIntensity).interp(builder.screenShakeEasing));
+        ScreenshakeHandler.add(player, new PositionedScreenshakeInstance(builder.screenShakeDuration, player.getEyePosition(), 0, 30).intensity(builder.screenShakeIntensity).interp(builder.screenShakeEasing));
     }
 
     /**

@@ -139,7 +139,7 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
         if(this.shouldExplode && !this.isExploded){
             if(!this.level().isClientSide){
                 this.level().explode(this.getOwner(), this.getX(), this.getY(), this.getZ(), explosive_radius, interaction);
-                ScreenshakeHandler.add(new ScreenshakeInstance(3).intensity(0.75f));
+                ScreenshakeHandler.add(this.level(), new PositionedScreenshakeInstance(3, position(), 0, 30).intensity(0.75f));
             }
 
             this.isExploded = true;
