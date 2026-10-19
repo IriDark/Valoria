@@ -1,10 +1,11 @@
-# 1.1.0.2
+# 1.1.0.3
 
 # **Fixed**
 - Fixed Very rare server crashing related to Screenshake
 - Fixed Pillar rotations
 - Fixed Jewelry Bag, now it's works as intended
 - Fixed Jade recipes duplication
+- Fixed Tall nether plants placement (backport from 1.21)
 
 # 1.1.0.1
 
