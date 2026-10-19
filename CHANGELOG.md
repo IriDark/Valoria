@@ -1,3 +1,11 @@
+# 1.1.0.2
+
+# **Fixed**
+- Fixed Very rare server crashing related to Screenshake
+- Fixed Pillar rotations
+- Fixed Jewelry Bag, now it's works as intended
+- Fixed Jade recipes duplication
+
 # 1.1.0.1
 
 # **Fixed**

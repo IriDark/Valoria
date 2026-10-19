@@ -252,8 +252,6 @@ task updateResources {
     }
 }
 
-jar.finalizedBy('reobfJar')
-noMusicJar.finalizedBy('reobfNoMusicJar')
 tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
@@ -290,6 +288,8 @@ processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+jar.finalizedBy('reobfJar')
+noMusicJar.finalizedBy('reobfNoMusicJar')
 publishing {
     publications {
         register('mavenJava', MavenPublication) {

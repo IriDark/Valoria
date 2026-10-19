@@ -138,7 +138,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
             }
         }
 
-        ScreenshakeHandler.add(new PositionedScreenshakeInstance(builder.screenShakeDuration, pro.komaru.tridot.util.phys.Vec3.from(player.getEyePosition()), 0, 30).intensity(builder.screenShakeIntensity).interp(builder.screenShakeEasing));
+        ScreenshakeHandler.add(player, new PositionedScreenshakeInstance(builder.screenShakeDuration, player.getEyePosition(), 0, 30).intensity(builder.screenShakeIntensity).interp(builder.screenShakeEasing));
     }
 
     /**

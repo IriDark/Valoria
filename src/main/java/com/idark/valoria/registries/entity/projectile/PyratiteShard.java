@@ -42,7 +42,7 @@ public class PyratiteShard extends AbstractProjectile{
         if(!this.isExploded){
             if(!this.level().isClientSide){
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), 1.75f, ExplosionInteraction.NONE);
-                ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).intensity(1f));
+                ScreenshakeHandler.add(this.level(), new PositionedScreenshakeInstance(3, position(), 0, 30).intensity(1f));
             }
 
             this.isExploded = true;

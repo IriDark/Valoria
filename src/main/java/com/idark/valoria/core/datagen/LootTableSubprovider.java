@@ -69,7 +69,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         BlockRegistry.potDeepslateLongHandles.get(),
         BlockRegistry.shadeBlossom.get(),
         BlockRegistry.shadeBranch.get(),
-        BlockRegistry.shadeBranchVine.get()
+        BlockRegistry.fleshCyst.get()
     );
 
     @Override
