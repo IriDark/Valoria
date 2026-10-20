@@ -1,3 +1,12 @@
+
+# 1.1.0.4
+**Requires Tridot 1.0.174**
+
+# **Fixed**
+- Fixed Server crash on API side
+- Fixed Armor durability and stacking
+- Fixed Pot Generation
+
 # 1.1.0.3
 
 # **Fixed**

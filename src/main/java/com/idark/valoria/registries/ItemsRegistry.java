@@ -38,8 +38,8 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.food.*;
 import net.minecraft.world.inventory.tooltip.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -185,64 +185,64 @@ public class ItemsRegistry{
     pumpkinContract, goblin, firron, pixie, entMob, natureGolem, dryador, riverGolem, kingCrab, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, magmaticGolem, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
-        blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.HELMET, new Properties().durability(ArmorItem.Type.HELMET.getDurability(5))));
-        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.CHESTPLATE, new Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(5))));
-        blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.LEGGINGS, new Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(5))));
-        blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.BOOTS,  new Properties().durability(ArmorItem.Type.BOOTS.getDurability(5))));
-        fallenCollectorHood = registerItem("the_fallen_collector_hood", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.HELMET, new Properties().durability(ArmorItem.Type.HELMET.getDurability(5))));
-        fallenCollectorCoat = registerItem("the_fallen_collector_coat", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.CHESTPLATE, new Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(5))));
-        fallenCollectorLeggings = registerItem("the_fallen_collector_leggings", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.LEGGINGS, new Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(5))));
-        fallenCollectorBoots = registerItem("the_fallen_collector_boots", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.BOOTS,  new Properties().durability(ArmorItem.Type.BOOTS.getDurability(5))));
-        cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.HELMET, new Item.Properties()));
-        cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-        cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.LEGGINGS, new Item.Properties()));
-        cobaltBoots = registerItem("cobalt_boots", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), ArmorItem.Type.BOOTS, new Item.Properties()));
-        samuraiKabuto = registerItem("samurai_kabuto", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.HELMET, new Item.Properties()));
-        samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-        samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.LEGGINGS, new Item.Properties()));
-        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), ArmorItem.Type.BOOTS, new Item.Properties()));
-        marshHelmet = registerItem("marsh_helmet", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        marshChestplate = registerItem("marsh_chestplate", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        marshLeggings = registerItem("marsh_leggings", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        marshBoots = registerItem("marsh_boots", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.MARSH)));
-        etherealHelmet = registerEffectArmor("ethereal_helmet", ArmorItem.Type.HELMET, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        etherealChestplate = registerEffectArmor("ethereal_chestplate", ArmorItem.Type.CHESTPLATE, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        etherealLeggings = registerEffectArmor("ethereal_leggings", ArmorItem.Type.LEGGINGS, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        etherealBoots = registerEffectArmor("ethereal_boots", ArmorItem.Type.BOOTS, ArmorRegistry.ETHEREAL.material(), new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        spiderHelmet = registerItem("spider_helmet", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.WEAKNESS, 60)));
-        spiderChestplate = registerItem("spider_chestplate", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
-        spiderLeggings = registerItem("spider_leggings", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
-        spiderBoots = registerItem("spider_boots", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
-        pyratiteHelmet = registerItem("pyratite_helmet",  () -> new PyratiteArmorItem(Type.HELMET, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new PyratiteArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteLeggings = registerItem("pyratite_leggings",  () -> new PyratiteArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteBoots = registerItem("pyratite_boots",  () -> new PyratiteArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE.material(), new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        crimtaneHelmet = registerItem("crimtane_helmet",  () -> new CrimtaneArmor(Type.HELMET, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneChestplate = registerItem("crimtane_chestplate",  () -> new CrimtaneArmor(Type.CHESTPLATE, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneLeggings = registerItem("crimtane_leggings",  () -> new CrimtaneArmor(Type.LEGGINGS, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneBoots = registerItem("crimtane_boots",  () -> new CrimtaneArmor(Type.BOOTS, ArmorRegistry.CRIMTANE.material(), new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.HELMET, new Properties().durability(Type.HELMET.getDurability(55))));
+        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.CHESTPLATE, new Properties().durability(Type.CHESTPLATE.getDurability(55))));
+        blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.LEGGINGS, new Properties().durability(Type.LEGGINGS.getDurability(55))));
+        blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD.material(), Type.BOOTS,  new Properties().durability(Type.BOOTS.getDurability(55))));
+        fallenCollectorHood = registerItem("the_fallen_collector_hood", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.HELMET, new Properties().durability(Type.HELMET.getDurability(45))));
+        fallenCollectorCoat = registerItem("the_fallen_collector_coat", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.CHESTPLATE, new Properties().durability(Type.CHESTPLATE.getDurability(45))));
+        fallenCollectorLeggings = registerItem("the_fallen_collector_leggings", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.LEGGINGS, new Properties().durability(Type.LEGGINGS.getDurability(45))));
+        fallenCollectorBoots = registerItem("the_fallen_collector_boots", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR.material(), Type.BOOTS,  new Properties().durability(Type.BOOTS.getDurability(45))));
+        cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), Type.HELMET, new Item.Properties().durability(Type.HELMET.getDurability(46))));
+        cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), Type.CHESTPLATE, new Item.Properties().durability(Type.CHESTPLATE.getDurability(46))));
+        cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), Type.LEGGINGS, new Item.Properties().durability(Type.LEGGINGS.getDurability(46))));
+        cobaltBoots = registerItem("cobalt_boots", () -> new SkinableArmorItem(ArmorRegistry.COBALT.material(), Type.BOOTS, new Item.Properties().durability(Type.BOOTS.getDurability(46))));
+        samuraiKabuto = registerItem("samurai_kabuto", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), Type.HELMET, new Item.Properties().durability(Type.HELMET.getDurability(55))));
+        samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), Type.CHESTPLATE, new Item.Properties().durability(Type.CHESTPLATE.getDurability(55))));
+        samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), Type.LEGGINGS, new Item.Properties().durability(Type.LEGGINGS.getDurability(55))));
+        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI.material(), Type.BOOTS, new Item.Properties().durability(Type.BOOTS.getDurability(55))));
+        marshHelmet = registerItem("marsh_helmet", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), Type.HELMET, new Item.Properties().durability(Type.HELMET.getDurability(58)).rarity(RarityRegistry.MARSH)));
+        marshChestplate = registerItem("marsh_chestplate", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), Type.CHESTPLATE, new Item.Properties().durability(Type.CHESTPLATE.getDurability(58)).rarity(RarityRegistry.MARSH)));
+        marshLeggings = registerItem("marsh_leggings", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), Type.LEGGINGS, new Item.Properties().durability(Type.LEGGINGS.getDurability(58)).rarity(RarityRegistry.MARSH)));
+        marshBoots = registerItem("marsh_boots", () -> new SkinableArmorItem(ArmorRegistry.MARSH.material(), Type.BOOTS, new Item.Properties().durability(Type.BOOTS.getDurability(58)).rarity(RarityRegistry.MARSH)));
+        etherealHelmet = registerEffectArmor("ethereal_helmet", Type.HELMET, ArmorRegistry.ETHEREAL.material(), new Item.Properties().durability(Type.HELMET.getDurability(60)).rarity(RarityRegistry.ETHEREAL));
+        etherealChestplate = registerEffectArmor("ethereal_chestplate", Type.CHESTPLATE, ArmorRegistry.ETHEREAL.material(), new Item.Properties().durability(Type.CHESTPLATE.getDurability(60)).rarity(RarityRegistry.ETHEREAL));
+        etherealLeggings = registerEffectArmor("ethereal_leggings", Type.LEGGINGS, ArmorRegistry.ETHEREAL.material(), new Item.Properties().durability(Type.LEGGINGS.getDurability(60)).rarity(RarityRegistry.ETHEREAL));
+        etherealBoots = registerEffectArmor("ethereal_boots", Type.BOOTS, ArmorRegistry.ETHEREAL.material(), new Item.Properties().durability(Type.BOOTS.getDurability(60)).rarity(RarityRegistry.ETHEREAL));
+        spiderHelmet = registerItem("spider_helmet", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), Type.HELMET, new Item.Properties().durability(Type.HELMET.getDurability(68)).rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.WEAKNESS, 60)));
+        spiderChestplate = registerItem("spider_chestplate", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), Type.CHESTPLATE, new Item.Properties().durability(Type.CHESTPLATE.getDurability(68)).rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
+        spiderLeggings = registerItem("spider_leggings", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), Type.LEGGINGS, new Item.Properties().durability(Type.LEGGINGS.getDurability(68)).rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
+        spiderBoots = registerItem("spider_boots", () -> new SpiderArmor(ArmorRegistry.SPIDER.material(), Type.BOOTS, new Item.Properties().durability(Type.BOOTS.getDurability(68)).rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
+        pyratiteHelmet = registerItem("pyratite_helmet",  () -> new PyratiteArmorItem(Type.HELMET, ArmorRegistry.PYRATITE.material(), new Item.Properties().durability(Type.HELMET.getDurability(72)).rarity(RarityRegistry.PYRATITE)));
+        pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new PyratiteArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE.material(), new Item.Properties().durability(Type.CHESTPLATE.getDurability(72)).rarity(RarityRegistry.PYRATITE)));
+        pyratiteLeggings = registerItem("pyratite_leggings",  () -> new PyratiteArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE.material(), new Item.Properties().durability(Type.LEGGINGS.getDurability(72)).rarity(RarityRegistry.PYRATITE)));
+        pyratiteBoots = registerItem("pyratite_boots",  () -> new PyratiteArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE.material(), new Item.Properties().durability(Type.BOOTS.getDurability(72)).rarity(RarityRegistry.PYRATITE)));
+        crimtaneHelmet = registerItem("crimtane_helmet",  () -> new CrimtaneArmor(Type.HELMET, ArmorRegistry.CRIMTANE.material(), new Item.Properties().durability(Type.HELMET.getDurability(72)).rarity(RarityRegistry.BLOODY)));
+        crimtaneChestplate = registerItem("crimtane_chestplate",  () -> new CrimtaneArmor(Type.CHESTPLATE, ArmorRegistry.CRIMTANE.material(), new Item.Properties().durability(Type.CHESTPLATE.getDurability(72)).rarity(RarityRegistry.BLOODY)));
+        crimtaneLeggings = registerItem("crimtane_leggings",  () -> new CrimtaneArmor(Type.LEGGINGS, ArmorRegistry.CRIMTANE.material(), new Item.Properties().durability(Type.LEGGINGS.getDurability(72)).rarity(RarityRegistry.BLOODY)));
+        crimtaneBoots = registerItem("crimtane_boots",  () -> new CrimtaneArmor(Type.BOOTS, ArmorRegistry.CRIMTANE.material(), new Item.Properties().durability(Type.BOOTS.getDurability(72)).rarity(RarityRegistry.BLOODY)));
 
         // elemental
-        natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
-        natureChestplate = registerEffectArmor("nature_chestplate", Type.CHESTPLATE, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
-        natureLeggings = registerEffectArmor("nature_leggings", Type.LEGGINGS, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
-        natureBoots = registerEffectArmor("nature_boots", Type.BOOTS, ArmorRegistry.NATURE.material(), new Item.Properties().rarity(RarityRegistry.NATURE));
-        depthHelmet = registerEffectArmor("depth_helmet", Type.HELMET, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        depthChestplate = registerEffectArmor("depth_chestplate", Type.CHESTPLATE, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        depthLeggings = registerEffectArmor("depth_leggings", Type.LEGGINGS, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        depthBoots = registerEffectArmor("depth_boots", Type.BOOTS, ArmorRegistry.DEPTH.material(), new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        infernalHelmet = registerItem("infernal_helmet", () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        infernalChestplate = registerItem("infernal_chestplate", () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        infernalLeggings = registerItem("infernal_leggings", () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        infernalBoots = registerItem("infernal_boots", () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.INFERNAL.material(), new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
-        awakenedVoidHelmet = registerItem("awakened_void_helmet", () -> new VoidArmorItem(Type.HELMET, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        awakenedVoidChestplate = registerItem("awakened_void_chestplate", () -> new VoidArmorItem(Type.CHESTPLATE, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        awakenedVoidLeggings = registerItem("awakened_void_leggings", () -> new VoidArmorItem(Type.LEGGINGS, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        awakenedVoidBoots = registerItem("awakened_void_boots", () -> new VoidArmorItem(Type.BOOTS, ArmorRegistry.VOID.material(), new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        phantasmHelmet = registerItem("phantasm_helmet", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.HELMET, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmChestplate = registerItem("phantasm_chestplate", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmLeggings = registerItem("phantasm_leggings", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.BOOTS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE.material(), new Item.Properties().durability(Type.HELMET.getDurability(66)).rarity(RarityRegistry.NATURE));
+        natureChestplate = registerEffectArmor("nature_chestplate", Type.CHESTPLATE, ArmorRegistry.NATURE.material(), new Item.Properties().durability(Type.CHESTPLATE.getDurability(66)).rarity(RarityRegistry.NATURE));
+        natureLeggings = registerEffectArmor("nature_leggings", Type.LEGGINGS, ArmorRegistry.NATURE.material(), new Item.Properties().durability(Type.LEGGINGS.getDurability(66)).rarity(RarityRegistry.NATURE));
+        natureBoots = registerEffectArmor("nature_boots", Type.BOOTS, ArmorRegistry.NATURE.material(), new Item.Properties().durability(Type.BOOTS.getDurability(66)).rarity(RarityRegistry.NATURE));
+        depthHelmet = registerEffectArmor("depth_helmet", Type.HELMET, ArmorRegistry.DEPTH.material(), new Item.Properties().durability(Type.HELMET.getDurability(72)).rarity(RarityRegistry.AQUARIUS));
+        depthChestplate = registerEffectArmor("depth_chestplate", Type.CHESTPLATE, ArmorRegistry.DEPTH.material(), new Item.Properties().durability(Type.CHESTPLATE.getDurability(72)).rarity(RarityRegistry.AQUARIUS));
+        depthLeggings = registerEffectArmor("depth_leggings", Type.LEGGINGS, ArmorRegistry.DEPTH.material(), new Item.Properties().durability(Type.LEGGINGS.getDurability(72)).rarity(RarityRegistry.AQUARIUS));
+        depthBoots = registerEffectArmor("depth_boots", Type.BOOTS, ArmorRegistry.DEPTH.material(), new Item.Properties().durability(Type.BOOTS.getDurability(72)).rarity(RarityRegistry.AQUARIUS));
+        infernalHelmet = registerItem("infernal_helmet", () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.INFERNAL.material(), new Item.Properties().durability(Type.HELMET.getDurability(76)).rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalChestplate = registerItem("infernal_chestplate", () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.INFERNAL.material(), new Item.Properties().durability(Type.CHESTPLATE.getDurability(76)).rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalLeggings = registerItem("infernal_leggings", () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.INFERNAL.material(), new Item.Properties().durability(Type.LEGGINGS.getDurability(76)).rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalBoots = registerItem("infernal_boots", () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.INFERNAL.material(), new Item.Properties().durability(Type.BOOTS.getDurability(76)).rarity(RarityRegistry.INFERNAL).fireResistant()));
+        awakenedVoidHelmet = registerItem("awakened_void_helmet", () -> new VoidArmorItem(Type.HELMET, ArmorRegistry.VOID.material(), new Item.Properties().durability(Type.HELMET.getDurability(80)).rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidChestplate = registerItem("awakened_void_chestplate", () -> new VoidArmorItem(Type.CHESTPLATE, ArmorRegistry.VOID.material(), new Item.Properties().durability(Type.CHESTPLATE.getDurability(80)).rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidLeggings = registerItem("awakened_void_leggings", () -> new VoidArmorItem(Type.LEGGINGS, ArmorRegistry.VOID.material(), new Item.Properties().durability(Type.LEGGINGS.getDurability(80)).rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidBoots = registerItem("awakened_void_boots", () -> new VoidArmorItem(Type.BOOTS, ArmorRegistry.VOID.material(), new Item.Properties().durability(Type.BOOTS.getDurability(80)).rarity(RarityRegistry.VOID).fireResistant()));
+        phantasmHelmet = registerItem("phantasm_helmet", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.HELMET, new Item.Properties().durability(Type.HELMET.getDurability(85)).rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmChestplate = registerItem("phantasm_chestplate", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.CHESTPLATE, new Item.Properties().durability(Type.CHESTPLATE.getDurability(85)).rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmLeggings = registerItem("phantasm_leggings", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.LEGGINGS, new Item.Properties().durability(Type.LEGGINGS.getDurability(85)).rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmor(ArmorRegistry.PHANTASM.material(), Type.BOOTS, new Item.Properties().durability(Type.BOOTS.getDurability(85)).rarity(RarityRegistry.PHANTASM).fireResistant()));
 
         //materials
         gaibRoot = registerItem("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)) {
@@ -1111,7 +1111,7 @@ public class ItemsRegistry{
         BLOCK_ITEMS.register(eventBus);
     }
 
-    private static DeferredHolder<Item, Item> registerEffectArmor(String name, ArmorItem.Type type, Holder<ArmorMaterial> material, Item.Properties props){
+    private static DeferredHolder<Item, Item> registerEffectArmor(String name, Type type, Holder<ArmorMaterial> material, Item.Properties props){
         return ITEMS.register(name, () -> new EffectArmorItem(material, type, props));
     }
 

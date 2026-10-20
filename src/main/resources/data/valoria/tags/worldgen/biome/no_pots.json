@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:spawns_cold_variant_frogs",
+    "#minecraft:has_structure/igloo",
     "#minecraft:has_structure/desert_pyramid",
     "#minecraft:has_structure/swamp_hut"
   ]
