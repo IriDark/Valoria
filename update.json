@@ -1,17 +1,21 @@
 {
   "homepage": "https://github.com/IriDark/Valoria/",
   "promos": {
-    "1.21.1-latest": "1.21.1-1.1.0.1",
-    "1.21.1-recommended": "1.21.1-1.1.0.1",
-    "1.20.1-latest": "1.20.1-1.1.0.2",
-    "1.20.1-recommended": "1.20.1-1.1.0.2"
+    "1.21.1-latest": "1.21.1-1.1.0.4",
+    "1.21.1-recommended": "1.21.1-1.1.0.4",
+    "1.20.1-latest": "1.20.1-1.1.0.4",
+    "1.20.1-recommended": "1.20.1-1.1.0.4"
   },
   "1.21.1": {
+    "1.21.1-1.1.0.4": "Fixes related to mod stability",
+    "1.21.1-1.1.0.3": "Fixes related to mod stability",
+    "1.21.1-1.1.0.2": "Fixed world generation crash",
     "1.21.1-1.1.0.1": "Server crashing fix",
     "1.21.1-1.1.0": "NeoForge 1.21.1 / Valoria 1.1.0"
   },
   "1.20.1": {
-    "1.20.1-1.1.0.2": "Fixes related to mod stability",
+    "1.20.1-1.1.0.4": "Fixes related to mod stability",
+    "1.20.1-1.1.0.3": "Fixes related to mod stability",
     "1.20.1-1.1.0.1": "Server crash fix",
     "1.20.1-1.1.0": "Stability improvements & Hammers",
     "1.20.1-1.0.4.1": "Stability improvements",
