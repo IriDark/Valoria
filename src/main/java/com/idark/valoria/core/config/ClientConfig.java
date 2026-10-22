@@ -9,7 +9,7 @@ public class ClientConfig{
     SOUL_BAR_Y, SOUL_BAR_X,
     NIHILITY_METER_X, NIHILITY_METER_Y,
     MISC_UI_X, MISC_UI_Y;
-    public static ModConfigSpec.ConfigValue<Float> CODEX_SENSITIVITY;
+    public static ModConfigSpec.DoubleValue CODEX_SENSITIVITY;
 
     public static ModConfigSpec.ConfigValue<Boolean>
     RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS, SHOW_UPDATES, NIHILITY_METER_ALWAYS_VISIBLE, NIHILITY_METER_ANIMATE, DAMAGE_INDICATOR;
@@ -44,7 +44,7 @@ public class ClientConfig{
             MAGMA_CHARGE_BAR_TYPE = builder.comment("Type of Magma Bar").defineInRange("magmaBarType", 1, 1, 3);
             RENDER_PHANTOM_ACTIVATION = builder.comment("Item activation on ability use").define("phantomActivationRendering", true);
             OLD_GOBLIN_MODEL = builder.comment("Changes goblin model to old one").comment("You will need to reload your resources to see results").define("goblinModel", false);
-            CODEX_SENSITIVITY = builder.comment("Changes the drag sensitivity of Codex").define("dragSensitivity", 1.25f);
+            CODEX_SENSITIVITY = builder.comment("Changes the drag sensitivity of Codex").defineInRange("dragSensitivity", 1.25d, 0.0d, 100.0d);
         builder.pop();
     }
 }

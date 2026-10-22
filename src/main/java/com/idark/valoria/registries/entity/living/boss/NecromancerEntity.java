@@ -587,7 +587,8 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                 if(!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()){
                     Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                     Utils.Particles.inRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
-                    Utils.Hit.healNearbyMobs(MobCategory.MONSTER, CommonConfig.TARGET_HEAL_NECROMANCER_AMOUNT.get(), serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
+                    float healAmount = (float)CommonConfig.TARGET_HEAL_NECROMANCER_AMOUNT.getAsDouble();
+                    Utils.Hit.healNearbyMobs(MobCategory.MONSTER, healAmount, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
                     serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.EVOKER_CAST_SPELL, target.getSoundSource(), 0.42F, 1.23F);
                     break;
                 }
@@ -662,7 +663,8 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             if(NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()){
                 Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                 Utils.Particles.around(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
-                NecromancerEntity.this.heal(CommonConfig.SELF_HEAL_NECROMANCER_AMOUNT.get());
+                float healAmount = (float)CommonConfig.SELF_HEAL_NECROMANCER_AMOUNT.getAsDouble();
+                NecromancerEntity.this.heal(healAmount);
                 serverLevel.playSound(null, NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ(), SoundEvents.EVOKER_CAST_SPELL, NecromancerEntity.this.getSoundSource(), 0.42F, 1.23F);
             }
         }

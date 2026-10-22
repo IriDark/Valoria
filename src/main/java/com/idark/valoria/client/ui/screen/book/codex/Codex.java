@@ -401,7 +401,7 @@ public class Codex extends DotScreen{
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
-            float baseSens = ClientConfig.CODEX_SENSITIVITY.get();
+            float baseSens = (float)ClientConfig.CODEX_SENSITIVITY.getAsDouble();
             float accelerationFactor = 0.035f;
             float maxMultiplier = 5.0f;
             double mouseSpeed = Math.sqrt(dragX * dragX + dragY * dragY);

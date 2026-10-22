@@ -146,6 +146,9 @@ dependencies {
     runtimeOnly "maven.modrinth:moonlight:${moonlight_version}"
     implementation "maven.modrinth:just-enough-resources-jer:${jer_version}"
 
+
+    runtimeOnly "curse.maven:c2me-533097:8896937"
+
     localRuntime "curse.maven:obscure-tooltips-715660:8922038"
     localRuntime "curse.maven:fragmentum-neoforge-1123977:8921953"
     localRuntime "curse.maven:just-enough-repair-materials-1241244:8706349"

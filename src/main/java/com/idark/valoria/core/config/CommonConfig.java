@@ -19,7 +19,7 @@ public class CommonConfig{
     RADIAL_WICKED_CRYSTAL_CASTING_TIME, RADIAL_WICKED_CRYSTAL_CASTING_INTERVAL, RADIAL_WICKED_CRYSTAL_DAMAGE,
     CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_TIME, CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_INTERVAL;
 
-    public static ModConfigSpec.ConfigValue<Float>
+    public static ModConfigSpec.DoubleValue
     TARGET_HEAL_NECROMANCER_AMOUNT, SELF_HEAL_NECROMANCER_AMOUNT;
 
     static{
@@ -54,11 +54,11 @@ public class CommonConfig{
 
             TARGET_HEAL_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("targetHealCastingTime", 60);
             TARGET_HEAL_NECROMANCER_CASTING_INTERVAL = builder.comment("Casting interval").define("targetHealCastingInterval", 200);
-            TARGET_HEAL_NECROMANCER_AMOUNT = builder.comment("Amount of healed hp").define("targetHeal", 12f);
+            TARGET_HEAL_NECROMANCER_AMOUNT = builder.comment("Amount of healed hp").defineInRange("targetHeal", 12.0f, 0.0f, 1024.0f);
 
             SELF_HEAL_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("selfHealCastingTime", 60);
             SELF_HEAL_NECROMANCER_CASTING_INTERVAL = builder.comment("Casting interval").define("selfHealCastingInterval", 300);
-            SELF_HEAL_NECROMANCER_AMOUNT = builder.comment("Amount of healed hp").define("selfHeal", 25f);
+            SELF_HEAL_NECROMANCER_AMOUNT = builder.comment("Amount of healed hp").defineInRange("selfHeal", 25.0f, 0.0f, 1024.0f);
 
             EFFECT_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("effectCastingTime", 20);
             EFFECT_NECROMANCER_CASTING_INTERVAL = builder.comment("Casting interval").define("effectCastingInterval", 150);

@@ -1,3 +1,17 @@
+# 1.1.0.5
+**Requires Tridot 1.0.174**
+
+# **Changed**
+- Resprited Suspicious tombstone
+- Decreased Suspicious tombstone chance
+
+# **Fixed**
+- Fixed Suspicious Ice generation
+- Fixed Suspicious Ice Blockstate
+- Fixed Suspicious Tombstone Blockstate
+- Fixed Config loading (Client, Common)
+- Fixed Bow incorrect draw time
+- Fixed Vanilla archaeology loot was generated inside Crypt in some of sus blocks
 
 # 1.1.0.4
 **Requires Tridot 1.0.174**
