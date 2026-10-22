@@ -1,18 +1,18 @@
 package com.idark.valoria.registries.level.feature;
 
-import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.block.entity.CrushableBlockEntity;
-import com.idark.valoria.registries.level.configurations.SuspiciousStateConfiguration;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap.Types;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.storage.loot.LootTable;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.level.configurations.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.Heightmap.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.storage.loot.*;
 
 public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration>{
     public SuspiciousStateFeature(Codec<SuspiciousStateConfiguration> pCodec){
@@ -31,6 +31,7 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
         BlockPos blockpos = pContext.origin();
         WorldGenLevel worldgenlevel = pContext.level();
         SuspiciousStateConfiguration config = pContext.config();
+        ServerLevel serverLevel = pContext.level().getLevel();
 
         int i = 0;
         BlockPos pos = worldgenlevel.getHeightmapPos(Types.WORLD_SURFACE_WG, blockpos).below();
@@ -39,11 +40,18 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
                 if(canPlace(worldgenlevel.getBlockState(pos), randomsource, target)){
                     worldgenlevel.setBlock(pos, target.state, 2);
 
-                    // prevents NPE`s and synchronises positions with tile entity
                     BlockEntity blockentity = worldgenlevel.getBlockEntity(pos);
                     if(target.state.is(TagsRegistry.UNPACK_LOOT)){
-                        LootTable loot = worldgenlevel.getLevel().getServer().getLootData().getLootTable(config.loot);
-                        CrushableBlockEntity.unpackAndSetItem(worldgenlevel.getLevel(), blockentity, loot);
+                        // better to delay that task for later, when the targeted chunk is loaded already
+                        serverLevel.getServer().execute(() -> {
+                            if (!serverLevel.isLoaded(pos)) return;
+
+                            BlockEntity be = serverLevel.getBlockEntity(pos);
+                            if (be instanceof CrushableBlockEntity crushable) {
+                                LootTable loot = worldgenlevel.getLevel().getServer().getLootData().getLootTable(config.loot);
+                                CrushableBlockEntity.unpackAndSetItem(serverLevel, crushable, loot);
+                            }
+                        });
                     }else{
                         CrushableBlockEntity.setLootTable(randomsource, blockentity, config.loot);
                     }

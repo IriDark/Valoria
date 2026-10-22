@@ -403,7 +403,7 @@ public class ItemsRegistry{
         lunarSpear = registerItem("lunar_spear", () -> new SpearItem(ItemTierRegistry.LUNAR, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarPickaxe = registerItem("lunar_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.LUNAR, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
         lunarAxe = registerItem("lunar_axe", () -> new AxeItem(ItemTierRegistry.LUNAR, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.LUNAR)));
-        lunarBow = registerItem("lunar_bow", () -> new ConfigurableBowItem(3, 1, new Item.Properties().stacksTo(1).rarity(RarityRegistry.LUNAR)));
+        lunarBow = registerItem("lunar_bow", () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).rarity(RarityRegistry.LUNAR)));
 
         // halloween
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
@@ -482,7 +482,7 @@ public class ItemsRegistry{
         jadeShovel = registerItem("jade_shovel", () -> new ShovelItem(ItemTierRegistry.JADE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
         jadeHoe = registerItem("jade_hoe", () -> new HoeItem(ItemTierRegistry.JADE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties()));
         jadeMultiTool = registerItem("jade_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.JADE, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties()));
-        jadeBow = registerItem("jade_bow", () -> new ConfigurableBowItem(5, 1, new Item.Properties().stacksTo(1).durability(1824)));
+        jadeBow = registerItem("jade_bow", () -> new ConfigurableBowItem(5, 18, new Item.Properties().stacksTo(1).durability(1824)));
         jadeCrossbow = registerItem("jade_crossbow", () -> new ConfigurableCrossbow(5, new Item.Properties().stacksTo(1).durability(2124)));
 
         ent = registerItem("ent", () -> new NatureSwordItem(ItemTierRegistry.NATURE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));

@@ -135,7 +135,7 @@
             "input_predicate": {
               "predicate_type": "minecraft:random_block_match",
               "block": "valoria:tombstone",
-              "probability": 0.35
+              "probability": 0.1
             },
             "output_state": {
               "Name": "valoria:suspicious_tombstone",
@@ -164,7 +164,7 @@
             "input_predicate": {
               "predicate_type": "minecraft:random_block_match",
               "block": "valoria:tombstone",
-              "probability": 0.15
+              "probability": 0.05
             },
             "output_state": {
               "Name": "valoria:suspicious_tombstone",
@@ -174,7 +174,7 @@
             },
             "block_entity_modifier": {
               "type": "minecraft:append_loot",
-              "loot_table": "minecraft:archaeology/trail_ruins_rare"
+              "loot_table": "valoria:archaeology/crypt_archaeology"
             }
           }
         ]
