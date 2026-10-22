@@ -284,10 +284,6 @@ task javadocJar(type: Jar) {
     archiveClassifier.set('javadoc')
 }
 
-processResources {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
 reobf {
     jar { }
     noMusicJar { }
@@ -295,6 +291,10 @@ reobf {
 
 jar.finalizedBy('reobfJar')
 noMusicJar.finalizedBy('reobfNoMusicJar')
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
@@ -315,7 +315,7 @@ publishing {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.encoding = 'UTF-8'
 }
 
 def getChangelogText() {
