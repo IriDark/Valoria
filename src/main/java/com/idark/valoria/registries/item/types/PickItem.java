@@ -28,7 +28,6 @@ import pro.komaru.tridot.api.render.animation.*;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("removal")
 public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
     public static CrushingAnimation animation = new CrushingAnimation();
     @Deprecated
