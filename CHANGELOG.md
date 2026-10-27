@@ -1,5 +1,5 @@
 # 1.1.0.6
-**Requires Tridot 1.0.174**
+**Requires Tridot 1.0.175**
 
 # **Added**
 - Added `#valoria:hammers` tag

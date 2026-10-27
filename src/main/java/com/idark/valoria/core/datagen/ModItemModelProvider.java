@@ -199,7 +199,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private void handheldRotated(Item... items) {
         for (Item item : items) {
-            separateTransforms(item, modLoc("item/handheld_rotate"), modLoc("item/handheld_rotate"), modLoc("item/handheld_rotate"), false);
+            handheldRotatedItem(name(item));
+            this.skip(item);
         }
     }
 
@@ -210,6 +211,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
     }
 
+    private ItemModelBuilder handheldRotatedItem(String name) {
+        return withExistingParent(name, modLoc("item/handheld_rotate"))
+        .texture("layer0", Valoria.loc("item/" + name));
+    }
 
     private ItemModelBuilder handheldItem(String name) {
         return withExistingParent(name, new ResourceLocation("item/handheld"))
