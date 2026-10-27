@@ -3,27 +3,16 @@ package com.idark.valoria.registries.item.types.curio;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.*;
 
 import java.util.*;
 
 public abstract class AbstractTalismanItem extends Item{
     public AbstractTalismanBuilder<?> builder;
-    private final ItemAttributeModifiers modifiers;
 
     public AbstractTalismanItem(AbstractTalismanBuilder<?> builder){
-        super(builder.properties);
+        super(builder.buildProperties());
         this.builder = builder;
-        ItemAttributeModifiers.Builder attributes = ItemAttributeModifiers.builder();
-        builder.attributes.forEach((attribute, modifier) -> attributes.add(attribute, modifier, EquipmentSlotGroup.OFFHAND));
-        this.modifiers = attributes.build();
-    }
-
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return modifiers;
     }
 
     @Override

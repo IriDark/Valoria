@@ -1,3 +1,24 @@
+# 1.1.0.6
+**Requires Tridot 1.0.175**
+
+# **Added**
+- Added `#valoria:hammers` tag
+- Added Hammers to `#forge:tools` tag
+- Added Hammers to `#minecraft:tools` tag
+
+# **Fixed**
+- Fixed Custom Arrow spawning [#84]
+- Fixed Item attribute creation [#82]
+- Fixed incorrect model rotation for Quantum Reaper
+- Fixed incorrect model rotation for Corpsecleaver
+- Fixed incorrect model rotation for Silken Blade
+- Fixed incorrect model for Silken Kunai
+- Fixed incorrect model for Samurai Kunai and Poisoned Samurai Kunai
+- Fixed incorrect model for Bone Shuriken
+- Fixed incorrect model for Crystal Shard
+- Fixed incorrect model for Prospectors Pick
+- Fixed incorrect Item Tab for Hammers
+
 # 1.1.0.5
 **Requires Tridot 1.0.174**
 

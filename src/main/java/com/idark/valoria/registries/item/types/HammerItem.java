@@ -43,28 +43,22 @@ import static com.idark.valoria.Valoria.*;
 public class HammerItem extends SwordItem implements ICustomAnimationItem, CooldownReductionItem, TooltipComponentItem{
     private static HammerAnimation hammerAnimation = new HammerAnimation();
     public static final Set<ItemAbility> HAMMER = of(ItemAbilities.SWORD_DIG);
-    private final float attackDamage;
-    private final ItemAttributeModifiers defaultModifiers;
 
     public HammerItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
-        super(pTier, pProperties);
-        this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
-        this.defaultModifiers = ItemAttributeModifiers.builder()
-        .add(AttributeReg.NATURE_DAMAGE, new AttributeModifier(Valoria.BASE_NATURE_DAMAGE_ID, 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        super(pTier, pProperties.attributes(createAttributes(pAttackDamageModifier + pTier.getAttackDamageBonus(), pAttackSpeedModifier)));
+    }
+
+    public static ItemAttributeModifiers createAttributes(float pAttackDamageModifier, float pAttackSpeedModifier){
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder()
+        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, pAttackDamageModifier, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
         .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, pAttackSpeedModifier, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
         .add(AttributeReg.DASH_DISTANCE, new AttributeModifier(BASE_DASH_DISTANCE_ID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-        .add(AttributeReg.ATTACK_RADIUS, new AttributeModifier(BASE_ATTACK_RADIUS_ID, 3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-        .build();
+        .add(AttributeReg.ATTACK_RADIUS, new AttributeModifier(BASE_ATTACK_RADIUS_ID, 3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        return builder.build();
     }
 
     private static Set<ItemAbility> of(ItemAbility... actions){
         return Stream.of(actions).collect(Collectors.toCollection(Sets::newIdentityHashSet));
-    }
-
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers() {
-        return this.defaultModifiers;
     }
 
     @Override

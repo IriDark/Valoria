@@ -28,21 +28,18 @@ import java.util.*;
 import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
 public class ShurikenItem extends Item{
-    private final ItemAttributeModifiers tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
     public float chance = 1;
     public ArcRandom arc = Tmp.rnd;
 
     public ShurikenItem(int damage, Properties builderIn, float chance, MobEffectInstance... pEffects){
-        super(builderIn);
-        this.tridentAttributes = projectileAttributes(damage);
+        super(builderIn.attributes(projectileAttributes(damage)));
         this.chance = chance;
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
     public ShurikenItem(int damage, Properties builderIn, MobEffectInstance... pEffects){
-        super(builderIn);
-        this.tridentAttributes = projectileAttributes(damage);
+        super(builderIn.attributes(projectileAttributes(damage)));
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
@@ -107,11 +104,6 @@ public class ShurikenItem extends Item{
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
         Utils.Entities.applyWithChance(target, effects, chance, arc);
         return super.hurtEnemy(stack, target, attacker);
-    }
-
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.tridentAttributes;
     }
 
     @Override

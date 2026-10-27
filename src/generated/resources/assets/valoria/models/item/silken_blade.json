@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "valoria:item/handheld_rotate",
   "textures": {
     "layer0": "valoria:item/silken_blade"
   }

@@ -7,6 +7,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
 
 import java.util.*;
 
@@ -15,7 +16,8 @@ public class NatureArrowItem extends ArrowItem implements DispensedArrow{
         super(pProperties);
     }
 
-    public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter){
+    @Override
+    public AbstractArrow createArrow(Level pLevel, ItemStack pAmmo, LivingEntity pShooter, @Nullable ItemStack pStack){
         return new NatureArrow(pLevel, pShooter, pStack);
     }
 

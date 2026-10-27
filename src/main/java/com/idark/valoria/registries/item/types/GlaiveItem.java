@@ -7,7 +7,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
@@ -17,18 +16,12 @@ import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
-import static com.idark.valoria.Valoria.*;
+import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_ID;
 
 public class GlaiveItem extends ScytheItem{
     public ArcRandom arcRandom = Tmp.rnd;
     public GlaiveItem(Builder pBuilder){
-        super(pBuilder);
-        this.defaultModifiers = ItemAttributeModifiers.builder()
-            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.builder.attackDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, this.builder.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_REACH_ID, 1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(AttributeReg.ATTACK_RADIUS, new AttributeModifier(BASE_ATTACK_RADIUS_ID, this.builder.attackRadius, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .build();
+        super(pBuilder.addAttribute(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_REACH_ID, 1, AttributeModifier.Operation.ADD_VALUE)));
     }
 
     public void performAttack(Level level, ItemStack stack, Player player){

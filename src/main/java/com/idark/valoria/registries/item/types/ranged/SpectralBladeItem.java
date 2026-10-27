@@ -21,22 +21,17 @@ import java.util.*;
 import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
 public class SpectralBladeItem extends SwordItem{
-    private final ItemAttributeModifiers atr;
-
     public SpectralBladeItem(int damage, float speed, Item.Properties builderIn){
-        super(ItemTierRegistry.NONE, builderIn);
-        this.atr = ItemAttributeModifiers.builder()
-            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, damage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, damage * 1.8, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -speed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .build();
+        super(ItemTierRegistry.NONE, builderIn.attributes(createAttributes(damage, speed)));
     }
 
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.atr;
+    public static ItemAttributeModifiers createAttributes(float pAttackDamageModifier, float pAttackSpeedModifier){
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder()
+        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, pAttackDamageModifier, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, pAttackDamageModifier * 1.8, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -pAttackSpeedModifier, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        return builder.build();
     }
-
 
     public UseAnim getUseAnimation(ItemStack stack){
         return UseAnim.SPEAR;

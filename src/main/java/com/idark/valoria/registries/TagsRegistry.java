@@ -130,6 +130,7 @@ public class TagsRegistry{
 
     public static final TagKey<Item> EPHEMARITE_ITEMS = item(Valoria.loc("ephemarite"));
     public static final TagKey<Item> SPEARS = item(Valoria.loc("spears"));
+    public static final TagKey<Item> HAMMERS = item(Valoria.loc("hammers"));
     public static final TagKey<Item> SCYTHES = item(Valoria.loc("scythes"));
     public static final TagKey<Item> RAPIERS = item(Valoria.loc("rapiers"));
     public static final TagKey<Item> KATANAS = item(Valoria.loc("katanas"));

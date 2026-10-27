@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.google.common.base.*;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
@@ -34,19 +33,17 @@ import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.*;
 
 import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_ID;
 import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
 public class SpearItem extends SwordItem{
-    private final Supplier<ItemAttributeModifiers> attributeModifiers = Suppliers.memoize(this::createAttributes);
     public ArcRandom arcRandom = Tmp.rnd;
     public AbstractSpearBuilder<? extends SpearItem> builder;
 
     public SpearItem(AbstractSpearBuilder<? extends SpearItem> builder){
-        super(builder.tier, builder.itemProperties);
+        super(builder.tier, builder.itemProperties.attributes(createAttributes(builder)));
         this.builder = builder;
     }
 
@@ -73,12 +70,15 @@ public class SpearItem extends SwordItem{
         return Stream.of(actions).collect(Collectors.toCollection(Sets::newIdentityHashSet));
     }
 
-    public ItemAttributeModifiers createAttributes(){
+    public static ItemAttributeModifiers createAttributes(AbstractSpearBuilder<? extends SpearItem> spearBuilder){
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-        builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.builder.attackDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-        if(this.builder.projectileDamageIn > 0) builder.add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, this.builder.projectileDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-        builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, this.builder.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-        builder.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_REACH_ID, this.builder.entityReach, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        spearBuilder.extraAttributes.forEach((attribute, modifier) -> builder.add(attribute, modifier, EquipmentSlotGroup.MAINHAND));
+        float totalAttackDamage = spearBuilder.attackDamageIn + spearBuilder.tier.getAttackDamageBonus();
+        builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, totalAttackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        float projDamage = spearBuilder.projectileDamageIn > 0 ? spearBuilder.projectileDamageIn + spearBuilder.tier.getAttackDamageBonus() : totalAttackDamage + 3;
+        builder.add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, projDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, spearBuilder.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        builder.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_REACH_ID, spearBuilder.entityReach, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
         return builder.build();
     }
 
@@ -146,11 +146,6 @@ public class SpearItem extends SwordItem{
         }
 
         return spear;
-    }
-
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.attributeModifiers.get();
     }
 
     @Override

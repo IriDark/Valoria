@@ -18,22 +18,21 @@ import pro.komaru.tridot.util.*;
 import java.util.*;
 
 public class ValoriaSword extends SwordItem{
-    private final float attackDamage;
-    private final ItemAttributeModifiers defaultModifiers;
-
     public ValoriaSword(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
-        super(pTier, pProperties);
-        this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
-        this.defaultModifiers = ItemAttributeModifiers.builder()
-            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, pAttackSpeedModifier, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .build();
+        super(pTier, pProperties.attributes(createAttributes(pAttackDamageModifier + pTier.getAttackDamageBonus(), pAttackSpeedModifier)));
     }
 
-    /**
-     * Current implementations of this method in child classes do not use the entry argument beside ev. They just raise
-     * the damage on the stack.
-     */
+    public ValoriaSword(Tier pTier, Properties pProperties){
+        super(pTier, pProperties);
+    }
+
+    public static ItemAttributeModifiers createAttributes(float attackDamage, float attackSpeed) {
+        var builder = ItemAttributeModifiers.builder()
+        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        return builder.build();
+    }
+
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         if(!(pAttacker instanceof Player player)) return true;
         pStack.hurtAndBreak(2, pAttacker, EquipmentSlot.MAINHAND);
@@ -59,17 +58,5 @@ public class ValoriaSword extends SwordItem{
         if(stack.is(ItemsRegistry.crimtaneSword.get())) {
             Utils.Items.effectTooltip(ImmutableList.of(new MobEffectInstance(EffectsRegistry.RENEWAL, 120)), tooltip, 1, 0.25f);
         }
-    }
-
-    public float getAttackDamage(){
-        return attackDamage;
-    }
-
-    /**
-     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
-     */
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers() {
-        return this.defaultModifiers;
     }
 }

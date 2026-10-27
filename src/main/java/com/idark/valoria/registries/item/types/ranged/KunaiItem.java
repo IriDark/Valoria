@@ -12,7 +12,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
@@ -23,21 +22,18 @@ import pro.komaru.tridot.util.math.*;
 import java.util.*;
 
 public class KunaiItem extends Item{
-    private final ItemAttributeModifiers tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
     public float chance = 1;
     public ArcRandom arc = Tmp.rnd;
 
     public KunaiItem(int damage, Item.Properties builderIn, float chance, MobEffectInstance... pEffects){
-        super(builderIn);
-        this.tridentAttributes = ShurikenItem.projectileAttributes(damage);
+        super(builderIn.attributes(ShurikenItem.projectileAttributes(damage)));
         this.chance = chance;
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
     public KunaiItem(int damage, Item.Properties builderIn, MobEffectInstance... pEffects){
-        super(builderIn);
-        this.tridentAttributes = ShurikenItem.projectileAttributes(damage);
+        super(builderIn.attributes(ShurikenItem.projectileAttributes(damage)));
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
@@ -96,11 +92,6 @@ public class KunaiItem extends Item{
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
         Utils.Entities.applyWithChance(target, effects, chance, arc);
         return super.hurtEnemy(stack, target, attacker);
-    }
-
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.tridentAttributes;
     }
 
     @Override

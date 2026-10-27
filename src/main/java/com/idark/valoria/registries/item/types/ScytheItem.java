@@ -36,28 +36,25 @@ import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_ID;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem, TooltipComponentItem{
     public AbstractScytheBuilder<? extends ScytheItem> builder;
-    public ItemAttributeModifiers defaultModifiers;
     public final ArcRandom arcRandom = Tmp.rnd;
     public int usageCount;
 
     public ScytheItem(AbstractScytheBuilder<? extends ScytheItem> builderIn){
-        super(builderIn.tier, builderIn.itemProperties);
+        super(builderIn.tier, builderIn.itemProperties.attributes(createAttributes(builderIn)));
         this.builder = builderIn;
+    }
+
+    public static ItemAttributeModifiers createAttributes(AbstractScytheBuilder<? extends ScytheItem> builderIn){
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
         builderIn.extraAttributes.forEach((attribute, modifier) -> builder.add(attribute, modifier, EquipmentSlotGroup.MAINHAND));
         builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, builderIn.attackDamageIn + builderIn.tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
         builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, builderIn.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
         builder.add(AttributeReg.ATTACK_RADIUS, new AttributeModifier(BASE_ATTACK_RADIUS_ID, builderIn.attackRadius, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-        this.defaultModifiers = builder.build();
+        return builder.build();
     }
 
     public ScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier));
-    }
-
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.defaultModifiers;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){

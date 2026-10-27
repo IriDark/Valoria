@@ -3,7 +3,9 @@ package com.idark.valoria.registries.item.types.builders;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
+import net.minecraft.core.*;
 import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.Item.*;
 import net.minecraft.world.item.*;
 
@@ -11,6 +13,7 @@ public abstract class AbstractSpearBuilder<T extends SpearItem>{
     public Tier tier = ItemTierRegistry.NONE;
     public Properties itemProperties;
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
+    public Multimap<Holder<Attribute>, AttributeModifier> extraAttributes = HashMultimap.create();
 
     public float attackDamageIn;
     public float projectileDamageIn;
@@ -21,11 +24,17 @@ public abstract class AbstractSpearBuilder<T extends SpearItem>{
     public boolean throwable = true;
 
     public AbstractSpearBuilder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
-        this.attackDamageIn = attackDamageIn + tier.getAttackDamageBonus();
+        this.attackDamageIn = attackDamageIn;
         this.attackSpeedIn = attackSpeedIn;
-        this.projectileDamageIn = attackDamageIn + tier.getAttackDamageBonus() + 3;
+        this.projectileDamageIn = attackDamageIn + 3;
         this.itemProperties = itemProperties;
     }
+
+    public AbstractSpearBuilder<T> addAttribute(Holder<Attribute> attribute, AttributeModifier modifier) {
+        this.extraAttributes.put(attribute, modifier);
+        return this;
+    }
+
     public AbstractSpearBuilder<T> setThrowable(boolean throwable){
         this.throwable = throwable;
         return this;
@@ -65,7 +74,7 @@ public abstract class AbstractSpearBuilder<T extends SpearItem>{
     }
 
     /**
-     * @return Build of KatanaItem with all the configurations you set :p
+     * @return Build of SpearItem with all the configurations you set :p
      */
     public abstract T build();
 }

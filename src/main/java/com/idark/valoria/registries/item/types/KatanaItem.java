@@ -43,17 +43,11 @@ import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_ID;
 
 public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem, TooltipComponentItem{
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
-    public ItemAttributeModifiers defaultModifiers;
     public ArcRandom arcRandom = Tmp.rnd;
 
     public KatanaItem(AbstractKatanaBuilder<? extends KatanaItem> builderIn){
-        super(builderIn.tier, builderIn.itemProperties);
+        super(builderIn.tier, builderIn.itemProperties.attributes(createAttributes(builderIn)));
         this.builder = builderIn;
-        this.defaultModifiers = ItemAttributeModifiers.builder()
-            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, builderIn.attackDamageIn + builderIn.tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, builderIn.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(AttributeReg.DASH_DISTANCE, new AttributeModifier(BASE_DASH_DISTANCE_ID, builderIn.dashDist, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .build();
     }
 
     public KatanaItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
@@ -62,6 +56,14 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
 
     public KatanaItem(Tier tier, float attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier).setDashDistance(dashDistance));
+    }
+
+    public static ItemAttributeModifiers createAttributes(AbstractKatanaBuilder<? extends KatanaItem> builderIn){
+        var builder = ItemAttributeModifiers.builder()
+        .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, builderIn.attackDamageIn + builderIn.tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, builderIn.attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+        .add(AttributeReg.DASH_DISTANCE, new AttributeModifier(BASE_DASH_DISTANCE_ID, builderIn.dashDist, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        return builder.build();
     }
 
     public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
@@ -85,11 +87,6 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     @Override
     public SoundEvent getSoundEvent(){
         return builder.cooldownSound;
-    }
-
-    @Override
-    public @NotNull ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.defaultModifiers;
     }
 
     public static double distance(double distance, Level level, Player player){

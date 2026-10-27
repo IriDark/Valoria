@@ -12,7 +12,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.*;
@@ -23,13 +22,11 @@ import pro.komaru.tridot.util.math.*;
 import java.util.*;
 
 public class CrystalShardItem extends Item{
-    private final ItemAttributeModifiers tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
     public ArcRandom arc = Tmp.rnd;
 
     public CrystalShardItem(double damage, Properties builderIn, MobEffectInstance... pEffects){
-        super(builderIn);
-        this.tridentAttributes = ShurikenItem.projectileAttributes(damage * 2); // PORT NOTE: ItemAttributeModifiers, main-hand group
+        super(builderIn.attributes(ShurikenItem.projectileAttributes(damage * 2)));
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
@@ -86,10 +83,6 @@ public class CrystalShardItem extends Item{
         return super.hurtEnemy(stack, target, attacker);
     }
 
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.tridentAttributes;
-    }
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){

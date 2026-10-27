@@ -959,7 +959,7 @@ public class ItemsRegistry{
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
-        bronzeShield = registerItem("bronze_shield", () -> new DraugrShieldItem.Builder(0.25f, new Properties().stacksTo(1).durability(1200).rarity(Rarity.UNCOMMON)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.BRONZE).build());
+        bronzeShield = registerItem("bronze_shield", () -> new ConfiguredShield.Builder(0.25f, new Properties().stacksTo(1).durability(1200).rarity(Rarity.UNCOMMON)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.BRONZE).build());
         draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(0.35f, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).addDefenderBlockEffects(new EffectList(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0))).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
         crabBuckler = registerItem("crab_buckler", () -> new ConfiguredShield.Builder(0.35f, new Properties().stacksTo(1).durability(1800).rarity(Rarity.RARE)).setReturnedPercent(0.15f).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.NONE).build());
         natureShield = registerItem("nature_shield", () -> new ConfiguredShield.Builder(0.40f, new Properties().stacksTo(1).durability(2200).rarity(RarityRegistry.NATURE)).setTier(ItemTierRegistry.NATURE).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());

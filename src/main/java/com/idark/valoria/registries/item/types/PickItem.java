@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.base.*;
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
@@ -25,8 +24,6 @@ import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.animation.*;
 
-import java.util.function.Supplier;
-
 // PORT NOTE: Vanishable marker interface was removed in 1.21.
 public class PickItem extends Item implements ICustomAnimationItem{
     public static CrushingAnimation animation = new CrushingAnimation();
@@ -39,27 +36,20 @@ public class PickItem extends Item implements ICustomAnimationItem{
     public float excavationSpeed;
     public float attackDamageIn;
     public float attackSpeedIn;
-    private final Supplier<ItemAttributeModifiers> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
     public PickItem(Item.Properties pProperties, int attackDamageIn, float attackSpeedIn, int speed){
-        super(pProperties);
+        super(pProperties.attributes(createAttributes(attackDamageIn, attackSpeedIn, speed)));
         this.attackDamageIn = (float)attackDamageIn;
         this.attackSpeedIn = attackSpeedIn;
         this.excavationSpeed = (float)speed;
     }
 
-    // PORT NOTE: Multimap<Attribute, AttributeModifier> -> ItemAttributeModifiers (main-hand group).
-    private ItemAttributeModifiers createAttributes(){
+    public static ItemAttributeModifiers createAttributes(float attackDamageIn, float attackSpeedIn, float excavationSpeed){
         return ItemAttributeModifiers.builder()
             .add(AttributeReg.EXCAVATION_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, excavationSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
             .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamageIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
             .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
             .build();
-    }
-
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.attributeModifiers.get();
     }
 
     public InteractionResult useOn(UseOnContext pContext){

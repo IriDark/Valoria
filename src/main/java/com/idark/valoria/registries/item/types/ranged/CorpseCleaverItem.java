@@ -28,12 +28,13 @@ import java.util.*;
 import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_ID;
 
 public class CorpseCleaverItem extends SwordItem implements TooltipComponentItem{
-    private final ItemAttributeModifiers pAttributes;
-
     public CorpseCleaverItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties){
-        super(pTier, pProperties);
+        super(pTier, pProperties.attributes(createAttributes(pTier, pAttackDamageModifier, pAttackSpeedModifier)));
+    }
+
+    public static ItemAttributeModifiers createAttributes(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier){
         float attackDamage = (float)pAttackDamageModifier + pTier.getAttackDamageBonus();
-        this.pAttributes = ItemAttributeModifiers.builder()
+        return ItemAttributeModifiers.builder()
             .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
             .add(AttributeRegistry.PROJECTILE_DAMAGE, new AttributeModifier(BASE_PROJECTILE_DAMAGE_ID, attackDamage + 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
             .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, pAttackSpeedModifier, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
@@ -85,10 +86,6 @@ public class CorpseCleaverItem extends SwordItem implements TooltipComponentItem
         return InteractionResultHolder.pass(itemstack);
     }
 
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers(){
-        return this.pAttributes;
-    }
 
     @Override
     public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){

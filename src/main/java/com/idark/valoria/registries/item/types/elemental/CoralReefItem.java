@@ -29,25 +29,18 @@ import java.util.*;
 
 public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
     public ArcRandom arcRandom = Tmp.rnd;
-    private final float attackDamage;
-    private final ItemAttributeModifiers defaultModifiers;
 
     public CoralReefItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
-        this.defaultModifiers = ItemAttributeModifiers.builder()
-            .add(AttributeReg.DEPTH_DAMAGE, new AttributeModifier(Valoria.BASE_DEPTH_DAMAGE_ID, 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, this.attackDamage - 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-            .build();
+        super(tier, builderIn.attributes(createAttributes(tier, attackDamageIn, attackSpeedIn)));
     }
 
-    /**
-     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
-     */
-    @Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers() {
-        return this.defaultModifiers;
+    public static ItemAttributeModifiers createAttributes(Tier tier, float attackDamageIn, float attackSpeedIn){
+        float attackDamage = attackDamageIn + tier.getAttackDamageBonus();
+        return ItemAttributeModifiers.builder()
+            .add(AttributeReg.DEPTH_DAMAGE, new AttributeModifier(Valoria.BASE_DEPTH_DAMAGE_ID, 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage - 2, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeedIn, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+            .build();
     }
 
     /**

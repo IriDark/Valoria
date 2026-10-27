@@ -3,6 +3,7 @@ package com.idark.valoria.core.datagen;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.ranged.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
@@ -40,6 +41,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         largeHandheld(ItemsRegistry.bronzeSword.get(), ItemsRegistry.voidEdge.get(), ItemsRegistry.cobaltSword.get(), ItemsRegistry.ent.get(), ItemsRegistry.coralReef.get(), ItemsRegistry.phantom.get(), ItemsRegistry.infernalSword.get(), ItemsRegistry.etherealSword.get());
         largeHandheld(ItemsRegistry.ironKatana.get(), ItemsRegistry.goldenKatana.get(), ItemsRegistry.diamondKatana.get(), ItemsRegistry.netheriteKatana.get(), ItemsRegistry.jadeKatana.get(), ItemsRegistry.holidayKatana.get(), ItemsRegistry.samuraiKatana.get(), ItemsRegistry.murasama.get());
         largeHandheld(ItemsRegistry.ironScythe.get(), ItemsRegistry.goldenScythe.get(), ItemsRegistry.diamondScythe.get(), ItemsRegistry.netheriteScythe.get(), ItemsRegistry.lunarScythe.get(), ItemsRegistry.jadeScythe.get(), ItemsRegistry.aquariusScythe.get(), ItemsRegistry.reaperScythe.get(), ItemsRegistry.natureScythe.get(), ItemsRegistry.crimtaneScythe.get(), ItemsRegistry.voidScythe.get(), ItemsRegistry.infernalScythe.get(), ItemsRegistry.beast.get());
+        handheldRotated(ItemsRegistry.corpseCleaver.get(), ItemsRegistry.quantumReaper.get(), ItemsRegistry.silkenBlade.get());
+        handheld(ItemsRegistry.pick.get());
         spear(ItemsRegistry.woodenSpear.get(), ItemsRegistry.stoneSpear.get(), ItemsRegistry.ironSpear.get(), ItemsRegistry.goldenSpear.get(), ItemsRegistry.diamondSpear.get(), ItemsRegistry.netheriteSpear.get(), ItemsRegistry.jadeSpear.get(), ItemsRegistry.lunarSpear.get(), ItemsRegistry.aquariusSpear.get(), ItemsRegistry.etherealSpear.get(), ItemsRegistry.natureSpear.get(), ItemsRegistry.pyratiteSpear.get(), ItemsRegistry.voidSpear.get(), ItemsRegistry.infernalSpear.get());
         separateTransforms(ItemsRegistry.glaive.get(), modLoc("item/spear"), mcLoc("item/handheld"), modLoc("item/glaive_large"), true);
         hammer(ItemsRegistry.bronzeHammer.get(), ItemsRegistry.blackGoldHammer.get(), ItemsRegistry.infernalHammer.get(), ItemsRegistry.voidHammer.get());
@@ -155,7 +158,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 } else if (!hasItemTexture(name)) {
                     Valoria.LOGGER.warn("Skipping item model for {} because item/{}.png is missing", entry.getId(), name);
                     this.skip(item);
-                }else if((item instanceof TieredItem && !(item instanceof ICurioItem)) || item instanceof SwordItem || item instanceof DiggerItem){
+                }else if((item instanceof TieredItem && !(item instanceof ICurioItem)) || item instanceof SwordItem || item instanceof DiggerItem || item instanceof KunaiItem || item instanceof ShurikenItem || item instanceof CrystalShardItem){
                     this.add(item, gen -> handheldItem(name));
                 }else{
                     this.add(item, gen -> itemPath(name, "item/"));
@@ -196,6 +199,23 @@ public class ModItemModelProvider extends ItemModelProvider {
                 .texture("layer0", Valoria.loc("item/" + name));
     }
 
+    private ItemModelBuilder handheldRotatedItem(String name) {
+        return withExistingParent(name, modLoc("item/handheld_rotate"))
+                .texture("layer0", Valoria.loc("item/" + name));
+    }
+
+    private void handheldRotated(Item... items) {
+        for (Item item : items) {
+            this.add(item, gen -> handheldRotatedItem(name(item)));
+        }
+    }
+
+    private void handheld(Item... items) {
+        for (Item item : items) {
+            this.add(item, gen -> handheldItem(name(item)));
+        }
+    }
+
     private void largeHandheldRotated(Item... items) {
         for (Item item : items) {
             separateTransforms(item, mcLoc("item/handheld"), mcLoc("item/handheld"), modLoc("item/handheld_large_rotate"), false);
@@ -220,6 +240,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             this.skip(item);
             return;
         }
+
         ItemModelBuilder base = withExistingParent(name, baseParent);
         ItemModelBuilder icon = withExistingParent(name + "_icon", iconParent).texture("layer0", modLoc("item/" + name));
         ItemModelBuilder inHand = withExistingParent(name + "_in_hand", inHandParent).texture("layer0", modLoc("item/" + name + "_in_hand"));
@@ -241,6 +262,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             this.skip(item);
             return;
         }
+
         ItemModelBuilder base = withExistingParent(name, mcLoc("item/handheld"));
         ItemModelBuilder icon = withExistingParent(name + "_icon", mcLoc("item/handheld")).texture("layer0", modLoc("item/" + name));
         ItemModelBuilder inHand = withExistingParent(name + "_in_hand", modLoc("item/hammer_template")).texture("texture", modLoc("item/" + name + "_in_hand"));
@@ -272,6 +294,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 this.skip(item);
                 continue;
             }
+
             ItemModelBuilder model = withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/" + name));
             applyBowTransforms(model, thirdPersonYScale, firstPersonYScale);
             model.override().predicate(mcLoc("pulling"), 1.0F).model(modelVariant(name, "pulling_0", model)).end()
@@ -288,6 +311,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 this.skip(item);
                 continue;
             }
+
             ItemModelBuilder model = withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/" + name + "_standby"));
             applyCrossbowTransforms(model);
             model.override().predicate(mcLoc("pulling"), 1.0F).model(crossbowStage(name, "pulling_0", model)).end()
