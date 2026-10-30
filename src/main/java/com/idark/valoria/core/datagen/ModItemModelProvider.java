@@ -173,6 +173,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 return name.substring(0, name.indexOf('_')) + "_planks";
             }
         }
+
         return name.replace(suffix, "");
     }
 

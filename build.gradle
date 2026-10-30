@@ -2,8 +2,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
-import java.nio.charset.StandardCharsets
-
 plugins {
     id 'java-library'
     id 'eclipse'
@@ -168,14 +166,6 @@ jar {
     }
 }
 
-static InputStreamReader createInput(File f) throws FileNotFoundException {
-    return new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8)
-}
-
-static OutputStreamWriter createOutput(File f) throws FileNotFoundException {
-    return new OutputStreamWriter(new FileOutputStream(f), StandardCharsets.UTF_8)
-}
-
 // Thanks to Skoow for helping with this
 task updateResources {
     doLast {
@@ -186,7 +176,9 @@ task updateResources {
 
         LinkedHashMap<String,String> EN_US
         try {
-            EN_US = gson.fromJson(createInput(mainLangJson), LinkedHashMap.class)
+            mainLangJson.withReader("UTF-8") { reader ->
+                EN_US = gson.fromJson(reader, LinkedHashMap.class)
+            }
         } catch (Exception e) {
             throw new GradleException("Error parsing MAIN file: " + mainLangJson.getName(), e)
         }
@@ -197,32 +189,32 @@ task updateResources {
         }
 
         File[] otherLangs = langFolder.listFiles( (FileFilter) (f) -> {return f != mainLangJson && f.isFile() && f.getName().endsWith(".json")})
-        println "[32m- Comparing langs with:[0m " + mainLangJson.getName()
+        println " [32m- Comparing langs with: [0m " + mainLangJson.getName()
         for (final File otherLang in otherLangs) {
             println "Processing file: " + otherLang.getName()
-            try{
-                InputStreamReader reader = createInput(otherLang)
+            try {
                 LinkedHashMap<String,String> LANG
                 try {
-                    LANG = gson.fromJson(reader, LinkedHashMap.class)
+                    otherLang.withReader("UTF-8") { reader ->
+                        LANG = gson.fromJson(reader, LinkedHashMap.class)
+                    }
                 } catch (Exception e) {
                     throw new GradleException("Error parsing LANG file: " + otherLang.getName(), e)
                 }
 
-                reader.close();
                 if(LANG == null){
                     println "Skipping langFile because of incorrect structure " + otherLang.getName()
                     continue
                 }
 
                 EN_US.forEach(LANG::putIfAbsent)
-                OutputStreamWriter writer = createOutput(otherLang)
-                gson.toJson(LANG, LinkedHashMap.class, writer)
-                writer.close()
-                println "[32m- Compared lang file[0m " + "[36m" + otherLang.getName() + "[0m"
+                otherLang.withWriter("UTF-8") { writer ->
+                    gson.toJson(LANG, LinkedHashMap.class, writer)
+                }
+                println " [32m- Compared lang file [0m " + " [36m" + otherLang.getName() + " [0m"
             } catch (Exception e) {
-                println "[31mError processing file: " + otherLang.getName() + "[0m"
-                throw e;
+                println " [31mError processing file: " + otherLang.getName() + " [0m"
+                throw e
             }
         }
     }

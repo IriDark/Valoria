@@ -38,6 +38,7 @@ import net.minecraft.client.renderer.entity.player.*;
 import net.minecraft.client.resources.*;
 import net.minecraft.core.component.*;
 import net.minecraft.core.registries.*;
+import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.*;
 import net.neoforged.api.distmarker.*;
@@ -212,10 +213,10 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event){
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : SummonBook.getColor(stack), ItemsRegistry.summonBook.get());
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.eldritchSapling.get(), BlockRegistry.eldritchLeaves.get());
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.shadeSapling.get(), BlockRegistry.shadeLeaves.get(), BlockRegistry.shadeBranchVine.get(), BlockRegistry.shadeBranch.get());
-            event.register((stack, tintIndex) -> 11301619, BlockRegistry.voidGrass.get(), BlockRegistry.voidTaint.get(), BlockRegistry.voidRoots.get());
+            event.register((stack, tintIndex) -> tintIndex == 0 ? FastColor.ARGB32.opaque(SummonBook.getColor(stack)) : -1, ItemsRegistry.summonBook.get());
+            event.register((stack, tintIndex) -> tintIndex == 0 ? FastColor.ARGB32.opaque(12487423) : -1, BlockRegistry.eldritchSapling.get(), BlockRegistry.eldritchLeaves.get());
+            event.register((stack, tintIndex) -> tintIndex == 0 ? FastColor.ARGB32.opaque(6740479) : -1, BlockRegistry.shadeSapling.get(), BlockRegistry.shadeLeaves.get(), BlockRegistry.shadeBranchVine.get(), BlockRegistry.shadeBranch.get());
+            event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(11301619), BlockRegistry.voidGrass.get(), BlockRegistry.voidTaint.get(), BlockRegistry.voidRoots.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : DyedItemColor.getOrDefault(p_92708_, DyedItemColor.LEATHER_COLOR), ItemsRegistry.leatherGloves.get()); // PORT NOTE: DyeableLeatherItem -> DYED_COLOR component
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : DyedItemColor.getOrDefault(p_92708_, DyedItemColor.LEATHER_COLOR), ItemsRegistry.jewelryBag.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : Col.fromHex("dfff30").pack(), BlockRegistry.aloe.get(), BlockRegistry.aloeSmall.get());

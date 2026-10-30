@@ -14,6 +14,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -61,19 +62,19 @@ public class SummonBook extends Item {
     }
 
     public static void setColor(ItemStack pStack, int pColor){
-        pStack.set(DataComponentsRegistry.DISPLAY_COLOR, pColor);
+        pStack.set(DataComponentsRegistry.DISPLAY_COLOR, FastColor.ARGB32.opaque(pColor));
     }
 
     public static int getColor(ItemStack pStack){
         Integer color = pStack.get(DataComponentsRegistry.DISPLAY_COLOR);
-        if(color != null) return color;
+        if(color != null) return FastColor.ARGB32.opaque(color);
         CustomData legacy = pStack.get(DataComponents.CUSTOM_DATA);
         if(legacy != null && legacy.contains("DisplayColor")){
             CompoundTag compoundtag = legacy.copyTag().getCompound("DisplayColor");
-            if(compoundtag.contains("color", 99)) return compoundtag.getInt("color");
+            if(compoundtag.contains("color", 99)) return FastColor.ARGB32.opaque(compoundtag.getInt("color"));
         }
 
-        return Col.toDecimal(Pal.lightViolet);
+        return FastColor.ARGB32.opaque(Col.toDecimal(Pal.lightViolet));
     }
 
     public void applyCooldown(Player playerIn){
