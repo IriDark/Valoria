@@ -102,7 +102,7 @@ public class HeavyAnvilRecipe implements Recipe<ContainerRecipeInput> {
 
         private static final MapCodec<HeavyAnvilRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
         Ingredient.CODEC.fieldOf("ingredient").forGetter(r -> r.input),
-        ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+        RecipeCodecs.ITEM_STACK.fieldOf("result").forGetter(r -> r.result),
         Codec.INT.optionalFieldOf("required_hits", 10).forGetter(r -> r.requiredHits),
         Codec.INT.optionalFieldOf("max_instability", 3).forGetter(r -> r.maxInstability),
         Codec.FLOAT.optionalFieldOf("cursor_speed", 0.05f).forGetter(r -> r.cursorSpeed)

@@ -102,4 +102,9 @@ public class SamuraiArmorItem extends SuitArmorItem implements GeoItem{
         EquipmentSlot slot = type.getSlot();
         return super.getDefaultAttributeModifiers().withModifierAdded(AttributeReg.DASH_DISTANCE, new AttributeModifier(Valoria.loc("samurai_dash_bonus"), getBonusValue(slot), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.bySlot(slot));
     }
+
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack){
+        return getDefaultAttributeModifiers();
+    }
 }

@@ -20,6 +20,7 @@ import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.consumables.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
@@ -42,6 +43,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.storage.loot.*;
@@ -69,6 +71,25 @@ import static com.idark.valoria.util.ValoriaUtils.*;
 
 public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
+
+    @SubscribeEvent
+    public void onItemAttributeModifier(ItemAttributeModifierEvent event) {
+        ItemStack stack = event.getItemStack();
+        Item item = stack.getItem();
+        if (item instanceof VoidCrystalItem crystal) {
+            if (crystal.getCurrentSouls(stack) <= 0) {
+                event.removeIf(entry -> true);
+            }
+        } else if (item instanceof PercentageArmorItem armor) {
+            if (stack.getComponentsPatch().get(DataComponents.ATTRIBUTE_MODIFIERS) == null) {
+                var modifiers = armor.getDefaultAttributeModifiers();
+                event.removeIf(entry -> true);
+                for (ItemAttributeModifiers.Entry entry : modifiers.modifiers()) {
+                    event.addModifier(entry.attribute(), entry.modifier(), entry.slot());
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public void onDatapackSync(OnDatapackSyncEvent event) {

@@ -1,9 +1,0 @@
-{
-  "type": "valoria:kiln",
-  "ingredient": {
-    "tag": "minecraft:smelts_to_glass"
-  },
-  "experience": 0.5,
-  "cookingtime": 100,
-  "result": "minecraft:glass"
-}

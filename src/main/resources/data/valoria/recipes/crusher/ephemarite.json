@@ -1,9 +1,0 @@
-{
-  "type": "valoria:crusher",
-  "loot_table": "valoria:blocks/crusher/ephemarite_high",
-  "ingredients": [
-    {
-      "item": "valoria:ephemarite"
-    }
-  ]
-}
