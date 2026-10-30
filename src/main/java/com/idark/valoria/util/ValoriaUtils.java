@@ -295,12 +295,12 @@ public class ValoriaUtils{
         }
     }
 
-    public static void stunNearby(Level level, LivingEntity caster, Vector3d pos, float pitchRaw, float yawRaw, float radius){
+    public static void stunNearby(Level level, LivingEntity caster, Vector3d pos, float radius){
         AABB hitBox = new AABB(pos.x - radius, pos.y - radius, pos.z - radius, pos.x + radius, pos.y + radius, pos.z + radius);
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, hitBox);
         double radiusSqr = radius * radius;
         for(LivingEntity target : entities){
-            if(!target.equals(caster)) continue;
+            if(target.equals(caster)) continue;
             if(target.distanceToSqr(pos.x, pos.y, pos.z) <= radiusSqr){
                 if(Utils.Entities.canHitTarget(caster, target)){
                     target.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30, 0));
