@@ -1,3 +1,24 @@
+# 1.1.0.7
+**Requires Tridot 1.0.177**
+
+# **Fixed**
+
+### 1.21
+- Fixed Custom Arrow pickup loot [#86]
+- Fixed Particle rendering
+- Fixed Custom Recipe loading
+- Fixed Server loading, was caused by old metadata inside Tridot
+- Fixed Dryador attack, now Player will be stunned correctly
+- Fixed Tridot packet handling
+- Fixed some of datagen issues
+- Fixed Spectral Blade attack speed
+
+### 1.20.1
+- Fixed Particle rendering
+- Fixed Dryador attack, now Player will be stunned correctly
+- Fixed some of datagen issues
+- Fixed Spectral Blade attack speed
+
 # 1.1.0.6
 **Requires Tridot 1.0.175**
 

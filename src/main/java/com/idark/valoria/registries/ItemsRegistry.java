@@ -383,7 +383,7 @@ public class ItemsRegistry{
         blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ItemTierRegistry.BLAZE_REAP, 3, -3.4f, new Item.Properties()));
         gunpowderCharge = registerItem("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties()));
         pyratiteCharge = registerItem("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties()));
-        spectralBlade = registerItem("spectral_blade", () -> new SpectralBladeItem(16, -2.3f, new Item.Properties().durability(2500).rarity(RarityRegistry.PHANTASM)));
+        spectralBlade = registerItem("spectral_blade", () -> new SpectralBladeItem(16, ToolStats.sword.speed, new Item.Properties().durability(2500).rarity(RarityRegistry.PHANTASM)));
         throwableBomb = registerItem("throwable_bomb", () -> new ThrowableBombItem(Level.ExplosionInteraction.NONE, 2.45f, 60, new Item.Properties().stacksTo(16)));
         dynamite = registerItem("dynamite", () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
         acorn = registerItem("acorn", () -> new AcornItem(new Item.Properties().stacksTo(16), false));
