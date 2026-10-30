@@ -60,7 +60,7 @@ public class ValoriaUtils{
             double x = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
             double y = pPos.getY() + rand.nextInt(0, 3);
             double z = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 6;
-            if(pLevel.noCollision(null, pEntityType.getSpawnAABB(x, y, z))){ // PORT NOTE: getAABB -> getSpawnAABB
+            if(pLevel.noCollision(null, pEntityType.getSpawnAABB(x, y, z))){
                 LivingEntity pEntity = pEntityType.create(pLevel);
                 if(pEntity == null) continue;
 
@@ -75,7 +75,7 @@ public class ValoriaUtils{
         var params = new LootParams.Builder(pLevel).withParameter(LootContextParams.THIS_ENTITY, pEntity).withParameter(LootContextParams.ORIGIN, pPos.getCenter()).create(LootContextParamSets.GIFT);
         Utils.Items.createLoot(loot, params)
         .forEach(stack -> {
-            EquipmentSlot slot = pEntity.getEquipmentSlotForItem(stack); // PORT NOTE: instance method in 1.21
+            EquipmentSlot slot = pEntity.getEquipmentSlotForItem(stack);
             if(pEntity.hasItemInSlot(slot)) return;
 
             pEntity.setItemSlot(slot, stack);
@@ -162,7 +162,7 @@ public class ValoriaUtils{
 
     public static String formatDuration(int tickDuration, float pDurationFactor) {
         int i = Mth.floor((float)tickDuration * pDurationFactor);
-        return StringUtil.formatTickDuration(i, 20.0F); // PORT NOTE: takes ticks-per-second in 1.21
+        return StringUtil.formatTickDuration(i, 20.0F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -309,12 +309,12 @@ public class ValoriaUtils{
         }
     }
 
-    public static void stunNearby(Level level, LivingEntity caster, Vector3d pos, float pitchRaw, float yawRaw, float radius){
+    public static void stunNearby(Level level, LivingEntity caster, Vector3d pos, float radius){
         AABB hitBox = new AABB(pos.x - radius, pos.y - radius, pos.z - radius, pos.x + radius, pos.y + radius, pos.z + radius);
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, hitBox);
         double radiusSqr = radius * radius;
         for(LivingEntity target : entities){
-            if(!target.equals(caster)) continue;
+            if(target.equals(caster)) continue;
             if(target.distanceToSqr(pos.x, pos.y, pos.z) <= radiusSqr){
                 if(Utils.Entities.canHitTarget(caster, target)){
                     target.addEffect(new MobEffectInstance(EffectsRegistry.STUN, 30, 0));
