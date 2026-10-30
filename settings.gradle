@@ -14,6 +14,10 @@ plugins {
 }
 
 rootProject.name = "Valoria"
+
+
+// Still can cause a lot of troubles and problems, probably i will use it when i need to change or experiment with something locally,
+/*
 if (file('../Tridot').exists()) {
     includeBuild('../Tridot') {
         dependencySubstitution {
@@ -21,3 +25,4 @@ if (file('../Tridot').exists()) {
         }
     }
 }
+*/
