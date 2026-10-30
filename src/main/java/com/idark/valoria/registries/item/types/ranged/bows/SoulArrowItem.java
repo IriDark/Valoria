@@ -18,7 +18,7 @@ public class SoulArrowItem extends ArrowItem implements DispensedArrow{
 
     @Override
     public AbstractArrow createArrow(Level pLevel, ItemStack pAmmo, LivingEntity pShooter, @Nullable ItemStack pStack){
-        return new SoulArrow(pLevel, pShooter, pStack);
+        return new SoulArrow(pLevel, pShooter, pAmmo);
     }
 
     @Override

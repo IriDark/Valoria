@@ -18,7 +18,7 @@ public class WickedArrowItem extends ArrowItem implements DispensedArrow{
 
     @Override
     public AbstractArrow createArrow(Level pLevel, ItemStack pAmmo, LivingEntity pShooter, @Nullable ItemStack pStack){
-        return new WickedArrow(pLevel, pShooter, pStack);
+        return new WickedArrow(pLevel, pShooter, pAmmo);
     }
 
     @Override

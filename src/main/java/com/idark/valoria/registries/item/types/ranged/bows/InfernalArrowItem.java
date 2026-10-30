@@ -18,7 +18,7 @@ public class InfernalArrowItem extends ArrowItem implements DispensedArrow{
 
     @Override
     public AbstractArrow createArrow(Level pLevel, ItemStack pAmmo, LivingEntity pShooter, @Nullable ItemStack pStack){
-        return new InfernalArrow(pLevel, pShooter, pStack);
+        return new InfernalArrow(pLevel, pShooter, pAmmo);
     }
 
     @Override
