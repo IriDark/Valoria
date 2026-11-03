@@ -1,5 +1,4 @@
 package com.idark.valoria.registries.item.types;
-import pro.komaru.tridot.api.EffectApplier;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
@@ -126,7 +125,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
 
             entity.hurt(level.damageSources().playerAttack(player), (damage + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
             performEffects(entity, player);
-            Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
+            Utils.Entities.apply(entity, builder.effects);
             if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, EquipmentSlot.MAINHAND);
             }
@@ -167,10 +166,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        ImmutableList<EffectApplier> appliers = builder.effects.stream()
-                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), builder.chance))
-                .collect(ImmutableList.toImmutableList());
-        Utils.Items.effectTargetTooltip(appliers, tooltip, 1.0F);
+        Utils.Items.effectTargetTooltip(builder.effects, tooltip, 1.0F);
     }
 
     public static class Builder extends AbstractScytheBuilder<ScytheItem>{

@@ -1,5 +1,4 @@
 package com.idark.valoria.registries.item.types.ranged;
-import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
@@ -13,7 +12,6 @@ import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.item.*;
@@ -51,16 +49,8 @@ public class SpearItem extends SwordItem{
     /**
      * @param pEffects Effects applied on attack
      */
-    public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects){
+    public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn, EffectApplier... pEffects){
         this(new SpearItem.Builder(attackDamageIn, attackSpeedIn, builderIn).setEffects(pEffects).setTier(tier));
-    }
-
-    /**
-     * @param pChance  Chance to apply effects
-     * @param pEffects Effects applied on attack
-     */
-    public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, float pChance, Item.Properties builderIn, MobEffectInstance... pEffects){
-        this(new SpearItem.Builder(attackDamageIn, attackSpeedIn, builderIn).setEffects(pChance, pEffects).setTier(tier));
     }
 
     public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, boolean pThrowable, Item.Properties builderIn){
@@ -107,7 +97,7 @@ public class SpearItem extends SwordItem{
     }
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
-        Utils.Entities.applyWithChance(pTarget, this.builder.effects, this.builder.chance, arcRandom);
+        Utils.Entities.apply(pTarget, this.builder.effects);
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 
@@ -140,7 +130,7 @@ public class SpearItem extends SwordItem{
             spear.igniteForSeconds(100);
         }
 
-        spear.setEffectsFromList(this.builder.effects);
+        for(var applier : this.builder.effects) spear.addEffect(applier.createInstance()); // lazy to update tridot
         spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 3F, 1.0F);
         if(playerEntity.getAbilities().instabuild){
             spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
@@ -193,10 +183,7 @@ public class SpearItem extends SwordItem{
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.spear_pillars").withStyle(ChatFormatting.GRAY));
-        ImmutableList<EffectApplier> appliers = this.builder.effects.stream()
-                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), this.builder.chance))
-                .collect(ImmutableList.toImmutableList());
-        Utils.Items.effectTooltip(appliers, tooltip, 1.0F);
+        Utils.Items.effectTargetTooltip(this.builder.effects, tooltip, 1.0F);
     }
 
     @Override

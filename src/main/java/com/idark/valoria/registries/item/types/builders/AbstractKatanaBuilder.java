@@ -7,9 +7,9 @@ import com.idark.valoria.registries.item.types.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.*;
+import pro.komaru.tridot.api.*;
 
 public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public Tier tier = ItemTierRegistry.NONE;
@@ -21,13 +21,12 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public boolean hasLargeModel = true;
     public float attackDamageIn;
     public float attackSpeedIn;
-    public float chance = 1;
     public int iframeTime = 20;
     public int overlayTime = 50;
     public int cooldownTime = 75;
     public int chargeTime = 0;
     public float dashDist = 1.0f;
-    public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
+    public ImmutableList<EffectApplier> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
 
     public AbstractKatanaBuilder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
@@ -81,19 +80,9 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     }
 
     /**
-     * @param chance   Chance of applying effects to target
      * @param pEffects Effects that will be applied to target
      */
-    public AbstractKatanaBuilder<T> setEffects(float chance, MobEffectInstance... pEffects){
-        this.chance = chance;
-        this.effects = ImmutableList.copyOf(pEffects);
-        return this;
-    }
-
-    /**
-     * @param pEffects Effects that will be applied to target
-     */
-    public AbstractKatanaBuilder<T> setEffects(MobEffectInstance... pEffects){
+    public AbstractKatanaBuilder<T> setEffects(EffectApplier... pEffects){
         this.effects = ImmutableList.copyOf(pEffects);
         return this;
     }

@@ -4,13 +4,13 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
+import pro.komaru.tridot.api.*;
 
 public class ExplosiveSpearItem extends SpearItem{
     private final Level.ExplosionInteraction interaction;
@@ -21,20 +21,8 @@ public class ExplosiveSpearItem extends SpearItem{
      * @param pRadius     Explosive radius
      * @param interaction Explosive interaction
      */
-    public ExplosiveSpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float pRadius, Level.ExplosionInteraction interaction, Item.Properties builderIn, MobEffectInstance... pEffects){
+    public ExplosiveSpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float pRadius, Level.ExplosionInteraction interaction, Item.Properties builderIn, EffectApplier... pEffects){
         super(tier, attackDamageIn, attackSpeedIn, builderIn, pEffects);
-        this.interaction = interaction;
-        explosive_radius = pRadius;
-    }
-
-    /**
-     * @param pChance     Chance to apply effects
-     * @param pRadius     Explosive radius
-     * @param interaction Explosive interaction
-     * @param pEffects    Effects applied on attack
-     */
-    public ExplosiveSpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float pChance, float pRadius, Level.ExplosionInteraction interaction, Item.Properties builderIn, MobEffectInstance... pEffects){
-        super(tier, attackDamageIn, attackSpeedIn, pChance, builderIn, pEffects);
         this.interaction = interaction;
         explosive_radius = pRadius;
     }
@@ -56,7 +44,7 @@ public class ExplosiveSpearItem extends SpearItem{
                         spear.igniteForSeconds(100);
                     }
 
-                    spear.setEffectsFromList(this.builder.effects);
+                    for (var applier : this.builder.effects) spear.addEffect(applier.createInstance()); // lazy to update tridot
                     worldIn.addFreshEntity(spear);
                     worldIn.playSound(null, spear, SoundsRegistry.SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
                     if(!playerEntity.getAbilities().instabuild){

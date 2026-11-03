@@ -106,7 +106,7 @@ public class BeastScytheItem extends ScytheItem{
 
             entity.hurt(level.damageSources().playerAttack(player), (damage + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
             performEffects(entity, player);
-            Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
+            Utils.Entities.apply(entity, builder.effects);
             if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, EquipmentSlot.MAINHAND);
             }

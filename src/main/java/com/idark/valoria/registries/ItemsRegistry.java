@@ -50,12 +50,10 @@ import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
-import pro.komaru.tridot.api.EffectApplier;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.book.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.builders.AbstractArmorBuilder.*;
-import pro.komaru.tridot.common.registry.item.builders.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.common.registry.item.components.TextComponent;
 import pro.komaru.tridot.common.registry.item.skins.*;
@@ -412,7 +410,7 @@ public class ItemsRegistry{
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
         wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(Valoria.loc("textures/gui/overlay/roots.png")).build());
-        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
+        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(EffectApplier.of(MobEffects.DARKNESS, 90).withChance(0.5f)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, new Item.Properties().rarity(RarityRegistry.HALLOWEEN).attributes(AxeItem.createAttributes(ItemTierRegistry.HALLOWEEN, ToolStats.axe.damage, ToolStats.axe.speed))));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), EffectApplier.of(MobEffects.DARKNESS, 40).withChance(0.25f), EffectApplier.of(MobEffects.WEAKNESS, 60).withAmplifier(1).withChance(0.25f)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
@@ -445,7 +443,7 @@ public class ItemsRegistry{
         samuraiKatana = registerItem("samurai_katana", () -> new KatanaItem(ItemTierRegistry.SAMURAI, ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()));
         samuraiLongBow = registerItem("samurai_long_bow", () -> new ConfigurableBowItem(6, new Item.Properties().stacksTo(1).durability(684)));
         silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ItemTierRegistry.SPIDER, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.SPIDER), EffectApplier.of(MobEffects.DARKNESS, 120).withChance(0.25f), EffectApplier.of(MobEffects.POISON, 45).withChance(0.25f)));
-        silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.SPIDER)).setTier(ItemTierRegistry.SPIDER).setDashDistance(1.5f).setEffects(0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)).removeLargeModelCheck().build());
+        silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.SPIDER)).setTier(ItemTierRegistry.SPIDER).setDashDistance(1.5f).setEffects(EffectApplier.of(MobEffects.DARKNESS, 120).withChance(0.25f), EffectApplier.of(MobEffects.POISON, 45).withChance(0.25f)).removeLargeModelCheck().build());
         silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(9, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
 
         pearliumSword = registerItem("pearlium_sword", () -> new ValoriaSword(ItemTierRegistry.PEARLIUM, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties()));
@@ -472,7 +470,7 @@ public class ItemsRegistry{
         crimtaneShovel = registerItem("crimtane_shovel", () -> new ShovelItem(ItemTierRegistry.BLOOD, new Item.Properties().rarity(RarityRegistry.BLOODY).attributes(ShovelItem.createAttributes(ItemTierRegistry.BLOOD, ToolStats.shovel.damage, ToolStats.shovel.speed))));
         crimtaneHoe = registerItem("crimtane_hoe", () -> new HoeItem(ItemTierRegistry.BLOOD, new Item.Properties().rarity(RarityRegistry.BLOODY).attributes(HoeItem.createAttributes(ItemTierRegistry.BLOOD, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed))));
         crimtaneMultiTool = registerItem("crimtane_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.BLOOD, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(0.25f, new MobEffectInstance(EffectsRegistry.BLEEDING, 120, 0)).build());
+        meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(EffectApplier.of(EffectsRegistry.BLEEDING.get(), 120).withChance(0.25f)).build());
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ItemTierRegistry.BLOOD, 2, -2.4F, new Item.Properties().durability(1600).rarity(RarityRegistry.BLOODY)));
         boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(12, new Item.Properties().rarity(RarityRegistry.BLOODY), new MobEffectInstance(EffectsRegistry.BLEEDING, 120, 2)));
 
@@ -522,8 +520,8 @@ public class ItemsRegistry{
         infernalCrossbow = registerItem("infernal_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1824).rarity(RarityRegistry.INFERNAL)));
 
         voidEdge = registerItem("void_edge", () -> new VoidSwordItem(ItemTierRegistry.NIHILITY, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
-        voidScythe = registerItem("void_scythe", () -> new VoidScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ItemTierRegistry.NIHILITY).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 180, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 0)).build());
-        voidSpear = registerItem("void_spear", () -> new VoidSpearItem(ItemTierRegistry.NIHILITY, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().stacksTo(1).durability(1684).rarity(RarityRegistry.VOID), new MobEffectInstance(MobEffects.DARKNESS, 90, 0)));
+        voidScythe = registerItem("void_scythe", () -> new VoidScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ItemTierRegistry.NIHILITY).setEffects(EffectApplier.of(MobEffects.DARKNESS, 180).withChance(0.5f), EffectApplier.of(MobEffects.WEAKNESS, 60).withChance(0.5f)).build());
+        voidSpear = registerItem("void_spear", () -> new VoidSpearItem(ItemTierRegistry.NIHILITY, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().stacksTo(1).durability(1684).rarity(RarityRegistry.VOID), EffectApplier.of(MobEffects.DARKNESS, 90)));
         voidPickaxe = registerItem("void_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.NIHILITY, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidAxe = registerItem("void_axe", () -> new AxeItem(ItemTierRegistry.NIHILITY, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID).attributes(AxeItem.createAttributes(ItemTierRegistry.NIHILITY, ToolStats.axe.damage, ToolStats.axe.speed))));
         voidShovel = registerItem("void_shovel", () -> new ShovelItem(ItemTierRegistry.NIHILITY, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID).attributes(ShovelItem.createAttributes(ItemTierRegistry.NIHILITY, ToolStats.shovel.damage, ToolStats.shovel.speed))));
@@ -553,7 +551,7 @@ public class ItemsRegistry{
         ironNecklaceAmber = registerItem("iron_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.005f, Operation.ADD_VALUE))
-        .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
+        .addEffect(EffectApplier.of(MobEffects.DIG_SPEED, 600))
         .build());
 
         ironNecklaceDiamond = registerItem("iron_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(320).rarity(Rarity.COMMON))
@@ -690,7 +688,7 @@ public class ItemsRegistry{
         goldenNecklaceAmber = registerItem("golden_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.01f, Operation.ADD_VALUE))
-        .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
+        .addEffect(EffectApplier.of(MobEffects.DIG_SPEED, 600))
         .build());
 
         goldenNecklaceDiamond = registerItem("golden_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
@@ -743,7 +741,7 @@ public class ItemsRegistry{
         netheriteNecklaceAmber = registerItem("netherite_necklace_amber", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
         .setTexPath(Valoria.loc("textures/curio/necklace/"))
         .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.015f, Operation.ADD_VALUE))
-        .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
+        .addEffect(EffectApplier.of(MobEffects.DIG_SPEED, 600))
         .build());
 
         netheriteNecklaceDiamond = registerItem("netherite_necklace_diamond", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(500).rarity(Rarity.RARE))
@@ -810,7 +808,7 @@ public class ItemsRegistry{
 
         ironRingAmber = registerItem("iron_ring_amber", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
         .addAttr(Attributes.ARMOR, new AttributeData(0.05f, Operation.ADD_VALUE))
-        .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
+        .addEffect(EffectApplier.of(MobEffects.DIG_SPEED, 600))
         .build());
 
         ironRingDiamond = registerItem("iron_ring_diamond", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).durability(400).rarity(Rarity.COMMON))
@@ -836,7 +834,7 @@ public class ItemsRegistry{
 
         goldenRingAmber = registerItem("golden_ring_amber", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
         .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.15f, Operation.ADD_VALUE))
-        .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
+        .addEffect(EffectApplier.of(MobEffects.DIG_SPEED, 600))
         .build());
 
         goldenRingDiamond = registerItem("golden_ring_diamond", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).durability(200).rarity(Rarity.UNCOMMON))
@@ -862,7 +860,7 @@ public class ItemsRegistry{
 
         netheriteRingAmber = registerItem("netherite_ring_amber", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(750).rarity(Rarity.RARE))
         .addAttr(Attributes.KNOCKBACK_RESISTANCE, new AttributeData(0.25f, Operation.ADD_VALUE))
-        .addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0))
+        .addEffect(EffectApplier.of(MobEffects.DIG_SPEED, 600))
         .build());
 
         netheriteRingDiamond = registerItem("netherite_ring_diamond", () -> new CurioAccessoryItem.Builder(Tiers.NETHERITE, new Properties().stacksTo(1).durability(750).rarity(Rarity.RARE))
@@ -1216,7 +1214,7 @@ public class ItemsRegistry{
                             if(!entity.equals(player)){
                                 entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + CombatCompat.sweepingRatio(player) + CombatCompat.damageBonus(player, stack, entity)) * 1.35f);
                                 performEffects(entity, player);
-                                Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
+                                Utils.Entities.apply(entity, builder.effects);
                                 if(!player.isCreative()){
                                     stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, EquipmentSlot.MAINHAND);
                                 }

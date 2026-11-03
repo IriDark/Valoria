@@ -1,5 +1,4 @@
 package com.idark.valoria.registries.item.types.curio;
-import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
@@ -11,7 +10,6 @@ import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
@@ -59,14 +57,9 @@ public class CurioAccessoryItem extends ValoriaTieredAccessory implements Abilit
 
     public void applyEffects(Player player, ItemStack stack){
         if(!player.getCooldowns().isOnCooldown(stack.getItem())){
-            if(!builder.effects.isEmpty()){
-                for(MobEffectInstance effectInstance : builder.effects){
-                    player.addEffect(new MobEffectInstance(effectInstance));
-                    player.getCooldowns().addCooldown(stack.getItem(), effectInstance.getDuration() + 300);
-                }
-
-                accessoryHurt(player, stack);
-            }
+            Utils.Entities.apply(player, builder.effects);
+            player.getCooldowns().addCooldown(stack.getItem(), 600);
+            accessoryHurt(player, stack);
         }
     }
 
@@ -93,11 +86,8 @@ public class CurioAccessoryItem extends ValoriaTieredAccessory implements Abilit
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         Seq<TooltipComponent> seq = Seq.with();
         if(!builder.effects.isEmpty()){
-            List<EffectApplier> appliers = builder.effects.list().stream()
-                    .map(e -> new EffectApplier(e.getEffect(), e.getDuration(), e.getAmplifier()))
-                    .toList();
             seq.addAll(
-            new EffectsListComponent(appliers, Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)),
+            new EffectsListComponent(builder.effects, Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)),
             new EmptyComponent(6),
             new TextComponent(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN))
             );
