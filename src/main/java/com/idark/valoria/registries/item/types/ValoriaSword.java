@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
@@ -56,7 +57,7 @@ public class ValoriaSword extends SwordItem{
         }
 
         if(stack.is(ItemsRegistry.crimtaneSword.get())) {
-            Utils.Items.effectTooltip(ImmutableList.of(new MobEffectInstance(EffectsRegistry.RENEWAL, 120)), tooltip, 1, 0.25f);
+            Utils.Items.effectTooltip(ImmutableList.of(EffectApplier.of(EffectsRegistry.RENEWAL, 120).withChance(0.25f)), tooltip, 1.0F);
         }
     }
 }

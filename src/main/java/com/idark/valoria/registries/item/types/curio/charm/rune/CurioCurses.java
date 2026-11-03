@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.curio.charm.rune;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.core.interfaces.*;
@@ -59,10 +60,11 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
 
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
-        ImmutableList.Builder<MobEffectInstance> effectBuilder = ImmutableList.builder();
+        ImmutableList.Builder<EffectApplier> effectBuilder = ImmutableList.builder();
         List<Holder<MobEffect>> effects = ValoriaUtils.getEffectsFromTag(TagsRegistry.CURSES);
         for (Holder<MobEffect> effect : effects) {
-            effectBuilder.add(new MobEffectInstance(effect, 200, 0, false, true));
+            effectBuilder.add(new EffectApplier(effect.value(), 200, 0, chance));
+        }
         }
 
         return Seq.with(new EffectsListComponent(effectBuilder.build(), Component.translatable("tooltip.valoria.curses", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY)));

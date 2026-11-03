@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.consumables;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
@@ -56,7 +57,7 @@ public class CleansingConsumableItem extends AbstractConsumableItem implements T
 
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
-        return Seq.with(new EffectsListComponent(List.of(new MobEffectInstance(effect)), Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
+        return Seq.with(new EffectsListComponent(List.of(new EffectApplier(effect.getEffect(), effect.getDuration(), effect.getAmplifier())), Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
     }
 
     @Override

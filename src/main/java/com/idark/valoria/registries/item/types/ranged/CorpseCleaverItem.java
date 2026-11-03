@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.ranged;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
@@ -90,7 +91,7 @@ public class CorpseCleaverItem extends SwordItem implements TooltipComponentItem
     @Override
     public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        Utils.Items.effectTargetTooltip(ImmutableList.of(new MobEffectInstance(EffectsRegistry.BLEEDING, 120, 1)), pTooltipComponents, 1, 1);
+        Utils.Items.effectTargetTooltip(ImmutableList.of(EffectApplier.of(EffectsRegistry.BLEEDING, 120).withAmplifier(1)), pTooltipComponents, 1.0F);
     }
 
     @Override

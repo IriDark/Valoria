@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
@@ -55,8 +56,8 @@ public class PoisonItem extends Item{
 
     public void appendHoverText(ItemStack pStack, Item.TooltipContext pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("tooltip.valoria.toxins").withStyle(ChatFormatting.GRAY));
-        ImmutableList<MobEffectInstance> list = ImmutableList.of(new MobEffectInstance(MobEffects.POISON, 120, 0));
-        Utils.Items.effectTooltip(list, pTooltipComponents, 1, 1);
+        ImmutableList<EffectApplier> list = ImmutableList.of(EffectApplier.of(MobEffects.POISON, 120));
+        Utils.Items.effectTooltip(list, pTooltipComponents, 1.0F);
     }
 
     private void playSound(Entity pEntity) {

@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.ranged;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
@@ -87,6 +88,9 @@ public class CrystalShardItem extends Item{
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        Utils.Items.effectTooltip(effects, tooltip, 1, 1);
+        ImmutableList<EffectApplier> appliers = effects.stream()
+                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier()))
+                .collect(ImmutableList.toImmutableList());
+        Utils.Items.effectTooltip(appliers, tooltip, 1.0F);
     }
 }

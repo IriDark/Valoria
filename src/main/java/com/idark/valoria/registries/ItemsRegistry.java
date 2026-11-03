@@ -50,6 +50,7 @@ import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.EffectApplier;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.book.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
@@ -376,6 +377,7 @@ public class ItemsRegistry{
         blackGoldHammer = registerItem("black_gold_hammer", () -> new HammerItem(ItemTierRegistry.BLACK_GOLD, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties()));
         infernalHammer = registerItem("infernal_hammer", () -> new HammerItem(ItemTierRegistry.INFERNAL, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         voidHammer = registerItem("void_hammer", () -> new HammerItem(ItemTierRegistry.NIHILITY, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
+        club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), EffectApplier.of(EffectsRegistry.STUN, 60).withChance(0.1f)));
         clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, new Item.Properties().attributes(SwordItem.createAttributes(ItemTierRegistry.BRONZE, 6, -2.4f))));
         quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, new Item.Properties().rarity(RarityRegistry.VOID).attributes(SwordItem.createAttributes(ItemTierRegistry.NONE, 8, -3f))));
@@ -412,7 +414,7 @@ public class ItemsRegistry{
         wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ItemTierRegistry.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(Valoria.loc("textures/gui/overlay/roots.png")).build());
         reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Properties().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ItemTierRegistry.HALLOWEEN).build());
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, new Item.Properties().rarity(RarityRegistry.HALLOWEEN).attributes(AxeItem.createAttributes(ItemTierRegistry.HALLOWEEN, ToolStats.axe.damage, ToolStats.axe.speed))));
-        soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
+        soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, (int)ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), EffectApplier.of(MobEffects.DARKNESS, 40).withChance(0.25f), EffectApplier.of(MobEffects.WEAKNESS, 60).withAmplifier(1).withChance(0.25f)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
         woodenSpear = registerItem("wooden_spear", () -> new SpearItem(Tiers.WOOD, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
         stoneSpear = registerItem("stone_spear", () -> new SpearItem(Tiers.STONE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
@@ -442,7 +444,7 @@ public class ItemsRegistry{
         samuraiPoisonedKunai = registerItem("samurai_poisoned_kunai", () -> new KunaiItem(6, new Item.Properties(), new MobEffectInstance(MobEffects.POISON, 170, 0)));
         samuraiKatana = registerItem("samurai_katana", () -> new KatanaItem(ItemTierRegistry.SAMURAI, ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()));
         samuraiLongBow = registerItem("samurai_long_bow", () -> new ConfigurableBowItem(6, new Item.Properties().stacksTo(1).durability(684)));
-        silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ItemTierRegistry.SPIDER, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
+        silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ItemTierRegistry.SPIDER, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.SPIDER), EffectApplier.of(MobEffects.DARKNESS, 120).withChance(0.25f), EffectApplier.of(MobEffects.POISON, 45).withChance(0.25f)));
         silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.SPIDER)).setTier(ItemTierRegistry.SPIDER).setDashDistance(1.5f).setEffects(0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)).removeLargeModelCheck().build());
         silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(9, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
 
@@ -960,7 +962,7 @@ public class ItemsRegistry{
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
         bronzeShield = registerItem("bronze_shield", () -> new ConfiguredShield.Builder(0.25f, new Properties().stacksTo(1).durability(1200).rarity(Rarity.UNCOMMON)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.BRONZE).build());
-        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(0.35f, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).addDefenderBlockEffects(new EffectList(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0))).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
+        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem.Builder(0.35f, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)).addDefenderBlockEffects(EffectApplier.of(MobEffects.MOVEMENT_SPEED, 60)).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(Tiers.IRON).build());
         crabBuckler = registerItem("crab_buckler", () -> new ConfiguredShield.Builder(0.35f, new Properties().stacksTo(1).durability(1800).rarity(Rarity.RARE)).setReturnedPercent(0.15f).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).setTier(ItemTierRegistry.NONE).build());
         natureShield = registerItem("nature_shield", () -> new ConfiguredShield.Builder(0.40f, new Properties().stacksTo(1).durability(2200).rarity(RarityRegistry.NATURE)).setTier(ItemTierRegistry.NATURE).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
         aquariusShield = registerItem("aquarius_shield", () -> new ConfiguredShield.Builder(0.45f, new Properties().stacksTo(1).durability(2600).rarity(RarityRegistry.AQUARIUS)).setTier(ItemTierRegistry.AQUARIUS).setParrySound(SoundsRegistry.SHIELD_PARRY.get()).build());
@@ -1040,7 +1042,7 @@ public class ItemsRegistry{
         cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 400, 1), new Item.Properties()));
         cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 400, 2), new Item.Properties()));
         clarityVial = registerItem("clarity_vial", () -> new CleansingConsumableItem(5, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), new Item.Properties()));
-        halloweenElixir = registerItem("halloween_elixir", () -> new EffectConsumableItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN), new MobEffectInstance(EffectsRegistry.SINISTER_PREDICTION, 16500, 0)));
+        halloweenElixir = registerItem("halloween_elixir", () -> new EffectConsumableItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN), EffectApplier.of(EffectsRegistry.SINISTER_PREDICTION, 16500)));
 
         applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationModifier(0.75f).build())));
         goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));

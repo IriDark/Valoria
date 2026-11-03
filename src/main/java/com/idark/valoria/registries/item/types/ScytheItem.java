@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
@@ -166,7 +167,10 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        Utils.Items.effectTargetTooltip(builder.effects, tooltip, 1, builder.chance);
+        ImmutableList<EffectApplier> appliers = builder.effects.stream()
+                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), builder.chance))
+                .collect(ImmutableList.toImmutableList());
+        Utils.Items.effectTargetTooltip(appliers, tooltip, 1.0F);
     }
 
     public static class Builder extends AbstractScytheBuilder<ScytheItem>{

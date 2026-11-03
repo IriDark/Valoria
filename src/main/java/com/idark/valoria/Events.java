@@ -1,4 +1,5 @@
 package com.idark.valoria;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.api.events.*;
@@ -139,9 +140,9 @@ public class Events{
         List<Component> tooltip = event.getToolTip();
         if(PoisonItem.isPoisoned(stack)){
             int hits = PoisonItem.getPoisonHits(stack);
-            ImmutableList<MobEffectInstance> list = ImmutableList.of(new MobEffectInstance(MobEffects.POISON, 120, 0));
+            ImmutableList<EffectApplier> list = ImmutableList.of(EffectApplier.of(MobEffects.POISON, 120));
             tooltip.add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
-            Utils.Items.effectTooltip(list, tooltip, 1, 1);
+            Utils.Items.effectTooltip(list, tooltip, 1.0F);
         }
 
         if(Unlockables.getUnlockableByItem(stack.getItem()).isPresent()){

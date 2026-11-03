@@ -34,7 +34,7 @@ public class CrimtaneArmor extends SuitArmorItem{
             if (effects != null) {
                 var component = Component.translatable("tooltip.tridot.applies_to_target").withStyle(ChatFormatting.GRAY);
                 for (int i = 0; i < effects.size(); i++) {
-                    MobEffect effect = effects.get(i).instance().get().getEffect().value();
+                    MobEffect effect = effects.get(i).applier().effect();
                     var effectName = effect.getDisplayName().getString();
                     component.append(Component.literal(effectName).withStyle(stack.getRarity().getStyleModifier()));
                     if (i < effects.size() - 1) {
