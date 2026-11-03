@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.curio;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
@@ -92,8 +93,11 @@ public class CurioAccessoryItem extends ValoriaTieredAccessory implements Abilit
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         Seq<TooltipComponent> seq = Seq.with();
         if(!builder.effects.isEmpty()){
+            List<EffectApplier> appliers = builder.effects.list().stream()
+                    .map(e -> new EffectApplier(e.getEffect(), e.getDuration(), e.getAmplifier()))
+                    .toList();
             seq.addAll(
-            new EffectsListComponent(builder.effects.list(), Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)),
+            new EffectsListComponent(appliers, Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)),
             new EmptyComponent(6),
             new TextComponent(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN))
             );

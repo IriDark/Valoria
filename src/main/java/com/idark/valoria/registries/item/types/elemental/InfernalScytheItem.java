@@ -1,5 +1,7 @@
 package com.idark.valoria.registries.item.types.elemental;
 
+import pro.komaru.tridot.api.EffectApplier;
+
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
@@ -118,6 +120,9 @@ public class InfernalScytheItem extends ScytheItem{
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(1, Component.translatable("tooltip.valoria.infernal_scythe", Component.literal(String.format("%.1f%%", 0.07f * 100))).withStyle(ChatFormatting.GRAY));
-        Utils.Items.effectTooltip(builder.effects, tooltip, 1, builder.chance);
+        ImmutableList<EffectApplier> appliers = builder.effects.stream()
+                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), builder.chance))
+                .collect(ImmutableList.toImmutableList());
+        Utils.Items.effectTooltip(appliers, tooltip, 1.0F);
     }
 }

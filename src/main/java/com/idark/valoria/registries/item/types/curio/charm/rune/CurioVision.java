@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.curio.charm.rune;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
@@ -33,7 +34,7 @@ public class CurioVision extends AbstractRuneItem implements AbilityInputListene
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        Utils.Items.effectTooltip(ImmutableList.of(new MobEffectInstance(MobEffects.NIGHT_VISION, duration)), tooltip, 1, 1);
+        Utils.Items.effectTooltip(ImmutableList.of(EffectApplier.of(MobEffects.NIGHT_VISION, duration)), tooltip, 1.0F);
 
         tooltip.add(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN));
     }

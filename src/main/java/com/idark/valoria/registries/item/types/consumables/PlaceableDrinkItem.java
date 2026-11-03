@@ -1,4 +1,6 @@
 package com.idark.valoria.registries.item.types.consumables;
+import pro.komaru.tridot.api.EffectApplier;
+import java.util.List;
 
 import com.google.common.collect.*;
 import net.minecraft.*;
@@ -65,6 +67,9 @@ public class PlaceableDrinkItem extends BlockItem implements TooltipComponentIte
 
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
-        return Seq.with(new EffectsListComponent(effects, Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
+        List<EffectApplier> appliers = effects.stream()
+                .map(e -> new EffectApplier(e.getEffect(), e.getDuration(), e.getAmplifier()))
+                .toList();
+        return Seq.with(new EffectsListComponent(appliers, Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
     }
 }

@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.consumables;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.client.particle.*;
@@ -87,7 +88,10 @@ public class BandageItem extends Item{
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        Utils.Items.effectTooltip(effects, pTooltipComponents, 1, 1);
+        ImmutableList<EffectApplier> appliers = effects.stream()
+                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier()))
+                .collect(ImmutableList.toImmutableList());
+        Utils.Items.effectTooltip(appliers, pTooltipComponents, 1.0F);
         if (removeAllEffects) {
             pTooltipComponents.add(Component.translatable("tooltip.valoria.effect_cure").withStyle(ChatFormatting.GRAY));
         } else pTooltipComponents.add(Component.translatable("tooltip.valoria.bleeding_cure").withStyle(ChatFormatting.GRAY));

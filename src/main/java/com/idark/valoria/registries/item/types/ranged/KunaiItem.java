@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.ranged;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.entity.projectile.*;
@@ -112,6 +113,9 @@ public class KunaiItem extends Item{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        Utils.Items.effectTooltip(effects, tooltip, 1, chance);
+        ImmutableList<EffectApplier> appliers = effects.stream()
+                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), chance))
+                .collect(ImmutableList.toImmutableList());
+        Utils.Items.effectTooltip(appliers, tooltip, 1.0F);
     }
 }

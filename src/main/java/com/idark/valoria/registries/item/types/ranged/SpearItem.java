@@ -1,4 +1,5 @@
 package com.idark.valoria.registries.item.types.ranged;
+import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.base.*;
 import com.google.common.collect.*;
@@ -194,7 +195,10 @@ public class SpearItem extends SwordItem implements Vanishable{
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.spear_pillars").withStyle(ChatFormatting.GRAY));
-        Utils.Items.effectTooltip(this.builder.effects, tooltip, 1, this.builder.chance);
+        ImmutableList<EffectApplier> appliers = this.builder.effects.stream()
+                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier(), this.builder.chance))
+                .collect(ImmutableList.toImmutableList());
+        Utils.Items.effectTooltip(appliers, tooltip, 1.0F);
     }
 
     @Override
