@@ -6,10 +6,10 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.render.animation.*;
 import pro.komaru.tridot.util.math.*;
 
@@ -20,7 +20,6 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
     public float attackDamageIn;
     public float attackSpeedIn;
-    public float chance = 1;
     public int useTime = 7;
     public int attackUsages = 1;
     public int attackDelay = 5;
@@ -31,7 +30,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public int screenShakeDuration = 4;
     public ItemAnimation animation = new SpinAttackAnimation();
     public Interp screenShakeEasing = Interp.circleOut;
-    public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
+    public ImmutableList<EffectApplier> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
     public Multimap<Attribute, AttributeModifier> extraAttributes = HashMultimap.create();
 
@@ -113,16 +112,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
      * @param chance   Chance of applying effects to target
      * @param pEffects Effects that will be applied to target
      */
-    public AbstractScytheBuilder<T> setEffects(float chance, MobEffectInstance... pEffects){
-        this.chance = chance;
-        this.effects = ImmutableList.copyOf(pEffects);
-        return this;
-    }
-
-    /**
-     * @param pEffects Effects that will be applied to target
-     */
-    public AbstractScytheBuilder<T> setEffects(MobEffectInstance... pEffects){
+    public AbstractScytheBuilder<T> setEffects(EffectApplier... pEffects){
         this.effects = ImmutableList.copyOf(pEffects);
         return this;
     }

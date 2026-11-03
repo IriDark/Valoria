@@ -1,5 +1,4 @@
 package com.idark.valoria.registries.item.types.consumables;
-import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.client.particle.*;
@@ -11,7 +10,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
@@ -23,9 +21,9 @@ import java.util.*;
 
 public class BandageItem extends Item{
     public boolean removeAllEffects;
-    public ImmutableList<MobEffectInstance> effects;
+    public ImmutableList<EffectApplier> effects;
 
-    public BandageItem(boolean pCure, MobEffectInstance... pEffects){
+    public BandageItem(boolean pCure, EffectApplier... pEffects){
         super(new Properties().food(new FoodProperties.Builder()
                 .alwaysEat()
                 .nutrition(0)
@@ -46,7 +44,7 @@ public class BandageItem extends Item{
         );
 
         this.removeAllEffects = pCure;
-        this.effects = ImmutableList.of(new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), time, power));
+        this.effects = ImmutableList.of(new EffectApplier(EffectsRegistry.ALOEREGEN.get(), time, power));
     }
 
     public SoundEvent getDrinkingSound(){
@@ -64,7 +62,7 @@ public class BandageItem extends Item{
             serverPlayer.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
             cureEffects(stack, entity);
-            effects.forEach(eff -> serverPlayer.addEffect(new MobEffectInstance(eff)));
+            Utils.Entities.apply(serverPlayer, effects);
             if(!serverPlayer.getAbilities().instabuild) stack.shrink(1);
             if(level instanceof ServerLevel serverLevel) serverLevel.sendParticles(ParticleRegistry.HEAL.get(), entity.getX(), entity.getY() + 0.7D, entity.getZ(), 12, 0, 0, 0, 0.025f);
         }
@@ -88,10 +86,7 @@ public class BandageItem extends Item{
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        ImmutableList<EffectApplier> appliers = effects.stream()
-                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier()))
-                .collect(ImmutableList.toImmutableList());
-        Utils.Items.effectTooltip(appliers, pTooltipComponents, 1.0F);
+        Utils.Items.effectTooltip(effects, pTooltipComponents, 1.0F);
         if (removeAllEffects) {
             pTooltipComponents.add(Component.translatable("tooltip.valoria.effect_cure").withStyle(ChatFormatting.GRAY));
         } else pTooltipComponents.add(Component.translatable("tooltip.valoria.bleeding_cure").withStyle(ChatFormatting.GRAY));

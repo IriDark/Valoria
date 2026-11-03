@@ -182,7 +182,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
                     if(!entity.equals(player)){
                         entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                         performEffects(entity, player);
-                        Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
+                        Utils.Entities.apply(entity, builder.effects);
                         if(!player.isCreative()){
                             stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                         }
@@ -215,6 +215,12 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
                 OverlayHandler.addInstance(new TimedOverlayInstance().setTexture(builder.texture).setShowTime(builder.overlayTime).setFadeIn(0));
             }
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+        super.appendHoverText(stack, world, tooltip, flags);
+        Utils.Items.effectTargetTooltip(builder.effects, tooltip, 1.0F);
     }
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack) {

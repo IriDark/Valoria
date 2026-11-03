@@ -3,20 +3,19 @@ package com.idark.valoria.registries.item.types.builders;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.item.Item.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.api.*;
 
 public abstract class AbstractSpearBuilder<T extends SpearItem>{
     public Tier tier = ItemTierRegistry.NONE;
     public Properties itemProperties;
-    public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
+    public ImmutableList<EffectApplier> effects = ImmutableList.of();
 
     public float attackDamageIn;
     public float projectileDamageIn;
     public float entityReach = 1;
     public float attackSpeedIn;
-    public float chance = 1;
 
     public boolean throwable = true;
 
@@ -50,16 +49,7 @@ public abstract class AbstractSpearBuilder<T extends SpearItem>{
      * @param chance   Chance of applying effects to target
      * @param pEffects Effects that will be applied to target
      */
-    public AbstractSpearBuilder<T> setEffects(float chance, MobEffectInstance... pEffects){
-        this.chance = chance;
-        this.effects = ImmutableList.copyOf(pEffects);
-        return this;
-    }
-
-    /**
-     * @param pEffects Effects that will be applied to target
-     */
-    public AbstractSpearBuilder<T> setEffects(MobEffectInstance... pEffects){
+    public AbstractSpearBuilder<T> setEffects(EffectApplier... pEffects){
         this.effects = ImmutableList.copyOf(pEffects);
         return this;
     }

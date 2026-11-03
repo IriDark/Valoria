@@ -4,12 +4,11 @@ import com.google.common.collect.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.Item.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.item.builders.AbstractArmorBuilder.*;
-import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.function.*;
 
@@ -21,7 +20,7 @@ public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B exten
 
     public Multimap<Supplier<Attribute>, AttributeData> attributeMap = HashMultimap.create();
     public Multimap<String, AttributeData> slotModifiers = HashMultimap.create();
-    public Seq<MobEffectInstance> effects = Seq.with();
+    public ImmutableList<EffectApplier> effects = ImmutableList.of();
     public SoundEvent equipSound;
     public float volume = 1.0f;
     public float pitch = 1.0f;
@@ -48,18 +47,13 @@ public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B exten
         return self();
     }
 
-    public B addEffects(MobEffectInstance... effects){
-        this.effects.addAll(effects);
+    public B addEffects(EffectApplier... effects){
+        this.effects = ImmutableList.copyOf(effects);
         return self();
     }
 
-    public B setEffects(Seq<MobEffectInstance> effects){
-        this.effects = effects;
-        return self();
-    }
-
-    public B addEffect(MobEffectInstance effect){
-        this.effects.add(effect);
+    public B addEffect(EffectApplier effect){
+        this.effects = ImmutableList.of(effect);
         return self();
     }
 

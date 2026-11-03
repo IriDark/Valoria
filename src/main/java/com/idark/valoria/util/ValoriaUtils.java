@@ -1,5 +1,6 @@
 package com.idark.valoria.util;
 
+import com.google.common.collect.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.mixin.*;
 import com.idark.valoria.registries.*;
@@ -134,6 +135,27 @@ public class ValoriaUtils{
         }
 
         return effects;
+    }
+
+    @SuppressWarnings("deprecation")
+    public static ImmutableList<EffectApplier> getEffectAppliersFromTag(TagKey<MobEffect> effectTag, int duration, int amplifier) {
+        ImmutableList.Builder<EffectApplier> effects  = ImmutableList.builder();
+        var optionalTag = BuiltInRegistries.MOB_EFFECT.getTag(effectTag);
+        if (optionalTag.isPresent()) {
+            for (Holder<MobEffect> holder : optionalTag.get()) {
+                effects.add(new EffectApplier(holder.value(), duration, amplifier));
+            }
+        }
+
+        return effects.build();
+    }
+
+    public static ImmutableList<EffectApplier> getEffectAppliersFromTag(TagKey<MobEffect> effectTag, int duration) {
+        return ValoriaUtils.getEffectAppliersFromTag(effectTag, duration, 0);
+    }
+
+    public static ImmutableList<EffectApplier> getEffectAppliersFromTag(TagKey<MobEffect> effectTag) {
+        return ValoriaUtils.getEffectAppliersFromTag(effectTag, -1, 0);
     }
 
     public static int getCurrentNBTValue(String key, ItemStack pStack) {

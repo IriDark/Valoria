@@ -1,5 +1,4 @@
 package com.idark.valoria.registries.item.types.curio.charm.rune;
-import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.core.interfaces.*;
@@ -10,14 +9,13 @@ import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.damagesource.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
-import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
 
@@ -25,23 +23,21 @@ import java.util.*;
 
 public class CurioCurses extends AbstractRuneItem implements TooltipComponentItem, CurioOnAttackItem{
     private final float chance;
+    private final ImmutableList<EffectApplier> applier;
+
     public CurioCurses(float chance, Properties properties){
         super(properties);
         this.chance = chance;
+        this.applier = ValoriaUtils.getEffectAppliersFromTag(TagsRegistry.CURSES, 200);
     }
 
     // Calamity sounds used
     @Override
     public void onAttack(ItemStack stack, LivingEntity target, DamageSource source, float damage) {
         if (!target.level().isClientSide() && source.getEntity() instanceof ServerPlayer pServer) {
-            if (Tmp.rnd.chance(chance) && !pServer.getCooldowns().isOnCooldown(this)) {
-                MobEffect randomEffect = ValoriaUtils.getRandomEffectFromTag(target.level().random, TagsRegistry.CURSES);
-                if (randomEffect != null) {
-                    target.addEffect(new MobEffectInstance(randomEffect, 200, 0, false, true));
-                    pServer.getCooldowns().addCooldown(this, 100);
-                    target.level().playSound(null, target.getOnPos(), SoundsRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
-                }
-            }
+            Utils.Entities.apply(target, applier);
+            pServer.getCooldowns().addCooldown(this, 100);
+            target.level().playSound(null, target.getOnPos(), SoundsRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
         }
     }
 
@@ -58,13 +54,7 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
 
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
-        ImmutableList.Builder<EffectApplier> effectBuilder = ImmutableList.builder();
-        List<MobEffect> effects = ValoriaUtils.getEffectsFromTag(TagsRegistry.CURSES);
-        for (MobEffect effect : effects) {
-            effectBuilder.add(new EffectApplier(effect, 200, 0, chance));
-        }
-
-        return Seq.with(new EffectsListComponent(effectBuilder.build(), Component.translatable("tooltip.valoria.curses", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY)));
+        return Seq.with(new EffectsListComponent(applier, Component.translatable("tooltip.valoria.curses", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY)));
     }
 
     @Override

@@ -4,10 +4,10 @@ import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.item.*;
 
 import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_UUID;
@@ -15,16 +15,12 @@ import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
 public class VoidSpearItem extends SpearItem{
 
-    public VoidSpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn, MobEffectInstance... pEffects){
+    public VoidSpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn, EffectApplier... pEffects){
         super(tier, attackDamageIn, attackSpeedIn, builderIn, pEffects);
     }
 
     public VoidSpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, boolean pThrowable, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, pThrowable, builderIn);
-    }
-
-    public VoidSpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, float pChance, Properties builderIn, MobEffectInstance... pEffects){
-        super(tier, attackDamageIn, attackSpeedIn, pChance, builderIn, pEffects);
     }
 
     public Multimap<Attribute, AttributeModifier> createAttributes(){

@@ -47,7 +47,7 @@ public class GlaiveItem extends ScytheItem{
 
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
-            Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
+            Utils.Entities.apply(entity, builder.effects);
             if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
