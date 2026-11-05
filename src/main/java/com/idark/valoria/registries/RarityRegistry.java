@@ -23,9 +23,8 @@ public class RarityRegistry{
         public static final EnumProxy<Rarity> ETHEREAL = proxy("ethereal", apply(ethereal));
         public static final EnumProxy<Rarity> NATURE = proxy("nature", apply(nature));
         public static final EnumProxy<Rarity> VOID = proxy("void", apply(nihility));
-        public static final EnumProxy<Rarity> ELEMENTAL = proxy("elemental", style -> ModList.get().isLoaded("itemborders") ? white : elemental);
+        public static final EnumProxy<Rarity> ELEMENTAL = proxy("elemental", style -> ModList.get().isLoaded("itemborders") || ModList.get().isLoaded("lootbeams") ? white : elemental);
         public static final EnumProxy<Rarity> PHANTASM = proxy("phantasm", apply(phantasm));
-
         private static EnumProxy<Rarity> proxy(String name, UnaryOperator<Style> styleModifier){
             return new EnumProxy<>(Rarity.class, -1, "valoria:" + name, styleModifier);
         }
