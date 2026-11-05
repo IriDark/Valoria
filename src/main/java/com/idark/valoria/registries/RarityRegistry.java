@@ -1,7 +1,6 @@
 package com.idark.valoria.registries;
 
 import net.minecraft.world.item.*;
-import net.minecraftforge.fml.*;
 
 import static com.idark.valoria.util.Styles.*;
 
@@ -19,7 +18,7 @@ public class RarityRegistry{
     ETHEREAL = Rarity.create("ethereal", apply(ethereal)),
     NATURE = Rarity.create("nature", apply(nature)),
     VOID = Rarity.create("void", apply(nihility)),
-    ELEMENTAL = Rarity.create("elemental", ModList.get().isLoaded("itemborders") || ModList.get().isLoaded("lootbeams") ? apply(white) : apply(elemental)),
+    ELEMENTAL = Rarity.create("elemental", apply(elemental)),
     PHANTASM = Rarity.create("phantasm", apply(phantasm));
 
 }
