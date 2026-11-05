@@ -216,7 +216,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         Utils.Items.effectTargetTooltip(builder.effects, tooltip, 1.0F);
     }

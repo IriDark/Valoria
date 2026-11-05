@@ -370,7 +370,7 @@ public class ItemsRegistry{
 
         // weapons
         flameSword = registerItem("flame_sword", () -> new FlameSwordItem(Tiers.NETHERITE, 5, -1.8f, new Properties()));
-        club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN, 60, 0)));
+        club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), EffectApplier.of(EffectsRegistry.STUN, 60).withChance(0.1f)));
         bronzeHammer = registerItem("bronze_hammer", () -> new HammerItem(ItemTierRegistry.BRONZE, (int)ToolStats.hammer.damage, ToolStats.hammer.speed,new Item.Properties()));
         blackGoldHammer = registerItem("black_gold_hammer", () -> new HammerItem(ItemTierRegistry.BLACK_GOLD, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties()));
         infernalHammer = registerItem("infernal_hammer", () -> new HammerItem(ItemTierRegistry.INFERNAL, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));

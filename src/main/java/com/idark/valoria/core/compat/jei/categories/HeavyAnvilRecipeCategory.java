@@ -17,7 +17,7 @@ import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class HeavyAnvilRecipeCategory extends AbstractRecipeCategory<HeavyAnvilR
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, HeavyAnvilRecipe recipe, IFocusGroup focuses) {
         List<ItemStack> hammers = new ArrayList<>();
-        for (Item item : ForgeRegistries.ITEMS) {
+        for (Item item : BuiltInRegistries.ITEM) {
             ItemStack stack = new ItemStack(item);
             if (stack.is(TagsRegistry.HEAVY_ANVIL_TOOL)) {
                 hammers.add(stack);

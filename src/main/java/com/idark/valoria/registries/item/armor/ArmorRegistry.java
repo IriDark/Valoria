@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.*;
 import net.neoforged.bus.api.*;
 import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.api.EffectApplier;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.builders.*;
 import pro.komaru.tridot.common.registry.item.builders.AbstractArmorBuilder.*;
@@ -38,8 +39,8 @@ public class ArmorRegistry extends AbstractArmorRegistry{
     }
 
     public static List<ArmorEffectData> natureData = List.of(ArmorEffectData.createData(EffectsRegistry.ALOEREGEN));
-    public static List<ArmorEffectData> depthData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.WATER_BREATHING, MobEffectInstance.INFINITE_DURATION), Entity::isInWater));
-    public static List<ArmorEffectData> infernalData = List.of(ArmorEffectData.createData(MobEffects.DAMAGE_BOOST), ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400), Entity::isOnFire));
+    public static List<ArmorEffectData> depthData = List.of(ArmorEffectData.createData(EffectApplier.of(MobEffects.WATER_BREATHING), Entity::isInWater));
+    public static List<ArmorEffectData> infernalData = List.of(ArmorEffectData.createData(MobEffects.DAMAGE_BOOST), ArmorEffectData.createData(EffectApplier.of(MobEffects.FIRE_RESISTANCE, 400), Entity::isOnFire));
     public static List<ArmorEffectData> etherealData = List.of(ArmorEffectData.createData(MobEffects.NIGHT_VISION));
     public static List<HitEffectData> crimtaneData = List.of(HitEffectData.createData(EffectsRegistry.EXHAUSTION));
 

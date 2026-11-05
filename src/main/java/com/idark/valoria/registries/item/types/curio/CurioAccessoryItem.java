@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.api.Utils;
 import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;

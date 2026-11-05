@@ -57,7 +57,7 @@ public class CleansingConsumableItem extends AbstractConsumableItem implements T
 
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
-        return Seq.with(new EffectsListComponent(List.of(new EffectApplier(effect.getEffect(), effect.getDuration(), effect.getAmplifier())), Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
+        return Seq.with(new EffectsListComponent(List.of(EffectApplier.of(effect)), Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
     }
 
     @Override

@@ -68,7 +68,7 @@ public class PlaceableDrinkItem extends BlockItem implements TooltipComponentIte
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         List<EffectApplier> appliers = effects.stream()
-                .map(e -> new EffectApplier(e.getEffect(), e.getDuration(), e.getAmplifier()))
+                .map(EffectApplier::of)
                 .toList();
         return Seq.with(new EffectsListComponent(appliers, Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
     }

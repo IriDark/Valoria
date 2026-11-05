@@ -13,6 +13,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
+import net.neoforged.neoforge.common.Tags;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -55,7 +56,7 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
     public void applySingleCurse(ServerPlayer wearer, LivingEntity pTarget, ImmutableList<EffectApplier> effects) {
         if (pTarget != null && !effects.isEmpty()) {
             float chance = this.chance;
-            if (pTarget instanceof BossEntity || pTarget.getType().is(EntityTypes.BOSSES)) chance *= 0.25f;
+            if (pTarget instanceof BossEntity || pTarget.getType().is(Tags.EntityTypes.BOSSES)) chance *= 0.25f;
             if (chance <= 0.0F) return;
             if (chance >= 1.0F || pTarget.getRandom().nextFloat() < chance) {
                 EffectApplier chosen = effects.get(pTarget.getRandom().nextInt(effects.size()));

@@ -46,7 +46,7 @@ public class BandageItem extends Item{
         );
 
         this.removeAllEffects = pCure;
-        this.effects = ImmutableList.of(new EffectApplier(EffectsRegistry.ALOEREGEN.get(), time, power));
+        this.effects = ImmutableList.of(EffectApplier.of(EffectsRegistry.ALOEREGEN, time).withAmplifier(power));
     }
 
     public SoundEvent getDrinkingSound(){

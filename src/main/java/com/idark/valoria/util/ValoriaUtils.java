@@ -1,6 +1,7 @@
+package com.idark.valoria.util;
+
 import com.google.common.collect.ImmutableList;
 import pro.komaru.tridot.api.EffectApplier;
-package com.idark.valoria.util;
 
 import com.google.common.collect.*;
 import com.idark.valoria.core.interfaces.*;
@@ -151,7 +152,7 @@ public class ValoriaUtils{
         var optionalTag = BuiltInRegistries.MOB_EFFECT.getTag(effectTag);
         if (optionalTag.isPresent()) {
             for (Holder<MobEffect> holder : optionalTag.get()) {
-                effects.add(new EffectApplier(holder.value(), duration, amplifier));
+                effects.add(EffectApplier.of(holder, duration).withAmplifier(amplifier));
             }
         }
 
@@ -168,7 +169,6 @@ public class ValoriaUtils{
 
     public static boolean hasRot(ItemStack pStack){
         return DataComponentsRegistry.has(pStack, DataComponentsRegistry.ROT.get());
-    }
     }
 
     public static int getRot(ItemStack pStack) {
