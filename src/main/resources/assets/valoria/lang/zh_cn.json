@@ -1721,5 +1721,21 @@
   "item.valoria.magmatic_golem_spawn_egg": "Magmatic Golem Spawn Egg",
   "item.valoria.rift_ring": "Rift Ring",
   "entity.valoria.magmatic_golem": "Magmatic Golem",
-  "tooltip.valoria.wip": "[WIP] Work In Progress"
+  "tooltip.valoria.wip": "[WIP] Work In Progress",
+  "tooltip.valoria.curse_rune": "Applies one of effects -> Target with %s:",
+  "jei.valoria.heavy_anvil": "Heavy Anvil",
+  "jei.valoria.heavy_anvil.tool_tooltip": "Heavy Hammer required (Left Click)",
+  "jei.valoria.heavy_anvil.material_tooltip": "Place on Anvil (Right Click)",
+  "jei.valoria.heavy_anvil.hits": "Total hits needed: %s",
+  "jei.valoria.heavy_anvil.instability": "Mistakes to explode: %s",
+  "jei.valoria.heavy_anvil.speed": "Bar speed: %s",
+  "jei.valoria.heavy_anvil.explosion_warning": "Explosion Hazard!",
+  "jei.valoria.heavy_anvil.explosion_desc": "Missing increases the instability. At %s mistakes, the anvil explodes and consume the item!",
+  "hud.valoria.heavy_anvil.empty": "[RMB] Place material",
+  "hud.valoria.heavy_anvil.need_hammer": "Hold a heavy hammer",
+  "hud.valoria.heavy_anvil.hit_prompt": "[LMB] Strike in sweet spot",
+  "hud.valoria.heavy_anvil.no_recipe": "Cannot be forged",
+  "hud.valoria.heavy_anvil.take_prompt": "[Shift+RMB] Take item",
+  "jei.valoria.heavy_anvil.risk": "Explosion Risk!",
+  "jei.valoria.heavy_anvil.anvil_desc": "Forged via precision timing minigame"
 }
