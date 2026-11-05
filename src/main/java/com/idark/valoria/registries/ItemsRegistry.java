@@ -387,7 +387,7 @@ public class ItemsRegistry{
         dynamite = registerItem("dynamite", () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
         acorn = registerItem("acorn", () -> new AcornItem(new Item.Properties().stacksTo(16), false));
         poisonedAcorn = registerItem("poisoned_acorn", () -> new AcornItem(new Item.Properties().stacksTo(16), true));
-        crystalShard = registerItem("crystal_shard", () -> new CrystalShardItem(6d, new Item.Properties().stacksTo(16), new MobEffectInstance(MobEffects.WITHER, 120), new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
+        crystalShard = registerItem("crystal_shard", () -> new CrystalShardItem(6d, new Item.Properties().stacksTo(16), EffectApplier.of(MobEffects.WITHER, 120), EffectApplier.of(MobEffects.MOVEMENT_SLOWDOWN, 60)));
 
         // winter
         holidayCandy = registerItem("holiday_candy", () -> new Item(new Item.Properties().stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
@@ -437,12 +437,12 @@ public class ItemsRegistry{
         netheriteKatana = registerItem("netherite_katana", () -> new KatanaItem(Tiers.NETHERITE, ToolStats.katana.damage, ToolStats.katana.speed, 0.8f, new Item.Properties().fireResistant()));
         murasama = registerItem("murasama", ItemsRegistry::murasamaProps);
         samuraiKunai = registerItem("samurai_kunai", () -> new KunaiItem(6, new Item.Properties()));
-        samuraiPoisonedKunai = registerItem("samurai_poisoned_kunai", () -> new KunaiItem(6, new Item.Properties(), new MobEffectInstance(MobEffects.POISON, 170, 0)));
+        samuraiPoisonedKunai = registerItem("samurai_poisoned_kunai", () -> new KunaiItem(6, new Item.Properties(), EffectApplier.of(MobEffects.POISON, 170)));
         samuraiKatana = registerItem("samurai_katana", () -> new KatanaItem(ItemTierRegistry.SAMURAI, ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()));
         samuraiLongBow = registerItem("samurai_long_bow", () -> new ConfigurableBowItem(6, new Item.Properties().stacksTo(1).durability(684)));
         silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ItemTierRegistry.SPIDER, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.SPIDER), EffectApplier.of(MobEffects.DARKNESS, 120).withChance(0.25f), EffectApplier.of(MobEffects.POISON, 45).withChance(0.25f)));
         silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties().rarity(RarityRegistry.SPIDER)).setTier(ItemTierRegistry.SPIDER).setDashDistance(1.5f).setEffects(EffectApplier.of(MobEffects.DARKNESS, 120).withChance(0.25f), EffectApplier.of(MobEffects.POISON, 45).withChance(0.25f)).removeLargeModelCheck().build());
-        silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(9, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
+        silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(9, new Item.Properties().rarity(RarityRegistry.SPIDER), EffectApplier.of(MobEffects.DARKNESS, 120).withChance(0.25f), EffectApplier.of(MobEffects.POISON, 60).withChance(0.25f).withAmplifier(1)));
 
         pearliumSword = registerItem("pearlium_sword", () -> new ValoriaSword(ItemTierRegistry.PEARLIUM, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties()));
         pearliumPickaxe = registerItem("pearlium_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.PEARLIUM, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties()));
@@ -470,7 +470,7 @@ public class ItemsRegistry{
         crimtaneMultiTool = registerItem("crimtane_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.BLOOD, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(EffectApplier.of(EffectsRegistry.BLEEDING.get(), 120).withChance(0.25f)).build());
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ItemTierRegistry.BLOOD, 2, -2.4F, new Item.Properties().durability(1600).rarity(RarityRegistry.BLOODY)));
-        boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(12, new Item.Properties().rarity(RarityRegistry.BLOODY), new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 2)));
+        boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(12, new Item.Properties().rarity(RarityRegistry.BLOODY), EffectApplier.of(EffectsRegistry.BLEEDING.get(), 120).withAmplifier(2)));
 
         jadeSword = registerItem("jade_sword", () -> new ValoriaSword(ItemTierRegistry.JADE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties()));
         jadeKatana = registerItem("jade_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()).setTier(ItemTierRegistry.JADE).setDashDistance(1.25f).build());
@@ -1000,7 +1000,7 @@ public class ItemsRegistry{
         lithicRune = registerItem("lithic_rune", () -> new EmptyRuneItem(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)));
         lithicRuneVision = registerItem("lithic_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON),  1200));
         lithicRuneWealth = registerItem("lithic_rune_of_wealth", () -> new CurioWealth(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        lithicRuneCurses = registerItem("lithic_rune_of_curses", () -> new CurioCurses(0.05f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lithicRuneCurses = registerItem("lithic_rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON), 0.05f, 75));
         lithicRuneStrength = registerItem("lithic_rune_of_strength", () -> new CurioStrength(0.025f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneAccuracy = registerItem("lithic_rune_of_accuracy", () -> new RuneAccuracy(0.05f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lithicRuneDeep = registerItem("lithic_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
@@ -1008,7 +1008,7 @@ public class ItemsRegistry{
 
         runeVision = registerItem("rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), 3600));
         runeWealth = registerItem("rune_of_wealth", () -> new CurioWealth(1.5f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
-        runeCurses = registerItem("rune_of_curses", () -> new CurioCurses(0.25f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+        runeCurses = registerItem("rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), 0.15f, 159));
         runeStrength = registerItem("rune_of_strength", () -> new CurioStrength(0.05f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeAccuracy = registerItem("rune_of_accuracy", () -> new RuneAccuracy(0.15f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeDeep = registerItem("rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
@@ -1018,7 +1018,7 @@ public class ItemsRegistry{
         voidSlateRune = registerItem("void_slate_rune", () -> new EmptyRuneItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         voidSlateRuneVision = registerItem("void_slate_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID), 5200));
         voidSlateRuneWealth = registerItem("void_slate_rune_of_wealth", () -> new CurioWealth(2.5f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
-        voidSlateRuneCurses = registerItem("void_slate_rune_of_curses", () -> new CurioCurses(0.5f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
+        voidSlateRuneCurses = registerItem("void_slate_rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID), 0.35f, 200));
         voidSlateRuneStrength = registerItem("void_slate_rune_of_strength", () -> new CurioStrength(0.15f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneAccuracy = registerItem("void_slate_rune_of_accuracy", () -> new RuneAccuracy(0.40f, 1.25f, new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         voidSlateRuneDeep = registerItem("void_slate_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));

@@ -1,15 +1,12 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.google.common.collect.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.item.alchemy.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
@@ -22,10 +19,8 @@ import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 import java.lang.Math;
-import java.util.*;
 
 public class AcidSpit extends AbstractProjectile{
-    public final Set<MobEffectInstance> effects = Sets.newHashSet();
     boolean child = false;
 
     public AcidSpit(EntityType<? extends AbstractProjectile> pEntityType, Level pLevel){
@@ -98,25 +93,9 @@ public class AcidSpit extends AbstractProjectile{
         this.child = child;
     }
 
-    public void addEffect(MobEffectInstance pEffectInstance){
-        this.effects.add(pEffectInstance);
-    }
-
-    public void setEffectsFromList(ImmutableList<MobEffectInstance> effects){
-        this.effects.addAll(effects);
-    }
-
     public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("IsChild", this.child);
-        if(!this.effects.isEmpty()){
-            ListTag listtag = new ListTag();
-            for(MobEffectInstance mobeffectinstance : this.effects){
-                listtag.add(mobeffectinstance.save(new CompoundTag()));
-            }
-
-            pCompound.put("CustomPotionEffects", listtag);
-        }
     }
 
     /**
@@ -125,9 +104,6 @@ public class AcidSpit extends AbstractProjectile{
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.child = pCompound.getBoolean("IsChild");
-        for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(pCompound)){
-            this.addEffect(mobeffectinstance);
-        }
     }
 
     public boolean isChild(){

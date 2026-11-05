@@ -1,0 +1,85 @@
+package com.idark.valoria.core.compat.jei.categories;
+
+import com.idark.valoria.*;
+import com.idark.valoria.core.compat.jei.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.recipe.*;
+import mezz.jei.api.gui.builder.*;
+import mezz.jei.api.gui.drawable.*;
+import mezz.jei.api.gui.ingredient.*;
+import mezz.jei.api.helpers.*;
+import mezz.jei.api.recipe.*;
+import mezz.jei.api.recipe.category.*;
+import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.registries.*;
+
+import java.util.*;
+
+public class HeavyAnvilRecipeCategory extends AbstractRecipeCategory<HeavyAnvilRecipe> {
+    public static final int width = 160;
+    public static final int height = 76;
+    private final IDrawable background;
+
+    public HeavyAnvilRecipeCategory(IGuiHelper helper) {
+        super(ModRecipeTypes.HEAVY_ANVIL, Component.translatable("jei.valoria.heavy_anvil"), helper.createDrawableItemLike(BlockRegistry.bronzeHeavyAnvil.get()), width, height);
+        ResourceLocation bgTexture = Valoria.loc("textures/gui/jei/heavy_anvil.png");
+        this.background = helper.createDrawable(bgTexture, 0, 0, width, height);
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, HeavyAnvilRecipe recipe, IFocusGroup focuses) {
+        List<ItemStack> hammers = new ArrayList<>();
+        for (Item item : ForgeRegistries.ITEMS) {
+            ItemStack stack = new ItemStack(item);
+            if (stack.is(TagsRegistry.HEAVY_ANVIL_TOOL)) {
+                hammers.add(stack);
+            }
+        }
+
+        builder.addSlot(RecipeIngredientRole.CATALYST, (width / 2) - 24, 2)
+                .addItemStacks(hammers)
+                .addRichTooltipCallback((slotView, tooltip) -> tooltip.add(Component.translatable("jei.valoria.heavy_anvil.tool_tooltip").withStyle(ChatFormatting.GOLD)));
+
+        builder.addSlot(RecipeIngredientRole.INPUT, (width / 2) - 16, 8)
+                .addIngredients(recipe.getIngredients().get(0))
+                .addRichTooltipCallback((slotView, tooltip) -> tooltip.add(Component.translatable("jei.valoria.heavy_anvil.material_tooltip").withStyle(ChatFormatting.AQUA)));
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 131, 11).addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
+    }
+
+    @Override
+    public void draw(HeavyAnvilRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+        this.background.draw(guiGraphics, 0, 0);
+
+        Font font = Minecraft.getInstance().font;
+
+        String hitsText = Component.translatable("jei.valoria.heavy_anvil.hits", recipe.getRequiredHits()).getString();
+        guiGraphics.drawString(font, hitsText, 14, 45, 0x3F3F3F, false);
+
+        String speedText = Component.translatable("jei.valoria.heavy_anvil.speed", String.format(Locale.ROOT, "%.2f", recipe.getCursorSpeed())).getString();
+        guiGraphics.drawString(font, speedText, 14, 55, 0x3F3F3F, false);
+
+        String instText = Component.translatable("jei.valoria.heavy_anvil.instability", recipe.getMaxInstability()).getString();
+        guiGraphics.drawString(font, instText, 14, 65, 0xAA0000, false);
+    }
+
+    @Override
+    public void getTooltip(ITooltipBuilder tooltip, HeavyAnvilRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+        if (mouseY >= 60 && mouseY <= 72 && mouseX >= 14 && mouseX <= 154) {
+            tooltip.add(Component.translatable("jei.valoria.heavy_anvil.explosion_warning").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+            tooltip.add(Component.translatable("jei.valoria.heavy_anvil.explosion_desc", recipe.getMaxInstability()).withStyle(ChatFormatting.GRAY));
+        }
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(HeavyAnvilRecipe recipe) {
+        return recipe.getId();
+    }
+}

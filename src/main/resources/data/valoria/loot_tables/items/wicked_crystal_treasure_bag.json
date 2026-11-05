@@ -235,6 +235,22 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:void_slate_vampiric_rune",
+          "weight": 1,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        }
+      ]
     }
   ]
 }

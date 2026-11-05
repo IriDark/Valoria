@@ -14,4 +14,5 @@ public class ModRecipeTypes{
     public static final RecipeType<SoulInfuserRecipe> SOUL_INFUSER = RecipeType.create(Valoria.ID, "soul_infuser", SoulInfuserRecipe.class);
     public static final RecipeType<AlchemyRecipe> ALCHEMY = RecipeType.create(Valoria.ID, "alchemy", AlchemyRecipe.class);
     public static final RecipeType<AlchemyUpgradeRecipe> ALCHEMY_UPGRADE = RecipeType.create(Valoria.ID, "alchemy_upgrade", AlchemyUpgradeRecipe.class);
+    public static final RecipeType<HeavyAnvilRecipe> HEAVY_ANVIL = RecipeType.create(Valoria.ID, "heavy_anvil", HeavyAnvilRecipe.class);
 }

@@ -1,0 +1,12 @@
+{
+  "type": "valoria:heavy_anvil",
+  "ingredient": {
+    "item": "valoria:void_stone"
+  },
+  "result": {
+    "item": "valoria:void_slate_rune"
+  },
+  "required_hits": 6,
+  "max_instability": 2,
+  "cursor_speed": 0.08
+}
