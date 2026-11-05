@@ -1731,5 +1731,12 @@
   "hud.valoria.heavy_anvil.need_hammer": "Візьміть важкий молот у руку",
   "hud.valoria.heavy_anvil.hit_prompt": "[ЛКМ] Удар у зелену зону",
   "hud.valoria.heavy_anvil.no_recipe": "Цей предмет не можна кувати",
-  "hud.valoria.heavy_anvil.take_prompt": "[Shift+ПКМ] Забрати предмет"
+  "hud.valoria.heavy_anvil.take_prompt": "[Shift+ПКМ] Забрати предмет",
+  "jei.valoria.heavy_anvil.hits": "Total hits needed: %s",
+  "jei.valoria.heavy_anvil.instability": "Mistakes to explode: %s",
+  "jei.valoria.heavy_anvil.speed": "Bar speed: %s",
+  "jei.valoria.heavy_anvil.explosion_warning": "Explosion Hazard!",
+  "jei.valoria.heavy_anvil.explosion_desc": "Missing increases the instability. At %s mistakes, the anvil explodes and consume the item!",
+  "jei.valoria.heavy_anvil.risk": "Explosion Risk!",
+  "jei.valoria.heavy_anvil.anvil_desc": "Forged via precision timing minigame"
 }
