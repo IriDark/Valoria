@@ -1,0 +1,16 @@
+{
+  "group": "equipment",
+  "type": "valoria:alchemy",
+  "level": 4,
+  "ingredients": [
+    { "ingredient": { "item": "valoria:void_slate_rune" }, "count": 1 },
+    { "ingredient": { "item": "valoria:rune_of_wealth" }, "count": 1 },
+    { "ingredient": { "item": "valoria:black_gold_ingot" }, "count": 4 },
+    { "ingredient": { "item": "valoria:nihility_shard" }, "count": 4 },
+    { "ingredient": { "item": "valoria:runic_dust" }, "count": 8 }
+  ],
+  "result": {
+    "item": "valoria:void_slate_rune_of_wealth",
+    "count": 1
+  }
+}

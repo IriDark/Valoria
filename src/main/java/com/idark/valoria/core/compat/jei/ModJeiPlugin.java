@@ -45,6 +45,7 @@ public class ModJeiPlugin implements IModPlugin{
         registry.addRecipeCategories(new InfuserRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new AlchemyRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new AlchemyUpgradeRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new HeavyAnvilRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -59,6 +60,7 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipes(ModRecipeTypes.MANIPULATOR, modRecipes.getManipulatorRecipes());
         registration.addRecipes(ModRecipeTypes.SOUL_INFUSER, modRecipes.getInfuserRecipes());
         registration.addRecipes(ModRecipeTypes.CRUSHER, modRecipes.getCrusherRecipes());
+        registration.addRecipes(ModRecipeTypes.HEAVY_ANVIL, modRecipes.getHeavyAnvilRecipes());
     }
 
     @Override
@@ -74,5 +76,9 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.elementalManipulator.get()), ModRecipeTypes.MANIPULATOR);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.soulInfuser.get()), ModRecipeTypes.SOUL_INFUSER);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.stoneCrusher.get()), ModRecipeTypes.CRUSHER);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.bronzeHeavyAnvil.get()), ModRecipeTypes.HEAVY_ANVIL);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.blackGoldHeavyAnvil.get()), ModRecipeTypes.HEAVY_ANVIL);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.infernalHeavyAnvil.get()), ModRecipeTypes.HEAVY_ANVIL);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.voidHeavyAnvil.get()), ModRecipeTypes.HEAVY_ANVIL);
     }
 }

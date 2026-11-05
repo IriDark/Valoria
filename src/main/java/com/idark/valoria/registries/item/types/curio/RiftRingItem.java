@@ -143,6 +143,8 @@ public class RiftRingItem extends ValoriaCurioItem implements CooldownNotifyItem
     public Seq<CurioAbility> getCurioAbilities(ItemStack stack) {
         return Seq.with(
             new CurioAbility(0, Component.translatable("ability.valoria.rift_teleport"), Valoria.loc("textures/gui/tooltips/rift.png"), (player, st) -> {
+                if(player.getCooldowns().isOnCooldown(st.getItem())) return;
+
                 GlobalPos target = getTarget(st);
                 if (target == null) {
                     player.displayClientMessage(Component.translatable("message.valoria.rift_ring_unbound"), true);

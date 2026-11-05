@@ -1,5 +1,4 @@
 package com.idark.valoria.registries.item.types.ranged;
-import pro.komaru.tridot.api.EffectApplier;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
@@ -8,7 +7,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
-import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
@@ -17,16 +15,13 @@ import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.item.*;
-import pro.komaru.tridot.util.*;
-import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
 public class CrystalShardItem extends Item{
-    public final ImmutableList<MobEffectInstance> effects;
-    public ArcRandom arc = Tmp.rnd;
+    public final ImmutableList<EffectApplier> effects;
 
-    public CrystalShardItem(double damage, Properties builderIn, MobEffectInstance... pEffects){
+    public CrystalShardItem(double damage, Properties builderIn, EffectApplier... pEffects){
         super(builderIn.attributes(ShurikenItem.projectileAttributes(damage * 2)));
         this.effects = ImmutableList.copyOf(pEffects);
     }
@@ -80,17 +75,13 @@ public class CrystalShardItem extends Item{
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
-        Utils.Entities.applyWithChance(target, effects, 1, arc);
+        Utils.Entities.apply(target, effects);
         return super.hurtEnemy(stack, target, attacker);
     }
-
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        ImmutableList<EffectApplier> appliers = effects.stream()
-                .map(eff -> new EffectApplier(eff.getEffect(), eff.getDuration(), eff.getAmplifier()))
-                .collect(ImmutableList.toImmutableList());
-        Utils.Items.effectTooltip(appliers, tooltip, 1.0F);
+        Utils.Items.effectTooltip(this.effects, tooltip, 1.0F);
     }
 }

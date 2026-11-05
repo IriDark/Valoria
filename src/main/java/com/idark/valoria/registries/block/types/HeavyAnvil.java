@@ -81,9 +81,20 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
         HeavyAnvilBlockEntity anvil = getAnvilBlockEntity(pLevel, pPos, pState);
         if(anvil != null){
             ItemStack handItem = pPlayer.getItemInHand(pHand);
-            if(!anvil.itemHandler.getStackInSlot(0).isEmpty() && handItem.isEmpty()){
-                pPlayer.setItemInHand(pHand, anvil.itemHandler.getStackInSlot(0));
-                anvil.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+            if(!anvil.itemHandler.getStackInSlot(0).isEmpty() && (handItem.isEmpty() || pPlayer.isShiftKeyDown())){
+                ItemStack anvilItem = anvil.itemHandler.getStackInSlot(0);
+                if(handItem.isEmpty()){
+                    pPlayer.setItemInHand(pHand, anvilItem);
+                    anvil.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+                } else if(!pPlayer.getInventory().add(anvilItem)){
+                    pPlayer.drop(anvilItem, false);
+                    anvil.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+                } else {
+                    anvil.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+                }
+                
+                anvil.resetProgress();
+                anvil.sync();
                 return InteractionResult.SUCCESS;
             }else if(anvil.itemHandler.getStackInSlot(0).isEmpty() && !handItem.isEmpty()){
                 anvil.itemHandler.insertItem(0, handItem.copy(), false);
@@ -114,11 +125,17 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
                     anvil.requiredHits = recipe.getRequiredHits();
                     anvil.maxInstability = recipe.getMaxInstability();
 
+                    if(pLevel.getGameTime() - anvil.lastHitTick < 6) return;
+                    anvil.lastHitTick = pLevel.getGameTime();
+
                     double normalized = anvil.getLinePosition(pLevel, 0);
-                    if(normalized >= anvil.sweetSpotMin && normalized <= anvil.sweetSpotMax){
+                    double tolerance = 0.035;
+                    if(normalized >= (anvil.sweetSpotMin - tolerance) && normalized <= (anvil.sweetSpotMax + tolerance)){
                         anvil.progress++;
                         PacketHandler.sendToTracking(server, pPos, new CrusherParticlePacket(pPos.getX() + x, pPos.getY() + 1, pPos.getZ() + z, anvil.itemHandler.getStackInSlot(0)));
-                        pLevel.playSound(null, pPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0f, 1.2f);
+                        server.sendParticles(ParticleTypes.CRIT, pPos.getX() + x, pPos.getY() + 1.05, pPos.getZ() + z, 6, 0.15, 0.1, 0.15, 0.15);
+                        server.sendParticles(ParticleTypes.ELECTRIC_SPARK, pPos.getX() + x, pPos.getY() + 1.05, pPos.getZ() + z, 3, 0.1, 0.05, 0.1, 0.05);
+                        pLevel.playSound(null, pPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0f, 1.25f);
                         if(anvil.progress >= anvil.requiredHits){
                             ItemStack input = anvil.itemHandler.getStackInSlot(0);
                             ItemStack recipeResult = recipe.getResultItem(pLevel.registryAccess());
@@ -146,7 +163,9 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
                     }else{
                         anvil.instability++;
                         server.sendParticles(ParticleTypes.LARGE_SMOKE, pPos.getX() + x, pPos.getY() + 1, pPos.getZ() + z, 12, 0, 0, 0, 0.5);
+                        server.sendParticles(ParticleTypes.SMOKE, pPos.getX() + x, pPos.getY() + 1.05, pPos.getZ() + z, 8, 0.15, 0.05, 0.15, 0.05);
                         pLevel.playSound(null, pPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1.0f, 0.5f);
+                        pLevel.playSound(null, pPos, SoundEvents.ANVIL_HIT, SoundSource.BLOCKS, 0.8f, 0.5f);
                         if(anvil.instability >= anvil.maxInstability){
                             anvil.itemHandler.extractItem(0, 1, false);
                             anvil.resetProgress();

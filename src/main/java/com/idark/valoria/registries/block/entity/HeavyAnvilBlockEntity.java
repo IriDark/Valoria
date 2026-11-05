@@ -29,6 +29,7 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
     public float cursorSpeed = 0.07f;
     public double sweetSpotMin = 0.40;
     public double sweetSpotMax = 0.60;
+    public long lastHitTick = 0;
 
     public HeavyAnvilBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntitiesRegistry.ANVIL_BLOCK_ENTITY.get(), pPos, pBlockState);
@@ -69,9 +70,11 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
                         maxInstability = recipe.getMaxInstability();
                         cursorSpeed = recipe.getCursorSpeed();
                     });
+
                     randomizeSweetSpot();
                     sync();
                 }
+
                 return result;
             }
         };

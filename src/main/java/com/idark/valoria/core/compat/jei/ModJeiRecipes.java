@@ -56,4 +56,7 @@ public class ModJeiRecipes{
     public List<ManipulatorRecipe> getManipulatorRecipes(){
         return recipeManager.getAllRecipesFor(ManipulatorRecipe.Type.INSTANCE).stream().map(RecipeHolder::value).sorted(Comparator.comparing(ManipulatorRecipe::getCore)).sorted(Comparator.comparing(ManipulatorRecipe::getTime)).toList();
     }
+    public List<HeavyAnvilRecipe> getHeavyAnvilRecipes(){
+        return recipeManager.getAllRecipesFor(HeavyAnvilRecipe.Type.INSTANCE).stream().map(h -> h.value().withId(h.id())).sorted(Comparator.comparing(HeavyAnvilRecipe::getRequiredHits)).toList();
+    }
 }
