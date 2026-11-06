@@ -10,8 +10,32 @@
       ],
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "valoria:eye_meat"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "name": "valoria:eye_meat"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "valoria:eye_chunk"
+            }
+          ]
         }
       ],
       "rolls": 1.0

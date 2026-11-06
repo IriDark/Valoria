@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:tombstone_spikes_trap"
+          "name": "valoria:polished_tombstone"
         }
       ],
       "rolls": 1.0

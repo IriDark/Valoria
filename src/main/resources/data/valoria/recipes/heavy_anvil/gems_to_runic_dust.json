@@ -1,0 +1,13 @@
+{
+  "type": "valoria:heavy_anvil",
+  "ingredient": {
+    "tag": "valoria:gems"
+  },
+  "result": {
+    "item": "valoria:runic_dust",
+    "count": 2
+  },
+  "required_hits": 4,
+  "min_tier": "bronze",
+  "accepts_tier_bonus": true
+}

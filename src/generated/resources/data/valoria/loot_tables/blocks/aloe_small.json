@@ -10,8 +10,27 @@
       ],
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "valoria:aloe_small"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": [
+                      "minecraft:shears"
+                    ]
+                  }
+                }
+              ],
+              "name": "valoria:aloe_small"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "valoria:aloe_piece"
+            }
+          ]
         }
       ],
       "rolls": 1.0
