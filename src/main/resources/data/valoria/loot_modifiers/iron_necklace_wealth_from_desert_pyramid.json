@@ -1,0 +1,11 @@
+{
+  "type": "tridot:add_item",
+  "chance": 0.2,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/desert_pyramid"
+    }
+  ],
+  "item": "valoria:iron_necklace_wealth"
+}

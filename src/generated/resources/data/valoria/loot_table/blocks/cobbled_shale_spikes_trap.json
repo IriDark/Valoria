@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:cobbled_shale_spikes_trap"
+          "name": "valoria:polished_cobbled_shale"
         }
       ],
       "rolls": 1.0

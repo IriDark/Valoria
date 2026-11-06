@@ -1,0 +1,11 @@
+{
+  "type": "tridot:add_item",
+  "chance": 0.15,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/bastion_other"
+    }
+  ],
+  "item": "valoria:golden_rogue_necklace"
+}

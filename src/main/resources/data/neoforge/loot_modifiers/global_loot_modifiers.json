@@ -16,7 +16,14 @@
     "valoria:red_envelope_from_mobs_feb",
     "valoria:red_envelope_from_mobs_jan",
     "valoria:eye_necklace_from_ancient_city",
-    "valoria:sun_necklace_from_desert_pyramid"
+    "valoria:sun_necklace_from_desert_pyramid",
+    "valoria:golden_rogue_necklace_from_bastion_treasure",
+    "valoria:golden_rogue_necklace_from_bastion_other",
+    "valoria:netherite_rogue_necklace_from_bastion",
+    "valoria:iron_rogue_necklace_from_pillager_outpost",
+    "valoria:iron_rogue_necklace_from_mineshaft",
+    "valoria:iron_necklace_armor_from_dungeon",
+    "valoria:iron_necklace_wealth_from_desert_pyramid"
   ],
   "replace": false
 }

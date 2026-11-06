@@ -16,6 +16,18 @@
 - Fixed Rift Ring ignoring item cd
 - Added Void Slate Recipes
 - Improved Heavy Anvil
+- Added Heavy Anvil recipe to crush gems into Runic Dust
+- Restored Stone Geode and Dirt Geode drops from Ephemarite (fixes missing geode drops after datagen transition)
+- Restored missing drops corrupted during datagen transition:
+  - Crystals in Geodes (Amber, Amethyst, Ruby, Sapphire, Pyratite): now drop gems/pyratite normally, or crystal block with Silk Touch (was dropping crystal block only)
+  - Multi-count Ores (Jade Ore, Picrite Jade Ore, Pearlium Ore, Wicked Amethyst Ore, Dormant Crystals): restored 2-5/1-3 drops and Fortune scaling (Dormant Crystals now drop Uncharged Shards!)
+  - Flesh Remains: restored 2-5 Remains drop with Fortune scaling
+  - Aloe Small: restored Aloe Piece drop (drops Aloe Small block only when sheared)
+  - Eye Blocks (Eye Flesh, Eye Meat, Eye Stone): restored Eye Chunk drops (Silk Touch drops block)
+  - Removed stale generated pot loot tables shadowing dungeon pots and fixed empty/air drops for Shade Branch and Violet Sprout
+- Added dungeon loot for necklaces: Golden & Netherite Rogue Necklaces in Bastions, Iron Rogue Necklace in Pillager Outposts & Mineshafts, Iron Armor Necklace in Dungeons, Iron Wealth Necklace in Desert Pyramids
+- Added smithing upgrade recipes for Netherite Rogue Necklace and Netherite Armor Necklace
+- Fixed typo in Crimtane Axe recipe and added missing Crimtane Shovel recipe (Crimtane Multi-Tool is now craftable)
 - Reworked Rune of Curses now its should be more usable
 
 ---

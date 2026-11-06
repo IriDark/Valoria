@@ -12,6 +12,26 @@
         {
           "type": "minecraft:item",
           "name": "valoria:ephemarite"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.15,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "name": "valoria:stone_geode"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.25,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "name": "valoria:dirt_geode"
         }
       ],
       "rolls": 1.0

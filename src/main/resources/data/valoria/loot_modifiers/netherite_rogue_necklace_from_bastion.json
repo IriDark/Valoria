@@ -1,0 +1,11 @@
+{
+  "type": "tridot:add_item",
+  "chance": 0.1,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/bastion_treasure"
+    }
+  ],
+  "item": "valoria:netherite_rogue_necklace"
+}

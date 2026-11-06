@@ -1,0 +1,11 @@
+{
+  "type": "tridot:add_item",
+  "chance": 0.25,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/pillager_outpost"
+    }
+  ],
+  "item": "valoria:iron_rogue_necklace"
+}
