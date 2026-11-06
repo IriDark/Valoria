@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.recipe;
+package com.idark.valoria.core.recipe;
 
 import com.idark.valoria.*;
 import com.mojang.datafixers.util.*;
@@ -14,32 +14,25 @@ import net.minecraft.world.level.*;
 
 import java.util.*;
 
-public class AlchemyRecipe implements Recipe<ContainerRecipeInput> {
+public class AlchemyUpgradeRecipe implements Recipe<ContainerRecipeInput> {
     private ResourceLocation id;
-
     public ResourceLocation getId(){
         return id;
     }
 
-    public AlchemyRecipe withId(ResourceLocation id){
+    public AlchemyUpgradeRecipe withId(ResourceLocation id){
         this.id = id;
         return this;
     }
 
-    private final String group;
     private final ItemStack result;
+    private final String group;
     private final List<Pair<Ingredient, RecipeData>> inputs;
-    private final int level;
 
-    public AlchemyRecipe(String group, ItemStack result, int level, List<Pair<Ingredient, RecipeData>> inputs) {
+    public AlchemyUpgradeRecipe(ItemStack result, String group, List<Pair<Ingredient, RecipeData>> inputs) {
         this.group = group;
         this.result = result;
         this.inputs = inputs;
-        this.level = level;
-    }
-
-    public int getLevel() {
-        return this.level;
     }
 
     @Override
@@ -52,13 +45,9 @@ public class AlchemyRecipe implements Recipe<ContainerRecipeInput> {
         return Serializer.INSTANCE;
     }
 
-    public String getCategory() {
-        return this.group;
-    }
-
     @Override
     public String getGroup() {
-        return "";
+        return this.group;
     }
 
     @Override
@@ -110,7 +99,7 @@ public class AlchemyRecipe implements Recipe<ContainerRecipeInput> {
 
     @Override
     public ItemStack assemble(ContainerRecipeInput container, HolderLookup.Provider access) {
-        return this.result.copy();
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -118,37 +107,35 @@ public class AlchemyRecipe implements Recipe<ContainerRecipeInput> {
         return true;
     }
 
-    public static class Type implements RecipeType<AlchemyRecipe> {
+    public static class Type implements RecipeType<AlchemyUpgradeRecipe> {
         public static final Type INSTANCE = new Type();
-        public static final String ID = "alchemy";
+        public static final String ID = "alchemy_upgrade";
     }
 
-    public static class Serializer implements RecipeSerializer<AlchemyRecipe> {
+    public static class Serializer implements RecipeSerializer<AlchemyUpgradeRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = Valoria.loc("alchemy");
+        public static final ResourceLocation ID = Valoria.loc("alchemy_upgrade");
 
-        private static final MapCodec<AlchemyRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-            Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
+        private static final MapCodec<AlchemyUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             RecipeCodecs.ITEM_STACK.fieldOf("result").forGetter(r -> r.result),
-            Codec.INT.optionalFieldOf("level", 1).forGetter(r -> r.level),
+            Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
             RecipeCodecs.COUNTED_INGREDIENT.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
-        ).apply(i, AlchemyRecipe::new));
+        ).apply(i, AlchemyUpgradeRecipe::new));
 
-        private static final StreamCodec<RegistryFriendlyByteBuf, AlchemyRecipe> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8, r -> r.group,
+        private static final StreamCodec<RegistryFriendlyByteBuf, AlchemyUpgradeRecipe> STREAM_CODEC = StreamCodec.composite(
             ItemStack.STREAM_CODEC, r -> r.result,
-            ByteBufCodecs.VAR_INT, r -> r.level,
+            ByteBufCodecs.STRING_UTF8, r -> r.group,
             RecipeCodecs.COUNTED_INGREDIENT_LIST_STREAM, r -> r.inputs,
-            AlchemyRecipe::new
+            AlchemyUpgradeRecipe::new
         );
 
         @Override
-        public MapCodec<AlchemyRecipe> codec() {
+        public MapCodec<AlchemyUpgradeRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, AlchemyRecipe> streamCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, AlchemyUpgradeRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

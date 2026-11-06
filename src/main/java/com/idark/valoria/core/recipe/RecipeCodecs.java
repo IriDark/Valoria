@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.recipe;
+package com.idark.valoria.core.recipe;
 
 import com.mojang.datafixers.util.*;
 import com.mojang.serialization.*;

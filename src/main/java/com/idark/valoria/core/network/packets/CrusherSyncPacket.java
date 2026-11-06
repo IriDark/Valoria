@@ -2,7 +2,7 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.compat.jei.categories.*;
-import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.core.recipe.*;
 import net.minecraft.network.*;
 import net.minecraft.network.codec.*;
 import net.minecraft.network.protocol.common.custom.*;

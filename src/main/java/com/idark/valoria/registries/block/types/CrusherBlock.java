@@ -2,9 +2,9 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.core.recipe.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
-import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;

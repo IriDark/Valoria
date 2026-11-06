@@ -1,7 +1,7 @@
 package com.idark.valoria.client.ui.menus;
 
+import com.idark.valoria.core.recipe.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.recipe.*;
 import net.minecraft.network.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;

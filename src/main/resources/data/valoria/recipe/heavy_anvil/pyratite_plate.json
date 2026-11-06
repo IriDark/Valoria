@@ -6,6 +6,8 @@
   "result": {
     "id": "valoria:pyratite_plate"
   },
-  "required_hits": 10,
-  "max_instability": 3
+  "required_hits": 8,
+  "max_instability": 3,
+  "min_tier": "infernal",
+  "accepts_tier_bonus": false
 }

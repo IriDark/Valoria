@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.recipe;
+package com.idark.valoria.core.recipe;
 
 import com.idark.valoria.*;
 import com.mojang.serialization.*;
@@ -14,40 +14,33 @@ import net.minecraft.world.level.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class JewelryRecipe implements Recipe<ContainerRecipeInput>{
+public class KegRecipe implements Recipe<ContainerRecipeInput>{
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final int time;
 
-    public JewelryRecipe(ItemStack output, int time, List<Ingredient> inputItems){
+    public KegRecipe(List<Ingredient> inputItems, ItemStack output, int time){
+        NonNullList<Ingredient> list = NonNullList.create();
+        for(Ingredient ingredient : inputItems){
+            if(!ingredient.isEmpty()) list.add(ingredient);
+        }
+
+        this.inputs = list;
         this.output = output;
         this.time = time;
-        this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems.toArray(new Ingredient[0]));
-    }
-
-    public JewelryRecipe(ItemStack output, int time, Ingredient... inputItems){
-        this(output, time, Arrays.asList(inputItems));
     }
 
     @Override
     public boolean matches(ContainerRecipeInput pContainer, Level pLevel){
-        boolean craft = true;
-        for(int i = 0; i < 2; i += 1){
-            if(!inputs.get(i).test(pContainer.getItem(i))){
-                craft = false;
-            }
+        if(inputs.size() >= 2){
+            return inputs.get(0).test(pContainer.getItem(0)) && inputs.get(1).test(pContainer.getItem(1));
         }
-
-        return craft;
-    }
-
-    public boolean isSpecial(){
-        return true;
+        return inputs.get(0).test(pContainer.getItem(0));
     }
 
     @Override
     public ItemStack assemble(ContainerRecipeInput pContainer, HolderLookup.Provider pRegistryAccess){
-        return output;
+        return output.copy();
     }
 
     @Override
@@ -58,6 +51,10 @@ public class JewelryRecipe implements Recipe<ContainerRecipeInput>{
     @Override
     public ItemStack getResultItem(HolderLookup.Provider pRegistryAccess){
         return output.copy();
+    }
+
+    public boolean isSpecial(){
+        return true;
     }
 
     @Nonnull
@@ -80,35 +77,35 @@ public class JewelryRecipe implements Recipe<ContainerRecipeInput>{
         return Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<JewelryRecipe>{
+    public static class Type implements RecipeType<KegRecipe>{
         public static final Type INSTANCE = new Type();
-        public static final String ID = "jewelry";
+        public static final String ID = "keg_brewery";
     }
 
-    public static class Serializer implements RecipeSerializer<JewelryRecipe>{
+    public static class Serializer implements RecipeSerializer<KegRecipe>{
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = Valoria.loc("jewelry");
+        public static final ResourceLocation ID = Valoria.loc("keg_brewery");
 
-        private static final MapCodec<JewelryRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        private static final MapCodec<KegRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.inputs),
             RecipeCodecs.ITEM_STACK.fieldOf("output").forGetter(r -> r.output),
-            Codec.INT.fieldOf("time").forGetter(r -> r.time),
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
-        ).apply(i, JewelryRecipe::new));
+            Codec.INT.fieldOf("time").forGetter(r -> r.time)
+        ).apply(i, KegRecipe::new));
 
-        private static final StreamCodec<RegistryFriendlyByteBuf, JewelryRecipe> STREAM_CODEC = StreamCodec.composite(
+        private static final StreamCodec<RegistryFriendlyByteBuf, KegRecipe> STREAM_CODEC = StreamCodec.composite(
+            RecipeCodecs.INGREDIENT_LIST_STREAM, r -> r.inputs,
             ItemStack.STREAM_CODEC, r -> r.output,
             ByteBufCodecs.VAR_INT, r -> r.time,
-            RecipeCodecs.INGREDIENT_LIST_STREAM, r -> r.inputs,
-            JewelryRecipe::new
+            KegRecipe::new
         );
 
         @Override
-        public MapCodec<JewelryRecipe> codec(){
+        public MapCodec<KegRecipe> codec(){
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, JewelryRecipe> streamCodec(){
+        public StreamCodec<RegistryFriendlyByteBuf, KegRecipe> streamCodec(){
             return STREAM_CODEC;
         }
     }

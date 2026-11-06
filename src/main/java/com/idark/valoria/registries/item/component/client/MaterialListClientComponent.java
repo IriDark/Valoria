@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.component.client;
 
-import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.core.recipe.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.*;

@@ -1,7 +1,7 @@
 package com.idark.valoria.client.ui.menus;
 
+import com.idark.valoria.core.recipe.KilnRecipe.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.recipe.KilnRecipe.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;

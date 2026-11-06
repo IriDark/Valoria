@@ -1,6 +1,6 @@
 package com.idark.valoria.core.compat.jei;
 
-import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.core.recipe.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.world.item.crafting.*;

@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.recipe;
+package com.idark.valoria.core.recipe;
 
 import com.idark.valoria.*;
 import com.mojang.datafixers.util.*;
@@ -14,14 +14,14 @@ import net.minecraft.world.level.*;
 
 import java.util.*;
 
-public class WorkbenchRecipe implements Recipe<ContainerRecipeInput> {
+public class AlchemyRecipe implements Recipe<ContainerRecipeInput> {
     private ResourceLocation id;
 
     public ResourceLocation getId(){
         return id;
     }
 
-    public WorkbenchRecipe withId(ResourceLocation id){
+    public AlchemyRecipe withId(ResourceLocation id){
         this.id = id;
         return this;
     }
@@ -29,11 +29,17 @@ public class WorkbenchRecipe implements Recipe<ContainerRecipeInput> {
     private final String group;
     private final ItemStack result;
     private final List<Pair<Ingredient, RecipeData>> inputs;
+    private final int level;
 
-    public WorkbenchRecipe(String group, ItemStack result, List<Pair<Ingredient, RecipeData>> inputs) {
+    public AlchemyRecipe(String group, ItemStack result, int level, List<Pair<Ingredient, RecipeData>> inputs) {
         this.group = group;
         this.result = result;
         this.inputs = inputs;
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 
     @Override
@@ -112,35 +118,37 @@ public class WorkbenchRecipe implements Recipe<ContainerRecipeInput> {
         return true;
     }
 
-    public static class Type implements RecipeType<WorkbenchRecipe> {
+    public static class Type implements RecipeType<AlchemyRecipe> {
         public static final Type INSTANCE = new Type();
-        public static final String ID = "heavy_workbench";
+        public static final String ID = "alchemy";
     }
 
-    public static class Serializer implements RecipeSerializer<WorkbenchRecipe> {
+    public static class Serializer implements RecipeSerializer<AlchemyRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = Valoria.loc("heavy_workbench");
+        public static final ResourceLocation ID = Valoria.loc("alchemy");
 
-        private static final MapCodec<WorkbenchRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        private static final MapCodec<AlchemyRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
             RecipeCodecs.ITEM_STACK.fieldOf("result").forGetter(r -> r.result),
+            Codec.INT.optionalFieldOf("level", 1).forGetter(r -> r.level),
             RecipeCodecs.COUNTED_INGREDIENT.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
-        ).apply(i, WorkbenchRecipe::new));
+        ).apply(i, AlchemyRecipe::new));
 
-        private static final StreamCodec<RegistryFriendlyByteBuf, WorkbenchRecipe> STREAM_CODEC = StreamCodec.composite(
+        private static final StreamCodec<RegistryFriendlyByteBuf, AlchemyRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8, r -> r.group,
             ItemStack.STREAM_CODEC, r -> r.result,
+            ByteBufCodecs.VAR_INT, r -> r.level,
             RecipeCodecs.COUNTED_INGREDIENT_LIST_STREAM, r -> r.inputs,
-            WorkbenchRecipe::new
+            AlchemyRecipe::new
         );
 
         @Override
-        public MapCodec<WorkbenchRecipe> codec() {
+        public MapCodec<AlchemyRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, WorkbenchRecipe> streamCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, AlchemyRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

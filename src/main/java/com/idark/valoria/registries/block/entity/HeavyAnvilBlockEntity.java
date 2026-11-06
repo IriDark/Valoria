@@ -1,7 +1,8 @@
 package com.idark.valoria.registries.block.entity;
 
+import com.idark.valoria.core.recipe.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -25,6 +26,7 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
     public int requiredHits = 0;
     public int instability = 0;
     public int maxInstability = 0;
+    public boolean tierTooLow = false;
 
     public float cursorSpeed = 0.07f;
     public double sweetSpotMin = 0.40;
@@ -34,6 +36,14 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
     public HeavyAnvilBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntitiesRegistry.ANVIL_BLOCK_ENTITY.get(), pPos, pBlockState);
         randomizeSweetSpot();
+    }
+
+    public HeavyAnvilTier getTier() {
+        if (this.getBlockState().getBlock() instanceof HeavyAnvil anvil) {
+            return anvil.tier;
+        }
+
+        return HeavyAnvilTier.BRONZE;
     }
 
     public double getLinePosition(Level level, float partialTick) {
@@ -66,9 +76,17 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
                 ItemStack result = super.insertItem(slot, stack, simulate);
                 if(slot == 0 && !simulate && !stack.isEmpty()) {
                     getCurrentRecipe().ifPresent(recipe -> {
-                        requiredHits = recipe.getRequiredHits();
-                        maxInstability = recipe.getMaxInstability();
-                        cursorSpeed = recipe.getCursorSpeed();
+                        if (getTier().getLevel() < recipe.getMinTier().getLevel()) {
+                            tierTooLow = true;
+                            requiredHits = 0;
+                            maxInstability = 0;
+                        } else {
+                            tierTooLow = false;
+                            int bonus = recipe.acceptsTierBonus() ? getTier().getInstabilityBonus() : 0;
+                            requiredHits = recipe.getRequiredHits();
+                            maxInstability = recipe.getMaxInstability() + bonus;
+                            cursorSpeed = recipe.getCursorSpeed();
+                        }
                     });
 
                     randomizeSweetSpot();
@@ -80,11 +98,16 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
         };
     }
 
-    public void randomizeSweetSpot() {
-        double range = Math.max(0.15, 0.30 - (this.progress * 0.015));
+    public void randomizeSweetSpot(double bonus) {
+        double baseRange = Math.max(0.15, 0.30 - (this.progress * 0.015));
+        double range = Math.min(0.70, baseRange + bonus);
         this.sweetSpotMin = 0.1 + Math.random() * (0.8 - range);
         this.sweetSpotMax = this.sweetSpotMin + range;
         sync();
+    }
+
+    public void randomizeSweetSpot() {
+        randomizeSweetSpot(0);
     }
 
     public void resetProgress(){
@@ -93,6 +116,7 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
         instability = 0;
         maxInstability = 0;
         cursorSpeed = 0.07f;
+        tierTooLow = false;
         randomizeSweetSpot();
     }
 
@@ -101,7 +125,6 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
         SimpleContainer inv = new SimpleContainer(1);
         inv.setItem(0, itemHandler.getStackInSlot(0));
         return this.level.getRecipeManager().getRecipeFor(HeavyAnvilRecipe.Type.INSTANCE, ContainerRecipeInput.of(this.itemHandler), level).map(RecipeHolder::value);
-
     }
 
     public void sync() {
@@ -149,6 +172,7 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
         this.requiredHits = pTag.getInt("RequiredHits");
         this.maxInstability = pTag.getInt("MaxInstability");
         this.cursorSpeed = pTag.getFloat("CursorSpeed");
+        this.tierTooLow = pTag.getBoolean("TierTooLow");
         if (pTag.contains("SweetMin")) {
             this.sweetSpotMin = pTag.getDouble("SweetMin");
             this.sweetSpotMax = pTag.getDouble("SweetMax");
@@ -164,6 +188,7 @@ public class HeavyAnvilBlockEntity extends BlockEntity {
         pTag.putInt("RequiredHits", this.requiredHits);
         pTag.putInt("MaxInstability", this.maxInstability);
         pTag.putFloat("CursorSpeed", this.cursorSpeed);
+        pTag.putBoolean("TierTooLow", this.tierTooLow);
         pTag.putDouble("SweetMin", this.sweetSpotMin);
         pTag.putDouble("SweetMax", this.sweetSpotMax);
     }

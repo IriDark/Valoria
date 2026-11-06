@@ -191,6 +191,7 @@ public class ValoriaClient{
         public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
             event.registerAboveAll(Valoria.loc("nihility"), NihilityHudOverlay.instance);
             event.registerAboveAll(Valoria.loc("nihility_shield"), NihilityShieldOverlay.instance);
+            event.registerAboveAll(Valoria.loc("heavy_anvil"), HeavyAnvilOverlay.instance);
         }
 
         @SubscribeEvent

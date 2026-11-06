@@ -375,7 +375,6 @@ public class ItemsRegistry{
         blackGoldHammer = registerItem("black_gold_hammer", () -> new HammerItem(ItemTierRegistry.BLACK_GOLD, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties()));
         infernalHammer = registerItem("infernal_hammer", () -> new HammerItem(ItemTierRegistry.INFERNAL, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         voidHammer = registerItem("void_hammer", () -> new HammerItem(ItemTierRegistry.NIHILITY, (int)ToolStats.hammer.damage, ToolStats.hammer.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
-        club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), EffectApplier.of(EffectsRegistry.STUN, 60).withChance(0.1f)));
         clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, new Item.Properties().attributes(SwordItem.createAttributes(ItemTierRegistry.BRONZE, 6, -2.4f))));
         quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, new Item.Properties().rarity(RarityRegistry.VOID).attributes(SwordItem.createAttributes(ItemTierRegistry.NONE, 8, -3f))));

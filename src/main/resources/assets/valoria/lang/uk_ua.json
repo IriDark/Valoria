@@ -1738,5 +1738,9 @@
   "jei.valoria.heavy_anvil.explosion_warning": "Explosion Hazard!",
   "jei.valoria.heavy_anvil.explosion_desc": "Missing increases the instability. At %s mistakes, the anvil explodes and consume the item!",
   "jei.valoria.heavy_anvil.risk": "Explosion Risk!",
-  "jei.valoria.heavy_anvil.anvil_desc": "Forged via precision timing minigame"
+  "jei.valoria.heavy_anvil.anvil_desc": "Forged via precision timing minigame",
+  "hud.valoria.heavy_anvil.low_tier": "Занадто низький рівень ковадла!",
+  "jei.valoria.heavy_anvil.min_tier": "Мін. рівень: %s",
+  "jei.valoria.heavy_anvil.min_tier_desc": "Потрібно %s або вище",
+  "jei.valoria.heavy_anvil.tier_bonus_desc": "Приймає бонус рівня ковадла (+до запасу помилок)"
 }

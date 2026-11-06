@@ -1,7 +1,7 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
-import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.core.recipe.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.world.item.crafting.*;
 import net.neoforged.bus.api.*;

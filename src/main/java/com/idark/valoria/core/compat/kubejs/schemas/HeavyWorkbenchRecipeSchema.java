@@ -1,7 +1,7 @@
 package com.idark.valoria.core.compat.kubejs.schemas;
 
 import com.idark.valoria.core.compat.kubejs.*;
-import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.core.recipe.*;
 import com.mojang.datafixers.util.*;
 import dev.latvian.mods.kubejs.recipe.*;
 import dev.latvian.mods.kubejs.recipe.component.*;

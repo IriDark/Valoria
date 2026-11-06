@@ -132,7 +132,6 @@
   "block.valoria.soul_infuser": "Soul Infuser",
   "block.valoria.blood_vein": "Blood Vein",
   "block.valoria.blood_vine": "Blood Vine",
-  "block.valoria.abyssal_glowfern": "Abyssal Glowfern",
   "block.valoria.blood_vine_plant": "Blood Vine",
   "block.valoria.bloodroot": "Bloodroot",
   "block.valoria.bronze_block": "Bronze Block",
@@ -1738,5 +1737,9 @@
   "hud.valoria.heavy_anvil.no_recipe": "Cannot be forged",
   "hud.valoria.heavy_anvil.take_prompt": "[Shift+RMB] Take item",
   "jei.valoria.heavy_anvil.risk": "Explosion Risk!",
-  "jei.valoria.heavy_anvil.anvil_desc": "Forged via precision timing minigame"
+  "jei.valoria.heavy_anvil.anvil_desc": "Forged via precision timing minigame",
+  "hud.valoria.heavy_anvil.low_tier": "Anvil tier is too low!",
+  "jei.valoria.heavy_anvil.min_tier": "Min. Tier: %s",
+  "jei.valoria.heavy_anvil.min_tier_desc": "Requires %s or higher",
+  "jei.valoria.heavy_anvil.tier_bonus_desc": "Accepts Anvil Tier Bonus (adds extra mistake tolerance)"
 }

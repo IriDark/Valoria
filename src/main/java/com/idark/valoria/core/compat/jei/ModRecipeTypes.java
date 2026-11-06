@@ -1,7 +1,7 @@
 package com.idark.valoria.core.compat.jei;
 
 import com.idark.valoria.*;
-import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.core.recipe.*;
 import mezz.jei.api.recipe.*;
 
 public class ModRecipeTypes{

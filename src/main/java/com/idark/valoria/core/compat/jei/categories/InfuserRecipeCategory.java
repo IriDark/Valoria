@@ -2,9 +2,9 @@ package com.idark.valoria.core.compat.jei.categories;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.compat.jei.*;
+import com.idark.valoria.core.recipe.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.*;
-import com.idark.valoria.registries.item.recipe.*;
 import mezz.jei.api.gui.builder.*;
 import mezz.jei.api.gui.drawable.*;
 import mezz.jei.api.gui.ingredient.*;

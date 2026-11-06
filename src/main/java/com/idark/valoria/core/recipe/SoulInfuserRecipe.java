@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.recipe;
+package com.idark.valoria.core.recipe;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.*;
