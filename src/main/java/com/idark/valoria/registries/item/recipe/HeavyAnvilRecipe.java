@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.recipe;
 
 import com.google.gson.*;
 import com.idark.valoria.*;
+import com.idark.valoria.registries.block.types.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
 import net.minecraft.resources.*;
@@ -19,14 +20,22 @@ public class HeavyAnvilRecipe implements Recipe<Container> {
     private final int requiredHits;
     private final int maxInstability;
     private final float cursorSpeed;
+    private final HeavyAnvilTier minTier;
+    private final boolean acceptsTierBonus;
 
     public HeavyAnvilRecipe(ResourceLocation id, Ingredient input, ItemStack result, int requiredHits, int maxInstability, float cursorSpeed) {
+        this(id, input, result, requiredHits, maxInstability, cursorSpeed, HeavyAnvilTier.BRONZE, true);
+    }
+
+    public HeavyAnvilRecipe(ResourceLocation id, Ingredient input, ItemStack result, int requiredHits, int maxInstability, float cursorSpeed, HeavyAnvilTier minTier, boolean acceptsTierBonus) {
         this.id = id;
         this.input = input;
         this.result = result;
         this.requiredHits = requiredHits;
         this.maxInstability = maxInstability;
         this.cursorSpeed = cursorSpeed;
+        this.minTier = minTier != null ? minTier : HeavyAnvilTier.BRONZE;
+        this.acceptsTierBonus = acceptsTierBonus;
     }
 
     @Override
@@ -79,6 +88,14 @@ public class HeavyAnvilRecipe implements Recipe<Container> {
         return this.cursorSpeed;
     }
 
+    public HeavyAnvilTier getMinTier() {
+        return this.minTier;
+    }
+
+    public boolean acceptsTierBonus() {
+        return this.acceptsTierBonus;
+    }
+
     @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
@@ -105,8 +122,10 @@ public class HeavyAnvilRecipe implements Recipe<Container> {
             int requiredHits = GsonHelper.getAsInt(pSerializedRecipe, "required_hits", 10);
             int maxInstability = GsonHelper.getAsInt(pSerializedRecipe, "max_instability", 3);
             float cursorSpeed = GsonHelper.getAsFloat(pSerializedRecipe, "cursor_speed", 0.05f);
+            HeavyAnvilTier minTier = HeavyAnvilTier.fromString(GsonHelper.getAsString(pSerializedRecipe, "min_tier", "bronze"));
+            boolean acceptsTierBonus = GsonHelper.getAsBoolean(pSerializedRecipe, "accepts_tier_bonus", true);
 
-            return new HeavyAnvilRecipe(pRecipeId, input, result, requiredHits, maxInstability, cursorSpeed);
+            return new HeavyAnvilRecipe(pRecipeId, input, result, requiredHits, maxInstability, cursorSpeed, minTier, acceptsTierBonus);
         }
 
         @Override
@@ -116,8 +135,10 @@ public class HeavyAnvilRecipe implements Recipe<Container> {
             int requiredHits = pBuffer.readInt();
             int maxInstability = pBuffer.readInt();
             float cursorSpeed = pBuffer.readFloat();
+            HeavyAnvilTier minTier = HeavyAnvilTier.fromString(pBuffer.readUtf());
+            boolean acceptsTierBonus = pBuffer.readBoolean();
 
-            return new HeavyAnvilRecipe(pRecipeId, input, result, requiredHits, maxInstability, cursorSpeed);
+            return new HeavyAnvilRecipe(pRecipeId, input, result, requiredHits, maxInstability, cursorSpeed, minTier, acceptsTierBonus);
         }
 
         @Override
@@ -127,6 +148,8 @@ public class HeavyAnvilRecipe implements Recipe<Container> {
             pBuffer.writeInt(pRecipe.requiredHits);
             pBuffer.writeInt(pRecipe.maxInstability);
             pBuffer.writeFloat(pRecipe.cursorSpeed);
+            pBuffer.writeUtf(pRecipe.minTier.getSerializedName());
+            pBuffer.writeBoolean(pRecipe.acceptsTierBonus);
         }
     }
 }

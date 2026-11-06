@@ -8,5 +8,7 @@
   },
   "required_hits": 6,
   "max_instability": 2,
-  "cursor_speed": 0.08
+  "cursor_speed": 0.08,
+  "min_tier": "void",
+  "accepts_tier_bonus": true
 }

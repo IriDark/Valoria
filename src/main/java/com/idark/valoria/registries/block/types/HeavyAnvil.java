@@ -32,9 +32,15 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape shape = Block.box(0, 0, 0, 15, 15, 15);
+    public final HeavyAnvilTier tier;
 
     public HeavyAnvil(Properties pProperties){
+        this(pProperties, HeavyAnvilTier.BRONZE);
+    }
+
+    public HeavyAnvil(Properties pProperties, HeavyAnvilTier tier){
         super(pProperties);
+        this.tier = tier;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT).setValue(WATERLOGGED, false));
     }
 
@@ -94,6 +100,28 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
         return InteractionResult.PASS;
     }
 
+    private double getHammerSweetSpotBonus(ItemStack hammer){
+        if(hammer.is(ItemsRegistry.voidHammer.get())){
+            return 0.12;
+        } else if(hammer.is(ItemsRegistry.infernalHammer.get())){
+            return 0.08;
+        } else if(hammer.is(ItemsRegistry.blackGoldHammer.get())){
+            return 0.04;
+        }
+        return 0.0;
+    }
+
+    private int getProgressGain(ItemStack hammer, RandomSource random){
+        if(hammer.is(ItemsRegistry.voidHammer.get())){
+            return 2;
+        } else if(hammer.is(ItemsRegistry.infernalHammer.get())){
+            return random.nextFloat() < 0.70f ? 2 : 1;
+        } else if(hammer.is(ItemsRegistry.blackGoldHammer.get())){
+            return random.nextFloat() < 0.35f ? 2 : 1;
+        }
+        return 1;
+    }
+
     @Override
     public void attack(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer){
         if(pLevel.isClientSide) return;
@@ -102,28 +130,49 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
         if(anvil != null){
             if(anvil.itemHandler.getStackInSlot(0).isEmpty()) return;
 
-            if(!pPlayer.getMainHandItem().is(TagsRegistry.HEAVY_ANVIL_TOOL)) return;
+            ItemStack hammerStack = pPlayer.getMainHandItem();
+            if(!hammerStack.is(TagsRegistry.HEAVY_ANVIL_TOOL)) return;
             Direction facing = pState.getValue(HeavyAnvil.FACING);
             double x = pState.getValue(HeavyAnvil.PART) == BedPart.HEAD ? 0.5 - facing.getStepX() * 0.5 : 0.5 + facing.getStepX() * 0.5;
             double z = pState.getValue(HeavyAnvil.PART) == BedPart.HEAD ? 0.5 - facing.getStepZ() * 0.5 : 0.5 + facing.getStepZ() * 0.5;
 
             if(pLevel instanceof ServerLevel server){
-                if(anvil.getCurrentRecipe().isPresent()) {
+                if(anvil.getCurrentRecipe().isPresent()){
                     var recipe = anvil.getCurrentRecipe().get();
+                    if(this.tier.getLevel() < recipe.getMinTier().getLevel()){
+                        anvil.tierTooLow = true;
+                        anvil.sync();
+                        pLevel.playSound(null, pPos, SoundEvents.ANVIL_HIT, SoundSource.BLOCKS, 0.5f, 0.5f);
+                        pPlayer.displayClientMessage(Component.translatable("hud.valoria.heavy_anvil.low_tier").withStyle(ChatFormatting.RED), true);
+                        return;
+                    }
+
+                    int bonus = recipe.acceptsTierBonus() ? this.tier.getInstabilityBonus() : 0;
                     anvil.requiredHits = recipe.getRequiredHits();
-                    anvil.maxInstability = recipe.getMaxInstability();
+                    anvil.maxInstability = recipe.getMaxInstability() + bonus;
+                    anvil.cursorSpeed = recipe.getCursorSpeed();
 
                     if(pLevel.getGameTime() - anvil.lastHitTick < 6) return;
                     anvil.lastHitTick = pLevel.getGameTime();
 
+                    double hammerSweetBonus = getHammerSweetSpotBonus(hammerStack);
+                    double tolerance = 0.035 + (hammerSweetBonus * 0.25);
+                    hammerStack.hurtAndBreak(1, pPlayer, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+
                     double normalized = anvil.getLinePosition(pLevel, 0);
-                    double tolerance = 0.035;
                     if(normalized >= (anvil.sweetSpotMin - tolerance) && normalized <= (anvil.sweetSpotMax + tolerance)){
-                        anvil.progress++;
+                        int progressGain = getProgressGain(hammerStack, pLevel.random);
+                        anvil.progress += progressGain;
+
                         PacketHandler.sendToTracking(server, pPos, new CrusherParticlePacket(pPos.getX() + x, pPos.getY() + 1, pPos.getZ() + z, anvil.itemHandler.getStackInSlot(0)));
                         server.sendParticles(ParticleTypes.CRIT, pPos.getX() + x, pPos.getY() + 1.05, pPos.getZ() + z, 6, 0.15, 0.1, 0.15, 0.15);
                         server.sendParticles(ParticleTypes.ELECTRIC_SPARK, pPos.getX() + x, pPos.getY() + 1.05, pPos.getZ() + z, 3, 0.1, 0.05, 0.1, 0.05);
+                        if(progressGain > 1){
+                            server.sendParticles(ParticleTypes.ENCHANTED_HIT, pPos.getX() + x, pPos.getY() + 1.1, pPos.getZ() + z, 12, 0.2, 0.2, 0.2, 0.15);
+                            pLevel.playSound(null, pPos, SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.BLOCKS, 0.7f, 1.3f);
+                        }
                         pLevel.playSound(null, pPos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0f, 1.25f);
+
                         if(anvil.progress >= anvil.requiredHits){
                             ItemStack input = anvil.itemHandler.getStackInSlot(0);
                             ItemStack recipeResult = recipe.getResultItem(pLevel.registryAccess());
@@ -146,7 +195,7 @@ public class HeavyAnvil extends HorizontalDirectionalBlock implements SimpleWate
                             anvil.resetProgress();
                             pLevel.playSound(null, pPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0f, 1.0f);
                         }else{
-                            anvil.randomizeSweetSpot();
+                            anvil.randomizeSweetSpot(hammerSweetBonus);
                         }
                     }else{
                         anvil.instability++;

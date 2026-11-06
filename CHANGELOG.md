@@ -1,3 +1,31 @@
+# 1.1.1
+**Requires Tridot 1.1.3**
+
+# **Fixed**
+
+### Tridot API
+- Changed all the effects list to EffectAppliers this should reduce allocations
+- Fixed Client Bossbar list cleanup
+- Fixed Armor HUD rendering with multiple rows of hearts, and both of Armor HUD's is being rendered now
+- Optimized RayCast with pooling and mutable vectors
+- Allocation reduce in rendering and other things this should improve Min FPS stability (That means GC stutters reduce) and memory usage significantly especially on Low-end devices (Tested with 4 GB ram)
+- Fixed possible NPE's inside DotStyle this should resolve issues with LootBeams and ItemBorders installed
+- General API cleanup
+
+## Valoria (1.21.1 & 1.20.1)
+- Fixed Rift Ring ignoring item cd
+- Added Void Slate Recipes
+- Improved Heavy Anvil
+- Reworked Rune of Curses now its should be more usable
+
+---
+
+## 1.21.1 Specific
+# **Fixed**
+- Fixed projectile damage attribute loading on ranged weapons
+- Data cleanup for NeoForge 1.21.1
+- Fixed Heavy Anvil overlay rendering
+
 # 1.1.0.7
 **Requires Tridot 1.0.177**
 

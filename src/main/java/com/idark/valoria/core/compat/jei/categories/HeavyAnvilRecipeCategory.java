@@ -3,6 +3,7 @@ package com.idark.valoria.core.compat.jei.categories;
 import com.idark.valoria.*;
 import com.idark.valoria.core.compat.jei.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.recipe.*;
 import mezz.jei.api.gui.builder.*;
 import mezz.jei.api.gui.drawable.*;
@@ -60,6 +61,11 @@ public class HeavyAnvilRecipeCategory extends AbstractRecipeCategory<HeavyAnvilR
 
         Font font = Minecraft.getInstance().font;
 
+        if(recipe.getMinTier() != HeavyAnvilTier.BRONZE){
+            String tierText = Component.translatable("jei.valoria.heavy_anvil.min_tier", recipe.getMinTier().getDisplayName()).getString();
+            guiGraphics.drawString(font, tierText, 14, 35, 0x8A2BE2, false);
+        }
+
         String hitsText = Component.translatable("jei.valoria.heavy_anvil.hits", recipe.getRequiredHits()).getString();
         guiGraphics.drawString(font, hitsText, 14, 45, 0x3F3F3F, false);
 
@@ -75,6 +81,12 @@ public class HeavyAnvilRecipeCategory extends AbstractRecipeCategory<HeavyAnvilR
         if (mouseY >= 60 && mouseY <= 72 && mouseX >= 14 && mouseX <= 154) {
             tooltip.add(Component.translatable("jei.valoria.heavy_anvil.explosion_warning").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
             tooltip.add(Component.translatable("jei.valoria.heavy_anvil.explosion_desc", recipe.getMaxInstability()).withStyle(ChatFormatting.GRAY));
+            if(recipe.acceptsTierBonus()){
+                tooltip.add(Component.translatable("jei.valoria.heavy_anvil.tier_bonus_desc").withStyle(ChatFormatting.GREEN));
+            }
+        }
+        if(recipe.getMinTier() != HeavyAnvilTier.BRONZE && mouseY >= 32 && mouseY <= 44 && mouseX >= 14 && mouseX <= 154){
+            tooltip.add(Component.translatable("jei.valoria.heavy_anvil.min_tier_desc", recipe.getMinTier().getDisplayName()).withStyle(ChatFormatting.GOLD));
         }
     }
 

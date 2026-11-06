@@ -152,10 +152,10 @@ public class BlockRegistry{
         alchemyStationTier3 = registerBlock("alchemy_station_tier_3", () -> new AlchemyStationBlock(SoundsRegistry.UI_ALCHEMY_ELEMENTAL_UPGRADE.get(),3, props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
         alchemyStationTier4 = registerBlock("alchemy_station_tier_4", () -> new AlchemyStationBlock(SoundsRegistry.UI_ALCHEMY_NIHILITY_UPGRADE.get(),4, props(Blocks.BRICKS, MapColor.COLOR_BLACK).noOcclusion()));
         heavyWorkbench = registerBlock("heavy_workbench", () -> new HeavyWorkbenchBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
-        bronzeHeavyAnvil = registerBlock("bronze_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_ORANGE).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
-        blackGoldHeavyAnvil = registerBlock("black_gold_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_BLACK).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
-        infernalHeavyAnvil = registerBlock("infernal_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_RED).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
-        voidHeavyAnvil = registerBlock("void_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_PURPLE).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
+        bronzeHeavyAnvil = registerBlock("bronze_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_ORANGE).strength(5.0F, 1200.0F).sound(SoundType.ANVIL), HeavyAnvilTier.BRONZE));
+        blackGoldHeavyAnvil = registerBlock("black_gold_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_BLACK).strength(5.0F, 1200.0F).sound(SoundType.ANVIL), HeavyAnvilTier.BLACK_GOLD));
+        infernalHeavyAnvil = registerBlock("infernal_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_RED).strength(5.0F, 1200.0F).sound(SoundType.ANVIL), HeavyAnvilTier.INFERNAL));
+        voidHeavyAnvil = registerBlock("void_heavy_anvil", () -> new HeavyAnvil(props(Blocks.ANVIL, MapColor.COLOR_PURPLE).strength(5.0F, 1200.0F).sound(SoundType.ANVIL), HeavyAnvilTier.VOID));
         soulInfuser = registerBlock("soul_infuser", () -> new SoulInfuserBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
         elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
 

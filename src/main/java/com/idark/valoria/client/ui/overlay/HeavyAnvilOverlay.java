@@ -40,6 +40,11 @@ public class HeavyAnvilOverlay {
                 renderPrompt(guiGraphics, font, needHammer, width / 2, height / 2 + 16, 0xFFAAAA);
                 Component takePrompt = Component.translatable("hud.valoria.heavy_anvil.take_prompt");
                 renderPrompt(guiGraphics, font, takePrompt, width / 2, height / 2 + 28, 0xAAAAAA);
+            } else if (anvilBe.tierTooLow) {
+                Component lowTier = Component.translatable("hud.valoria.heavy_anvil.low_tier");
+                renderPrompt(guiGraphics, font, lowTier, width / 2, height / 2 + 16, 0xFFAAAA);
+                Component takePrompt = Component.translatable("hud.valoria.heavy_anvil.take_prompt");
+                renderPrompt(guiGraphics, font, takePrompt, width / 2, height / 2 + 28, 0xAAAAAA);
             } else if (anvilBe.requiredHits == 0) {
                 Component noRecipe = Component.translatable("hud.valoria.heavy_anvil.no_recipe");
                 renderPrompt(guiGraphics, font, noRecipe, width / 2, height / 2 + 16, 0xFFAAAA);
