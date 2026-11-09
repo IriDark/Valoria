@@ -1,6 +1,6 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.core.compat.jei.categories.*;
+import com.idark.valoria.core.compat.*;
 import com.idark.valoria.registries.item.recipe.*;
 import net.minecraft.network.*;
 import net.minecraft.resources.*;
@@ -33,7 +33,7 @@ public class CrusherSyncPacket {
 
     public void handle(Supplier<Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            CrusherRecipeCategory.DROPS.put(recipeId, items);
+            CrusherClientCache.DROPS.put(recipeId, items);
         });
 
         ctx.get().setPacketHandled(true);
