@@ -19,7 +19,6 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.neoforged.neoforge.common.*;
 
 import javax.annotation.*;
 
@@ -94,21 +93,6 @@ public class ShadewoodSpider extends Monster{
         if(!pState.is(Blocks.COBWEB)){
             super.makeStuckInBlock(pState, pMotionMultiplier);
         }
-    }
-
-    /**
-     * Static predicate for determining whether a monster can spawn at the provided location, incorporating a check of
-     * the current light level at the location.
-     */
-    public static boolean checkMonsterSpawnRules(EntityType<? extends Monster> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        return pLevel.getDifficulty() != Difficulty.PEACEFUL;
-    }
-
-    public boolean canBeAffected(MobEffectInstance pPotioneffect){
-        if(pPotioneffect.is(MobEffects.POISON)){
-            return CommonHooks.canMobEffectBeApplied(this, pPotioneffect);
-        }
-        return super.canBeAffected(pPotioneffect);
     }
 
     /**
