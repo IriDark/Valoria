@@ -300,11 +300,13 @@ def getChangelogText() {
     def cleanVersion = version.toString().replace("${minecraft_version}-", "")
     for (line in lines) {
         def trimmed = line.trim()
-        if (trimmed.startsWith("#") && !trimmed.contains("**")) {
-            if (trimmed.contains(cleanVersion)) {
+        def matcher = (trimmed =~ /^#\s+(\d\S*)/)
+        if (matcher.find()) {
+            def ver = matcher.group(1)
+            if (ver == cleanVersion) {
                 reading = true
                 continue
-            }else if (reading) {
+            } else if (reading) {
                 break
             }
         }

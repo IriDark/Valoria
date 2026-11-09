@@ -1,3 +1,17 @@
+# 1.1.1.1
+**Requires Tridot 1.1.3**
+
+# **Fixed**
+
+## Valoria (1.21.1 & 1.20.1)
+- Fixed JEI Crusher packet handling if JEI wasn't installed [#87]
+
+---
+
+## 1.21.1 Specific
+# **Fixed**
+- Fixed StackOverflow when Poison effect was applied to Shadewood spider [#88]
+
 # 1.1.1
 **Requires Tridot 1.1.3**
 
