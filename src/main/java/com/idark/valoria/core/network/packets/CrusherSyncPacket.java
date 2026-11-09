@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
-import com.idark.valoria.core.compat.jei.categories.*;
+import com.idark.valoria.core.compat.*;
 import com.idark.valoria.core.recipe.*;
 import net.minecraft.network.*;
 import net.minecraft.network.codec.*;
@@ -43,8 +43,7 @@ public class CrusherSyncPacket implements CustomPacketPayload{
 
     public void handle(IPayloadContext ctx) {
         ctx.enqueueWork(() -> {
-            CrusherRecipeCategory.DROPS.put(recipeId, items);
+            CrusherClientCache.DROPS.put(recipeId, items);
         });
-
     }
 }

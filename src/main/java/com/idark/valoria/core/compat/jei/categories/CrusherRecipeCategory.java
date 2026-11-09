@@ -1,6 +1,7 @@
 package com.idark.valoria.core.compat.jei.categories;
 
 import com.idark.valoria.*;
+import com.idark.valoria.core.compat.*;
 import com.idark.valoria.core.compat.jei.*;
 import com.idark.valoria.core.recipe.*;
 import com.idark.valoria.registries.*;
@@ -23,7 +24,6 @@ import net.minecraft.world.item.*;
 import java.util.*;
 
 public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
-    public static final Map<ResourceLocation, List<ItemStack>> DROPS = new HashMap<>();
     private final Component title;
     private final IDrawable background;
     private final IDrawable icon;
@@ -63,7 +63,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CrusherRecipe recipe, IFocusGroup focusGroup){
-        List<ItemStack> drops = DROPS.getOrDefault(recipe.getId(), List.of());
+        List<ItemStack> drops = CrusherClientCache.DROPS.getOrDefault(recipe.getId(), List.of());
         List<ItemStack> pickaxes = new ArrayList<>(List.of());
         for(var item : BuiltInRegistries.ITEM) {
             var stack = new ItemStack(item);
