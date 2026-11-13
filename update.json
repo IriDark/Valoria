@@ -1,12 +1,13 @@
 {
   "homepage": "https://github.com/IriDark/Valoria/",
   "promos": {
-    "1.21.1-latest": "1.21.1-1.1.1.1",
-    "1.21.1-recommended": "1.21.1-1.1.1.1",
-    "1.20.1-latest": "1.20.1-1.1.1.1",
-    "1.20.1-recommended": "1.20.1-1.1.1.1"
+    "1.21.1-latest": "1.21.1-1.1.2",
+    "1.21.1-recommended": "1.21.1-1.1.2",
+    "1.20.1-latest": "1.20.1-1.1.2",
+    "1.20.1-recommended": "1.20.1-1.1.2"
   },
   "1.21.1": {
+    "1.21.1-1.1.2": "Balance changes, improvements, new items",
     "1.21.1-1.1.1.1": "Crash fix",
     "1.21.1-1.1.1": "Optimization, fixes, improvements",
     "1.21.1-1.1.0.7": "Fixes, improvements",
@@ -19,6 +20,7 @@
     "1.21.1-1.1.0": "NeoForge 1.21.1 / Valoria 1.1.0"
   },
   "1.20.1": {
+    "1.20.1-1.1.2": "Balance changes, improvements, new items",
     "1.20.1-1.1.1.1": "Crash fix",
     "1.20.1-1.1.1": "Optimization, fixes, improvements",
     "1.20.1-1.1.0.7": "Fixes, improvements",
