@@ -95,7 +95,7 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_COBALT_TOOL = block(Valoria.loc("needs_cobalt_tool"));
     public static final TagKey<Block> NEEDS_BLACK_GOLD_TOOL = block(Valoria.loc("needs_black_gold_tool"));
     public static final TagKey<Block> NEEDS_ETHEREAL_TOOL = block(Valoria.loc("needs_ethereal_tool"));
-    public static final TagKey<Block> NEEDS_NATURE_TOOL = block(Valoria.loc("needs_pearlium_tool"));
+    public static final TagKey<Block> NEEDS_NATURE_TOOL = block(Valoria.loc("needs_nature_tool"));
     public static final TagKey<Block> NEEDS_DEPTH_TOOL = block(Valoria.loc("needs_depth_tool"));
     public static final TagKey<Block> NEEDS_INFERNAL_TOOL = block(Valoria.loc("needs_infernal_tool"));
     public static final TagKey<Block> NEEDS_JADE_TOOL = block(Valoria.loc("needs_jade_tool"));
@@ -158,6 +158,7 @@ public class TagsRegistry{
     public static final TagKey<Item> STONE_CRUSHER_TOOL = item(Valoria.loc("stone_crusher_tool"));
     public static final TagKey<Item> SMOKE_PARTICLE = item(Valoria.loc("smoke_particle"));
     public static final TagKey<Item> ROT_IMMUNE = item(Valoria.loc("rot_immune"));
+    public static final TagKey<Item> IS_AQUA_AFFINITY = item(Valoria.loc("is_aqua_affinity"));
     public static final TagKey<PaintingVariant> MODDED = painting(Valoria.loc("painting"));
     public static final TagKey<MobEffect> CURSES = effect(Valoria.loc("curses"));
 }

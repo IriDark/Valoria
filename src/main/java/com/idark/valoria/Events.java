@@ -2,7 +2,6 @@ package com.idark.valoria;
 
 import com.google.common.collect.*;
 import com.idark.valoria.api.events.*;
-import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
@@ -25,7 +24,6 @@ import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
-import net.minecraft.client.gui.screens.*;
 import net.minecraft.core.*;
 import net.minecraft.core.component.*;
 import net.minecraft.core.particles.*;
@@ -81,6 +79,7 @@ public class Events{
                 event.removeIf(entry -> true);
             }
         } else if (item instanceof PercentageArmorItem armor) {
+            // should not be changed to isEmpty, the devil inside IDE lies to you
             if (stack.getComponentsPatch().get(DataComponents.ATTRIBUTE_MODIFIERS) == null) {
                 var modifiers = armor.getDefaultAttributeModifiers();
                 event.removeIf(entry -> true);
@@ -134,27 +133,25 @@ public class Events{
         CodexEntries.initChapters();
     }
 
+    public static final ImmutableList<EffectApplier> poison = ImmutableList.of(EffectApplier.of(MobEffects.POISON, 120));
     public static void onTooltip(ItemTooltipEvent event){
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         if(PoisonItem.isPoisoned(stack)){
             int hits = PoisonItem.getPoisonHits(stack);
-            ImmutableList<EffectApplier> list = ImmutableList.of(EffectApplier.of(MobEffects.POISON, 120));
             tooltip.add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
-            Utils.Items.effectTargetTooltip(list, tooltip, 1.0F);
+            Utils.Items.effectTargetTooltip(poison, tooltip, 1.0F);
         }
 
-        if(Unlockables.getUnlockableByItem(stack.getItem()).isPresent()){
-            if(Screen.hasControlDown()){
-                tooltip.add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
-            }else{
-                tooltip.add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
-            }
+        if(stack.getItem() instanceof TieredItem tiered && tiered.getTier() == ItemTierRegistry.HALLOWEEN){
+            tooltip.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
         }
 
-        if(stack.getItem() instanceof TieredItem tiered){
-            if(tiered.getTier() == ItemTierRegistry.HALLOWEEN){
-                tooltip.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
+        if(stack.is(TagsRegistry.IS_AQUA_AFFINITY)){
+            if(stack.getItem() instanceof ArmorItem){
+                tooltip.add(Component.translatable("tooltip.valoria.depth_aqua_affinity").withStyle(ChatFormatting.AQUA));
+            }else if(stack.getItem() instanceof DiggerItem){
+                tooltip.add(1, Component.translatable("tooltip.valoria.depth_aqua_affinity").withStyle(ChatFormatting.AQUA));
             }
         }
 
@@ -163,7 +160,6 @@ public class Events{
             if(foodRot > 0){
                 String stageKey;
                 ChatFormatting color;
-
                 if(foodRot >= 60){
                     stageKey = "tooltip.valoria.stage.rotting";
                     color = ChatFormatting.RED;
@@ -207,8 +203,6 @@ public class Events{
     private static void convertToRot(Player player, ItemStack stack, Inventory inv, int i){
         ItemStack rotStack = new ItemStack(ItemsRegistry.rot.get());
         var key = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        if(key == null) return;
-
         RotItem.setOriginalItem(rotStack, key);
         rotStack.setCount(stack.getCount());
         inv.setItem(i, rotStack);
@@ -274,8 +268,32 @@ public class Events{
 
     @SubscribeEvent
     public void onPlayerBlockDestroy(PlayerEvent.BreakSpeed event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN)){
+        Player player = event.getEntity();
+        if(player.hasEffect(EffectsRegistry.STUN)){
             event.setNewSpeed(-1);
+            return;
+        }
+
+        boolean hasAquaAffinity = player.getMainHandItem().is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.HEAD).is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.CHEST).is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.LEGS).is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.FEET).is(TagsRegistry.IS_AQUA_AFFINITY);
+        if(hasAquaAffinity){
+            float speed = event.getNewSpeed();
+            if(speed > 0){
+                if(player.isUnderWater()){
+                    double submergedSpeed = player.getAttributeValue(Attributes.SUBMERGED_MINING_SPEED);
+                    if(submergedSpeed > 0.0 && submergedSpeed < 1.0){
+                        speed *= (float)(1.0 / submergedSpeed);
+                    }
+
+                    if(!player.onGround()){
+                        speed *= 5.0f;
+                    }
+
+                    event.setNewSpeed(speed);
+                }else if(player.isInWater() && !player.onGround()){
+                    speed *= 5.0f;
+                    event.setNewSpeed(speed);
+                }
+            }
         }
     }
 

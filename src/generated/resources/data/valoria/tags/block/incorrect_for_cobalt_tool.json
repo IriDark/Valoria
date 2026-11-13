@@ -4,6 +4,14 @@
       "id": "#valoria:needs_ethereal_tool",
       "required": false
     },
+    {
+      "id": "#valoria:needs_nature_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_depth_tool",
+      "required": false
+    },
     "#neoforge:needs_netherite_tool",
     {
       "id": "#valoria:needs_none_tool",
@@ -14,7 +22,7 @@
       "required": false
     },
     {
-      "id": "#valoria:needs_pearlium_tool",
+      "id": "#valoria:needs_infernal_tool",
       "required": false
     },
     {
@@ -31,14 +39,6 @@
     },
     {
       "id": "#valoria:needs_meat_tool",
-      "required": false
-    },
-    {
-      "id": "#valoria:needs_depth_tool",
-      "required": false
-    },
-    {
-      "id": "#valoria:needs_infernal_tool",
       "required": false
     },
     {

@@ -1,0 +1,11 @@
+{
+  "type": "tridot:add_loot",
+  "chance": 0.45,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    }
+  ],
+  "loot_table": "valoria:chests/oceanic_pearl_2_4"
+}

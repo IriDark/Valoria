@@ -6,7 +6,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.npc.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.saveddata.maps.*;
 import net.neoforged.api.distmarker.*;
 import net.neoforged.bus.api.*;
 import net.neoforged.fml.*;
@@ -89,8 +88,8 @@ public class NeoForgeEvents{
         }
 
         if(event.getType() == VillagerProfession.CARTOGRAPHER){
-            trade.tier(TradeTier.APPRENTICE).trades(1).xp(4).createListing(new TreasureMapItemListing(trade, 6, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", MapDecorationTypes.RED_X));
-            trade.tier(TradeTier.APPRENTICE).trades(1).xp(6).createListing(new TreasureMapItemListing(trade, 16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", MapDecorationTypes.BLACK_BANNER)); // (Type.BANNER_BLACK -> MapDecorationTypes.BLACK_BANNER)
+            trade.tier(TradeTier.APPRENTICE).trades(10).xp(10).createListing(new TreasureMapItemListing(trade, 6, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", MapDecorationRegistry.CRYPT));
+            trade.tier(TradeTier.APPRENTICE).trades(6).xp(15).createListing(new TreasureMapItemListing(trade, 16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", MapDecorationRegistry.BOSS));
         }
 
         if(event.getType() == VillagerProfession.LIBRARIAN){

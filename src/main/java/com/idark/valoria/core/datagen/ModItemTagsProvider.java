@@ -95,6 +95,17 @@ public class ModItemTagsProvider extends ItemTagsProvider{
                 tag(ItemTags.DURABILITY_ENCHANTABLE).add(entry);
                 tag(ItemTags.VANISHING_ENCHANTABLE).add(entry);
             }
+
+            if(entry instanceof TieredItem tiered && tiered.getTier() == ItemTierRegistry.PEARLIUM){
+                tag(TagsRegistry.IS_AQUA_AFFINITY).add(entry);
+            }
         }
+
+        tag(TagsRegistry.IS_AQUA_AFFINITY).add(
+                ItemsRegistry.depthHelmet.get(),
+                ItemsRegistry.depthChestplate.get(),
+                ItemsRegistry.depthLeggings.get(),
+                ItemsRegistry.depthBoots.get()
+        );
     }
 }

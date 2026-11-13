@@ -2,11 +2,11 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.neoforged.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -17,7 +17,7 @@ public class ValoriaPickaxe extends PickaxeItem{
 
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Item.TooltipContext level, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.valoria.efficiency", getTier().getSpeed()).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
-        tooltip.add(Component.translatable("tooltip.valoria.harvest", ItemTierRegistry.levelOf(getTier())).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.efficiency", getTier().getSpeed()).withStyle(DotStyle.of().color(Col.lightGray).font(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.harvest", ItemTierRegistry.levelOf(getTier())).withStyle(DotStyle.of().color(Col.lightGray).font(Valoria.FONT)));
     }
 }

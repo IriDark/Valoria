@@ -9,14 +9,6 @@
       "required": false
     },
     {
-      "id": "#valoria:needs_depth_tool",
-      "required": false
-    },
-    {
-      "id": "#valoria:needs_infernal_tool",
-      "required": false
-    },
-    {
       "id": "#valoria:needs_void_tool",
       "required": false
     },

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "valoria:pearlium_pickaxe"
+    },
+    {
+      "item": "valoria:pearlium_axe"
+    },
+    {
+      "item": "valoria:pearlium_shovel"
+    },
+    {
+      "item": "valoria:pearlium_hoe"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "valoria:pearlium_multi_tool"
+  }
+}

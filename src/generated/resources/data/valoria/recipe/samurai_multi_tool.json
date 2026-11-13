@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "valoria:samurai_pickaxe"
+    },
+    {
+      "item": "valoria:samurai_axe"
+    },
+    {
+      "item": "valoria:samurai_shovel"
+    },
+    {
+      "item": "valoria:samurai_hoe"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "valoria:samurai_multi_tool"
+  }
+}

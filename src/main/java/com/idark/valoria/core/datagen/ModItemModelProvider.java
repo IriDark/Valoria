@@ -51,6 +51,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         bow(1.2F, 0.88F, ItemsRegistry.lunarBow.get(), ItemsRegistry.samuraiLongBow.get());
         crossbow(ItemsRegistry.natureCrossbow.get(), ItemsRegistry.aquariusCrossbow.get(), ItemsRegistry.infernalCrossbow.get(), ItemsRegistry.voidCrossbow.get(), ItemsRegistry.phantasmCrossbow.get(), ItemsRegistry.jadeCrossbow.get());
         this.add(ItemsRegistry.pixie.get(), gen -> simpleItem(gen, modLoc("item/pixie_spawn_egg")));
+        this.add(ItemsRegistry.pearliumMultiTool.get(), gen -> withExistingParent(name(gen), ResourceLocation.parse("item/handheld")).texture("layer0", modLoc("item/pearlium_multitool")));
+        this.add(BlockRegistry.bloodVine.get().asItem(), item -> itemPath("blood_vine", "item/"));
 
         this.skip(ItemsRegistry.spectralBlade.get());
         this.skip(ItemsRegistry.spectralBladeThrown.get());

@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "/N/",
-    "NON",
+    "/O/",
     "/N/"
   ],
   "key": {
     "O": {
-      "item": "valoria:black_gold_upgrade_smithing_template"
+      "item": "valoria:pearlium_ingot"
     },
     "N": {
       "item": "valoria:aquarius_ingot"
@@ -18,6 +18,6 @@
   },
   "result": {
     "id": "valoria:aquarius_upgrade_smithing_template",
-    "count": 2
+    "count": 1
   }
 }

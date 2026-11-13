@@ -1,0 +1,12 @@
+{
+  "type": "tridot:add_item",
+  "chance": 0.25,
+  "count": 1,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_supply"
+    }
+  ],
+  "item": "valoria:oceanic_pearl"
+}

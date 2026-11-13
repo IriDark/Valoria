@@ -64,10 +64,14 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
             }
 
-            if (name.contains("cobalt") || name.contains("ruby") || name.contains("sapphire") || name.contains("amber") || name.contains("pyratite")) {
+            if (name.contains("ruby") || name.contains("sapphire") || name.contains("amber")) {
                 tag(BlockTags.NEEDS_IRON_TOOL).add(block);
-            } else if (name.contains("awakened") || name.contains("black_gold") || name.contains("crimtane") || name.contains("void_stone")) {
+            } else if (name.contains("cobalt") || name.contains("awakened") || name.contains("black_gold") || name.contains("crimtane") || name.contains("void_stone")) {
                 tag(BlockTags.NEEDS_DIAMOND_TOOL).add(block);
+            } else if (name.contains("jade_ore") || name.equals("wicked_amethyst_ore") || name.equals("infernal_block") || name.equals("infernal_heavy_anvil")) {
+                tag(Tags.Blocks.NEEDS_NETHERITE_TOOL).add(block);
+            } else if (name.contains("pyratite")) {
+                tag(TagsRegistry.NEEDS_JADE_TOOL).add(block);
             } else if (!isWoodenBlock(block, name) && !isShovelBlock(block, name) && !isHoeBlock(block, name)) {
                 tag(BlockTags.NEEDS_STONE_TOOL).add(block);
             }
@@ -112,21 +116,21 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             valoria(ItemTierRegistry.HOLIDAY, TagsRegistry.NEEDS_HOLIDAY_TOOL),
             valoria(ItemTierRegistry.HALLOWEEN, TagsRegistry.NEEDS_HALLOWEEN_TOOL),
             valoria(ItemTierRegistry.LUNAR, TagsRegistry.NEEDS_LUNAR_TOOL),
-            valoria(ItemTierRegistry.SAMURAI, TagsRegistry.NEEDS_SAMURAI_TOOL),
             new SortedTier(BlockTags.INCORRECT_FOR_IRON_TOOL, BlockTags.NEEDS_IRON_TOOL, false),
             new SortedTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, BlockTags.NEEDS_DIAMOND_TOOL, false),
+            valoria(ItemTierRegistry.SAMURAI, TagsRegistry.NEEDS_SAMURAI_TOOL),
             valoria(ItemTierRegistry.COBALT, TagsRegistry.NEEDS_COBALT_TOOL),
             valoria(ItemTierRegistry.ETHEREAL, TagsRegistry.NEEDS_ETHEREAL_TOOL),
+            valoria(ItemTierRegistry.NATURE, TagsRegistry.NEEDS_NATURE_TOOL),
+            valoria(ItemTierRegistry.AQUARIUS, TagsRegistry.NEEDS_DEPTH_TOOL),
             new SortedTier(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, Tags.Blocks.NEEDS_NETHERITE_TOOL, false),
             valoria(ItemTierRegistry.NONE, TagsRegistry.NEEDS_NONE_TOOL),
             valoria(ItemTierRegistry.BLAZE_REAP, TagsRegistry.NEEDS_BLAZEREAP_TOOL),
-            valoria(ItemTierRegistry.NATURE, TagsRegistry.NEEDS_NATURE_TOOL),
+            valoria(ItemTierRegistry.INFERNAL, TagsRegistry.NEEDS_INFERNAL_TOOL),
             valoria(ItemTierRegistry.JADE, TagsRegistry.NEEDS_JADE_TOOL),
             valoria(ItemTierRegistry.SPIDER, TagsRegistry.NEEDS_SPIDER_TOOL),
             valoria(ItemTierRegistry.PYRATITE, TagsRegistry.NEEDS_PYRATITE_TOOL),
             valoria(ItemTierRegistry.BLOOD, TagsRegistry.NEEDS_MEAT_TOOL),
-            valoria(ItemTierRegistry.AQUARIUS, TagsRegistry.NEEDS_DEPTH_TOOL),
-            valoria(ItemTierRegistry.INFERNAL, TagsRegistry.NEEDS_INFERNAL_TOOL),
             valoria(ItemTierRegistry.NIHILITY, TagsRegistry.NEEDS_VOID_TOOL),
             valoria(ItemTierRegistry.PHANTOM, TagsRegistry.NEEDS_PHANTOM_TOOL)
         );

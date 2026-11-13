@@ -1,13 +1,19 @@
 {
   "values": [
-    "#minecraft:needs_iron_tool",
-    "#minecraft:needs_diamond_tool",
     {
       "id": "#valoria:needs_cobalt_tool",
       "required": false
     },
     {
       "id": "#valoria:needs_ethereal_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_nature_tool",
+      "required": false
+    },
+    {
+      "id": "#valoria:needs_depth_tool",
       "required": false
     },
     "#neoforge:needs_netherite_tool",
@@ -20,7 +26,7 @@
       "required": false
     },
     {
-      "id": "#valoria:needs_pearlium_tool",
+      "id": "#valoria:needs_infernal_tool",
       "required": false
     },
     {
@@ -37,14 +43,6 @@
     },
     {
       "id": "#valoria:needs_meat_tool",
-      "required": false
-    },
-    {
-      "id": "#valoria:needs_depth_tool",
-      "required": false
-    },
-    {
-      "id": "#valoria:needs_infernal_tool",
       "required": false
     },
     {

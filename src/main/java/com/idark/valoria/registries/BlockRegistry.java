@@ -140,7 +140,7 @@ public class BlockRegistry{
         blackGoldBlock = registerBlock("black_gold_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         natureBlock = registerBlock("nature_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_GREEN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         aquariusBlock = registerBlock("aquarius_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
-        infernalBlock = registerBlock("infernal_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+        infernalBlock = registerBlock("infernal_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)), () -> new BlockItem(BlockRegistry.infernalBlock.get(), new Item.Properties().fireResistant()));
         awakenedVoidBlock = registerBlock("awakened_void_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         crimtaneBlock = registerBlock("crimtane_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
 
@@ -157,7 +157,7 @@ public class BlockRegistry{
         elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
         bronzeHeavyAnvil = registerBlock("bronze_heavy_anvil", () -> new HeavyAnvil(HeavyAnvilTier.BRONZE, props(Blocks.ANVIL, MapColor.COLOR_ORANGE).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
         blackGoldHeavyAnvil = registerBlock("black_gold_heavy_anvil", () -> new HeavyAnvil(HeavyAnvilTier.BLACK_GOLD, props(Blocks.ANVIL, MapColor.COLOR_BLACK).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
-        infernalHeavyAnvil = registerBlock("infernal_heavy_anvil", () -> new HeavyAnvil(HeavyAnvilTier.INFERNAL, props(Blocks.ANVIL, MapColor.COLOR_RED).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
+        infernalHeavyAnvil = registerBlock("infernal_heavy_anvil", () -> new HeavyAnvil(HeavyAnvilTier.INFERNAL, props(Blocks.ANVIL, MapColor.COLOR_RED).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)), () -> new BlockItem(BlockRegistry.infernalHeavyAnvil.get(), new Item.Properties().fireResistant()));
         voidHeavyAnvil = registerBlock("void_heavy_anvil", () -> new HeavyAnvil(HeavyAnvilTier.VOID, props(Blocks.ANVIL, MapColor.COLOR_PURPLE).strength(5.0F, 1200.0F).sound(SoundType.ANVIL)));
 
         quicksand = registerBlock("quicksand", () -> new QuickSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));

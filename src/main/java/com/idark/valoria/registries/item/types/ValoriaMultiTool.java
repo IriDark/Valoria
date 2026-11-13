@@ -4,7 +4,6 @@ import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.mojang.datafixers.util.*;
-import net.minecraft.*;
 import net.minecraft.advancements.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -22,6 +21,7 @@ import net.neoforged.api.distmarker.*;
 import net.neoforged.neoforge.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.util.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -40,8 +40,8 @@ public class ValoriaMultiTool extends DiggerItem {
 
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Item.TooltipContext level, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.valoria.efficiency", tier.getSpeed()).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
-        tooltip.add(Component.translatable("tooltip.valoria.harvest", ItemTierRegistry.levelOf(getTier())).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.efficiency", tier.getSpeed()).withStyle(DotStyle.of().color(Col.lightGray).font(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.harvest", ItemTierRegistry.levelOf(getTier())).withStyle(DotStyle.of().color(Col.lightGray).font(Valoria.FONT)));
     }
 
     public boolean isCorrectTags(BlockState state) {

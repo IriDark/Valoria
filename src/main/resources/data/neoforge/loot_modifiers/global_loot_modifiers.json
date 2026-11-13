@@ -23,7 +23,10 @@
     "valoria:iron_rogue_necklace_from_pillager_outpost",
     "valoria:iron_rogue_necklace_from_mineshaft",
     "valoria:iron_necklace_armor_from_dungeon",
-    "valoria:iron_necklace_wealth_from_desert_pyramid"
+    "valoria:iron_necklace_wealth_from_desert_pyramid",
+    "valoria:oceanic_pearl_from_buried_treasure",
+    "valoria:oceanic_pearl_from_shipwreck_treasure",
+    "valoria:oceanic_pearl_from_shipwreck_supply"
   ],
   "replace": false
 }

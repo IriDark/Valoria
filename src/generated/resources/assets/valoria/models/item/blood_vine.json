@@ -1,3 +1,6 @@
 {
-  "parent": "valoria:block/blood_vine"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "valoria:item/blood_vine"
+  }
 }

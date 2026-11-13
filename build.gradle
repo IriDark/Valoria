@@ -18,7 +18,13 @@ base {
     archivesName = project.name
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java {
+    toolchain{
+        languageVersion = JavaLanguageVersion.of(21)
+        vendor = JvmVendorSpec.JETBRAINS
+    }
+}
+
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 sourceSets {
     main {
@@ -42,16 +48,20 @@ neoForge {
             gameDirectory = project.file('run')
             systemProperty 'neoforge.enabledGameTestNamespaces', 'valoria'
             systemProperty 'forge.logging.markers', 'REGISTRIES'
-            logLevel = org.slf4j.event.Level.DEBUG
+            logLevel = Level.DEBUG
         }
 
         client {
             client()
+            jvmArgument '-XX:+AllowEnhancedClassRedefinition'
+            jvmArgument '-Djbr.java.io.use.nio=false'
         }
 
         client1 {
             client()
             programArguments.addAll '--username', 'IriDark_'
+            jvmArgument '-XX:+AllowEnhancedClassRedefinition'
+            jvmArgument '-Djbr.java.io.use.nio=false'
         }
 
         server {

@@ -83,6 +83,7 @@ public class Valoria{
         PotionBrewery.register(eventBus);
         EntityTypeRegistry.register(eventBus);
         ArmorRegistry.register(eventBus);
+        MapDecorationRegistry.register(eventBus);
         ItemsRegistry.load(eventBus);
         BlockRegistry.load(eventBus);
         LevelGen.init(eventBus);

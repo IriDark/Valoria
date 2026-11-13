@@ -34,15 +34,14 @@ public class ModPlacedFeatures {
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-
         register(context, amberOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.amberOre), ModOrePlacement.commonOrePlacement(3, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
-        register(context, cobaltOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.cobaltOre), ModOrePlacement.commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(6))));
         register(context, sapphireOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.sapphireOre), ModOrePlacement.commonOrePlacement(3, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(16))));
-        register(context, rubyOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.rubyOre), ModOrePlacement.commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(8))));
+        register(context, rubyOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.rubyOre), ModOrePlacement.commonOrePlacement(3, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(8))));
+        register(context, cobaltOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.cobaltOre), ModOrePlacement.commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(6))));
         register(context, jadeOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.jadeOre), ModOrePlacement.commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(6))));
         register(context, pyratiteOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.pyratiteOre), ModOrePlacement.commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
         register(context, wickedAmethystOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.wickedAmethystOre), ModOrePlacement.commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(42))));
-        register(context, pearliumOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.pearliumOre), ModOrePlacement.commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(42))));
+        register(context, pearliumOrePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.pearliumOre), ModOrePlacement.commonOrePlacement(12, HeightRangePlacement.uniform(VerticalAnchor.absolute(20), VerticalAnchor.absolute(60))));
         register(context, dormantCrystalsPlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.dormantCrystals), ModOrePlacement.commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(42))));
 
         register(context, limestonePlaced, configuredFeatures.getOrThrow(ModConfiguredFeatures.LIMESTONE), ModOrePlacement.commonOrePlacement(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(120))));

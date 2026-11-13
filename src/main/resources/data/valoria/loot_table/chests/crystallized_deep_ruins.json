@@ -24,12 +24,27 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:pearlium_ingot",
-          "weight": 12,
+          "name": "valoria:oceanic_pearl",
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 3,
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:pearlium_ingot",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2,
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",

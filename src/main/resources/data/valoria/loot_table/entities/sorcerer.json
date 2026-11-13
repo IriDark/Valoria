@@ -64,7 +64,7 @@
             {
               "function": "minecraft:exploration_map",
               "destination": "valoria:on_crypt_explorer_maps",
-              "decoration": "minecraft:red_x",
+              "decoration": "valoria:crypt",
               "zoom": 1,
               "search_radius": 150,
               "skip_existing_chunks": false
