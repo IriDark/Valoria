@@ -89,8 +89,8 @@ public class ForgeEvents{
         }
 
         if(event.getType() == VillagerProfession.CARTOGRAPHER){
-            trade.tier(TradeTier.APPRENTICE).trades(1).xp(4).createListing(new TreasureMapItemListing(trade, 6, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", Type.RED_X));
-            trade.tier(TradeTier.APPRENTICE).trades(1).xp(6).createListing(new TreasureMapItemListing(trade, 16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", Type.BANNER_BLACK));
+            trade.tier(TradeTier.APPRENTICE).trades(10).xp(10).createListing(new TreasureMapItemListing(trade, 6, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", Type.RED_X));
+            trade.tier(TradeTier.APPRENTICE).trades(6).xp(15).createListing(new TreasureMapItemListing(trade, 16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", Type.BANNER_BLACK));
         }
 
         if(event.getType() == VillagerProfession.LIBRARIAN){

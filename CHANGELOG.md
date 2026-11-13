@@ -1,3 +1,54 @@
+# 1.1.2
+**Requires Tridot 1.1.3 - 1.1.5**
+
+## Tridot (1.21.1 & 1.20.1)
+# **Fixed**
+- Fixed projectile trails position mismatch
+- Removed Text Color Allocation
+
+## Valoria (1.21.1 & 1.20.1)
+# **Added**
+- Added Samurai Toolset:
+  - Samurai Pickaxe, Samurai Axe, Samurai Shovel, and Samurai Hoe (crafted on the Heavy Workbench using Ancient Ingots)
+  - Samurai Multi-Tool (shapeless recipe combining all 4 samurai tools)
+- Added Oceanic Pearl (`valoria:oceanic_pearl`): dropped by underwater Pearlium Ore and found in submerged ruins, shipwrecks, and buried treasure chests
+- Added Alchemy recipe for Pearlium Ingot (Alchemy Station Tier 1): transmutes Oceanic Pearl + Copper Ingot + Gold Ingot + Oceanic Shell into 2 Pearlium Ingots
+- Added Alchemy recipes for Potions:
+  - **Tier 1**: Water Breathing ×3 (8:00; Oceanic Pearls, Kelp, Turtle Scute) and Night Vision ×3 (8:00; Overworld route with 6 Amethyst Shards + 3 Glow Ink Sacs, or cheaper Valoria route with Amethyst Shard + Glow Violet Sprout)
+  - **Tier 2**: Fire Resistance (8:00; 1x with Magma Blocks + 3 Infernal Stones + Infernal Core, or 4x batch with Devil Heart + Infernal Stone + 2 Infernal Cores), Aloe Potion ×3 (Aloe Pieces, Nature Gifts, Nature Core), Regeneration ×4 batch (Harmony Heart, Nature Gifts, 2 Nature Cores), Haste (2:00; Runic Dust, Amber Gems, Cobalt Ingot, Magma Cream), and Dolphin's Grace (40s; 18 Oceanic Pearls, 10 Oceanic Shells, Kelp, 2 Aquarius Cores)
+  - **Tier 3**: Nihility Protection I (2:00; Cleansing Vial, Nihility Shards, Abyssal Glowfern, Void Core)
+- Added Pearlium Shovel, Pearlium Hoe, and Pearlium Multi-Tool
+- Built-in Aqua Affinity: Pearlium tools (Sword, Pickaxe, Axe, Shovel, Hoe, Multi-Tool) and Depth armor now negate both the 5x underwater mining penalty and the floating/swimming penalty
+- Added crafting recipe for Aquarius Upgrade Smithing Template (Pearlium Ingot, Aquarius Ingots, Oceanic Shells) and its duplication recipe
+
+# **Changed** 
+- Pearlium Ore now drops Oceanic Pearls (2–5, scales with Fortune) instead of raw metal ingots
+- Changed Cobalt ore generation, made it way much more rare
+- Changed Cobalt ore generation type, now it's triangled, Best height for mining -32.
+- Improved ocean Crystal Disks (`crystal_disk`) and Pearlium Ore spawning: Crystal Disks now generate more frequently
+- Reworked Pearlium Tier: increased durability (750), damage (2.5), and enchantability (18) to serve as a high-enchantability oceanic exploration set
+- Rebalanced Tool & Armor Tiers progression:
+  - Rebalanced Cobalt Tier: adjusted mining speed (8.25) and damage (3.0) to sit properly between Diamond (8.0) and Netherite (9.0)
+  - Upgraded Samurai Tier to Level 3 (Diamond level) with increased durability (1750) and normalized mining speed (7.0)
+  - Rebalanced high-end and late-game tool mining speeds across the board to prevent game-breaking instant breaking (Ethereal: 8.5, Black Gold: 6.0, Blaze Reap: 10.0, Nature: 8.5, Depth/Aquarius: 8.5, Infernal: 10.0, Jade: 11.0, Spider: 11.0, Pyratite: 12.0, Blood: 13.0, Void/Nihility: 14.0, Phantom: 15.0)
+  - Increased durability for Blaze Reap (2000), Spider (3252), and Blood (3631) tiers
+  - Standardized durability across decorative event tiers (Holiday, Halloween, Lunar: 1250)
+  - Reworked Valoria ore mining tier requirements: Jade Ore, Picrite Jade Ore, Wicked Amethyst Ore, and Infernal Blocks now require Tier 4 (Netherite/Infernal), while Pyratite Ore, Block, and Crystal require Tier 5 (Jade+)
+- Rebalanced Ancient Shard sources: increased drop in Crypt chests to 2–6, Necromancer Crypt to 4–10 (weight 10), and buffed Archaeology (Crypt & Desert) to 2–8 (weight 7) as the primary source
+- Significantly improved world generation speed across Valoria underground biomes by optimizing custom ore replacement rules (migrated from blockstate matching to direct block matching)
+- Cleaned up obsolete static worldgen files and legacy data files
+- Updated textures for Samurai Katana
+
+# **Fixed**
+- Fixed Jade Ore failing to generate in Picrite
+- Fixed Pearlium Ore failing to generate: restored target biomes to `#minecraft:is_ocean` (was erroneously targeting Valoria biomes)
+- Fixed Infernal and Netherite items (weapons, tools, Curios accessories, blocks, and materials) burning in fire and lava by adding `.fireResistant()` to their item properties
+- Fixed `NEEDS_NATURE_TOOL` pointing to `needs_pearlium_tool`, synchronized `SortedTier` block tag order with `ItemTierRegistry` harvest levels, and fixed `ethereal_multi_tool` using `COBALT` tier instead of `ETHEREAL`
+
+## 1.21.1 Specific
+# **Added**
+- Added custom Map icons
+
 # 1.1.1.1
 **Requires Tridot 1.1.3**
 

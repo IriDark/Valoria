@@ -84,7 +84,7 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
         context.register(ADD_PEARLIUM_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(TagsRegistry.IS_VALORIA),
+                biomes.getOrThrow(BiomeTags.IS_OCEAN),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.pearliumOrePlaced)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));

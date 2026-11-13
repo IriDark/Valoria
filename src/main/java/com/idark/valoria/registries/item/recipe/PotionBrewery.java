@@ -1,21 +1,22 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.item.alchemy.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 public class PotionBrewery extends PotionBrewing{
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Valoria.ID);
     public static final RegistryObject<Potion> ALOE_POTION = POTIONS.register("aloe_potion",
             () -> new Potion(new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 3600, 0)));
+    public static final RegistryObject<Potion> DOLPHINS_GRACE_POTION = POTIONS.register("dolphins_grace_potion",
+            () -> new Potion(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 800, 0)));
+    public static final RegistryObject<Potion> HASTE_POTION = POTIONS.register("haste_potion",
+            () -> new Potion(new MobEffectInstance(MobEffects.DIG_SPEED, 2400, 0)));
+    public static final RegistryObject<Potion> NIHILITY_PROTECTION_POTION = POTIONS.register("nihility_protection_potion",
+            () -> new Potion(new MobEffectInstance(EffectsRegistry.NIHILITY_PROTECTION.get(), 2400, 0)));
 
     // Uses the Access Transformer to process recipes
     public static void bootStrap(){

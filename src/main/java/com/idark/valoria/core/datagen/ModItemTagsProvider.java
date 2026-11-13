@@ -43,6 +43,17 @@ public class ModItemTagsProvider extends ItemTagsProvider{
             if(entry instanceof ValoriaFood) {
                 tag(TagsRegistry.ROT_IMMUNE).add(entry);
             }
+
+            if(entry instanceof TieredItem tiered && tiered.getTier() == ItemTierRegistry.PEARLIUM){
+                tag(TagsRegistry.IS_AQUA_AFFINITY).add(entry);
+            }
         }
+
+        tag(TagsRegistry.IS_AQUA_AFFINITY).add(
+                ItemsRegistry.depthHelmet.get(),
+                ItemsRegistry.depthChestplate.get(),
+                ItemsRegistry.depthLeggings.get(),
+                ItemsRegistry.depthBoots.get()
+        );
     }
 }

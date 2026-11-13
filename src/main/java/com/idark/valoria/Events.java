@@ -2,7 +2,6 @@ package com.idark.valoria;
 
 import com.google.common.collect.*;
 import com.idark.valoria.api.events.*;
-import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.*;
 import com.idark.valoria.core.capability.*;
@@ -23,7 +22,6 @@ import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
-import net.minecraft.client.gui.screens.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -41,6 +39,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.phys.*;
@@ -214,28 +213,26 @@ public class Events{
         CodexEntries.initChapters();
     }
 
+    public static final ImmutableList<EffectApplier> poison = ImmutableList.of(EffectApplier.of(MobEffects.POISON, 120));
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event){
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         if(stack.hasTag() && stack.getTag().contains("poison_hits")){
             int hits = stack.getTag().getInt("poison_hits");
-            ImmutableList<EffectApplier> list = ImmutableList.of(EffectApplier.of(MobEffects.POISON, 120));
             tooltip.add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
-            Utils.Items.effectTargetTooltip(list, tooltip, 1.0F);
+            Utils.Items.effectTargetTooltip(poison, tooltip, 1.0F);
         }
 
-        if(Unlockables.getUnlockableByItem(stack.getItem()).isPresent()){
-            if(Screen.hasControlDown()){
-                tooltip.add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
-            }else{
-                tooltip.add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
-            }
+        if(stack.getItem() instanceof TieredItem tiered && tiered.getTier() == ItemTierRegistry.HALLOWEEN){
+            tooltip.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
         }
 
-        if(stack.getItem() instanceof TieredItem tiered){
-            if(tiered.getTier() == ItemTierRegistry.HALLOWEEN){
-                tooltip.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
+        if(stack.is(TagsRegistry.IS_AQUA_AFFINITY)){
+            if(stack.getItem() instanceof ArmorItem){
+                tooltip.add(Component.translatable("tooltip.valoria.depth_aqua_affinity").withStyle(ChatFormatting.AQUA));
+            }else if(stack.getItem() instanceof DiggerItem){
+                tooltip.add(1, Component.translatable("tooltip.valoria.depth_aqua_affinity").withStyle(ChatFormatting.AQUA));
             }
         }
 
@@ -368,8 +365,31 @@ public class Events{
 
     @SubscribeEvent
     public void onPlayerBlockDestroy(PlayerEvent.BreakSpeed event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+        Player player = event.getEntity();
+        if(player.hasEffect(EffectsRegistry.STUN.get())){
             event.setNewSpeed(-1);
+            return;
+        }
+
+        boolean hasAquaAffinity = player.getMainHandItem().is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.HEAD).is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.CHEST).is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.LEGS).is(TagsRegistry.IS_AQUA_AFFINITY) || player.getItemBySlot(EquipmentSlot.FEET).is(TagsRegistry.IS_AQUA_AFFINITY);
+        if(hasAquaAffinity){
+            float speed = event.getNewSpeed();
+            if(speed > 0){
+                if(player.isEyeInFluid(FluidTags.WATER)){
+                    if(!EnchantmentHelper.hasAquaAffinity(player)){
+                        speed *= 5.0f;
+                    }
+
+                    if(!player.onGround()){
+                        speed *= 5.0f;
+                    }
+
+                    event.setNewSpeed(speed);
+                }else if(player.isInWater() && !player.onGround()){
+                    speed *= 5.0f;
+                    event.setNewSpeed(speed);
+                }
+            }
         }
     }
 

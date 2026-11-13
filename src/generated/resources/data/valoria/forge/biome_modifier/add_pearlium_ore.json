@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#valoria:is_valoria",
+  "biomes": "#minecraft:is_ocean",
   "features": "valoria:pearlium_ore_placed",
   "step": "underground_ores"
 }

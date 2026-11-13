@@ -1,0 +1,38 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 2,
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:glass_bottle"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "valoria:devil_heart"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "valoria:infernal_stone"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "valoria:infernal_core"
+      },
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "minecraft:potion",
+    "count": 4,
+    "nbt": {
+      "Potion": "minecraft:long_fire_resistance"
+    }
+  }
+}

@@ -526,7 +526,6 @@ public class BlockStateGen extends CoreStateGen {
         plantBlock(BlockRegistry.rajush.get(), modLoc("block/" + name(BlockRegistry.rajush.get())));
         plantBlock(BlockRegistry.taintedRoots.get(), modLoc("block/" + name(BlockRegistry.taintedRoots.get())));
 
-        createBrushableBlock(BlockRegistry.suspiciousIce.get());
         createBrushableBlock(BlockRegistry.suspiciousTombstone.get());
         variantBlock(BlockRegistry.voidRoots.get(), "void_roots", "void_roots_1");
         for (Block doublePlant : new Block[]{BlockRegistry.doubleSoulroot.get(), BlockRegistry.doubleMagmaroot.get(), BlockRegistry.doubleGoldy.get(), BlockRegistry.voidthorn.get(), BlockRegistry.gaibRoots.get(), BlockRegistry.karusakanRoots.get()}) {
@@ -549,19 +548,19 @@ public class BlockStateGen extends CoreStateGen {
         ModelFile[] dustedModels = new ModelFile[4];
         for (int i = 0; i < 4; i++) {
             dustedModels[i] = models().cubeAll(
-            name(block) + "_" + i,
-            modLoc("block/" + name(block) + "_" + i)
-            ).renderType("cutout");
+                name(block) + "_" + i,
+                modLoc("block/" + name(block) + "_" + i)
+            );
         }
 
         getVariantBuilder(block).forAllStates(state -> {
             int dusted = state.getValue(BlockStateProperties.DUSTED);
             return ConfiguredModel.builder()
-            .modelFile(dustedModels[dusted])
-            .build();
+                .modelFile(dustedModels[dusted])
+                .build();
         });
 
-        simpleItem(block, modLoc("block/" + name(block) + "_0"));
+        simpleBlockItem(block, dustedModels[0]);
     }
 
     private void pottedPlantBlock(Block block, String plantTextureName) {

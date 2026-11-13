@@ -1,0 +1,32 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 1,
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:glass_bottle"
+      },
+      "count": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "valoria:glow_violet_sprout"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "minecraft:potion",
+    "count": 3,
+    "nbt": {
+      "Potion": "minecraft:long_night_vision"
+    }
+  }
+}

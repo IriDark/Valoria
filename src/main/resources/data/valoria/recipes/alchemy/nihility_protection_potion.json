@@ -1,0 +1,38 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 3,
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "valoria:cleansing_vial"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "valoria:nihility_shard"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "valoria:abyssal_glowfern"
+      },
+      "count": 6
+    },
+    {
+      "ingredient": {
+        "item": "valoria:void_core"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "minecraft:potion",
+    "count": 1,
+    "nbt": {
+      "Potion": "valoria:nihility_protection_potion"
+    }
+  }
+}

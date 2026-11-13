@@ -6,6 +6,7 @@ import net.minecraft.core.*;
 import net.minecraft.data.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.common.data.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
@@ -61,10 +62,14 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
             }
 
-            if (name.contains("cobalt") || name.contains("ruby") || name.contains("sapphire") || name.contains("amber") || name.contains("pyratite")) {
+            if (name.contains("ruby") || name.contains("sapphire") || name.contains("amber")) {
                 tag(BlockTags.NEEDS_IRON_TOOL).add(block);
-            } else if (name.contains("awakened") || name.contains("black_gold") || name.contains("crimtane") || name.contains("void_stone")) {
+            } else if (name.contains("cobalt") || name.contains("awakened") || name.contains("black_gold") || name.contains("crimtane") || name.contains("void_stone")) {
                 tag(BlockTags.NEEDS_DIAMOND_TOOL).add(block);
+            } else if (name.contains("jade_ore") || name.equals("wicked_amethyst_ore") || name.equals("infernal_block") || name.equals("infernal_heavy_anvil")) {
+                tag(Tags.Blocks.NEEDS_NETHERITE_TOOL).add(block);
+            } else if (name.contains("pyratite")) {
+                tag(TagsRegistry.NEEDS_JADE_TOOL).add(block);
             } else if (!isWoodenBlock(block, name) && !isShovelBlock(block, name) && !isHoeBlock(block, name)) {
                 tag(BlockTags.NEEDS_STONE_TOOL).add(block);
             }

@@ -161,7 +161,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         // Multi-drop Ore Drops
         this.add(BlockRegistry.jadeOre.get(), block -> createCountOreDrop(block, ItemsRegistry.jade.get(), 2.0F, 5.0F));
         this.add(BlockRegistry.picriteJadeOre.get(), block -> createCountOreDrop(block, ItemsRegistry.jade.get(), 2.0F, 5.0F));
-        this.add(BlockRegistry.pearliumOre.get(), block -> createCountOreDrop(block, ItemsRegistry.pearliumIngot.get(), 2.0F, 5.0F));
+        this.add(BlockRegistry.pearliumOre.get(), block -> createCountOreDrop(block, ItemsRegistry.oceanicPearl.get(), 2.0F, 5.0F));
         this.add(BlockRegistry.wickedAmethystOre.get(), block -> createCountOreDrop(block, ItemsRegistry.wickedAmethyst.get(), 1.0F, 3.0F));
         this.add(BlockRegistry.dormantCrystals.get(), block -> createCountOreDrop(block, ItemsRegistry.unchargedShard.get(), 1.0F, 3.0F));
 

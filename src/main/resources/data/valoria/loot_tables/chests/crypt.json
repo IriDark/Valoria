@@ -115,7 +115,17 @@
         {
           "type": "minecraft:item",
           "name": "valoria:ancient_shard",
-          "weight": 15
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
         },
         {
           "type": "minecraft:item",

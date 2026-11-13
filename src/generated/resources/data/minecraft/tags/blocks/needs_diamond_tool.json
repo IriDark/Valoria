@@ -1,5 +1,9 @@
 {
   "values": [
+    "valoria:raw_cobalt_ore",
+    "valoria:cobalt_block",
+    "valoria:cobalt_ore",
+    "valoria:deepslate_cobalt_ore",
     "valoria:black_gold_block",
     "valoria:awakened_void_block",
     "valoria:crimtane_block",

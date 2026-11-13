@@ -1,0 +1,35 @@
+{
+  "group": "materials",
+  "type": "valoria:alchemy",
+  "level": 1,
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "valoria:oceanic_pearl"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:copper_ingot"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:gold_ingot"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "valoria:oceanic_shell"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "valoria:pearlium_ingot",
+    "count": 2
+  }
+}
