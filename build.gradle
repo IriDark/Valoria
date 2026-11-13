@@ -48,7 +48,6 @@ neoForge {
             gameDirectory = project.file('run')
             systemProperty 'neoforge.enabledGameTestNamespaces', 'valoria'
             systemProperty 'forge.logging.markers', 'REGISTRIES'
-            logLevel = Level.DEBUG
         }
 
         client {

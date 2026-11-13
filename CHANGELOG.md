@@ -1,6 +1,11 @@
 # 1.1.2
 **Requires Tridot 1.1.3 - 1.1.5**
 
+## Tridot (1.21.1 & 1.20.1)
+# **Fixed**
+- Fixed projectile trails position mismatch
+- Removed Text Color Allocation
+
 ## Valoria (1.21.1 & 1.20.1)
 # **Added**
 - Added Samurai Toolset:
