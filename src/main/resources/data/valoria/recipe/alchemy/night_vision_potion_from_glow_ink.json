@@ -1,0 +1,34 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 1,
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:glass_bottle"
+      },
+      "count": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "count": 6
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:glow_ink_sac"
+      },
+      "count": 3
+    }
+  ],
+  "result": {
+    "id": "minecraft:potion",
+    "count": 3,
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:long_night_vision"
+      }
+    }
+  }
+}

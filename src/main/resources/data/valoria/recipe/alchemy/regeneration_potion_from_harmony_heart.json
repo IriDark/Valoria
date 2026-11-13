@@ -1,0 +1,40 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 2,
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:glass_bottle"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "valoria:harmony_heart"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "valoria:nature_gift"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "valoria:nature_core"
+      },
+      "count": 2
+    }
+  ],
+  "result": {
+    "id": "minecraft:potion",
+    "count": 4,
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:regeneration"
+      }
+    }
+  }
+}

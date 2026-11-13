@@ -1,0 +1,53 @@
+{
+  "group": "potions",
+  "type": "valoria:alchemy",
+  "level": 2,
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "minecraft:glass_bottle"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "valoria:oceanic_pearl"
+      },
+      "count": 18
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:kelp"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "valoria:oceanic_shell"
+      },
+      "count": 10
+    },
+    {
+      "ingredient": {
+        "item": "valoria:aquarius_core"
+      },
+      "count": 2
+    }
+  ],
+  "result": {
+    "id": "minecraft:potion",
+    "count": 1,
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.valoria.dolphins_grace_potion\"}",
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "id": "minecraft:dolphins_grace",
+            "duration": 800,
+            "amplifier": 0
+          }
+        ]
+      }
+    }
+  }
+}
