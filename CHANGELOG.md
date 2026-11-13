@@ -1,5 +1,5 @@
 # 1.1.2
-**Requires Tridot 1.1.5**
+**Requires Tridot 1.1.3 - 1.1.5**
 
 ## Valoria (1.21.1 & 1.20.1)
 # **Added**
