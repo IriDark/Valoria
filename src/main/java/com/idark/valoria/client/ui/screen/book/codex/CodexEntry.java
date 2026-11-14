@@ -5,15 +5,24 @@ import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.registries.*;
+import org.joml.*;
 
+import java.lang.Math;
 import java.util.*;
 
 import static com.idark.valoria.Valoria.loc;
@@ -27,9 +36,11 @@ public class CodexEntry{
     public boolean isRendered;
     public MutableComponent translate;
     public MutableComponent unknownTranslate;
+    public final ItemStack stack;
 
     public CodexEntry(ChapterNode node, int x, int y){
         this.node = node;
+        this.stack = node.item.getDefaultInstance();
         this.node.entry = this;
         this.translate = Component.translatable(node.chapter.titleKey);
         this.unknownTranslate = Component.translatable(node.chapter.unknownKey);
@@ -49,15 +60,28 @@ public class CodexEntry{
         return isHidden;
     }
 
+    private static final ResourceLocation FRAME_TEXTURE = loc("textures/gui/book/frame.png");
     public boolean isHoveredThisFrame = false;
     public void render(Codex codex, GuiGraphics gui, float uOffset, float vOffset, int guiLeft, int guiTop, float mouseX, float mouseY){
         this.isRendered = true;
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - guiTop) - (int)vOffset;
-        double realMouseX = (mouseX - codex.getCenterX()) * codex.zoom + codex.getCenterX();
-        double realMouseY = (mouseY - codex.getCenterY()) * codex.zoom + codex.getCenterY();
 
-        var loc = loc("textures/gui/book/frame.png");
+        float cX = codex.getCenterX();
+        float cY = codex.getCenterY();
+        float screenX = cX + (x - cX) * codex.zoom;
+        float screenY = cY + (y - cY) * codex.zoom;
+        float margin = 8f * codex.zoom;
+        float nodeSize = 22f * codex.zoom;
+        if (screenX + nodeSize + margin < codex.insideLeft() || screenX - margin > codex.insideLeft() + codex.insideWidth || screenY + nodeSize + margin < codex.insideTop() || screenY - margin > codex.insideTop() + codex.insideHeight) {
+            this.isHoveredThisFrame = false;
+            return;
+        }
+
+        double realMouseX = (mouseX - cX) * codex.zoom + cX;
+        double realMouseY = (mouseY - cY) * codex.zoom + cY;
+
+        var loc = FRAME_TEXTURE;
         boolean isInsideBook = codex.isOnScreen(realMouseX, realMouseY);
         boolean isHoveringNode = codex.isHover(mouseX, mouseY, x, y, 20, 20);
         this.isHoveredThisFrame = isInsideBook && isHoveringNode;
@@ -84,7 +108,6 @@ public class CodexEntry{
         int sty = isUnlocked() ? node.style.y : Style.CLOSED.y;
         int sthx = isUnlocked() ? node.style.hoverX : Style.CLOSED.hoverX;
         int sthy = isUnlocked() ? node.style.hoverY : Style.CLOSED.hoverY;
-
         if(isHoveredThisFrame || hoverProgress > 0.1f){
             gui.blit(loc, 0, 0, sthx, sthy, entryWidth, entryHeight, 512, 512);
         }else{
@@ -96,7 +119,7 @@ public class CodexEntry{
         if(isUnlocked()){
             gui.pose().pushPose();
             gui.pose().translate(0, 0, codex.entriesLayer - 100);
-            gui.renderFakeItem(node.item.getDefaultInstance(), 3, 3);
+            gui.renderFakeItem(stack, 3, 3);
             gui.pose().popPose();
             if(!isViewed()) {
                 gui.pose().pushPose();
@@ -110,6 +133,11 @@ public class CodexEntry{
         } else {
             if(!node.hints.isEmpty()) {
                 gui.pose().pushPose();
+                gui.pose().translate(6, 6, codex.entriesLayer - 100);
+                renderItem(gui, node.item.getDefaultInstance(), 3, 3);
+                gui.pose().popPose();
+
+                gui.pose().pushPose();
                 gui.pose().translate(0, 0, 300);
                 int iconX = isHoveredThisFrame ? 31 : 22;
                 int iconY = isHoveredThisFrame ? 192 : 193;
@@ -118,7 +146,44 @@ public class CodexEntry{
                 gui.pose().popPose();
             }
         }
+
         gui.pose().popPose();
+    }
+
+    // copied and pasted vanilla code
+    private void renderItem(GuiGraphics graphics, ItemStack pStack, int pX, int pY) {
+        PoseStack pose = graphics.pose();
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!pStack.isEmpty()) {
+            BakedModel bakedmodel = minecraft.getItemRenderer().getModel(pStack, null, null, 0);
+            pose.pushPose();
+            pose.translate((float)(pX + 8), (float)(pY + 8), (float)(150));
+            try {
+                pose.mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
+                pose.scale(13.0F, 13.0F, 13.0F);
+                boolean flag = !bakedmodel.usesBlockLight();
+                if (flag) {
+                    Lighting.setupForFlatItems();
+                }
+
+                minecraft.getItemRenderer().render(pStack, ItemDisplayContext.GUI, false, pose, graphics.bufferSource(), 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
+                graphics.flush();
+                if (flag) {
+                    Lighting.setupFor3DItems();
+                }
+            } catch (Throwable throwable) {
+                CrashReport crashreport = CrashReport.forThrowable(throwable, "Rendering item");
+                CrashReportCategory crashreportcategory = crashreport.addCategory("Item being rendered");
+                crashreportcategory.setDetail("Item Type", () -> String.valueOf(pStack.getItem()));
+                crashreportcategory.setDetail("Registry Name", () -> String.valueOf(ForgeRegistries.ITEMS.getKey(pStack.getItem())));
+                crashreportcategory.setDetail("Item Damage", () -> String.valueOf(pStack.getDamageValue()));
+                crashreportcategory.setDetail("Item NBT", () -> String.valueOf(pStack.getTag()));
+                crashreportcategory.setDetail("Item Foil", () -> String.valueOf(pStack.hasFoil()));
+                throw new ReportedException(crashreport);
+            }
+
+            pose.popPose();
+        }
     }
 
     public void renderDebug(GuiGraphics gui, int mouseX, int mouseY) {
@@ -162,7 +227,7 @@ public class CodexEntry{
         int tooltipY = (int) (screenY + scaledIconSize);
 
         gui.pose().pushPose();
-        gui.pose().translate(-11, 18, 800);
+        gui.pose().translate(-11, 18, 1200);
         renderTooltip(gui, tooltipLines, tooltipX, tooltipY);
         gui.pose().popPose();
     }
@@ -173,7 +238,6 @@ public class CodexEntry{
 
         Player player = Minecraft.getInstance().player;
         boolean flag = player != null && node.unlockable != null && node.unlockable.hasAwards() && !UnlockUtils.isClaimed(player, node.unlockable);
-
         if (isUnlocked()) {
             lines.addAll(node.description);
             if (flag) {

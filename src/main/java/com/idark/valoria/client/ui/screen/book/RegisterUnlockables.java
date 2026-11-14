@@ -77,7 +77,7 @@ public class RegisterUnlockables{
         nihility = register(new Unlockable(ItemsRegistry.nihilityShard.get(), Valoria.ID + ":nihility", false));
 
         jade = register(new ItemUnlockable(Valoria.ID + ":jade", false, ItemsRegistry.jade.get()));
-        pearlium = register(new ItemUnlockable(Valoria.ID + ":pearlium", false, ItemsRegistry.pearliumIngot.get()));
+        pearlium = register(new ItemUnlockable(Valoria.ID + ":pearlium", false, ItemsRegistry.oceanicPearl.get()));
         pyratite = register(new ItemUnlockable(Valoria.ID + ":pyratite", false, ItemsRegistry.pyratite.get()));
         ancientMetals = register(new ItemUnlockable(Valoria.ID + ":ancient_metals", false, ItemsRegistry.ancientIngot.get()));
         ethereal = register(new ItemUnlockable(Valoria.ID + ":ethereal", false, ItemsRegistry.etherealShard.get()));

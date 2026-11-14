@@ -14,7 +14,7 @@ import java.util.*;
 public class ChapterNode {
     @Nullable public ChapterNode parent;
     public Chapter chapter;
-    public CodexEntry entry; //backcompatibility
+    public CodexEntry entry;
 
     public Item item;
     public Seq<ChapterNode> children = Seq.with();
@@ -30,7 +30,7 @@ public class ChapterNode {
     public Seq<CustomLink> customLinks = Seq.with();
     
     public ChapterNode linkTo(ChapterNode target, LineType type, int color) {
-        customLinks.add(new CustomLink(target, type, color, ""));
+        customLinks.add(new CustomLink(target, type, color, "*"));
         return this;
     }
 

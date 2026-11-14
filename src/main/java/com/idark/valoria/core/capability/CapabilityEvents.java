@@ -63,6 +63,7 @@ public class CapabilityEvents{
     public void playerTick(TickEvent.PlayerTickEvent event){
         if (event.phase != TickEvent.Phase.END) return;
         Player player = event.player;
+        if(player.isDeadOrDying() || !player.isAlive()) return;
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
             if(ServerConfig.ENABLE_NIHILITY.get()){
                 tickNihility(event, serverPlayer, player);
