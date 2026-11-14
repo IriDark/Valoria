@@ -1,3 +1,24 @@
+# 1.1.3
+**Requires Tridot 1.1.3 - 1.1.5**
+
+## Valoria (1.21.1 & 1.20.1)
+# **Added**
+- Added `INSTAKILL` Max Nihility action that kills player bypassing invulnerability
+- Added Codex hints for Elemental Cores (`Nature Core`, `Aquarius Core`, `Infernal Core`, `Void Core`)
+
+# **Changed** 
+- `KILL` Max Nihility action now casts a Nihility damage in value of `Float.MAX_VALUE` this should give player a chance to survive using Totem of Undying or other items that prevents death 
+- Changed Pearlium Codex entry unlock item from `Pearlium Ingot` to `Oceanic Pearl`
+- Improved Codex sidebar hierarchy readability with depth-based background shading and lighter hover highlight
+- Clarified Codex hint descriptions for `Pyratite`, `Ancient Metals`, `Troll`, `Corrupted`, and `Draugr`
+
+# **Fixed**
+- Fixed Nihility tick on player death
+- Fixed Codex Button mouse input & hovering
+- Fixed Codex tooltip was rendered underneath Codex frames
+- Fixed missing Codex hint bindings for `Jade`, `Pearlium`, and `Colossi Remains`
+- Codex optimization
+
 # 1.1.2
 **Requires Tridot 1.1.3 - 1.1.5**
 

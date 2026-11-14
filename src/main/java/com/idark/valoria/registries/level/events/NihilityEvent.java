@@ -22,10 +22,8 @@ public class NihilityEvent{
     public static void tick(INihilityLevel nihilityLevel, ServerPlayer player) {
         Level level = player.level();
         Difficulty difficulty = level.getDifficulty();
-
         float max = Math.max(1.0F, nihilityLevel.getMaxAmount(player));
         float amount = nihilityLevel.getAmount();
-
         if (level.dimension() == LevelGen.VALORIA_KEY) {
             if (difficulty == Difficulty.PEACEFUL || player.hasEffect(EffectsRegistry.NIHILITY_PROTECTION)) {
                 return;
@@ -91,7 +89,15 @@ public class NihilityEvent{
                 }
             }
 
-            default -> player.kill();
+            case INSTAKILL -> {
+                player.kill();
+                nihilityLevel.setAmount(0);
+            }
+
+            default -> {
+                player.hurt(DamageSourceRegistry.voidHarm(player.level()), Float.MAX_VALUE);
+                nihilityLevel.setAmount(0);
+            }
         }
     }
 

@@ -24,6 +24,9 @@ public class SidebarEntry{
     public boolean isHidden;
     public boolean isHoveredThisFrame = false;
 
+    private final static int packedSide = Col.fromHex("c84545").pack();
+    private final static int packedBackground = Pal.darkestGray.pack();
+
     public SidebarEntry(CodexEntry entry, int depth){
         this.entry = entry;
         this.depth = depth;
@@ -34,24 +37,26 @@ public class SidebarEntry{
         boolean flag = entry.isUnlocked() && entry.isViewed();
         this.x = renderX;
         this.y = renderY;
-        int indent = this.depth * 6;
+        int indent = this.depth * 8;
+
+        this.isHoveredThisFrame = mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
+        int baseShade = Math.max(0x06, 0x22 - depth * 0x07);
+        int bgShade = isHoveredThisFrame ? Math.min(0xFF, baseShade + 0x14) : baseShade;
+        int bgColor = (0xFF << 24) | (bgShade << 16) | (bgShade << 8) | Math.min(0xFF, bgShade + 3);
+        int sideColor = (isHoveredThisFrame || codex.focusedOn != null && codex.focusedOn.equals(entry)) ? CommonColors.WHITE : flag ? CommonColors.GRAY : packedSide;
+        gui.fill(x + 2, y, x + width, y + height, bgColor);
+        gui.fill(x, y, x + 2, y + height, sideColor);
         if (!entry.node.children.isEmpty()) {
-            String arrow = entry.node.isCollapsed ? ">" : "v";
+            String arrow = entry.node.isCollapsed ? "▶" : "▼";
             gui.drawString(Minecraft.getInstance().font, arrow, x + width - 15, y + 4, CommonColors.WHITE);
         }
 
-        this.isHoveredThisFrame = mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
-        int bgColor = isHoveredThisFrame ? Pal.darkestGray.pack() : CommonColors.BLACK;
-        int sideColor = (isHoveredThisFrame || codex.focusedOn != null && codex.focusedOn.equals(entry)) ? CommonColors.WHITE : flag ? CommonColors.GRAY : Col.fromHex("c84545").pack();
-        gui.fill(x + 2, y, x + width, y + height, bgColor);
-
-        gui.fill(x, y, x + 2, y + height, sideColor);
-
         if(entry.isUnlocked()){
-            gui.renderFakeItem(entry.node.item.getDefaultInstance(), x + 3 + indent, y - 1);
-            gui.drawString(Minecraft.getInstance().font, entry.translate.getString(), x + 25 + indent, y + 4, 0xFFFFFF);
+            gui.drawString(Minecraft.getInstance().font, "◆", x + 8 + indent, y + 4, 0xFFFFFF);
+            gui.drawString(Minecraft.getInstance().font, entry.translate.getString(), x + 25 + indent, y + 4, CommonColors.GRAY);
         } else {
-            gui.drawString(Minecraft.getInstance().font, "\uD83D\uDD12 " + Component.translatable("commands.valoria.page.unknown").getString(), x + 8 + indent, y + 4, 0xFFFFFF);
+            gui.drawString(Minecraft.getInstance().font, "◇", x + 8 + indent, y + 4, 0xFFFFFF);
+            gui.drawString(Minecraft.getInstance().font, Component.translatable("commands.valoria.page.unknown").getString(), x + 25 + indent, y + 4, CommonColors.GRAY);
         }
 
         if(entry.isUnlocked() && !entry.isViewed()) {
@@ -84,9 +89,7 @@ public class SidebarEntry{
 
     public void renderTooltip(Codex codex, GuiGraphics gui, int x, int y){
         if (!this.isHoveredThisFrame || this.isHidden || !codex.isOnSidebar(x, y)) return;
-
         float scaledIconSize = 22 * codex.zoom;
-
         MutableComponent transl = entry.isUnlocked() ? entry.translate : entry.unknownTranslate;
         List<Component> tooltipLines = entry.getTooltipLines(transl);
 

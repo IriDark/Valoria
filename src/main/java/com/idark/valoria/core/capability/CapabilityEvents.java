@@ -61,6 +61,7 @@ public class CapabilityEvents{
     @SubscribeEvent
     public void playerTick(PlayerTickEvent.Post event){
         Player player = event.getEntity();
+        if(player.isDeadOrDying() || !player.isAlive()) return;
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
             if(ServerConfig.ENABLE_NIHILITY.get()){
                 tickNihility(serverPlayer, player);

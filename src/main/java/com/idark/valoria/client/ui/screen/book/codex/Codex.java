@@ -39,6 +39,13 @@ public class Codex extends DotScreen{
     public static Codex screen;
     public CodexEntry focusedOn;
     private static final Component SEARCH_HINT = Component.translatable("gui.recipebook.search_hint").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY);
+    private static final ResourceLocation FRAME_BLUR_TEXTURE = loc("textures/gui/book/frame_blur.png");
+    private static final ResourceLocation[] SKYBOX_TEXTURES = new ResourceLocation[6];
+    static {
+        for (int i = 0; i < 6; i++) {
+            SKYBOX_TEXTURES[i] = loc("textures/gui/book/skybox/panorama_" + i + ".png");
+        }
+    }
 
     public int backgroundWidth = 512, backgroundHeight = 512;
     public int frameWidth = 276;
@@ -67,6 +74,10 @@ public class Codex extends DotScreen{
 
     public EditBox searchBar;
     public ResourceLocation FRAME = loc("textures/gui/book/frame.png");
+
+    private final static int unlockPacked = Col.intArgb(Col.fromHex("7A5577"));
+    private final static int closedPacked = Col.intArgb(Col.gray);
+
 
     public Codex(){
         super();
@@ -219,7 +230,7 @@ public class Codex extends DotScreen{
         }
 
         // Progression Button (Right)
-        int progX = (int)(this.cx() + 20);
+        int progX = (int)(this.cx() + 21);
         boolean isHost = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
         if (!isHost) {
             gui.blit(FRAME, progX - 5, guiTop() + frameHeight - 10, 107, 192, 11, 11, 512, 512);
@@ -234,11 +245,11 @@ public class Codex extends DotScreen{
     }
 
     private void renderSidebar(GuiGraphics gui, int mouseX, int mouseY){
-        push();
         if (isSidebarDisabled()) {
             return;
         }
 
+        push();
         gui.fill(0, 0, listWidth + 25, screen.getRectangle().height(), Col.packColor(75, 0, 0, 0));
 
         // Sidebar scrollbar logic
@@ -254,10 +265,17 @@ public class Codex extends DotScreen{
             gui.fill(barX, knobY, barX + barWidth, knobY + knobHeight, Col.packColor(255, 125, 125, 125));
         }
 
-        gui.enableScissor(listStartX(), listStartY(), listStartX() + 200, listStartY() + listHeight());
-        int currentY = listStartY() - (int)sidebarScroll + 20;
+        int top = listStartY();
+        int bottom = top + listHeight();
+        gui.enableScissor(listStartX(), top, listStartX() + 200, bottom);
+        int currentY = top - (int)sidebarScroll + 20;
         for (SidebarEntry sEntry : CodexEntries.sidebarEntries) {
-            sEntry.render(this, listStartX(), currentY, gui, mouseX, mouseY);
+            if (sEntry.isHidden) continue;
+            if (currentY + sEntry.height >= top && currentY <= bottom) {
+                sEntry.render(this, listStartX(), currentY, gui, mouseX, mouseY);
+            } else {
+                sEntry.isHoveredThisFrame = false;
+            }
             currentY += sEntry.height + 3;
         }
 
@@ -272,7 +290,9 @@ public class Codex extends DotScreen{
         searchBar.setY(listStartY() + listHeight() + 25 + searchBar.getHeight());
         searchBar.render(gui, mouseX, mouseY, Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true));
         for(SidebarEntry entry : CodexEntries.sidebarEntries) {
-            entry.renderTooltip(this, gui, mouseX, mouseY);
+            if (entry.isHoveredThisFrame) {
+                entry.renderTooltip(this, gui, mouseX, mouseY);
+            }
         }
     }
 
@@ -333,7 +353,19 @@ public class Codex extends DotScreen{
                 }
             }
 
-            int patX = (int)(this.cx() - 30);
+            if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
+                CodexEntry root = CodexEntries.entries.find(e -> e.getChapter() == CodexEntries.PAGES_CHAPTER);
+                if (root != null) {
+                    focusOn(root);
+                } else {
+                    xOffset = 0; yOffset = 0; zoom = 1;
+                }
+
+                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
+                return true;
+            }
+
+            int patX = (int)(this.cx() - 21);
             if(isHover(mouseX, mouseY, patX - 10, guiTop() + this.frameHeight - 15, 20, 20)){
                 String url = "https://www.patreon.com/c/IriDark";
                 Util.getPlatform().openUri(url);
@@ -341,7 +373,7 @@ public class Codex extends DotScreen{
                 return true;
             }
 
-            int progX = (int)(this.cx() + 10);
+            int progX = (int)(this.cx() + 21);
             boolean isHost = this.minecraft.player != null && this.minecraft.player.hasPermissions(2);
             if (isHost && isHover(mouseX, mouseY, progX - 10, guiTop() + this.frameHeight - 15, 20, 20)) {
                 BooleanConsumer callback = (confirmed) -> {
@@ -358,18 +390,6 @@ public class Codex extends DotScreen{
                 );
 
                 Minecraft.getInstance().setScreen(warning);
-                sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
-                return true;
-            }
-
-            if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
-                CodexEntry root = CodexEntries.entries.find(e -> e.getChapter() == CodexEntries.PAGES_CHAPTER);
-                if (root != null) {
-                    focusOn(root);
-                } else {
-                    xOffset = 0; yOffset = 0; zoom = 1;
-                }
-
                 sound(SoundsRegistry.UI_CODEX_CLICK, 0.5f, 1f);
                 return true;
             }
@@ -460,7 +480,7 @@ public class Codex extends DotScreen{
         BufferBuilder bufferbuilder;
 
         float aspect = (float)insideWidth / (float)insideHeight;
-        Matrix4f matrix4f = (new Matrix4f()).setPerspective(1.5F, aspect, 0.05F, 10.0F);
+        Matrix4f matrix4f = Tmp.matrix4f.take().setPerspective(1.5F, aspect, 0.05F, 10.0F);
 
         RenderSystem.backupProjectionMatrix();
         RenderSystem.setProjectionMatrix(matrix4f, VertexSorting.DISTANCE_TO_ORIGIN);
@@ -482,7 +502,7 @@ public class Codex extends DotScreen{
 
         for(int i = 0; i < 6; ++i) {
             int r = 255, g = 255, b = 255;
-            RenderSystem.setShaderTexture(0, loc("textures/gui/book/skybox/panorama_" + i + ".png"));
+            RenderSystem.setShaderTexture(0, SKYBOX_TEXTURES[i]);
             bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
             if (i == 0) {
                 bufferbuilder.addVertex(-1.0F, -1.0F, 1.0F).setUv(0.0F, 0.0F).setColor(r, g, b, 255);
@@ -534,7 +554,7 @@ public class Codex extends DotScreen{
         push();
         RenderSystem.enableBlend();
         layer(300);
-        gui.blit(loc("textures/gui/book/frame_blur.png"), insideLeft, insideTop, 0, 0, insideWidth, insideHeight, insideWidth, insideHeight);
+        gui.blit(FRAME_BLUR_TEXTURE, insideLeft, insideTop, 0, 0, insideWidth, insideHeight, insideWidth, insideHeight);
         RenderSystem.disableBlend();
         pop();
     }
@@ -550,7 +570,7 @@ public class Codex extends DotScreen{
                 float y = entry.y;
                 float deltaY = chy - y;
                 float y2 = y + deltaY * 0.5f;
-                var color = c.entry.isUnlocked() ? Col.intArgb(Col.fromHex("7A5577")) : Col.intArgb(Col.gray);
+                var color = c.entry.isUnlocked() ? unlockPacked : closedPacked;
 
                 push();
                 move((backgroundWidth - insideWidth) / 2f, (backgroundHeight - insideHeight) / 2f);
@@ -567,6 +587,7 @@ public class Codex extends DotScreen{
 
                 c.entry.render(this, gui, uOffset, vOffset, insideLeft(), insideTop(), mouseX, mouseY);
             });
+
             entry.node.customLinks.each(link -> {
                 if (link.target == null || link.target.entry == null) return;
                 float targetX = link.target.entry.x;
