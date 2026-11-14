@@ -1766,5 +1766,9 @@
   "item.valoria.samurai_shovel": "Samurai Shovel",
   "item.valoria.samurai_hoe": "Samurai Hoe",
   "item.valoria.samurai_multi_tool": "Samurai Multi-Tool",
-  "tooltip.valoria.depth_aqua_affinity": "Aqua Affinity: Removes underwater mining speed penalty"
+  "tooltip.valoria.depth_aqua_affinity": "Aqua Affinity: Removes underwater mining speed penalty",
+  "codex.valoria.nature_core.hint": "Obtain a Nature Core from Forest Elementals (Ents)",
+  "codex.valoria.aquarius_core.hint": "Obtain an Aquarius Core from Deep Elementals",
+  "codex.valoria.infernal_core.hint": "Obtain an Infernal Core from Fire Elementals (Devils)",
+  "codex.valoria.void_core.hint": "Obtain a Void Core from Void Elementals"
 }
