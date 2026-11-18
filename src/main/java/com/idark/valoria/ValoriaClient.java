@@ -233,117 +233,125 @@ public class ValoriaClient{
         }
 
         @SubscribeEvent
+        public static void onEntityRenderRegistry(EntityRenderersEvent.RegisterRenderers event) {
+
+            // MISC
+            event.registerEntityRenderer(EntityTypeRegistry.RIFT.get(), RiftRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SHADEWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", false, false));
+            event.registerEntityRenderer(EntityTypeRegistry.SHADEWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", true, false));
+            event.registerEntityRenderer(EntityTypeRegistry.ELDRITCH_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", false, false));
+            event.registerEntityRenderer(EntityTypeRegistry.ELDRITCH_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", true, false));
+            event.registerEntityRenderer(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dread", false, false));
+            event.registerEntityRenderer(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dread", true, false));
+
+            // ENTITIES
+            event.registerEntityRenderer(EntityTypeRegistry.LOCATOR.get(), ThrownItemRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.CLAW.get(), ClawRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SCAVENGER.get(), ScavengerRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.WICKED_SCORPION.get(), WickedScorpionRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.ACID_SPIT.get(), AcidSpitRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.CORRUPTED.get(), CorruptedRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SHURIKEN.get(), ShurikenRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchantRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.NECROMANCER.get(), NecromancerRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.WICKED_CRYSTAL.get(), WickedCrystalRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.DRYADOR.get(), DryadorRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.DRAUGR.get(), DraugrRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.GOBLIN.get(), GoblinRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.FLESH_SENTINEL.get(), FleshSentinelRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SCOURGE.get(), ScourgeRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.MANNEQUIN.get(), MannequinRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.KUNAI.get(), KunaiRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.THROWABLE_BOMB.get(), ThrownItemRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.MEAT.get(), MeatBlockRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.DEVOURER.get(), DevourerRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.UNDEAD.get(), UndeadRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.NATURE_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.AQUARIUS_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.INFERNAL_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.PYRATITE_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SPEAR.get(), ThrownSpearRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpiderRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.DEVIL.get(), DevilRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.TROLL.get(), m -> new TrollRenderer(m, false));
+            event.registerEntityRenderer(EntityTypeRegistry.CORRUPTED_TROLL.get(), m -> new TrollRenderer(m, true));
+            event.registerEntityRenderer(EntityTypeRegistry.SORCERER.get(), SorcererRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.SPELL.get(), SpellProjectileRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.WICKED_CRYSTAL.get(), WickedCrystalRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.WICKED_SHIELD.get(), WickedShieldRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.CRYSTAL.get(), CrystalRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.CRYSTAL_SPIKES.get(), CrystalSpikesRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.CRYSTAL_SHARD.get(), CrystalShardRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.PYRATITE_SHARD.get(), PyratiteShardRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.ENT.get(), EntRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.LASER.get(), LaserRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.MAGGOT.get(), MaggotRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.DRYADOR.get(), DryadorRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.ACORN.get(), AcornRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.PIXIE.get(), PixieRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.KING_CRAB.get(), KingCrabRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.WATER_BUBBLE.get(), WaterBubbleRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.FIRRON.get(), FirronRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.NATURE_GOLEM.get(), NatureGolemRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.RIVER_GOLEM.get(), RiverGolemRenderer::new);
+            event.registerEntityRenderer(EntityTypeRegistry.MAGMATIC_GOLEM.get(), MagmaticGolemRenderer::new);
+
+            // BLOCK ENTITIES
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.WICKED_ALTAR.get(), (trd) -> new AltarBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.CRYPTIC_ALTAR.get(), (trd) -> new AltarBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.FLESH_CYST.get(), (trd) -> new FleshCystBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.CRUSHABLE_BLOCK_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.CRUSHER_BLOCK_ENTITY.get(), (trd) -> new CrusherBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.PEDESTAL_BLOCK_ENTITY.get(), (trd) -> new PedestalBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.VALORIA_PORTAL_BLOCK_ENTITY.get(), ValoriaPortalRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.BOSS_TROPHY_ENTITIES.get(), BossTrophyBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.SOUL_INFUSER_BLOCK_ENTITY.get(), (trd) -> new SoulInfuserBlockEntityRenderer());
+            event.registerBlockEntityRenderer(BlockEntitiesRegistry.ANVIL_BLOCK_ENTITY.get(), (trd) -> new HeavyAnvilBlockEntityRenderer());
+        }
+        
+        @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event){
             ClientBossbarRegistry.register(Valoria.loc("basic"), BasicBossbar.class);
             NeoForge.EVENT_BUS.register(new NihilityMeterRender());
-            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray.toJava());
-            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh.toJava());
-            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.PIXIE.get(), Pal.vividGreen.toJava());
             event.enqueueWork(() -> {
-                BlockEntityRenderers.register(BlockEntitiesRegistry.WICKED_ALTAR.get(), (trd) -> new AltarBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.CRYPTIC_ALTAR.get(), (trd) -> new AltarBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.FLESH_CYST.get(), (trd) -> new FleshCystBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.CRUSHABLE_BLOCK_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.CRUSHER_BLOCK_ENTITY.get(), (trd) -> new CrusherBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.PEDESTAL_BLOCK_ENTITY.get(), (trd) -> new PedestalBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
-                BlockEntityRenderers.register(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
-                BlockEntityRenderers.register(BlockEntitiesRegistry.VALORIA_PORTAL_BLOCK_ENTITY.get(), ValoriaPortalRenderer::new);
-                BlockEntityRenderers.register(BlockEntitiesRegistry.BOSS_TROPHY_ENTITIES.get(), BossTrophyBlockEntityRenderer::new);
-                BlockEntityRenderers.register(BlockEntitiesRegistry.SOUL_INFUSER_BLOCK_ENTITY.get(), (trd) -> new SoulInfuserBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.ANVIL_BLOCK_ENTITY.get(), (trd) -> new com.idark.valoria.client.render.tile.HeavyAnvilBlockEntityRenderer());
+                AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray.toJava());
+                AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh.toJava());
+                AbstractMinionEntity.minionColors.put(EntityTypeRegistry.PIXIE.get(), Pal.vividGreen.toJava());
 
                 Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
                 Sheets.addWoodType(ModWoodTypes.DREADWOOD);
+
+                ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.natureShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.aquariusShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.infernalShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.voidShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.phantasmShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.crimtaneShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.spiderShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.pyratiteShield.get());
+                ModItemModelProperties.makeShield(ItemsRegistry.bronzeShield.get());
+                ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
+                ModItemModelProperties.makeEyeState(ItemsRegistry.ironEyeNecklace.get());
+                ModItemModelProperties.makeEyeState(ItemsRegistry.goldenEyeNecklace.get());
+                ModItemModelProperties.makeEyeState(ItemsRegistry.netheriteEyeNecklace.get());
+                ModItemModelProperties.makeNight(ItemsRegistry.ironCelestialNecklace.get());
+                ModItemModelProperties.makeNight(ItemsRegistry.goldenCelestialNecklace.get());
+                ModItemModelProperties.makeNight(ItemsRegistry.netheriteCelestialNecklace.get());
             });
-
-            EntityRenderers.register(EntityTypeRegistry.RIFT.get(), RiftRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", false, false));
-            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", true, false));
-            EntityRenderers.register(EntityTypeRegistry.ELDRITCH_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", false, false));
-            EntityRenderers.register(EntityTypeRegistry.ELDRITCH_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", true, false));
-            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dread", false, false));
-            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dread", true, false));
-
-            EntityRenderers.register(EntityTypeRegistry.LOCATOR.get(), ThrownItemRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.CLAW.get(), ClawRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SCAVENGER.get(), ScavengerRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.WICKED_SCORPION.get(), WickedScorpionRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.ACID_SPIT.get(), AcidSpitRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.CORRUPTED.get(), CorruptedRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SHURIKEN.get(), ShurikenRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchantRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.NECROMANCER.get(), NecromancerRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.WICKED_CRYSTAL.get(), WickedCrystalRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.DRYADOR.get(), DryadorRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.DRAUGR.get(), DraugrRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.GOBLIN.get(), GoblinRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.FLESH_SENTINEL.get(), FleshSentinelRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SCOURGE.get(), ScourgeRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.MANNEQUIN.get(), MannequinRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.KUNAI.get(), KunaiRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.THROWABLE_BOMB.get(), ThrownItemRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.MEAT.get(), MeatBlockRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.DEVOURER.get(), DevourerRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.UNDEAD.get(), UndeadRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.NATURE_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.AQUARIUS_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.INFERNAL_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.PYRATITE_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SPEAR.get(), ThrownSpearRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpiderRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.DEVIL.get(), DevilRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.TROLL.get(), m -> new TrollRenderer(m, false));
-            EntityRenderers.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), m -> new TrollRenderer(m, true));
-            EntityRenderers.register(EntityTypeRegistry.SORCERER.get(), SorcererRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.SPELL.get(), SpellProjectileRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.WICKED_CRYSTAL.get(), WickedCrystalRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.WICKED_SHIELD.get(), WickedShieldRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.CRYSTAL.get(), CrystalRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.CRYSTAL_SPIKES.get(), CrystalSpikesRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.CRYSTAL_SHARD.get(), CrystalShardRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.PYRATITE_SHARD.get(), PyratiteShardRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.ENT.get(), EntRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.LASER.get(), LaserRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.MAGGOT.get(), MaggotRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.DRYADOR.get(), DryadorRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.ACORN.get(), AcornRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.PIXIE.get(), PixieRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.KING_CRAB.get(), KingCrabRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.WATER_BUBBLE.get(), WaterBubbleRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.FIRRON.get(), FirronRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.NATURE_GOLEM.get(), NatureGolemRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.RIVER_GOLEM.get(), RiverGolemRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.MAGMATIC_GOLEM.get(), MagmaticGolemRenderer::new);
-
-            ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.natureShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.aquariusShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.infernalShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.voidShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.phantasmShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.crimtaneShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.spiderShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.pyratiteShield.get());
-            ModItemModelProperties.makeShield(ItemsRegistry.bronzeShield.get());
-            ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
-            ModItemModelProperties.makeEyeState(ItemsRegistry.ironEyeNecklace.get());
-            ModItemModelProperties.makeEyeState(ItemsRegistry.goldenEyeNecklace.get());
-            ModItemModelProperties.makeEyeState(ItemsRegistry.netheriteEyeNecklace.get());
-            ModItemModelProperties.makeNight(ItemsRegistry.ironCelestialNecklace.get());
-            ModItemModelProperties.makeNight(ItemsRegistry.goldenCelestialNecklace.get());
-            ModItemModelProperties.makeNight(ItemsRegistry.netheriteCelestialNecklace.get());
         }
 
         @SubscribeEvent
