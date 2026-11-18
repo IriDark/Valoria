@@ -7,10 +7,13 @@
 - Added Codex hints for Elemental Cores (`Nature Core`, `Aquarius Core`, `Infernal Core`, `Void Core`)
 
 # **Changed** 
+- Decreased Sorcerer projectile velocity and damage from 6 to 3, by watching `devankaw` (https://youtu.be/JUHHETLOWuw) let's play i thought that they're a bit overpowered
 - `KILL` Max Nihility action now casts a Nihility damage in value of `Float.MAX_VALUE` this should give player a chance to survive using Totem of Undying or other items that prevents death 
 - Changed Pearlium Codex entry unlock item from `Pearlium Ingot` to `Oceanic Pearl`
 - Improved Codex sidebar hierarchy readability with depth-based background shading and lighter hover highlight
 - Clarified Codex hint descriptions for `Pyratite`, `Ancient Metals`, `Troll`, `Corrupted`, and `Draugr`
+- Rebalanced random Codex page (`valoria:page`) drops: excluded boss & Fortress spoilers (`Necromancer`, `Dryador`, `Firron`, `Wicked Crystal`, `Void Fortress`) and added gems (`Amber`, `Amethyst`, `Sapphire`, `Ruby`), `Pearlium`, and `Ancient Metals`
+- Updated `The End` Codex pages across all localizations with current development status and a neutral closing message
 
 # **Fixed**
 - Fixed Nihility tick on player death

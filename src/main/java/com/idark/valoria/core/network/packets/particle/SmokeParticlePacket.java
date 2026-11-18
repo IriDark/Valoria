@@ -38,11 +38,11 @@ public class SmokeParticlePacket{
         ParticleBuilder.create(ParticleRegistry.SMOKE)
                 .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                 .setColorData(color)
-                .setTransparencyData(GenericParticleData.create().setRandomValue(0, 0.6f, 0, 0).build())
-                .setScaleData(GenericParticleData.create(0.92f, 0f).build())
+                .setTransparencyData(GenericParticleData.create().setRandomValue(0, 0.5f, 0, 0).build())
+                .setScaleData(GenericParticleData.create(1, 0f).build())
                 .setLifetime(95 + random.nextInt(100))
                 .randomVelocity(msg.velX, msg.velY, msg.velZ)
-                .randomOffset(0.025f)
+                .randomOffset(0.075f)
                 .spawn(level, msg.posX, msg.posY, msg.posZ);
     }
 

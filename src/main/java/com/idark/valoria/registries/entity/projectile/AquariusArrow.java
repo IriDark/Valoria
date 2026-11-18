@@ -61,7 +61,6 @@ public class AquariusArrow extends AbstractProjectile implements TexturedArrow{
         super.onHitEntity(pResult);
         if(pResult.getEntity() instanceof LivingEntity living){
             living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 0));
-            living.clearFire();
         }
     }
 

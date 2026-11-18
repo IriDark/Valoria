@@ -34,12 +34,12 @@ public class RegisterUnlockables{
         kingCrab = register(new EntityUnlockable(Valoria.ID + ":king_crab", ItemsRegistry.crabClaw.get(), EntityTypeRegistry.KING_CRAB.get()));
         devil = register(new EntityUnlockable(Valoria.ID + ":devil", ItemsRegistry.devilMeat.get(), EntityTypeRegistry.DEVIL.get()));
         harmonyEntities = register(new EntityTagUnlockable(Valoria.ID + ":harmony_entities", ItemsRegistry.harmonyHeart.get(), TagsRegistry.HARMONY_CREATURES));
-        fortress = register(new DungeonUnlockable(Valoria.ID + ":fortress", ItemsRegistry.wickedAmethyst.get(), LevelGen.VALORIA_FORTRESS));
+        fortress = register(new DungeonUnlockable(Valoria.ID + ":fortress", false, ItemsRegistry.wickedAmethyst.get(), LevelGen.VALORIA_FORTRESS));
         
-        amber = register(new ItemUnlockable(Valoria.ID + ":amber", false, ItemsRegistry.amberGem.get()));
-        amethyst = register(new ItemUnlockable(Valoria.ID + ":amethyst", false, ItemsRegistry.amethystGem.get()));
-        sapphire = register(new ItemUnlockable(Valoria.ID + ":sapphire", false, ItemsRegistry.sapphireGem.get()));
-        ruby = register(new ItemUnlockable(Valoria.ID + ":ruby", false, ItemsRegistry.rubyGem.get()));
+        amber = register(new ItemUnlockable(Valoria.ID + ":amber", ItemsRegistry.amberGem.get()));
+        amethyst = register(new ItemUnlockable(Valoria.ID + ":amethyst", ItemsRegistry.amethystGem.get()));
+        sapphire = register(new ItemUnlockable(Valoria.ID + ":sapphire", ItemsRegistry.sapphireGem.get()));
+        ruby = register(new ItemUnlockable(Valoria.ID + ":ruby", ItemsRegistry.rubyGem.get()));
 
         aloe = register(new ItemUnlockable(Valoria.ID + ":aloe", ItemsRegistry.aloePiece.get()));
         rot = register(new ItemUnlockable(Valoria.ID + ":rot", ItemsRegistry.rot.get()));
@@ -58,13 +58,13 @@ public class RegisterUnlockables{
         valoriaPortal = register(new ItemUnlockable(Valoria.ID + ":valoria_portal", false, ItemsRegistry.valoriaPortalFrameShard.get()));
         valoriaVisit = register(new DimensionUnlockable(Valoria.ID + ":valoria_visit", false, ItemsRegistry.nihilityShard.get(), LevelGen.VALORIA_KEY));
         necromancerGrimoire = register(new ItemUnlockable(Valoria.ID + ":necromancer_grimoire", false, ItemsRegistry.necromancerGrimoire.get()));
-        necromancer = register(new EntityUnlockable(Valoria.ID + ":necromancer", ItemsRegistry.necromancerGrimoire.get(), EntityTypeRegistry.NECROMANCER.get()));
+        necromancer = register(new EntityUnlockable(Valoria.ID + ":necromancer", false, ItemsRegistry.necromancerGrimoire.get(), EntityTypeRegistry.NECROMANCER.get()));
         harmonyCrown = register(new ItemUnlockable(Valoria.ID + ":harmony_crown", false, ItemsRegistry.harmonyCrown.get()));
         obsidianHeart = register(new ItemUnlockable(Valoria.ID + ":obsidian_heart", false, ItemsRegistry.obsidianHeart.get()));
-        dryador = register(new EntityUnlockable(Valoria.ID + ":dryador", ItemsRegistry.harmonyCrown.get(), EntityTypeRegistry.DRYADOR.get()));
-        firron = register(new EntityUnlockable(Valoria.ID + ":firron", ItemsRegistry.obsidianHeart.get(), EntityTypeRegistry.FIRRON.get()));
+        dryador = register(new EntityUnlockable(Valoria.ID + ":dryador", false, ItemsRegistry.harmonyCrown.get(), EntityTypeRegistry.DRYADOR.get()));
+        firron = register(new EntityUnlockable(Valoria.ID + ":firron", false, ItemsRegistry.obsidianHeart.get(), EntityTypeRegistry.FIRRON.get()));
         suspiciousGem = register(new ItemUnlockable(Valoria.ID + ":suspicious_gem", false, ItemsRegistry.suspiciousGem.get()));
-        wickedCrystal = register(new EntityUnlockable(Valoria.ID + ":wicked_crystal", ItemsRegistry.suspiciousGem.get(), EntityTypeRegistry.WICKED_CRYSTAL.get()));
+        wickedCrystal = register(new EntityUnlockable(Valoria.ID + ":wicked_crystal", false, ItemsRegistry.suspiciousGem.get(), EntityTypeRegistry.WICKED_CRYSTAL.get()));
         cobalt = register(new ItemUnlockable(Valoria.ID + ":cobalt", Items.DIAMOND_PICKAXE));
         blackGold = register(new ItemUnlockable(Valoria.ID + ":black_gold", ItemsRegistry.blackGold.get()));
         crimtane = register(new ItemUnlockable(Valoria.ID + ":crimtane", ItemsRegistry.crimtaneIngot.get()));
@@ -77,9 +77,9 @@ public class RegisterUnlockables{
         nihility = register(new Unlockable(ItemsRegistry.nihilityShard.get(), Valoria.ID + ":nihility", false));
 
         jade = register(new ItemUnlockable(Valoria.ID + ":jade", false, ItemsRegistry.jade.get()));
-        pearlium = register(new ItemUnlockable(Valoria.ID + ":pearlium", false, ItemsRegistry.oceanicPearl.get()));
+        pearlium = register(new ItemUnlockable(Valoria.ID + ":pearlium", ItemsRegistry.oceanicPearl.get()));
         pyratite = register(new ItemUnlockable(Valoria.ID + ":pyratite", false, ItemsRegistry.pyratite.get()));
-        ancientMetals = register(new ItemUnlockable(Valoria.ID + ":ancient_metals", false, ItemsRegistry.ancientIngot.get()));
+        ancientMetals = register(new ItemUnlockable(Valoria.ID + ":ancient_metals", ItemsRegistry.ancientIngot.get()));
         ethereal = register(new ItemUnlockable(Valoria.ID + ":ethereal", false, ItemsRegistry.etherealShard.get()));
 
         goblin = register(new EntityUnlockable(Valoria.ID + ":goblin", ItemsRegistry.goblinMeat.get(), EntityTypeRegistry.GOBLIN.get()));
