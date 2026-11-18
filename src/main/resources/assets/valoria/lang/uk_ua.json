@@ -1758,5 +1758,11 @@
   "codex.valoria.nature_core.hint": "Obtain a Nature Core from Forest Elementals (Ents)",
   "codex.valoria.aquarius_core.hint": "Obtain an Aquarius Core from Deep Elementals",
   "codex.valoria.infernal_core.hint": "Obtain an Infernal Core from Fire Elementals (Devils)",
-  "codex.valoria.void_core.hint": "Obtain a Void Core from Void Elementals"
+  "codex.valoria.void_core.hint": "Obtain a Void Core from Void Elementals",
+  "codex.valoria.elemental_damage.name": "Elemental Damage",
+  "codex.valoria.elemental_damage": "The Elements are what brought harmony, gifts, and balance into this world... and what became its undoing.\n\nCertain weapons and artifacts channel elemental power, dealing bonus #96fd6e Nature /&, #7ebfff Depth /&, #fba000 Infernal /&, or #7061b7 Nihility /& damage. Resistance reduces this bonus damage, while negative resistance (weakness) amplifies it.",
+  "codex.valoria.elemental_damage.matchups": "Elemental strengths & weaknesses:\n• #96fd6e Nature /& — strong against Corrupted Trolls & Wither Skeletons; forest mobs & Creepers resist it.\n• #7ebfff Depth /& — wielded by River Golems, King Crabs, & swamp mobs; counters fiery foes (Blazes, Magma Cubes, Devils).\n• #fba000 Infernal /& — wielded by Devils & Magmatic Golems; devastates Undead, forest, & aquatic creatures.\n• #7061b7 Nihility /& — wielded by Valoria's void creatures (also builds up Nihility); general Elemental Resistance does not block it.",
+  "codex.valoria.hammers.name": "Hammers",
+  "codex.valoria.hammers": "#ccc087 Hammers /& are a heavy, slow, yet devastating class of weaponry and tools. One solid blow — and a compressed material is ready! Who knew blacksmiths could be this dangerous?",
+  "tooltip.valoria.aquarius_arrow.effect": "Slows target"
 }
