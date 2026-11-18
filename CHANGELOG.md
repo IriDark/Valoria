@@ -13,9 +13,11 @@
 - Improved Codex sidebar hierarchy readability with depth-based background shading and lighter hover highlight
 - Clarified Codex hint descriptions for `Pyratite`, `Ancient Metals`, `Troll`, `Corrupted`, and `Draugr`
 - Rebalanced random Codex page (`valoria:page`) drops: excluded boss & Fortress spoilers (`Necromancer`, `Dryador`, `Firron`, `Wicked Crystal`, `Void Fortress`) and added gems (`Amber`, `Amethyst`, `Sapphire`, `Ruby`), `Pearlium`, and `Ancient Metals`
-- Updated `The End` Codex pages across all localizations with current development status and a neutral closing message
+- Updated `The End` Codex pages across all localizations with current development status
 
 # **Fixed**
+- Fixed Entity Rendering registry crash (Thread-safe)
+- Fixed Item Property registry crash (Thread-safe)
 - Fixed Nihility tick on player death
 - Fixed Codex Button mouse input & hovering
 - Fixed Codex tooltip was rendered underneath Codex frames
