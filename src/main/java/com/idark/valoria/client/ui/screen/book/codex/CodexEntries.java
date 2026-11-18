@@ -37,7 +37,7 @@ public class CodexEntries{
     NIHILITY_MONITOR, VALORIA_PORTAL, SHADE_BLOSSOM,
 
     LITHIC_RUNES, RUNES, VOID_SLATE_RUNES,
-    WARRIOR_ARSENAL, KATANAS, SCYTHES, SPEARS,
+    WARRIOR_ARSENAL, KATANAS, SCYTHES, SPEARS, HAMMERS,
     SOUL_ARTS, SOUL_ESSENCE, SOUL_INFUSER,
     BLOODBORNE_PATH, COLOSSI_REMAINS, CRIMTANE_FORGING,
     BESTIARY, SCAVENGERS, FLESH_SENTINELS,
@@ -59,6 +59,7 @@ public class CodexEntries{
     NATURE_CORE, AQUARIUS_CORE, INFERNAL_CORE, VOID_CORE,
 
     ROT, JADE, PEARLIUM, PYRATITE, ANCIENT_METALS, ETHEREAL, NIHILITY,
+    ELEMENTAL_DAMAGE,
     NATURE_GOLEM, RIVER_GOLEM, DRAUGR, SORCERER, GOBLIN, TROLL, CORRUPTED_TROLL, SWAMP_WANDERER, SCOURGE, CORRUPTED, SHADEWOOD_SPIDER, WICKED_SCORPION, THE_END
 
     ;
@@ -158,6 +159,12 @@ public class CodexEntries{
         "codex.valoria.medicine.name",
         new GeneralPage("codex.valoria.medicine"),
         new GeneralPage().addRecipe(ItemsRegistry.aloeBandage.get().getDefaultInstance()).addSpace(12).addRecipe(ItemsRegistry.aloeBandageUpgraded.get().getDefaultInstance())
+        );
+
+        ELEMENTAL_DAMAGE = new Chapter(
+        "codex.valoria.elemental_damage.name",
+        new GeneralPage("codex.valoria.elemental_damage"),
+        new GeneralPage("codex.valoria.elemental_damage.matchups")
         );
 
         NIHILITY_MONITOR = new Chapter(
@@ -502,6 +509,10 @@ public class CodexEntries{
         "codex.valoria.spears.name",
         new GeneralPage("codex.valoria.spears"));
 
+        HAMMERS = new Chapter(
+        "codex.valoria.hammers.name",
+        new GeneralPage("codex.valoria.hammers"));
+
         SOUL_ARTS = new Chapter(
         "codex.valoria.soul_arts.name",
         new GeneralPage("codex.valoria.soul_arts"));
@@ -570,7 +581,9 @@ public class CodexEntries{
                     .addChild(new ChapterNode(KATANAS, ItemsRegistry.ironKatana.get()))
                     .addChild(new ChapterNode(SCYTHES, ItemsRegistry.ironScythe.get()))
                     .addChild(new ChapterNode(SPEARS, ItemsRegistry.ironSpear.get()))
+                    .addChild(new ChapterNode(HAMMERS, ItemsRegistry.bronzeHammer.get()))
                 )
+                .addChild(new ChapterNode(ELEMENTAL_DAMAGE, ItemsRegistry.elementalCrystal.get(), Style.DIAMOND))
                 .addChild(new ChapterNode(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage.get(), RegisterUnlockables.aloe)
                     .addHintsDescription(Component.translatable("codex.valoria.medicine.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))))
 

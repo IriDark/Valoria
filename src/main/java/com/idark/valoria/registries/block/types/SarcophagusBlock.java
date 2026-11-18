@@ -88,22 +88,17 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
                 pLevel.setBlockAndUpdate(oppositePos, oppositeState.setValue(OPEN, true).setValue(LOOTED, false));
             }
 
-            for(int i = 0; i < 10; i++){
-                pLevel.addParticle(ParticleTypes.POOF, pPos.getX() + rand.nextDouble(), pPos.getY() + 1.0f, pPos.getZ() + rand.nextDouble(), 0, 0, 0);
-                pLevel.addParticle(ParticleTypes.POOF, oppositePos.getX() + rand.nextDouble(), oppositePos.getY() + 1.0f, oppositePos.getZ() + rand.nextDouble(), 0, 0, 0);
-            }
-
             if(!pLevel.isClientSide && pLevel instanceof ServerLevel serv){
                 double posX = (pPos.getCenter().x + oppositePos.getCenter().x) / 2.0;
                 double posY = (pPos.above().getCenter().y + oppositePos.above().getCenter().y) / 2.0;
                 double posZ = (pPos.getCenter().z + oppositePos.getCenter().z) / 2.0;
 
-                PacketHandler.sendToTracking(serv, pPos, new SmokeParticlePacket(120, posX, posY - 0.135f, posZ, 0.125f, 0, 0.125f, 255, 255, 255));
+                PacketHandler.sendToTracking(serv, pPos, new SmokeParticlePacket(120, posX, posY, posZ, 0.125f, 0, 0.125f, 255, 255, 255));
                 for(int i = 0; i < Mth.nextFloat(RandomSource.create(), 1, 4); i++){
                     if(arcRandom.fiftyFifty()){
-                        ValoriaUtils.spawnEntities(10, EntityTypeRegistry.DRAUGR.get(), serv, pPos, mobGear);
+                        ValoriaUtils.spawnEntities(5, EntityTypeRegistry.DRAUGR.get(), serv, pPos, mobGear);
                     }else{
-                        ValoriaUtils.spawnEntities(10, EntityType.SKELETON, serv, pPos, mobGear);
+                        ValoriaUtils.spawnEntities(5, EntityType.SKELETON, serv, pPos, mobGear);
                     }
                 }
 

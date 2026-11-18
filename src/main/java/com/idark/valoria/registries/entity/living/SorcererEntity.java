@@ -41,7 +41,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
 
     public SorcererEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.xpReward = 5;
+        this.xpReward = 15;
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
     }
@@ -132,13 +132,13 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
 
     @Override
     public void performRangedAttack(LivingEntity pTarget, float pVelocity){
-        SpellProjectile spell = new SpellProjectile(this.level(), this, 6);
+        SpellProjectile spell = new SpellProjectile(this.level(), this, 3);
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.3333333333333333D) - spell.getY();
         double d2 = pTarget.getZ() - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         spell.setColor(Col.fromHex("ffab51"));
-        spell.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
+        spell.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.2F, (float)(14 - this.level().getDifficulty().getId() * 4));
         this.level().addFreshEntity(spell);
     }
 
