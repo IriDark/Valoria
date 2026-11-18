@@ -12,6 +12,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.resources.model.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
@@ -158,7 +159,7 @@ public class CodexEntry{
             pose.pushPose();
             pose.translate((float)(pX + 8), (float)(pY + 8), (float)(150));
             try {
-                pose.mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
+                pose.scale(1.0F, -1.0F, 1.0F);
                 pose.scale(13.0F, 13.0F, 13.0F);
                 boolean flag = !bakedmodel.usesBlockLight();
                 if (flag) {
@@ -174,9 +175,9 @@ public class CodexEntry{
                 CrashReport crashreport = CrashReport.forThrowable(throwable, "Rendering item");
                 CrashReportCategory crashreportcategory = crashreport.addCategory("Item being rendered");
                 crashreportcategory.setDetail("Item Type", () -> String.valueOf(pStack.getItem()));
-                crashreportcategory.setDetail("Registry Name", () -> String.valueOf(ForgeRegistries.ITEMS.getKey(pStack.getItem())));
+                crashreportcategory.setDetail("Registry Name", () -> String.valueOf(BuiltInRegistries.ITEM.getKey(pStack.getItem())));
                 crashreportcategory.setDetail("Item Damage", () -> String.valueOf(pStack.getDamageValue()));
-                crashreportcategory.setDetail("Item NBT", () -> String.valueOf(pStack.getTag()));
+                crashreportcategory.setDetail("Item Components", () -> String.valueOf(pStack.getComponents()));
                 crashreportcategory.setDetail("Item Foil", () -> String.valueOf(pStack.hasFoil()));
                 throw new ReportedException(crashreport);
             }
